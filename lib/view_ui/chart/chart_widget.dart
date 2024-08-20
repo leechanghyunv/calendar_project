@@ -23,6 +23,7 @@ class ChartWidget extends ConsumerWidget {
     /// historyProvider의 인스턴스를 편집한 결과임
     final state = ref.watch(numericSourceModelProvider(selected).notifier);
     final firstContract = ref.watch(viewContractProvider);
+    double ratio = MediaQuery.of(context).size.aspectRatio;
 
     return CartBox(
       child: Row(
@@ -31,13 +32,24 @@ class ChartWidget extends ConsumerWidget {
             flex: 1,
             child: numericSource.when(data: (val){
               if(val.contract.isEmpty || val.history.isEmpty){
-                return PieChartStatistics(0,0,0);
+                return PieChartStatistics(
+                    ratio,0,0,0,0,0);
               }
               return PieChartStatistics(
-                  state.normalPercent,state.extendPercent,state.nightPercent);
+                  ratio,
+                  state.normalPercent,
+                  state.extendPercent,
+                  state.nightPercent,
+                  state.extraPercent,
+                  state.offPercent);
             },
                 error: (err,trace) => PieChartStatistics(
-                  state.normalPercent,state.extendPercent,state.nightPercent,
+                    ratio,
+                    state.normalPercent,
+                    state.extendPercent,
+                    state.nightPercent,
+                    state.extraPercent,
+                    state.offPercent
                 ),
                  loading: () => SizedBox()),
           ),
@@ -50,32 +62,44 @@ class ChartWidget extends ConsumerWidget {
                         Text(
                           formatAmount(state.totalPaynMonth),
                           style: TextStyle(
-                            fontSize: 28.sp,
+                            fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 24.sp : 27.sp,
                             fontWeight: FontWeight.w800,
+                              letterSpacing: 0.5,
                           ),
                         ),
+
                         SizedBox(height: 5),
                         Container(
                           child: RichText(
                               text: TextSpan(
                                   children: [
-                                    TextSpan(text: '${selected.month}월 총 공수는',
-                                        style: ChartTextStyle),
+                                    TextSpan(text: '${selected.month}월 총 공수는 ',
+                                        style: ChartTextStyle(ratio)),
                                     TextSpan(text: state.workRecodenMonth.isNaN ? '' : '${state.workRecodenMonth}공수 ' ,style: ChartStyle2(Colors.blue)),
-                                    TextSpan(text: state.totalPaynMonth.isNaN ? '' : '급여는 ${formatAmount(state.totalPaynMonth)}이며 ', style: ChartTextStyle),
-                                    TextSpan(text: ' 이번달은', style: ChartTextStyle),
+                                    TextSpan(text: state.totalPaynMonth.isNaN ? '' : '급여는 ${formatAmount(state.totalPaynMonth)}이며 ', style: ChartTextStyle(ratio)),
+                                    TextSpan(text: ' 이번달은', style: ChartTextStyle(ratio)),
                                     TextSpan(text: state.afterTaxMonth.isNaN ? '' : ' 세후 ${formatAmount(state.afterTaxMonth.toInt())}', style: ChartStyle2(Colors.red)),
-                                    TextSpan(text: ' 입니다', style: ChartTextStyle),
+                                    TextSpan(text: ' 입니다.', style: ChartTextStyle(ratio)),
                                   ]
                               )),
                         ),
                         SizedBox(height: 10),
                         Row(
                           children: [
-                            Text('${state.workDaynMonth}일 출근',style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w800,
-                                letterSpacing: 1.0),),
+                           RichText(
+                             text: TextSpan(
+                             children: [
+                               TextSpan(text: '${state.workDaynMonth}일 출근',
+                                 style: TextStyle(
+                                   fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 18.sp : 20.sp,
+                                   fontWeight: FontWeight.w900,color: Colors.black,
+                                   letterSpacing: 1.0),),
+                               TextSpan(text: state.offDay == 0 ? '' :  '  ${state.offDay.toInt()}일 휴일',
+                                   style: TextStyle(color: Colors.green.shade700,fontSize: 13.sp,fontWeight: FontWeight.w900)),
+                             ],
+                           ),
+                           ),
+
                           ],
                         ),
                         SizedBox(height: 5),
@@ -83,16 +107,16 @@ class ChartWidget extends ConsumerWidget {
                           child: RichText(
                               text: TextSpan(
                                   children: [
-                                    TextSpan(text: DateFormat('M월 근무일수 일 중').format(DateTime.now()),style: ChartTextStyle),
-                                    TextSpan(text: ' 주간은 ${state.normalDay}일',style: ChartNormalStyle(Colors.black)),
-                                    TextSpan(text: ' ${(state.normalPercent.isNaN ? 0.0 : state.normalPercent).toStringAsFixed(0)}%',style: ChartTextStyle),
+                                    TextSpan(text: DateFormat('M월 근무일수 일 중').format(DateTime.now()),style: ChartTextStyle(ratio)),
+                                    TextSpan(text: ' 주간은 ${state.normalDay}일',style: ChartNormalStyle(Colors.black,ratio)),
+                                    TextSpan(text: ' ${(state.normalPercent.isNaN ? 0.0 : state.normalPercent).toStringAsFixed(0)}%',style: ChartTextStyle(ratio)),
 
-                                    TextSpan(text: ' 연장은 ${state.extendDay}일',style: ChartNormalStyle(Colors.amber[800]!)),
-                                    TextSpan(text: ' ${(state.extendPercent.isNaN ? 0.0 : state.extendPercent).toStringAsFixed(0)}%',style: ChartTextStyle),
+                                    TextSpan(text: ' 연장은 ${state.extendDay}일',style: ChartNormalStyle(Colors.amber[900]!,ratio)),
+                                    TextSpan(text: ' ${(state.extendPercent.isNaN ? 0.0 : state.extendPercent).toStringAsFixed(0)}%',style: ChartTextStyle(ratio)),
 
-                                    TextSpan(text: ' 야간은 ${state.nightDay}일',style: ChartNormalStyle(Colors.black)),
-                                    TextSpan(text: ' ${(state.nightPercent.isNaN ? 0.0 : state.nightPercent).toStringAsFixed(0)}%',style: ChartTextStyle),
-                                    TextSpan(text: ' 입니다.',style: ChartTextStyle),
+                                    TextSpan(text: ' 야간은 ${state.nightDay}일',style: ChartNormalStyle(Colors.black,ratio)),
+                                    TextSpan(text: ' ${(state.nightPercent.isNaN ? 0.0 : state.nightPercent).toStringAsFixed(0)}%',style: ChartTextStyle(ratio)),
+                                    TextSpan(text: ' 입니다.',style: ChartNormalStyle(Colors.black,ratio)),
                                   ]
                               )),
                         ),
@@ -101,7 +125,8 @@ class ChartWidget extends ConsumerWidget {
                     );
                   },
                   error: (err,trace) => SizedBox(),
-                  loading: () => SizedBox()),),
+                  loading: () => SizedBox()),
+          ),
 
         ],
       ),

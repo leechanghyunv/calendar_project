@@ -1,19 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view_model/formz_manager_model.dart';
+import '../view_model/formz_decimal_model.dart';
 
-part 'formz_model.freezed.dart';
+part 'formz_decimal_model.freezed.dart';
 
 @freezed
-class ContractForm with _$ContractForm {
-  const factory ContractForm({
-    required GoalInput goal,
-    required PayInput pay1,
-    required PayInput pay2,
-    required PayInput pay3,
-    required TaxInput tax,
+class DecimalForm with _$DecimalForm {
+  const factory DecimalForm({
+    required DecimalInput decimalData,
     required FormzStatus status,
-  }) = _ContractForm;
+  }) = _DecimalForm;
 
 }
 

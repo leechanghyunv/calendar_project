@@ -36,10 +36,12 @@ class _DefaultDialogState extends State<DefaultDialog> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
         ),
-        height: 350.w,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: widget.children,
+        height: 380.w,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: widget.children,
+          ),
         ),
       ),
       actions: widget.actions,

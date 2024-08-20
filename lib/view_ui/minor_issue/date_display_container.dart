@@ -37,26 +37,29 @@ class DateContainerWidget extends ConsumerWidget {
     final notifier =  ref.watch(numericSourceModelProvider(timeManager.selected).notifier);
     final workDay =notifier.workDay.isNaN ? 0 : notifier.workDay;
 
-
+    final persent = (workDay/180 * 100).toStringAsFixed(1);
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(20, 2, 15.r, 0),
+      padding: EdgeInsets.fromLTRB(20, 2, 15.r, 2),
       child: Column(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               Container(
                 height: 20.h,
                 color: Colors.transparent,
                 alignment: Alignment.centerRight,
                 child: Row(
                   children: [
-                    Text(' 총 근로일수: $workDay일 + 주휴일수 $extraDay일  (실업급여조건 180일)',
-                      style: TextStyle(color: Colors.grey[800],
-                          fontWeight: FontWeight.w900,fontSize: 11.5.sp),
+                    Tooltip(
+                      message: '실업급여 산정기준에는 주휴일수가 포함되지 않습니다.',
+                      child: Text(' 총 근로일수: $workDay일 + 주휴일수 $extraDay일  (실업급여조건 180일 / $persent%)',
+                        style: TextStyle(color: Colors.grey[800],
+                            fontWeight: FontWeight.w900,fontSize: 11.5.sp),
+                      ),
                     ),
                   ],
                 ),

@@ -1,21 +1,25 @@
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
-import 'package:calendar_project_240727/view_ui/screen/transition_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'core/logger.dart';
+import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await initializeDateFormatting();
-  runApp(ProviderScope(
+  runApp( ProviderScope(
       observers: [
         // Logger(),
       ],
-      child: const MyApp()));
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

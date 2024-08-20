@@ -12,14 +12,15 @@ class NumericSourceModel extends _$NumericSourceModel {
   late DateTime startDate;
   late DateTime endDate;
 
+   /// item.date.isAfter(startDate) && item.date.isBefore(endDate)
    List<WorkHistory> filteredHistory = [];
 
   int get goal => state.value?.contract.last.goal ?? 0;
   double get tax => state.value?.contract.last.tax ?? 0.0; /// %를 제외한 숫자로 나오기때문에 필터링
   double get filtedTax => tax/100; /// ex 0.2 -> 20%
-
-  int get workDay => state.value?.history.length ?? 0;
-  int get workDaynMonth => filteredHistory.length;
+ /// map((e) => e.record != 0.0)
+  int get workDay => state.value?.history.where((e) => e.record != 0.0).length ?? 0;
+  int get workDaynMonth => filteredHistory.where((e) => e.record != 0.0).length;
 
   int get totalPay => state.value?.history.fold(0,(p,e) => p + e.pay).toInt() ?? 0;
   int get totalPaynMonth => filteredHistory.fold(0,(p,e) => p + e.pay);
@@ -36,7 +37,16 @@ class NumericSourceModel extends _$NumericSourceModel {
   /// 이번달의 정상근무 금액 총합 ex)15 공수 20공수
   double get nightPay => filteredHistory.where((e) => e.record == 2.0).
   map((e) => e.record).fold(0.0, (value, element) => value + element);
+
   int get nightDay => filteredHistory.where((e) => e.record == 2.0).map((e) => e.record).length;
+
+
+  double get extraPay => filteredHistory.where((e) => e.record != 1.0 && e.record != 1.5 && e.record != 2.0).
+      map((e) => e.record).fold(0.0, (value, element) => value + element);
+  int get extraDay => filteredHistory.where((e) => e.record != 1.0 && e.record != 1.5 && e.record != 2.0 && e.record != 0.0).length;
+
+  int get offDay => filteredHistory.where((e) => e.record == 0.0).length;
+
 
   double get goalRate => double.parse(((totalPay/goal) * 100).toStringAsFixed(2));
   /// 총 세후 금액
@@ -51,9 +61,12 @@ class NumericSourceModel extends _$NumericSourceModel {
         (totalPaynMonth - (totalPaynMonth * filtedTax)).toStringAsFixed(1)
     );
   }
+
   double get normalPercent => double.parse(((normalDay/workDaynMonth) * 100).toStringAsFixed(1));
   double get extendPercent => double.parse(((extendDay/workDaynMonth) * 100).toStringAsFixed(1));
   double get nightPercent => double.parse(((nightDay/workDaynMonth) * 100).toStringAsFixed(1));
+  double get extraPercent => double.parse(((extraDay/workDaynMonth) * 100).toStringAsFixed(1));
+  double get offPercent => double.parse(((offDay/workDaynMonth) * 100).toStringAsFixed(1));
 
   int get remaining {
     final parsedGoal = int.tryParse(goal.toString());
@@ -87,7 +100,7 @@ class NumericSourceModel extends _$NumericSourceModel {
     filteredHistory = history.where((item) {
       return item.date.isAfter(startDate) && item.date.isBefore(endDate);
     }).toList();
-    print('refreshData ${history.last.comment} ${history.last.pay} ');
+    print('refreshData ${history.last.comment} ${filteredHistory.where((e) => e.record == 0.0).length} ');
     return ConbinedDataModel(contract: contract, history: history);
   }
 

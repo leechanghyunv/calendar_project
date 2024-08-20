@@ -61,7 +61,7 @@ Fluttertoast.showToast(
 
 Future<bool?> enrollMsg(DateTime day,String value) async => await
 Fluttertoast.showToast(
-    msg: '${day.month}월 ${day.day}일 $value를 선택하셨습니다.',
+    msg: '${day.month}월 ${day.day}일 $value 선택\n\n확인 버튼을 눌러주세요',
     gravity: ToastGravity.CENTER);
 
 Future<bool?> enrollSaveMsg(DateTime day,String msg) async => await

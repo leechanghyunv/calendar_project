@@ -1,4 +1,5 @@
 
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import '../../model/work_history_model.dart';
@@ -16,6 +17,11 @@ String formatAmountGoal(int amount) {
 }
 
 String formatAmount(int amount) {
+  final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
+  return '$won만원';
+}
+
+String formatDecimalAmount(double amount) {
   final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
   return '$won만원';
 }
@@ -43,4 +49,23 @@ String numberWithCommas(String input) {
   return int.parse(input).toString().replaceAllMapped(
       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), // 정규식을 사용하여 ',' 추가
           (Match match) => '${match[1]},');
+}
+
+class TwoDigitInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    if (newValue.text.isEmpty) {
+      return newValue;
+    }
+
+    final parts = newValue.text.split('.');
+    final intPart = parts[0];
+    final decPart = parts.length > 1 ? parts[1] : '';
+
+    if (intPart.length > 2 || (decPart.isNotEmpty && decPart.length > 2)) {
+      return oldValue;
+    }
+
+    return newValue;
+  }
 }

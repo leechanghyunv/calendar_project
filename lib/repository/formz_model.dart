@@ -3,19 +3,19 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../core/widget/toast_msg.dart';
 import '../model/contract_model.dart';
 import '../model/formz_model.dart';
-import '../repository/formz_manager.dart';
-import 'contract_model.dart';
+import '../view_model/formz_manager_model.dart';
+import '../view_model/contract_model.dart';
 
 part 'formz_model.g.dart';
 
 @riverpod
 class FormzValidator extends _$FormzValidator {
 
-  String get goalError => state.goal.displayError?.toString() ?? '';
-  String get pay1Error => state.pay1.displayError?.toString() ?? '';
-  String get pay2Error => state.pay2.displayError?.toString() ?? '';
-  String get pay3Error => state.pay3.displayError?.toString() ?? '';
-  String get taxError => state.tax.displayError?.toString() ?? '';
+  String get goalError => state.goal.displayError?.toString() ?? '목표금액을 입력해주세요';
+  String get pay1Error => state.pay1.displayError?.toString() ?? '정상근무 수당을 입력해주세요';
+  String get pay2Error => state.pay2.displayError?.toString() ?? '연장근무 수당을 입력해주세요';
+  String get pay3Error => state.pay3.displayError?.toString() ?? '야간근무 수당을 입력해주세요';
+  String get taxError => state.tax.displayError?.toString() ?? '세율을 입력해주세요';
   String get errorState => state.status.toString();
 
   @override

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/utils/converter.dart';
-import '../../core/widget/text_style_util.dart';
 import '../../repository/calendar_time_controll.dart';
 import '../../view_model/contract_model.dart';
 import '../minor_issue/default/default_small_box.dart';
@@ -22,7 +21,16 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
   @override
   Widget build(BuildContext context) {
 
-    TextStyle bgGray = TextStyle(color: Colors.grey[900]);
+    TextStyle smallContainerStyle(Color color) => TextStyle(
+        fontWeight: FontWeight.w900,
+        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 14.sp,
+        color: color);
+
+    TextStyle bgGray = TextStyle(
+        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 15.sp,
+        color: Colors.grey[900]);
+
+    double fontSize =  MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 13.5.sp;
 
     return Consumer(builder: (context, ref, child){
       final contract = ref.watch(viewContractProvider);
@@ -43,7 +51,9 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
-                return numericValue.goalRate.toStringAsFixed(1);
+                return numericValue.goalRate >= 100
+                    ? '100'
+                    : numericValue.goalRate.toStringAsFixed(1);
               }, error: (err,trace) => '', loading: ()=> '',
               );
 
@@ -51,9 +61,13 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
-                return numericValue.remainingGoal.toString();
+                ///  numericValue.remainingGoal.toString();
+                return int.parse(numericValue.remainingGoal)
+                    >= 0 ? numericValue.remainingGoal
+                    : '0';
               }, error: (err,trace) => '', loading: ()=> '',
               );
+
               return DefaultSmallBox(
                 child: RichText(
                   text:
@@ -61,18 +75,18 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                       children: [
                         TextSpan(text: '목표금액 ',style: bgGray),
                         TextSpan(text: goalValue,style: smallContainerStyle(Colors.grey[900]!)),
-                        TextSpan(text: '이며 현재 ',style:bgGray),
+                        TextSpan(text: ' 이며 현재 ',style:bgGray),
                         TextSpan(text: totalPay,style: smallContainerStyle(Colors.grey[900]!)),
                         TextSpan(text: ' 달성 ',style: bgGray),
                         TextSpan(text: ' ${goalRate.toString()}%',
                             style: TextStyle(color: Colors.black,
-                            fontWeight: FontWeight.w900,fontSize: 13.5.sp)),
+                            fontWeight: FontWeight.w900,fontSize: fontSize)),
 
                         TextSpan(text: '를 달성했습니다. 목표 잔여 공수는',
-                            style: TextStyle(color: Colors.grey[900],fontSize: 13.5.sp)),
+                            style: TextStyle(color: Colors.grey[900],fontSize: fontSize)),
 
                         TextSpan(text: ' $remainingGoal공수 ',style: TextStyle(
-                          color: Colors.red[700], fontWeight: FontWeight.w900, fontSize: 13.5.sp,
+                          color: Colors.red[700], fontWeight: FontWeight.w900, fontSize: fontSize,
                         ),
                         ),
                         TextSpan(text: '입니다.',style: bgGray),

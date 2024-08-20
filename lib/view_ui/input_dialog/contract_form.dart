@@ -7,7 +7,7 @@ import '../../core/widget/text_widget.dart';
 import '../../core/widget/toast_msg.dart';
 import '../../model/formz_model.dart';
 import '../../repository/calendar_time_controll.dart';
-import '../../view_model/formz_model.dart';
+import '../../repository/formz_model.dart';
 import '../minor_issue/widget/qr_container.dart';
 import 'contract_textfield.dart';
 
@@ -32,6 +32,8 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
         Navigator.pop(context);
       }
     });
+
+    double ratio = MediaQuery.of(context).size.aspectRatio;
     
     return AlertDialog(
       shape: ShapeBorder.lerp(
@@ -49,93 +51,99 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
           height: 380.w,
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
+            color: Colors.grey[100],
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  TextWidget('1. 목표금액을 입력해주세요',16.sp),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: MoneyinputTextfield(
-                        edgeValue: 5.0,
-                        hintMsg: '100,000,000',
-                        onChanged: (val){
-                          final cleanedValue = val.replaceAll(',', '');
-                          formzRefread.onChangeGoal(cleanedValue);
-                        }
-                    ),
-                  ),
-                  const SizedBox(width: 5),
-                  Expanded(
-                    flex: 1,
-                    child: TaxinputTextfield(
-                        onChanged: (val) => formzRefread.onChangeTax(val)
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(10.r),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextWidget('1. 목표금액을 입력해주세요',
+                        ratio > 0.5 ? 13 : 15),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
                       flex: 2,
-                      child: Container(child: ErrorText(formzRefNot.goalError))),
-                  Expanded(
+                      child: MoneyinputTextfield(
+                          edgeValue: 5.0,
+                          hintMsg: '100,000,000',
+                          onChanged: (val){
+                            final cleanedValue = val.replaceAll(',', '');
+                            formzRefread.onChangeGoal(cleanedValue);
+                          }
+                      ),
+                    ),
+                    const SizedBox(width: 5),
+                    Expanded(
                       flex: 1,
-                      child: Container(child: ErrorText2(formzRefNot.taxError))),
-                ],
-              ),
-              SizedBox(height: 10.sp),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    child: TextWidget('2. 근로조건을 입력해주세요',16.sp),
-                  ),
-                ],
-              ),
-              SizedBox(height: 5.sp),
-              MoneyinputTextfield(
-                edgeValue: 4,
-                hintMsg: '150,000',
-                labelMsg: '🌟 1공수(정상근무) *',
-                onChanged: (val){
-                  final cleanedValue = val.replaceAll(',', '');
-                  formzRefread.onChangePay1(cleanedValue);
-                },
-              ),
-              ErrorText(formzRefNot.pay1Error),
-              SizedBox(height: 10.sp),
-              MoneyinputTextfield(
-                edgeValue: 4,
-                hintMsg: '225,000',
-                labelMsg: '🚀 1.5공수(연장근무) *',
-                onChanged: (val){
-                  final cleanedValue = val.replaceAll(',', '');
-                  formzRefread.onChangePay2(cleanedValue);
-                },
-              ),
-              ErrorText(formzRefNot.pay2Error),
-              SizedBox(height: 10.sp),
-              MoneyinputTextfield(
-                edgeValue: 4,
-                hintMsg: '300,000',
-                labelMsg: '🎉 2공수(야간근무) *',
-                onChanged: (val){
-                  final cleanedValue = val.replaceAll(',', '');
-                  formzRefread.onChangePay3(cleanedValue);
-                },
-              ),
-              ErrorText(formzRefNot.pay3Error),
-            ],
+                      child: TaxinputTextfield(
+                          onChanged: (val) => formzRefread.onChangeTax(val)
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        flex: 2,
+                        child: Container(child: ErrorText(formzRefNot.goalError))),
+                    Expanded(
+                        flex: 1,
+                        child: Container(child: ErrorText2(formzRefNot.taxError))),
+                  ],
+                ),
+                SizedBox(height: ratio > 0.5 ? 7.sp : 10.sp),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: TextWidget('2. 근로조건을 입력해주세요',
+                          ratio > 0.5 ? 13 : 15
+                      ),
+                    ),
+                  ],
+                ),
+                MoneyinputTextfield(
+                  edgeValue: 4,
+                  hintMsg: '150,000',
+                  labelMsg: '🌟 1공수(정상근무) *',
+                  onChanged: (val){
+                    final cleanedValue = val.replaceAll(',', '');
+                    formzRefread.onChangePay1(cleanedValue);
+                  },
+                ),
+                ErrorText(formzRefNot.pay1Error),
+                SizedBox(height: 10.sp),
+                MoneyinputTextfield(
+                  edgeValue: 4,
+                  hintMsg: '225,000',
+                  labelMsg: '🚀 1.5공수(연장근무) *',
+                  onChanged: (val){
+                    final cleanedValue = val.replaceAll(',', '');
+                    formzRefread.onChangePay2(cleanedValue);
+                  },
+                ),
+                ErrorText(formzRefNot.pay2Error),
+                SizedBox(height: 10.sp),
+                MoneyinputTextfield(
+                  edgeValue: 4,
+                  hintMsg: '300,000',
+                  labelMsg: '🎉 2공수(야간근무) *',
+                  onChanged: (val){
+                    final cleanedValue = val.replaceAll(',', '');
+                    formzRefread.onChangePay3(cleanedValue);
+                  },
+                ),
+                ErrorText(formzRefNot.pay3Error),
+              ],
+            ),
           ),
         ),
       ),

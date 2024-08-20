@@ -21,27 +21,27 @@ class QrContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            height: 85.sp,
-            width: 85.sp,
+            height: 80.sp,
+            width: 80.sp,
             child: QrImageView(
                 data: 'custom dialog'),
           ),
-          SizedBox(width: 10.w),
+          SizedBox(width: 15.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextWidget(DateFormat('y년 M월 dd일').
-              format(DateTime.now()),15),
+              format(DateTime.now()), 17),
               TimerBuilder.periodic(
                 const Duration(seconds: 1),
                 builder: (context) {
                   return TextWidget(
                       formatDate(DateTime.now(),
-                          [am,' ', H, '시 ', nn, '분 ', ss, '초']),15
+                          [am,' ', H, '시 ', nn, '분 ', ss, '초']),16
                   );
                 },
               ),
-              TextWidget(msg,15),
+              TextWidget(msg,16),
             ],
           ),
 

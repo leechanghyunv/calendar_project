@@ -7,6 +7,11 @@ Widget TextWidget(String msg,double size) => Text(msg,
       fontSize: size.sp),
 );
 
+Widget TextWidget2(String msg, double size, Color color) => Text(
+  msg,
+  style: TextStyle(fontWeight: FontWeight.w900, fontSize: size,color: color,letterSpacing: 0.75),
+);
+
 Widget ErrorText(String msg) => Row(
   mainAxisAlignment: MainAxisAlignment.start,
   children: [
@@ -24,7 +29,7 @@ Widget ErrorText2(String msg) => Row(
     Text(msg,
       style: TextStyle(fontWeight: FontWeight.bold,
           color: Colors.blue[600],
-          fontSize: 9.sp),
+          fontSize: 8.sp),
     ),
   ],
 );

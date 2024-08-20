@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="calendar_project_240727"
+        android:label="워크캘린더(공수계산기)"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

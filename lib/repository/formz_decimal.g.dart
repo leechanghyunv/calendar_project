@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'formz_model.dart';
+part of 'formz_decimal.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$formzValidatorHash() => r'7440b9db103d98a7e56bb35e527db771363b2016';
+String _$formzDecimalValidatorHash() =>
+    r'0b1c481a61352132f8c7fd37419aefba66c89ea8';
 
-/// See also [FormzValidator].
-@ProviderFor(FormzValidator)
-final formzValidatorProvider =
-    AutoDisposeNotifierProvider<FormzValidator, ContractForm>.internal(
-  FormzValidator.new,
-  name: r'formzValidatorProvider',
+/// See also [FormzDecimalValidator].
+@ProviderFor(FormzDecimalValidator)
+final formzDecimalValidatorProvider =
+    AutoDisposeNotifierProvider<FormzDecimalValidator, DecimalForm>.internal(
+  FormzDecimalValidator.new,
+  name: r'formzDecimalValidatorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$formzValidatorHash,
+      : _$formzDecimalValidatorHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FormzValidator = AutoDisposeNotifier<ContractForm>;
+typedef _$FormzDecimalValidator = AutoDisposeNotifier<DecimalForm>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

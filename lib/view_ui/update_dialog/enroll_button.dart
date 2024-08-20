@@ -53,7 +53,8 @@ class _EnrollButtonState extends State<EnrollButton> {
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: TextWidget('${numberWithCommas(widget.subtitle)}원',15.sp),
+                      child: TextWidget(
+                          '${numberWithCommas(widget.subtitle)}원',15.sp),
                     ),
                     SizedBox(width: 15),
                   ],

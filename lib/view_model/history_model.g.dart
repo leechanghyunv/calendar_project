@@ -21,7 +21,7 @@ final viewHistoryProvider =
 );
 
 typedef ViewHistoryRef = AutoDisposeFutureProviderRef<List<WorkHistory>>;
-String _$addHistoryHash() => r'ee462858188a433324cc67cbf9b3f661e10aead5';
+String _$addHistoryHash() => r'a4395b4f75387e311ccfd3b01753ae55e6798be6';
 
 /// Copied from Dart SDK
 class _SystemHash {

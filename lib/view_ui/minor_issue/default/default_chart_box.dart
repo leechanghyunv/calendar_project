@@ -14,7 +14,7 @@ class CartBox extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.aspectRatio > 0.5
-            ? MediaQuery.of(context).size.height * 0.32
+            ? MediaQuery.of(context).size.height * 0.29
             : MediaQuery.of(context).size.height * 0.26,
         color: Colors.grey[300],
         child: child,

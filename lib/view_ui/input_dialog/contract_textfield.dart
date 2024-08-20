@@ -19,10 +19,13 @@ class MoneyinputTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double ratio = MediaQuery.of(context).size.aspectRatio;
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: edgeValue),
       child: Container(
-        height: 50.w,
+        height: ratio > 0.5 ? 43.w : 47.5.w,
         child: TextFormField(
           onChanged: onChanged,
           keyboardType: TextInputType.number,
@@ -40,17 +43,17 @@ class MoneyinputTextfield extends StatelessWidget {
             ),
             prefixText: '₩ ',
             prefixStyle: TextStyle(
-              fontSize: 15.sp,
+              fontSize: ratio > 0.5 ? 13.5.sp : 15.sp,
             ),
             // suffixText: '원',
             hintText: hintMsg,
             hintStyle: TextStyle(
-              fontSize: 15.sp,
+              fontSize: ratio > 0.5 ? 13.5.sp : 15.sp,
               color: Colors.grey[600],
             ),
             labelText: labelMsg, /// '🌟 1공수(정상근무) *', 🚀 1.5공수(연장근무) * 🎉 2공수(야간근무) *
             labelStyle: TextStyle(
-              fontSize: 15.sp,
+              fontSize: ratio > 0.5 ? 13.5.sp : 15.sp,
               color: Colors.grey[900],
             ),
           ),

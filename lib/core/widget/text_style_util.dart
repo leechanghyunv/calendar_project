@@ -9,12 +9,10 @@ TextStyle ChartStyle(Color? color) => TextStyle(
 TextStyle ChartStyle2(Color? color) => TextStyle(
     fontSize: 14.sp, fontWeight: FontWeight.w900, color: color);
 
-TextStyle ChartTextStyle = TextStyle(
-    fontSize: 12.5.sp, fontWeight: FontWeight.w800, color: Colors.black);
 
-TextStyle ChartNormalStyle(Color color) =>
-    TextStyle(color: color, fontWeight: FontWeight.w900);
 
-TextStyle smallContainerStyle(Color color) => TextStyle(
-    fontWeight: FontWeight.w900,fontSize: 14.sp,
-    color: color);
+TextStyle ChartTextStyle(double ratio) => TextStyle(
+    fontSize: ratio > 0.5 ? 12.sp : 13.5.sp, fontWeight: FontWeight.w800, color: Colors.black);
+
+TextStyle ChartNormalStyle(Color color,double ratio) =>
+    TextStyle(fontSize: ratio > 0.5 ? 12.5.sp : 13.5.sp,color: color, fontWeight: FontWeight.w900);
