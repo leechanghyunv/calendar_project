@@ -21,7 +21,7 @@ final viewHistoryProvider =
 );
 
 typedef ViewHistoryRef = AutoDisposeFutureProviderRef<List<WorkHistory>>;
-String _$addHistoryHash() => r'a4395b4f75387e311ccfd3b01753ae55e6798be6';
+String _$addHistoryHash() => r'e31a464a6f0af4990e7a28e9ac681cd9ac7d0c40';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -314,5 +314,20 @@ class _DeleteHistoryProviderElement
   @override
   DateTime get time => (origin as DeleteHistoryProvider).time;
 }
+
+String _$clearHistoryHash() => r'c334a0fb7f845f6f7c1ca4092ee98f322ba68cb4';
+
+/// See also [clearHistory].
+@ProviderFor(clearHistory)
+final clearHistoryProvider = AutoDisposeFutureProvider<void>.internal(
+  clearHistory,
+  name: r'clearHistoryProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$clearHistoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ClearHistoryRef = AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

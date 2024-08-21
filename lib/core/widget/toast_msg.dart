@@ -54,6 +54,11 @@ Fluttertoast.showToast(
     msg:'취소되었습니다.',
     gravity: ToastGravity.CENTER);
 
+Future<bool?> clearMsg() async => await
+Fluttertoast.showToast(
+    msg:'데이터를 모두 삭제합니다.',
+    gravity: ToastGravity.CENTER);
+
 Future<bool?> failureMsg() async => await
 Fluttertoast.showToast(
     msg:'입력값 저장을 실패했습니다.',

@@ -96,10 +96,11 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
                   });
                   formzRefread.onChangeDecimal(decimalValue);
                 },
-                iconOnPressed: isStateEmpty ? null : (){
-                  formzRefread.onSubmit();
+                iconOnPressed: isStateEmpty
+                    ? null
+                    : () => formzRefread.onSubmit(),
 
-                },
+
                 iconColor: isStateEmpty
                     ? Colors.grey.shade700
                     : Colors.purple.shade900,

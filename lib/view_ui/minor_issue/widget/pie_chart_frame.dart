@@ -26,33 +26,33 @@ Widget PieChartStatistics(double? ratio,
           PieChartSectionData(
             value:  val1!.isNaN || val1 == 0 ? 20 : val1,
             color: Colors.blue,
-            title: '주간\n${(val1).toStringAsFixed(1)}%',
+            title: '주간\n0%',
             titleStyle: ChartStyle(Colors.black),
           ),
           PieChartSectionData(
             value:  val2!.isNaN  || val2 == 0 ? 20 : val2,
             color: Colors.amber[700],
-            title: '연장\n${val2.toStringAsFixed(1)}%',
+            title: '연장\n0%',
             titleStyle: ChartStyle(Colors.black),
           ),
           PieChartSectionData(
             value:  val3!.isNaN || val3 == 0 ? 20 : val3,
             color: Colors.red,
-            title: '야간\n${val3.toStringAsFixed(1)}%',
+            title: '야간\n0%',
             titleStyle: ChartStyle(Colors.black),
           ),
           PieChartSectionData(
             value:  val4!.isNaN || val4 == 0 ? 20 : val4,
-            color: Colors.purple[700],
-            title: '기타\n${val4.toStringAsFixed(1)}%',
+            color: Colors.purple[400],
+            title: '기타\n0%',
             titleStyle: ChartStyle(Colors.black),
           ),
-          PieChartSectionData(
-            value:  val5!.isNaN || val5 == 0 ? 20 : val5,
-            color: Colors.green,
-            title: '휴일\n${val5.toStringAsFixed(1)}%',
-            titleStyle: ChartStyle(Colors.black),
-          ),
+          // PieChartSectionData(
+          //   value:  val5!.isNaN || val5 == 0 ? 20 : val5,
+          //   color: Colors.green,
+          //   title: '휴일\n0%',
+          //   titleStyle: ChartStyle(Colors.black),
+          // ),
         ] :
 
         [
@@ -80,12 +80,12 @@ Widget PieChartStatistics(double? ratio,
             title: '기타\n${val4.toStringAsFixed(1)}%',
             titleStyle: ChartStyle(Colors.black),
           ),
-          PieChartSectionData(
-            value:  val5!.isNaN || val5 == 0 ? 0 : val5,
-            color: Colors.green,
-            title: '휴일\n${val5.toStringAsFixed(1)}%',
-            titleStyle: ChartStyle(Colors.black),
-          ),
+          // PieChartSectionData(
+          //   value:  val5!.isNaN || val5 == 0 ? 0 : val5,
+          //   color: Colors.green,
+          //   title: '휴일\n${val5.toStringAsFixed(1)}%',
+          //   titleStyle: ChartStyle(Colors.black),
+          // ),
         ],
       ),
     );

@@ -12,6 +12,7 @@ import '../../repository/calendar_time_controll.dart';
 import '../../view_model/filted_source_model.dart';
 
 import '../../view_model/history_model.dart';
+import '../erase_dialog/erase_dialog.dart';
 import '../input_dialog/contract_form.dart';
 import '../minor_issue/default/default_dialog.dart';
 import '../minor_issue/default/default_event_button_column.dart';
@@ -66,7 +67,6 @@ class EnrollActive extends StatefulWidget {
 }
 
 class _EnrollActiveState extends State<EnrollActive> {
-
   int pay = 0;
 
   Future<void> refresh(WidgetRef ref) async {
@@ -80,12 +80,27 @@ class _EnrollActiveState extends State<EnrollActive> {
   Widget build(BuildContext context) {
     return DefaultDialog(
       msg: '공수를 등록해주세요',
-
       actions: [
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 4.0),
+              child: TextButton(
+                onPressed: () {
+                  showDialog(
+                      context: context, builder: (context) => EraseDialog());
+                  // ref.read(clearHistoryProvider);
+                  // Navigator.pop(context);
+                },
+                child: Text('데이터 지우기',
+                    style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey)),
+              ),
+            ),
             Spacer(),
             TextButton(
                 onPressed: () {
@@ -101,15 +116,11 @@ class _EnrollActiveState extends State<EnrollActive> {
                   },
                   child: TextWidget('확인', 17.sp));
             }),
-
           ],
         ),
-
       ],
-
       children: [
-        Consumer(
-            builder: (context, ref, child) {
+        Consumer(builder: (context, ref, child) {
           final state2 = ref.watch(numericSourceModelProvider(widget.selected));
           final numericValue =
               ref.watch(numericSourceModelProvider(widget.selected).notifier);
@@ -173,14 +184,13 @@ class _EnrollActiveState extends State<EnrollActive> {
             subtitleC: widget.contract.night.toString() ?? '',
             onTapC: () {
               enrollMsg(widget.selected, '야간근무');
-              setState(() =>pay = widget.contract.night);
+              setState(() => pay = widget.contract.night);
               Future.delayed(const Duration(seconds: 0),
                   () => ref.read(addHistoryProvider(pay, widget.selected)));
             },
           );
         }),
         DecimalPayTextfield(),
-
       ],
     );
   }

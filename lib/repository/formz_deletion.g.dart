@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'formz_decimal.dart';
+part of 'formz_deletion.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$formzDecimalValidatorHash() =>
-    r'266cb7a32520b15af2f1880bb2de2bab039dd137';
+String _$formzDeletionValidatorHash() =>
+    r'ff4ccb81338ab306d18f903ee2e511f1604bf75c';
 
-/// See also [FormzDecimalValidator].
-@ProviderFor(FormzDecimalValidator)
-final formzDecimalValidatorProvider =
-    AutoDisposeNotifierProvider<FormzDecimalValidator, DecimalForm>.internal(
-  FormzDecimalValidator.new,
-  name: r'formzDecimalValidatorProvider',
+/// See also [FormzDeletionValidator].
+@ProviderFor(FormzDeletionValidator)
+final formzDeletionValidatorProvider =
+    AutoDisposeNotifierProvider<FormzDeletionValidator, DeletionForm>.internal(
+  FormzDeletionValidator.new,
+  name: r'formzDeletionValidatorProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$formzDecimalValidatorHash,
+      : _$formzDeletionValidatorHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FormzDecimalValidator = AutoDisposeNotifier<DecimalForm>;
+typedef _$FormzDeletionValidator = AutoDisposeNotifier<DeletionForm>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

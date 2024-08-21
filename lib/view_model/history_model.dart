@@ -11,7 +11,6 @@ part 'history_model.g.dart';
 @riverpod
 Future<List<WorkHistory>> viewHistory (ViewHistoryRef ref) async {
   final isar = await ref.watch(isarManagerProvider.future);
-
   return isar.getHistory();
 }
 
@@ -70,12 +69,14 @@ Future<void> addHistory (
   return isar.addHistory(history,date);
 }
 
-
-
-
-
 @riverpod
 Future<void> deleteHistory (DeleteHistoryRef ref,DateTime time) async {
   final isar = await ref.watch(isarManagerProvider.future);
   return isar.deleteHistory(time);
+}
+
+@riverpod
+Future<void> clearHistory(ClearHistoryRef ref) async {
+  final isar = await ref.watch(isarManagerProvider.future);
+  return isar.clearHistory();
 }

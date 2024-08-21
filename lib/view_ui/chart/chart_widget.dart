@@ -31,7 +31,8 @@ class ChartWidget extends ConsumerWidget {
           Flexible(
             flex: 1,
             child: numericSource.when(data: (val){
-              if(val.contract.isEmpty || val.history.isEmpty){
+
+              if(val.contract.isEmpty || state.totalPaynMonth == 0.0){
                 return PieChartStatistics(
                     ratio,0,0,0,0,0);
               }

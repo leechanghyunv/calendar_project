@@ -19,7 +19,7 @@ class _DecimalPayTextfieldState extends ConsumerState<DecimalPayTextfield> {
   Widget build(BuildContext context) {
 
     return Padding(
-        padding: EdgeInsets.fromLTRB(10.0, 14.0, 10.0, 0.0),
+        padding: EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 0.0),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 500),
           color: Colors.transparent,

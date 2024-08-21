@@ -72,7 +72,7 @@ class IsarDatabase {
     }catch(e){
       print('getHistory: ${e.toString()}');
     }
-    throw const FormatException('getHistory');
+    throw NoDataFoundException();
   }
 
   Future<void> addHistory(WorkHistory contract,DateTime time) async {
@@ -91,6 +91,17 @@ class IsarDatabase {
     try{
       await isar.writeTxn(() async {
         await isar.workHistorys.deleteByIndex('date', [time]);
+      });
+    }catch(e){
+      print('deleteHistory: ${e.toString()}');
+    }
+  }
+
+  Future<void> clearHistory() async {
+
+    try{
+      await isar.writeTxn(() async {
+        await isar.workHistorys.clear();
       });
     }catch(e){
       print('deleteHistory: ${e.toString()}');
@@ -130,3 +141,11 @@ class IsarDatabase {
 
 }
 
+class NoDataFoundException implements Exception {
+  final String message;
+
+  NoDataFoundException([this.message = 'No data found']);
+
+  @override
+  String toString() => 'NoDataFoundException: $message';
+}
