@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:page_transition/page_transition.dart';
 import 'core/logger.dart';
 import 'firebase_options.dart';
 
@@ -34,6 +35,24 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize:  Size(390, 850),
       builder: (_,child) => MaterialApp(
+
+        // routes: {
+        //   '/main' : (context) => MainScreen(),
+        // },
+
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/main':
+              return PageTransition(
+                child: MainScreen(),
+                type: PageTransitionType.fade,
+                settings: settings,
+              );
+            default:
+              return null;
+          }
+        },
+
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: false,

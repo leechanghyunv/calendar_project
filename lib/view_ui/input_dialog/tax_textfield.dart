@@ -25,7 +25,7 @@ class TaxinputTextfield extends StatelessWidget {
         ],
         onChanged: onChanged,
         decoration:  InputDecoration(
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.zero,
             borderSide: BorderSide(
               color: Colors.black,

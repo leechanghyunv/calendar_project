@@ -16,6 +16,8 @@ class EraseDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    String errorText = '아이콘이 활성화되었습니다';
+
     final formzState = ref.watch(formzDeletionValidatorProvider);
     final formzRefNot = ref.watch(formzDeletionValidatorProvider.notifier);
     final formzRefread = ref.read(formzDeletionValidatorProvider.notifier);
@@ -27,7 +29,6 @@ class EraseDialog extends ConsumerWidget {
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();
         });
-        Navigator.pop(context);
       }
     });
 
@@ -43,7 +44,7 @@ class EraseDialog extends ConsumerWidget {
                       style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   TextSpan(text: ' 삭제 ',
                       style: TextStyle(
-                          color: formzRefNot.deletionError == '아이콘이 활성화되었습니다'
+                          color: formzRefNot.deletionError == errorText
                           ? Colors.red.shade300
                           : Colors.grey.shade700,
                           fontSize: 18,fontWeight: FontWeight.w900)),
@@ -80,16 +81,15 @@ class EraseDialog extends ConsumerWidget {
                   ],
                 ),
                 DeletionTextfield(
-                  onChanged: (val){
-                    formzRefread.onChangeDeletion(val);
-                  },
-                  iconOnPressed: formzRefNot.deletionError == '아이콘이 활성화되었습니다'
+                  onChanged: (val) =>
+                    formzRefread.onChangeDeletion(val),
+                  iconOnPressed: formzRefNot.deletionError == errorText
                       ? (){
+                    Navigator.pushReplacementNamed(context, '/main');
                     formzRefread.onSubmit();
-                    Navigator.pop(context);
                   }
                       : null,
-                  iconColor: formzRefNot.deletionError == '아이콘이 활성화되었습니다'
+                  iconColor: formzRefNot.deletionError == errorText
                       ? Colors.red.shade300
                       : Colors.grey.shade700,
                 ),

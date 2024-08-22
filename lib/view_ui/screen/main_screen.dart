@@ -9,17 +9,11 @@ import '../minor_issue/date_display_container.dart';
 import '../container/info_container.dart';
 import '../minor_issue/default/default_screen.dart';
 
-class MainScreen extends ConsumerStatefulWidget {
+class MainScreen extends ConsumerWidget {
   const MainScreen({super.key});
 
   @override
-  ConsumerState<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends ConsumerState<MainScreen> {
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final timeManager = ref.watch(timeManagerProvider);
 
     Widget sizeFrame(Widget widget) =>

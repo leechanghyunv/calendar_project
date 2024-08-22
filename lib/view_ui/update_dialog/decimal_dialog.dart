@@ -35,7 +35,6 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();
         });
-        Navigator.pop(context);
       }
     });
 
@@ -91,16 +90,15 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
               DecimalTextfield(
                 onChanged: (val){
                   final decimalValue = double.tryParse(val) ?? 0.0;
-                  setState((){
-                    isStateEmpty = val.isEmpty;
-                  });
+                  setState(() => isStateEmpty = val.isEmpty);
                   formzRefread.onChangeDecimal(decimalValue);
                 },
                 iconOnPressed: isStateEmpty
                     ? null
-                    : () => formzRefread.onSubmit(),
-
-
+                    : (){
+                  Navigator.pushReplacementNamed(context, '/main');
+                  formzRefread.onSubmit();
+                },
                 iconColor: isStateEmpty
                     ? Colors.grey.shade700
                     : Colors.purple.shade900,
