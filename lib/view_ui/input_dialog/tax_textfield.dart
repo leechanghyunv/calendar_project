@@ -13,10 +13,8 @@ class TaxinputTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double ratio = MediaQuery.of(context).size.aspectRatio;
-
     return Container(
-      height: ratio > 0.5 ? 43.w : 47.5.w,
+      height: 47.5.w,
       child: TextFormField(
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         inputFormatters: [
@@ -34,12 +32,12 @@ class TaxinputTextfield extends StatelessWidget {
           ),
           hintText: '10.4',
           hintStyle: TextStyle(
-            fontSize: ratio > 0.5 ? 13.5.sp : 15.sp,
+            fontSize: 15.sp,
             color: Colors.grey[600],
           ),
           suffixText: '%',
           suffixStyle: TextStyle(
-            fontSize: ratio > 0.5 ? 13.5.sp : 15.sp,
+            fontSize:  15.sp,
             fontWeight: FontWeight.bold,
           ),
         ),

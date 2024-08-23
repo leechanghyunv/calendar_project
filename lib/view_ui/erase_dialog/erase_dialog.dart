@@ -25,9 +25,10 @@ class EraseDialog extends ConsumerWidget {
 
     ref.listen(formzDeletionValidatorProvider, (pre,cur) async {
       if (cur.status == FormzStatus.submissionSuccess) {
-        Future.delayed(const Duration(seconds: 0), () {
+        Future.delayed(const Duration(milliseconds: 0), () {
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();
+          Navigator.pushReplacementNamed(context, '/main');
         });
       }
     });
@@ -84,9 +85,9 @@ class EraseDialog extends ConsumerWidget {
                   onChanged: (val) =>
                     formzRefread.onChangeDeletion(val),
                   iconOnPressed: formzRefNot.deletionError == errorText
-                      ? (){
-                    Navigator.pushReplacementNamed(context, '/main');
+                      ? () {
                     formzRefread.onSubmit();
+
                   }
                       : null,
                   iconColor: formzRefNot.deletionError == errorText

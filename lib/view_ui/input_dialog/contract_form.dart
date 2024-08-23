@@ -62,8 +62,7 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    TextWidget('1. 목표금액을 입력해주세요',
-                        ratio > 0.5 ? 13 : 15),
+                    TextWidget('1. 목표금액을 입력해주세요', 15),
                   ],
                 ),
                 Row(
@@ -104,8 +103,7 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
-                      child: TextWidget('2. 근로조건을 입력해주세요',
-                          ratio > 0.5 ? 13 : 15
+                      child: TextWidget('2. 근로조건을 입력해주세요', 15
                       ),
                     ),
                   ],

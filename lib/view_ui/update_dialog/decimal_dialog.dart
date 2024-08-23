@@ -34,6 +34,7 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
         Future.delayed(const Duration(seconds: 0), () {
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();
+          Navigator.pushReplacementNamed(context, '/main');
         });
       }
     });
@@ -96,7 +97,6 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
                 iconOnPressed: isStateEmpty
                     ? null
                     : (){
-                  Navigator.pushReplacementNamed(context, '/main');
                   formzRefread.onSubmit();
                 },
                 iconColor: isStateEmpty

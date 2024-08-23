@@ -34,12 +34,11 @@ class FormzDeletionValidator extends _$FormzDeletionValidator {
   }
 
   void onSubmit(){
-    clearMsg();
     try{
       ref.read(clearHistoryProvider);
-      Future.delayed(const Duration(seconds: 0),(){
+      Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: FormzStatus.submissionSuccess);
-        print(state.status);
+        clearMsg();
       });
     }catch(e){
       state = state.copyWith(status: FormzStatus.submissionFailure);

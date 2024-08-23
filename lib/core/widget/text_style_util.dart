@@ -12,7 +12,7 @@ TextStyle ChartStyle2(Color? color) => TextStyle(
 
 
 TextStyle ChartTextStyle(double ratio) => TextStyle(
-    fontSize: ratio > 0.5 ? 12.sp : 13.5.sp, fontWeight: FontWeight.w800, color: Colors.black);
+    fontSize: ratio > 0.5 ? 13.sp : 13.5.sp, fontWeight: FontWeight.w800, color: Colors.black);
 
 TextStyle ChartNormalStyle(Color color,double ratio) =>
-    TextStyle(fontSize: ratio > 0.5 ? 12.5.sp : 13.5.sp,color: color, fontWeight: FontWeight.w900);
+    TextStyle(fontSize: ratio > 0.5 ? 13.sp : 13.5.sp,color: color, fontWeight: FontWeight.w900);

@@ -45,53 +45,58 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: MediaQuery.of(context).size.aspectRatio > 0.5
-                  ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
-                  : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
-              child: Container(
+            Expanded(
+              child: Padding(
+                padding: MediaQuery.of(context).size.aspectRatio > 0.5
+                    ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
+                    : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
                 child: Text('$selectedYear년 $selectedMonth월 공수 통계',
+                  overflow: TextOverflow.visible,
+                  maxLines: 1,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     fontSize: MediaQuery.of(context).size.aspectRatio > 0.5
-                        ? 14.sp
-                        : 16.sp,
+                        ? 13.sp
+                        : 15.sp,
                   ),
                 ),
               ),
             ),
-            Spacer(),
-            history.when(
-                data: (val) {
-                  final state = ref.watch(numericSourceModelProvider(selected));
-                  final pay = ref.watch(numericSourceModelProvider(selected).notifier).totalPay;
-                  final afterTaxPay = ref.watch(numericSourceModelProvider(selected).notifier).afterTaxTotal;
-                  return Padding(
-                    padding: MediaQuery.of(context).size.aspectRatio > 0.5
-                        ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
-                        : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
-                    child: Tooltip(
-                      message: '총 누적금액(세후): ${formatAmountGoal(afterTaxPay.toInt())}',
-                      child: Text('총 누적금액(세전): ${formatAmountGoal(pay)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,color: Colors.black,
-                          fontSize: MediaQuery.of(context).size.aspectRatio > 0.5
-                              ? 11.5.sp
-                              : 12.5.sp,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+            
+            Expanded(
+              child: history.when(
+                  data: (val) {
+                    final state = ref.watch(numericSourceModelProvider(selected));
+                    final pay = ref.watch(numericSourceModelProvider(selected).notifier).totalPay;
+                    final afterTaxPay = ref.watch(numericSourceModelProvider(selected).notifier).afterTaxTotal;
+                    return Padding(
+                      padding: MediaQuery.of(context).size.aspectRatio > 0.5
+                          ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
+                          : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
+                      child: Tooltip(
+                        message: '총 누적금액(세후): ${formatAmountGoal(afterTaxPay.toInt())}',
+                          child: Text('총 누적금액(세전): ${formatAmountGoal(pay)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,color: Colors.black,
+                              fontSize: MediaQuery.of(context).size.aspectRatio > 0.5
+                                  ? 11.5.sp
+                                  : 12.5.sp,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+              
                       ),
-                    ),
-                  );
-                },
-                error: (err,trace) => Padding(
-                  padding: EdgeInsets.fromLTRB(18.r, 20.0.r, 15.0.r, 0.0),
-                  child: Text('총 누적금액(세전): 0.0만원 ',style: TextStyle(
-                    fontWeight: FontWeight.bold,color: Colors.black,fontSize: 13.sp,overflow: TextOverflow.ellipsis,
-                  ),),
-                ),
-                loading: () => SizedBox()),
+                    );
+                  },
+                  error: (err,trace) => Padding(
+                    padding: EdgeInsets.fromLTRB(18.r, 20.0.r, 15.0.r, 0.0),
+                    child: Text('총 누적금액(세전): 0.0만원 ',style: TextStyle(
+                      fontWeight: FontWeight.bold,color: Colors.black,fontSize: 13.sp,overflow: TextOverflow.ellipsis,
+                    ),),
+                  ),
+                  loading: () => SizedBox()),
+            ),
           ],
         ),
 

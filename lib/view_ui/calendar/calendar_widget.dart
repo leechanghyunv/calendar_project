@@ -274,7 +274,7 @@ class WorkCalender extends ConsumerWidget {
                               style: TextStyle(
                                   fontSize:
                                       MediaQuery.of(context).size.aspectRatio > 0.5
-                                          ? 9.5.sp
+                                          ? 10.sp
                                           : event.record == 0.0
                                               ? 11.sp
                                               : 12.sp,

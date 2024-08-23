@@ -23,14 +23,14 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
 
     TextStyle smallContainerStyle(Color color) => TextStyle(
         fontWeight: FontWeight.w900,
-        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 14.sp,
+        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 13.5.sp : 14.sp,
         color: color);
 
     TextStyle bgGray = TextStyle(
-        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 15.sp,
+        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 14.5.sp : 15.sp,
         color: Colors.grey[900]);
 
-    double fontSize =  MediaQuery.of(context).size.aspectRatio > 0.5 ? 12.5.sp : 13.5.sp;
+    double fontSize =  MediaQuery.of(context).size.aspectRatio > 0.5 ? 13.5.sp : 13.5.sp;
 
     return Consumer(builder: (context, ref, child){
       final contract = ref.watch(viewContractProvider);
