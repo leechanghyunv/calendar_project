@@ -25,7 +25,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   DecimalForm build() {
     return const DecimalForm(
       decimalData: DecimalInput.pure(),
-      status: FormzStatus.pure,
+      status: DecimalFormzStatus.pure,
     );
   }
 
@@ -46,8 +46,8 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     state = state.copyWith(
       decimalData: decimal,
       status: Formz.validate([decimal])
-          ? FormzStatus.invalid
-          : FormzStatus.submissionInProgress,
+          ? DecimalFormzStatus.invalid
+          : DecimalFormzStatus.submissionInProgress,
     );
   }
 
@@ -63,11 +63,11 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
       ref.read(
           addHistoryProvider(pay, date));
       Future.delayed(const Duration(milliseconds: 250),(){
-        state = state.copyWith(status: FormzStatus.submissionSuccess);
+        state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
         saveSettingMsg();
       });
     }catch(e){
-      state = state.copyWith(status: FormzStatus.submissionFailure);
+      state = state.copyWith(status: DecimalFormzStatus.submissionFailure);
       failureMsg();
     }
 

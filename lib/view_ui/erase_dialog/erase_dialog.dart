@@ -4,7 +4,7 @@ import 'package:calendar_project_240727/repository/formz_deletion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../model/formz_decimal_model.dart';
+import '../../model/formz_deletion_model.dart';
 import '../../repository/calendar_time_controll.dart';
 import '../../view_model/calendar_event_model.dart';
 import 'deletion_textfield.dart';
@@ -24,8 +24,11 @@ class EraseDialog extends ConsumerWidget {
     final date = ref.watch(timeManagerProvider).selected;
 
     ref.listen(formzDeletionValidatorProvider, (pre,cur) async {
-      if (cur.status == FormzStatus.submissionSuccess) {
-        Future.delayed(const Duration(milliseconds: 0), () {
+      print('formzDeletionValidatorProvider ${cur.status}');
+      if (cur.status == DeletionFormzStatus.submissionSuccess) {
+        print('formzDeletionValidatorProvider ${cur.status}');
+        Future.delayed(const Duration(milliseconds: 250), () {
+
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();
           Navigator.pushReplacementNamed(context, '/main');
@@ -87,7 +90,6 @@ class EraseDialog extends ConsumerWidget {
                   iconOnPressed: formzRefNot.deletionError == errorText
                       ? () {
                     formzRefread.onSubmit();
-
                   }
                       : null,
                   iconColor: formzRefNot.deletionError == errorText

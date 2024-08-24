@@ -30,7 +30,7 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
     final date = ref.watch(timeManagerProvider).selected;
 
     ref.listen(formzDecimalValidatorProvider, (pre,cur) async {
-      if (cur.status == FormzStatus.submissionSuccess) {
+      if (cur.status == DecimalFormzStatus.submissionSuccess) {
         Future.delayed(const Duration(seconds: 0), () {
           ref.refresh(calendarEventProvider(date));
           ref.read(timeManagerProvider.notifier).selectedNextDay();

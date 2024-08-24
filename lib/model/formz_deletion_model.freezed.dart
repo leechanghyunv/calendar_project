@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DeletionForm {
   DeletionInput get deletionData => throw _privateConstructorUsedError;
-  FormzStatus get status => throw _privateConstructorUsedError;
+  DeletionFormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DeletionFormCopyWith<DeletionForm> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $DeletionFormCopyWith<$Res> {
           DeletionForm value, $Res Function(DeletionForm) then) =
       _$DeletionFormCopyWithImpl<$Res, DeletionForm>;
   @useResult
-  $Res call({DeletionInput deletionData, FormzStatus status});
+  $Res call({DeletionInput deletionData, DeletionFormzStatus status});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$DeletionFormCopyWithImpl<$Res, $Val extends DeletionForm>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
+              as DeletionFormzStatus,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$DeletionFormImplCopyWith<$Res>
       __$$DeletionFormImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DeletionInput deletionData, FormzStatus status});
+  $Res call({DeletionInput deletionData, DeletionFormzStatus status});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$DeletionFormImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
+              as DeletionFormzStatus,
     ));
   }
 }
@@ -108,7 +108,7 @@ class _$DeletionFormImpl implements _DeletionForm {
   @override
   final DeletionInput deletionData;
   @override
-  final FormzStatus status;
+  final DeletionFormzStatus status;
 
   @override
   String toString() {
@@ -138,12 +138,12 @@ class _$DeletionFormImpl implements _DeletionForm {
 abstract class _DeletionForm implements DeletionForm {
   const factory _DeletionForm(
       {required final DeletionInput deletionData,
-      required final FormzStatus status}) = _$DeletionFormImpl;
+      required final DeletionFormzStatus status}) = _$DeletionFormImpl;
 
   @override
   DeletionInput get deletionData;
   @override
-  FormzStatus get status;
+  DeletionFormzStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$DeletionFormImplCopyWith<_$DeletionFormImpl> get copyWith =>

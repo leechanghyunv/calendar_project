@@ -36,10 +36,6 @@ class MyApp extends StatelessWidget {
       designSize:  Size(390, 850),
       builder: (_,child) => MaterialApp(
 
-        // routes: {
-        //   '/main' : (context) => MainScreen(),
-        // },
-
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/main':

@@ -9,12 +9,12 @@ part 'formz_decimal_model.freezed.dart';
 class DecimalForm with _$DecimalForm {
   const factory DecimalForm({
     required DecimalInput decimalData,
-    required FormzStatus status,
+    required DecimalFormzStatus status,
   }) = _DecimalForm;
 
 }
 
-enum FormzStatus {
+enum DecimalFormzStatus {
   pure, // 초기 상태
   valid, // 모든 필드가 유효
   invalid, // 하나 이상의 필드가 유효하지 않음

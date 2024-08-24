@@ -20,7 +20,7 @@ class FormzDeletionValidator extends _$FormzDeletionValidator {
   DeletionForm build() {
     return const DeletionForm(
         deletionData: DeletionInput.pure(),
-        status: FormzStatus.pure,
+        status: DeletionFormzStatus.pure,
     );
   }
 
@@ -28,8 +28,8 @@ class FormzDeletionValidator extends _$FormzDeletionValidator {
 
     state = state.copyWith(deletionData: DeletionInput.dirty(val),
       status: Formz.validate([])
-          ? FormzStatus.invalid
-          : FormzStatus.submissionInProgress,
+          ? DeletionFormzStatus.invalid
+          : DeletionFormzStatus.submissionInProgress,
     );
   }
 
@@ -37,11 +37,11 @@ class FormzDeletionValidator extends _$FormzDeletionValidator {
     try{
       ref.read(clearHistoryProvider);
       Future.delayed(const Duration(milliseconds: 250),(){
-        state = state.copyWith(status: FormzStatus.submissionSuccess);
+        state = state.copyWith(status: DeletionFormzStatus.submissionSuccess);
         clearMsg();
       });
     }catch(e){
-      state = state.copyWith(status: FormzStatus.submissionFailure);
+      state = state.copyWith(status: DeletionFormzStatus.submissionFailure);
     }
   }
 

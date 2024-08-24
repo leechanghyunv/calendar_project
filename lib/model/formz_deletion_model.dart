@@ -7,12 +7,12 @@ part 'formz_deletion_model.freezed.dart';
 class DeletionForm with _$DeletionForm {
   const factory DeletionForm({
     required DeletionInput deletionData,
-    required FormzStatus status,
+    required DeletionFormzStatus status,
   }) = _DeletionForm;
 
 }
 
-enum FormzStatus {
+enum DeletionFormzStatus {
 pure, // 초기 상태
 valid, // 모든 필드가 유효
 invalid, // 하나 이상의 필드가 유효하지 않음

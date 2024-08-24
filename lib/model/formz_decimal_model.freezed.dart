@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DecimalForm {
   DecimalInput get decimalData => throw _privateConstructorUsedError;
-  FormzStatus get status => throw _privateConstructorUsedError;
+  DecimalFormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DecimalFormCopyWith<DecimalForm> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $DecimalFormCopyWith<$Res> {
           DecimalForm value, $Res Function(DecimalForm) then) =
       _$DecimalFormCopyWithImpl<$Res, DecimalForm>;
   @useResult
-  $Res call({DecimalInput decimalData, FormzStatus status});
+  $Res call({DecimalInput decimalData, DecimalFormzStatus status});
 }
 
 /// @nodoc
@@ -57,7 +57,7 @@ class _$DecimalFormCopyWithImpl<$Res, $Val extends DecimalForm>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
+              as DecimalFormzStatus,
     ) as $Val);
   }
 }
@@ -70,7 +70,7 @@ abstract class _$$DecimalFormImplCopyWith<$Res>
       __$$DecimalFormImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DecimalInput decimalData, FormzStatus status});
+  $Res call({DecimalInput decimalData, DecimalFormzStatus status});
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class __$$DecimalFormImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
+              as DecimalFormzStatus,
     ));
   }
 }
@@ -108,7 +108,7 @@ class _$DecimalFormImpl with DiagnosticableTreeMixin implements _DecimalForm {
   @override
   final DecimalInput decimalData;
   @override
-  final FormzStatus status;
+  final DecimalFormzStatus status;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -147,12 +147,12 @@ class _$DecimalFormImpl with DiagnosticableTreeMixin implements _DecimalForm {
 abstract class _DecimalForm implements DecimalForm {
   const factory _DecimalForm(
       {required final DecimalInput decimalData,
-      required final FormzStatus status}) = _$DecimalFormImpl;
+      required final DecimalFormzStatus status}) = _$DecimalFormImpl;
 
   @override
   DecimalInput get decimalData;
   @override
-  FormzStatus get status;
+  DecimalFormzStatus get status;
   @override
   @JsonKey(ignore: true)
   _$$DecimalFormImplCopyWith<_$DecimalFormImpl> get copyWith =>
