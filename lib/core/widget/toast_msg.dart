@@ -12,10 +12,22 @@ Fluttertoast.showToast(
     msg:'$pay $amount가 입력되었습니다.',
     gravity: ToastGravity.CENTER);
 
-Future<bool?> saveSettingMsg() async {
+Future<bool?> customMsg(String msg) async {
+  await Fluttertoast.showToast(
+      msg: msg,
+      gravity: ToastGravity.CENTER);
+}
 
+
+Future<bool?> saveSettingMsg() async {
   await Fluttertoast.showToast(
       msg:'근로조건이 등록되었습니다.',
+      gravity: ToastGravity.CENTER);
+}
+
+Future<bool?> memoSettingMsg() async {
+  await Fluttertoast.showToast(
+      msg:'메모된 내용이 등록되었습니다',
       gravity: ToastGravity.CENTER);
 }
 

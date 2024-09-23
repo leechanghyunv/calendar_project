@@ -13,6 +13,7 @@ class WorkHistory {
   late int pay;
   double record;
   late String colorCode;
+  String memo;
 
   @Default('정상근무') String comment;
 
@@ -22,5 +23,6 @@ class WorkHistory {
     this.record = 1.0,
     this.colorCode = '2196F3',
     this.comment = '정상근무',
+    this.memo = '',
   });
 }

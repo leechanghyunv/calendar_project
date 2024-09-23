@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:calendar_project_240727/core/export.dart';
 
 class PieChartNumericTextBox extends StatelessWidget {
 
@@ -8,11 +9,17 @@ class PieChartNumericTextBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appWidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: EdgeInsets.fromLTRB(14.0, 14.0, 7.0, 0),
+      padding: EdgeInsets.fromLTRB(
+          appWidth > 500 ? 7.w : 14.w,
+          8.h,
+          appWidth > 500 ? 3.5.w : 7.w,
+          0),
       child: Container(
+
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: children,
         ),

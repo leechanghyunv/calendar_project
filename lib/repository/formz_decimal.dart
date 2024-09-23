@@ -15,7 +15,6 @@ part 'formz_decimal.g.dart';
 class FormzDecimalValidator extends _$FormzDecimalValidator {
 
   String get decimalError {
-    final timeManager = ref.watch(timeManagerProvider);
     final selected = ref.watch(timeManagerProvider.notifier).DaySelected;
     return state.decimalData.displayError?.toString() ??
         '${selected.month}월 ${selected.day}일 공수를 입력해주세요';

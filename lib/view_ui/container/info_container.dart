@@ -33,32 +33,34 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
     final selectedMonth = timeManager.selected.month;
     final firstContract = ref.watch(viewContractProvider);
     final history = ref.watch(viewHistoryProvider);
+    final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
+
+
     ref.listen(viewHistoryProvider, (preState, newState) {
       if(preState != newState){
-        print(preState != newState);
         setState(() {});
       }
     });
     return DefaultInfobox(
       children: [
-
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Padding(
-                padding: MediaQuery.of(context).size.aspectRatio > 0.5
-                    ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
-                    : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
+                padding: appHeight < 700
+                    ? EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0)
+                    : EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0),
                 child: Text('$selectedYear년 $selectedMonth월 공수 통계',
                   overflow: TextOverflow.visible,
                   maxLines: 1,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: MediaQuery.of(context).size.aspectRatio > 0.5
-                        ? 13.sp
-                        : 15.sp,
+                    fontSize: appHeight < 700
+                        ? appWidth > 500 ? 6.5.sp : 13.sp
+                        : appWidth > 500 ? 7.sp : 15.sp,
                   ),
                 ),
               ),
@@ -68,20 +70,34 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
               child: history.when(
                   data: (val) {
                     final state = ref.watch(numericSourceModelProvider(selected));
-                    final pay = ref.watch(numericSourceModelProvider(selected).notifier).totalPay;
-                    final afterTaxPay = ref.watch(numericSourceModelProvider(selected).notifier).afterTaxTotal;
+                    final numeric = ref.watch(numericSourceModelProvider(selected).notifier);
+                    final pay = numeric.totalPay;
+                    final subsidy = numeric.totolSubsidy;
+                    final afterTaxPay = numeric.afterTaxTotal;
+                    final afterTaxTotalAnd = numeric.afterTaxTotalAnd;
+                    final totalAnd = numeric.totalPayAnd;
+
                     return Padding(
-                      padding: MediaQuery.of(context).size.aspectRatio > 0.5
-                          ? EdgeInsets.fromLTRB(18.r, 15.0.r, 20.0.r, 0.0)
-                          : EdgeInsets.fromLTRB(18.r, 20.0.r, 20.0.r, 0.0),
+                      padding: EdgeInsets.fromLTRB(
+                          appWidth > 500? 6.w : 12.w,
+                          15.0.h,
+                          appWidth > 500? 10.0.w : 20.0.w,
+                          0.0),
                       child: Tooltip(
-                        message: '총 누적금액(세후): ${formatAmountGoal(afterTaxPay.toInt())}',
-                          child: Text('총 누적금액(세전): ${formatAmountGoal(pay)}',
+                        message: subsidy == 0
+                            ? '총 누적금액(세후): ${formatAmountGoal(afterTaxPay.toInt())}'
+                        /// 일비가 있느냐 없느냐에 따라 나뉨
+                            : '총 누적금액(세후): ${formatAmountGoal(afterTaxTotalAnd.toInt())}',
+
+                          child: Text(subsidy == 0
+                              ? '총 누적금액(세전): ${formatAmountGoal(pay)}'
+                          /// 일비가 있느냐 없느냐에 따라 나뉨
+                              : '총 누적금액(세전): ${formatAmountGoal(totalAnd)}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,color: Colors.black,
-                              fontSize: MediaQuery.of(context).size.aspectRatio > 0.5
-                                  ? 11.5.sp
-                                  : 12.5.sp,
+                              fontSize: appHeight < 700
+                                  ? appWidth > 500 ? 5.75.sp : 11.5.sp
+                                  : appWidth > 500 ? 6.sp : 12.sp,
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
@@ -90,17 +106,26 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                     );
                   },
                   error: (err,trace) => Padding(
-                    padding: EdgeInsets.fromLTRB(18.r, 20.0.r, 15.0.r, 0.0),
+                    padding: EdgeInsets.fromLTRB(
+                      appWidth > 500? 6.w : 12.w,
+                      20.0.h,
+                      appWidth > 500? 10.0.w : 20.0.w,
+                      0.0,
+                    ),
                     child: Text('총 누적금액(세전): 0.0만원 ',style: TextStyle(
-                      fontWeight: FontWeight.bold,color: Colors.black,fontSize: 13.sp,overflow: TextOverflow.ellipsis,
+                      fontWeight: FontWeight.bold,color: Colors.black,
+                      fontSize: appHeight < 700
+                          ? appWidth > 500 ? 5.75.sp : 11.5.sp
+                          : appWidth > 500 ? 6.sp : 12.sp,
+                      overflow: TextOverflow.ellipsis,
                     ),),
                   ),
-                  loading: () => SizedBox()),
+                  loading: () => const SizedBox()),
             ),
           ],
         ),
 
-        sizeFrame(SizedBox(height: 10.w)),
+        sizeFrame(SizedBox(height: 10.h)),
 
         ChartWidget(),
 
@@ -144,16 +169,16 @@ class ButtomSpace extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(8.0, 0, 4.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 0, 4.0, 0.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(width: 6.0),
+          const SizedBox(width: 6.0),
           widgetL ?? const SizedBox(),
           const Spacer(),
           widgetR,
-          SizedBox(width: 12.0),
+          const SizedBox(width: 12.0),
         ],
       ),
     );

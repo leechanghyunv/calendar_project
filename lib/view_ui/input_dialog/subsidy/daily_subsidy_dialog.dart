@@ -1,8 +1,7 @@
 import 'package:calendar_project_240727/core/widget/decimal_textfield_frame.dart';
 import 'package:calendar_project_240727/repository/calendar_time_controll.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import 'package:calendar_project_240727/core/export.dart';
 
 import '../../../core/widget/text_widget.dart';
 import '../../../model/formz_model.dart';
@@ -19,6 +18,7 @@ class DailySubsidyDialog extends ConsumerWidget {
     final formzRefread = ref.read(formzValidatorProvider.notifier);
     final timeManager = ref.watch(timeManagerProvider);
     final selected = timeManager.selected;
+    final appWidth = MediaQuery.of(context).size.width;
 
     ref.listen(formzValidatorProvider, (pre,cur){
       if(cur.status == FormzStatus.submissionSuccess){
@@ -35,19 +35,33 @@ class DailySubsidyDialog extends ConsumerWidget {
               text: TextSpan(
                 children: [
                   const TextSpan(text: '일비를 모두 입력해주시면 아이콘이 활성화됩니다. ',
-                      style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.black,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   const TextSpan(text: '입력 후 우측',
-                      style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.black,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                    TextSpan(text: ' 아이콘',
-                      style: TextStyle(color: Colors.green.shade700,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.green.shade700,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   const TextSpan(text: '을 눌러주세요. ',
-                      style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.black,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   const TextSpan(text: '일비가 없으시다면 따로 입력하지 마시고 바로',
-                      style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.black,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   const TextSpan(text: ' 아이콘',
-                      style: TextStyle(color: Colors.red,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.red,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                   const TextSpan(text: '을 눌러주세요.',
-                      style: TextStyle(color: Colors.black,fontSize: 13.5,fontWeight: FontWeight.bold,letterSpacing: 1.0)),
+                      style: TextStyle(
+                          color: Colors.black,fontSize: 13.5,
+                          fontWeight: FontWeight.bold,letterSpacing: 1.0)),
                 ],
               )),
         )
@@ -60,8 +74,8 @@ class DailySubsidyDialog extends ConsumerWidget {
         child: Row(
           children: [
             TextWidget(
-                '일비를 입력해주세요',15.5),
-            Spacer(),
+                '일비를 입력해주세요',15.5,appWidth),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:  12.0),
               child: LoadingAnimationWidget.staggeredDotsWave(
@@ -70,8 +84,9 @@ class DailySubsidyDialog extends ConsumerWidget {
           ],
         ),
       ),
-      content: SizedBox(
-        height: 240,
+      content: Container(
+        height: 250,
+        width: appWidth > 500? 325 : double.infinity,
         child: Column(
           children: [
             textBox(),
@@ -83,6 +98,7 @@ class DailySubsidyDialog extends ConsumerWidget {
                       formzRefNot.subsidyError,
                       10,
                     Colors.grey.shade700,
+                    appWidth,
                   ),
                 ],
               ),

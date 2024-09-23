@@ -79,7 +79,7 @@ int calculateAdditionalHolidays(Map<DateTime, List<WorkHistory>> list) {
     }
   }
 
-  print('Total additional holidays: $additionalHolidays');
+  /// print('Total additional holidays: $additionalHolidays');
 
   return additionalHolidays;
 }

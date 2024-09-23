@@ -65,9 +65,9 @@ class IsarDatabase {
   Future<List<WorkHistory>> getHistory() async {
     try{
       final history = await isar.workHistorys.where().findAll();
-      print('getHistory ${history.last.date}');
-      print('getHistory ${history.last.pay}');
-      print('getHistory ${history.last.id}');
+      // print('getHistory ${history.last.date}');
+      // print('getHistory ${history.last.pay}');
+      // print('getHistory ${history.last.id}');
       return history;
     }catch(e){
       print('getHistory: ${e.toString()}');
@@ -113,7 +113,7 @@ class IsarDatabase {
   Future<Map<DateTime, List<WorkHistory>>> calendarHistory(DateTime day) async {
     Map<DateTime, List<WorkHistory>> mappedData = {};
     Map< DateTime, List<WorkHistory>> filtedData = {};
-    print('GetcalendarHistory');
+   /// print('GetcalendarHistory');
     try{
       final filted = await isar.workHistorys.where().findAll();
       mappedData = convertToMap(filted);
@@ -126,6 +126,7 @@ class IsarDatabase {
             record: e.record,
             colorCode: e.colorCode,
             comment: e.comment,
+            memo: e.memo,
           );
           newDataList.add(newData);
         }

@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:calendar_project_240727/core/export.dart';
+
 import '../../repository/calendar_time_controll.dart';
 import '../calendar/calendar_widget.dart';
 import '../logo.dart';
@@ -15,27 +13,47 @@ class MainScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final timeManager = ref.watch(timeManagerProvider);
+    final appHeight = MediaQuery.of(context).size.height;
+    final appWidth = MediaQuery.of(context).size.width;
 
     Widget sizeFrame(Widget widget) =>
-        MediaQuery.of(context).size.aspectRatio > 0.5 ? const SizedBox() : widget;
+        appHeight < 700 ? const SizedBox() : widget;
+
+    Widget GalaxyZFoldCalendar(Widget widget) =>
+        appWidth > 500 ? Container(
+          width: appWidth * 0.6,
+            child: widget) : widget;
 
     return DefaultScreen(
         children: [
-          sizeFrame(SizedBox(height: 30.w)),
-          WorkCalender(
+          sizeFrame(SizedBox(height: 30.h)),
+
+          GalaxyZFoldCalendar(
+            WorkCalender(
             selectedDay: timeManager.selected,
             focusedDay: timeManager.focused,
           ),
-          MediaQuery.of(context).size.aspectRatio > 0.5
-              ? SizedBox(height: 4.w)
-              : SizedBox(height: 14.w),
+          ),
+
+
+
+          appHeight < 700
+              ? SizedBox(height: 4.h)
+
+              : appHeight > 800
+              ? SizedBox(height: 10.h)
+              : SizedBox(height: 14.h),
+
           DisplayContainer(),
-          MediaQuery.of(context).size.aspectRatio > 0.5
-              ? SizedBox(height: 4.w)
-              : SizedBox(height: 14.w),
+          appHeight < 700
+              ? SizedBox(height: 4.h)
+
+              : appHeight > 800
+              ? SizedBox(height: 10.h)
+              : SizedBox(height: 14.h),
           InfoContainer(),
 
-          logo(),
+          logo(appWidth),
         ]);
 
   }

@@ -1,8 +1,6 @@
+import 'package:calendar_project_240727/core/export.dart';
 import 'package:calendar_project_240727/view_model/calendar_event_model.dart';
 import 'package:calendar_project_240727/view_model/contract_model.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/utils/converter.dart';
 import '../../core/widget/text_widget.dart';
@@ -17,9 +15,9 @@ import '../input_dialog/contract_form.dart';
 import '../minor_issue/default/default_dialog.dart';
 import '../minor_issue/default/default_event_button_column.dart';
 import '../minor_issue/default/default_loading.dart';
-import '../minor_issue/widget/indicator.dart';
 import '../minor_issue/widget/total_pay.dart';
 import 'decimal_pay_textfield.dart';
+import 'memo/memo_textfield.dart';
 
 class EnrollDialogWidght extends ConsumerStatefulWidget {
   const EnrollDialogWidght({super.key});
@@ -69,6 +67,9 @@ class EnrollActive extends StatefulWidget {
 class _EnrollActiveState extends State<EnrollActive> {
   int pay = 0;
 
+  double adaptiveSize(double size) => Platform.isAndroid ? (size - 1.0) : size;
+  double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
+
   Future<void> refresh(WidgetRef ref) async {
     Future.delayed(const Duration(seconds: 0), () {
       ref.refresh(calendarEventProvider(widget.selected));
@@ -78,6 +79,10 @@ class _EnrollActiveState extends State<EnrollActive> {
 
   @override
   Widget build(BuildContext context) {
+
+    final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
+
     return DefaultDialog(
       msg: '공수를 등록해주세요',
       actions: [
@@ -91,81 +96,93 @@ class _EnrollActiveState extends State<EnrollActive> {
                 onPressed: () {
                   showDialog(
                       context: context, builder: (context) => EraseDialog());
-                  // ref.read(clearHistoryProvider);
-                  // Navigator.pop(context);
                 },
                 child: Text('데이터 지우기',
                     style: TextStyle(
-                        fontSize: 13.sp,
+                        fontSize: appWidth > 500? screenUtilSize(6.5) : screenUtilSize(13),
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey)),
+                        color: Colors.grey),
+                ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             TextButton(
                 onPressed: () {
                   cancelMsg();
                   Navigator.pop(context);
                 },
-                child: TextWidget('취소', 17.sp)),
-            Consumer(builder: (context, ref, child) {
+                child: TextWidget('취소',
+                    appWidth > 500? screenUtilSize(8.5) : screenUtilSize(17),
+                    appWidth)),
+            Consumer(
+                builder: (context, ref, child) {
               return TextButton(
                   onPressed: () {
-                    refresh(ref);
-                    Navigator.pop(context);
+                    if(pay == 0){
+                      customMsg('근무유형을 선택해주세요');
+                    } else {
+                      refresh(ref);
+                      Navigator.pop(context);
+                    }
                   },
-                  child: TextWidget('확인', 17.sp));
+                  child: TextWidget('확인',
+                      appWidth > 500? screenUtilSize(8.5) : screenUtilSize(17),
+                      appWidth));
             }),
           ],
         ),
       ],
       children: [
-        Consumer(builder: (context, ref, child) {
+        Consumer(
+            builder: (context, ref, child) {
           final state2 = ref.watch(numericSourceModelProvider(widget.selected));
-          final numericValue =
-              ref.watch(numericSourceModelProvider(widget.selected).notifier);
           return state2.when(
               data: (val) {
-                final goalState =
-                    numericValue.goalRate >= 100 ? 100 : numericValue.goalRate;
-                final total = numericValue.afterTaxTotal;
                 return Column(
                   children: [
                     Tooltip(
                         message: '목표금액 ${formatNumber(widget.contract.goal)}원',
                         child: Column(
                           children: [
-                            Indicator(workRate: goalState.toDouble()),
+                            MemoTextfield(),
+                            TotalPay(),
                           ],
                         )),
-                    TotalPay(total: total.toInt()),
                   ],
                 );
               },
               error: (err, trace) => const Column(
                     children: [
-                      Indicator(workRate: 0.0),
-                      TotalPay(total: 0),
+                      MemoTextfield(),
+                      TotalPay(),
                     ],
                   ),
               loading: () => const Column(
                     children: [
-                      Indicator(workRate: 0.0),
-                      TotalPay(total: 0),
+                      MemoTextfield(),
+                      TotalPay(),
                     ],
                   ));
         }),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(12.0.r, 12.0.r, 12.0.r, 6.0.r),
-              child: TextWidget(
-                  '${widget.selected.month}월 ${widget.selected.day}일 근무유형 선택',
-                  16.5.sp),
+              padding: EdgeInsets.fromLTRB(12.0.r, 10.0.r, 12.0.r, 6.0.r),
+              child: Column(
+                children: [
+                  TextWidget(
+                      '${widget.selected.month}월 ${widget.selected.day}일 근무유형 선택',
+                      appWidth > 500? screenUtilSize(8.25) : screenUtilSize(16.5),appWidth),
+
+                ],
+              ),
             ),
+
           ],
         ),
-        Consumer(builder: (context, ref, child) {
+        Consumer(
+            builder: (context, ref, child) {
           return Event_Form_Column(
             subtitleA: widget.contract.normal.toString() ?? '',
             onTapA: () {

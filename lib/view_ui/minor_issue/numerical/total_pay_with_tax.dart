@@ -1,6 +1,5 @@
 
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:calendar_project_240727/core/export.dart';
 import 'package:intl/intl.dart';
 
 class IndicatedTotalPay extends StatelessWidget {
@@ -21,6 +20,11 @@ class IndicatedTotalPay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
+    double adaptiveSize(double size) => Platform.isAndroid ? (size - 1.0) : size;
+
+
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
@@ -29,14 +33,14 @@ class IndicatedTotalPay extends StatelessWidget {
               ? '누적금액(세후): 0원'
               : '누적금액(세후): ${formatNumber(total)}원',
             style: TextStyle(
-              fontSize: 15.sp,
+              fontSize: screenUtilSize(15),
               fontWeight: FontWeight.bold,
             ),),
-          Spacer(),
+          const Spacer(),
           GestureDetector(
             onTap: onTap,
             child: Icon(Icons.settings,
-              color: Colors.grey[600],size: 20,),
+              color: Colors.grey[600],size: adaptiveSize(20),),
           ),
         ],
       ),

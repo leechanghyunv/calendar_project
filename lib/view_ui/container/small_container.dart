@@ -1,4 +1,3 @@
-import 'package:blinking_text/blinking_text.dart';
 import 'package:calendar_project_240727/view_model/filted_source_model.dart';
 import 'package:calendar_project_240727/view_model/history_model.dart';
 import 'package:flutter/material.dart';
@@ -21,16 +20,26 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
   @override
   Widget build(BuildContext context) {
 
+    final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
+    final ratio = MediaQuery.of(context).size.aspectRatio;
+
     TextStyle smallContainerStyle(Color color) => TextStyle(
         fontWeight: FontWeight.w900,
-        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 13.5.sp : 14.sp,
+        fontSize: appHeight < 700
+            ? 13.5.sp
+            : appWidth > 500 ? 7.sp : 14.sp,
         color: color);
 
     TextStyle bgGray = TextStyle(
-        fontSize: MediaQuery.of(context).size.aspectRatio > 0.5 ? 14.5.sp : 15.sp,
+        fontSize: appHeight < 700
+            ? appWidth > 500 ? 7.sp : 14.sp
+            : appWidth > 500 ? 7.sp : 14.sp,
         color: Colors.grey[900]);
 
-    double fontSize =  MediaQuery.of(context).size.aspectRatio > 0.5 ? 13.5.sp : 13.5.sp;
+    double fontSize =  appHeight < 700
+        ? appWidth > 500 ? 7.sp : 14.sp
+        : appWidth > 500 ? 7.sp : 14.sp;
 
     return Consumer(builder: (context, ref, child){
       final contract = ref.watch(viewContractProvider);
@@ -38,7 +47,7 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
       return history.when(
           data: (val){
             if(val.isEmpty){
-              return SizedBox();
+              return const SizedBox();
             }else {
               final goalValue = formatAmountGoal(contract.value?.last.goal ?? 0);
               final timeManager = ref.watch(timeManagerProvider);
@@ -46,24 +55,49 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
               final state2 = ref.watch(numericSourceModelProvider(selected));
               final numericValue = ref.watch(numericSourceModelProvider(selected).notifier);
               final totalPay = formatAmount(numericValue.totalPay);
+              final totalAfter = formatDecimalAmount(numericValue.afterTaxTotal);
+              final subsidy = numericValue.subsidy;
+              final totalAndsubsidyAfter = formatDecimalAmount(numericValue.afterTaxTotalAnd);
 
-              String goalRate = state2.when(data: (val){
+
+              String goalRateAfterTax = state2.when(
+                data: (val){
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
-                return numericValue.goalRate >= 100
+                return numericValue.goalRateAfterTax >= 100
                     ? '100'
-                    : numericValue.goalRate.toStringAsFixed(1);
+                    : numericValue.goalRateAfterTax.toStringAsFixed(1);
               }, error: (err,trace) => '', loading: ()=> '',
               );
 
-              String remainingGoal = state2.when(data: (val){
+              String goalRatePlusAfterTax = state2.when(
+                data: (val){
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
-                ///  numericValue.remainingGoal.toString();
-                return int.parse(numericValue.remainingGoal)
-                    >= 0 ? numericValue.remainingGoal
+                return numericValue.goalRateAndAfterTax >= 100
+                    ? '100'
+                    : numericValue.goalRateAndAfterTax.toStringAsFixed(1);
+              }, error: (err,trace) => '', loading: ()=> '',
+              );
+
+              String remainingGoalAfterTax = state2.when(data: (val){
+                if(val.history.isEmpty || val.contract.isEmpty){
+                  return '0.0';
+                }
+                return int.parse(numericValue.remainingGoalAfterTax)
+                    >= 0 ? numericValue.remainingGoalAfterTax
+                    : '0';
+              }, error: (err,trace) => '', loading: ()=> '',
+              );
+
+              String remainingGoalPlusAfterTax = state2.when(data: (val){
+                if(val.history.isEmpty || val.contract.isEmpty){
+                  return '0.0';
+                }
+                return int.parse(numericValue.remainingGoalPlusAfterTax)
+                    >= 0 ? numericValue.remainingGoalPlusAfterTax
                     : '0';
               }, error: (err,trace) => '', loading: ()=> '',
               );
@@ -75,17 +109,19 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                       children: [
                         TextSpan(text: '목표금액 ',style: bgGray),
                         TextSpan(text: goalValue,style: smallContainerStyle(Colors.grey[900]!)),
-                        TextSpan(text: ' 이며 현재 ',style:bgGray),
-                        TextSpan(text: totalPay,style: smallContainerStyle(Colors.grey[900]!)),
-                        TextSpan(text: ' 달성 ',style: bgGray),
-                        TextSpan(text: ' ${goalRate.toString()}%',
-                            style: TextStyle(color: Colors.black,
-                            fontWeight: FontWeight.w900,fontSize: fontSize)),
+                        TextSpan(text: ' 입니다.\n',style:bgGray),
 
-                        TextSpan(text: '를 달성했습니다. 목표 잔여 공수는',
+                        TextSpan(text: subsidy != 0 ? '일비포함(세후) ' : '누적금액(세후)' ,style: smallContainerStyle(Colors.grey[900]!)),
+                        TextSpan(text: subsidy != 0 ? '$totalAndsubsidyAfter\n' : '$totalAfter\n',style: smallContainerStyle(Colors.grey[900]!)),
+
+                        TextSpan(text:  subsidy != 0 ? '${goalRatePlusAfterTax.toString()}%를 달성 했습니다.\n' : '${goalRateAfterTax.toString()}%를 달성 했습니다.\n',
+                            style: TextStyle(color: Colors.black,
+                            fontWeight: FontWeight.w900,fontSize: fontSize,letterSpacing: 0.75)),
+
+                        TextSpan(text: '남은 공수는',
                             style: TextStyle(color: Colors.grey[900],fontSize: fontSize)),
 
-                        TextSpan(text: ' $remainingGoal공수 ',style: TextStyle(
+                        TextSpan(text: subsidy != 0 ? ' $remainingGoalPlusAfterTax 공수' : ' $remainingGoalAfterTax 공수',style: TextStyle(
                           color: Colors.red[700], fontWeight: FontWeight.w900, fontSize: fontSize,
                         ),
                         ),
@@ -99,17 +135,15 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
             }
           },
           error: (err,trace) => DefaultSmallBox(
-            child: BlinkText(
-              '근로조건을 입력해주세요',
-              duration: Duration(seconds: 1),
-              times: 5,
+            child: Text(
+              '근로조건을 입력해주세요. 누적금액, 목표금액 대비 남은 공수를 계산해서 보여줍니다.',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.0.sp, color: Colors.grey[300]),
-              endColor: Colors.black,
+                  fontSize: appWidth > 500 ? 7.0.sp : 14.0.sp, color: Colors.grey[700]),
+
             ),
           ),
-          loading: () => SizedBox());
+          loading: () => const SizedBox());
     });
 
 

@@ -12,6 +12,7 @@ class ContractForm with _$ContractForm {
     required PayInput pay2,
     required PayInput pay3,
     required TaxInput tax,
+    required SubsidyInput subsidy,
     required FormzStatus status,
   }) = _ContractForm;
 

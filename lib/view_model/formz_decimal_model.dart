@@ -24,8 +24,7 @@ class DecimalInput extends FormzInput<DecimalPayModel, String> {
     } else if (value.decimal == 2.0) {
       return '${value.decimal} 공수 야간근무로 저장합니다';
     } else if (value.decimal >= 3.0) {
-      return '${value.decimal}공수가 확실한가요?'
-          '\n${formatDecimalAmount(calculated)}으로 저장합니다';
+      return '${value.decimal}공수 ${formatDecimalAmount(calculated)}으로 저장합니다';
     } else {
       return '${value.decimal} 공수 ${formatDecimalAmount(calculated)}으로 저장합니다';
     }

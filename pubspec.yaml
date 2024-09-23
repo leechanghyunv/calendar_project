@@ -1,7 +1,7 @@
 name: calendar_project_240727
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.1.1+5
+version: 1.1.9+12
 
 environment:
   sdk: '>=3.4.4 <4.0.0'
@@ -39,6 +39,12 @@ dependencies:
   firebase_crashlytics: ^4.0.4
   page_transition: ^2.1.0
   fluttertoast: ^8.2.8
+  keyboard_actions: ^4.2.0
+  shared_preferences: ^2.3.2
+  firebase_messaging: ^15.1.1
+  flutter_local_notifications: ^17.2.2
+  rxdart: ^0.27.7
+
   
 
 dev_dependencies:

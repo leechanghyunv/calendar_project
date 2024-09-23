@@ -17,6 +17,20 @@ class NumericSourceModel extends _$NumericSourceModel {
 
   int get goal => state.value?.contract.last.goal ?? 0;
   double get tax => state.value?.contract.last.tax ?? 0.0; /// %를 제외한 숫자로 나오기때문에 필터링
+  int get contractNormal => state.value?.contract.last.normal ?? 0;
+  int get contractExtend => state.value?.contract.last.extend ?? 0;
+  int get contractNight => state.value?.contract.last.night ?? 0;
+
+  int get subsidy => state.value?.contract.last.subsidy ?? 0; /// 애초에 0으로 초기화인데 경우의 수까지 넣음
+
+
+  int get subsidyworkDay => state.value?.history.where((e) => e.record >= 1.0).length ?? 0;
+  int get subsidyworkDaynMonth => filteredHistory.where((e) => e.record >= 1.0).length;
+
+  int get totolSubsidy => subsidy * subsidyworkDay;
+  int get totolSubsidyDaynMonth => subsidy * subsidyworkDaynMonth;
+
+
   double get filtedTax => tax/100; /// ex 0.2 -> 20%
  /// map((e) => e.record != 0.0)
   int get workDay => state.value?.history.where((e) => e.record != 0.0).length ?? 0;
@@ -24,19 +38,34 @@ class NumericSourceModel extends _$NumericSourceModel {
 
   int get totalPay => state.value?.history.fold(0,(p,e) => p + e.pay).toInt() ?? 0;
   int get totalPaynMonth => filteredHistory.fold(0,(p,e) => p + e.pay);
+/// 일비 추가시 사용
+  int get totalPayAnd => totalPay + totolSubsidy;
+  int get totalPaynMonthAnd => totalPaynMonth + totolSubsidyDaynMonth;
+
   double get workRecode => state.value?.history.fold(0.0,(p,e) => p! + e.record) ?? 0.0;
   double get workRecodenMonth => filteredHistory.fold(0.0,(p,e) => p + e.record);
 
-  double get normalPay => filteredHistory.where((e) => e.record == 1.0).
+  double get normalValue => filteredHistory.where((e) => e.record == 1.0).
   map((e) => e.record).fold(0.0, (value, element) => value + element);
+
+  int get normalPay => normalDay * contractNormal;
+
   int get normalDay => filteredHistory.where((e) => e.record == 1.0).map((e) => e.record).length;
   /// 이번달의 정상근무 금액 총합 ex)15 공수 20공수
-  double get extendPay => filteredHistory.where((e) => e.record == 1.5).
+
+
+  double get extendValue => filteredHistory.where((e) => e.record == 1.5).
   map((e) => e.record).fold(0.0, (value, element) => value + element);
+
+  int get extendPay => extendDay * contractExtend.toInt();
+
   int get extendDay => filteredHistory.where((e) => e.record == 1.5).map((e) => e.record).length;
   /// 이번달의 정상근무 금액 총합 ex)15 공수 20공수
-  double get nightPay => filteredHistory.where((e) => e.record == 2.0).
+
+  double get nightValue => filteredHistory.where((e) => e.record == 2.0).
   map((e) => e.record).fold(0.0, (value, element) => value + element);
+
+  int get nightPay => nightDay * contractNight;
 
   int get nightDay => filteredHistory.where((e) => e.record == 2.0).map((e) => e.record).length;
 
@@ -49,9 +78,17 @@ class NumericSourceModel extends _$NumericSourceModel {
 
 
   double get goalRate => double.parse(((totalPay/goal) * 100).toStringAsFixed(2));
+  double get goalRateAnd => double.parse(((totalPayAnd/goal) * 100).toStringAsFixed(2));
+
+  double get goalRateAfterTax => double.parse(((afterTaxTotal/goal) * 100).toStringAsFixed(2));
+  double get goalRateAndAfterTax => double.parse(((afterTaxTotalAnd/goal) * 100).toStringAsFixed(2));
+
   /// 총 세후 금액
+
   double get afterTaxTotal => double.parse(
       (totalPay - (totalPay * filtedTax)).toStringAsFixed(1));
+
+  double get afterTaxTotalAnd => afterTaxTotal + totolSubsidy;
   /// 이번달 세후 금액
   double get afterTaxMonth {
     if (totalPaynMonth == 0) {
@@ -77,10 +114,63 @@ class NumericSourceModel extends _$NumericSourceModel {
     return difference.isNaN ? 0 : difference;
   }
 
+  int get remainingAfterTax {
+    final parsedGoal = int.tryParse(goal.toString());
+    if (parsedGoal == null) {
+      return 0;
+    }
+    final difference = parsedGoal - afterTaxTotal.toInt();
+    return difference.isNaN ? 0 : difference;
+  }
+  /// /// /// /// ////// /// /// /// ////// /// /// /// ////// /// /// /// ///
+  int get remainingPlus {
+    final parsedGoal = int.tryParse(goal.toString());
+    if (parsedGoal == null) {
+      return 0;
+    }
+    final difference = parsedGoal - totalPayAnd;
+    return difference.isNaN ? 0 : difference;
+  }
+
+  int get remainingPlusAfterTax {
+    final parsedGoal = int.tryParse(goal.toString());
+    if (parsedGoal == null) {
+      return 0;
+    }
+    final difference = parsedGoal - afterTaxTotalAnd.toInt();
+    return difference.isNaN ? 0 : difference;
+  }
+
+  /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+
   String get remainingGoal {
     final normalPay = state.value?.contract.last.normal ?? 1; // to avoid division by zero
-
     final remainingGoal = (remaining / normalPay).toStringAsFixed(0);
+    return remainingGoal.isEmpty ? "0.0" : remainingGoal;
+  }
+
+  String get remainingGoalAfterTax {
+    final normalPay = state.value?.contract.last.normal ?? 1; // to avoid division by zero
+    final normalPayAfter = normalPay - (normalPay * filtedTax);
+    final remainingGoal = (remainingAfterTax / normalPayAfter).toStringAsFixed(0);
+    return remainingGoal.isEmpty ? "0.0" : remainingGoal;
+  }
+
+  /// 세후 남은 공수가 몇인가
+  String get remainingGoalPlus {
+    final normalPay = state.value?.contract.last.normal ?? 1; // to avoid division by zero
+    final normalPayPlus = normalPay + subsidy;
+    final remainingGoal = (remainingPlus / normalPayPlus).toStringAsFixed(0);
+    return remainingGoal.isEmpty ? "0.0" : remainingGoal;
+  }
+
+
+  /// 일비 포함 세후 남는 공수
+  String get remainingGoalPlusAfterTax {
+    final normalPay = state.value?.contract.last.normal ?? 1; // to avoid division by zero
+    final normalPayAfter = normalPay - (normalPay * filtedTax);
+    final normalPayPlusAfter = normalPayAfter + subsidy;
+    final remainingGoal = (remainingPlusAfterTax / normalPayPlusAfter).toStringAsFixed(0);
     return remainingGoal.isEmpty ? "0.0" : remainingGoal;
   }
 
@@ -100,7 +190,7 @@ class NumericSourceModel extends _$NumericSourceModel {
     filteredHistory = history.where((item) {
       return item.date.isAfter(startDate) && item.date.isBefore(endDate);
     }).toList();
-    print('refreshData ${history.last.comment} ${filteredHistory.where((e) => e.record == 0.0).length} ');
+    // print('refreshData ${history.last.comment} ${filteredHistory.where((e) => e.record == 0.0).length} ');
     return ConbinedDataModel(contract: contract, history: history);
   }
 

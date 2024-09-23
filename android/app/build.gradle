@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     // START: FlutterFire Configuration
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
     // END: FlutterFire Configuration
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -18,12 +19,12 @@ if (localPropertiesFile.exists()) {
 
 def flutterVersionCode = localProperties.getProperty("flutter.versionCode")
 if (flutterVersionCode == null) {
-    flutterVersionCode = "4"
+    flutterVersionCode = "12"
 }
 
 def flutterVersionName = localProperties.getProperty("flutter.versionName")
 if (flutterVersionName == null) {
-    flutterVersionName = "1.1.1"
+    flutterVersionName = "1.1.9"
 }
 
 def keystoreProperties = new Properties()
@@ -34,7 +35,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.app.calendar_project_240727"
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -46,7 +47,7 @@ android {
         applicationId = "com.app.calendar_project_240727"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
-        versionCode = flutterVersionCode.toInteger()
+        versionCode = 12
         versionName = flutterVersionName
     }
 

@@ -10,7 +10,6 @@ class LabourCondition {
 
   Id id = Isar.autoIncrement;
 
-  // @Index(unique: true)
   late DateTime date;
 
   late int goal;
@@ -18,6 +17,7 @@ class LabourCondition {
   late int extend;
   late int night;
   late double tax;
+  late int subsidy;
 
   LabourCondition({
     required this.date,
@@ -26,5 +26,6 @@ class LabourCondition {
     this.extend = 0,
     this.night = 0,
     this.tax = 0.0,
+    this.subsidy = 0,
   });
 }

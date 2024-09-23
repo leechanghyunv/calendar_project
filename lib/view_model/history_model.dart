@@ -1,5 +1,6 @@
 
 import 'package:calendar_project_240727/repository/formz_decimal.dart';
+import 'package:calendar_project_240727/repository/formz_memo.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/work_history_model.dart';
@@ -18,11 +19,13 @@ Future<List<WorkHistory>> viewHistory (ViewHistoryRef ref) async {
 Future<void> addHistory (
     AddHistoryRef ref, int pay, DateTime date) async {
   final isar = await ref.watch(isarManagerProvider.future);
-  final contract = await ref.watch(viewContractProvider);
+  final contract = ref.watch(viewContractProvider);
   final addCustom = ref.watch(formzDecimalValidatorProvider);
 
   final recode = addCustom.decimalData.value.decimal;
+  final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
 
+  print('memoNote: $memoNote');
   late WorkHistory history;
   contract.when(data: (val) {
     if(pay == contract.value!.last.normal){
@@ -31,21 +34,27 @@ Future<void> addHistory (
           comment: '정상근무', /// 파란
           pay: contract.value!.last.normal,
           colorCode: '2196F3',
-          record: 1.0);
+          record: 1.0,
+          memo: memoNote,
+      );
     }else if(pay == contract.value!.last.extend){
       history = WorkHistory(
           date: date,
           comment: '연장근무',
           pay: contract.value!.last.extend,
           colorCode: 'FCAF50', /// 노란
-          record: 1.5);
+          record: 1.5,
+          memo: memoNote
+      );
     }else if(pay == contract.value!.last.night){
       history = WorkHistory(
           date: date,
           comment: '야간근무', /// 빨강
           pay: contract.value!.last.night,
           colorCode: 'F44336',
-          record: 2.0);
+          record: 2.0,
+          memo: memoNote
+      );
     } else if(pay == 0){
       history = WorkHistory(
         date: date,
@@ -53,6 +62,7 @@ Future<void> addHistory (
         pay: pay,  // 기본값 혹은 예외 처리
         colorCode: '4CAF50', /// 그린 4CAF50
         record: 0.0,
+        memo: memoNote,
       );
     }else {
       history = WorkHistory(
@@ -61,6 +71,7 @@ Future<void> addHistory (
         pay: pay,  // 기본값 혹은 예외 처리
         colorCode: 'AB47BC',  /// 퍼플 9C27B0.shade900 / AB47BC
         record: recode,
+        memo: memoNote,
       );
     };
   },

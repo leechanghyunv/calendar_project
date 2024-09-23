@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:pattern_formatter/numeric_formatter.dart';
 
 class DailySubsidyTextfield extends StatelessWidget {
 
@@ -22,6 +23,9 @@ class DailySubsidyTextfield extends StatelessWidget {
     return TextFormField(
       cursorColor: cursorColor,
       keyboardType: TextInputType.number,
+      inputFormatters: [
+        ThousandsFormatter(),
+      ],
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
@@ -29,14 +33,14 @@ class DailySubsidyTextfield extends StatelessWidget {
           ),
         ),
         hintText: '입력 후 우측 아이콘을 눌러주세요',
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           fontSize: 13,letterSpacing: 0.25,
         ),
         // prefixText: '₩ ',
-        suffixStyle: TextStyle(
+        suffixStyle: const TextStyle(
           fontSize: 13.5,
         ),
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
             fontWeight: FontWeight.bold,letterSpacing: 0.5,height: 1.5,
             fontSize: 15),
         suffixIcon: IconButton(

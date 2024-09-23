@@ -32,13 +32,18 @@ const WorkHistorySchema = CollectionSchema(
       name: r'date',
       type: IsarType.dateTime,
     ),
-    r'pay': PropertySchema(
+    r'memo': PropertySchema(
       id: 3,
+      name: r'memo',
+      type: IsarType.string,
+    ),
+    r'pay': PropertySchema(
+      id: 4,
       name: r'pay',
       type: IsarType.long,
     ),
     r'record': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'record',
       type: IsarType.double,
     )
@@ -79,6 +84,7 @@ int _workHistoryEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.colorCode.length * 3;
   bytesCount += 3 + object.comment.length * 3;
+  bytesCount += 3 + object.memo.length * 3;
   return bytesCount;
 }
 
@@ -91,8 +97,9 @@ void _workHistorySerialize(
   writer.writeString(offsets[0], object.colorCode);
   writer.writeString(offsets[1], object.comment);
   writer.writeDateTime(offsets[2], object.date);
-  writer.writeLong(offsets[3], object.pay);
-  writer.writeDouble(offsets[4], object.record);
+  writer.writeString(offsets[3], object.memo);
+  writer.writeLong(offsets[4], object.pay);
+  writer.writeDouble(offsets[5], object.record);
 }
 
 WorkHistory _workHistoryDeserialize(
@@ -105,8 +112,9 @@ WorkHistory _workHistoryDeserialize(
     colorCode: reader.readStringOrNull(offsets[0]) ?? '2196F3',
     comment: reader.readStringOrNull(offsets[1]) ?? '정상근무',
     date: reader.readDateTime(offsets[2]),
-    pay: reader.readLongOrNull(offsets[3]) ?? 0,
-    record: reader.readDoubleOrNull(offsets[4]) ?? 1.0,
+    memo: reader.readStringOrNull(offsets[3]) ?? '',
+    pay: reader.readLongOrNull(offsets[4]) ?? 0,
+    record: reader.readDoubleOrNull(offsets[5]) ?? 1.0,
   );
   object.id = id;
   return object;
@@ -126,8 +134,10 @@ P _workHistoryDeserializeProp<P>(
     case 2:
       return (reader.readDateTime(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset) ?? 0) as P;
+      return (reader.readStringOrNull(offset) ?? '') as P;
     case 4:
+      return (reader.readLongOrNull(offset) ?? 0) as P;
+    case 5:
       return (reader.readDoubleOrNull(offset) ?? 1.0) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -756,6 +766,137 @@ extension WorkHistoryQueryFilter
     });
   }
 
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'memo',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'memo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'memo',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> memoIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'memo',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition>
+      memoIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'memo',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<WorkHistory, WorkHistory, QAfterFilterCondition> payEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
@@ -917,6 +1058,18 @@ extension WorkHistoryQuerySortBy
     });
   }
 
+  QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> sortByMemo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'memo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> sortByMemoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'memo', Sort.desc);
+    });
+  }
+
   QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> sortByPay() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pay', Sort.asc);
@@ -992,6 +1145,18 @@ extension WorkHistoryQuerySortThenBy
     });
   }
 
+  QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> thenByMemo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'memo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> thenByMemoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'memo', Sort.desc);
+    });
+  }
+
   QueryBuilder<WorkHistory, WorkHistory, QAfterSortBy> thenByPay() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pay', Sort.asc);
@@ -1039,6 +1204,13 @@ extension WorkHistoryQueryWhereDistinct
     });
   }
 
+  QueryBuilder<WorkHistory, WorkHistory, QDistinct> distinctByMemo(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'memo', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<WorkHistory, WorkHistory, QDistinct> distinctByPay() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'pay');
@@ -1075,6 +1247,12 @@ extension WorkHistoryQueryProperty
   QueryBuilder<WorkHistory, DateTime, QQueryOperations> dateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'date');
+    });
+  }
+
+  QueryBuilder<WorkHistory, String, QQueryOperations> memoProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'memo');
     });
   }
 

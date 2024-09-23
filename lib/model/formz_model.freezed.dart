@@ -21,6 +21,7 @@ mixin _$ContractForm {
   PayInput get pay2 => throw _privateConstructorUsedError;
   PayInput get pay3 => throw _privateConstructorUsedError;
   TaxInput get tax => throw _privateConstructorUsedError;
+  SubsidyInput get subsidy => throw _privateConstructorUsedError;
   FormzStatus get status => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,6 +41,7 @@ abstract class $ContractFormCopyWith<$Res> {
       PayInput pay2,
       PayInput pay3,
       TaxInput tax,
+      SubsidyInput subsidy,
       FormzStatus status});
 }
 
@@ -61,6 +63,7 @@ class _$ContractFormCopyWithImpl<$Res, $Val extends ContractForm>
     Object? pay2 = null,
     Object? pay3 = null,
     Object? tax = null,
+    Object? subsidy = null,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
@@ -84,6 +87,10 @@ class _$ContractFormCopyWithImpl<$Res, $Val extends ContractForm>
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as TaxInput,
+      subsidy: null == subsidy
+          ? _value.subsidy
+          : subsidy // ignore: cast_nullable_to_non_nullable
+              as SubsidyInput,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -106,6 +113,7 @@ abstract class _$$ContractFormImplCopyWith<$Res>
       PayInput pay2,
       PayInput pay3,
       TaxInput tax,
+      SubsidyInput subsidy,
       FormzStatus status});
 }
 
@@ -125,6 +133,7 @@ class __$$ContractFormImplCopyWithImpl<$Res>
     Object? pay2 = null,
     Object? pay3 = null,
     Object? tax = null,
+    Object? subsidy = null,
     Object? status = null,
   }) {
     return _then(_$ContractFormImpl(
@@ -148,6 +157,10 @@ class __$$ContractFormImplCopyWithImpl<$Res>
           ? _value.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as TaxInput,
+      subsidy: null == subsidy
+          ? _value.subsidy
+          : subsidy // ignore: cast_nullable_to_non_nullable
+              as SubsidyInput,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -165,6 +178,7 @@ class _$ContractFormImpl implements _ContractForm {
       required this.pay2,
       required this.pay3,
       required this.tax,
+      required this.subsidy,
       required this.status});
 
   @override
@@ -178,11 +192,13 @@ class _$ContractFormImpl implements _ContractForm {
   @override
   final TaxInput tax;
   @override
+  final SubsidyInput subsidy;
+  @override
   final FormzStatus status;
 
   @override
   String toString() {
-    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, status: $status)';
+    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
   }
 
   @override
@@ -195,12 +211,13 @@ class _$ContractFormImpl implements _ContractForm {
             (identical(other.pay2, pay2) || other.pay2 == pay2) &&
             (identical(other.pay3, pay3) || other.pay3 == pay3) &&
             (identical(other.tax, tax) || other.tax == tax) &&
+            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
             (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, status);
+      Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, subsidy, status);
 
   @JsonKey(ignore: true)
   @override
@@ -216,6 +233,7 @@ abstract class _ContractForm implements ContractForm {
       required final PayInput pay2,
       required final PayInput pay3,
       required final TaxInput tax,
+      required final SubsidyInput subsidy,
       required final FormzStatus status}) = _$ContractFormImpl;
 
   @override
@@ -228,6 +246,8 @@ abstract class _ContractForm implements ContractForm {
   PayInput get pay3;
   @override
   TaxInput get tax;
+  @override
+  SubsidyInput get subsidy;
   @override
   FormzStatus get status;
   @override

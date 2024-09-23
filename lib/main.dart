@@ -1,27 +1,49 @@
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:page_transition/page_transition.dart';
-import 'core/logger.dart';
+import 'package:calendar_project_240727/core/export.dart';
+import 'package:flutter/foundation.dart';
+import 'firebase_messaging.dart';
 import 'firebase_options.dart';
+import 'local_notification.dart';
 
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  if (kDebugMode) {
+    print("Handling a background message: ${message.messageId}");
+    print('Message data: ${message.data}');
+    print('Message notification: ${message.notification?.title}');
+    print('Message notification: ${message.notification?.body}');
+  }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+/// 백그라운드에서 실행 중일 때 메시지 수신 리스너 설정
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  MessagingService messagingService = MessagingService();
+  messagingService.messagingPermission();
+  messagingService.getToken();
+  messagingService.subscribeToMessages();
+
   await initializeDateFormatting();
-  runApp( ProviderScope(
+  LocalNotificationManager.init();
+
+
+  runApp( const ProviderScope(
       observers: [
         // Logger(),
       ],
       child: MyApp()));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,7 +55,7 @@ class MyApp extends StatelessWidget {
     );
 
     return ScreenUtilInit(
-      designSize:  Size(390, 850),
+      designSize: const Size(390, 850),
       builder: (_,child) => MaterialApp(
 
         onGenerateRoute: (settings) {

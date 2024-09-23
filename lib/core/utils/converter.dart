@@ -21,8 +21,18 @@ String formatAmount(int amount) {
   return '$won만원';
 }
 
+String formatPayInt(int amount) {
+  final won = (amount / 10000).toStringAsFixed(0); // 소수점 없이 정수 부분만 사용
+  return '$won만원';
+}
+
 String formatDecimalAmount(double amount) {
   final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
+  return '$won만원';
+}
+
+String formatPay(double amount) {
+  final won = (amount / 10000).toStringAsFixed(0); // 소수점 없이 정수 부분만 사용
   return '$won만원';
 }
 

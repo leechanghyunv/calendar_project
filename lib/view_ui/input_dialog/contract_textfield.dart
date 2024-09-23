@@ -1,30 +1,47 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pattern_formatter/numeric_formatter.dart';
+import 'package:calendar_project_240727/core/export.dart';
 
 class MoneyinputTextfield extends StatelessWidget {
+  final bool? autofocus;
+  final FocusNode? focusNode;
   final String? hintMsg;
   final String? labelMsg;
   final String? initialValue;
   final double edgeValue;
   final void Function(String)? onChanged;
+  final TextInputAction textInputAction;
+
+  final TextEditingController? controller;
 
   const MoneyinputTextfield(
       {super.key,
+        this.autofocus,
         this.hintMsg,
         this.labelMsg,
         this.initialValue,
         required this.edgeValue,
-        this.onChanged});
+        this.onChanged,
+        required this.textInputAction,
+        this.focusNode,
+        this.controller});
 
   @override
   Widget build(BuildContext context) {
 
+    final appWidth = MediaQuery.of(context).size.width;
+
+    double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
+    double adaptiveSize(double size) => Platform.isAndroid ? (size - 1.0) : size;
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: edgeValue),
       child: Container(
-        height: 47.5.w,
+        height: appWidth > 500 ? 23.75.sp : 47.5.sp,
+
         child: TextFormField(
+          controller: controller,
+          textInputAction: textInputAction,
+          autofocus: autofocus ?? false,
+          focusNode: focusNode,
           onChanged: onChanged,
           keyboardType: TextInputType.number,
           initialValue: initialValue,
@@ -41,17 +58,17 @@ class MoneyinputTextfield extends StatelessWidget {
             ),
             prefixText: '₩ ',
             prefixStyle: TextStyle(
-              fontSize: 15.sp,
+              fontSize: appWidth > 500 ? screenUtilSize(7.5) : screenUtilSize(15),
             ),
             // suffixText: '원',
             hintText: hintMsg,
             hintStyle: TextStyle(
-              fontSize:  15.sp,
+              fontSize:  appWidth > 500 ? screenUtilSize(7.5) : screenUtilSize(15),
               color: Colors.grey[600],
             ),
             labelText: labelMsg, /// '🌟 1공수(정상근무) *', 🚀 1.5공수(연장근무) * 🎉 2공수(야간근무) *
             labelStyle: TextStyle(
-              fontSize:  15.sp,
+              fontSize:  appWidth > 500 ? screenUtilSize(7.5) : screenUtilSize(15),
               color: Colors.grey[900],
             ),
           ),

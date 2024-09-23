@@ -42,8 +42,13 @@ const LabourConditionSchema = CollectionSchema(
       name: r'normal',
       type: IsarType.long,
     ),
-    r'tax': PropertySchema(
+    r'subsidy': PropertySchema(
       id: 5,
+      name: r'subsidy',
+      type: IsarType.long,
+    ),
+    r'tax': PropertySchema(
+      id: 6,
       name: r'tax',
       type: IsarType.double,
     )
@@ -82,7 +87,8 @@ void _labourConditionSerialize(
   writer.writeLong(offsets[2], object.goal);
   writer.writeLong(offsets[3], object.night);
   writer.writeLong(offsets[4], object.normal);
-  writer.writeDouble(offsets[5], object.tax);
+  writer.writeLong(offsets[5], object.subsidy);
+  writer.writeDouble(offsets[6], object.tax);
 }
 
 LabourCondition _labourConditionDeserialize(
@@ -97,7 +103,8 @@ LabourCondition _labourConditionDeserialize(
     goal: reader.readLongOrNull(offsets[2]) ?? 0,
     night: reader.readLongOrNull(offsets[3]) ?? 0,
     normal: reader.readLongOrNull(offsets[4]) ?? 0,
-    tax: reader.readDoubleOrNull(offsets[5]) ?? 0.0,
+    subsidy: reader.readLongOrNull(offsets[5]) ?? 0,
+    tax: reader.readDoubleOrNull(offsets[6]) ?? 0.0,
   );
   object.id = id;
   return object;
@@ -121,6 +128,8 @@ P _labourConditionDeserializeProp<P>(
     case 4:
       return (reader.readLongOrNull(offset) ?? 0) as P;
     case 5:
+      return (reader.readLongOrNull(offset) ?? 0) as P;
+    case 6:
       return (reader.readDoubleOrNull(offset) ?? 0.0) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -559,6 +568,62 @@ extension LabourConditionQueryFilter
   }
 
   QueryBuilder<LabourCondition, LabourCondition, QAfterFilterCondition>
+      subsidyEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'subsidy',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterFilterCondition>
+      subsidyGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'subsidy',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterFilterCondition>
+      subsidyLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'subsidy',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterFilterCondition>
+      subsidyBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'subsidy',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterFilterCondition>
       taxEqualTo(
     double value, {
     double epsilon = Query.epsilon,
@@ -698,6 +763,19 @@ extension LabourConditionQuerySortBy
     });
   }
 
+  QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy> sortBySubsidy() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'subsidy', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy>
+      sortBySubsidyDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'subsidy', Sort.desc);
+    });
+  }
+
   QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy> sortByTax() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'tax', Sort.asc);
@@ -790,6 +868,19 @@ extension LabourConditionQuerySortThenBy
     });
   }
 
+  QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy> thenBySubsidy() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'subsidy', Sort.asc);
+    });
+  }
+
+  QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy>
+      thenBySubsidyDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'subsidy', Sort.desc);
+    });
+  }
+
   QueryBuilder<LabourCondition, LabourCondition, QAfterSortBy> thenByTax() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'tax', Sort.asc);
@@ -835,6 +926,13 @@ extension LabourConditionQueryWhereDistinct
     });
   }
 
+  QueryBuilder<LabourCondition, LabourCondition, QDistinct>
+      distinctBySubsidy() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'subsidy');
+    });
+  }
+
   QueryBuilder<LabourCondition, LabourCondition, QDistinct> distinctByTax() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'tax');
@@ -877,6 +975,12 @@ extension LabourConditionQueryProperty
   QueryBuilder<LabourCondition, int, QQueryOperations> normalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'normal');
+    });
+  }
+
+  QueryBuilder<LabourCondition, int, QQueryOperations> subsidyProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'subsidy');
     });
   }
 
