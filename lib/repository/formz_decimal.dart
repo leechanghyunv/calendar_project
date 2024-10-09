@@ -63,11 +63,11 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
           addHistoryProvider(pay, date));
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
-        saveSettingMsg();
+        customMsg('근로조건이 등록되었습니다.');
       });
     }catch(e){
       state = state.copyWith(status: DecimalFormzStatus.submissionFailure);
-      failureMsg();
+      customMsg('입력값 저장을 실패했습니다.');
     }
 
   }

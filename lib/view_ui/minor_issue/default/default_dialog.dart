@@ -6,12 +6,12 @@ class DefaultDialog extends StatefulWidget {
 
   final List<Widget>? actions;
   final List<Widget> children;
-  final String msg;
+  final Widget? title;
 
-  DefaultDialog({super.key,
+
+  const DefaultDialog({super.key,
     required this.children,
-    required this.msg,
-    this.actions});
+    this.actions, this.title});
 
   @override
   State<DefaultDialog> createState() => _DefaultDialogState();
@@ -34,10 +34,7 @@ class _DefaultDialogState extends State<DefaultDialog> {
         ),
         10.0,
       ),
-      title: QrContainer(
-          msg: widget.msg,
-        textColor: Colors.black,
-      ),
+      title: widget.title,
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),

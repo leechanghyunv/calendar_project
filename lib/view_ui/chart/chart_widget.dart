@@ -64,7 +64,6 @@ class ChartWidget extends ConsumerWidget {
                   final month = monthRecord.toStringAsFixed(1);
                   final payRecord = state.totalPaynMonth;
                   final afterTax = state.afterTaxMonth;
-
                   return PieChartNumericTextBox(
                     children: [
                       Text(
@@ -86,7 +85,6 @@ class ChartWidget extends ConsumerWidget {
                             final subsidyMonth = state.totolSubsidyDaynMonth;
                             final total = subsidyMonth + afterTax.toInt();
                             return Container(
-
                               child: RichText(
                                   text: TextSpan(children: [
                                 TextSpan(
@@ -144,7 +142,7 @@ class ChartWidget extends ConsumerWidget {
                               letterSpacing: 0.5),
                             ),
                               ),
-                          loading: () => Container(
+                          loading: () => SizedBox(
                                 height: 70.sp,
                                 width: 160.sp,
                               child: Text('근무등록을 하시면 ${selected.month}월 공수가 입력됩니다. 세전 금액과 세후 금액을 확인하실 수 있습니다.',
@@ -190,7 +188,9 @@ class ChartWidget extends ConsumerWidget {
                         ],
                       ),
                       SizedBox(height: appWidth > 500? 2.5.w : 5.w),
-                      history.when(data: (val) => Column(
+                      history.when(
+                        data: (val) =>
+                            Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
@@ -206,7 +206,8 @@ class ChartWidget extends ConsumerWidget {
                                               ? appWidth > 500 ? 6.5.sp : 13.sp
                                               : appWidth > 500 ? 6.75.sp : 13.5.sp,
                                           color: Colors.black,
-                                          fontWeight: FontWeight.w900)),
+                                          fontWeight: FontWeight.w900),
+                                  ),
                                   TextSpan(
                                       text: '연장 ',
                                       style:
@@ -248,7 +249,8 @@ class ChartWidget extends ConsumerWidget {
                           ),
 
                         ],
-                      ), error: (err,trace) => Container(
+                      ),
+                        error: (err,trace) => Container(
                         alignment: Alignment.centerLeft,
                         child: TextWidget2(
                             '공수별 데이터를 보여드립니다.\nex) 1공수 42% 120만원',

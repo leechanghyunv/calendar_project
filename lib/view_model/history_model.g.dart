@@ -21,7 +21,7 @@ final viewHistoryProvider =
 );
 
 typedef ViewHistoryRef = AutoDisposeFutureProviderRef<List<WorkHistory>>;
-String _$addHistoryHash() => r'0b799029b0abd39192752c9c36c85173e57aa9d4';
+String _$addAllHistoryHash() => r'af5fda8bd3ba7d9c1d200ce19c09027e1b4e3633';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,6 +43,134 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+/// See also [addAllHistory].
+@ProviderFor(addAllHistory)
+const addAllHistoryProvider = AddAllHistoryFamily();
+
+/// See also [addAllHistory].
+class AddAllHistoryFamily extends Family<AsyncValue<void>> {
+  /// See also [addAllHistory].
+  const AddAllHistoryFamily();
+
+  /// See also [addAllHistory].
+  AddAllHistoryProvider call(
+    List<WorkHistory> list,
+  ) {
+    return AddAllHistoryProvider(
+      list,
+    );
+  }
+
+  @override
+  AddAllHistoryProvider getProviderOverride(
+    covariant AddAllHistoryProvider provider,
+  ) {
+    return call(
+      provider.list,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'addAllHistoryProvider';
+}
+
+/// See also [addAllHistory].
+class AddAllHistoryProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [addAllHistory].
+  AddAllHistoryProvider(
+    List<WorkHistory> list,
+  ) : this._internal(
+          (ref) => addAllHistory(
+            ref as AddAllHistoryRef,
+            list,
+          ),
+          from: addAllHistoryProvider,
+          name: r'addAllHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$addAllHistoryHash,
+          dependencies: AddAllHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              AddAllHistoryFamily._allTransitiveDependencies,
+          list: list,
+        );
+
+  AddAllHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.list,
+  }) : super.internal();
+
+  final List<WorkHistory> list;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(AddAllHistoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: AddAllHistoryProvider._internal(
+        (ref) => create(ref as AddAllHistoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        list: list,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _AddAllHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AddAllHistoryProvider && other.list == list;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, list.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin AddAllHistoryRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `list` of this provider.
+  List<WorkHistory> get list;
+}
+
+class _AddAllHistoryProviderElement
+    extends AutoDisposeFutureProviderElement<void> with AddAllHistoryRef {
+  _AddAllHistoryProviderElement(super.provider);
+
+  @override
+  List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
+}
+
+String _$addHistoryHash() => r'd1434767abbc3af95cfeb59489f2300620c3c1c4';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)

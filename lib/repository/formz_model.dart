@@ -185,10 +185,10 @@ class FormzValidator extends _$FormzValidator {
         );
         ref.read(addContractProvider(contract));
         state = state.copyWith(status: FormzStatus.submissionSuccess);
-        saveSettingMsg();  /// '근로조건이 등록되었습니다.'
+        customMsg('근로조건이 등록되었습니다.');  /// '근로조건이 등록되었습니다.'
       } catch (e) {
         state = state.copyWith(status: FormzStatus.submissionFailure);
-        failureMsg();  /// 입력값 저장을 실패했습니다.
+        customMsg('입력값 저장을 실패했습니다.');
       }
     }
   }

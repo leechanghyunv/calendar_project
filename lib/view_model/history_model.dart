@@ -15,6 +15,13 @@ Future<List<WorkHistory>> viewHistory (ViewHistoryRef ref) async {
   return isar.getHistory();
 }
 
+
+@riverpod
+Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
+  final isar = await ref.watch(isarManagerProvider.future);
+  isar.addAllHistory(list);
+}
+
 @riverpod
 Future<void> addHistory (
     AddHistoryRef ref, int pay, DateTime date) async {
@@ -73,11 +80,11 @@ Future<void> addHistory (
         record: recode,
         memo: memoNote,
       );
-    };
+    }
   },
       error: (err,trace) => print(err.toString()),
       loading: () => print('loading....'));
-  return isar.addHistory(history,date);
+  return isar.addHistory(history);
 }
 
 @riverpod

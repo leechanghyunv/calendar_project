@@ -8,7 +8,7 @@ class DecimalInput extends FormzInput<DecimalPayModel, String> {
       : super.pure(
       const DecimalPayModel(month: '', day: '', pay: 0, decimal: 0.0,));
 
-  const DecimalInput.dirty(DecimalPayModel decimalPayModel) : super.dirty(decimalPayModel);
+  const DecimalInput.dirty(super.decimalPayModel) : super.dirty();
 
   @override
   String? validator(DecimalPayModel value) {

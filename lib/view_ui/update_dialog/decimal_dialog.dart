@@ -45,7 +45,7 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
     ref.listen(formzDecimalValidatorProvider, (pre,cur) async {
       if (cur.status == DecimalFormzStatus.submissionSuccess) {
         Future.delayed(const Duration(seconds: 0), () {
-          ref.refresh(calendarEventProvider(date));
+          ref.refresh(calendarEventProvider);
           ref.read(timeManagerProvider.notifier).selectedNextDay();
           Navigator.pushReplacementNamed(context, '/main');
         });
@@ -92,21 +92,24 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
     return AlertDialog(
       title: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            TextWidget(
-                '공수를 숫자로 입력해주세요', 15.5 ,appWidth),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              TextWidget(
+                  '📁 공수를 숫자로 입력해주세요', 15.5 ,appWidth),
 
-            Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:  12.0),
-              child: LoadingAnimationWidget.staggeredDotsWave(
-                  color: Colors.black, size: 20),
-            ),
-          ],
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:  12.0),
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                    color: Colors.black, size: 20),
+              ),
+            ],
+          ),
         ),
       ),
-      content: Container(
+      content: SizedBox(
         height: 230,
         width: 50.w,
         child: KeyboardActions(
@@ -190,7 +193,7 @@ class _DecimalDialogState extends ConsumerState<DecimalDialog> {
                     child: ChoiceChip(
                       backgroundColor: Colors.grey[400],
                       label: Text(item.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,fontWeight: FontWeight.bold),
                       ),  // historyList의 값 표시
                       selected: _decimalController.text == item.toString(),

@@ -15,6 +15,7 @@ import '../input_dialog/contract_form.dart';
 import '../minor_issue/default/default_dialog.dart';
 import '../minor_issue/default/default_event_button_column.dart';
 import '../minor_issue/default/default_loading.dart';
+import '../minor_issue/widget/qr_container.dart';
 import '../minor_issue/widget/total_pay.dart';
 import 'decimal_pay_textfield.dart';
 import 'memo/memo_textfield.dart';
@@ -42,13 +43,13 @@ class _EnrollDialogWidghtState extends ConsumerState<EnrollDialogWidght> {
     return state.when(
         data: (val) {
           if (val.isEmpty) {
-            return InitialSetForm();
+            return const InitialSetForm();
           } else {
             return EnrollActive(
                 selected: timeManager.selected, contract: val.last);
           }
         },
-        error: (err, trace) => InitialSetForm(),
+        error: (err, trace) => const InitialSetForm(),
         loading: () => DefaultLoading());
   }
 }
@@ -72,10 +73,12 @@ class _EnrollActiveState extends State<EnrollActive> {
 
   Future<void> refresh(WidgetRef ref) async {
     Future.delayed(const Duration(seconds: 0), () {
-      ref.refresh(calendarEventProvider(widget.selected));
+      ref.refresh(calendarEventProvider);
       ref.read(timeManagerProvider.notifier).selectedNextDay();
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -84,52 +87,63 @@ class _EnrollActiveState extends State<EnrollActive> {
     final appHeight = MediaQuery.of(context).size.height;
 
     return DefaultDialog(
-      msg: '공수를 등록해주세요',
+      title: const QrContainer(
+        msg: '공수를 등록해주세요',
+        textColor: Colors.black,
+      ),
       actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 4.0),
-              child: TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context, builder: (context) => EraseDialog());
-                },
-                child: Text('데이터 지우기',
+        Consumer(
+        builder: (context, ref, child){
+          final textSize = appWidth > 500? screenUtilSize(8.5) : screenUtilSize(17);
+          final textSize2 = appWidth > 500? screenUtilSize(6.5) : screenUtilSize(13);
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 4.0),
+                child: TextButton(
+                  onPressed: () {
+                    showDialog(
+                        context: context, builder: (context) => EraseDialog());
+                  },
+                  child: Text('데이터 지우기',
                     style: TextStyle(
-                        fontSize: appWidth > 500? screenUtilSize(6.5) : screenUtilSize(13),
+                        fontSize: textSize2,
                         fontWeight: FontWeight.bold,
                         color: Colors.grey),
+                  ),
                 ),
               ),
-            ),
-            const Spacer(),
-            TextButton(
-                onPressed: () {
-                  cancelMsg();
-                  Navigator.pop(context);
-                },
-                child: TextWidget('취소',
-                    appWidth > 500? screenUtilSize(8.5) : screenUtilSize(17),
-                    appWidth)),
-            Consumer(
-                builder: (context, ref, child) {
-              return TextButton(
+              const Spacer(),
+              TextButton(
                   onPressed: () {
-                    if(pay == 0){
-                      customMsg('근무유형을 선택해주세요');
-                    } else {
-                      refresh(ref);
-                      Navigator.pop(context);
+                    // cancelMsg();
+                    if(pay != 0){
+                      ref.read(deleteHistoryProvider(widget.selected));
                     }
+                    Navigator.pop(context);
                   },
-                  child: TextWidget('확인',
-                      appWidth > 500? screenUtilSize(8.5) : screenUtilSize(17),
-                      appWidth));
-            }),
-          ],
+                  child: TextWidget('취소',
+                      textSize,
+                      appWidth)),
+              TextButton(
+                onPressed: () {
+                  if(pay == 0){
+                    customMsg('근무유형을 선택해주세요');
+                  } else {
+                    refresh(ref);
+                    Navigator.pop(context);
+                  }
+                  },
+                child: TextWidget('확인',
+                    textSize,
+                    appWidth),
+              ),
+            ],
+          );
+    }
+
         ),
       ],
       children: [
@@ -142,7 +156,7 @@ class _EnrollActiveState extends State<EnrollActive> {
                   children: [
                     Tooltip(
                         message: '목표금액 ${formatNumber(widget.contract.goal)}원',
-                        child: Column(
+                        child: const Column(
                           children: [
                             MemoTextfield(),
                             TotalPay(),
@@ -207,7 +221,9 @@ class _EnrollActiveState extends State<EnrollActive> {
             },
           );
         }),
-        DecimalPayTextfield(),
+
+            const DecimalPayTextfield(),
+
       ],
     );
   }

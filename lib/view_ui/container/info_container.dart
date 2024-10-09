@@ -52,7 +52,7 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                 padding: appHeight < 700
                     ? EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0)
                     : EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0),
-                child: Text('$selectedYear년 $selectedMonth월 공수 통계',
+                child: Text('$selectedYear년 $selectedMonth월 공수통계 ',
                   overflow: TextOverflow.visible,
                   maxLines: 1,
                   style: TextStyle(
@@ -65,7 +65,7 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                 ),
               ),
             ),
-            
+
             Expanded(
               child: history.when(
                   data: (val) {
@@ -76,7 +76,6 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                     final afterTaxPay = numeric.afterTaxTotal;
                     final afterTaxTotalAnd = numeric.afterTaxTotalAnd;
                     final totalAnd = numeric.totalPayAnd;
-
                     return Padding(
                       padding: EdgeInsets.fromLTRB(
                           appWidth > 500? 6.w : 12.w,
@@ -101,7 +100,7 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-              
+
                       ),
                     );
                   },
@@ -127,7 +126,7 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
 
         sizeFrame(SizedBox(height: 10.h)),
 
-        ChartWidget(),
+        const ChartWidget(),
 
         ButtomSpace(
             widgetL: const LeftContainer(),
@@ -137,13 +136,13 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                   case 0:
                     showDialog(
                       context: context,
-                      builder: (context) => InitialSetForm(),
+                      builder: (context) => const InitialSetForm(),
                     );
                     break;
                   case 1:
                   showDialog(
                       context: context,
-                      builder: (context) => EnrollDialogWidght()
+                      builder: (context) => const EnrollDialogWidght()
                   );
                     break;
                 }

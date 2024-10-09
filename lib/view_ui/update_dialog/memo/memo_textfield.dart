@@ -17,7 +17,7 @@ class _MemoTextfieldState extends ConsumerState<MemoTextfield> {
 
   List<String> historyMemoList = [];
   final FocusNode _nodeMemo = FocusNode();
-  final _memoFormKey = new GlobalKey<FormState>();
+  final _memoFormKey = GlobalKey<FormState>();
   final TextEditingController _memoController = TextEditingController();
 
   @override

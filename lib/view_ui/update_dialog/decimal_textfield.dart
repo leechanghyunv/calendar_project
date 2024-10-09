@@ -51,7 +51,7 @@ class DecimalTextfield extends StatelessWidget {
             icon: Icon(Icons.fingerprint_sharp,
               color: iconColor,
             ),
-          )
+          ),
       ),
       onChanged: onChanged,
     );

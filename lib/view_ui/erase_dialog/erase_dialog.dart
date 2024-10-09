@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../model/formz_deletion_model.dart';
 import '../../repository/calendar_time_controll.dart';
 import '../../view_model/calendar_event_model.dart';
 import '../../view_model/history_model.dart';
+import '../../view_model/toggle_model.dart';
 import 'deletion_textfield.dart';
 
 class EraseDialog extends ConsumerWidget {
@@ -42,7 +44,7 @@ class EraseDialog extends ConsumerWidget {
       if (cur.status == DeletionFormzStatus.submissionSuccess) {
         Future.delayed(const Duration(milliseconds: 250), () {
 
-          ref.refresh(calendarEventProvider(date));
+          ref.refresh(calendarEventProvider);
           ref.read(timeManagerProvider.notifier).selectedNextDay();
           Navigator.pushReplacementNamed(context, '/main');
         });
@@ -73,7 +75,7 @@ class EraseDialog extends ConsumerWidget {
                           fontSize: adaptiveSize(18),
                           fontWeight: FontWeight.w900)),
 
-                   TextSpan(text: '아이콘을 눌러주세요. 모든 공수 데이터가 삭제됩니다.',
+                   TextSpan(text: '아이콘을 눌러주세요.',
                       style: TextStyle(color: Colors.black,
                           fontSize: adaptiveSize(13.5),
                           fontWeight: FontWeight.bold,
@@ -90,20 +92,24 @@ class EraseDialog extends ConsumerWidget {
       return AlertDialog(
         title: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              TextWidget(
-                  '모두 지우시겠습니까?',15.5,appWidth),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:  12.0),
-                child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: Colors.black, size: 20),
-              ),
-            ],
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                TextWidget(
+                    '🗑️ 모두 지우시겠습니까 ?',15.5,appWidth
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:  12.0),
+                  child: LoadingAnimationWidget.staggeredDotsWave(
+                      color: Colors.black, size: 20),
+                ),
+              ],
+            ),
           ),
         ),
-        content: Container(
+        content: SizedBox(
           height: 240,
           width: 50.w,
           child: Column(
@@ -115,7 +121,7 @@ class EraseDialog extends ConsumerWidget {
                   children: [
                     TextWidget2(
                         formzRefNot.deletionError,
-                        12, Colors.red.shade300,appWidth),
+                        11, Colors.red.shade300,appWidth),
                   ],
                 ),
                 DeletionTextfield(
@@ -138,5 +144,6 @@ class EraseDialog extends ConsumerWidget {
         ),
       );
     });
+
   }
 }

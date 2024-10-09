@@ -6,7 +6,7 @@ part 'calendar_event_model.g.dart';
 
 @riverpod
 Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
-    CalendarEventRef ref, DateTime day) async {
+    CalendarEventRef ref) async {
   final isar = await ref.watch(isarManagerProvider.future);
-  return isar.calendarHistory(day);
+  return isar.calendarHistory();
 }

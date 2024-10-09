@@ -27,13 +27,13 @@ class QrContainer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             height: appWidth > 500 ? 40.sp : 80.sp,
             width: appWidth > 500 ? 40.sp : 80.sp,
             child: QrImageView(
                 data: 'https://apps.apple.com/kr/app/%EC%9B%8C%ED%81%AC%EC%BA%98%EB%A6%B0%EB%8D%94-%EA%B3%B5%EC%88%98%EB%8B%AC%EB%A0%A5/id6596813027'),
           ),
-          SizedBox(width: appWidth > 500 ? 7.5.w : 15.w),
+          SizedBox(width: 15.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

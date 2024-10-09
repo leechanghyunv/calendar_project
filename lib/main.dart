@@ -1,6 +1,9 @@
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
 import 'package:calendar_project_240727/core/export.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:showcaseview/showcaseview.dart';
+import 'core/widget/toast_msg.dart';
 import 'firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'local_notification.dart';
@@ -13,9 +16,6 @@ Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
   if (kDebugMode) {
     print("Handling a background message: ${message.messageId}");
-    print('Message data: ${message.data}');
-    print('Message notification: ${message.notification?.title}');
-    print('Message notification: ${message.notification?.body}');
   }
 }
 
@@ -56,28 +56,35 @@ class MyApp extends StatelessWidget {
 
     return ScreenUtilInit(
       designSize: const Size(390, 850),
-      builder: (_,child) => MaterialApp(
+      builder: (_,child) =>
+          ShowCaseWidget(
+            builder: (context) => StyledToast(
+              locale: const Locale('ko', 'KR'),
+              child: MaterialApp(
+                navigatorKey: navigatorKey,
+                onGenerateRoute: (settings) {
+                switch (settings.name) {
+                  case '/main':
+                    return PageTransition(
+                      child: const MainScreen(),
+                      type: PageTransitionType.fade,
+                      settings: settings,
+                    );
+                  default:
+                    return null;
+                }
+              },
+              
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                useMaterial3: false,
+              ),
+              home: const MainScreen(),
+              
+                        ),
+            ),
+          ),
 
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case '/main':
-              return PageTransition(
-                child: MainScreen(),
-                type: PageTransitionType.fade,
-                settings: settings,
-              );
-            default:
-              return null;
-          }
-        },
-
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          useMaterial3: false,
-        ),
-        home: MainScreen(),
-
-      ),
     );
   }
 }

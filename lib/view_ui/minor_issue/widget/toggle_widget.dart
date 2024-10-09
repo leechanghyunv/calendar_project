@@ -23,7 +23,7 @@ class _ToggleWidgetState extends State<ToggleWidget> {
       return Platform.isAndroid
           ? appWidth > 500? (size - 1.0).sp/2 : (size - 1.0).sp
           : appWidth > 500? size.sp/2 :  size.sp;
-    };
+    }
 
     return ToggleSwitch(
       minWidth: appHeight < 700

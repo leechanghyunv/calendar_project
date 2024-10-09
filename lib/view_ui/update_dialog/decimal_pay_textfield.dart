@@ -19,7 +19,7 @@ class DecimalPayTextfield extends ConsumerWidget {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (context) => DecimalDialog(),
+                builder: (context) => const DecimalDialog(),
               );
             },
             child: DecimalTextButton(appWidth),
@@ -51,6 +51,8 @@ Widget DecimalTextButton(double appWidth) => Container(
             ),
 
           ),
+          // Spacer(),
+          // Icon(Icons.settings,size: 20,color: Colors.grey[600],),
         ],
       ),
       Row(

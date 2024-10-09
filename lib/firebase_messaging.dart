@@ -5,12 +5,12 @@ import 'package:rxdart/rxdart.dart';
 import 'main.dart';
 
 class MessagingService {
-  static final FirebaseMessaging messaging = FirebaseMessaging.instance;
+  final FirebaseMessaging messaging = FirebaseMessaging.instance;
   final _messageStreamController = BehaviorSubject<RemoteMessage>();
 
   Future<void> messagingPermission() async {
     try{
-      final settings = await FirebaseMessaging.instance.requestPermission(
+      final settings = await messaging.requestPermission(
         alert: true,
         announcement: false,
         badge: true,
@@ -33,7 +33,7 @@ class MessagingService {
 
   Future<void> getToken() async {
     try {
-      final token = await FirebaseMessaging.instance.getToken();
+      final token = await messaging.getToken();
       if (kDebugMode) {
         print('Token: $token');
       }
@@ -63,28 +63,3 @@ class MessagingService {
   }
 
 }
-
-
-// Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   // 앱이 백그라운드에서 실행 중일 때 메시지를 처리하는 로직
-//   if (kDebugMode) {
-//     print("Handling a background message: ${message.messageId}");
-//   }
-//   // 메시지 데이터를 사용하여 필요한 작업 수행
-//   if (message.data.isNotEmpty) {
-//     if (kDebugMode) {
-//       print("Message data: ${message.data}");
-//     }
-//     // 예: 메시지 데이터를 사용하여 알림 표시
-//     LocalNotificationManager.showNotification();
-//   }
-//   // 메시지의 알림 데이터를 사용하여 알림 표시
-//   if (message.notification != null) {
-//     if (kDebugMode) {
-//       print("Message notification: ${message.notification!.body}");
-//     }
-//     // 예: 메시지 알림을 사용하여 알림 표시
-//     LocalNotificationManager.showNotification();
-//     // showNotification(message.notification!.title, message.notification!.body);
-//   }
-// }

@@ -17,11 +17,6 @@ class DefaultInfobox extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 6.0.w),
       child: Container(
-        constraints: BoxConstraints(
-
-
-        ),
-        
         width: appWidth > 500 ? appWidth/2.05 : appWidth,
 
         height: appHeight < 700

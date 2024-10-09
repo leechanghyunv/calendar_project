@@ -38,7 +38,7 @@ class FormzDeletionValidator extends _$FormzDeletionValidator {
       ref.read(clearHistoryProvider);
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DeletionFormzStatus.submissionSuccess);
-        clearMsg();
+        customMsg('데이터를 모두 삭제합니다');
       });
     }catch(e){
       state = state.copyWith(status: DeletionFormzStatus.submissionFailure);

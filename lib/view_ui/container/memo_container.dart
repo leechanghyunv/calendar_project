@@ -39,7 +39,7 @@ class MemoDisplayContainer extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () async {
-            await ref
+            ref
                 .read(deleteHistoryProvider(selected.selected));
             Future.delayed(const Duration(seconds: 0), () {});
             ref
@@ -70,7 +70,7 @@ class MemoContainer extends ConsumerWidget {
     return data.when(
         data: (val) {
           final selectedData = val.where((e) => e.date.toUtc() == selected).map((e) => e.memo);
-          return Container(
+          return SizedBox(
             height: 85.sp,
             child: Column(
               children: [
@@ -95,7 +95,7 @@ class MemoContainer extends ConsumerWidget {
                   child: Row(
                     children: [
                       TextWidget2(
-                        selectedData.join(', ').length < 1
+                        selectedData.join(', ').isEmpty
                           ? '${selected.year % 100}년 ${selected.month}월 ${selected.day}일 기록한 내용이 없습니다.'
                           : '${selected.year % 100}년 ${selected.month}월 ${selected.day}일 메모 데이터입니다.',
                         8.5,

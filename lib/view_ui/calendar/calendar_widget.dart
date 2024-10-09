@@ -12,11 +12,12 @@ import '../container/memo_container.dart';
 import 'package:calendar_project_240727/core/export.dart';
 
 final calendarMemoProvider = StateProvider<String>((ref) => '');
-class WorkCalender extends ConsumerWidget {
+
+class WorkCalendar extends ConsumerWidget {
   DateTime? focusedDay;
   late DateTime selectedDay;
 
-  WorkCalender({
+  WorkCalendar({
     super.key,
     this.focusedDay,
     required this.selectedDay,
@@ -30,9 +31,9 @@ class WorkCalender extends ConsumerWidget {
 
     final timeManager = ref.watch(timeManagerProvider);
     final timeManagerNot = ref.read(timeManagerProvider.notifier);
-    final filtedEvent = ref.watch(calendarEventProvider(selectedDay));
+    final filtedEvent = ref.watch(calendarEventProvider);
 
-    final finted = filtedEvent.when(
+    final filted = filtedEvent.when(
         data: (data) {
           Future.delayed(const Duration(seconds: 0),
               () => ref.read(eventsProvider.notifier).state = data);
@@ -43,7 +44,7 @@ class WorkCalender extends ConsumerWidget {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 0),
-      child: Container(
+      child: SizedBox(
           width: MediaQuery.of(context).size.width,
           child: TableCalendar(
             locale: 'ko_KR',
@@ -56,7 +57,7 @@ class WorkCalender extends ConsumerWidget {
             onDayLongPressed: (DateTime? selected, DateTime? focused) {
               showDialog(
                   context: context,
-                  builder: (context) => MemoDisplayContainer(),
+                  builder: (context) => const MemoDisplayContainer(),
               );
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {
@@ -64,12 +65,9 @@ class WorkCalender extends ConsumerWidget {
             },
             eventLoader: (DateTime day) {
               DateTime UtcDay = day.toUtc();
-              return finted[UtcDay] ?? [];
+              return filted[UtcDay] ?? [];
             },
             selectedDayPredicate: (DateTime date) {
-              if (selectedDay == null) {
-                return false;
-              }
               return date.year == selectedDay.year &&
                   date.month == selectedDay.month &&
                   date.day == selectedDay.day;
@@ -151,6 +149,7 @@ class WorkCalender extends ConsumerWidget {
                   case 7:
                     return Center(child: dayText('일', appWidth));
                 }
+                return null;
                 // return null;
               },
               defaultBuilder: (context, date, events) {
@@ -165,7 +164,7 @@ class WorkCalender extends ConsumerWidget {
                 List<DateTime> substituteHolidays = holidays.where((holiday) {
                   return holiday.weekday == DateTime.sunday; // 공휴일이 일요일인 경우
                 }).map((holiday) {
-                  return holiday.add(Duration(days: 1)); // 다음 날 대체공휴일로 추가
+                  return holiday.add(const Duration(days: 1)); // 다음 날 대체공휴일로 추가
                 }).toList();
 
                 bool isSubstituteHoliday = substituteHolidays.any((holiday) =>
@@ -335,6 +334,7 @@ class WorkCalender extends ConsumerWidget {
                       });
                 }
                 ;
+                return null;
               },
             ),
           )),
@@ -349,7 +349,7 @@ extension HexColor on Color {
       String colorString = hexString;
       colorString = colorString.toUpperCase().replaceAll("#", "");
       if (colorString.length == 6) {
-        colorString = "FF" + colorString;
+        colorString = "FF$colorString";
       }
       color = Color(int.parse(colorString, radix: 16));
     } on Exception {

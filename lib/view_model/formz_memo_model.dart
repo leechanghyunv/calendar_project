@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 
 class MemoInput extends FormzInput<String,String>{
   const MemoInput.pure() : super.pure('');
-  const MemoInput.dirty([String value = '']) : super.dirty(value);
+  const MemoInput.dirty([super.value = '']) : super.dirty();
 
   @override
   String? validator(String value) {

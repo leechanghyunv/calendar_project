@@ -22,7 +22,7 @@ class TaxinputTextfield extends StatelessWidget {
     double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
     double adaptiveSize(double size) => Platform.isAndroid ? (size - 1.0) : size;
 
-    return Container(
+    return SizedBox(
       height: appWidth > 500 ? 24.sp : 47.5.sp,
       child: TextFormField(
         focusNode: focusNode,

@@ -74,7 +74,7 @@ class DailySubsidyDialog extends ConsumerWidget {
         child: Row(
           children: [
             TextWidget(
-                '일비를 입력해주세요',15.5,appWidth),
+                '📁 일비를 입력해주세요',15.5,appWidth),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:  12.0),
@@ -84,7 +84,7 @@ class DailySubsidyDialog extends ConsumerWidget {
           ],
         ),
       ),
-      content: Container(
+      content: SizedBox(
         height: 250,
         width: appWidth > 500? 325 : double.infinity,
         child: Column(

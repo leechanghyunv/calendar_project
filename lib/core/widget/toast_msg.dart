@@ -1,87 +1,92 @@
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import '../export.dart';
 
-import '../utils/converter.dart';
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-Future<bool?> initialMsg(String? amount) async => await
-Fluttertoast.showToast(
-    msg:'목표금액 $amount원 입력되었습니다.',
-    gravity: ToastGravity.CENTER);
-
-Future<bool?> showMsg(String pay,String? amount) async => await
-Fluttertoast.showToast(
-    msg:'$pay $amount가 입력되었습니다.',
-    gravity: ToastGravity.CENTER);
-
-Future<bool?> customMsg(String msg) async {
-  await Fluttertoast.showToast(
-      msg: msg,
-      gravity: ToastGravity.CENTER);
+void customMsg(String msg) {
+  final context = navigatorKey.currentContext;
+  if (context != null) {
+    showToastWidget(
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.7),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Text(
+          msg,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      context: context,
+      animation: StyledToastAnimation.fadeScale,
+      reverseAnimation: StyledToastAnimation.scale,
+      position: StyledToastPosition.top,
+      animDuration: Duration(milliseconds: 300),
+      duration: Duration(seconds: 2),
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+  }
 }
 
 
-Future<bool?> saveSettingMsg() async {
-  await Fluttertoast.showToast(
-      msg:'근로조건이 등록되었습니다.',
-      gravity: ToastGravity.CENTER);
+void enrollMsg(DateTime day, String value){
+  final context = navigatorKey.currentContext;
+  if (context != null) {
+    showToastWidget(
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.7),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Text(
+            '${day.month}월 ${day.day}일 $value 선택\n확인 버튼을 눌러주세요',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      context: context,
+      animation: StyledToastAnimation.fadeScale,
+      reverseAnimation: StyledToastAnimation.scale,
+      position: StyledToastPosition.top,
+      animDuration: Duration(milliseconds: 300),
+      duration: Duration(seconds: 2),
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+    );
+  }
 }
 
-Future<bool?> memoSettingMsg() async {
-  await Fluttertoast.showToast(
-      msg:'메모된 내용이 등록되었습니다',
-      gravity: ToastGravity.CENTER);
-}
 
-Future<bool?> settingErrorMsg() async => await
-Fluttertoast.showToast(
-    msg:'값을 모두 입력해주세요.',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> inputErrorMsg() async => await
-Fluttertoast.showToast(
-    msg:'근로조건을 다시 등록해주세요',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> ValueErrorMsg1(int val1, int val2) async => await
-Fluttertoast.showToast(
-    msg:'연장수당 ${formatAmount(val1)}이\n정상근무 수당${formatAmount(val2)}보다\n작거나 같습니다.\n\n다시 확인해주세요',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> ValueErrorMsg2(int val1, int val2) async => await
-Fluttertoast.showToast(
-    msg:'야간수당 ${formatAmount(val1)}이\n연장근무 수당${formatAmount(val2)}보다\n작거나 같습니다.\n\n다시 확인해주세요',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> pureStateErrorMsg() async => await
-Fluttertoast.showToast(
-    msg:'근로조건을 등록해주세요',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> enrollErrorMsg() async => await
-Fluttertoast.showToast(
-    msg:'근무유형을 선택해주세요',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> cancelMsg() async => await
-Fluttertoast.showToast(
-    msg:'취소되었습니다.',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> clearMsg() async => await
-Fluttertoast.showToast(
-    msg:'데이터를 모두 삭제합니다.',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> failureMsg() async => await
-Fluttertoast.showToast(
-    msg:'입력값 저장을 실패했습니다.',
-    gravity: ToastGravity.CENTER);
 
-Future<bool?> enrollMsg(DateTime day,String value) async => await
-Fluttertoast.showToast(
-    msg: '${day.month}월 ${day.day}일 $value 선택\n\n확인 버튼을 눌러주세요',
-    gravity: ToastGravity.CENTER);
-
-Future<bool?> enrollSaveMsg(DateTime day,String msg) async => await
-Fluttertoast.showToast(
-    msg: '${day.month}월 ${day.day}일 $msg로 저장되었습니다',
-    gravity: ToastGravity.CENTER);

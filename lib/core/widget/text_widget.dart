@@ -25,6 +25,18 @@ Widget TextWidget2(String msg, double size, Color color,double appWidth) => Text
           letterSpacing: 0.75),
     );
 
+Widget BackupTextWidget(String msg, double size, Color color,double appWidth) => Text(
+  msg,
+  style: TextStyle(
+    fontWeight: FontWeight.bold,
+    color: color,
+    fontSize: Platform.isAndroid
+        ? appWidth > 500 ? (size - 1.0).sp/2 : (size - 1.0).sp
+        : appWidth > 500 ? size.sp/2 : size.sp,
+  ),
+);
+
+
 Widget ErrorText(String msg,double appWidth) => Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

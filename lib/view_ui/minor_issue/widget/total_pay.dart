@@ -25,7 +25,7 @@ class TotalPay extends ConsumerWidget {
       child: GestureDetector(
         onTap: () => showDialog(
           context: context,
-          builder: (context) => MemoDisplayContainer(),
+          builder: (context) => const MemoDisplayContainer(),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,

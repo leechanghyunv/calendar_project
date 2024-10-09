@@ -34,7 +34,7 @@ class MoneyinputTextfield extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: edgeValue),
-      child: Container(
+      child: SizedBox(
         height: appWidth > 500 ? 23.75.sp : 47.5.sp,
 
         child: TextFormField(

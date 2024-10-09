@@ -17,17 +17,44 @@ class NumericSourceModel extends _$NumericSourceModel {
 
   int get goal => state.value?.contract.last.goal ?? 0;
   double get tax => state.value?.contract.last.tax ?? 0.0; /// %를 제외한 숫자로 나오기때문에 필터링
-  int get contractNormal => state.value?.contract.last.normal ?? 0;
-  int get contractExtend => state.value?.contract.last.extend ?? 0;
-  int get contractNight => state.value?.contract.last.night ?? 0;
 
-  int get subsidy => state.value?.contract.last.subsidy ?? 0; /// 애초에 0으로 초기화인데 경우의 수까지 넣음
+  int get contractNormal {
+    // 상태 확인 및 기본값 반환
+    if (state.value == null || state.value!.contract.isEmpty) {
+      return 0; // 기본값 0 반환
+    }
+    return state.value!.contract.last.normal; // non-null assertion 사용
+  }
 
+  int get contractExtend {
+    // 상태 확인 및 기본값 반환
+    if (state.value == null || state.value!.contract.isEmpty) {
+      return 0; // 기본값 0 반환
+    }
+    return state.value!.contract.last.extend; // non-null assertion 사용
+  }
+
+  int get contractNight {
+    // 상태 확인 및 기본값 반환
+    if (state.value == null || state.value!.contract.isEmpty) {
+      return 0; // 기본값 0 반환
+    }
+    return state.value!.contract.last.night; // non-null assertion 사용
+  }
+
+  int get subsidy {
+    if (state.value?.contract.isEmpty ?? true) {
+      return 0; // contract가 비어 있으면 0 반환
+    }
+    return state.value?.contract.last.subsidy ?? 0;
+  }
 
   int get subsidyworkDay => state.value?.history.where((e) => e.record >= 1.0).length ?? 0;
   int get subsidyworkDaynMonth => filteredHistory.where((e) => e.record >= 1.0).length;
 
   int get totolSubsidy => subsidy * subsidyworkDay;
+
+
   int get totolSubsidyDaynMonth => subsidy * subsidyworkDaynMonth;
 
 
@@ -85,8 +112,23 @@ class NumericSourceModel extends _$NumericSourceModel {
 
   /// 총 세후 금액
 
-  double get afterTaxTotal => double.parse(
-      (totalPay - (totalPay * filtedTax)).toStringAsFixed(1));
+  double get afterTaxTotal {
+    // totalPay가 null 또는 0인지 확인
+    if (totalPay <= 0) {
+      return 0.0; // totalPay가 유효하지 않으면 0 반환
+    }
+    // filtedTax가 null일 경우 0으로 처리
+    double taxRate = filtedTax ?? 0;
+    // 세후 총액 계산
+    double afterTaxAmount = totalPay - (totalPay * taxRate);
+    // 계산 결과가 유효한지 확인
+    if (afterTaxAmount < 0) {
+      return 0.0; // 음수가 되지 않도록 처리
+    }
+    // 결과를 소수점 1자리로 포맷팅
+    return double.parse(afterTaxAmount.toStringAsFixed(1));
+  }
+
 
   double get afterTaxTotalAnd => afterTaxTotal + totolSubsidy;
   /// 이번달 세후 금액
@@ -190,7 +232,6 @@ class NumericSourceModel extends _$NumericSourceModel {
     filteredHistory = history.where((item) {
       return item.date.isAfter(startDate) && item.date.isBefore(endDate);
     }).toList();
-    // print('refreshData ${history.last.comment} ${filteredHistory.where((e) => e.record == 0.0).length} ');
     return ConbinedDataModel(contract: contract, history: history);
   }
 

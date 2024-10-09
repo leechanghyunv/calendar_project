@@ -1,9 +1,13 @@
 import 'package:calendar_project_240727/core/export.dart';
+import '../widget/qr_container.dart';
 import 'default_dialog.dart';
 
 
 Widget DefaultLoading() => DefaultDialog(
-  msg: '로딩중 ......',
+  title: const QrContainer(
+    msg: '로딩중 ......',
+    textColor: Colors.black,
+  ),
   children: [
     const Spacer(),
     Padding(

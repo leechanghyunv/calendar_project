@@ -48,7 +48,7 @@ class FormzMemoValidator extends _$FormzMemoValidator {
     try{
         final val = state.memoData.value;
         if (val.length < 2) {
-          customMsg('메모는 최소 2자 이상 입력해주세요');
+          // customMsg('메모는 최소 2자 이상 입력해주세요');
           state = state.copyWith(status: MemoFormzStatus.invalid);
         } else {
           customMsg('메모가 저장되었습니다.\n근무유형을 선택해주세요');

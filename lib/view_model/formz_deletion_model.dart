@@ -3,7 +3,7 @@ import 'package:formz/formz.dart';
 
 class DeletionInput extends FormzInput<String,String> {
   const DeletionInput.pure() : super.pure('');
-  const DeletionInput.dirty([String value = '']) : super.dirty(value);
+  const DeletionInput.dirty([super.value = '']) : super.dirty();
 
   final String _value = 'Delete file';
 

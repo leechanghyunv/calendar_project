@@ -47,7 +47,15 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
       return history.when(
           data: (val){
             if(val.isEmpty){
-              return const SizedBox();
+              return  DefaultSmallBox(
+                child: Text(
+                  '근로조건을 입력해주세요. 누적금액, 목표금액 대비 남은 공수를 계산해서 보여줍니다.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: appWidth > 500 ? 7.0.sp : 14.0.sp, color: Colors.grey[700],
+                  ),
+                ),
+              );
             }else {
               final goalValue = formatAmountGoal(contract.value?.last.goal ?? 0);
               final timeManager = ref.watch(timeManagerProvider);
@@ -118,7 +126,7 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                             style: TextStyle(color: Colors.black,
                             fontWeight: FontWeight.w900,fontSize: fontSize,letterSpacing: 0.75)),
 
-                        TextSpan(text: '남은 공수는',
+                        TextSpan(text: remainingGoalPlusAfterTax.length > 3 ? '남은 공수' : '남은 공수는',
                             style: TextStyle(color: Colors.grey[900],fontSize: fontSize)),
 
                         TextSpan(text: subsidy != 0 ? ' $remainingGoalPlusAfterTax 공수' : ' $remainingGoalAfterTax 공수',style: TextStyle(
@@ -139,7 +147,8 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
               '근로조건을 입력해주세요. 누적금액, 목표금액 대비 남은 공수를 계산해서 보여줍니다.',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: appWidth > 500 ? 7.0.sp : 14.0.sp, color: Colors.grey[700]),
+                  fontSize: appWidth > 500 ? 7.0.sp : 14.0.sp, color: Colors.grey[700],
+              ),
 
             ),
           ),

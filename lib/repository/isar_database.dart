@@ -40,12 +40,22 @@ class IsarDatabase {
     throw const FormatException('getContract');
   }
 
+  Future<void> addAllContract(List<LabourCondition> list) async {
+    try{
+      print('addAllContract: $list');
+      isar.writeTxn(() async {
+        await isar.labourConditions.putAll(list);
+      });
+    }catch(e){
+      print('addAllContract: ${e.toString()}');
+    }
+  }
+
   Future<void> addContract(LabourCondition condition) async {
     try{
       print('addContract: $condition');
       isar.writeTxn(() async {
         await isar.labourConditions.put(condition);
-
       });
     }catch(e){
       print('addContract: ${e.toString()}');
@@ -65,9 +75,6 @@ class IsarDatabase {
   Future<List<WorkHistory>> getHistory() async {
     try{
       final history = await isar.workHistorys.where().findAll();
-      // print('getHistory ${history.last.date}');
-      // print('getHistory ${history.last.pay}');
-      // print('getHistory ${history.last.id}');
       return history;
     }catch(e){
       print('getHistory: ${e.toString()}');
@@ -75,7 +82,7 @@ class IsarDatabase {
     throw NoDataFoundException();
   }
 
-  Future<void> addHistory(WorkHistory contract,DateTime time) async {
+  Future<void> addHistory(WorkHistory contract) async {
     print('addHistory ');
     try{
       isar.writeTxn(() async {
@@ -83,6 +90,17 @@ class IsarDatabase {
       });
     }catch(e){
       print('addHistory: ${e.toString()}');
+    }
+  }
+
+  Future<void> addAllHistory(List<WorkHistory> contracts) async {
+    print('addAllHistory');
+    try {
+      await isar.writeTxn(() async {
+        await isar.workHistorys.putAll(contracts); // List 형태의 WorkHistory 객체 저장
+      });
+    } catch (e) {
+      print('addAllHistory: ${e.toString()}');
     }
   }
 
@@ -110,7 +128,7 @@ class IsarDatabase {
 
 /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
-  Future<Map<DateTime, List<WorkHistory>>> calendarHistory(DateTime day) async {
+  Future<Map<DateTime, List<WorkHistory>>> calendarHistory() async {
     Map<DateTime, List<WorkHistory>> mappedData = {};
     Map< DateTime, List<WorkHistory>> filtedData = {};
    /// print('GetcalendarHistory');

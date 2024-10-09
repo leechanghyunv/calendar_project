@@ -49,13 +49,18 @@ class SortedContract extends _$SortedContract {
   }
 }
 
-
-
-
 @Riverpod(keepAlive: true)
 Future<List<LabourCondition>> viewContract(ViewContractRef ref) async {
   final isar = await ref.watch(isarManagerProvider.future);
   return isar.getContract();
+}
+
+@riverpod
+Future<void> addAllContract(AddAllContractRef ref, List<LabourCondition> list) async {
+  final isar = await ref.watch(isarManagerProvider.future);
+  ref.invalidate(viewContractProvider);
+  ref.invalidate(sortedContractProvider);
+  return isar.addAllContract(list);
 }
 
 @riverpod

@@ -19,6 +19,7 @@ class GoalInput extends FormzInput<int, String> {
       double billion = value / 100000000;
       return '${billion.toStringAsFixed(1)}억 원 입니다';
     }
+    return null;
   }
 }
 
@@ -35,6 +36,7 @@ class PayInput extends FormzInput<int, String> {
     } else if (value >= 100000) {
       return '${NumberFormat.simpleCurrency(locale: 'ko', name: '₩ ', decimalDigits: 0).format(value)}원 입니다';
     }
+    return null;
   }
 }
 
@@ -46,6 +48,8 @@ class DecimalInput extends FormzInput<DecimalPayModel, String> {
 
   @override
   String? validator(DecimalPayModel value) {
+    return null;
+  
     
 
   }
