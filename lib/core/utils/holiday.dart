@@ -78,6 +78,7 @@ List<DateTime> holidays = [
   DateTime(2024, 9, 16), // 추석 연휴 (전날)
   DateTime(2024, 9, 17), // 추석
   DateTime(2024, 9, 18), // 추석 연휴 (다음날)
+  DateTime(2024, 10, 1), // 개천절
   DateTime(2024, 10, 3), // 개천절
   DateTime(2024, 10, 9), // 한글날
   DateTime(2024, 12, 25),// 크리스마스

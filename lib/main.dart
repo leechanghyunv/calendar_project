@@ -1,8 +1,6 @@
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
 import 'package:calendar_project_240727/core/export.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:showcaseview/showcaseview.dart';
 import 'core/widget/toast_msg.dart';
 import 'firebase_messaging.dart';
 import 'firebase_options.dart';

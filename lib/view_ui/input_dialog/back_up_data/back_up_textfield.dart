@@ -54,6 +54,7 @@ class BackUpTextfield extends StatelessWidget {
           icon:
           Showcase(
             key: iconKey,
+            targetPadding: const EdgeInsets.all(5),
             description: '👉 붙여넣은 후에 저장하기를 눌러주세요\n\n      이 방법은 ios,android간 호환가능합니다.',
             descTextStyle: const TextStyle(
               fontWeight: FontWeight.bold,

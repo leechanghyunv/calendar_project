@@ -3,6 +3,8 @@ import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/toggle_switch_value.dart';
 import 'package:calendar_project_240727/view_model/toggle_model.dart';
 import '../../../repository/calendar_time_controll.dart';
+import '../../../view_model/calendar_event_model.dart';
+import '../../../view_model/history_model.dart';
 import '../../container/memo_container.dart';
 
 class TotalPay extends ConsumerWidget {
@@ -16,17 +18,39 @@ class TotalPay extends ConsumerWidget {
     final selected = timeManager.selected;
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
+    final data = ref.watch(viewHistoryProvider);
 
     double adaptiveSize(double size) => Platform.isAndroid ? (size - 1.0) : size;
     double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
 
+    Future<void> refresh(WidgetRef ref) async {
+      Future.delayed(const Duration(milliseconds: 250), () {
+        ref.refresh(calendarEventProvider);
+        ref.read(timeManagerProvider.notifier).selectedNextDay();
+        Navigator.pushReplacementNamed(context, '/main');
+      });
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 10.0),
       child: GestureDetector(
-        onTap: () => showDialog(
-          context: context,
-          builder: (context) => const MemoDisplayContainer(),
-        ),
+        onTap: () async {
+          data.when(data: (val) async {
+            final selectedOne = val.where((e) => e.date.toUtc() == selected);
+            if(selectedOne.isEmpty){
+              customMsg('해당 날짜에 데이터가 없습니다.');
+            }else{
+              showDialog(
+                context: context,
+                builder: (context) => const MemoDisplayContainer(),
+              ).then((_){
+                refresh(ref);
+              });
+            }
+          }, error: (err,trace){}, loading: (){});
+
+
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,

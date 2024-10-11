@@ -5,9 +5,11 @@ import 'package:intl/intl.dart';
 
 import '../../core/utils/holiday.dart';
 import '../../core/widget/text_widget.dart';
+import '../../core/widget/toast_msg.dart';
 import '../../model/work_history_model.dart';
 import '../../repository/calendar_time_controll.dart';
 import '../../view_model/calendar_event_model.dart';
+import '../../view_model/history_model.dart';
 import '../container/memo_container.dart';
 import 'package:calendar_project_240727/core/export.dart';
 
@@ -32,6 +34,7 @@ class WorkCalendar extends ConsumerWidget {
     final timeManager = ref.watch(timeManagerProvider);
     final timeManagerNot = ref.read(timeManagerProvider.notifier);
     final filtedEvent = ref.watch(calendarEventProvider);
+    final data = ref.watch(viewHistoryProvider);
 
     final filted = filtedEvent.when(
         data: (data) {
@@ -41,6 +44,14 @@ class WorkCalendar extends ConsumerWidget {
         },
         error: (err, trace) => {},
         loading: () => {});
+
+    Future<void> refresh(WidgetRef ref) async {
+      Future.delayed(const Duration(milliseconds: 250), () {
+        ref.refresh(calendarEventProvider);
+        ref.read(timeManagerProvider.notifier).selectedNextDay();
+        Navigator.pushReplacementNamed(context, '/main');
+      });
+    }
 
     return Padding(
       padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 0),
@@ -55,9 +66,21 @@ class WorkCalendar extends ConsumerWidget {
             rowHeight: 52.5.h,
             calendarFormat: CalendarFormat.month,
             onDayLongPressed: (DateTime? selected, DateTime? focused) {
-              showDialog(
-                  context: context,
-                  builder: (context) => const MemoDisplayContainer(),
+              data.when(data: (val){
+                final selectedOne = val.where((e) => e.date.toUtc() == selected);
+                if(selectedOne.isEmpty){
+                  customMsg('해당 날짜에 데이터가 없습니다.');
+                }else{
+                  showDialog(
+                    context: context,
+                    builder: (context) => const MemoDisplayContainer(),
+                  ).then((_){
+                    refresh(ref);
+                  });
+                }
+              },
+                  error: (err,trace){},
+                  loading: (){},
               );
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {

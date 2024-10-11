@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/core/export.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 part 'showcase_global_key.g.dart';
 

@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/view_model/contract_model.dart';
 import 'package:calendar_project_240727/view_model/history_model.dart';
-import 'package:showcaseview/showcaseview.dart';
 
 import '../../../core/export.dart';
 import '../../../core/widget/text_widget.dart';
@@ -10,10 +8,10 @@ import '../../../model/work_history_model.dart';
 import '../../../repository/calendar_time_controll.dart';
 import '../../../view_model/calendar_event_model.dart';
 import '../../../view_model/filted_source_model.dart';
-import 'back_up_container.dart';
-import 'back_up_help_msg.dart';
+import 'back_up_dropdown_box.dart';
 import 'back_up_textfield.dart';
 import 'back_up_title.dart';
+import 'drop_down_value.dart';
 
 class BackUpDialog extends ConsumerStatefulWidget {
   const BackUpDialog({super.key});
@@ -53,19 +51,19 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
     final timeManager = ref.watch(timeManagerProvider);
-    final thisYear = timeManager.selected.year;
+    var thisYear = timeManager.selected.year;
     final state = ref.watch(numericSourceModelProvider(timeManager.selected));
+    final dropDownValue = ref.watch(dropDownValueProvider);
 
     return AlertDialog(
       title: backUpTitle(context),
       content: SingleChildScrollView(
         child: SizedBox(
-          height: 330,
+          height: 300,
           width: 50.w,
           child: Column(
             children: [
@@ -76,7 +74,8 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Showcase(
-                  key: _two,
+                  key: _three,
+                  targetPadding: const EdgeInsets.all(5),
                   description: '👉 복사한 데이터를 새 디바이스에 붙여넣기 해주세요',
                   descTextStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
@@ -87,7 +86,7 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
                     height: 50,
                     color: Colors.grey.shade300,
                     child: BackUpTextfield(
-                      iconKey: _three,
+                      iconKey: _four,
                       controller: _backupController,
                       focusNode: _focusNode,
                       hintText: '공수 데이터를 붙여넣어주세요',
@@ -97,16 +96,32 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
                       },
                       iconOnPressed: isStateEmpty
                           ? null
-                          : (){
-                        ref.read(addAllHistoryProvider(workHistoryList!));
-                        customMsg('공수 데이터가 저장되었습니다.\n데이터는 근로조건 입력 후 반영됩니다.');
-                        Future.delayed(const Duration(milliseconds: 500) ,(){
-                          ref.refresh(calendarEventProvider);
-                          ref.read(timeManagerProvider.notifier).selectedNextDay();
-                        _backupController.clear();
-                        });
-                        },
+                          : () async {
+                        state.when(data: (val) async {
+                          if(val.contract.isNotEmpty){
+                            if(workHistoryList != null){
+                              ref.read(addAllHistoryProvider(workHistoryList!));
+                              customMsg('공수 데이터가 저장되었습니다.');
+                              await Future.delayed(const Duration(milliseconds: 500) ,() {
+                                if (mounted) {  // 위젯이 여전히 마운트되어 있는지 확인
+                                  ref.refresh(calendarEventProvider);
+                                  ref.read(timeManagerProvider.notifier).selectedNextDay();
+                                  _backupController.clear();
+                                }
+                              });
+                              Navigator.pushReplacementNamed(context, '/main');
+                            }else{
+                              customMsg('데이터를 전부 붙여넣지 않았습니다\n맨 뒤 내용까지 확인해서 붙여넣어주세요');
+                            }
 
+                          }else{
+                            customMsg('근로조건을 먼저 저장해주세요.');
+                            Navigator.pop(context);
+                          }
+                        }, error: (err,trace){
+                        }, loading: (){});
+
+                        },
                       iconColor: isStateEmpty
                           ? Colors.grey.shade700
                           : Colors.blue.shade700,
@@ -116,56 +131,28 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
               ),
               ErrorText('근로조건을 저장한 후에 공수데이터가 캘린더에 반영됩니다.', appWidth),
               /// /// //////////////////////////////////////////
-              const SizedBox(height: 25),
-              BackUpContainer(
+              const SizedBox(height: 30),
+              BackUpDropdownBox(
+                _one,
+                _two,
                   (){
-                    state.when(data: (val){
-                      final histories = val.history.
-                      where((e) => e.date.year == thisYear);
-                      String jsonString = jsonEncode(histories.
-                      map((e) => e.toJson()).toList());
+                  state.when(data: (val){
+                    final histories = val.history.
+                    where((e) => e.date.year == dropDownValue);
+                    String jsonString = jsonEncode(histories.
+                    map((e) => e.toJson()).toList());
+                    if(histories.isEmpty){
+                      customMsg('공수 데이터가 없습니다.');
+                    } else {
                       Clipboard.setData(ClipboardData(text: jsonString));
-                      customMsg('$thisYear년 공수 데이터가 복사되었습니다.');
-                    },
-                    error: (err,trace) => {
-                    customMsg('공수 데이터가 없습니다.'),
-                    },
-                    loading: () => {}
-                    );
+                      customMsg('$dropDownValue년 공수 데이터가 복사되었습니다.');
+                    }
                   },
-                    (){
-                      state.when(data: (val){
-                        final histories = val.history.
-                        where((e) => e.date.year == thisYear - 1);
-                        String jsonString = jsonEncode(histories.
-                        map((e) => e.toJson()).toList());
-                        Clipboard.setData(ClipboardData(text: jsonString));
-                        customMsg('${thisYear-1}년 공수 데이터가 복사되었습니다.');
-                      },
-                          error: (err,trace) => {
-                            customMsg('공수 데이터가 없습니다.'),
-                          },
-                          loading: () => {}
-                      );
-                    },
-                    (){
-                      state.when(data: (val){
-                        final histories = val.history.
-                        where((e) => e.date.year == thisYear -2);
-                        String jsonString = jsonEncode(histories.
-                        map((e) => e.toJson()).toList());
-                        Clipboard.setData(ClipboardData(text: jsonString));
-                        customMsg('${thisYear-2}년 공수 데이터가 복사되었습니다.');
-                      },
-                          error: (err,trace) => {
-                            customMsg('공수 데이터가 없습니다.'),
-                          },
-                          loading: () => {}
-                      );
-                    },
-                    _one,
-                    _four,
+                      error: (err,trace) => customMsg('공수 데이터가 없습니다.'),
+                      loading: () => {});
+                  },
               ),
+              /// /// //////////////////////////////////////////
               const SizedBox(height: 10),
               // HelpMsg(appWidth),
             ],

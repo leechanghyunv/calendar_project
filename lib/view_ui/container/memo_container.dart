@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/model/work_history_model.dart';
 import 'package:calendar_project_240727/view_model/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../repository/calendar_time_controll.dart';
+import '../../view_model/calendar_event_model.dart';
 
 
 class MemoDisplayContainer extends ConsumerWidget {
@@ -15,7 +18,10 @@ class MemoDisplayContainer extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final selected = ref.watch(timeManagerProvider);
+    final month = selected.selected.month;
+    final day = selected.selected.day;
     final appWidth = MediaQuery.of(context).size.width;
+
 
     return AlertDialog(
       title: Row(
@@ -33,18 +39,15 @@ class MemoDisplayContainer extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () {
+            customMsg('취소되었습니다.');
             Navigator.pop(context);
           },
           child: TextWidget('취소', 15,appWidth),
         ),
         TextButton(
           onPressed: () async {
-            ref
-                .read(deleteHistoryProvider(selected.selected));
-            Future.delayed(const Duration(seconds: 0), () {});
-            ref
-                .read(timeManagerProvider.notifier)
-                .selectedNextDay();
+            await ref.read(deleteHistoryProvider(selected.selected));
+            customMsg('${month}월 ${day} 데이터를 삭제합니다');
             Navigator.pushReplacementNamed(context, '/main');
           },
           child: TextWidget('삭제', 15,appWidth),
@@ -69,26 +72,43 @@ class MemoContainer extends ConsumerWidget {
 
     return data.when(
         data: (val) {
+
           final selectedData = val.where((e) => e.date.toUtc() == selected).map((e) => e.memo);
+
           return SizedBox(
-            height: 85.sp,
+            height: 70.sp,
             child: Column(
               children: [
-                Container(
-                  height: 60.sp,
-                  color: Colors.grey[200],
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(5.0, 0.0, 8.0, 0.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        TextWidget(selectedData.join(', '), 15,appWidth),
-                        const Spacer(),
-                      ],
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 1,
+                        child: Container(
+                          height: 50.sp,
+                          color: Colors.grey,
+                        ),
                     ),
-                  ),
+
+                    Flexible(
+                      flex: 20,
+                      child: Container(
+                        height: 50.sp,
+                        color: Colors.grey[100],
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(5.0, 0.0, 8.0, 0.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Spacer(),
+                              TextWidget(' ${selectedData.join(', ')}', 15,appWidth),
+                              const Spacer(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5.0, 8.0, 8.0, 0.0),
@@ -109,6 +129,25 @@ class MemoContainer extends ConsumerWidget {
           );
         },
         error: (err, trace) => const SizedBox(),
-        loading: () => const SizedBox());
+        loading: () => const SizedBox()
+    );
   }
 }
+
+extension HexColor on Color {
+  static Color fromHex(String hexString) {
+    Color color;
+    try {
+      String colorString = hexString;
+      colorString = colorString.toUpperCase().replaceAll("#", "");
+      if (colorString.length == 6) {
+        colorString = "FF$colorString";
+      }
+      color = Color(int.parse(colorString, radix: 16));
+    } on Exception {
+      color = Colors.white;
+    }
+    return color;
+  }
+}
+
