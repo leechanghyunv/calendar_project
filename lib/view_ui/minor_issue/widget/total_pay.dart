@@ -60,7 +60,7 @@ class TotalPay extends ConsumerWidget {
               style: TextStyle(
                 fontSize: appWidth > 500? screenUtilSize(7) : screenUtilSize(14),
                 letterSpacing: 0.5,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w900,
               ),
             ),
             const Spacer(),

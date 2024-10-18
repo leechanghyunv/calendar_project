@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/model/work_history_model.dart';
 import 'package:calendar_project_240727/view_model/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../repository/calendar_time_controll.dart';
-import '../../view_model/calendar_event_model.dart';
 
 
 class MemoDisplayContainer extends ConsumerWidget {

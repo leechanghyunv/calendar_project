@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/export.dart';
 
 import 'package:calendar_project_240727/view_ui/input_dialog/subsidy/daily_subsidy_dialog.dart';
 import 'package:calendar_project_240727/view_ui/input_dialog/tax_textfield.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../../core/widget/text_widget.dart';
 import '../../core/widget/toast_msg.dart';
 import '../../model/formz_model.dart';
@@ -136,7 +137,10 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                       children: [
                         Expanded(
                             flex: 2,
-                            child: Container(child: ErrorText(formzRefNot.goalError,appWidth))),
+                            child: Container(
+                                child: ErrorText(formzRefNot.goalError,appWidth),
+                            ),
+                        ),
                         Expanded(
                             flex: 1,
                             child: Container(child: ErrorText2(formzRefNot.taxError,appWidth))),
@@ -269,14 +273,18 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                 (node) {
             return Row(
               children: [
-
-
                 GestureDetector(
                   onTap: () => FocusScope.of(context).requestFocus(_nodeText2),
                   child: Padding(
                     padding: const EdgeInsets.all( 12.0),
-                    child: TextWidget2("세율입력란으로",
-                        14,Colors.grey.shade700,appWidth),
+                    child: Row(
+                      children: [
+                        TextWidget2("👉 세율입력란으로 넘어가기",
+                            14,Colors.grey.shade700,appWidth)
+                            .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                            .fadeOut(duration: 0.5.seconds, curve: Curves.easeInOut),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -292,8 +300,10 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                 onTap: () => FocusScope.of(context).requestFocus(_nodeText3),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                  child: TextWidget2("정상근무입력란으로",
-                      14,Colors.grey.shade700,appWidth),
+                  child: TextWidget2("👉 정상근무입력란으로",
+                      14,Colors.grey.shade700,appWidth)
+                      .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                      .fadeOut(duration: 0.5.seconds, curve: Curves.easeInOut),
                 ),
               );
             },
@@ -309,8 +319,10 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                     onTap: () => FocusScope.of(context).requestFocus(_nodeText4),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: TextWidget2("연장근무입력란으로",
-                          14,Colors.grey.shade700,appWidth),
+                      child: TextWidget2("👉 연장근무입력란으로",
+                          14,Colors.grey.shade700,appWidth)
+                          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                          .fadeOut(duration: 0.5.seconds, curve: Curves.easeInOut),
                     ),
                   ),
                 ],
@@ -328,8 +340,10 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                     onTap: () => FocusScope.of(context).requestFocus(_nodeText5),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: TextWidget2("야간근무입력란으로",
-                          14,Colors.grey.shade700,appWidth),
+                      child: TextWidget2("👉 야간근무입력란으로",
+                          14,Colors.grey.shade700,appWidth)
+                          .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                          .fadeOut(duration: 0.5.seconds, curve: Curves.easeInOut),
                     ),
                   ),
                 ],
@@ -352,8 +366,10 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Row(
                         children: [
-                          TextWidget2("모두 입력했습니다",
-                              14,Colors.grey.shade700,appWidth),
+                          TextWidget2("👉 모두 입력했습니다",
+                              14,Colors.grey.shade700,appWidth)
+                              .animate(onPlay: (controller) => controller.repeat(reverse: true))
+                              .fadeOut(duration: 0.5.seconds, curve: Curves.easeInOut),
                         ],
                       ),
                     ),

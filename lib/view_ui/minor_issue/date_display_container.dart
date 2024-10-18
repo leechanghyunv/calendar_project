@@ -19,7 +19,11 @@ class DisplayContainer extends ConsumerWidget {
             SizedBox(
               height: 20,
               width: MediaQuery.of(context).size.width,
-              child: const Row(),
+              child: const Row(
+                children: [
+
+                ],
+              ),
 
         ),
         loading: () =>
@@ -45,7 +49,6 @@ class DateContainerWidget extends ConsumerWidget {
     final appWidth = MediaQuery.of(context).size.width;
     final percentage = (workDay/180 * 100);
     final String present = (percentage > 100 ? 100 : percentage).toStringAsFixed(1);
-    final showCaseGlobalKey = ref.watch(globalKeyProvider);
 
     TextStyle textStyle = TextStyle(
       color: Colors.grey[800],
@@ -55,20 +58,11 @@ class DateContainerWidget extends ConsumerWidget {
           ? appWidth > 500 ? (11.5 - 1.0).sp/2 : (11.5 - 1.0).sp
           :  appWidth > 500 ? 5.7.sp : 11.5.sp,
     );
-    TextStyle backupTextStyle = TextStyle(
-      fontWeight: FontWeight.bold,
-      height: 1.25,
-      color: Colors.grey[700],
-      // letterSpacing: 1.0,
-      fontSize: Platform.isAndroid
-          ? appWidth > 500 ? (9 - 1.0).sp/2 : (9 - 1.0).sp
-          : appWidth > 500 ? 4.5.sp : 9.sp,
-    );
 
     return Padding(
       padding: EdgeInsets.fromLTRB(20.w,
           2.h,
-          appWidth > 500? 100.w : 15.w,
+          appWidth > 500? 100.w : 20.w,
           2.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,21 +77,13 @@ class DateContainerWidget extends ConsumerWidget {
                 Tooltip(
                   message: '산정기준에는 주휴일수가 포함되지 않습니다.\n실업급여조건은 근로일수 180일 입니다',
                   child: Text(
-                    '총 근로일수 $workDay일,주휴일수 $extraDay일 (실업급여조건 180일 $present%)   ',
+                    '총 근로일수 $workDay일,주휴일수 $extraDay일 (실업급여조건 180일 $present%)',
                     style: textStyle,
                   ),
                 ),
               ],
             ),
           ),//
-          // GestureDetector(
-          //   onTap: () {
-          //     customMsg('카메라캡쳐로 데이터 가져오기\n\n기능 구형 실험중...........');
-          //
-          //   },
-          //     child: Icon(Icons.camera_alt_outlined,size: 20,color: Colors.grey[700],),
-          // ),
-
         ],
       ),
     );

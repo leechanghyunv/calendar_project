@@ -29,6 +29,7 @@ class EnrollDialogWidght extends ConsumerStatefulWidget {
 
 class _EnrollDialogWidghtState extends ConsumerState<EnrollDialogWidght> {
   @override
+
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -43,6 +44,9 @@ class _EnrollDialogWidghtState extends ConsumerState<EnrollDialogWidght> {
     return state.when(
         data: (val) {
           if (val.isEmpty) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              customMsg( '근로조건을 우선 등록해주세요');
+            });
             return const InitialSetForm();
           } else {
             return EnrollActive(
@@ -84,7 +88,6 @@ class _EnrollActiveState extends State<EnrollActive> {
   Widget build(BuildContext context) {
 
     final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
 
     return DefaultDialog(
       title: const QrContainer(

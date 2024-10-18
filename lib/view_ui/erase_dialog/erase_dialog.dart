@@ -7,13 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../model/formz_deletion_model.dart';
 import '../../repository/calendar_time_controll.dart';
 import '../../view_model/calendar_event_model.dart';
 import '../../view_model/history_model.dart';
-import '../../view_model/toggle_model.dart';
 import 'deletion_textfield.dart';
 
 class EraseDialog extends ConsumerWidget {

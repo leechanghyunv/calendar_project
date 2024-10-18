@@ -14,10 +14,10 @@ class PieChartNumericTextBox extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(
           appWidth > 500 ? 7.w : 14.w,
           8.h,
-          appWidth > 500 ? 3.5.w : 7.w,
+          appWidth > 500 ? 3.5.w : 3.0.w,
           0),
       child: Container(
-
+        // color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,

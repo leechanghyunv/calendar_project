@@ -5,14 +5,27 @@ import 'package:calendar_project_240727/core/export.dart';
 class ToggleWidget extends StatefulWidget {
 
   final void Function(int?)? onToggle;
+  final int initialLabelIndex;
 
-  const ToggleWidget({super.key, this.onToggle});
+  const ToggleWidget({super.key,
+    this.onToggle,
+    this.initialLabelIndex = 0,});
 
   @override
   State<ToggleWidget> createState() => _ToggleWidgetState();
 }
 
 class _ToggleWidgetState extends State<ToggleWidget> {
+
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialLabelIndex;
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -34,7 +47,7 @@ class _ToggleWidgetState extends State<ToggleWidget> {
           ? 35.w
           : (35.w)/2,
 
-      initialLabelIndex: 0,
+      initialLabelIndex: _currentIndex,
       cornerRadius: 20.0,
       activeFgColor: Colors.white,
       inactiveBgColor: Colors.grey.shade400,
@@ -57,7 +70,12 @@ class _ToggleWidgetState extends State<ToggleWidget> {
 
       labels: const ['근로조건', '근무등록'],
       activeBgColors: [[Colors.blue.shade500],[Colors.blue.shade500]],
-      onToggle: widget.onToggle,
+      onToggle: (index){
+        setState(() {
+          _currentIndex = index ?? 0;
+        });
+        widget.onToggle?.call(_currentIndex);
+      },
     );
   }
 }

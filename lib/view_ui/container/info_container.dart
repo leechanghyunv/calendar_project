@@ -89,11 +89,12 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                             : '총 누적금액(세후): ${formatAmountGoal(afterTaxTotalAnd.toInt())}',
 
                           child: Text(subsidy == 0
-                              ? '총 누적금액(세전): ${formatAmountGoal(pay)}'
+                              ?  pay == 0 ? '누적금액(세전) 정보 제공' : '총 누적금액(세전): ${formatAmountGoal(pay)}'
                           /// 일비가 있느냐 없느냐에 따라 나뉨
-                              : '총 누적금액(세전): ${formatAmountGoal(totalAnd)}',
+                              : totalAnd == 0 ? '누적금액(세전) 정보 제공' :'총 누적금액(세전): ${formatAmountGoal(totalAnd)}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,color: Colors.black,
+                              letterSpacing: pay == 0 && pay == 0 ? 1.25 : 0.0,
                               fontSize: appHeight < 700
                                   ? appWidth > 500 ? 5.75.sp : 11.5.sp
                                   : appWidth > 500 ? 6.sp : 12.sp,

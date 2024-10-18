@@ -48,13 +48,33 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
           data: (val){
             if(val.isEmpty){
               return  DefaultSmallBox(
-                child: Text(
-                  '근로조건을 입력해주세요. 누적금액, 목표금액 대비 남은 공수를 계산해서 보여줍니다.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: appWidth > 500 ? 7.0.sp : 14.0.sp, color: Colors.grey[700],
-                  ),
-                ),
+                child: RichText(
+                    text: TextSpan(
+                  children: [
+                    TextSpan(text: '근로조건을 입력해주세요.\n',style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5,
+                      fontSize: appWidth > 500 ? 7.sp : 14.0.sp, color: Colors.grey[800],
+                    )),
+                    TextSpan(text: '합계 누적금액,목표 잔여 공수\n',style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: appWidth > 500 ? 7.sp : 14.0.sp, color: Colors.grey[800],
+                    )),
+                    TextSpan(text: '를 세후금액 기준으로 계산 후 정보를 제공합니다.',style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: appWidth > 500 ? 7.sp : 14.0.sp, color: Colors.grey[800],
+                    )),
+                  ],
+                ))
+
+
+                // Text(
+                //   '근로조건을 입력해주세요.\n누적금액, 목표금액 대비 공수 를 세후금액 기준으로 계산해서 정보를 제공합니다.',
+                //   style: TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: appWidth > 500 ? 7.5.sp : 15.0.sp, color: Colors.grey[800],
+                //   ),
+                // ),
               );
             }else {
               final goalValue = formatAmountGoal(contract.value?.last.goal ?? 0);
@@ -63,9 +83,9 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
               final state2 = ref.watch(numericSourceModelProvider(selected));
               final numericValue = ref.watch(numericSourceModelProvider(selected).notifier);
               final totalPay = formatAmount(numericValue.totalPay);
-              final totalAfter = formatDecimalAmount(numericValue.afterTaxTotal);
+              final totalAfter = formatDecimalAmountforSmall(numericValue.afterTaxTotal);
               final subsidy = numericValue.subsidy;
-              final totalAndsubsidyAfter = formatDecimalAmount(numericValue.afterTaxTotalAnd);
+              final totalAndsubsidyAfter = formatDecimalAmountforSmall(numericValue.afterTaxTotalAnd);
 
 
               String goalRateAfterTax = state2.when(
@@ -81,12 +101,13 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
 
               String goalRatePlusAfterTax = state2.when(
                 data: (val){
+                  final dat = numericValue.goalRateAndAfterTax > 10 ? 1 : 2;
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
                 return numericValue.goalRateAndAfterTax >= 100
                     ? '100'
-                    : numericValue.goalRateAndAfterTax.toStringAsFixed(1);
+                    : numericValue.goalRateAndAfterTax.toStringAsFixed(dat);
               }, error: (err,trace) => '', loading: ()=> '',
               );
 
@@ -115,11 +136,11 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                   text:
                   TextSpan(
                       children: [
-                        TextSpan(text: '목표금액 ',style: bgGray),
+                        TextSpan(text: goalValue.toString().length <= 5 ? '목표금액은 ' : '목표금액 ',style: bgGray),
                         TextSpan(text: goalValue,style: smallContainerStyle(Colors.grey[900]!)),
                         TextSpan(text: ' 입니다.\n',style:bgGray),
 
-                        TextSpan(text: subsidy != 0 ? '일비포함(세후) ' : '누적금액(세후)' ,style: smallContainerStyle(Colors.grey[900]!)),
+                        TextSpan(text: subsidy != 0 ? '일비포함(세후)' : '누적금액(세후)' ,style: smallContainerStyle(Colors.grey[900]!)),
                         TextSpan(text: subsidy != 0 ? '$totalAndsubsidyAfter\n' : '$totalAfter\n',style: smallContainerStyle(Colors.grey[900]!)),
 
                         TextSpan(text:  subsidy != 0 ? '${goalRatePlusAfterTax.toString()}%를 달성 했습니다.\n' : '${goalRateAfterTax.toString()}%를 달성 했습니다.\n',

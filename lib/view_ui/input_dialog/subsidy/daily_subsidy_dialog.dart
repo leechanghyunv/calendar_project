@@ -8,17 +8,44 @@ import '../../../model/formz_model.dart';
 import '../../../repository/formz_model.dart';
 import 'daily_subsidy_textfield.dart';
 
-class DailySubsidyDialog extends ConsumerWidget {
+class DailySubsidyDialog extends ConsumerStatefulWidget {
   const DailySubsidyDialog({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<DailySubsidyDialog> createState() => _DailySubsidyDialogState();
+}
+
+class _DailySubsidyDialogState extends ConsumerState<DailySubsidyDialog> {
+
+  final TextEditingController _subsidyController = TextEditingController();
+  final GlobalKey _one = GlobalKey();
+
+  @override
+  void dispose() {
+    _subsidyController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        ShowCaseWidget.of(context).startShowCase([_one,])
+    );
+
+
+  }
+
+  @override
+  Widget build(BuildContext context ) {
     final formzRef = ref.watch(formzValidatorProvider);
     final formzRefNot = ref.watch(formzValidatorProvider.notifier);
     final formzRefread = ref.read(formzValidatorProvider.notifier);
     final timeManager = ref.watch(timeManagerProvider);
     final selected = timeManager.selected;
     final appWidth = MediaQuery.of(context).size.width;
+
+
 
     ref.listen(formzValidatorProvider, (pre,cur){
       if(cur.status == FormzStatus.submissionSuccess){
@@ -106,7 +133,11 @@ class DailySubsidyDialog extends ConsumerWidget {
                 children: [
                   const SizedBox(height: 10),
                   DailySubsidyTextfield(
-                    onChanged: (val) => formzRefread.onChangeSubsidy(val),
+                    iconKey: _one,
+                    controller: _subsidyController,
+                    onChanged: (val) {
+                      formzRefread.onChangeSubsidy(val);
+                    },
                     iconOnPressed: () => formzRefread.onSubmitFinal(selected),
 
                     iconColor: formzRefNot.subsidyError == displayErrorText ? Colors.red.shade300 : Colors.green.shade700,

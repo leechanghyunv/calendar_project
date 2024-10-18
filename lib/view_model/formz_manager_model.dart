@@ -9,15 +9,19 @@ class GoalInput extends FormzInput<int, String> {
 
   @override
   String? validator(int value) {
-    if (value < 0 || value == 0) {
+    // 100,000,000 초과인 경우를 먼저 검사
+    if (value > 100000000) {
+      double billion = value / 100000000;
+      return '목표금액은 ${billion.toStringAsFixed(1)} 억원 입니다';
+    } else if (value > 10000000) { // 10,000,000 초과인 경우
+      double tenMillion = value / 10000;
+      return '목표금액은 ${tenMillion.toStringAsFixed(0)} 만원 입니다';
+    } else if (value < 0 || value == 0) {
       return '목표금액은 필수 입력사항입니다.';
     } else if (value < 1000000) {
       return '₩ 1,000,000원 이상 입력해주세요';
     } else if (value >= 1000000) {
       return '${NumberFormat.simpleCurrency(locale: 'ko', name: '₩ ', decimalDigits: 0).format(value)}원 입니다';
-    } else if (value > 100000000) {
-      double billion = value / 100000000;
-      return '${billion.toStringAsFixed(1)}억 원 입니다';
     }
     return null;
   }
@@ -87,6 +91,8 @@ class SubsidyInput extends FormzInput<int,String>{
 
     final valueLength = value.toString().length;
 
+    print('value: $value valueLength : ${valueLength}');
+
     if(value <= 0){
       return '일비가 없으시다면 바로 좌측 아이콘을 눌러주세요';
     } else {
@@ -96,6 +102,9 @@ class SubsidyInput extends FormzInput<int,String>{
         return '입력된 일비는 ${NumberFormat.simpleCurrency(locale: 'ko', name: '₩', decimalDigits: 0).format(value)}원 입니다';
       }
     }
+
+
+
 
   }
 

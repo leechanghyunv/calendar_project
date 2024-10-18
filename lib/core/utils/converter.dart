@@ -31,6 +31,24 @@ String formatDecimalAmount(double amount) {
   return '$won만원';
 }
 
+
+
+String formatDecimalAmountforSmall(double amount) {
+  final value = (amount / 10000);
+  final int intValue = value.toInt();
+  final int length = intValue.toString().length;
+  if(length >= 5){
+    final billion = (value / 10000).toStringAsFixed(3);
+    return '$billion억원';
+  } else {
+    final int dot = intValue.toString().length <= 3 ? 2 : 1;
+    final won = value.toStringAsFixed(dot); // 소수점 없이 정수 부분만 사용
+    return '$won만원';
+  }
+}
+
+
+
 String formatPay(double amount) {
   final won = (amount / 10000).toStringAsFixed(0); // 소수점 없이 정수 부분만 사용
   return '$won만원';

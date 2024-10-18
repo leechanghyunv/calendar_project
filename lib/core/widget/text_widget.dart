@@ -37,21 +37,27 @@ Widget BackupTextWidget(String msg, double size, Color color,double appWidth) =>
 );
 
 
-Widget ErrorText(String msg,double appWidth) => Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          msg,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.blue[700],
-            fontSize: Platform.isAndroid
-                ? appWidth > 500 ? (9 - 1.0).sp/2 : (9 - 1.0).sp
-                : appWidth > 500 ? 4.5.sp : 9.sp,
-          ),
+Widget ErrorText(String msg,double appWidth){
+  FontWeight fontWeight = msg.contains('목표금액은') ? FontWeight.w900 : FontWeight.bold;
+
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Text(
+        '$msg',
+        style: TextStyle(
+          fontWeight: fontWeight,
+          color: Colors.blue[700],
+          fontSize: Platform.isAndroid
+              ? appWidth > 500 ? (9 - 1.0).sp/2 : (9 - 1.0).sp
+              : appWidth > 500 ? 4.5.sp : 9.sp,
         ),
-      ],
-    );
+      ),
+    ],
+  );
+}
+
+
 
 Widget ErrorText2(String msg,double appWidth) => Row(
       mainAxisAlignment: MainAxisAlignment.start,

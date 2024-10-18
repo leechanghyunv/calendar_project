@@ -11,6 +11,7 @@ import '../../view_model/history_model.dart';
 import '../minor_issue/default/default_chart_with_numeric_box.dart';
 import '../minor_issue/widget/pie_chart_frame.dart';
 
+
 class ChartWidget extends ConsumerWidget {
   const ChartWidget({super.key});
 
@@ -37,10 +38,9 @@ class ChartWidget extends ConsumerWidget {
             child: numericSource.when(
                 data: (val) {
                   if (val.contract.isEmpty || state.totalPaynMonth == 0.0) {
-                    return pieChartStatistics(ratio,appWidth,appHeight, 0, 0, 0, 0, 0);
+                    return pieChartStatisticsNull(true);
                   }
                   return pieChartStatistics(
-                      ratio,appWidth,appHeight,
                       state.normalPercent,
                       state.extendPercent,
                       state.nightPercent,
@@ -48,13 +48,12 @@ class ChartWidget extends ConsumerWidget {
                       state.offPercent);
                 },
                 error: (err, trace) => pieChartStatistics(
-                    ratio,appWidth,appHeight,
                     state.normalPercent,
                     state.extendPercent,
                     state.nightPercent,
                     state.extraPercent,
                     state.offPercent),
-                loading: () => pieChartStatistics(ratio,appWidth,appHeight, 0, 0, 0, 0, 0)),
+                loading: () => pieChartStatistics(0,0,0,0,0)),
           ),
           Flexible(
             flex: 1,
@@ -85,48 +84,54 @@ class ChartWidget extends ConsumerWidget {
                             final subsidyMonth = state.totolSubsidyDaynMonth;
                             final total = subsidyMonth + afterTax.toInt();
                             return Container(
-                              child: RichText(
-                                  text: TextSpan(children: [
-                                TextSpan(
-                                    text: '${selected.month}월 공수 ',
-                                    style: chartTextStyle(ratio,appWidth)),
-                                TextSpan(
-                                    text: monthRecord.isNaN ? '' : '$month공수',
-                                    style: chartStyle2(Colors.blue,appWidth)),
+                              child: Column(
+                                children: [
+                                  RichText(
+                                      text: TextSpan(children: [
                                     TextSpan(
-                                        text: ' 달성 \n',
+                                        text: '${selected.month}월 공수 ',
                                         style: chartTextStyle(ratio,appWidth)),
-                                TextSpan(
-                                    text: payRecord.isNaN
-                                        ? ''
-                                        : '급여는 ${formatAmount(payRecord)} 기록\n',
-                                    style: TextStyle(
-                                        fontSize: appHeight < 700
-                                            ? appWidth > 500 ? 6.75.sp : 13.5.sp
-                                            : appWidth > 500 ? 7.sp : 14.sp,
-                                        fontWeight: FontWeight.w900,
-                                        letterSpacing: 1.2,
-                                        color: Colors.black)),
+                                    TextSpan(
+                                        text: monthRecord.isNaN ? '' : '$month공수',
+                                        style: chartStyle2(Colors.blue,appWidth)),
+                                        TextSpan(
+                                            text: ' 달성 \n',
+                                            style: chartTextStyle(ratio,appWidth)),
+                                    TextSpan(
+                                        text: payRecord.isNaN
+                                            ? ''
+                                            : '급여는 ${formatAmount(payRecord)} 기록\n',
+                                        style: TextStyle(
+                                            fontSize: appHeight < 700
+                                                ? appWidth > 500 ? 6.75.sp : 13.5.sp
+                                                : appWidth > 500 ? 7.sp : 14.sp,
+                                            fontWeight: FontWeight.w900,
+                                            letterSpacing: 1.2,
+                                            color: Colors.black)),
+
+                                        TextSpan(
+                                            text: subsidy == 0 ? '' : '세후급여 ${formatAmount(afterTax.toInt())} 기록\n',
+                                            style: chartTextStyle(ratio,appWidth)),
 
                                     TextSpan(
-                                        text: subsidy == 0 ? '' : '세후 ${formatAmount(afterTax.toInt())}, ',
+                                        text: subsidy == 0 ? '세후급여 ' : '일비포함 ',
                                         style: chartTextStyle(ratio,appWidth)),
-
-                                TextSpan(
-                                    text: subsidy == 0 ? '세후 ' : '일비 포함 ',
-                                    style: chartTextStyle(ratio,appWidth)),
-                                TextSpan(
-                                  text: subsidyMonth == 0.0
-                                      ? afterTax.isNaN
-                                          ? ''
-                                          : ' ${formatAmount(afterTax.toInt())} '
-                                      : ' ${formatAmount(total)}',
-                                  style: chartStyle2(Colors.red,appWidth),
-                                ),
-                                TextSpan(
-                                    text: '입니다.',
-                                    style: chartTextStyle(ratio,appWidth)),
-                              ])),
+                                    TextSpan(
+                                      text: subsidyMonth == 0.0
+                                          ? afterTax.isNaN
+                                              ? ''
+                                              : '${formatAmount(afterTax.toInt())}'
+                                          : '${formatAmount(total)}',
+                                      style: chartStyle2(Colors.red,appWidth),
+                                    ),
+                                    TextSpan(
+                                        text: ' 달성',
+                                        style: chartTextStyle(ratio,appWidth)),
+                                  ]),
+                                  ),
+                                  SizedBox(height: appWidth > 500? subsidy == 0 ? 7.5.w : 5.w : subsidy == 0 ? 15.w : 10.w),
+                                ],
+                              ),
 
                             );
                           },
@@ -156,8 +161,6 @@ class ChartWidget extends ConsumerWidget {
                       ),
 
 
-
-                      SizedBox(height: appWidth > 500? 2.5.w : 5.w),
                       Row(
                         children: [
                           RichText(
@@ -189,67 +192,72 @@ class ChartWidget extends ConsumerWidget {
                       ),
                       SizedBox(height: appWidth > 500? 2.5.w : 5.w),
                       history.when(
-                        data: (val) =>
-                            Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: RichText(
-                                text: TextSpan(children: [
-                                  TextSpan(
-                                      text:
-                                      '주간 ${state.normalDay}일 ${(state.normalPercent.isNaN
-                                          ? 0.0
-                                          : state.normalPercent).toStringAsFixed(0)}% ${formatPayInt(state.normalPay)}\n',
-                                      style: TextStyle(
-                                          fontSize: appHeight < 700
-                                              ? appWidth > 500 ? 6.5.sp : 13.sp
-                                              : appWidth > 500 ? 6.75.sp : 13.5.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w900),
-                                  ),
-                                  TextSpan(
-                                      text: '연장 ',
-                                      style:
-                                      chartNormalStyle(Colors.black, ratio,appWidth)),
-                                  TextSpan(
-                                    text: '${state.extendDay}일',
-                                    style: TextStyle(
-                                        fontSize: appHeight < 700
-                                            ? appWidth > 500 ? 7.25.sp : 14.5.sp
-                                            : appWidth > 500 ? 7.5.sp : 15.sp,
-                                        color: Colors.amber[900], fontWeight: FontWeight.w900),
-                                  ),
-                                  TextSpan(
-                                      text:
-                                      ' ${(state.extendPercent.isNaN ? 0.0 : state.extendPercent).toStringAsFixed(0)}% ${formatPayInt(state.extendPay)}\n',
-                                      style: TextStyle(
-                                          fontSize: appHeight < 700
-                                              ? appWidth > 500 ? 6.5.sp : 13.sp
-                                              : appWidth > 500 ? 6.75.sp : 13.5.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w900),
-                                  ),
+                        data: (val) {
+                          final dot1 = state.normalDay == 0 ? 1 : 0;
+                          final dot2 = state.extendDay == 0 ? 1 : 0;
+                          final dot3 = state.nightDay == 0 ? 1 : 0;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                        text:
+                                        '주간 ${state.normalDay}일 ${(state.normalPercent.isNaN
+                                            ? 0.0
+                                            : state.normalPercent).toStringAsFixed(dot1)}% ${formatPayInt(state.normalPay)}\n',
+                                        style: TextStyle(
+                                            fontSize: appHeight < 700
+                                                ? appWidth > 500 ? 6.5.sp : 13.sp
+                                                : appWidth > 500 ? 6.75.sp : 13.5.sp,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w900),
+                                      ),
+                                      TextSpan(
+                                          text: '연장 ',
+                                          style:
+                                          chartNormalStyle(Colors.black, ratio,appWidth)),
+                                      TextSpan(
+                                        text: '${state.extendDay}일',
+                                        style: TextStyle(
+                                            fontSize: appHeight < 700
+                                                ? appWidth > 500 ? 7.25.sp : 14.5.sp
+                                                : appWidth > 500 ? 7.5.sp : 15.sp,
+                                            color: Colors.amber[900], fontWeight: FontWeight.w900),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                        ' ${(state.extendPercent.isNaN ? 0.0 : state.extendPercent).toStringAsFixed(dot2)}% ${formatPayInt(state.extendPay)}\n',
+                                        style: TextStyle(
+                                            fontSize: appHeight < 700
+                                                ? appWidth > 500 ? 6.5.sp : 13.sp
+                                                : appWidth > 500 ? 6.75.sp : 13.5.sp,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w900),
+                                      ),
 
-                                  TextSpan(
-                                      text:
-                                      '야간 ${state.nightDay}일 ${(state.nightPercent.isNaN ? 0.0 : state.nightPercent).toStringAsFixed(0)}% ',
-                                      style: chartNormalStyle(Colors.black,ratio,appWidth)),
-                                  TextSpan(
-                                      text:
-                                      formatPayInt(state.nightPay),
-                                      style: TextStyle(
-                                          fontSize: appHeight < 700
-                                              ? appWidth > 500 ? 6.5.sp : 13.sp
-                                              : appWidth > 500 ? 7.sp : 14.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w900)),
+                                      TextSpan(
+                                          text:
+                                          '야간 ${state.nightDay}일 ${(state.nightPercent.isNaN ? 0.0 : state.nightPercent).toStringAsFixed(dot3)}% ',
+                                          style: chartNormalStyle(Colors.black,ratio,appWidth)),
+                                      TextSpan(
+                                          text:
+                                          formatPayInt(state.nightPay),
+                                          style: TextStyle(
+                                              fontSize: appHeight < 700
+                                                  ? appWidth > 500 ? 6.5.sp : 13.sp
+                                                  : appWidth > 500 ? 7.sp : 14.sp,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w900)),
 
-                                ])),
-                          ),
+                                    ])),
+                              ),
 
-                        ],
-                      ),
+                            ],
+                          );
+                        },
+
                         error: (err,trace) => Container(
                         alignment: Alignment.centerLeft,
                         child: TextWidget2(

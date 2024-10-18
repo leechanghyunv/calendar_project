@@ -57,6 +57,7 @@ class QrContainer extends StatelessWidget {
                     style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
+                      letterSpacing: 0.75,
                     fontSize: appWidth > 500 ? screenUtilSize(8.25) : screenUtilSize(16.5),
                     // letterSpacing: 0.5,
                   ),

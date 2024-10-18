@@ -17,6 +17,7 @@ class FormzValidator extends _$FormzValidator {
   String get pay2Error => state.pay2.displayError?.toString() ?? '연장근무 수당을 입력해주세요';
   String get pay3Error => state.pay3.displayError?.toString() ?? '야간근무 수당을 입력해주세요';
   String get taxError => state.tax.displayError?.toString() ?? '세율을 입력해주세요';
+
   String get subsidyError => state.subsidy.displayError?.toString() ?? '일비가 없으시다면 바로 좌측 아이콘을 눌러주세요';
   String get errorState => state.status.toString();
 
@@ -47,7 +48,9 @@ class FormzValidator extends _$FormzValidator {
   }
 
   Future<void> onChangeGoal(String val) async {
-    final userGoal = GoalInput.dirty(val: int.tryParse(val) ?? 0);
+    final cleanedVal = val.replaceAll(',', '').trim();
+
+    final userGoal = GoalInput.dirty(val: int.tryParse(cleanedVal) ?? 0);
     state = state.copyWith(
       goal: userGoal,
       status: Formz.validate([
@@ -57,6 +60,7 @@ class FormzValidator extends _$FormzValidator {
     );
     print(state.status);
   }
+
   void onChangePay1(String val) {
     final userPay = PayInput.dirty(val: int.tryParse(val) ?? 0);
     state = state.copyWith(
@@ -99,7 +103,9 @@ class FormzValidator extends _$FormzValidator {
   }
 
   void onChangeSubsidy(String val) {
-    final subsidy = SubsidyInput.dirty(val: int.tryParse(val) ?? 0);
+    final cleanedVal = val.replaceAll(',', '').trim();
+    final subsidy = SubsidyInput.dirty(val: int.tryParse(cleanedVal) ?? 0);
+
     state = state.copyWith(
       subsidy: subsidy,
       status: Formz.validate([state.goal,state.pay1,state.pay2, state.pay3, state.tax,subsidy])
