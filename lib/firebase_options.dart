@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBM7H-zqpK9xI9Y0BVnazW5blL8tOOEj0E',
-    appId: '1:390093630162:android:a006140a3976e3c1619b0b',
+    appId: '1:390093630162:android:ea523a77d2cc5154619b0b',
     messagingSenderId: '390093630162',
     projectId: 'workcalendar240805',
     storageBucket: 'workcalendar240805.appspot.com',
@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'workcalendar240805.appspot.com',
     iosBundleId: 'com.example.calendarproject240727',
   );
-
 }

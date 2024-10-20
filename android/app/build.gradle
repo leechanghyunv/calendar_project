@@ -99,6 +99,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'io.flutter:flutter_embedding_release:1.0.0-36335019a8'
     implementation 'com.google.firebase:firebase-messaging:24.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 configurations.all {
