@@ -95,7 +95,7 @@ class EraseDialog extends ConsumerWidget {
             child: Row(
               children: [
                 TextWidget(
-                    '🗑️ 모두 지우시겠습니까 ?',15.5,appWidth
+                    '🗄️ 모두 지우시겠습니까 ?',15.5,appWidth
                 ),
                 const Spacer(),
                 Padding(

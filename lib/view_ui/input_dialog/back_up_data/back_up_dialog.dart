@@ -63,14 +63,69 @@ class _BackUpDialogState extends ConsumerState<BackUpDialog> {
       title: backUpTitle(context),
       content: SingleChildScrollView(
         child: SizedBox(
-          height: 300,
+          height: 310,
           width: 50.w,
           child: Column(
             children: [
-              TextWidget('''카카오톡,이메일 등 외부에 저장되어 있던 공수 데이터를 붙여넣어주세요. 이후 입력칸 좌측에 아이콘을 눌러 저장 해주세요.''',
-                  12.5,
-                  appWidth),
+              RichText(
+                text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '카카오톡,이메일 등 외부에 저장되어 있던 공수 데이터를 붙여넣어주세요. 이후',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? (12.5 - 1.0).sp/2 : (12.5 - 1.0).sp
+                          : appWidth > 500 ? 12.5.sp/2 : 12.5.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' 입력칸 좌측에 아이콘을 눌러 저장 ',
+                    style: TextStyle(
+                      backgroundColor: Colors.blue.withOpacity(0.3),
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? (12.5 - 1.0).sp/2 : (12.5 - 1.0).sp
+                          : appWidth > 500 ? 12.5.sp/2 : 12.5.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '해주세요. 아래쪽에 ',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? (12.5 - 1.0).sp/2 : (12.5 - 1.0).sp
+                          : appWidth > 500 ? 12.5.sp/2 : 12.5.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '"백업은 어떻게?"',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? (12.5 - 1.0).sp/2 : (12.5 - 1.0).sp
+                          : appWidth > 500 ? 12.5.sp/2 : 12.5.sp,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' 참고',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? (12.5 - 1.0).sp/2 : (12.5 - 1.0).sp
+                          : appWidth > 500 ? 12.5.sp/2 : 12.5.sp,
+                    ),
+                  ),
+                ],
 
+              ),
+              ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Showcase(

@@ -1,22 +1,21 @@
-
 import 'package:calendar_project_240727/core/export.dart';
 
-class DefaultDialog extends StatefulWidget {
+class DefaultDeleteDialog extends StatefulWidget {
 
   final List<Widget>? actions;
   final List<Widget> children;
   final Widget? title;
 
 
-  const DefaultDialog({super.key,
+  const DefaultDeleteDialog({super.key,
     required this.children,
     this.actions, this.title});
 
   @override
-  State<DefaultDialog> createState() => _DefaultDialogState();
+  State<DefaultDeleteDialog> createState() => _DefaultDialogState();
 }
 
-class _DefaultDialogState extends State<DefaultDialog> {
+class _DefaultDialogState extends State<DefaultDeleteDialog> {
   @override
   Widget build(BuildContext context) {
 
@@ -39,13 +38,11 @@ class _DefaultDialogState extends State<DefaultDialog> {
           borderRadius: BorderRadius.circular(5),
         ),
 
-        height: appHeight < 700 ? 420.h : 385.h,
+        height: appHeight < 700 ? 300.h : 250.h,
         width: appWidth > 500? 55.w : double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: widget.children,
-          ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: widget.children,
         ),
       ),
       actions: widget.actions,

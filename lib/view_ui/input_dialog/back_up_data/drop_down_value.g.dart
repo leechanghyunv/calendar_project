@@ -6,7 +6,7 @@ part of 'drop_down_value.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dropDownValueHash() => r'e4521f42773b444982ce9a0318460ca1eb917ee6';
+String _$dropDownValueHash() => r'fa94b3785fde62a8dd48ff4010e15e306d966222';
 
 /// See also [DropDownValue].
 @ProviderFor(DropDownValue)

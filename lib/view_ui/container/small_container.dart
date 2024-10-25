@@ -90,12 +90,13 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
 
               String goalRateAfterTax = state2.when(
                 data: (val){
+                  final dat = numericValue.goalRateAfterTax > 10 ? 1 : 2;
                 if(val.history.isEmpty || val.contract.isEmpty){
                   return '0.0';
                 }
                 return numericValue.goalRateAfterTax >= 100
                     ? '100'
-                    : numericValue.goalRateAfterTax.toStringAsFixed(1);
+                    : numericValue.goalRateAfterTax.toStringAsFixed(2);
               }, error: (err,trace) => '', loading: ()=> '',
               );
 
@@ -107,7 +108,7 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                 }
                 return numericValue.goalRateAndAfterTax >= 100
                     ? '100'
-                    : numericValue.goalRateAndAfterTax.toStringAsFixed(dat);
+                    : numericValue.goalRateAndAfterTax.toStringAsFixed(2);
               }, error: (err,trace) => '', loading: ()=> '',
               );
 
@@ -143,9 +144,15 @@ class _LeftContainerState extends ConsumerState<LeftContainer> {
                         TextSpan(text: subsidy != 0 ? '일비포함(세후)' : '누적금액(세후)' ,style: smallContainerStyle(Colors.grey[900]!)),
                         TextSpan(text: subsidy != 0 ? '$totalAndsubsidyAfter\n' : '$totalAfter\n',style: smallContainerStyle(Colors.grey[900]!)),
 
-                        TextSpan(text:  subsidy != 0 ? '${goalRatePlusAfterTax.toString()}%를 달성 했습니다.\n' : '${goalRateAfterTax.toString()}%를 달성 했습니다.\n',
+                        TextSpan(text:  subsidy != 0 ? '${goalRatePlusAfterTax.toString()}%' : '${goalRateAfterTax.toString()}%',
                             style: TextStyle(color: Colors.black,
                             fontWeight: FontWeight.w900,fontSize: fontSize,letterSpacing: 0.75)),
+
+                        TextSpan(text: '를 달성 했습니다.\n',
+                            style: TextStyle(color: Colors.black,
+                                fontSize: fontSize,
+                            ),
+                        ),
 
                         TextSpan(text: remainingGoalPlusAfterTax.length > 3 ? '남은 공수' : '남은 공수는',
                             style: TextStyle(color: Colors.grey[900],fontSize: fontSize)),

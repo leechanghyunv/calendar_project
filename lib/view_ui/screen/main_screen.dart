@@ -35,6 +35,7 @@ class MainScreen extends ConsumerWidget {
           sizeFrame(SizedBox(height: 30.h)),
           GalaxyZFoldCalendar(
             WorkCalendar(
+
             selectedDay: timeManager.selected,
             focusedDay: timeManager.focused,
           ),

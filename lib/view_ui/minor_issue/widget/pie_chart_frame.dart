@@ -15,15 +15,15 @@ class pieChartStatisticsNull extends ConsumerWidget {
     final appHeight = MediaQuery.of(context).size.height;
     final timeManager = ref.watch(timeManagerProvider);
     final int month = timeManager.focused.month;
-
+    final double space = appHeight > 700 ? 1.0 : 0.75;
     return PieChart(
         PieChartData(
           startDegreeOffset: 90,
           sectionsSpace: 0,
-          centerSpaceRadius: appHeight < 700 ? 30 : 45,
+          centerSpaceRadius: appHeight < 700 ? 35 : 45,
           sections: [
             PieChartSectionData(
-              titlePositionPercentageOffset: - 1.0,
+              titlePositionPercentageOffset: - space,
               value: 100,
               color: Colors.blue.shade500,
               title: isNull == true ? '${month}월 \n비어있음' : '',

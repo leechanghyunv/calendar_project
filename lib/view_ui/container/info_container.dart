@@ -8,9 +8,10 @@ import '../../repository/calendar_time_controll.dart';
 import '../../view_model/contract_model.dart';
 import '../../view_model/filted_source_model.dart';
 import '../chart/chart_widget.dart';
+import '../erase_dialog/delete_form.dart';
 import '../input_dialog/contract_form.dart';
 import '../minor_issue/default/default_infobox.dart';
-import '../minor_issue/widget/toggle_widget.dart';
+import '../minor_issue/widget/vertical_toggle_widget.dart';
 import '../update_dialog/update_event_form.dart';
 
 class InfoContainer extends ConsumerStatefulWidget {
@@ -131,20 +132,32 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
 
         ButtomSpace(
             widgetL: const LeftContainer(),
-            widgetR: ToggleWidget(
-              onToggle: (index){
+            widgetR: ToggleWidgetVertical(
+              onToggle: (index)  {
                 switch(index){
                   case 0:
-                    showDialog(
-                      context: context,
-                      builder: (context) => const InitialSetForm(),
-                    );
+                     Future.delayed(Duration(milliseconds: 300), () {
+                       showDialog(
+                        context: context,
+                        builder: (context) => const InitialSetForm(),
+                      );
+                    });
                     break;
                   case 1:
-                  showDialog(
-                      context: context,
-                      builder: (context) => const EnrollDialogWidght()
-                  );
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const EnrollDialogWidght()
+                      );
+                    });
+                    break;
+                  case 2:
+                    Future.delayed(Duration(milliseconds: 300), () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const DeleteManagerForm()
+                      );
+                    });
                     break;
                 }
               },
@@ -168,8 +181,9 @@ class ButtomSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double appHight = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0, 4.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,7 +192,9 @@ class ButtomSpace extends StatelessWidget {
           widgetL ?? const SizedBox(),
           const Spacer(),
           widgetR,
-          const SizedBox(width: 12.0),
+          /// 12
+           SizedBox(
+              width: appHight > 700 ? 16.0 : 24.0),
         ],
       ),
     );

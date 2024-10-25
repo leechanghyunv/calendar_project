@@ -21,7 +21,7 @@ class DefaultInfobox extends StatelessWidget {
 
         height: appHeight < 700
                        /// size.width * 0.80 /// size.height * 0.45
-            ? MediaQuery.of(context).size.height * 0.45
+            ? MediaQuery.of(context).size.height * 0.47
                        /// size.width * 0.950 /// size.height * 0.44
             : MediaQuery.of(context).size.height * 0.444,
         decoration: BoxDecoration(

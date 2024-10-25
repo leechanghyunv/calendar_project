@@ -443,6 +443,135 @@ class _DeleteHistoryProviderElement
   DateTime get time => (origin as DeleteHistoryProvider).time;
 }
 
+String _$deleteMonthHistoryHash() =>
+    r'1bbf3ff66a97176fa9dc04d5b38950a921374f0b';
+
+/// See also [deleteMonthHistory].
+@ProviderFor(deleteMonthHistory)
+const deleteMonthHistoryProvider = DeleteMonthHistoryFamily();
+
+/// See also [deleteMonthHistory].
+class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
+  /// See also [deleteMonthHistory].
+  const DeleteMonthHistoryFamily();
+
+  /// See also [deleteMonthHistory].
+  DeleteMonthHistoryProvider call(
+    DateTime time,
+  ) {
+    return DeleteMonthHistoryProvider(
+      time,
+    );
+  }
+
+  @override
+  DeleteMonthHistoryProvider getProviderOverride(
+    covariant DeleteMonthHistoryProvider provider,
+  ) {
+    return call(
+      provider.time,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'deleteMonthHistoryProvider';
+}
+
+/// See also [deleteMonthHistory].
+class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [deleteMonthHistory].
+  DeleteMonthHistoryProvider(
+    DateTime time,
+  ) : this._internal(
+          (ref) => deleteMonthHistory(
+            ref as DeleteMonthHistoryRef,
+            time,
+          ),
+          from: deleteMonthHistoryProvider,
+          name: r'deleteMonthHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$deleteMonthHistoryHash,
+          dependencies: DeleteMonthHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              DeleteMonthHistoryFamily._allTransitiveDependencies,
+          time: time,
+        );
+
+  DeleteMonthHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.time,
+  }) : super.internal();
+
+  final DateTime time;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(DeleteMonthHistoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DeleteMonthHistoryProvider._internal(
+        (ref) => create(ref as DeleteMonthHistoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        time: time,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _DeleteMonthHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DeleteMonthHistoryProvider && other.time == time;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, time.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DeleteMonthHistoryRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `time` of this provider.
+  DateTime get time;
+}
+
+class _DeleteMonthHistoryProviderElement
+    extends AutoDisposeFutureProviderElement<void> with DeleteMonthHistoryRef {
+  _DeleteMonthHistoryProviderElement(super.provider);
+
+  @override
+  DateTime get time => (origin as DeleteMonthHistoryProvider).time;
+}
+
 String _$clearHistoryHash() => r'c334a0fb7f845f6f7c1ca4092ee98f322ba68cb4';
 
 /// See also [clearHistory].

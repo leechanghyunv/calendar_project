@@ -7,7 +7,10 @@ import '../../../repository/calendar_time_controll.dart';
 import '../../../view_model/history_model.dart';
 
 class MemoTextfield extends ConsumerStatefulWidget {
-  const MemoTextfield({super.key});
+
+  final GlobalKey memoKey;
+
+  const MemoTextfield(this.memoKey, {super.key});
 
   @override
   ConsumerState<MemoTextfield> createState() => _MemoTextfieldState();
@@ -34,6 +37,8 @@ class _MemoTextfieldState extends ConsumerState<MemoTextfield> {
     final formzState = ref.watch(formzMemoValidatorProvider);
     final formzRefNot = ref.watch(formzMemoValidatorProvider.notifier);
     final formzRefread = ref.read(formzMemoValidatorProvider.notifier);
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
     ref.listen(formzMemoValidatorProvider, (pre,cur) async {
@@ -61,27 +66,36 @@ class _MemoTextfieldState extends ConsumerState<MemoTextfield> {
                 children: [
                   Form(
                     key: _memoFormKey,
-                    child: TextFormField(
-                      controller: _memoController,
-                      focusNode: _nodeMemo,
-                      cursorColor: Colors.grey.shade600,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.grey.shade400),
-                        ),
-                        hintText: '${date.month}월 ${date.day}일 메모 내용을 입력해주세요',
-                        hintStyle: const TextStyle(
-                          fontSize: 13,letterSpacing: 0.5,
-                        ),
+                    child: Showcase(
+                      key: widget.memoKey,
+                      targetPadding: const EdgeInsets.all(5),
+                      description: '👉 메모 입력후 키보드에서 완료버튼을 눌러주세요',
+                      descTextStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
                       ),
-                      onChanged: (val){
-                        formzRefread.onChangeMemo(val);
-                      },
-                      onFieldSubmitted: (val){
-                        formzRefread.onSubmit(ref);
-                      },
+                      blurValue: 1.5,
+                      child: TextFormField(
+                        controller: _memoController,
+                        focusNode: _nodeMemo,
+                        cursorColor: Colors.grey.shade600,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.grey.shade400),
+                          ),
+                          hintText: ' ${month}월 ${day}일 메모 내용을 입력해주세요',
+                          hintStyle: const TextStyle(
+                            fontSize: 13,letterSpacing: 0.5,
+                          ),
+                        ),
+                        onChanged: (val){
+                          formzRefread.onChangeMemo(val);
+                        },
+                        onFieldSubmitted: (val){
+                          formzRefread.onSubmit(ref);
+                        },
+                      ),
                     ),
                   ),
 
@@ -135,8 +149,8 @@ class _MemoTextfieldState extends ConsumerState<MemoTextfield> {
             (node){
               if (historyMemoList.isEmpty) {
                 return TextWidget2(
-                    '메모 입력 후 근무유형을 선택해야 합니다. ',
-                    13,Colors.grey.shade700,appWidth); //historyMemoList가 비어있다면 빈 위젯 반환
+                    '메모 입력 후 키보드에 완료버튼 눌러주세요 ',
+                    13,Colors.grey.shade700,appWidth);
               }
               return ListView(
                 scrollDirection: Axis.horizontal,  // 가로 스크롤 가능하도록 설정

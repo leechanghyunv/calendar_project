@@ -116,6 +116,21 @@ class IsarDatabase {
     }
   }
 
+  Future<void> deleteMonthHistory(DateTime month) async {
+    final startOfMonth = DateTime(month.year, month.month, 1);
+    final endOfMonth = DateTime(month.year, month.month + 1, 0);
+    try {
+      await isar.writeTxn(() async {
+        await isar.workHistorys.filter().dateBetween(
+            startOfMonth,
+            endOfMonth,
+        ).deleteAll();
+      });
+    } catch (e) {
+      print('deleteMonthHistory: ${e.toString()}');
+    }
+  }
+
   Future<void> clearHistory() async {
 
     try{

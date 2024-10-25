@@ -67,8 +67,15 @@ class QrContainer extends StatelessWidget {
 
               FittedBox(
                   child: Container(
-                  child: TextWidget2(
-                      msg,adaptiveSize(17),textColor,appWidth),
+                  child: Text(
+                      msg,style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      fontSize: Platform.isAndroid
+                          ? appWidth > 500 ? 17 - 1.0/2 : 17 - 1.0
+                          : appWidth > 500 ? 17/2 : 17,
+                      color: Colors.black,
+                      letterSpacing: appHeight > 700 ? 1.50 : 1.0),
+                  ),
                   ),
               ),
             ],

@@ -30,6 +30,12 @@ class ToggleModel extends _$ToggleModel {
     state = const AsyncValue.data(false);
   }
 
+  Future<String> getToggleStatus() async {
+    final prefs = await ref.watch(toggleValueProvider.future);
+    final status = await prefs.getToggleStatus();
+    return status;
+  }
+
 
 }
 

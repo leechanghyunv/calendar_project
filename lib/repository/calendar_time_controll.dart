@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/repository/formz_memo.dart';
+import 'package:calendar_project_240727/repository/vertical_toggle_index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../model/calendar_time_model.dart';
 import '../view_model/filted_source_model.dart';
@@ -45,6 +46,8 @@ class TimeManager extends _$TimeManager {
       state = state.copyWith(selected: addDay, focused: addDay);
       await ref.read(numericSourceModelProvider(addDay).future);
       ref.read(formzMemoValidatorProvider.notifier).clearMemo();
+
+      ref.read(toggleIndexProvider.notifier).onToggle(null);
     }
   }
 

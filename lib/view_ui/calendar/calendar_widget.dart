@@ -8,6 +8,7 @@ import '../../core/widget/text_widget.dart';
 import '../../core/widget/toast_msg.dart';
 import '../../model/work_history_model.dart';
 import '../../repository/calendar_time_controll.dart';
+import '../../repository/vertical_toggle_index.dart';
 import '../../view_model/calendar_event_model.dart';
 import '../../view_model/history_model.dart';
 import '../container/memo_container.dart';
@@ -69,7 +70,7 @@ class WorkCalendar extends ConsumerWidget {
               data.when(data: (val){
                 final selectedOne = val.where((e) => e.date.toUtc() == selected);
                 if(selectedOne.isEmpty){
-                  customMsg('해당 날짜에 데이터가 없습니다.');
+                  customMsg('해당 날짜에 공수기록이 없습니다.');
                 }else{
                   showDialog(
                     context: context,
@@ -85,6 +86,7 @@ class WorkCalendar extends ConsumerWidget {
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);
+              ref.read(toggleIndexProvider.notifier).onToggle(null);
             },
             eventLoader: (DateTime day) {
               DateTime UtcDay = day.toUtc();
@@ -147,9 +149,9 @@ class WorkCalendar extends ConsumerWidget {
                     Text(
                       DateFormat.yMMMEd('ko_KR').format(day), // 한글로 월과 연도를 표시
                       style: TextStyle(
-                          fontSize: appWidth > 500 ? 10.sp : 20.sp,
+                          fontSize: appWidth > 500 ? 10.sp : appHeight > 700 ? 20.sp : 19.sp,
                           fontWeight: FontWeight.w800,
-                          letterSpacing: 1.3.sp),
+                          letterSpacing: appHeight > 700 ? 1.3.sp : 1.2.sp),
                     ),
                   ],
                 );
@@ -344,7 +346,6 @@ class WorkCalendar extends ConsumerWidget {
                                     TextSpan(
                                         text: isToggle == false ? calendarText : calendarMemoText,
                                         style: TextStyle(
-
                                           fontSize: isToggle == false ? fontSizeNonMemo : fontSizeMemo,
                                             fontWeight: FontWeight.bold,
                                           color: Colors.black,

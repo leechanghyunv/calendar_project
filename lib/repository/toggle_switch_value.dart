@@ -28,4 +28,11 @@ class ToggleValueMaanger {
     return prefs.setBool('toggleValue', false);
   }
 
+  Future<String> getToggleStatus() async {
+    final isToggled = await getToggleValue();
+    return isToggled ? "활성화" : "비활성화";
+  }
+
+
+
 }

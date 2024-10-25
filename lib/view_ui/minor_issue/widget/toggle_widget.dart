@@ -28,8 +28,6 @@ class _ToggleWidgetState extends State<ToggleWidget> {
 
   @override
   Widget build(BuildContext context) {
-
-    double ratio = MediaQuery.of(context).size.aspectRatio;
     double appHeight = MediaQuery.of(context).size.height;
     double appWidth = MediaQuery.of(context).size.width;
     double screenUtilSize(double size) {

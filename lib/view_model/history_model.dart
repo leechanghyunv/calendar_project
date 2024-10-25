@@ -94,6 +94,12 @@ Future<void> deleteHistory (DeleteHistoryRef ref,DateTime time) async {
 }
 
 @riverpod
+Future<void> deleteMonthHistory (DeleteMonthHistoryRef ref,DateTime time) async {
+  final isar = await ref.watch(isarManagerProvider.future);
+  return isar.deleteMonthHistory(time);
+}
+
+@riverpod
 Future<void> clearHistory(ClearHistoryRef ref) async {
   final isar = await ref.watch(isarManagerProvider.future);
   return isar.clearHistory();
