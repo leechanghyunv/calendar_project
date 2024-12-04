@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/utils/converter.dart';
-import '../../repository/calendar_time_controll.dart';
+import '../../repository/time/calendar_time_controll.dart';
 import '../../view_model/contract_model.dart';
 import '../../view_model/filted_source_model.dart';
 import '../chart/chart_widget.dart';
-import '../erase_dialog/delete_form.dart';
-import '../input_dialog/contract_form.dart';
+import '../dialog/erase_dialog/delete_form.dart';
+import '../dialog/input_dialog/contract_form.dart';
+import '../dialog/update_dialog/update_event_form.dart';
 import '../minor_issue/default/default_infobox.dart';
 import '../minor_issue/widget/vertical_toggle_widget.dart';
-import '../update_dialog/update_event_form.dart';
+import 'container_text.dart';
 
 class InfoContainer extends ConsumerStatefulWidget {
   const InfoContainer({super.key});
@@ -22,6 +23,7 @@ class InfoContainer extends ConsumerStatefulWidget {
 }
 
 class _InfoContainerState extends ConsumerState<InfoContainer> {
+
   @override
   Widget build(BuildContext context) {
     Widget sizeFrame(Widget widget) => MediaQuery.of(context).size.aspectRatio > 0.5
@@ -37,12 +39,6 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
 
-
-    ref.listen(viewHistoryProvider, (preState, newState) {
-      if(preState != newState){
-        setState(() {});
-      }
-    });
     return DefaultInfobox(
       children: [
         Row(
@@ -51,18 +47,14 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
             Expanded(
               child: Padding(
                 padding: appHeight < 700
-                    ? EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0)
-                    : EdgeInsets.fromLTRB(18.r, 15.0, 10.0.r, 0.0),
-                child: Text('$selectedYear년 $selectedMonth월 공수통계 ',
+                    ? EdgeInsets.fromLTRB(18.r, 15.0, 10.r, 0.0)
+                    : EdgeInsets.fromLTRB(18.r, 15.0, 10.r, 0.0),
+                child:
+                Text(
+                  ' $selectedYear년 $selectedMonth월 공수통계 ',
                   overflow: TextOverflow.visible,
                   maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: appHeight < 700
-                        ? appWidth > 500 ? 6.5.sp : 13.sp
-                        : appWidth > 500 ? 7.sp : 15.sp,
-                  ),
+                  style: TopLeftTextStyle(),
                 ),
               ),
             ),
@@ -72,37 +64,22 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                   data: (val) {
                     final state = ref.watch(numericSourceModelProvider(selected));
                     final numeric = ref.watch(numericSourceModelProvider(selected).notifier);
-                    final pay = numeric.totalPay;
+                    final pay = numeric.totalPay.toDouble();
                     final subsidy = numeric.totolSubsidy;
-                    final afterTaxPay = numeric.afterTaxTotal;
-                    final afterTaxTotalAnd = numeric.afterTaxTotalAnd;
-                    final totalAnd = numeric.totalPayAnd;
+                    final totalAnd = numeric.totalPayAnd.toDouble();
+
                     return Padding(
                       padding: EdgeInsets.fromLTRB(
                           appWidth > 500? 6.w : 12.w,
                           15.0.h,
                           appWidth > 500? 10.0.w : 20.0.w,
                           0.0),
-                      child: Tooltip(
-                        message: subsidy == 0
-                            ? '총 누적금액(세후): ${formatAmountGoal(afterTaxPay.toInt())}'
-                        /// 일비가 있느냐 없느냐에 따라 나뉨
-                            : '총 누적금액(세후): ${formatAmountGoal(afterTaxTotalAnd.toInt())}',
-
-                          child: Text(subsidy == 0
-                              ?  pay == 0 ? '누적금액(세전) 정보 제공' : '총 누적금액(세전): ${formatAmountGoal(pay)}'
-                          /// 일비가 있느냐 없느냐에 따라 나뉨
-                              : totalAnd == 0 ? '누적금액(세전) 정보 제공' :'총 누적금액(세전): ${formatAmountGoal(totalAnd)}',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,color: Colors.black,
-                              letterSpacing: pay == 0 && pay == 0 ? 1.25 : 0.0,
-                              fontSize: appHeight < 700
-                                  ? appWidth > 500 ? 5.75.sp : 11.5.sp
-                                  : appWidth > 500 ? 6.sp : 12.sp,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-
+                      child: Text(subsidy == 0
+                          ?  pay == 0 ? '누적금액(세전) 정보 제공' : '총 누적금액(세전): ${formatDecimalAmountforSmall(pay)}'
+                      /// 일비가 있느냐 없느냐에 따라 나뉨
+                          : totalAnd == 0 ? '누적금액(세전) 정보 제공' :'총 누적금액(세전): ${formatDecimalAmountforSmall(totalAnd)}',
+                        maxLines: 1,
+                        style: TopRightTextStyle(letterSpacing: pay == 0 ? 1.25 : 0.0,),
                       ),
                     );
                   },
@@ -113,13 +90,9 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
                       appWidth > 500? 10.0.w : 20.0.w,
                       0.0,
                     ),
-                    child: Text('총 누적금액(세전): 0.0만원 ',style: TextStyle(
-                      fontWeight: FontWeight.bold,color: Colors.black,
-                      fontSize: appHeight < 700
-                          ? appWidth > 500 ? 5.75.sp : 11.5.sp
-                          : appWidth > 500 ? 6.sp : 12.sp,
-                      overflow: TextOverflow.ellipsis,
-                    ),),
+                    child: Text('총 누적금액(세전): 0.0만원 ',
+                      style: TopRightTextStyle(),
+                    ),
                   ),
                   loading: () => const SizedBox()),
             ),
@@ -127,7 +100,7 @@ class _InfoContainerState extends ConsumerState<InfoContainer> {
         ),
 
         sizeFrame(SizedBox(height: 10.h)),
-
+        appHeight > 1000 ?  SizedBox(height: 10.h) : SizedBox(),
         const ChartWidget(),
 
         ButtomSpace(

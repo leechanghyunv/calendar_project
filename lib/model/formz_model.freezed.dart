@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ContractForm {
   GoalInput get goal => throw _privateConstructorUsedError;
-  PayInput get pay1 => throw _privateConstructorUsedError;
+  PayFirstInfut get pay1 => throw _privateConstructorUsedError;
   PayInput get pay2 => throw _privateConstructorUsedError;
   PayInput get pay3 => throw _privateConstructorUsedError;
   TaxInput get tax => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $ContractFormCopyWith<$Res> {
   @useResult
   $Res call(
       {GoalInput goal,
-      PayInput pay1,
+      PayFirstInfut pay1,
       PayInput pay2,
       PayInput pay3,
       TaxInput tax,
@@ -74,7 +74,7 @@ class _$ContractFormCopyWithImpl<$Res, $Val extends ContractForm>
       pay1: null == pay1
           ? _value.pay1
           : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
+              as PayFirstInfut,
       pay2: null == pay2
           ? _value.pay2
           : pay2 // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ abstract class _$$ContractFormImplCopyWith<$Res>
   @useResult
   $Res call(
       {GoalInput goal,
-      PayInput pay1,
+      PayFirstInfut pay1,
       PayInput pay2,
       PayInput pay3,
       TaxInput tax,
@@ -144,7 +144,7 @@ class __$$ContractFormImplCopyWithImpl<$Res>
       pay1: null == pay1
           ? _value.pay1
           : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
+              as PayFirstInfut,
       pay2: null == pay2
           ? _value.pay2
           : pay2 // ignore: cast_nullable_to_non_nullable
@@ -184,7 +184,7 @@ class _$ContractFormImpl implements _ContractForm {
   @override
   final GoalInput goal;
   @override
-  final PayInput pay1;
+  final PayFirstInfut pay1;
   @override
   final PayInput pay2;
   @override
@@ -229,7 +229,7 @@ class _$ContractFormImpl implements _ContractForm {
 abstract class _ContractForm implements ContractForm {
   const factory _ContractForm(
       {required final GoalInput goal,
-      required final PayInput pay1,
+      required final PayFirstInfut pay1,
       required final PayInput pay2,
       required final PayInput pay3,
       required final TaxInput tax,
@@ -239,7 +239,7 @@ abstract class _ContractForm implements ContractForm {
   @override
   GoalInput get goal;
   @override
-  PayInput get pay1;
+  PayFirstInfut get pay1;
   @override
   PayInput get pay2;
   @override

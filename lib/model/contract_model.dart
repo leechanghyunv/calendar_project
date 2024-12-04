@@ -1,33 +1,40 @@
-import 'package:isar/isar.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'contract_model.freezed.dart';
 part 'contract_model.g.dart';
 
-@Collection()
-class LabourCondition {
+class DateTimeConverter implements JsonConverter<DateTime, String> {
+  const DateTimeConverter();
 
-  Id id = Isar.autoIncrement;
+  @override
+  DateTime fromJson(String json) => DateTime.parse(json);
 
-  late DateTime date;
+  @override
+  String toJson(DateTime dateTime) => dateTime.toIso8601String();
+}
 
-  late int goal;
-  late int normal;
-  late int extend;
-  late int night;
-  late double tax;
-  late int subsidy;
+@freezed
+class LabourCondition with _$LabourCondition {
+  const factory LabourCondition({
+    int? id,
+    @DateTimeConverter()
+    required DateTime date,
+    @Default(0) int goal,
+    @Default(0) int normal,
+    @Default(0) int extend,
+    @Default(0) int night,
+    @Default(0.0) double tax,
+    @Default(0) int subsidy,
+  }) = _LabourCondition;
 
-  LabourCondition({
-    required this.date,
-    this.goal = 0,
-    this.normal = 0,
-    this.extend = 0,
-    this.night = 0,
-    this.tax = 0.0,
-    this.subsidy = 0,
-  });
-
-  Map<String, dynamic> toJson() => {
-    'date': date.toIso8601String(),   // DateTime을 문자열로 변환
+  factory LabourCondition.fromJson(Map<String, dynamic> json) =>
+      _$LabourConditionFromJson(json);
+  // SQLite 변환을 위한 메서드들
+  const LabourCondition._();  // private 생성자
+  // SQLite Map으로 변환
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'date': date.toIso8601String(),
     'goal': goal,
     'normal': normal,
     'extend': extend,
@@ -35,26 +42,17 @@ class LabourCondition {
     'tax': tax,
     'subsidy': subsidy,
   };
-
-  // JSON 역직렬화
-  factory LabourCondition.fromJson(Map<String, dynamic> json) {
+  // SQLite Map에서 객체 생성
+  static LabourCondition fromMap(Map<String, dynamic> map) {
     return LabourCondition(
-      date: DateTime.parse(json['date']),   // 문자열을 DateTime으로 변환
-      goal: json['goal'] ?? 0,
-      normal: json['normal'] ?? 0,
-      extend: json['extend'] ?? 0,
-      night: json['night'] ?? 0,
-      tax: json['tax'] ?? 0.0,
-      subsidy: json['subsidy'] ?? 0,
+      id: map['id'] as int?,
+      date: DateTime.parse(map['date']),
+      goal: map['goal'] as int,
+      normal: map['normal'] as int,
+      extend: map['extend'] as int,
+      night: map['night'] as int,
+      tax: (map['tax'] as num).toDouble(),
+      subsidy: map['subsidy'] as int,
     );
   }
-
-  @override
-  String toString() {
-    return '날짜: $date, 목표: $goal, 정상: $normal, 연장: $extend, 야간: $night, 세금: $tax, 보조금: $subsidy';
-  }
-
-
-
-
 }

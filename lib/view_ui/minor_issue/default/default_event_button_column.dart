@@ -1,5 +1,5 @@
 
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter/material.dart';
 
 import '../widget/enroll_button.dart';
@@ -44,7 +44,8 @@ class _Event_Form_ColumnState extends State<Event_Form_Column> {
             key: widget.buttonKey,
             targetPadding: const EdgeInsets.all(0),
             description: '👉 근무유형을 선택 후에',
-            descTextStyle: const TextStyle(
+            descTextStyle: TextStyle(
+              letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
               fontWeight: FontWeight.bold,
             ),
             blurValue: 1.5,

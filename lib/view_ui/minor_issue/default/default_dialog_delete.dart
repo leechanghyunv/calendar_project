@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 
 class DefaultDeleteDialog extends StatefulWidget {
 
@@ -38,11 +38,13 @@ class _DefaultDialogState extends State<DefaultDeleteDialog> {
           borderRadius: BorderRadius.circular(5),
         ),
 
-        height: appHeight < 700 ? 300.h : 250.h,
+        height: appHeight < 700 ? 320.h : 250.h,
         width: appWidth > 500? 55.w : double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: widget.children,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: widget.children,
+          ),
         ),
       ),
       actions: widget.actions,

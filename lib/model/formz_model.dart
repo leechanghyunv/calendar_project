@@ -8,7 +8,7 @@ part 'formz_model.freezed.dart';
 class ContractForm with _$ContractForm {
   const factory ContractForm({
     required GoalInput goal,
-    required PayInput pay1,
+    required PayFirstInfut pay1,
     required PayInput pay2,
     required PayInput pay3,
     required TaxInput tax,

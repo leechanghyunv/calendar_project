@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/view_model/contract_model.dart';
 import 'package:calendar_project_240727/view_model/history_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../model/conbined_data_model.dart';
+import '../model/combined_data_model.dart';
 import '../model/work_history_model.dart';
 
 part 'filted_source_model.g.dart';
@@ -218,11 +218,11 @@ class NumericSourceModel extends _$NumericSourceModel {
 
  /// numericSourceModelProvider
   @override
-  Future<ConbinedDataModel> build(DateTime time) async {
+  Future<CombinedDataModel> build(DateTime time) async {
     return refreshData(time);
   }
 
-  Future<ConbinedDataModel> refreshData(DateTime time) async {
+  Future<CombinedDataModel> refreshData(DateTime time) async {
     final contract = await ref.watch(viewContractProvider.future);
     final history = await ref.watch(viewHistoryProvider.future);
 
@@ -232,7 +232,7 @@ class NumericSourceModel extends _$NumericSourceModel {
     filteredHistory = history.where((item) {
       return item.date.isAfter(startDate) && item.date.isBefore(endDate);
     }).toList();
-    return ConbinedDataModel(contract: contract, history: history);
+    return CombinedDataModel(contract: contract, history: history);
   }
 
 

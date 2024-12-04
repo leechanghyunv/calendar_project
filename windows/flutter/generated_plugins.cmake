@@ -4,7 +4,8 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
-  isar_flutter_libs
+  irondash_engine_context
+  super_native_extensions
   url_launcher_windows
 )
 

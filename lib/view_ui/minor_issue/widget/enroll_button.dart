@@ -1,6 +1,6 @@
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 import '../../../core/utils/converter.dart';
-import '../../../core/widget/text_widget.dart';
+import '../../dialog/dialog_text.dart';
 
 class EnrollButton extends StatefulWidget {
   final String iconUi;
@@ -53,24 +53,16 @@ class _EnrollButtonState extends State<EnrollButton> {
                 ),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextWidget(widget.iconUi,
-                          15, appWidth),
+                    PaddedEnrollText(
+                      text: widget.iconUi,
+                      padding: const EdgeInsets.all(8.0),  // 8.0 패딩 지정
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child:
-                      TextWidget(widget.title, 15, appWidth),
+                    PaddedEnrollText(
+                      text: widget.title,
                     ),
-
                     const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: TextWidget('${numberWithCommas(widget.subtitle)}원',
-                          15,
-                          appWidth),
+                    PaddedEnrollText(
+                      text: '${numberWithCommas(widget.subtitle)}원',
                     ),
                     SizedBox(width: appWidth > 500 ? 7.5.w : 15.w),
                   ],

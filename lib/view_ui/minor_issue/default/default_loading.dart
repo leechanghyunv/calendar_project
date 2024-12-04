@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 import '../widget/qr_container.dart';
 import 'default_dialog.dart';
 

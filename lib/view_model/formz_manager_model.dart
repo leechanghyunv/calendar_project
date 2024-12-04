@@ -19,14 +19,31 @@ class GoalInput extends FormzInput<int, String> {
     } else if (value < 0 || value == 0) {
       return '목표금액은 필수 입력사항입니다.';
     } else if (value < 1000000) {
-      return '₩ 1,000,000원 이상 입력해주세요';
+      return '100 만원 이상 입력해주세요';
     } else if (value >= 1000000) {
-      return '${NumberFormat.simpleCurrency(locale: 'ko', name: '₩ ', decimalDigits: 0).format(value)}원 입니다';
+      double tenThousand = value / 10000;
+      return '목표금액은 ${tenThousand.toStringAsFixed(0)} 만원 입니다';
     }
     return null;
   }
 }
 
+class PayFirstInfut extends FormzInput<int, String> {
+  const PayFirstInfut.pure() : super.pure(0);
+  const PayFirstInfut.dirty({int val = 0}) : super.dirty(val);
+
+  @override
+  String? validator(int value) {
+    if (value < 0 || value == 0) {
+      return '일당은 필수 입력사항입니다.';
+    } else if (value < 100000) {
+      return '₩ 100,000원 이상 입력해주세요';
+    } else if (value >= 100000) {
+      return '연장 1.5배, 야간 2배 자동입력 버튼 활성화';
+    }
+    return null;
+  }
+}
 class PayInput extends FormzInput<int, String> {
   const PayInput.pure() : super.pure(0);
   const PayInput.dirty({int val = 0}) : super.dirty(val);
@@ -94,12 +111,12 @@ class SubsidyInput extends FormzInput<int,String>{
     print('value: $value valueLength : ${valueLength}');
 
     if(value <= 0){
-      return '일비가 없으시다면 바로 좌측 아이콘을 눌러주세요';
+      return '없으면 넘어 가세요';
     } else {
       if(valueLength > 5){
-        return '일비가 너무 많습니다. ${NumberFormat.simpleCurrency(locale: 'ko', name: '₩', decimalDigits: 0).format(value)}원이 맞나요?';
+        return '일비가 너무 많습니다.';
       } else {
-        return '입력된 일비는 ${NumberFormat.simpleCurrency(locale: 'ko', name: '₩', decimalDigits: 0).format(value)}원 입니다';
+        return '일비 ${NumberFormat.simpleCurrency(locale: 'ko', name: '₩', decimalDigits: 0).format(value)}원';
       }
     }
 

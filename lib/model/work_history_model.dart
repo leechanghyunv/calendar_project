@@ -1,33 +1,39 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:isar/isar.dart';
 
+part 'work_history_model.freezed.dart';
 part 'work_history_model.g.dart';
 
-@Collection()
-class WorkHistory {
-  Id id = Isar.autoIncrement;
+class DateTimeConverter implements JsonConverter<DateTime, String> {
+  const DateTimeConverter();
 
-  @Index(unique: true, replace: true)
-  late DateTime date;
+  @override
+  DateTime fromJson(String json) => DateTime.parse(json);
 
-  late int pay;
-  double record;
-  late String colorCode;
-  String memo;
+  @override
+  String toJson(DateTime object) => object.toIso8601String();
+}
 
-  @Default('정상근무') String comment;
+@freezed
+class WorkHistory with _$WorkHistory {
+  const factory WorkHistory({
+    int? id,
+    @DateTimeConverter() // 커스텀 컨버터 적용
+    required DateTime date,
+    @Default(0) int pay,
+    @Default(1.0) double record,
+    @Default('2196F3') String colorCode,
+    @Default('정상근무') String comment,
+    @Default('') String memo,
+  }) = _WorkHistory;
 
-  WorkHistory({
-    required this.date,
-    this.pay = 0,
-    this.record = 1.0,
-    this.colorCode = '2196F3',
-    this.comment = '정상근무',
-    this.memo = '',
-  });
+  factory WorkHistory.fromJson(Map<String, dynamic> json) =>
+      _$WorkHistoryFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-    'date': date.toIso8601String(), // DateTime을 문자열로 변환
+  const WorkHistory._();
+
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'date': date.toIso8601String(),
     'pay': pay,
     'record': record,
     'colorCode': colorCode,
@@ -35,21 +41,15 @@ class WorkHistory {
     'comment': comment,
   };
 
-  // JSON 역직렬화
-  factory WorkHistory.fromJson(Map<String, dynamic> json) {
+  static WorkHistory fromMap(Map<String, dynamic> map) {
     return WorkHistory(
-      date: DateTime.parse(json['date']), // 문자열을 DateTime으로 변환
-      pay: json['pay'] ?? 0,
-      record: json['record'] ?? 1.0,
-      colorCode: json['colorCode'] ?? '2196F3',
-      memo: json['memo'] ?? '',
-      comment: json['comment'] ?? '정상근무',
+      id: map['id'] as int?,
+      date: DateTime.parse(map['date']),
+      pay: map['pay'] as int,
+      record: map['record'] as double,
+      colorCode: map['colorCode'] as String,
+      memo: map['memo'] as String,
+      comment: map['comment'] as String,
     );
   }
-
-  @override
-  String toString() {
-    return '날짜: $date, 급여: $pay, 기록: $record, 색상 코드: $colorCode, 메모: $memo, 코멘트: $comment';
-  }
-
 }

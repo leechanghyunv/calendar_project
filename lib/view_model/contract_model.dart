@@ -1,10 +1,10 @@
 
 import 'dart:core';
 
+import 'package:calendar_project_240727/repository/sqlite/sqlite_contract_database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/contract_model.dart';
-import '../repository/isar_database.dart';
 
 part 'contract_model.g.dart';
 
@@ -51,29 +51,23 @@ class SortedContract extends _$SortedContract {
 
 @Riverpod(keepAlive: true)
 Future<List<LabourCondition>> viewContract(ViewContractRef ref) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.getContract();
-}
 
-@riverpod
-Future<void> addAllContract(AddAllContractRef ref, List<LabourCondition> list) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  ref.invalidate(viewContractProvider);
-  ref.invalidate(sortedContractProvider);
-  return isar.addAllContract(list);
+  final db = await ref.read(labourConditionManagerProvider.future);
+
+  return db.getAllLabourConditions();
 }
 
 @riverpod
 Future<void> addContract(AddContractRef ref,LabourCondition condition) async {
-  final isar = await ref.watch(isarManagerProvider.future);
+  final db = await ref.watch(labourConditionManagerProvider.future);
   ref.invalidate(viewContractProvider);
   ref.invalidate(sortedContractProvider);
-  return isar.addContract(condition);
+  return db.insertLabourCondition(condition);
 }
 
 @riverpod
 Future<void> clearContract(ClearContractRef ref,LabourCondition condition) async {
+  final db = await ref.watch(labourConditionManagerProvider.future);
   await Future.delayed(const Duration(milliseconds: 200));
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.clearContract();
+  return db.truncateLabourCondition();
 }

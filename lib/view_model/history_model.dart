@@ -1,38 +1,38 @@
-
-import 'package:calendar_project_240727/repository/formz_decimal.dart';
-import 'package:calendar_project_240727/repository/formz_memo.dart';
+import 'package:calendar_project_240727/firebase_analytics.dart';
+import 'package:calendar_project_240727/repository/formz/formz_decimal.dart';
+import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
+import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../model/work_history_model.dart';
-import '../repository/isar_database.dart';
+
+
 import 'contract_model.dart';
 
 part 'history_model.g.dart';
 
 @riverpod
 Future<List<WorkHistory>> viewHistory (ViewHistoryRef ref) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.getHistory();
+  final db = await ref.watch(workhistoryManagerProvider.future);
+  return db.getAllWorkHistories();
 }
-
 
 @riverpod
 Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  isar.addAllHistory(list);
+  final db = await ref.watch(workhistoryManagerProvider.future);
+  db.insertOrOverwriteWorkHistories(list);
 }
 
 @riverpod
 Future<void> addHistory (
     AddHistoryRef ref, int pay, DateTime date) async {
-  final isar = await ref.watch(isarManagerProvider.future);
+  final db = await ref.watch(workhistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final addCustom = ref.watch(formzDecimalValidatorProvider);
-
   final recode = addCustom.decimalData.value.decimal;
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
-
-  print('memoNote: $memoNote');
+  final Map<String,dynamic> event = {};
   late WorkHistory history;
   contract.when(data: (val) {
     if(pay == contract.value!.last.normal){
@@ -84,23 +84,38 @@ Future<void> addHistory (
   },
       error: (err,trace) => print(err.toString()),
       loading: () => print('loading....'));
-  return isar.addHistory(history);
+
+  event.addAll({
+    'recode' : history.record,
+    'pay' : history.pay,
+    'comment' : history.comment,
+    'date': DateFormat('yyyy-MM-dd').format(history.date),
+    'memo' : history.memo,
+  });
+
+  ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(
+      event);
+
+  return db.insertOrUpdateWorkHistory(history);
+
 }
 
 @riverpod
 Future<void> deleteHistory (DeleteHistoryRef ref,DateTime time) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.deleteHistory(time);
+  final db = await ref.watch(workhistoryManagerProvider.future);
+  return db.deleteWorkHistory(time);
 }
 
 @riverpod
 Future<void> deleteMonthHistory (DeleteMonthHistoryRef ref,DateTime time) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.deleteMonthHistory(time);
+  final db = await ref.watch(workhistoryManagerProvider.future);
+
+  return db.deleteWorkHistoryByMonth(time);
 }
 
 @riverpod
 Future<void> clearHistory(ClearHistoryRef ref) async {
-  final isar = await ref.watch(isarManagerProvider.future);
-  return isar.clearHistory();
+  final db = await ref.watch(workhistoryManagerProvider.future);
+
+  return db.clearWorkHistory();
 }

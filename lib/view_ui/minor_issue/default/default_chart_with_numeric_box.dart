@@ -1,5 +1,5 @@
 
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 
 class PieChartNumericTextBox extends StatelessWidget {
 
@@ -18,6 +18,7 @@ class PieChartNumericTextBox extends StatelessWidget {
           0),
       child: Container(
         // color: Colors.white,
+        alignment: Alignment.center,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,

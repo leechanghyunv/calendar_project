@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/core/export.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 
 
 class DefaultSmallBox extends StatelessWidget {
@@ -11,11 +11,17 @@ class DefaultSmallBox extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appWidth = MediaQuery.of(context).size.width;
+    double getWidth(double appWidth) {
+      if (appWidth > 500) return 180.w/2;
+      if (appWidth <= 370) return 175.w;
+      return 175.w;
+    }
+
 
     return Container(
       alignment: Alignment.center,
       color: Colors.grey[300],
-      width: appWidth > 500 ? 180.w/2 : 167.w,
+      width: getWidth(appWidth),
       height: 85.h,
       child: child,
     );

@@ -6,7 +6,7 @@ part of 'contract_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$viewContractHash() => r'1d27c46f88f0b07184ce3dda446d38474a0ab3de';
+String _$viewContractHash() => r'd978fe961e3e0f050dfa3cfe5776805ecdbaabc3';
 
 /// See also [viewContract].
 @ProviderFor(viewContract)
@@ -20,7 +20,7 @@ final viewContractProvider = FutureProvider<List<LabourCondition>>.internal(
 );
 
 typedef ViewContractRef = FutureProviderRef<List<LabourCondition>>;
-String _$addAllContractHash() => r'0ac1d07ea879344aa86c56543e1e17f01b907296';
+String _$addContractHash() => r'42c3fdc1798022b80a6ab0a6d0ec80045d89d1e1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -42,134 +42,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-/// See also [addAllContract].
-@ProviderFor(addAllContract)
-const addAllContractProvider = AddAllContractFamily();
-
-/// See also [addAllContract].
-class AddAllContractFamily extends Family<AsyncValue<void>> {
-  /// See also [addAllContract].
-  const AddAllContractFamily();
-
-  /// See also [addAllContract].
-  AddAllContractProvider call(
-    List<LabourCondition> list,
-  ) {
-    return AddAllContractProvider(
-      list,
-    );
-  }
-
-  @override
-  AddAllContractProvider getProviderOverride(
-    covariant AddAllContractProvider provider,
-  ) {
-    return call(
-      provider.list,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'addAllContractProvider';
-}
-
-/// See also [addAllContract].
-class AddAllContractProvider extends AutoDisposeFutureProvider<void> {
-  /// See also [addAllContract].
-  AddAllContractProvider(
-    List<LabourCondition> list,
-  ) : this._internal(
-          (ref) => addAllContract(
-            ref as AddAllContractRef,
-            list,
-          ),
-          from: addAllContractProvider,
-          name: r'addAllContractProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$addAllContractHash,
-          dependencies: AddAllContractFamily._dependencies,
-          allTransitiveDependencies:
-              AddAllContractFamily._allTransitiveDependencies,
-          list: list,
-        );
-
-  AddAllContractProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.list,
-  }) : super.internal();
-
-  final List<LabourCondition> list;
-
-  @override
-  Override overrideWith(
-    FutureOr<void> Function(AddAllContractRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: AddAllContractProvider._internal(
-        (ref) => create(ref as AddAllContractRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        list: list,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<void> createElement() {
-    return _AddAllContractProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is AddAllContractProvider && other.list == list;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, list.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin AddAllContractRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `list` of this provider.
-  List<LabourCondition> get list;
-}
-
-class _AddAllContractProviderElement
-    extends AutoDisposeFutureProviderElement<void> with AddAllContractRef {
-  _AddAllContractProviderElement(super.provider);
-
-  @override
-  List<LabourCondition> get list => (origin as AddAllContractProvider).list;
-}
-
-String _$addContractHash() => r'ce05b4ad49b038f710cdd25eab2477cdd531ee37';
 
 /// See also [addContract].
 @ProviderFor(addContract)
@@ -297,7 +169,7 @@ class _AddContractProviderElement extends AutoDisposeFutureProviderElement<void>
   LabourCondition get condition => (origin as AddContractProvider).condition;
 }
 
-String _$clearContractHash() => r'2b4a60a16d51f9b0cb9f38a5098bdf01d42d9fb9';
+String _$clearContractHash() => r'fd676b333fce7f58fb7c2b0c5d10c3965315ae5f';
 
 /// See also [clearContract].
 @ProviderFor(clearContract)

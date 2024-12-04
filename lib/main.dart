@@ -1,50 +1,36 @@
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
-import 'package:calendar_project_240727/core/export.dart';
-import 'package:flutter/foundation.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'core/widget/toast_msg.dart';
-import 'firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'local_notification.dart';
-
-@pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  if (kDebugMode) {
-    print("Handling a background message: ${message.messageId}");
-  }
-}
+import 'one_signal_notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 /// 백그라운드에서 실행 중일 때 메시지 수신 리스너 설정
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
+  await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  MessagingService messagingService = MessagingService();
-  messagingService.messagingPermission();
-  messagingService.getToken();
-  messagingService.subscribeToMessages();
-
+  // OneSignalNotification.init();
   await initializeDateFormatting();
   LocalNotificationManager.init();
 
-
-  runApp( const ProviderScope(
+  runApp(ProviderScope(
       observers: [
         // Logger(),
       ],
-      child: MyApp()));
+      child: MyApp(),
+  ),
+  );
 }
 
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+
+  final analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +45,10 @@ class MyApp extends StatelessWidget {
             builder: (context) => StyledToast(
               locale: const Locale('ko', 'KR'),
               child: MaterialApp(
+                navigatorObservers: [
+                  FirebaseAnalyticsObserver(analytics: analytics),
+                ],
+
                 navigatorKey: navigatorKey,
                 onGenerateRoute: (settings) {
                 switch (settings.name) {

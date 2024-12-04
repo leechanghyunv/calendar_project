@@ -4,10 +4,8 @@ import 'package:calendar_project_240727/view_model/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-
-import '../../core/widget/text_style_util.dart';
-import '../../repository/calendar_time_controll.dart';
+import '../../repository/time/calendar_time_controll.dart';
+import '../dialog/dialog_widget.dart';
 
 
 class MemoDisplayContainer extends ConsumerWidget {
@@ -19,9 +17,8 @@ class MemoDisplayContainer extends ConsumerWidget {
     final selected = ref.watch(timeManagerProvider);
     final month = selected.selected.month;
     final day = selected.selected.day;
-    final appWidth = MediaQuery.of(context).size.width;
 
-    final textSize2 = appWidth > 500? screenUtilSize(6.5) : screenUtilSize(13);
+    final appWidth = MediaQuery.of(context).size.width;
 
     return AlertDialog(
       title: Column(
@@ -30,11 +27,7 @@ class MemoDisplayContainer extends ConsumerWidget {
             children: [
               TextWidget('${selected.selected.year}년 ${selected.selected.month}월 ${selected.selected.day}일 기록', 15,appWidth),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:  12.0),
-                child: LoadingAnimationWidget.staggeredDotsWave(
-                    color: Colors.black, size: 20),
-              ),
+              AnimationDecoration(),
             ],
           ),
           ErrorText('${selected.selected.month}월 ${selected.selected.day}일 기록(메모)열람, 삭제란 입니다.', appWidth)
@@ -80,7 +73,6 @@ class MemoContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final data = ref.watch(viewHistoryProvider);
     final appWidth = MediaQuery.of(context).size.width;
 
@@ -97,7 +89,7 @@ class MemoContainer extends ConsumerWidget {
 
 
           return SizedBox(
-            height: 85.sp,
+            height: 85.h,
             child: Column(
               children: [
                 SizedBox(height: 10,),
@@ -106,7 +98,7 @@ class MemoContainer extends ConsumerWidget {
                     Flexible(
                       flex: 1,
                         child: Container(
-                          height: 50.sp,
+                          height: 50.h,
                           color: mainColor,
                         ),
                     ),
@@ -114,7 +106,7 @@ class MemoContainer extends ConsumerWidget {
                     Flexible(
                       flex: 20,
                       child: Container(
-                        height: 50.sp,
+                        height: 50.h,
                         color: Colors.grey[100],
                         alignment: Alignment.centerLeft,
                         child: Padding(

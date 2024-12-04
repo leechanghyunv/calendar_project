@@ -1,99 +1,142 @@
-# 워크캘린더 (공수달력) 프로젝트
+# 건설현장 워크캘린더 (공수달력)
 
-## 프로젝트 개요
+## 📅 프로젝트 개요
+건설현장 노동자들의 근무 일정을 관리하고, 일당 및 근무 기록을 효과적으로 추적할 수 있는 워크캘린더 애플리케이션입니다.
 
-**제작기간:** 2024년 07월 1일 ~ 2024년 08월 22일 (약 2개월)
+### ⏰ 개발 기간
+- **첫 프로젝트 제작**: 2024.07.01 ~ 2024.08.22
+- **앱스토어 출시**: 2024.08.12
+- **프로젝트 보강**: 2024.08.22 ~
+    - 커뮤니티 배포 후 사용자 반응 모니터링
+    - 당근마켓 건당 알바 고용 후 설문, 모니터링
+- **현재 버전**: 1.3.1
+- **안드로이드 비공개테스트**: 2024.11.11
 
-이 프로젝트는 건설현장 노동자들의 근무 일정을 관리하고, 그에 따른 일당 및 근무 기록을 효과적으로 추적할 수 있도록 돕는 워크캘린더(공수달력) 애플리케이션입니다.
+## 🎯 주요 기능
+### 사용 목적
+- 당일 일당 입력 시 월별 총계 자동 계산
+    - 총 공수(근로시간)
+    - 세후 계산 금액
+    - 출근일수
+- 관리사무소 공수 기록과 비교 가능
 
-### **사용 목적**
+### 차별화 포인트
+#### 1. 간편한 백업시스템
+- `super_clipboard` 패키지 활용
+- 공수 데이터 저장 및 복원 기능
+- iOS-Android 간 호환 가능한 백업 시스템
 
-- 사용자가 당일 일당을 입력하면, 해당 월의 총 공수(근로시간), 세후 계산 금액, 출근일수 등을 보여줍니다.
-- 매월 급여날 관리사무소에서 제공하는 공수 기록과 비교하여 정확한 급여를 산정할 수 있도록 돕습니다.
+#### 2. 목표 관리 기능
+- 목표 금액 설정
+- 목표 달성까지 필요한 공수 계산
+- 건설근로공제 퇴직금 산정 기능
 
-### **다른 앱들과의 차이점**
+## 🛠 기술 스택
+### 주요 패키지
+- riverpod
+- sqlite
+- flutter_formz
+- table_calendar
+- keyboard_actions
 
-- **목표 금액 비교:** 목표 금액을 설정하고, 해당 금액까지 남은 공수를 계산하여 보여줍니다.
-- **실업급여 조건 산정:** 실업급여 조건에 충족되는지 여부를 자동으로 계산합니다.
-- **공수 시각화:** 해당 월의 공수 내용을 원형 그래프로 시각화하여, 경쟁 앱 대비 가시성을 크게 개선하였습니다.
+## 📁 프로젝트 구조
+### Repository
+1. **calculate_day**
+    - 근로 일수 및 주휴일수 계산
+    - 주휴일수: 15시간 이상 근로 시 1일, 야간근무 시 1일 추가
 
-## **사용된 주요 패키지**
+2. **calendar_time_controller**
+    - table_calendar의 markerBuilder 상태 관리
+    - selectedDay와 focusDay 상태 제어
 
-- **[riveprod](https://pub.dev/packages/riverpod)**
-- **[isar](https://pub.dev/packages/isar)**
-- **[flutter_formz](https://pub.dev/packages/flutter_formz)**
-- **[table_calendar](https://pub.dev/packages/table_calendar)**
+3. **copyJsonToClipboard**
+    - super_clipboard를 활용한 데이터 백업
 
-## **파일 구조 설명**
+4. **formz_decimal**
+    - 근무 형태 입력 시 formState 상태 관리
 
-### **Repository**
+5. **formz_deletion**
+    - 데이터 삭제 기능
+    - 'Delete file' 입력 검증
 
-- **`calculate_day`:** 근로 일수 및 주휴일수를 계산합니다. (주휴일수는 15시간 이상 근로 시 1일 추가)
-- **`calendar_time_controller`:** `table_calendar`의 `markerbuilder` 상태를 변경하기 위해 `selectedDay`와 `focusedDay`를 1일 뒤로 변경하여 캘린더 상태를 조작합니다.
-- **`formz_decimal`:** 근무 형태를 직접 입력 시, 숫자로 공수를 기재하면 `formState`의 상태를 변경합니다.
-- **`formz_deletion`:** 모든 근무 데이터를 삭제하려면 'Delete file'을 직접 입력해야 하며, 입력된 값의 유효성을 검사합니다. `FormzStatus.submissionSuccess` 상태가 되면 지문 아이콘 버튼이 활성화되며 `isar.clear()` 메서드를 통해 데이터를 삭제할 수 있습니다.
-- **`formz_model`:** 근로 조건 입력 시, 입력된 값에 대한 유효성을 검사합니다.
-- **`isar_database`:** `isar` 패키지를 활용한 CRUD 작업을 수행합니다.
+6. **formz_model**
+    - 근로 조건 입력 값 유효성 검사
 
-### **View Model**
+7. **sqlite_database**
+    - CRUD 작업 수행
 
-- **`calendar_event_model`:** `calendarHistory`를 `map<DateTime, List<workHistory>>` 타입으로 변환하여 캘린더 위젯에 전달, UI를 갱신합니다.
-- **`filted_source_model`:** `workHistory`와 `contract`에서 얻은 데이터를 기반으로 모든 인스턴스를 갱신하여 UI에 반영합니다.
-- **`contract_model`:** 필요한 데이터를 인스턴스화하여 `update_dialog`의 버튼 UI에 사용됩니다.
-- **`formz_decimal_model`:** 근무 형태를 직접 입력함에 따라 유효성 검사를 통해 UI 상태를 변경, 사용자가 인지할 수 있도록 합니다.
-- **`formz_deletion_model`:** 모든 근무 데이터를 삭제할 때, 'Delete file' 입력의 유효성 여부에 따라 UI에 반영합니다.
-- **`formz_menager_model`:** 근로 조건 입력 시, 유효성 상태를 쉽게 인지할 수 있도록 문자 형태로 UI에 나타냅니다.
-- **`history_model`:** `workHistory`에 대한 CRUD 작업을 처리하며, 비즈니스 로직을 추가합니다. (View와 직접적인 연관 없음)
+### View Model
+1. **calendar_event_model**
+    - 캘린더 위젯 데이터 관리
+2. **filtered_source_model**
+    - workHistory와 contract 데이터 통합 관리
+3. **contract_model**
+    - update_dialog UI 데이터 관리
+4. **formz_decimal_model**
+    - 근무 형태 입력 UI 상태 관리
+5. **formz_deletion_model**
+    - 데이터 삭제 UI 상태 관리
+6. **formz_manager_model**
+    - 근로 조건 입력 UI 상태 관리
+7. **formz_memo_model**
+    - 메모 입력 reactive UI 관리
+8. **history_model**
+    - workHistory CRUD 작업 처리
 
-### **View UI**
+### View UI
+1. **calendar**: 캘린더 위젯
+2. **chart**: 그래프 및 통계 UI
+3. **container**: 상황별 컨테이너
+4. **erase_dialog**: 데이터 삭제 UI
+5. **input_dialog**: 근로조건 등록 UI
+6. **minor_issue**: 기타 UI 위젯
+7. **screen**: 메인 화면
+8. **update_dialog**: 공수 이벤트 등록
 
-- **`calendar`:** 캘린더 위젯을 구현합니다.
-- **`chart`:** `main_screen` 하부에 그래프와 텍스트를 컨테이너 내에 포함시켜 보여줍니다.
-- **`container`:** `workHistory` 상태에 따라 UI에 표시되는 컨테이너를 구현합니다.
-- **`erase_dialog`:** 데이터 삭제 UI를 구현합니다.
-- **`input_dialog`:** 근로 조건 등록에 대한 UI를 구현합니다.
-- **`minor_issue`:** 리액티브하지 않은 단순한 UI 위젯들을 모아놓습니다.
-- **`screen`:** 메인 화면을 구현합니다.
-- **`update_dialog`:** 근로 등록에 관련된 UI를 전반적으로 구현합니다.
+## 🚀 주요 기술적 해결 과제
+### 1. table_calendar 상태 관리
+**문제점**
+- setState로 UI 상태 변경 불가
 
-## **기능 구현 주요 이슈 및 해결책**
+**해결방안**
+- time_controller 클래스 구현
+- focusDay, selectedDay 값 조정으로 상태 변경
 
-### 1. **Table Calendar의 상태 변경 문제**
+### 2. Database 상태 관리
+**문제점**
+- 데이터 저장 후 UI 갱신 시 병렬 처리 문제
 
-**문제점:**  
-`table_calendar` 패키지의 상태 변경은 `setState`나 `dispose` 메서드가 아닌, `focusdDay`와 `selectedDay` 프로퍼티들이 어떤 `DateTime` 값을 받느냐에 따라 이루어집니다.
+**해결방안**
+1. addHistory로 데이터 추가
+2. calendarProvider로 데이터 타입 변환
+3. history 데이터 갱신
+4. UI 상태 갱신
+5. Future.delay를 통한 순차적 처리
 
-**해결책:**  
-CRUD 작업 후, `focusdDay`와 `selectedDay`에 지정된 `DateTime` 값의 하루 뒤 시점을 주입하여 상태를 변경시킵니다.
+### 3. Android 호환성
+**문제점**
+- isar 패키지 호환성 이슈
 
-### 2. **Isar에 데이터 저장 후 UI 상태 변경 문제**
+**해결방안**
+- sqlite로 데이터베이스 변경
 
-**문제점:**  
-데이터를 저장하고 갱신한 후, 이를 캘린더 UI에 반영하는 과정에서 여러 작업이 병렬적으로 처리되어야 하는 어려움이 있었습니다.
+## 🔮 향후 계획
+### 추가 예정 기능
+1. **firebase_remote_config**
+    - 사용자 일당 데이터 분석
+    - 통계 기반 비교분석 기능
 
-**해결책:**
-1. `addHistory`에서 데이터 추가
-2. `calendarProvider`에서 `map<DateTime, List<workHistory>>` 타입으로 변경 후 `markerbuilder`에 전달
-3. `refresh`를 통해 history 데이터 갱신
-4. `focusdDay`, `selectedDay` 데이터 갱신 (UI 변경 목적)
-5. `numericalSourceModelProvider`를 통해 history 데이터와 contract 데이터에서 얻은 정보를 계산하여 UI에 반영
+2. **google ml kit text recognition**
+    - 기존 캘린더 데이터 자동 추출
+    - 데이터 마이그레이션 자동화
 
-이 과정에서 병렬 처리의 어려움을 해결하기 위해 `Future.delay`를 사용하여 각 기능에 딜레이를 추가했습니다.
+## ⚠️ 한계점 및 개선 방향
+1. **에니메이션 관리**
+    - Hooks 도입 검토
 
-## **상태 관리에 대한 고찰**
+2. **폼 관리**
+    - flutter_formz에서 form_validator로 마이그레이션 검토
 
-**Riverpod 사용 이유:**
-- `bloc`, `provider`와 달리 상태 관리가 전역적으로 이루어져 편리할 것으로 판단했습니다.
-- 이전 프로젝트에서 `getx`를 사용했을 때, `view` 구현 시 `context`에 따라 view가 제대로 구현되지 않는 어려움을 겪었습니다.
-
-**문제점:**
-- `riverpod` 구현 시 `view` 단에 불필요한 코드가 많아지는 것을 발견했습니다. 특히 `formz`의 `formState`에 따른 UI 관리 부분을 `ref.listen`으로 구현했는데, 이 부분이 반드시 `view`에서 코딩되어야 하는지에 대한 의문이 들었습니다.
-- `ref.watch`로 모든 상태 구현이 UI로 갱신될 것으로 예상했으나, 별도로 `refresh`를 사용해야 하는 코드가 발생했습니다.
-
-## **추가할 기능**
-
-- **건설 근로공제회 퇴직금 산정 기능 추가 예정**
-- **QR 코드 연동:** `isar` 패키지 정보를 QR 코드에 담아, 스캐너로 스캔 시 데이터가 이동될 수 있는지 검토 후 추가할 계획입니다.
-
-
+3. **상태관리**
+    - GetX 도입 검토
 

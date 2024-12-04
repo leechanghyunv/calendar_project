@@ -12,8 +12,18 @@ String formatAmountGoal(int amount) {
     final won = (amount / 10000).toStringAsFixed(0); // 만원 단위로 변경
     return '$won만원';
   } else {
-    return '${amount.toStringAsFixed(0)}원';
+    return '${amount.toStringAsFixed(1)}원';
   }
+}
+
+
+String formatBigAmount(int amount,double height) {
+  final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
+  return amount == 0 ? '0.00 만원❗️'
+
+      : height > 700 ? amount < 1000000 ? '$won만원 ' : '$won만원'
+
+      : '$won만원 ';
 }
 
 String formatAmount(int amount) {
@@ -42,8 +52,8 @@ String formatDecimalAmountforSmall(double amount) {
     return '$billion억원';
   } else {
     final int dot = intValue.toString().length <= 3 ? 2 : 1;
-    final won = value.toStringAsFixed(dot); // 소수점 없이 정수 부분만 사용
-    return '$won만원';
+    final won = value.toStringAsFixed(dot == 2 ? 2 : dot); // 소수점 없이 정수 부분만 사용
+    return  amount == 0.0 ? ' $won만원' : '$won만원';
   }
 }
 
@@ -90,7 +100,7 @@ class TwoDigitInputFormatter extends TextInputFormatter {
     final intPart = parts[0];
     final decPart = parts.length > 1 ? parts[1] : '';
 
-    if (intPart.length > 2 || (decPart.isNotEmpty && decPart.length > 2)) {
+    if (intPart.length > 2 || (decPart.isNotEmpty && decPart.length > 3)) {
       return oldValue;
     }
 

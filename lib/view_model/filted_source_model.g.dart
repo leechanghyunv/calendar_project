@@ -7,7 +7,7 @@ part of 'filted_source_model.dart';
 // **************************************************************************
 
 String _$numericSourceModelHash() =>
-    r'0974337ce3d908a9c1378049dca923bae9eb92d2';
+    r'1deb2f7035365999cca442044d84d4c537bfe4bc';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,10 +31,10 @@ class _SystemHash {
 }
 
 abstract class _$NumericSourceModel
-    extends BuildlessAutoDisposeAsyncNotifier<ConbinedDataModel> {
+    extends BuildlessAutoDisposeAsyncNotifier<CombinedDataModel> {
   late final DateTime time;
 
-  FutureOr<ConbinedDataModel> build(
+  FutureOr<CombinedDataModel> build(
     DateTime time,
   );
 }
@@ -44,7 +44,7 @@ abstract class _$NumericSourceModel
 const numericSourceModelProvider = NumericSourceModelFamily();
 
 /// See also [NumericSourceModel].
-class NumericSourceModelFamily extends Family<AsyncValue<ConbinedDataModel>> {
+class NumericSourceModelFamily extends Family<AsyncValue<CombinedDataModel>> {
   /// See also [NumericSourceModel].
   const NumericSourceModelFamily();
 
@@ -83,7 +83,7 @@ class NumericSourceModelFamily extends Family<AsyncValue<ConbinedDataModel>> {
 
 /// See also [NumericSourceModel].
 class NumericSourceModelProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    NumericSourceModel, ConbinedDataModel> {
+    NumericSourceModel, CombinedDataModel> {
   /// See also [NumericSourceModel].
   NumericSourceModelProvider(
     DateTime time,
@@ -114,7 +114,7 @@ class NumericSourceModelProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final DateTime time;
 
   @override
-  FutureOr<ConbinedDataModel> runNotifierBuild(
+  FutureOr<CombinedDataModel> runNotifierBuild(
     covariant NumericSourceModel notifier,
   ) {
     return notifier.build(
@@ -139,7 +139,7 @@ class NumericSourceModelProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<NumericSourceModel, ConbinedDataModel>
+  AutoDisposeAsyncNotifierProviderElement<NumericSourceModel, CombinedDataModel>
       createElement() {
     return _NumericSourceModelProviderElement(this);
   }
@@ -159,14 +159,14 @@ class NumericSourceModelProvider extends AutoDisposeAsyncNotifierProviderImpl<
 }
 
 mixin NumericSourceModelRef
-    on AutoDisposeAsyncNotifierProviderRef<ConbinedDataModel> {
+    on AutoDisposeAsyncNotifierProviderRef<CombinedDataModel> {
   /// The parameter `time` of this provider.
   DateTime get time;
 }
 
 class _NumericSourceModelProviderElement
     extends AutoDisposeAsyncNotifierProviderElement<NumericSourceModel,
-        ConbinedDataModel> with NumericSourceModelRef {
+        CombinedDataModel> with NumericSourceModelRef {
   _NumericSourceModelProviderElement(super.provider);
 
   @override

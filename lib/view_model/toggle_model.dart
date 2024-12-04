@@ -1,6 +1,6 @@
 
 
-import 'package:calendar_project_240727/repository/toggle_switch_value.dart';
+import 'package:calendar_project_240727/repository/view_controll/toggle_switch_value.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'toggle_model.g.dart';

@@ -6,7 +6,7 @@ part of 'history_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$viewHistoryHash() => r'5dbb68e2ec71442e74f2f46deec271c860cfe8e7';
+String _$viewHistoryHash() => r'6219a54935efbbfe6e2bb1bf8e9c8a81fd4222db';
 
 /// See also [viewHistory].
 @ProviderFor(viewHistory)
@@ -21,7 +21,7 @@ final viewHistoryProvider =
 );
 
 typedef ViewHistoryRef = AutoDisposeFutureProviderRef<List<WorkHistory>>;
-String _$addAllHistoryHash() => r'af5fda8bd3ba7d9c1d200ce19c09027e1b4e3633';
+String _$addAllHistoryHash() => r'649294620e69fd09dbdb067b26b333b3dcb671cb';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -170,7 +170,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'e79b8d9c1586bfb8b3e9ef184f55931dd5f157b6';
+String _$addHistoryHash() => r'60cc7b21733160c44a1de66480085498849b579b';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -315,7 +315,7 @@ class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
   DateTime get date => (origin as AddHistoryProvider).date;
 }
 
-String _$deleteHistoryHash() => r'117932a5e7a44cbf06665b90e11dccd71453ac10';
+String _$deleteHistoryHash() => r'108183677a5d5d0c4d9586c8fe83efb250f7ab4a';
 
 /// See also [deleteHistory].
 @ProviderFor(deleteHistory)
@@ -444,7 +444,7 @@ class _DeleteHistoryProviderElement
 }
 
 String _$deleteMonthHistoryHash() =>
-    r'1bbf3ff66a97176fa9dc04d5b38950a921374f0b';
+    r'c9e149d224699a147c3157ee1cbdb12aeb0f15a9';
 
 /// See also [deleteMonthHistory].
 @ProviderFor(deleteMonthHistory)
@@ -572,7 +572,7 @@ class _DeleteMonthHistoryProviderElement
   DateTime get time => (origin as DeleteMonthHistoryProvider).time;
 }
 
-String _$clearHistoryHash() => r'c334a0fb7f845f6f7c1ca4092ee98f322ba68cb4';
+String _$clearHistoryHash() => r'f9d4bce87f7680493852871e691906b09e9da065';
 
 /// See also [clearHistory].
 @ProviderFor(clearHistory)
