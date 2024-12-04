@@ -1,5 +1,3 @@
-import 'package:calendar_project_240727/view_ui/chart/chart_animation_index.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
