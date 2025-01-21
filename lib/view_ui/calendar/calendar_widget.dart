@@ -1,12 +1,9 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/repository/time/calculate_day.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../core/utils/holidays.dart';
 import '../../core/widget/toast_msg.dart';
-import '../../repository/time/calendar_time_controll.dart';
-import '../../repository/view_controll/vertical_toggle_index.dart';
-import '../../view_model/calendar_event_model.dart';
-import '../../view_model/history_model.dart';
-import '../container/memo_container.dart';
+import '../dialog/memo_container.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'default_cell.dart';
 import 'holiday_cell.dart';
@@ -21,10 +18,9 @@ class WorkCalendar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
 
-    final timeManager = ref.watch(timeManagerProvider);
-    final timeManagerNot = ref.read(timeManagerProvider.notifier);
-    final filtedEvent = ref.watch(calendarEventProvider);
-    final data = ref.watch(viewHistoryProvider);
+    final timeManagerNot = ref.timeNot;
+    final filtedEvent = ref.calendarEvent;
+    final data = ref.history;
 
     final filted = filtedEvent.when(
         data: (data) {
@@ -35,20 +31,13 @@ class WorkCalendar extends ConsumerWidget {
         error: (err, trace) => {},
         loading: () => {});
 
-    Future<void> refresh(WidgetRef ref) async {
-      Future.delayed(const Duration(milliseconds: 250), () {
-        ref.refresh(calendarEventProvider);
-        ref.read(timeManagerProvider.notifier).selectedNextDay();
-        Navigator.pushReplacementNamed(context, '/main');
-      });
-    }
 
     return Padding(
       padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 0),
       child: Container(
         width: appWidth,
         child: TableCalendarFrame(
-            selectedDay: timeManager.selected,
+            selectedDay: ref.selected,
             onDayLongPressed: (DateTime? selected, DateTime? focused) {
               data.when(
                 data: (val) {
@@ -60,7 +49,7 @@ class WorkCalendar extends ConsumerWidget {
                     showDialog(
                       context: context,
                       builder: (context) => const MemoDisplayContainer(),
-                    ).then((_) => refresh(ref),);
+                    );
                   }
                 },
                 error: (err, trace) {},
@@ -69,16 +58,15 @@ class WorkCalendar extends ConsumerWidget {
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);
-              ref.read(toggleIndexProvider.notifier).onToggle(null);
             },
             eventLoader: (DateTime day) {
               DateTime UtcDay = day.toUtc();
               return filted[UtcDay] ?? [];
             },
             selectedDayPredicate: (DateTime date) {
-              return date.year == timeManager.selected.year &&
-                  date.month == timeManager.selected.month &&
-                  date.day == timeManager.selected.day;
+              return date.year == ref.year &&
+                  date.month == ref.month &&
+                  date.day == ref.day;
             },
             onPageChanged: (DateTime? focusedDay) =>
                 timeManagerNot.onPageChanged(focusedDay),
@@ -107,7 +95,7 @@ class WorkCalendar extends ConsumerWidget {
               } else if (date.weekday == DateTime.sunday ||
                   isSubstituteHoliday ||
                   isHoliday) {
-                textColor = Colors.red; // 일요일
+                textColor = Colors.green; // 일요일
               } else {
                 textColor = Colors.black; // 평일
               }

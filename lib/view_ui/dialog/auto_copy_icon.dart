@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/export_package.dart';
-import '../../repository/formz/formz_model.dart';
 import '../../repository/view_controll/singlechild_scroll_repo.dart';
 part 'auto_copy_icon.g.dart';
 
@@ -53,7 +53,7 @@ class _AutoCopyIconState extends ConsumerState<AutoCopyIcon> {
   Widget build(BuildContext context) {
 
     final autoValue = ref.watch(autoCopyProvider);
-    final formzRefread = ref.read(formzValidatorProvider.notifier);
+    final formzRefread = ref.formzRead;
 
     final isSixOrMore = autoValue.whenOrNull(
         data: (value) => value.toString().length >= 6

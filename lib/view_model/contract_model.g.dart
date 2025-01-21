@@ -20,7 +20,7 @@ final viewContractProvider = FutureProvider<List<LabourCondition>>.internal(
 );
 
 typedef ViewContractRef = FutureProviderRef<List<LabourCondition>>;
-String _$addContractHash() => r'42c3fdc1798022b80a6ab0a6d0ec80045d89d1e1';
+String _$addContractHash() => r'9a0ad8c7495f5f88221d0a460bb20338115f7258';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -169,6 +169,134 @@ class _AddContractProviderElement extends AutoDisposeFutureProviderElement<void>
   LabourCondition get condition => (origin as AddContractProvider).condition;
 }
 
+String _$updateContractHash() => r'1c4c41125242d6761eaf321dd8a4931d7d53515a';
+
+/// See also [updateContract].
+@ProviderFor(updateContract)
+const updateContractProvider = UpdateContractFamily();
+
+/// See also [updateContract].
+class UpdateContractFamily extends Family<AsyncValue<void>> {
+  /// See also [updateContract].
+  const UpdateContractFamily();
+
+  /// See also [updateContract].
+  UpdateContractProvider call(
+    int goal,
+  ) {
+    return UpdateContractProvider(
+      goal,
+    );
+  }
+
+  @override
+  UpdateContractProvider getProviderOverride(
+    covariant UpdateContractProvider provider,
+  ) {
+    return call(
+      provider.goal,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateContractProvider';
+}
+
+/// See also [updateContract].
+class UpdateContractProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [updateContract].
+  UpdateContractProvider(
+    int goal,
+  ) : this._internal(
+          (ref) => updateContract(
+            ref as UpdateContractRef,
+            goal,
+          ),
+          from: updateContractProvider,
+          name: r'updateContractProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateContractHash,
+          dependencies: UpdateContractFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateContractFamily._allTransitiveDependencies,
+          goal: goal,
+        );
+
+  UpdateContractProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.goal,
+  }) : super.internal();
+
+  final int goal;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(UpdateContractRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateContractProvider._internal(
+        (ref) => create(ref as UpdateContractRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        goal: goal,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _UpdateContractProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateContractProvider && other.goal == goal;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, goal.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UpdateContractRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `goal` of this provider.
+  int get goal;
+}
+
+class _UpdateContractProviderElement
+    extends AutoDisposeFutureProviderElement<void> with UpdateContractRef {
+  _UpdateContractProviderElement(super.provider);
+
+  @override
+  int get goal => (origin as UpdateContractProvider).goal;
+}
+
 String _$clearContractHash() => r'fd676b333fce7f58fb7c2b0c5d10c3965315ae5f';
 
 /// See also [clearContract].
@@ -296,22 +424,5 @@ class _ClearContractProviderElement
   @override
   LabourCondition get condition => (origin as ClearContractProvider).condition;
 }
-
-String _$sortedContractHash() => r'8b35cedd6238344ffdea89e40ab3520d6a40aa49';
-
-/// See also [SortedContract].
-@ProviderFor(SortedContract)
-final sortedContractProvider =
-    AutoDisposeAsyncNotifierProvider<SortedContract, LabourCondition>.internal(
-  SortedContract.new,
-  name: r'sortedContractProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$sortedContractHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
-
-typedef _$SortedContract = AutoDisposeAsyncNotifier<LabourCondition>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -1,14 +1,12 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../model/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
-import '../../../repository/time/calendar_time_controll.dart';
-import '../../minor_issue/widget/qr_container.dart';
 import '../dialog_text.dart';
 import '../keydoard_section.dart';
 import '../section_contract_form/goal_amount_section.dart';
 import '../section_contract_form/work_condition_section.dart';
-import 'back_up_data/back_up_dialog.dart';
 import 'contract_form_box.dart';
 
 class InitialSetForm extends ConsumerStatefulWidget {
@@ -36,6 +34,12 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
   final TextEditingController _controller5 = TextEditingController();
   final TextEditingController _controller6 = TextEditingController();
 
+  final DateTime dateNow = DateTime.utc(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  );
+
   @override
   void dispose() {
     _nodeText1.dispose();
@@ -56,11 +60,9 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
 
   @override
   Widget build(BuildContext context) {
-    final formzRef = ref.watch(formzValidatorProvider);
-    final formzRefNot = ref.watch(formzValidatorProvider.notifier);
-    final formzRefread = ref.read(formzValidatorProvider.notifier);
-    final timeManager = ref.watch(timeManagerProvider);
-    final selected = timeManager.selected;
+    final formzRef = ref.contractForm;
+    final formzRefNot = ref.formzWatch;
+    final formzRefread = ref.formzRead;
     ref.listen(formzValidatorProvider, (pre,cur){
       if(cur.status == FormzStatus.submissionSuccess){
         Navigator.pushReplacementNamed(context, '/main');
@@ -81,14 +83,18 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
         10.0,
       ),
 
-      title: const QrContainer(
-        msg: '조건을 입력해주세요',
-        textColor: Colors.black,
-      ),
 
       content: ContractFormBox(
+        nodes: [
+          _nodeText1,
+          _nodeText2,
+          _nodeText3,
+          _nodeText4,
+          _nodeText5,
+          _nodeText6,
+        ],
         child: KeyboardActions(
-          config: _buildConfig(context,ref,selected,appWidth),
+          config: _buildConfig(context,ref,dateNow,appWidth),
           child: Form(
             key: _formKey,
             child: Column(
@@ -124,16 +130,6 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16.0, 0.0, 0.0, 4.0),
-              child: TextButton(
-                onPressed: () {
-                  showDialog(
-                      context: context, builder: (context) => const BackUpDialog());
-                },
-                child:  ButtonTextWidget('데이터 백업관리',13,color: Colors.grey),
-              ),
-            ),
             const Spacer(),
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -141,7 +137,7 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
             ),
             TextButton(
               onPressed: ()  => formzRefread.onSubmit(
-                  context,selected,_nodeText1,_nodeText2,
+                  context,dateNow,_nodeText1,_nodeText2,true
               ),
               child: ButtonTextWidget('저장',16),
             ),
@@ -204,7 +200,7 @@ class _InitialSetFormState extends ConsumerState<InitialSetForm> {
             customMsg('저장을 눌러주세요');
             _nodeText6.unfocus();
             ref.read(formzValidatorProvider.notifier).onSubmit(
-                context, selected, _nodeText1, _nodeText2);
+                context, selected, _nodeText1, _nodeText2,false);
           },
           appWidth: appWidth,
         ),

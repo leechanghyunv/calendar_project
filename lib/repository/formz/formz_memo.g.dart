@@ -7,7 +7,7 @@ part of 'formz_memo.dart';
 // **************************************************************************
 
 String _$formzMemoValidatorHash() =>
-    r'7ca9ba55987d97dea640a483ee212f8645b726f8';
+    r'dffe9a9b999c7a7a01fdfc2dcbe16438ce512247';
 
 /// See also [FormzMemoValidator].
 @ProviderFor(FormzMemoValidator)

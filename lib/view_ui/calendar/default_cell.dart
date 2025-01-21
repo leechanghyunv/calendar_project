@@ -11,6 +11,7 @@ class DefaultCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
+
     return Container(
       margin: EdgeInsets.all(4.0.r),
       decoration: BoxDecoration(
@@ -22,7 +23,11 @@ class DefaultCell extends StatelessWidget {
             child: Text(
               '${date.day}',
               style: TextStyle(
-                fontSize: appWidth > 500 ? 8.sp :16.sp,
+                fontSize: switch (appWidth) {
+                  > 450 => 18.5,
+                  > 400 => 17,
+                  _ => 16,
+                },
                 fontWeight: FontWeight.w700,
                 color: textColor,
               ),

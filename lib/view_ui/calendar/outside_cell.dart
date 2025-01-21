@@ -1,7 +1,6 @@
 
 import 'package:calendar_project_240727/core/export_package.dart';
 
-import 'blink_pointer.dart';
 
 class OutSideCell extends StatelessWidget {
 
@@ -12,6 +11,7 @@ class OutSideCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
+
     bool hasMarker = day.weekday ==
         DateTime.saturday; // Example condition for markers
     return Container(
@@ -26,16 +26,15 @@ class OutSideCell extends StatelessWidget {
               '${day.day}',
               style: TextStyle(
                 color: hasMarker ? Colors.blue : Colors.grey,
-                fontSize: appWidth > 500 ? 8.sp :16.sp,
+                fontSize: switch (appWidth) {
+                  > 450 => 18.5,
+                  > 400 => 17,
+                  _ => 16,
+                },
               ),
             ),
           ),
-          if (hasMarker)
-            Positioned(
-              right: 1,
-              bottom: 1,
-              child: BlinkPointer(),
-            ),
+
         ],
       ),
     );

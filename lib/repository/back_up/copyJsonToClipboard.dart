@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:super_clipboard/super_clipboard.dart';
 
 Future<void> copyJsonToClipboard(String jsonString) async {

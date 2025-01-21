@@ -1,5 +1,4 @@
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
-import 'package:calendar_project_240727/repository/view_controll/vertical_toggle_index.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../model/calendar_time_model.dart';
 import '../../view_model/filted_source_model.dart';
@@ -29,22 +28,54 @@ class TimeManager extends _$TimeManager {
     );
   }
 
-  bool shouldEnlarge(){
-    final firstDayOfMonth = DateTime(state.selected.year, state.selected.month, 1);
-    final lastDayOfMonth = DateTime(state.selected.year, state.selected.month + 1, 0).day;
-
-    return (
-        (firstDayOfMonth.weekday == DateTime.saturday && lastDayOfMonth >= 30) ||
-            (firstDayOfMonth.weekday == DateTime.friday && lastDayOfMonth == 31)
-    );
-  }
-
   void onDaySelected(DateTime selected, DateTime focused) {
     state = state.copyWith(selected: selected, focused: focused);
   }
 
   void onPageChanged(DateTime? focused) {
     state = state.copyWith(selected: focused!, focused: focused);
+  }
+
+  void moveMonth(int month) {
+    final nextMonth = DateTime.utc(
+      state.selected.year,
+      state.selected.month - month,
+      state.selected.day,
+    );
+    state = state.copyWith(selected: nextMonth, focused: nextMonth);
+  }
+
+  void moveNextMonth() {
+    final nextMonth = DateTime.utc(
+      state.selected.year,
+      state.selected.month + 1,
+      state.selected.day,
+    );
+    state = state.copyWith(selected: nextMonth, focused: nextMonth);
+  }
+
+  void movePreviousMonth() {
+    final previousMonth = DateTime.utc(
+      state.selected.year,
+      state.selected.month - 1,
+      state.selected.day,
+    );
+    state = state.copyWith(selected: previousMonth, focused: previousMonth);
+  }
+
+  void moveToToday() {
+    final now = DateTime.now();
+    final today = DateTime.utc(
+      now.year,
+      now.month,
+      now.day,
+    );
+    state = state.copyWith(selected: today, focused: today);
+  }
+
+  String getFormattedDate(int year, int month) {
+    final date = DateTime(year, month); // 자동으로 월 조정
+    return '${date.year}년 ${date.month}월';
   }
 
   void selectedNextDay() async {
@@ -56,10 +87,12 @@ class TimeManager extends _$TimeManager {
       state = state.copyWith(selected: addDay, focused: addDay);
       await ref.read(numericSourceModelProvider(addDay).future);
       ref.read(formzMemoValidatorProvider.notifier).clearMemo();
-
-      ref.read(toggleIndexProvider.notifier).onToggle(null);
     }
   }
+
+
+
+
 
   void toggleNextDay() async {
     print('toggleNextDay DaySelected: $DaySelected');

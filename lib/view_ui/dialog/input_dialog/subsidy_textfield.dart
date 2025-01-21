@@ -1,5 +1,5 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import '../../../core/export_package.dart';
-import '../../../repository/formz/formz_model.dart';
 import '../dialog_text.dart';
 
 class SubsidyTextfield extends ConsumerStatefulWidget {
@@ -20,12 +20,12 @@ class _SubsidyTextfieldState extends ConsumerState<SubsidyTextfield> {
 
     final appWidth = MediaQuery.of(context).size.width;
     double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
-    final formzRefread = ref.read(formzValidatorProvider.notifier);
+    final formzRefread = ref.formzRead;
 
     return Container(
       decoration: BoxDecoration(
       ),
-      height: appWidth > 500 ? 23.5.sp : 47.sp,
+      height: 47.sp,
       child: TextFormField(
         controller: widget.controller6,
         focusNode: widget.focusNode6,
@@ -48,7 +48,7 @@ class _SubsidyTextfieldState extends ConsumerState<SubsidyTextfield> {
           prefixStyle: ContractFontStyle(),
           hintText: '20,000',
           hintStyle: TextStyle(
-            fontSize: appWidth > 500 ? screenUtilSize(7) : screenUtilSize(14),
+            fontSize:  screenUtilSize(14),
             color: Colors.grey[600],
           ),
           labelText: '✨일비',

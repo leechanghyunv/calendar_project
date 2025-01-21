@@ -19,7 +19,7 @@ String formatAmountGoal(int amount) {
 
 String formatBigAmount(int amount,double height) {
   final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
-  return amount == 0 ? '0.00 만원❗️'
+  return amount == 0 ? '0.00 만원️'
 
       : height > 700 ? amount < 1000000 ? '$won만원 ' : '$won만원'
 

@@ -13,7 +13,9 @@ class NumericSourceModel extends _$NumericSourceModel {
   late DateTime endDate;
 
    /// item.date.isAfter(startDate) && item.date.isBefore(endDate)
-   List<WorkHistory> filteredHistory = [];
+  List<WorkHistory> filteredHistory = [];
+  List<WorkHistory> prevHistory = [];
+
 
   int get goal => state.value?.contract.last.goal ?? 0;
   double get tax => state.value?.contract.last.tax ?? 0.0; /// %를 제외한 숫자로 나오기때문에 필터링
@@ -64,7 +66,10 @@ class NumericSourceModel extends _$NumericSourceModel {
   int get workDaynMonth => filteredHistory.where((e) => e.record != 0.0).length;
 
   int get totalPay => state.value?.history.fold(0,(p,e) => p + e.pay).toInt() ?? 0;
+
   int get totalPaynMonth => filteredHistory.fold(0,(p,e) => p + e.pay);
+  int get totalPayprevMonth => prevHistory.fold(0,(p,e) => p + e.pay);
+
 /// 일비 추가시 사용
   int get totalPayAnd => totalPay + totolSubsidy;
   int get totalPaynMonthAnd => totalPaynMonth + totolSubsidyDaynMonth;
@@ -223,15 +228,26 @@ class NumericSourceModel extends _$NumericSourceModel {
   }
 
   Future<CombinedDataModel> refreshData(DateTime time) async {
+
     final contract = await ref.watch(viewContractProvider.future);
     final history = await ref.watch(viewHistoryProvider.future);
 
     startDate = DateTime(time.year, time.month, 1);
     endDate = DateTime(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
 
+    final prevStartDate = DateTime(time.year, time.month - 1, 1);
+    final prevEndDate = DateTime(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+
     filteredHistory = history.where((item) {
-      return item.date.isAfter(startDate) && item.date.isBefore(endDate);
+      return (item.date.isAtSameMomentAs(startDate) || item.date.isAfter(startDate)) &&
+          (item.date.isAtSameMomentAs(endDate) || item.date.isBefore(endDate));
     }).toList();
+
+    prevHistory = history.where((item) {
+      return (item.date.isAtSameMomentAs(prevStartDate) || item.date.isAfter(prevStartDate)) &&
+          (item.date.isAtSameMomentAs(prevEndDate) || item.date.isBefore(prevEndDate));
+    }).toList();
+
     return CombinedDataModel(contract: contract, history: history);
   }
 

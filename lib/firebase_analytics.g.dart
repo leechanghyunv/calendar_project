@@ -7,7 +7,7 @@ part of 'firebase_analytics.dart';
 // **************************************************************************
 
 String _$firebaseAnalyticsClassHash() =>
-    r'ee4eda3ca168c8bb5d39da22eb31bb2956df7429';
+    r'ebbf1121e4f5d34b3bc61eb288ee56147a9aceca';
 
 /// See also [FirebaseAnalyticsClass].
 @ProviderFor(FirebaseAnalyticsClass)

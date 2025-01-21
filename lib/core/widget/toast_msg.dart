@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/core/widget/toast_loading_animation.dart';
 
 import '../export_package.dart';
 
@@ -35,9 +34,9 @@ void _showCustomToast(Widget child) {
   );
 }
 
-const TextStyle _defaultToastTextStyle = TextStyle(
+ TextStyle _defaultToastTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: 17,
+  fontSize: 17.sp,
   fontWeight: FontWeight.bold,
 );
 
@@ -50,23 +49,11 @@ void customMsg(String msg) {
 void enrollMsg(DateTime day, String value) {
   _showCustomToast(
     Text(
-      '${day.month}월 ${day.day}일 $value 선택\n확인 버튼을 눌러주세요',
+      '${day.month}월 ${day.day}일 $value',
       style: _defaultToastTextStyle,
     ),
   );
 }
-
-void showLoadingMsg() {
-  _showCustomToast(
-      const AnimatedLoadingText()
-  );
-}
-
-/// L😀ading......
-/// L🔅ading......
-/// L🎃ading......
-/// L⚙️ading......
-
 
 
 

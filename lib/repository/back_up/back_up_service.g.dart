@@ -7,7 +7,7 @@ part of 'back_up_service.dart';
 // **************************************************************************
 
 String _$backUpServiceProviderHash() =>
-    r'dc1f383e4b481213cf6e18031530fb59f6f65798';
+    r'6d1e12768e6ca5eeee5f8cfab504ba4a44bb4fd9';
 
 /// See also [BackUpServiceProvider].
 @ProviderFor(BackUpServiceProvider)

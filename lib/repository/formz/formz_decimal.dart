@@ -17,7 +17,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   String get decimalError {
     final selected = ref.watch(timeManagerProvider.notifier).DaySelected;
     return state.decimalData.displayError?.toString() ??
-        '${selected.month}월 ${selected.day}일 공수를 입력해주세요';
+        ' 입력안하고 확인 누르면 바로 휴무처리됩니다.';
   }
 
   @override
@@ -29,6 +29,8 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   }
 
   Future<void> onChangeDecimal(double number) async {
+
+    print('onChangeDecimal $number');
 
     final time = ref.watch(timeManagerProvider.notifier).DaySelected;
     final pay = ref.watch(viewContractProvider).value!.last.normal;

@@ -125,7 +125,8 @@ class FormzValidator extends _$FormzValidator {
       BuildContext context,
       DateTime selected,
       FocusNode goalNode,
-      FocusNode taxNode) {
+      FocusNode taxNode,
+      bool shouldExecuteFinal) {
 
     state = state.copyWith(status: FormzStatus.submissionInProgress);
     bool isValid = true;
@@ -170,10 +171,8 @@ class FormzValidator extends _$FormzValidator {
     }
 
     // 수당 크기 비교 검사
-    if (state.pay1.value < state.pay2.value && state.pay2.value < state.pay3.value) {
-      state = state.copyWith(status: FormzStatus.validated);
-      onSubmitFinal(selected);  // 모든 검증을 통과한 경우에만 호출
-    } else {
+    bool isPayValid = state.pay1.value < state.pay2.value && state.pay2.value < state.pay3.value;
+    if (!isPayValid) {
       if (state.pay1.value >= state.pay2.value) {
         customMsg('연장수당이 정상수당보다 작습니다');
       }
@@ -181,7 +180,15 @@ class FormzValidator extends _$FormzValidator {
         customMsg('야간수당이 연장수당보다 작습니다');
       }
       state = state.copyWith(status: FormzStatus.invalid);
-      return;  // 여기서도 메서드 종료
+      return;
+    }
+
+    // 모든 검증이 통과된 경우
+    state = state.copyWith(status: FormzStatus.validated);
+
+    // shouldExecuteFinal 파라미터에 따라 onSubmitFinal 실행 여부 결정
+    if (shouldExecuteFinal) {
+      onSubmitFinal(selected);
     }
   }
 
@@ -219,7 +226,7 @@ class FormzValidator extends _$FormzValidator {
         });
 
         state = state.copyWith(status: FormzStatus.submissionSuccess);
-        customMsg('근로조건이 등록되었습니다.');  /// '근로조건이 등록되었습니다.'
+        customMsg('근로조건이 등록되었습니다.\n1.0, 1.5, 2.0 로 공수등록');
       } catch (e) {
         state = state.copyWith(status: FormzStatus.submissionFailure);
         customMsg('입력값 저장을 실패했습니다.');

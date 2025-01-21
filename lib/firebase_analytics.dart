@@ -142,6 +142,10 @@ class FirebaseAnalyticsClass extends _$FirebaseAnalyticsClass {
     state.logEvent(name: reviewEvent);
   }
 
+  Future<void> pieTouch() async {
+    state.logEvent(name: 'pieTouch');
+  }
+
   Future<void> autoCopyEvent() async {
     state.logEvent(name: 'autoCopyEvent');
   }

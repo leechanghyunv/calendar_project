@@ -61,22 +61,21 @@ class HistoryDatabase {
     }
   }
 
-  Future<void> deleteWorkHistoryByMonth(DateTime date) async {
+  Future<void> deleteWorkHistoryByMonth(DateTime start,DateTime end) async {
     try {
       final db = await database;
-      final startOfMonth = DateTime(date.year, date.month, 1);
-      final endOfMonth = DateTime(date.year, date.month + 1, 1).subtract(Duration(days: 1));
+
       await db.transaction((txn) async {
         await txn.delete(
           'workhistory',
           where: 'date BETWEEN ? AND ?',
           whereArgs: [
-            startOfMonth.toIso8601String(),
-            endOfMonth.toIso8601String(),
+            start.toIso8601String(),
+            end.toIso8601String(),
           ],
         );
       });
-      print('deleteWorkHistoryByMonth: ${date.year}년 ${date.month}월 데이터 삭제 성공');
+      print(' 기간별 데이터 삭제 성공');
     } catch (e) {
       print('deleteWorkHistoryByMonth error: ${e.toString()}');
       throw Exception('월간 데이터 삭제 중 오류 발생');
@@ -108,6 +107,26 @@ class HistoryDatabase {
     if (maps.isEmpty) return null;
     return WorkHistory.fromMap(maps.first);
   }
+/// /// 2024년 12월 15일 새로 추가된 기능
+  Future<void> updateMemo(DateTime date, String newMemo) async {
+    try {
+      final db = await database;
+      await db.transaction((txn) async {
+        await txn.update(
+          'workhistory',
+          {'memo': newMemo},
+          where: 'date = ?',
+          whereArgs: [date.toIso8601String()],
+        );
+      });
+      print('updateMemo: 메모 업데이트 성공');
+    } catch (e) {
+      print('updateMemo error: ${e.toString()}');
+      throw Exception('메모 업데이트 중 오류 발생');
+    }
+  }
+
+
 
   // 날짜가 있으면 기존데이터 삭제 후 삽입, 없으면 삽입
   Future<void> insertOrUpdateWorkHistory(WorkHistory history) async {
@@ -137,29 +156,20 @@ class HistoryDatabase {
   Future<void> insertOrOverwriteWorkHistories(List<WorkHistory> histories) async {
     try {
       final db = await database;
-      // 입력할 날짜들의 목록 생성
-      final Set<String> datesSet = histories.map(
-              (h) => h.date.toIso8601String().split('T')[0]  // 날짜만 추출 (시간 제외)
-      ).toSet();
       await db.transaction((txn) async {
-        // 1. 해당 날짜들의 기존 데이터 모두 삭제
-        for (var dateStr in datesSet) {
-          await txn.delete(
-            'workhistory',
-            where: "date LIKE ?",
-            whereArgs: ['$dateStr%'],  // 해당 날짜로 시작하는 모든 데이터
-          );
-        }
-        // 2. 새로운 데이터 삽입
         for (var history in histories) {
-          await txn.insert('workhistory', history.toMap());
+          final date = history.date.toUtc().toIso8601String(); // "YYYY-MM-DDTHH:mm:ss.mmmZ"
+          final map = history.toMap();
+          map['date'] = date;
+          await txn.insert('workhistory',
+              map,conflictAlgorithm: ConflictAlgorithm.replace);
+          /// ConflictAlgorithm.replace는 덮어쓰기 옵션입니다.
+
         }
       });
-      print('insertOrOverwriteWorkHistories: ${histories.length}개 데이터 처리 완료');
-
     } catch (e) {
-      print('insertOrOverwriteWorkHistories error: ${e.toString()}');
-      throw Exception('데이터 일괄 처리 중 오류 발생');
+      print('Error: ${e.toString()}');
+      throw Exception('데이터 처리 오류');
     }
   }
 

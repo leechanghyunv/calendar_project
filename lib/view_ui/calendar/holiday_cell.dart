@@ -1,5 +1,7 @@
+import 'package:calendar_project_240727/base_consumer.dart';
+
 import '../../core/export_package.dart';
-import '../../repository/time/calendar_time_controll.dart';
+import '../../theme_color.dart';
 
 class HolidayCell extends ConsumerWidget {
 
@@ -10,7 +12,6 @@ class HolidayCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final timeManager = ref.watch(timeManagerProvider);
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
 
@@ -22,18 +23,18 @@ class HolidayCell extends ConsumerWidget {
       orElse: () => MapEntry(date, ''),
     ).value;
 
-    Color cellColor = date.month == timeManager.selected.month ? Colors.redAccent : Colors.transparent;
+    Color cellColor = date.month == ref.month ? Colors.green : Colors.transparent;
 
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(
         top: appHeight < 700
-            ? appWidth > 500 ? 15.w : 29.w  /// (se를 고려해야함)
-            : appWidth > 500 ? 17.5.w : (appWidth <= 370 ? 33.5.w : 35.w),
+            ?  29.w  /// (se를 고려해야함)
+            :  (appWidth <= 370 ? 33.5.w : 35.w),
       ),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: Colors.white,
+        color: themeColor,
       ),
       child: Text(hoildayName,
         maxLines: 2,

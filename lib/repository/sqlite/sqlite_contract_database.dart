@@ -56,6 +56,36 @@ class ContractDatabase {
     }
   }
 
+
+  Future<void> updateLastLabourConditionGoal(int newGoal) async {
+    try {
+      // 마지막 행 찾기
+      final List<Map<String, dynamic>> lastRow = await database.query(
+        'labour_condition',
+        orderBy: 'id DESC',
+        limit: 1,
+      );
+
+      if (lastRow.isEmpty) {
+        throw Exception('업데이트할 데이터가 없습니다');
+      }
+
+      // goal만 업데이트
+      final rowsAffected = await database.update(
+        'labour_condition',
+        {'goal': newGoal},  // goal 값만 포함
+        where: 'id = ?',
+        whereArgs: [lastRow.first['id']],
+      );
+
+      if (rowsAffected == 0) {
+        throw Exception('데이터 업데이트에 실패했습니다');
+      }
+    } catch (e) {
+      throw Exception('goal 업데이트 중 오류: ${e.toString()}');
+    }
+  }
+
   Future<List<LabourCondition>> getAllLabourConditions() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('labour_condition');

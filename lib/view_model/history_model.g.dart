@@ -170,7 +170,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'60cc7b21733160c44a1de66480085498849b579b';
+String _$addHistoryHash() => r'48678a8e0493cb490e8381af987f295bfd1b46b1';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -315,6 +315,21 @@ class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
   DateTime get date => (origin as AddHistoryProvider).date;
 }
 
+String _$latestHistoryHash() => r'813e5a8c4aabb68b0a363324116c4b3c5c80c234';
+
+/// See also [latestHistory].
+@ProviderFor(latestHistory)
+final latestHistoryProvider = AutoDisposeFutureProvider<void>.internal(
+  latestHistory,
+  name: r'latestHistoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$latestHistoryHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef LatestHistoryRef = AutoDisposeFutureProviderRef<void>;
 String _$deleteHistoryHash() => r'108183677a5d5d0c4d9586c8fe83efb250f7ab4a';
 
 /// See also [deleteHistory].
@@ -444,7 +459,7 @@ class _DeleteHistoryProviderElement
 }
 
 String _$deleteMonthHistoryHash() =>
-    r'c9e149d224699a147c3157ee1cbdb12aeb0f15a9';
+    r'9be102682402a8912c5547240f12752297499e0a';
 
 /// See also [deleteMonthHistory].
 @ProviderFor(deleteMonthHistory)
@@ -457,10 +472,12 @@ class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
 
   /// See also [deleteMonthHistory].
   DeleteMonthHistoryProvider call(
-    DateTime time,
+    DateTime start,
+    DateTime end,
   ) {
     return DeleteMonthHistoryProvider(
-      time,
+      start,
+      end,
     );
   }
 
@@ -469,7 +486,8 @@ class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
     covariant DeleteMonthHistoryProvider provider,
   ) {
     return call(
-      provider.time,
+      provider.start,
+      provider.end,
     );
   }
 
@@ -492,11 +510,13 @@ class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
 class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [deleteMonthHistory].
   DeleteMonthHistoryProvider(
-    DateTime time,
+    DateTime start,
+    DateTime end,
   ) : this._internal(
           (ref) => deleteMonthHistory(
             ref as DeleteMonthHistoryRef,
-            time,
+            start,
+            end,
           ),
           from: deleteMonthHistoryProvider,
           name: r'deleteMonthHistoryProvider',
@@ -507,7 +527,8 @@ class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
           dependencies: DeleteMonthHistoryFamily._dependencies,
           allTransitiveDependencies:
               DeleteMonthHistoryFamily._allTransitiveDependencies,
-          time: time,
+          start: start,
+          end: end,
         );
 
   DeleteMonthHistoryProvider._internal(
@@ -517,10 +538,12 @@ class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.time,
+    required this.start,
+    required this.end,
   }) : super.internal();
 
-  final DateTime time;
+  final DateTime start;
+  final DateTime end;
 
   @override
   Override overrideWith(
@@ -535,7 +558,8 @@ class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        time: time,
+        start: start,
+        end: end,
       ),
     );
   }
@@ -547,21 +571,27 @@ class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
 
   @override
   bool operator ==(Object other) {
-    return other is DeleteMonthHistoryProvider && other.time == time;
+    return other is DeleteMonthHistoryProvider &&
+        other.start == start &&
+        other.end == end;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, time.hashCode);
+    hash = _SystemHash.combine(hash, start.hashCode);
+    hash = _SystemHash.combine(hash, end.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
 mixin DeleteMonthHistoryRef on AutoDisposeFutureProviderRef<void> {
-  /// The parameter `time` of this provider.
-  DateTime get time;
+  /// The parameter `start` of this provider.
+  DateTime get start;
+
+  /// The parameter `end` of this provider.
+  DateTime get end;
 }
 
 class _DeleteMonthHistoryProviderElement
@@ -569,7 +599,9 @@ class _DeleteMonthHistoryProviderElement
   _DeleteMonthHistoryProviderElement(super.provider);
 
   @override
-  DateTime get time => (origin as DeleteMonthHistoryProvider).time;
+  DateTime get start => (origin as DeleteMonthHistoryProvider).start;
+  @override
+  DateTime get end => (origin as DeleteMonthHistoryProvider).end;
 }
 
 String _$clearHistoryHash() => r'f9d4bce87f7680493852871e691906b09e9da065';
@@ -586,5 +618,149 @@ final clearHistoryProvider = AutoDisposeFutureProvider<void>.internal(
 );
 
 typedef ClearHistoryRef = AutoDisposeFutureProviderRef<void>;
+String _$updateMemoHistoryHash() => r'd2a83a12ce00411d590409eb24bcaf8efa88d62d';
+
+/// See also [updateMemoHistory].
+@ProviderFor(updateMemoHistory)
+const updateMemoHistoryProvider = UpdateMemoHistoryFamily();
+
+/// See also [updateMemoHistory].
+class UpdateMemoHistoryFamily extends Family<AsyncValue<void>> {
+  /// See also [updateMemoHistory].
+  const UpdateMemoHistoryFamily();
+
+  /// See also [updateMemoHistory].
+  UpdateMemoHistoryProvider call(
+    DateTime date,
+    String memo,
+  ) {
+    return UpdateMemoHistoryProvider(
+      date,
+      memo,
+    );
+  }
+
+  @override
+  UpdateMemoHistoryProvider getProviderOverride(
+    covariant UpdateMemoHistoryProvider provider,
+  ) {
+    return call(
+      provider.date,
+      provider.memo,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateMemoHistoryProvider';
+}
+
+/// See also [updateMemoHistory].
+class UpdateMemoHistoryProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [updateMemoHistory].
+  UpdateMemoHistoryProvider(
+    DateTime date,
+    String memo,
+  ) : this._internal(
+          (ref) => updateMemoHistory(
+            ref as UpdateMemoHistoryRef,
+            date,
+            memo,
+          ),
+          from: updateMemoHistoryProvider,
+          name: r'updateMemoHistoryProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateMemoHistoryHash,
+          dependencies: UpdateMemoHistoryFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateMemoHistoryFamily._allTransitiveDependencies,
+          date: date,
+          memo: memo,
+        );
+
+  UpdateMemoHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.date,
+    required this.memo,
+  }) : super.internal();
+
+  final DateTime date;
+  final String memo;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(UpdateMemoHistoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateMemoHistoryProvider._internal(
+        (ref) => create(ref as UpdateMemoHistoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        date: date,
+        memo: memo,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _UpdateMemoHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateMemoHistoryProvider &&
+        other.date == date &&
+        other.memo == memo;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, date.hashCode);
+    hash = _SystemHash.combine(hash, memo.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin UpdateMemoHistoryRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `date` of this provider.
+  DateTime get date;
+
+  /// The parameter `memo` of this provider.
+  String get memo;
+}
+
+class _UpdateMemoHistoryProviderElement
+    extends AutoDisposeFutureProviderElement<void> with UpdateMemoHistoryRef {
+  _UpdateMemoHistoryProviderElement(super.provider);
+
+  @override
+  DateTime get date => (origin as UpdateMemoHistoryProvider).date;
+  @override
+  String get memo => (origin as UpdateMemoHistoryProvider).memo;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

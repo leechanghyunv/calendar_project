@@ -9,23 +9,29 @@ class GoalInput extends FormzInput<int, String> {
 
   @override
   String? validator(int value) {
-    // 100,000,000 초과인 경우를 먼저 검사
-    if (value > 100000000) {
+    if (value < 0 || value == 0) {
+      return '목표금액은 필수 입력사항입니다.';
+    }
+
+    if (value <= 100) {
+      return '100 만원 이상 입력해주세요';
+    }
+
+    if (value <= 10000) {
+      return '100 만원 이상 입력해주세요';
+    }
+
+    // 금액에 따른 표시 방식 결정
+    if (value >= 100000000) {  // 1억원 이상일 때만 억 단위로 표시
       double billion = value / 100000000;
       return '목표금액은 ${billion.toStringAsFixed(1)} 억원 입니다';
-    } else if (value > 10000000) { // 10,000,000 초과인 경우
-      double tenMillion = value / 10000;
-      return '목표금액은 ${tenMillion.toStringAsFixed(0)} 만원 입니다';
-    } else if (value < 0 || value == 0) {
-      return '목표금액은 필수 입력사항입니다.';
-    } else if (value < 1000000) {
-      return '100 만원 이상 입력해주세요';
-    } else if (value >= 1000000) {
-      double tenThousand = value / 10000;
-      return '목표금액은 ${tenThousand.toStringAsFixed(0)} 만원 입니다';
     }
-    return null;
+
+    // 1억원 미만은 모두 만원 단위로 표시
+    double tenThousand = value / 10000;
+    return '목표금액은 ${tenThousand.toStringAsFixed(0)} 만원 입니다';
   }
+
 }
 
 class PayFirstInfut extends FormzInput<int, String> {

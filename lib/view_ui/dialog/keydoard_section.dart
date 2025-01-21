@@ -17,10 +17,10 @@ KeyboardActionsItem createKeyboardItem({
           (node) => GestureDetector(
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          padding:  EdgeInsets.symmetric(horizontal: 12.0.sp),
           child: TextWidget2(
             text,
-            14,
+            14.sp,
             Colors.grey.shade700,
             appWidth,
           ).animate(
@@ -56,7 +56,7 @@ KeyboardActionsItem raactiveKeyboardItem({
                             padding: const EdgeInsets.symmetric(horizontal: 12.0),
                             child: TextWidget2(
                               text,
-                              14,
+                              14.sp,
                               Colors.grey.shade700,
                               appWidth,
                             )

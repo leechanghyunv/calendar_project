@@ -95,6 +95,7 @@ Map<DateTime, String> holidays = {
 
   // 2025년
   DateTime(2025, 1, 1): '신정',
+  DateTime(2025, 1, 27): '대체휴일',
   DateTime(2025, 1, 28): '설날 연휴',
   DateTime(2025, 1, 29): '설날',
   DateTime(2025, 1, 30): '설날 연휴',

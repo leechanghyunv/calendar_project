@@ -1,9 +1,9 @@
-
+import 'package:calendar_project_240727/core/utils/view_type.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
-
+import 'package:calendar_project_240727/view_model/view_type_model.dart';
 import '../../core/export_package.dart';
 import '../../repository/time/calendar_time_controll.dart';
-import '../../view_model/toggle_model.dart';
+import '../../theme_color.dart';
 
 class MarkerCell extends ConsumerWidget {
 
@@ -16,99 +16,110 @@ class MarkerCell extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
-    final toggleManager = ref.watch(toggleModelProvider);
-    final toggleValue = AsyncValue.data(toggleManager.value);
+    final controllerFuture = ref.watch(viewTypeModelProvider);
+    final viewTypeValue = AsyncValue.data(controllerFuture.value);
 
-    bool? isToggle = false;
+    ViewType? isViewType = ViewType.gongsu;
 
-    toggleValue.when(
-      data: (data) {
-        isToggle = data;
-        return data;
-      },
-      error: (err, stack) => false,
-      loading: () => false,
-    );
+    viewTypeValue.when(data: (val) async {
+      switch (val) {
+        case ViewType.gongsu:
+          isViewType = ViewType.gongsu;
+          return ViewType.gongsu;
+
+        case ViewType.amount:
+           isViewType = ViewType.amount;
+           return ViewType.amount;
+
+        case ViewType.memo:
+          isViewType = ViewType.memo;
+          return ViewType.memo;
+
+        default:
+          isViewType = ViewType.gongsu;
+          return ViewType.gongsu;
+      }
+
+    }, error: (err, stack) {},
+        loading: () => ViewType.gongsu);
 
     final selectedMonth =
-        ref.watch(timeManagerProvider.notifier)
-            .DaySelected
-            .month;
+        ref.watch(timeManagerProvider.notifier).DaySelected.month;
+
     final month = date.month;
 
     if (events.isNotEmpty){
       final WorkHistory event = events[0];
-      final String code = event.colorCode;
       final calendarMemo = event.memo;
-      Color mainColor = HexColor.fromHex(code);
 
-      final String memoEmptyText = selectedMonth == month
-          ? calendarMemo.length > 1 ? '*' : ''
-          : '';
+      final String memoEmptyText = selectedMonth == month ? calendarMemo.length > 1 ? '*' : '' : '';
+      final String calendarText = selectedMonth == month ? event.record == 0.0 ? '휴일' : event.record.toString() : '';
+      final String calendarMemoText = selectedMonth == month ? event.memo.toString() : '';
+      final String calendarPayText = selectedMonth == month ? (event.pay/10000).toStringAsFixed(1) : '';
 
-      final String calendarText = selectedMonth == month ? event
-          .record == 0.0 ? '휴일' : event.record.toString() : '';
-
-      final String calendarMemoText = selectedMonth == month ? event
-          .memo.toString() : '';
-
-      final double fontSizeNonMemo = appHeight < 700
-          ? appWidth > 500
-          ? 5.sp : 10.sp
+      final double fontSizeNonMemo = appWidth < 376
+          ?  10.5
 
           : event.record == 0.0
 
-          ? appWidth > 500
-          ? 5.25.sp : 10.5.sp
+          ?  11.5
+          :  13;
 
-          : appWidth > 500
-          ? 6.5.sp : 12.sp;
-
-      final double fontSizeMemo = appWidth > 500 ? 5.25.sp : 10.5.sp;
-
+      final double fontSizeMemo =  10.5;
 
       return Container(
         margin: EdgeInsets.only(
-          top: appHeight < 700
-              ? appWidth > 500 ? 15.w : 29.w  /// (se를 고려해야함)
-              : appWidth > 500 ? 17.5.w : (appWidth <= 370 ? 33.5.w : 35.w),
-        ),
+          top: appHeight < 700? 28.w : (
+              appWidth <= 370 ? 33.5.w : appWidth > 450 ? 37.w : 35.w
+          )),
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
-        width: appHeight < 700
-            ? appWidth > 500 ? 17.5.w : 37.5.w  /// (se를 고려해야함)
-            : appWidth > 500 ? 20.w : 40.w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          shape: BoxShape.rectangle,
-          color: selectedMonth == month
-              ? Color(mainColor.value)
-              : Colors.transparent,
-        ),
+        width: appHeight < 700 ?  37.5.w : 40.w,
+        decoration: markerDeco(selectedMonth,month),
         child: RichText(
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           text: TextSpan(
               children: [
+              TextSpan(
+              text: switch (isViewType) {
+                ViewType.gongsu => memoEmptyText,
+                ViewType.amount => memoEmptyText,
+                ViewType.memo => '',
+                _ => calendarText,
+              },
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 10),
+              ),
                 TextSpan(
-                  text: isToggle == false
-                      ? memoEmptyText
-                      : '',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 10),
-                ),
-                TextSpan(
-                    text: isToggle == false
-                        ? calendarText
-                        : calendarMemoText,
+                    text: switch (isViewType) {
+                      ViewType.gongsu => calendarText,
+                      ViewType.amount => calendarPayText,
+                      ViewType.memo => calendarMemoText,
+                      _ => calendarText,
+                    },
                     style: TextStyle(
-                      fontSize: isToggle == false
-                          ? fontSizeNonMemo
-                          : fontSizeMemo,
-                      fontWeight: FontWeight.bold,
+                      fontSize: switch(isViewType){
+                      ViewType.gongsu => fontSizeNonMemo,
+                      ViewType.amount => fontSizeNonMemo,
+                      ViewType.memo => fontSizeMemo,
+                      _ => fontSizeNonMemo,
+                      },
+                      fontWeight: Platform.isAndroid ? FontWeight.w900 : FontWeight.bold,
                       color: Colors.black,
-                    )),
+                      height: textHeight,
+                      shadows: Platform.isAndroid ? [
+                        Shadow(
+                          blurRadius: 1.0,
+                          color: Colors.grey,
+                          offset: Offset(0.5, 0.5),
+                        ),
+                      ] : null,
+
+              )),
+
+
               ]
           ),
         ),
@@ -120,21 +131,27 @@ class MarkerCell extends ConsumerWidget {
   }
 }
 
-extension HexColor on Color {
-  static Color fromHex(String hexString) {
-    Color color;
-    try {
-      String colorString = hexString;
-      colorString = colorString.toUpperCase().replaceAll("#", "");
-      if (colorString.length == 6) {
-        colorString = "FF$colorString";
-      }
-      color = Color(int.parse(colorString, radix: 16));
-    } on Exception {
-      color = Colors.white;
-    }
-    return color;
-  }
+
+BoxDecoration  markerDeco(int selectedMonth,int month){
+  return BoxDecoration(
+    boxShadow: selectedMonth == month
+        ? [
+      BoxShadow(
+        color: Colors.grey.withOpacity(0.3),
+        spreadRadius: 1,
+        blurRadius: 3,
+        offset: const Offset(0, 2),
+      ),
+    ] : null,
+    borderRadius: BorderRadius.circular(10.0),
+    border: selectedMonth == month ? Border.all(
+        color: Colors.grey.shade800,
+        width: Platform.isAndroid ? 0.6 : 0.25) : null,
+    shape: BoxShape.rectangle,
+    color: selectedMonth == month
+        ? Colors.grey.shade200
+        : Colors.transparent,
+  );
 }
 
 

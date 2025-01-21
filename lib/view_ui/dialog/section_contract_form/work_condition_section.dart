@@ -1,14 +1,14 @@
-
+import 'package:calendar_project_240727/base_consumer.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../../repository/formz/formz_model.dart';
 import '../auto_animate_text.dart';
 import '../auto_copy_icon.dart';
 import '../dialog_text.dart';
 import '../input_dialog/contract_textfield.dart';
+import '../input_dialog/pay_textfield.dart';
 import '../input_dialog/subsidy_textfield.dart';
 
-class WorkConditionSection extends ConsumerWidget {
+class WorkConditionSection extends ConsumerStatefulWidget {
   final TextEditingController controller3;
   final TextEditingController controller4;
   final TextEditingController controller5;
@@ -25,27 +25,76 @@ class WorkConditionSection extends ConsumerWidget {
       {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final formzRefNot = ref.watch(formzValidatorProvider.notifier);
-    final formzRefread = ref.read(formzValidatorProvider.notifier);
+  ConsumerState<WorkConditionSection> createState() => _WorkConditionSectionState();
+}
 
+class _WorkConditionSectionState extends ConsumerState<WorkConditionSection> {
+  bool isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.nodeText3.addListener(_handleFocusChange);
+    widget.nodeText4.addListener(_handleFocusChange);
+    widget.nodeText5.addListener(_handleFocusChange);
+    widget.nodeText6.addListener(_handleFocusChange);
+  }
+
+  @override
+  void dispose() {
+    widget.nodeText3.removeListener(_handleFocusChange);
+    widget.nodeText4.removeListener(_handleFocusChange);
+    widget.nodeText5.removeListener(_handleFocusChange);
+    widget.nodeText6.removeListener(_handleFocusChange);
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    setState(() {
+      isKeyboardVisible = widget.nodeText3.hasFocus ||
+          widget.nodeText4.hasFocus ||
+          widget.nodeText5.hasFocus ||
+          widget.nodeText6.hasFocus;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final formzRefNot = ref.formzWatch;
+    final formzRefread = ref.formzRead;
     final appWidth = MediaQuery.of(context).size.width;
 
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 4.0),
-              child: DialogTextWidget('2. 근로조건을 입력해주세요', 15),
-            ),
-          ],
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: SizeTransition(
+                sizeFactor: animation,
+                axisAlignment: -1,
+                child: child,
+              ),
+            );
+          },
+          child: isKeyboardVisible
+              ? const SizedBox.shrink()
+              : Row(
+            key: const ValueKey<bool>(false),
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: DialogTextWidget('근로조건을 입력해주세요', 15),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 7.sp),
-        MoneyinputTextfield(
-          controller: controller3,
-          focusNode: nodeText3,
+        PayinputTextfield(
+          controller: widget.controller3,
+          focusNode: widget.nodeText3,
           textInputAction: TextInputAction.next,
           hintMsg: '150,000',
           labelMsg: '🌟 1공수(정상근무) *',
@@ -54,13 +103,13 @@ class WorkConditionSection extends ConsumerWidget {
             formzRefread.onChangePay1(cleanedValue);
             ref.read(autoCopyProvider.notifier).normalValue(val);
           },
-          suffixIcon: AutoCopyIcon(nodeText3,nodeText6,controller4,controller5),
+          suffixIcon: AutoCopyIcon(widget.nodeText3,widget.nodeText6,widget.controller4,widget.controller5),
         ),
         ErrorReactiveText(errorText: formzRefNot.pay1Error),
         SizedBox(height: 7.sp),
         MoneyinputTextfield(
-          controller: controller4,
-          focusNode: nodeText4,
+          controller: widget.controller4,
+          focusNode: widget.nodeText4,
           textInputAction: TextInputAction.next,
           hintMsg: '225,000',
           labelMsg: '🚀 1.5공수(연장근무) *',
@@ -76,8 +125,8 @@ class WorkConditionSection extends ConsumerWidget {
             Expanded(
               flex: 2,
               child: MoneyinputTextfield(
-                controller: controller5,
-                focusNode: nodeText5,
+                controller: widget.controller5,
+                focusNode: widget.nodeText5,
                 textInputAction: TextInputAction.done,
                 hintMsg: '300,000',
                 labelMsg: '🎉 2공수(야간근무) *',
@@ -87,36 +136,31 @@ class WorkConditionSection extends ConsumerWidget {
                 },
               ),
             ),
-            const SizedBox(width: 5),
+             SizedBox(width: 5.w),
             Expanded(
-                flex: 1,
-                child: SubsidyTextfield(
-                  controller6,
-                  nodeText6,
-                  TextInputAction.done,
-
-                ),
+              flex: 1,
+              child: SubsidyTextfield(
+                widget.controller6,
+                widget.nodeText6,
+                TextInputAction.done,
+              ),
             ),
           ],
         ),
         Row(
           children: [
             Expanded(
-                flex: 2,
-                child: ErrorText(formzRefNot.pay3Error,appWidth),
+              flex: 2,
+              child: ErrorText(formzRefNot.pay3Error,appWidth),
             ),
-            const SizedBox(width: 5),
+            SizedBox(width: 4.w),
             Expanded(
               flex: 1,
               child: ErrorText(formzRefNot.subsidyError,appWidth),
             ),
           ],
         ),
-
       ],
     );
   }
-
-
-
 }

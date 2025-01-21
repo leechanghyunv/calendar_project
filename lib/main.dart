@@ -1,3 +1,4 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -9,19 +10,15 @@ import 'one_signal_notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-/// 백그라운드에서 실행 중일 때 메시지 수신 리스너 설정
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // OneSignalNotification.init();
+  OneSignalNotification.init();
   await initializeDateFormatting();
   LocalNotificationManager.init();
 
   runApp(ProviderScope(
-      observers: [
-        // Logger(),
-      ],
       child: MyApp(),
   ),
   );
@@ -45,6 +42,14 @@ class MyApp extends StatelessWidget {
             builder: (context) => StyledToast(
               locale: const Locale('ko', 'KR'),
               child: MaterialApp(
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: const [
+                  Locale('ko', 'KR'),
+                ],
                 navigatorObservers: [
                   FirebaseAnalyticsObserver(analytics: analytics),
                 ],

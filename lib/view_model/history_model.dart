@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:calendar_project_240727/repository/formz/formz_decimal.dart';
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
 import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
+import 'package:calendar_project_240727/repository/time/calendar_time_controll.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -17,6 +18,8 @@ Future<List<WorkHistory>> viewHistory (ViewHistoryRef ref) async {
   final db = await ref.watch(workhistoryManagerProvider.future);
   return db.getAllWorkHistories();
 }
+
+
 
 @riverpod
 Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
@@ -39,7 +42,7 @@ Future<void> addHistory (
       history = WorkHistory(
           date: date,
           comment: '정상근무', /// 파란
-          pay: contract.value!.last.normal,
+          pay: val.last.normal,
           colorCode: '2196F3',
           record: 1.0,
           memo: memoNote,
@@ -48,7 +51,7 @@ Future<void> addHistory (
       history = WorkHistory(
           date: date,
           comment: '연장근무',
-          pay: contract.value!.last.extend,
+          pay: val.last.extend,
           colorCode: 'FCAF50', /// 노란
           record: 1.5,
           memo: memoNote
@@ -57,7 +60,7 @@ Future<void> addHistory (
       history = WorkHistory(
           date: date,
           comment: '야간근무', /// 빨강
-          pay: contract.value!.last.night,
+          pay: val.last.night,
           colorCode: 'F44336',
           record: 2.0,
           memo: memoNote
@@ -97,7 +100,39 @@ Future<void> addHistory (
       event);
 
   return db.insertOrUpdateWorkHistory(history);
+}
 
+
+
+@riverpod
+Future<void> latestHistory(LatestHistoryRef ref) async {
+  final db = await ref.watch(workhistoryManagerProvider.future);
+  final contract = ref.watch(viewContractProvider);
+  final selected = ref.watch(timeManagerProvider.notifier);
+  final history = ref.watch(viewHistoryProvider);
+
+  late WorkHistory latest;
+
+  contract.when(data: (val){
+
+    history.when(data: (value){
+      latest = WorkHistory(
+          date: selected.DaySelected,
+          comment: value.last.comment,
+          pay: value.last.pay,
+          colorCode: value.last.colorCode,
+          record: value.last.record,
+          memo: value.last.memo
+      );
+    },
+        error: (err,trace) => print(err.toString()),
+        loading: () => print('loading....'));
+
+  },
+      error: (err,trace) => print(err.toString()),
+      loading: () => print('loading....'));
+
+  return db.insertOrUpdateWorkHistory(latest);
 }
 
 @riverpod
@@ -107,10 +142,10 @@ Future<void> deleteHistory (DeleteHistoryRef ref,DateTime time) async {
 }
 
 @riverpod
-Future<void> deleteMonthHistory (DeleteMonthHistoryRef ref,DateTime time) async {
+Future<void> deleteMonthHistory (DeleteMonthHistoryRef ref,DateTime start,DateTime end) async {
   final db = await ref.watch(workhistoryManagerProvider.future);
 
-  return db.deleteWorkHistoryByMonth(time);
+  return db.deleteWorkHistoryByMonth(start,end);
 }
 
 @riverpod
@@ -118,4 +153,10 @@ Future<void> clearHistory(ClearHistoryRef ref) async {
   final db = await ref.watch(workhistoryManagerProvider.future);
 
   return db.clearWorkHistory();
+}
+
+@riverpod
+Future<void> updateMemoHistory(UpdateMemoHistoryRef ref,DateTime date,String memo) async {
+  final db = await ref.watch(workhistoryManagerProvider.future);
+  return db.updateMemo(date, memo);
 }

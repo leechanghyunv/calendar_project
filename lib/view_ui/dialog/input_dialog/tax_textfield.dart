@@ -1,9 +1,7 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-
 import '../../../core/utils/converter.dart';
-import '../../../repository/formz/formz_model.dart';
-
 
 class TaxinputTextfield extends ConsumerStatefulWidget {
   final void Function(String)? onChanged;
@@ -47,13 +45,12 @@ class _TaxinputTextfieldState extends ConsumerState<TaxinputTextfield> {
   @override
   Widget build(BuildContext context) {
 
-    final appWidth = MediaQuery.of(context).size.width;
     double screenUtilSize(double size) => Platform.isAndroid ? (size - 1.0).sp : size.sp;
-    final formzRefread = ref.read(formzValidatorProvider.notifier);
+    final formzRefread = ref.formzRead;
 
 
     return SizedBox(
-      height: appWidth > 500 ? 23.5.sp : 47.sp,
+      height: 47.sp,
       child: TypeAheadField<double>(
         controller: widget.controller2,
         focusNode: widget.focusNode,
@@ -78,12 +75,12 @@ class _TaxinputTextfieldState extends ConsumerState<TaxinputTextfield> {
              ),
              hintText: _hintText,
              hintStyle: TextStyle(
-               fontSize: appWidth > 500 ? screenUtilSize(7.5) : screenUtilSize(15),
+               fontSize:  screenUtilSize(15),
                color: Colors.grey[600],
              ),
              suffixText: '%',
              suffixStyle: TextStyle(
-               fontSize: appWidth > 500 ? screenUtilSize(7.5) : screenUtilSize(15),
+               fontSize: screenUtilSize(15),
                fontWeight: FontWeight.bold,
              ),
            ),
@@ -105,7 +102,7 @@ class _TaxinputTextfieldState extends ConsumerState<TaxinputTextfield> {
           return ListTile(
             title: Text('${suggestion.toString()}%'
               , style: TextStyle(
-                fontSize: appWidth > 500 ? screenUtilSize(7) : screenUtilSize(14),
+                fontSize:  screenUtilSize(14),
                 color: Colors.grey[600],
               ),
             ),

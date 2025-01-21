@@ -7,7 +7,6 @@ class DefaultDialog extends StatefulWidget {
   final List<Widget> children;
   final Widget? title;
 
-
   const DefaultDialog({super.key,
     required this.children,
     this.actions, this.title});
@@ -21,7 +20,6 @@ class _DefaultDialogState extends State<DefaultDialog> {
   Widget build(BuildContext context) {
 
     final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
 
     return AlertDialog(
       shape: ShapeBorder.lerp(
@@ -36,15 +34,18 @@ class _DefaultDialogState extends State<DefaultDialog> {
       title: widget.title,
       content: Container(
         decoration: BoxDecoration(
+          color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(5),
         ),
 
-        height: appHeight < 700 ? 420.h : 385.h,
+        height: 265,
         width: appWidth > 500? 55.w : double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: widget.children,
+        child: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: widget.children,
+            ),
           ),
         ),
       ),

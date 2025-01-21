@@ -9,10 +9,10 @@ class MemoInput extends FormzInput<String,String>{
   String? validator(String value) {
     if(value.isNotEmpty){
       return value.length < 2
-          ? '1. 메모는 2자 이상 입력, 2. 입력후 완료 누르기'
-          : '메모 내용은 원하는 날짜를 누르고계시면 보실 수 있습니다.';
+          ? ' 메모는 2자 이상 입력, 입력후 확인버튼'
+          : '상세한 내용은 해당 날짜를 누르고계시면 열람';
     } else {
-      return '메모를 입력해주세요 입력후 완료를 눌러주세요';
+      return '입력후 확인을 눌러주세요';
     }
 
   }

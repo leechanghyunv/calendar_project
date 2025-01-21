@@ -10,7 +10,7 @@ String _$calculateValueHash() => r'a77a9fc1533fcc307c14ddb76852607973a62746';
 
 /// 주휴수당을 계산한다 GPT가 코드짜줌
 /// 실업급여기준은 18개월 이내 180일이다.
-/// 건설근로자 퇴직금 공제 기준일은 252일이다. 하루 금액이 6200원인지,6400원인지,6500원인지 정확하지 않다.
+/// 건설근로자 퇴직금 공제 기준일은 252일이다. 하루 금액 6200원
 ///
 /// Copied from [calculateValue].
 @ProviderFor(calculateValue)

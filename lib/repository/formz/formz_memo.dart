@@ -16,7 +16,7 @@ part 'formz_memo.g.dart';
 class FormzMemoValidator extends _$FormzMemoValidator {
 
   String get memoError =>
-      state.memoData.displayError?.toString() ?? '메모하실 내용이 있다면 입력해주세요 필수는 아닙니다.';
+      state.memoData.displayError?.toString() ?? ' 메모 열람방법은 설정 - 메모기록으로 보기';
 
   String get value => state.memoData.value;
 

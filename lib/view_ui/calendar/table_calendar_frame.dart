@@ -1,8 +1,14 @@
-import 'package:calendar_project_240727/view_ui/calendar/selected_deco.dart';
-import 'package:intl/intl.dart';
 import '../../core/export_package.dart';
 import '../../core/widget/text_widget.dart';
 import '../../model/work_history_model.dart';
+import 'calendar_header.dart';
+
+HeaderStyle get header => const HeaderStyle(
+  leftChevronVisible: false,  // 왼쪽 화살표 숨김
+  rightChevronVisible: false, // 오른쪽 화살표 숨김
+  titleCentered: false,       // 타이틀 왼쪽 정렬
+  formatButtonVisible: false,
+);
 
 class TableCalendarFrame extends StatelessWidget {
   final DateTime selectedDay;
@@ -38,73 +44,41 @@ class TableCalendarFrame extends StatelessWidget {
       firstDay: DateTime.utc(1900),
       lastDay: DateTime.utc(2100),
       daysOfWeekHeight: 20.h,
-      rowHeight: 52.5.h,
-
-      /// void임
+      rowHeight: Platform.isAndroid ? appWidth > 450 ? 57.5.h : 56.h : 52.5.h,
       calendarFormat: CalendarFormat.month,
       onDayLongPressed: onDayLongPressed,
       onDaySelected: onDaySelected,
       eventLoader: eventLoader,
       selectedDayPredicate: selectedDayPredicate,
       onPageChanged: onPageChanged,
-      headerStyle: HeaderStyle(
-        titleTextFormatter: (date, locale) =>
-            DateFormat.yMMMM(locale).format(date),
-        titleTextStyle: TextStyle(
-          fontWeight: FontWeight.w800,
-          fontSize: 100.w > 500 ? 10.sp : 20.sp,
-        ),
-        leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.black),
-        rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.black),
-        titleCentered: true,
-        formatButtonVisible: false,
-      ),
+
+      headerStyle: header,
       weekendDays: const [DateTime.sunday],
       calendarStyle: CalendarStyle(
         isTodayHighlighted: true,
         todayTextStyle: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: appWidth > 500 ? 10.sp : 20.sp,
+          fontSize: 20,
           color: Colors.white,
         ),
         todayDecoration:
             BoxDecoration(color: Colors.grey.shade500, shape: BoxShape.circle),
         selectedTextStyle: TextStyle(
           fontWeight: FontWeight.bold,
-          color:  selectedTextColor(selectedDay),
-          fontSize: appWidth > 500 ? 12.5.sp : 20.sp,
+          color: Color(0xFFFAFAFA),
+          fontSize: 20,
         ),
-        selectedDecoration: selectedDeco(selectedDay),
+        selectedDecoration: BoxDecoration(
+          color: Colors.grey.shade600,
+          shape: BoxShape.circle,
+        ),
         markerDecoration: const BoxDecoration(
             color: Color(0xFF263238), shape: BoxShape.circle),
-        weekNumberTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: appWidth > 500 ? 9.sp : 18.sp,
-            color: Colors.black),
-        weekendTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: appWidth > 500 ? 9.sp : 18.sp,
-            color: Colors.red),
       ),
+
       calendarBuilders: CalendarBuilders(
-        headerTitleBuilder: (context, day) {
-          return Column(
-            children: [
-              Text(
-                maxLines: 1,
-                DateFormat.yMMMEd('ko_KR').format(day), // 한글로 월과 연도를 표시
-                style: TextStyle(
-                    fontSize: appWidth > 500
-                        ? 10.sp
-                        : appHeight > 700
-                            ? 20.sp
-                            : 19.sp,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2.sp),
-              ),
-            ],
-          );
-        },
+        headerTitleBuilder: (context, day) => CalendarHeader(day),
+
         dowBuilder: (context, day) {
           switch (day.weekday) {
             case 1:
@@ -132,3 +106,4 @@ class TableCalendarFrame extends StatelessWidget {
     );
   }
 }
+

@@ -25,17 +25,17 @@ class MoneyinputTextfield extends StatelessWidget {
         this.onChanged,
         required this.textInputAction,
         this.focusNode,
-        this.controller, this.suffixIcon, this.suffixIconColor});
+        this.controller,
+        this.suffixIcon,
+        this.suffixIconColor});
 
   @override
   Widget build(BuildContext context) {
 
-    final appWidth = MediaQuery.of(context).size.width;
-
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 4),
       child: SizedBox(
-        height: appWidth > 500 ? 23.5.sp : 47.sp,
+        height:  47.sp,
         child: TextFormField(
           controller: controller,
           textInputAction: TextInputAction.done,
