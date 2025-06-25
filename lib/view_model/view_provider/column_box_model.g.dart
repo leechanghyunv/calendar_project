@@ -6,7 +6,7 @@ part of 'column_box_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$columnStatisticsHash() => r'c0213c6e9b6c5ce0dc81e43c2062ce8dd453de95';
+String _$columnStatisticsHash() => r'72a096d93503c8b043ce6b46b1187e8c51298b34';
 
 /// See also [columnStatistics].
 @ProviderFor(columnStatistics)

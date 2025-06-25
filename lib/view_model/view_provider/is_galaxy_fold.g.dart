@@ -6,7 +6,7 @@ part of 'is_galaxy_fold.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$isGalaxyFoldHash() => r'43e24c877e3a53253ce462ed935a58d48731e108';
+String _$isGalaxyFoldHash() => r'0e9b097fc61e33d33406f270f1fa68a94d892f0a';
 
 /// See also [isGalaxyFold].
 @ProviderFor(isGalaxyFold)

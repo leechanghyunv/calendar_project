@@ -4,25 +4,29 @@ import '../../repository/time/calculate_day.dart';
 part 'calendar_event_filter_model.g.dart';
 
 @riverpod
-Map<DateTime, List<WorkHistory>> filtedEvents(ref) {
+Future<Map<DateTime, List<WorkHistory>>> filtedEvents(ref) {
 
-  /// event는 Future<Map<DateTime, List<WorkHistory>>> 타입
   final event = ref.watch(calendarEventProvider);
 
-  ref.listen(calendarTotalEventProvider, (
-      previous, next) {
-
+  ref.listen(calendarTotalEventProvider, (previous, next) {
     if (previous != next) {
-      if (next.hasValue) {
-        final value = next.requireValue;
-        ref.read(eventsProvider.notifier).update((_) => value);
+      switch (next) {
+        case AsyncData(value: final value):
+          ref.read(eventsProvider.notifier).update((_) => value);
+        case AsyncError():
+        // 에러 처리
+          break;
+        case AsyncLoading():
+        // 로딩 상태 처리
+          break;
       }
     }
   });
 
-  return event.maybeWhen(
+  return event.when(
     data: (data) => data,
-    orElse: () => <DateTime, List<WorkHistory>>{},
+    loading: () => <DateTime, List<WorkHistory>>{},
+    error: (error, stackTrace) => <DateTime, List<WorkHistory>>{},
   );
 
 }

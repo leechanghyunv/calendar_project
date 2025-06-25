@@ -6,12 +6,12 @@ part of 'calendar_event_filter_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filtedEventsHash() => r'ae10c94e2e946f64356dbd112c92cc8274e32b15';
+String _$filtedEventsHash() => r'13beee14e10dc6a6b96ace94870a010e50fb1295';
 
 /// See also [filtedEvents].
 @ProviderFor(filtedEvents)
 final filtedEventsProvider =
-    AutoDisposeProvider<Map<DateTime, List<WorkHistory>>>.internal(
+    AutoDisposeFutureProvider<Map<DateTime, List<WorkHistory>>>.internal(
   filtedEvents,
   name: r'filtedEventsProvider',
   debugGetCreateSourceHash:
@@ -23,6 +23,6 @@ final filtedEventsProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FiltedEventsRef
-    = AutoDisposeProviderRef<Map<DateTime, List<WorkHistory>>>;
+    = AutoDisposeFutureProviderRef<Map<DateTime, List<WorkHistory>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

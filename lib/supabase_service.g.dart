@@ -6,7 +6,7 @@ part of 'supabase_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$supabaseClientHash() => r'36e9cae00709545a85bfe4a5a2cb98d8686a01ea';
+String _$supabaseClientHash() => r'e0138c8665a3a46199f75bedda03c11a9ba03c48';
 
 /// See also [supabaseClient].
 @ProviderFor(supabaseClient)
@@ -23,7 +23,7 @@ final supabaseClientProvider = AutoDisposeProvider<SupabaseClient>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef SupabaseClientRef = AutoDisposeProviderRef<SupabaseClient>;
-String _$insertNoteHash() => r'eaea1e78713c1cec8ae5af4a1e31e740c4d14cae';
+String _$insertNoteHash() => r'd8a334a305c4585644430e52376bfb23adc92883';
 
 /// Copied from Dart SDK
 class _SystemHash {

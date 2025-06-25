@@ -9,7 +9,7 @@ part 'view_type_controller.g.dart';
 
 @riverpod
 Future<ViewTypeController> viewType(ref) async {
-  final prefs = await ref.prefsWatch;
+  final prefs = await ref.watch(sharedPrefsProvider.future);
   return ViewTypeController(prefs);
 }
 

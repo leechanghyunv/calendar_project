@@ -6,7 +6,7 @@ part of 'auth_setting_view_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$authSettingViewHash() => r'ce808f38d1ecc5493b7009ed0672e7d2de682df2';
+String _$authSettingViewHash() => r'a731b336d8f8ff3c803459ab881fd4a57beb189f';
 
 /// See also [AuthSettingView].
 @ProviderFor(AuthSettingView)
