@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-import '../../model/work_history_model.dart';
+import '../repository_import.dart';
 
 part 'calculate_day.g.dart';
 
@@ -13,8 +10,9 @@ part 'calculate_day.g.dart';
 @riverpod
 int calculateValue (CalculateValueRef ref) {
   final event = ref.watch(eventsProvider);
+  final extra = calculateAdditionalHolidays(event);
 
-  return calculateAdditionalHolidays(event);
+  return extra;
 }
 
 /// year to day
@@ -82,9 +80,9 @@ int calculateAdditionalHolidays(Map<DateTime, List<WorkHistory>> list) {
   return additionalHolidays;
 }
 
-@riverpod
-Map<DateTime, List<WorkHistory>> extraDay(ExtraDayRef ref,
-    Map<DateTime, List<WorkHistory>> list) => {};
+// @riverpod
+// Map<DateTime, List<WorkHistory>> extraDay(ExtraDayRef ref,
+//     Map<DateTime, List<WorkHistory>> list) => {};
 
 final eventsProvider = StateProvider<Map<DateTime, List<WorkHistory>>>((ref) {
   return {};

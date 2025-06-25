@@ -1,5 +1,7 @@
 import 'package:calendar_project_240727/core/export_package.dart';
-import '../../version_introduce/introduce_dialog.dart';
+
+import '../../../view_model/view_provider/firebase_remote_config_model.dart';
+import '../../version_introduce/new_version_dialog.dart';
 
 class MainButtonSide extends ConsumerStatefulWidget {
   const MainButtonSide({super.key});
@@ -9,27 +11,31 @@ class MainButtonSide extends ConsumerStatefulWidget {
 }
 
 class _MainButtonSideState extends ConsumerState<MainButtonSide> {
+
+
   final InAppReview inAppReview = InAppReview.instance;
+
 
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
-
+    final version = ref.watch(versionProvider.notifier).version;
     return Padding(
+
+      /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
       padding: EdgeInsets.only(bottom: appWidth < 380 ? 1.5 : 0),
+      /// 0
       child: PopupMenuButton<String>(
         onSelected: (String value) async {
           switch (value) {
             case 'option1':
               showDialog(
-                context: context,
-                builder: (context) => IntroduceDialog(),
+                  context: context,
+                  builder: (context) => NewVersionDialog(),
               );
               break;
             case 'option2':
-              print('의견보내기');
               if (await inAppReview.isAvailable()) {
-                // ref.read(firebaseAnalyticsClassProvider.notifier).reviewEvent('Review_Event');
                 inAppReview.requestReview();
               }
               break;
@@ -51,7 +57,7 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
           PopupMenuItem<String>(
             value: 'option1',
             height: 40,
-            child: sideButton('🚀 1.3.7 버전 설명'),
+            child: sideButton('🚀 ${version} 버전 설명'),
           ),
           PopupMenuItem<String>(
             value: 'option2',
@@ -74,6 +80,7 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
       children: [
         Text(
           msg,
+          textScaler: TextScaler.noScaling,
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
       ],

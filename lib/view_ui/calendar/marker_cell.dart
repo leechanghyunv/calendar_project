@@ -1,9 +1,13 @@
 import 'package:calendar_project_240727/core/utils/view_type.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
-import 'package:calendar_project_240727/view_model/view_type_model.dart';
 import '../../core/export_package.dart';
 import '../../repository/time/calendar_time_controll.dart';
 import '../../theme_color.dart';
+import '../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../view_model/view_provider/view_type_model.dart';
+
+
 
 class MarkerCell extends ConsumerWidget {
 
@@ -12,36 +16,55 @@ class MarkerCell extends ConsumerWidget {
 
   const MarkerCell(this.date, this.events, {super.key});
 
+
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
     final controllerFuture = ref.watch(viewTypeModelProvider);
     final viewTypeValue = AsyncValue.data(controllerFuture.value);
+    final switcher = ref.watch(calendarSwitcherProvider);
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
+
+    final bool isExpanded = switcher.maybeWhen(
+      data: (value) => value,
+      orElse: () => false,
+    );
+
+     /// top side margin
+    final double marginValue = appHeight < 700
+        ? 28.w
+        : (appWidth <= 370 ? isFoldValue ? 40.w : 35.w /// 갤럭시 폴드에서 40.w, 37.5가 적당함
+
+        : appWidth > 500 ? isFoldValue ? 18.5.w : 25.w /// 원래값 47.5 갤럭시 폴드에서 32, 18.5.w가 적당함
+        : 35.w); /// 값이 클수록 밑으로
+
 
     ViewType? isViewType = ViewType.gongsu;
 
-    viewTypeValue.when(data: (val) async {
-      switch (val) {
-        case ViewType.gongsu:
-          isViewType = ViewType.gongsu;
-          return ViewType.gongsu;
+    viewTypeValue.maybeWhen(
+        data: (val) async {
+          switch (val) {
+            case ViewType.gongsu:
+              isViewType = ViewType.gongsu;
+              return ViewType.gongsu;
 
-        case ViewType.amount:
-           isViewType = ViewType.amount;
-           return ViewType.amount;
+            case ViewType.amount:
+              isViewType = ViewType.amount;
+              return ViewType.amount;
 
-        case ViewType.memo:
-          isViewType = ViewType.memo;
-          return ViewType.memo;
+            case ViewType.memo:
+              isViewType = ViewType.memo;
+              return ViewType.memo;
 
-        default:
-          isViewType = ViewType.gongsu;
-          return ViewType.gongsu;
-      }
+            default:
+              isViewType = ViewType.gongsu;
+              return ViewType.gongsu;
+          }
+        },
+        orElse: () => ViewType.gongsu);
 
-    }, error: (err, stack) {},
-        loading: () => ViewType.gongsu);
 
     final selectedMonth =
         ref.watch(timeManagerProvider.notifier).DaySelected.month;
@@ -49,36 +72,82 @@ class MarkerCell extends ConsumerWidget {
     final month = date.month;
 
     if (events.isNotEmpty){
-      final WorkHistory event = events[0];
-      final calendarMemo = event.memo;
 
+      final WorkHistory event = events[0];
+
+
+      final calendarMemo = event.memo;
       final String memoEmptyText = selectedMonth == month ? calendarMemo.length > 1 ? '*' : '' : '';
       final String calendarText = selectedMonth == month ? event.record == 0.0 ? '휴일' : event.record.toString() : '';
       final String calendarMemoText = selectedMonth == month ? event.memo.toString() : '';
       final String calendarPayText = selectedMonth == month ? (event.pay/10000).toStringAsFixed(1) : '';
 
-      final double fontSizeNonMemo = appWidth < 376
-          ?  10.5
 
-          : event.record == 0.0
+      final double fontSizeNonMemo = switch ((appWidth, event.record)) {
+        (< 376, _) => 11,
+        (_, 0.0) => 11.5,
+        (> 450, _) => 15.5,
+        (_, _) => 13.0
+      };
 
-          ?  11.5
-          :  13;
-
-      final double fontSizeMemo =  10.5;
+      final double fontSizeMemo = appWidth > 450 ? 11.5 : 10.5;
 
       return Container(
         margin: EdgeInsets.only(
-          top: appHeight < 700? 28.w : (
-              appWidth <= 370 ? 33.5.w : appWidth > 450 ? 37.w : 35.w
-          )),
+          top: marginValue,
+        ),
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
-        width: appHeight < 700 ?  37.5.w : 40.w,
-        decoration: markerDeco(selectedMonth,month),
-        child: RichText(
+        width: isExpanded
+            ? appHeight < 700 ?  42.5.w : appWidth > 500 ? 22.5.w : 45.w
+            : appHeight < 700 ?  37.5.w : appWidth > 500 ? 22.5.w : 40.w,
+        decoration: isExpanded ? null : markerDeco(selectedMonth,month),
+        child: isExpanded
+            ? Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              width: 50.w,
+              alignment: Alignment.center,
+              decoration: markerDeco(selectedMonth,month),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 5.0,
+                    vertical: appWidth < 376 ? 0.0 : 1.0,
+                ),
+                child: Text(
+                  maxLines: 1,
+                  calendarText,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    height: textHeight,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ),
+            appWidth < 376 ? SizedBox.shrink() : SizedBox(height: 3.5),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0,),
+              child: Text(
+                calendarMemoText,
+                textScaler: TextScaler.noScaling,
+                maxLines: 2,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade900,
+                  height: textHeight,
+                  fontSize: appWidth < 376 ? 8.0 : 9.5,
+              ),
+              ),
+            ),
+          ],
+        )
+            : RichText(
+          textScaler: TextScaler.noScaling,
           maxLines: 1,
-          overflow: TextOverflow.ellipsis,
           text: TextSpan(
               children: [
               TextSpan(
@@ -89,8 +158,9 @@ class MarkerCell extends ConsumerWidget {
                 _ => calendarText,
               },
                 style: TextStyle(
+                  height: textHeight,
                     color: Colors.black,
-                    fontSize: 10),
+                    fontSize: 8),
               ),
                 TextSpan(
                     text: switch (isViewType) {
@@ -106,7 +176,7 @@ class MarkerCell extends ConsumerWidget {
                       ViewType.memo => fontSizeMemo,
                       _ => fontSizeNonMemo,
                       },
-                      fontWeight: Platform.isAndroid ? FontWeight.w900 : FontWeight.bold,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                       height: textHeight,
                       shadows: Platform.isAndroid ? [
@@ -116,10 +186,8 @@ class MarkerCell extends ConsumerWidget {
                           offset: Offset(0.5, 0.5),
                         ),
                       ] : null,
-
-              )),
-
-
+                    ),
+                ),
               ]
           ),
         ),
@@ -130,6 +198,8 @@ class MarkerCell extends ConsumerWidget {
     return SizedBox();
   }
 }
+
+
 
 
 BoxDecoration  markerDeco(int selectedMonth,int month){
@@ -146,7 +216,7 @@ BoxDecoration  markerDeco(int selectedMonth,int month){
     borderRadius: BorderRadius.circular(10.0),
     border: selectedMonth == month ? Border.all(
         color: Colors.grey.shade800,
-        width: Platform.isAndroid ? 0.6 : 0.25) : null,
+        width: Platform.isAndroid ? 0.6 : 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
         ? Colors.grey.shade200

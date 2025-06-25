@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,96 +10,77 @@ part of 'calendar_time_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-CalendarTimeModel _$CalendarTimeModelFromJson(Map<String, dynamic> json) {
-  return _CalendarTimeModel.fromJson(json);
-}
 
 /// @nodoc
 mixin _$CalendarTimeModel {
-  DateTime get selected => throw _privateConstructorUsedError;
-  DateTime get focused => throw _privateConstructorUsedError;
+  DateTime get selected;
+  DateTime get focused;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $CalendarTimeModelCopyWith<CalendarTimeModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CalendarTimeModelCopyWith<$Res> {
-  factory $CalendarTimeModelCopyWith(
-          CalendarTimeModel value, $Res Function(CalendarTimeModel) then) =
-      _$CalendarTimeModelCopyWithImpl<$Res, CalendarTimeModel>;
-  @useResult
-  $Res call({DateTime selected, DateTime focused});
-}
-
-/// @nodoc
-class _$CalendarTimeModelCopyWithImpl<$Res, $Val extends CalendarTimeModel>
-    implements $CalendarTimeModelCopyWith<$Res> {
-  _$CalendarTimeModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of CalendarTimeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $CalendarTimeModelCopyWith<CalendarTimeModel> get copyWith =>
+      _$CalendarTimeModelCopyWithImpl<CalendarTimeModel>(
+          this as CalendarTimeModel, _$identity);
+
+  /// Serializes this CalendarTimeModel to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? selected = null,
-    Object? focused = null,
-  }) {
-    return _then(_value.copyWith(
-      selected: null == selected
-          ? _value.selected
-          : selected // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      focused: null == focused
-          ? _value.focused
-          : focused // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CalendarTimeModel &&
+            (identical(other.selected, selected) ||
+                other.selected == selected) &&
+            (identical(other.focused, focused) || other.focused == focused));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, selected, focused);
+
+  @override
+  String toString() {
+    return 'CalendarTimeModel(selected: $selected, focused: $focused)';
   }
 }
 
 /// @nodoc
-abstract class _$$CalendarTimeModelImplCopyWith<$Res>
-    implements $CalendarTimeModelCopyWith<$Res> {
-  factory _$$CalendarTimeModelImplCopyWith(_$CalendarTimeModelImpl value,
-          $Res Function(_$CalendarTimeModelImpl) then) =
-      __$$CalendarTimeModelImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CalendarTimeModelCopyWith<$Res> {
+  factory $CalendarTimeModelCopyWith(
+          CalendarTimeModel value, $Res Function(CalendarTimeModel) _then) =
+      _$CalendarTimeModelCopyWithImpl;
   @useResult
   $Res call({DateTime selected, DateTime focused});
 }
 
 /// @nodoc
-class __$$CalendarTimeModelImplCopyWithImpl<$Res>
-    extends _$CalendarTimeModelCopyWithImpl<$Res, _$CalendarTimeModelImpl>
-    implements _$$CalendarTimeModelImplCopyWith<$Res> {
-  __$$CalendarTimeModelImplCopyWithImpl(_$CalendarTimeModelImpl _value,
-      $Res Function(_$CalendarTimeModelImpl) _then)
-      : super(_value, _then);
+class _$CalendarTimeModelCopyWithImpl<$Res>
+    implements $CalendarTimeModelCopyWith<$Res> {
+  _$CalendarTimeModelCopyWithImpl(this._self, this._then);
 
+  final CalendarTimeModel _self;
+  final $Res Function(CalendarTimeModel) _then;
+
+  /// Create a copy of CalendarTimeModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? selected = null,
     Object? focused = null,
   }) {
-    return _then(_$CalendarTimeModelImpl(
+    return _then(_self.copyWith(
       selected: null == selected
-          ? _value.selected
+          ? _self.selected
           : selected // ignore: cast_nullable_to_non_nullable
               as DateTime,
       focused: null == focused
-          ? _value.focused
+          ? _self.focused
           : focused // ignore: cast_nullable_to_non_nullable
               as DateTime,
     ));
@@ -107,66 +89,89 @@ class __$$CalendarTimeModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CalendarTimeModelImpl implements _CalendarTimeModel {
-  const _$CalendarTimeModelImpl(
-      {required this.selected, required this.focused});
-
-  factory _$CalendarTimeModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CalendarTimeModelImplFromJson(json);
+class _CalendarTimeModel implements CalendarTimeModel {
+  const _CalendarTimeModel({required this.selected, required this.focused});
+  factory _CalendarTimeModel.fromJson(Map<String, dynamic> json) =>
+      _$CalendarTimeModelFromJson(json);
 
   @override
   final DateTime selected;
   @override
   final DateTime focused;
 
+  /// Create a copy of CalendarTimeModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CalendarTimeModel(selected: $selected, focused: $focused)';
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CalendarTimeModelCopyWith<_CalendarTimeModel> get copyWith =>
+      __$CalendarTimeModelCopyWithImpl<_CalendarTimeModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$CalendarTimeModelToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CalendarTimeModelImpl &&
+            other is _CalendarTimeModel &&
             (identical(other.selected, selected) ||
                 other.selected == selected) &&
             (identical(other.focused, focused) || other.focused == focused));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, selected, focused);
 
-  @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
-  _$$CalendarTimeModelImplCopyWith<_$CalendarTimeModelImpl> get copyWith =>
-      __$$CalendarTimeModelImplCopyWithImpl<_$CalendarTimeModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$CalendarTimeModelImplToJson(
-      this,
-    );
+  String toString() {
+    return 'CalendarTimeModel(selected: $selected, focused: $focused)';
   }
 }
 
-abstract class _CalendarTimeModel implements CalendarTimeModel {
-  const factory _CalendarTimeModel(
-      {required final DateTime selected,
-      required final DateTime focused}) = _$CalendarTimeModelImpl;
-
-  factory _CalendarTimeModel.fromJson(Map<String, dynamic> json) =
-      _$CalendarTimeModelImpl.fromJson;
-
+/// @nodoc
+abstract mixin class _$CalendarTimeModelCopyWith<$Res>
+    implements $CalendarTimeModelCopyWith<$Res> {
+  factory _$CalendarTimeModelCopyWith(
+          _CalendarTimeModel value, $Res Function(_CalendarTimeModel) _then) =
+      __$CalendarTimeModelCopyWithImpl;
   @override
-  DateTime get selected;
-  @override
-  DateTime get focused;
-  @override
-  @JsonKey(ignore: true)
-  _$$CalendarTimeModelImplCopyWith<_$CalendarTimeModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  @useResult
+  $Res call({DateTime selected, DateTime focused});
 }
+
+/// @nodoc
+class __$CalendarTimeModelCopyWithImpl<$Res>
+    implements _$CalendarTimeModelCopyWith<$Res> {
+  __$CalendarTimeModelCopyWithImpl(this._self, this._then);
+
+  final _CalendarTimeModel _self;
+  final $Res Function(_CalendarTimeModel) _then;
+
+  /// Create a copy of CalendarTimeModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? selected = null,
+    Object? focused = null,
+  }) {
+    return _then(_CalendarTimeModel(
+      selected: null == selected
+          ? _self.selected
+          : selected // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      focused: null == focused
+          ? _self.focused
+          : focused // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+// dart format on

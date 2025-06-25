@@ -36,13 +36,15 @@ void _showCustomToast(Widget child) {
 
  TextStyle _defaultToastTextStyle = TextStyle(
   color: Colors.white,
-  fontSize: 17.sp,
+  fontSize: 17,
   fontWeight: FontWeight.bold,
 );
 
 void customMsg(String msg) {
   _showCustomToast(
-      Text(msg, style: _defaultToastTextStyle)
+      Text(msg,
+          textScaler: TextScaler.noScaling,
+          style: _defaultToastTextStyle)
   );
 }
 
@@ -50,6 +52,7 @@ void enrollMsg(DateTime day, String value) {
   _showCustomToast(
     Text(
       '${day.month}월 ${day.day}일 $value',
+      textScaler: TextScaler.noScaling,
       style: _defaultToastTextStyle,
     ),
   );

@@ -19,8 +19,6 @@ class _DefaultDialogState extends State<DefaultDialog> {
   @override
   Widget build(BuildContext context) {
 
-    final appWidth = MediaQuery.of(context).size.width;
-
     return AlertDialog(
       shape: ShapeBorder.lerp(
         RoundedRectangleBorder(
@@ -34,16 +32,14 @@ class _DefaultDialogState extends State<DefaultDialog> {
       title: widget.title,
       content: Container(
         decoration: BoxDecoration(
-          color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(5),
+          color: Colors.grey.shade100,
         ),
-
-        height: 265,
-        width: appWidth > 500? 55.w : double.infinity,
         child: Padding(
           padding: EdgeInsets.all(10.0),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: widget.children,
             ),
           ),

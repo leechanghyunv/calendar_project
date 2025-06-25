@@ -6,7 +6,7 @@ part 'decimal_pay_model.freezed.dart';
 
 
 @freezed
-class DecimalPayModel with _$DecimalPayModel {
+abstract class DecimalPayModel with _$DecimalPayModel {
   const factory DecimalPayModel({
     required String month,
     required String day,

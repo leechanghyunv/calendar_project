@@ -4,7 +4,7 @@ part 'date_range_model.freezed.dart';
 part 'date_range_model.g.dart';
 
 @freezed
-class DateRangeModel with _$DateRangeModel {
+abstract class DateRangeModel with _$DateRangeModel {
   const factory DateRangeModel({
     required DateTime startDate,
     required DateTime endDate,

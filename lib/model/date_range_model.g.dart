@@ -6,14 +6,13 @@ part of 'date_range_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$DateRangeModelImpl _$$DateRangeModelImplFromJson(Map<String, dynamic> json) =>
-    _$DateRangeModelImpl(
+_DateRangeModel _$DateRangeModelFromJson(Map<String, dynamic> json) =>
+    _DateRangeModel(
       startDate: DateTime.parse(json['startDate'] as String),
       endDate: DateTime.parse(json['endDate'] as String),
     );
 
-Map<String, dynamic> _$$DateRangeModelImplToJson(
-        _$DateRangeModelImpl instance) =>
+Map<String, dynamic> _$DateRangeModelToJson(_DateRangeModel instance) =>
     <String, dynamic>{
       'startDate': instance.startDate.toIso8601String(),
       'endDate': instance.endDate.toIso8601String(),

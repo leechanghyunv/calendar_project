@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,203 +10,32 @@ part of 'formz_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$ContractForm {
-  GoalInput get goal => throw _privateConstructorUsedError;
-  PayFirstInfut get pay1 => throw _privateConstructorUsedError;
-  PayInput get pay2 => throw _privateConstructorUsedError;
-  PayInput get pay3 => throw _privateConstructorUsedError;
-  TaxInput get tax => throw _privateConstructorUsedError;
-  SubsidyInput get subsidy => throw _privateConstructorUsedError;
-  FormzStatus get status => throw _privateConstructorUsedError;
+  GoalInput get goal;
+  PayFirstInput get pay1;
+  PayInput get pay2;
+  PayInput get pay3;
+  TaxInput get tax;
+  SubsidyInput get subsidy;
+  FormzStatus get status;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ContractForm
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $ContractFormCopyWith<ContractForm> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ContractFormCopyWith<$Res> {
-  factory $ContractFormCopyWith(
-          ContractForm value, $Res Function(ContractForm) then) =
-      _$ContractFormCopyWithImpl<$Res, ContractForm>;
-  @useResult
-  $Res call(
-      {GoalInput goal,
-      PayFirstInfut pay1,
-      PayInput pay2,
-      PayInput pay3,
-      TaxInput tax,
-      SubsidyInput subsidy,
-      FormzStatus status});
-}
-
-/// @nodoc
-class _$ContractFormCopyWithImpl<$Res, $Val extends ContractForm>
-    implements $ContractFormCopyWith<$Res> {
-  _$ContractFormCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? goal = null,
-    Object? pay1 = null,
-    Object? pay2 = null,
-    Object? pay3 = null,
-    Object? tax = null,
-    Object? subsidy = null,
-    Object? status = null,
-  }) {
-    return _then(_value.copyWith(
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as GoalInput,
-      pay1: null == pay1
-          ? _value.pay1
-          : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayFirstInfut,
-      pay2: null == pay2
-          ? _value.pay2
-          : pay2 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      pay3: null == pay3
-          ? _value.pay3
-          : pay3 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      tax: null == tax
-          ? _value.tax
-          : tax // ignore: cast_nullable_to_non_nullable
-              as TaxInput,
-      subsidy: null == subsidy
-          ? _value.subsidy
-          : subsidy // ignore: cast_nullable_to_non_nullable
-              as SubsidyInput,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$ContractFormImplCopyWith<$Res>
-    implements $ContractFormCopyWith<$Res> {
-  factory _$$ContractFormImplCopyWith(
-          _$ContractFormImpl value, $Res Function(_$ContractFormImpl) then) =
-      __$$ContractFormImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {GoalInput goal,
-      PayFirstInfut pay1,
-      PayInput pay2,
-      PayInput pay3,
-      TaxInput tax,
-      SubsidyInput subsidy,
-      FormzStatus status});
-}
-
-/// @nodoc
-class __$$ContractFormImplCopyWithImpl<$Res>
-    extends _$ContractFormCopyWithImpl<$Res, _$ContractFormImpl>
-    implements _$$ContractFormImplCopyWith<$Res> {
-  __$$ContractFormImplCopyWithImpl(
-      _$ContractFormImpl _value, $Res Function(_$ContractFormImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? goal = null,
-    Object? pay1 = null,
-    Object? pay2 = null,
-    Object? pay3 = null,
-    Object? tax = null,
-    Object? subsidy = null,
-    Object? status = null,
-  }) {
-    return _then(_$ContractFormImpl(
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as GoalInput,
-      pay1: null == pay1
-          ? _value.pay1
-          : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayFirstInfut,
-      pay2: null == pay2
-          ? _value.pay2
-          : pay2 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      pay3: null == pay3
-          ? _value.pay3
-          : pay3 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      tax: null == tax
-          ? _value.tax
-          : tax // ignore: cast_nullable_to_non_nullable
-              as TaxInput,
-      subsidy: null == subsidy
-          ? _value.subsidy
-          : subsidy // ignore: cast_nullable_to_non_nullable
-              as SubsidyInput,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$ContractFormImpl implements _ContractForm {
-  const _$ContractFormImpl(
-      {required this.goal,
-      required this.pay1,
-      required this.pay2,
-      required this.pay3,
-      required this.tax,
-      required this.subsidy,
-      required this.status});
-
-  @override
-  final GoalInput goal;
-  @override
-  final PayFirstInfut pay1;
-  @override
-  final PayInput pay2;
-  @override
-  final PayInput pay3;
-  @override
-  final TaxInput tax;
-  @override
-  final SubsidyInput subsidy;
-  @override
-  final FormzStatus status;
-
-  @override
-  String toString() {
-    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
-  }
+      _$ContractFormCopyWithImpl<ContractForm>(
+          this as ContractForm, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ContractFormImpl &&
+            other is ContractForm &&
             (identical(other.goal, goal) || other.goal == goal) &&
             (identical(other.pay1, pay1) || other.pay1 == pay1) &&
             (identical(other.pay2, pay2) || other.pay2 == pay2) &&
@@ -219,39 +49,210 @@ class _$ContractFormImpl implements _ContractForm {
   int get hashCode =>
       Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, subsidy, status);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $ContractFormCopyWith<$Res> {
+  factory $ContractFormCopyWith(
+          ContractForm value, $Res Function(ContractForm) _then) =
+      _$ContractFormCopyWithImpl;
+  @useResult
+  $Res call(
+      {GoalInput goal,
+      PayFirstInput pay1,
+      PayInput pay2,
+      PayInput pay3,
+      TaxInput tax,
+      SubsidyInput subsidy,
+      FormzStatus status});
+}
+
+/// @nodoc
+class _$ContractFormCopyWithImpl<$Res> implements $ContractFormCopyWith<$Res> {
+  _$ContractFormCopyWithImpl(this._self, this._then);
+
+  final ContractForm _self;
+  final $Res Function(ContractForm) _then;
+
+  /// Create a copy of ContractForm
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? goal = null,
+    Object? pay1 = null,
+    Object? pay2 = null,
+    Object? pay3 = null,
+    Object? tax = null,
+    Object? subsidy = null,
+    Object? status = null,
+  }) {
+    return _then(_self.copyWith(
+      goal: null == goal
+          ? _self.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as GoalInput,
+      pay1: null == pay1
+          ? _self.pay1
+          : pay1 // ignore: cast_nullable_to_non_nullable
+              as PayFirstInput,
+      pay2: null == pay2
+          ? _self.pay2
+          : pay2 // ignore: cast_nullable_to_non_nullable
+              as PayInput,
+      pay3: null == pay3
+          ? _self.pay3
+          : pay3 // ignore: cast_nullable_to_non_nullable
+              as PayInput,
+      tax: null == tax
+          ? _self.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as TaxInput,
+      subsidy: null == subsidy
+          ? _self.subsidy
+          : subsidy // ignore: cast_nullable_to_non_nullable
+              as SubsidyInput,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _ContractForm implements ContractForm {
+  const _ContractForm(
+      {required this.goal,
+      required this.pay1,
+      required this.pay2,
+      required this.pay3,
+      required this.tax,
+      required this.subsidy,
+      required this.status});
+
+  @override
+  final GoalInput goal;
+  @override
+  final PayFirstInput pay1;
+  @override
+  final PayInput pay2;
+  @override
+  final PayInput pay3;
+  @override
+  final TaxInput tax;
+  @override
+  final SubsidyInput subsidy;
+  @override
+  final FormzStatus status;
+
+  /// Create a copy of ContractForm
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$ContractFormCopyWith<_ContractForm> get copyWith =>
+      __$ContractFormCopyWithImpl<_ContractForm>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ContractForm &&
+            (identical(other.goal, goal) || other.goal == goal) &&
+            (identical(other.pay1, pay1) || other.pay1 == pay1) &&
+            (identical(other.pay2, pay2) || other.pay2 == pay2) &&
+            (identical(other.pay3, pay3) || other.pay3 == pay3) &&
+            (identical(other.tax, tax) || other.tax == tax) &&
+            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
+            (identical(other.status, status) || other.status == status));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, subsidy, status);
+
+  @override
+  String toString() {
+    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$ContractFormCopyWith<$Res>
+    implements $ContractFormCopyWith<$Res> {
+  factory _$ContractFormCopyWith(
+          _ContractForm value, $Res Function(_ContractForm) _then) =
+      __$ContractFormCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {GoalInput goal,
+      PayFirstInput pay1,
+      PayInput pay2,
+      PayInput pay3,
+      TaxInput tax,
+      SubsidyInput subsidy,
+      FormzStatus status});
+}
+
+/// @nodoc
+class __$ContractFormCopyWithImpl<$Res>
+    implements _$ContractFormCopyWith<$Res> {
+  __$ContractFormCopyWithImpl(this._self, this._then);
+
+  final _ContractForm _self;
+  final $Res Function(_ContractForm) _then;
+
+  /// Create a copy of ContractForm
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$ContractFormImplCopyWith<_$ContractFormImpl> get copyWith =>
-      __$$ContractFormImplCopyWithImpl<_$ContractFormImpl>(this, _$identity);
+  $Res call({
+    Object? goal = null,
+    Object? pay1 = null,
+    Object? pay2 = null,
+    Object? pay3 = null,
+    Object? tax = null,
+    Object? subsidy = null,
+    Object? status = null,
+  }) {
+    return _then(_ContractForm(
+      goal: null == goal
+          ? _self.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as GoalInput,
+      pay1: null == pay1
+          ? _self.pay1
+          : pay1 // ignore: cast_nullable_to_non_nullable
+              as PayFirstInput,
+      pay2: null == pay2
+          ? _self.pay2
+          : pay2 // ignore: cast_nullable_to_non_nullable
+              as PayInput,
+      pay3: null == pay3
+          ? _self.pay3
+          : pay3 // ignore: cast_nullable_to_non_nullable
+              as PayInput,
+      tax: null == tax
+          ? _self.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as TaxInput,
+      subsidy: null == subsidy
+          ? _self.subsidy
+          : subsidy // ignore: cast_nullable_to_non_nullable
+              as SubsidyInput,
+      status: null == status
+          ? _self.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as FormzStatus,
+    ));
+  }
 }
 
-abstract class _ContractForm implements ContractForm {
-  const factory _ContractForm(
-      {required final GoalInput goal,
-      required final PayFirstInfut pay1,
-      required final PayInput pay2,
-      required final PayInput pay3,
-      required final TaxInput tax,
-      required final SubsidyInput subsidy,
-      required final FormzStatus status}) = _$ContractFormImpl;
-
-  @override
-  GoalInput get goal;
-  @override
-  PayFirstInfut get pay1;
-  @override
-  PayInput get pay2;
-  @override
-  PayInput get pay3;
-  @override
-  TaxInput get tax;
-  @override
-  SubsidyInput get subsidy;
-  @override
-  FormzStatus get status;
-  @override
-  @JsonKey(ignore: true)
-  _$$ContractFormImplCopyWith<_$ContractFormImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

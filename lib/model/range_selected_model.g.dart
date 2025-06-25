@@ -6,15 +6,13 @@ part of 'range_selected_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$RangeSelectedModelImpl _$$RangeSelectedModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$RangeSelectedModelImpl(
+_RangeSelectedModel _$RangeSelectedModelFromJson(Map<String, dynamic> json) =>
+    _RangeSelectedModel(
       startSelected: json['startSelected'] as bool,
       endSelected: json['endSelected'] as bool,
     );
 
-Map<String, dynamic> _$$RangeSelectedModelImplToJson(
-        _$RangeSelectedModelImpl instance) =>
+Map<String, dynamic> _$RangeSelectedModelToJson(_RangeSelectedModel instance) =>
     <String, dynamic>{
       'startSelected': instance.startSelected,
       'endSelected': instance.endSelected,

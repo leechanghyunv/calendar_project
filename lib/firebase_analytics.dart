@@ -34,6 +34,7 @@ class FirebaseAnalyticsClass extends _$FirebaseAnalyticsClass {
 /// 기대하는점 건설근로시장의 근로단가, 평균공수, 일비, 파악가능
   @override
   FirebaseAnalytics build() {
+
     _initDeviceId();
     return FirebaseAnalytics.instance;
   }
@@ -74,13 +75,16 @@ class FirebaseAnalyticsClass extends _$FirebaseAnalyticsClass {
     }
 
     final combinedInfo = [
-      _deviceId == '7A589B20-5FF4-4216-B84B-29CB88414510' ? 'developer' : 'customer'
+      _deviceId == '7A589B20-5FF4-4216-B84B-29CB88414510' ?
+      'developer' : 'customer'
       "목표: ${formatSpreadsheetMoney(goalEvent['goal'])}",
       "세금: ${goalEvent['tax']}",  // tax는 그대로 사용
       "주간: ${formatMoney(goalEvent['normal'])}",
       "연장: ${formatMoney(goalEvent['extend'])}",
       "야간: ${formatMoney(goalEvent['night'])}",
       "일비: ${formatMoney(goalEvent['day_pay'])}",
+      "유형: ${formatMoney(goalEvent['site'])}",
+      "공증: ${formatMoney(goalEvent['job'])}",
     ].join(' | ');
 
     state.logEvent(
@@ -137,14 +141,7 @@ class FirebaseAnalyticsClass extends _$FirebaseAnalyticsClass {
 
   }
 
-  /// delete_form.dart
-  Future<void> reviewEvent(String reviewEvent) async {
-    state.logEvent(name: reviewEvent);
-  }
 
-  Future<void> pieTouch() async {
-    state.logEvent(name: 'pieTouch');
-  }
 
   Future<void> autoCopyEvent() async {
     state.logEvent(name: 'autoCopyEvent');
@@ -164,15 +161,11 @@ class FirebaseAnalyticsClass extends _$FirebaseAnalyticsClass {
     });
   }
   /// back_up_dialog.dart
+
   Future<void> backupEvent(String backupEvent) async {
     state.logEvent(name: backupEvent);
   }
-/// back_up_dialog.dart
-  Future<void> backupInstructionEvent(String backupInstructionEvent) async {
-    state.logEvent(name: backupInstructionEvent);
-  }
-/// update_event_form.dart
-  Future<void> memoInstructionEvent(String memoInstructionEvent) async {
-    state.logEvent(name: memoInstructionEvent);
-  }
+
+
+
 }

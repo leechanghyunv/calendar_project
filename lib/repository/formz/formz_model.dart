@@ -1,15 +1,9 @@
-import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/firebase_analytics.dart';
-import 'package:formz/formz.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:calendar_project_240727/supabase_service.dart';
 
 import '../../core/utils/converter.dart';
-import '../../core/widget/toast_msg.dart';
+import '../repository_import.dart';
 import '../../model/contract_model.dart';
-import '../../model/formz_model.dart';
-import '../../view_model/contract_model.dart';
-import '../../view_model/formz_manager_model.dart';
-
+import '../../view_model/formz_model/formz_manager_model.dart';
 
 part 'formz_model.g.dart';
 
@@ -22,7 +16,7 @@ class FormzValidator extends _$FormzValidator {
   String get pay3Error => state.pay3.displayError?.toString() ?? '야간근무 수당을 입력해주세요';
   String get taxError => state.tax.displayError?.toString() ?? '세율을 입력해주세요';
 
-  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비 없으면 넘어가기';
+  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비 없으면 바로 설정완료 누르세요';
   String get errorState => state.status.toString();
 
   double get extended {
@@ -42,7 +36,7 @@ class FormzValidator extends _$FormzValidator {
   ContractForm build() {
     return const ContractForm(
         goal: GoalInput.pure(),
-        pay1: PayFirstInfut.pure(),
+        pay1: PayFirstInput.pure(),
         pay2: PayInput.pure(),
         pay3: PayInput.pure(),
         tax: TaxInput.pure(),
@@ -66,7 +60,7 @@ class FormzValidator extends _$FormzValidator {
   }
 
   void onChangePay1(String val) {
-    final userPay = PayFirstInfut.dirty(val: int.tryParse(val) ?? 0);
+    final userPay = PayFirstInput.dirty(val: int.tryParse(val) ?? 0);
     state = state.copyWith(
       pay1: userPay,
       status: Formz.validate([state.goal, userPay,state.pay2,state.pay3, state.tax,state.subsidy])
@@ -95,7 +89,7 @@ class FormzValidator extends _$FormzValidator {
     );
     print(state.status);
   }
-  void onChangeTax(String val) {
+  void onChangeTax(double val) {
     final userTax = TaxInput.dirty(val: val);
     state = state.copyWith(
       tax: userTax,
@@ -123,22 +117,24 @@ class FormzValidator extends _$FormzValidator {
 
   void onSubmit(
       BuildContext context,
-      DateTime selected,
-      FocusNode goalNode,
+      FocusNode payNode,
       FocusNode taxNode,
+      String workSite,
+      String workType,
+      DateTime selected,
       bool shouldExecuteFinal) {
 
     state = state.copyWith(status: FormzStatus.submissionInProgress);
     bool isValid = true;
     List<String> errorMessages = [];
-
     print('onSubmit을 시작');
-
     // 유효성 검사
     if (state.pay1.value == 0) {
       isValid = false;
       state = state.copyWith(status: FormzStatus.invalid);
       errorMessages.add('정상근무 값을 입력해주세요');
+      FocusScope.of(context).requestFocus(payNode);
+
     }
     if (state.pay2.value == 0) {
       isValid = false;
@@ -150,17 +146,12 @@ class FormzValidator extends _$FormzValidator {
       state = state.copyWith(status: FormzStatus.invalid);
       errorMessages.add('야간근무 값을 입력해주세요');
     }
-    if (state.goal.value == 0.0) {
-      isValid = false;
-      state = state.copyWith(status: FormzStatus.invalid);
-      errorMessages.add('목표금액 값을 입력해주세요');
-      FocusScope.of(context).requestFocus(goalNode);
-    }
     if (state.tax.value == '') {
       isValid = false;
       state = state.copyWith(status: FormzStatus.invalid);
       errorMessages.add('세율을 입력해주세요');
-      FocusScope.of(context).requestFocus(taxNode);
+      // FocusScope.of(context).requestFocus(taxNode);
+
     }
 
     // 에러 메시지가 있으면 표시하고 종료
@@ -186,15 +177,13 @@ class FormzValidator extends _$FormzValidator {
     // 모든 검증이 통과된 경우
     state = state.copyWith(status: FormzStatus.validated);
 
-    // shouldExecuteFinal 파라미터에 따라 onSubmitFinal 실행 여부 결정
     if (shouldExecuteFinal) {
-      onSubmitFinal(selected);
+      onSubmitFinal(selected,workSite,workType);
     }
   }
 
-
-
-  void onSubmitFinal (DateTime selected){
+  void onSubmitFinal (DateTime selected,String workSite,
+      String workType){
 
     final subsidyLength = state.subsidy.value.toString().length;
     final value = state.subsidy.value;
@@ -210,11 +199,13 @@ class FormzValidator extends _$FormzValidator {
           normal: state.pay1.value,
           extend: state.pay2.value,
           night: state.pay3.value,
-          tax: double.tryParse(state.tax.value) ?? 0.0,
+          tax: state.tax.value,
           subsidy: state.subsidy.value,
+          site: workSite,
+          job: workType,
         );
         ref.read(addContractProvider(contract));
-
+        ref.read(insertNoteProvider(contract));
         ref.read(firebaseAnalyticsClassProvider.notifier).
         goalEvent({
           'goal': contract.goal,
@@ -223,10 +214,13 @@ class FormzValidator extends _$FormzValidator {
           'extend': contract.extend,
           'night': contract.night,
           'day_pay': contract.subsidy,
+          'site': contract.site,
+          'job' : contract.job,
         });
 
         state = state.copyWith(status: FormzStatus.submissionSuccess);
-        customMsg('근로조건이 등록되었습니다.\n1.0, 1.5, 2.0 로 공수등록');
+        ref.invalidate(viewContractProvider);
+        customMsg('근로조건이 등록되었습니다.');
       } catch (e) {
         state = state.copyWith(status: FormzStatus.submissionFailure);
         customMsg('입력값 저장을 실패했습니다.');

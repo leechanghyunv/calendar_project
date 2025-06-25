@@ -14,7 +14,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 }
 
 @freezed
-class WorkHistory with _$WorkHistory {
+abstract class WorkHistory with _$WorkHistory {
   const factory WorkHistory({
     int? id,
     @DateTimeConverter() // 커스텀 컨버터 적용

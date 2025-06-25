@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import '../../theme_color.dart';
 
 class DefaultScreen extends StatelessWidget {
-  final List<Widget> children;
+  final Widget body;
   final List<Widget> buttom;
 
   const DefaultScreen(
-      {super.key, required this.children, required this.buttom});
+      {super.key,
+        required this.body,
+        required this.buttom,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,7 @@ class DefaultScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: themeColor,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: children,
-        ),
+        child: body,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Transform.translate(

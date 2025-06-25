@@ -30,10 +30,11 @@ Widget ButtonTextWidget(
     {Color? color}  // 옵셔널 color 파라미터 추가
     ) => Text(
   msg,
+  textScaler: TextScaler.noScaling,
   style: TextStyle(
     fontWeight: FontWeight.bold,
     color: color ?? Colors.black,  // color가 null이면 Colors.black 사용
-    fontSize: Platform.isAndroid ?  size-1 : size,
+    fontSize: size,
     letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
   ),
 );
@@ -45,11 +46,12 @@ Widget DialogTextWidget(
       double? letterSpacing}  // 옵셔널 letterSpacing 파라미터 추가
     ) => Text(
   msg,
+  textScaler: TextScaler.noScaling,
   style: TextStyle(
     height: textHeight,
     fontWeight: FontWeight.bold,
     color: color ?? Colors.black,  // color가 null이면 Colors.black 사용
-    fontSize: Platform.isAndroid ?  size-1 : size,
+    fontSize: size,
     letterSpacing: letterSpacing ?? (Platform.isAndroid ? 0.5 : 0.0),
   ),
 );
@@ -59,7 +61,6 @@ Widget DialogTextWidget(
 /// back_up_textfield
 TextStyle BackupFontStyle(
     double size,
-
     {double? height,double? width}  // 옵셔널 height 파라미터 추가
     ) {
 

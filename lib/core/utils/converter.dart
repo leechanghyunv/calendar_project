@@ -1,93 +1,23 @@
-
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
-import '../../model/work_history_model.dart';
-
-String formatAmountGoal(int amount) {
-  if (amount >= 100000000) {
-    final won = (amount / 100000000).toStringAsFixed(1); // 억 단위로 변경
-    return '$won억원';
-  } else if (amount >= 10000) {
-    final won = (amount / 10000).toStringAsFixed(0); // 만원 단위로 변경
-    return '$won만원';
-  } else {
-    return '${amount.toStringAsFixed(1)}원';
-  }
-}
-
-
-String formatBigAmount(int amount,double height) {
-  final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
-  return amount == 0 ? '0.00 만원️'
-
-      : height > 700 ? amount < 1000000 ? '$won만원 ' : '$won만원'
-
-      : '$won만원 ';
+int calculateMonthDifference(DateTime start, DateTime end) {
+  return (end.year - start.year) * 12 + (end.month - start.month);
 }
 
 String formatAmount(int amount) {
-  final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
-  return '$won만원';
-}
-
-String formatPayInt(int amount) {
-  final won = (amount / 10000).toStringAsFixed(0); // 소수점 없이 정수 부분만 사용
-  return '$won만원';
-}
-
-String formatDecimalAmount(double amount) {
-  final won = (amount / 10000).toStringAsFixed(1); // 소수점 없이 정수 부분만 사용
-  return '$won만원';
-}
-
-
-
-String formatDecimalAmountforSmall(double amount) {
-  final value = (amount / 10000);
+  final value = amount / 10000; // 만원 단위로 변환
   final int intValue = value.toInt();
   final int length = intValue.toString().length;
-  if(length >= 5){
-    final billion = (value / 10000).toStringAsFixed(3);
+
+  if (length >= 5) { // 1억원 이상인 경우 (5자리 이상의 만원 = 억원)
+    final billion = (value / 10000).toStringAsFixed(2); // 소수점 2자리
     return '$billion억원';
   } else {
-    final int dot = intValue.toString().length <= 3 ? 2 : 1;
-    final won = value.toStringAsFixed(dot == 2 ? 2 : dot); // 소수점 없이 정수 부분만 사용
-    return  amount == 0.0 ? ' $won만원' : '$won만원';
+    final won = value.toStringAsFixed(1); // 소수점 1자리
+    return '$won만원';
   }
 }
 
-
-
-String formatPay(double amount) {
-  final won = (amount / 10000).toStringAsFixed(0); // 소수점 없이 정수 부분만 사용
-  return '$won만원';
-}
-
-String formatNumber(int number) {
-  final formatter = NumberFormat('#,###');
-  return formatter.format(number);
-}
-
-Map<DateTime, List<WorkHistory>> convertToMap(List<WorkHistory> eventList) {
-  Map<DateTime, List<WorkHistory>> mappedData = {};
-  for (var data in eventList) {
-    if (mappedData.containsKey(data.date)) {
-      mappedData[data.date]!.add(data);
-    } else {
-      mappedData[data.date] = [data];
-    }
-  }
-  return mappedData;
-}
-
-String numberWithCommas(String input) {
-  if (input.isEmpty) return ''; // 입력이 비어있는 경우 빈 문자열 반환
-  // 입력된 문자열을 정수형으로 변환하여 ','를 추가하여 반환
-  return int.parse(input).toString().replaceAllMapped(
-      RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), // 정규식을 사용하여 ',' 추가
-          (Match match) => '${match[1]},');
-}
 
 class TwoDigitInputFormatter extends TextInputFormatter {
   @override
@@ -106,4 +36,11 @@ class TwoDigitInputFormatter extends TextInputFormatter {
 
     return newValue;
   }
+}
+
+String formatSelectedDate(DateTime date) {
+  final year = (date.year % 100).toString().padLeft(2, '0'); // 2025 → 25
+  final month = date.month.toString().padLeft(2, '0');
+  final day = date.day.toString().padLeft(2, '0');
+  return '$year년 $month월 $day일';
 }

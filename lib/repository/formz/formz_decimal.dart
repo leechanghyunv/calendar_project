@@ -1,12 +1,5 @@
-import 'package:calendar_project_240727/view_model/contract_model.dart';
-import 'package:formz/formz.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../repository_import.dart';
 
-import '../../core/widget/toast_msg.dart';
-import '../../model/decimal_pay_model.dart';
-import '../../model/formz_decimal_model.dart';
-import '../../view_model/formz_decimal_model.dart';
-import '../../view_model/history_model.dart';
 import '../time/calendar_time_controll.dart';
 
 part 'formz_decimal.g.dart';
@@ -15,9 +8,8 @@ part 'formz_decimal.g.dart';
 class FormzDecimalValidator extends _$FormzDecimalValidator {
 
   String get decimalError {
-    final selected = ref.watch(timeManagerProvider.notifier).DaySelected;
-    return state.decimalData.displayError?.toString() ??
-        ' 입력안하고 확인 누르면 바로 휴무처리됩니다.';
+    ref.watch(timeManagerProvider.notifier).DaySelected;
+    return state.decimalData.displayError?.toString() ?? ' 입력안하고 확인 누르면 바로 휴무처리됩니다.';
   }
 
   @override
@@ -30,7 +22,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
 
   Future<void> onChangeDecimal(double number) async {
 
-    print('onChangeDecimal $number');
 
     final time = ref.watch(timeManagerProvider.notifier).DaySelected;
     final pay = ref.watch(viewContractProvider).value!.last.normal;
@@ -53,27 +44,66 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   }
 
   void onSubmit(){
-    final value = state.decimalData.value;
-    final calculated = value.pay * value.decimal;
-    print('calculated: $calculated');
-    int pay = calculated.toInt();
-    print('calculated to pay: $pay');
     final date = ref.watch(timeManagerProvider).selected;
-
+    final value = state.decimalData.value;
+    var calculated = (value.pay * value.decimal).toInt();
     try{
-      ref.read(
-          addHistoryProvider(pay, date));
+      ref.read(addHistoryProvider(calculated, date));
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
+
         customMsg('근로조건이 등록되었습니다.');
       });
     }catch(e){
       state = state.copyWith(status: DecimalFormzStatus.submissionFailure);
       customMsg('입력값 저장을 실패했습니다.');
     }
-
   }
 
+
+
+  Future<void> onSubmitMonthAll() async {
+    final value = state.decimalData.value;
+    final calculated = value.pay * value.decimal;
+    int pay = calculated.toInt();
+    final date = ref.watch(timeManagerProvider).selected;
+    final memoString = ref.watch(formzMemoValidatorProvider.notifier).value;
+
+    print('memoString: ${memoString}');
+    print('calculated: $calculated');
+    final history = WorkHistory(
+      date: date,
+      pay: pay,
+      record: value.decimal,
+      comment: switch (value.decimal){
+        == 0.0 => '휴무',
+        == 1.0 => '정상근무',
+        == 1.5 => '연장근무',
+        == 2.0 => '야간근무',
+        _=> '기타근무',
+      },
+      colorCode: switch (value.decimal){
+        == 0.0 => '4CAF50',
+        == 1.0 => '2196F3',
+        == 1.5 => 'FCAF50',
+        == 2.0 => 'F44336',
+        _=> 'AB47BC',
+      },
+      memo: memoString,
+    );
+    try{
+      ref.read(
+          rangeExcludHolidayProvider(history));
+      Future.delayed(const Duration(milliseconds: 250),(){
+        state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
+        customMsg('근로조건이 등록되었습니다.');
+      });
+
+  }catch(e){
+      state = state.copyWith(status: DecimalFormzStatus.submissionFailure);
+      customMsg('입력값 저장을 실패했습니다.');
+    }
+    }
 
 
 }

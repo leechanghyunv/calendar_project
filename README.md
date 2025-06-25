@@ -1,103 +1,93 @@
-# 건설현장 워크캘린더 (공수달력)
+## 워크캘린더_IOS 공수어플 최고평점(ver 1.4.1)
 
-## 📅 프로젝트 개요
-건설현장 노동자들의 근무 일정을 관리하고, 일당 및 근무 기록을 효과적으로 추적할 수 있는 워크캘린더 애플리케이션입니다.
+### 📅 프로젝트 개요
+건설현장 노동자들의 근무 일당(공수)을 관리하는 애플리케이션입니다.
+
+- 타 공수 관리 어플 대비 직관적이고 사용성이 뛰어난  UI/UX 제공
+- 퇴직금 정산 및 실업급여 수급 가능 여부 확인 기능 제공
+- 복사 & 붙여넣기 지원 으로 빠른 데이터 백업 및 공유 가능
+
+---
 
 ### ⏰ 개발 기간
-- **첫 프로젝트 제작**: 2024.07.01 ~ 2024.08.22
-- **앱스토어 출시**: 2024.08.12
-- **프로젝트 보강**: 2024.08.22 ~
-    - 커뮤니티 배포 후 사용자 반응 모니터링
-    - 당근마켓 건당 알바 고용 후 설문, 모니터링
-    - 카카오톡 오픈체팅방에서 사용자 피드백 수집
-- **현재 버전**: 1.3.3
-- **안드로이드 비공개테스트**: 2024.11.21
+**첫 프로젝트 제작**: 2024.07.01 ~ 2024.08.22
+
+**첫 앱스토어 출시**: 2024.08.12
+
+- iOS 앱스토어에 v1.0 등록
+- 필수 기능(근무일 기록, 임금 계산, 데이터 내보내기) 포함  
+
+**프로젝트 보강**: 2024.08.22 ~
+
+- [📌 커뮤니티에 배포 후 피드백 수집](https://gall.dcinside.com/mgallery/board/view/?id=nogada&no=991753&search_pos=-986432&s_type=search_subject_memo&s_keyword=어플리케이션&page=1)
+- [📌 커뮤니티에 배포 후 피드백 수집](https://gall.dcinside.com/mgallery/board/view/?id=nogada&no=992850&s_type=search_subject_memo&s_keyword=어플리케이션&search_pos=-986432&page=1)
+- [📌 커뮤니티에 배포 후 피드백 수집](https://gall.dcinside.com/mgallery/board/view/?id=nogada&no=996040&s_type=search_subject_memo&s_keyword=어플리케이션&search_pos=-986432&page=1)
+
+**안드로이드 비공개테스트**: 2024.11.21
+
+**UI 전면교체**: 2025.1.13
+
+**안드로이드 출시**: 2025.02.17
 
 ## 🎯 주요 기능
-### 사용 목적
-- 당일 일당 입력 시 월별 총계 자동 계산
-    - 총 공수(근로시간)
-    - 세후 계산 금액
-    - 출근일수
-- 관리사무소 공수 기록과 비교 가능
 
-### 차별화 포인트
-#### 1. 간편한 백업시스템
-- `super_clipboard` 패키지 활용으로 백업 간소화(고연령 사용자 대응)
-- 이메일, 카카오톡 메시지에 공수 데이터 저장 및 복원 기능
-- iOS-Android 간 호환 가능한 백업 시스템
+- 공수 입력에 따른 정보제공(금액,출력일수,세후금액,누적근로일수)
+- 퇴직공제금산정 및 실업급여 수급 가능 여부 확인 
+- 날짜 범위 산정 후 누적금액, 기타정보 제공  
+- 월별 공수 차트 제공 
 
-#### 2. 목표 관리 기능
-- 목표 금액 설정
-- 목표 달성까지 필요한 공수 계산
-- 건설근로공제 퇴직금 산정 기능
 
 ## 🛠 기술 스택
-### 주요 패키지
-- riverpod
-- sqlite
-- flutter_formz
-- table_calendar
-- keyboard_actions
+
+`riverpod` | `sqlite` | `flutter_formz` | `table_calendar` | `keyboard_actions` | `archive` | `super_clipboard`|
+
 
 ## 📁 프로젝트 구조
 ### Repository
-1. **calculate_day**
-    - 근로 일수 및 주휴일수 계산
-    - 주휴일수: 15시간 이상 근로 시 1일, 야간근무 시 1일 추가
 
-2. **calendar_time_controller**
-    - table_calendar의 markerBuilder 상태 관리
-    - selectedDay와 focusDay 상태 제어
-
-3. **copyJsonToClipboard**
-    - super_clipboard를 활용한 데이터 백업
-
-4. **formz_decimal**
-    - 근무 형태 입력 시 formState 상태 관리
-
-5. **formz_deletion**
-    - 데이터 삭제 기능
-    - 'Delete file' 입력 검증
-
-6. **formz_model**
-    - 근로 조건 입력 값 유효성 검사
-
-7. **sqlite_database**
-    - CRUD 작업 수행
+- back_up: 데이터 백업 관리, base64로 인코딩 후 파일로 저장, json으로 변환
+- formz: 근로조건, 공수입력시 입력값 검증 후 UI 변경
+- sqlite: contract,history crud 데이터베이스 관리
+- time: 캘린더 UI의 상태변경을 위한 DateTime 관리
+- transter_data_goolge_vision:
+- view_controll: UI 상태변경을 위한 상태관리
 
 ### View Model
-1. **calendar_event_model**
-    - 캘린더 위젯 데이터 관리
-2. **filtered_source_model**
-    - workHistory와 contract 데이터 통합 관리
-3. **contract_model**
-    - update_dialog UI 데이터 관리
-4. **formz_decimal_model**
-    - 근무 형태 입력 UI 상태 관리
-5. **formz_deletion_model**
-    - 데이터 삭제 UI 상태 관리
-6. **formz_manager_model**
-    - 근로 조건 입력 UI 상태 관리
-7. **formz_memo_model**
-    - 메모 입력 reactive UI 관리
-8. **history_model**
-    - workHistory CRUD 작업 처리
+
+- filted_instance_model: history,contract에서 필터링되는 값들 관리
+- formz_model: formz_validator를 통한 입력값 검증
+- instance_provider_model:UI에 전달되는 instace값 관리
+- sqlite_model: 데이터베이스 CRUD 작업 수행
+
 
 ### View UI
 1. **calendar**: 캘린더 위젯
-2. **chart**: 그래프 및 통계 UI
-3. **container**: 상황별 컨테이너
-4. **erase_dialog**: 데이터 삭제 UI
-5. **input_dialog**: 근로조건 등록 UI
-6. **minor_issue**: 기타 UI 위젯
-7. **screen**: 메인 화면
-8. **update_dialog**: 공수 이벤트 등록
+
+- range_picker_component: 날짜 범위선택 이후 근로기록 및 임금계산
+
+2. **dialog**: 다이얼로그 UI
+
+- archive_dialog: 총 근로일수 및 성과 관리 다이얼로그
+- backup_dialog: 데이터 백업 다이얼로그
+- input_dialog: 근로 조건 입력 다이얼로그
+- memo_dialog: 메모 다이얼로그
+- selction_conract_form: 데이터 백업 다이얼로그
+
+3. **main_scrren_component**: 메인스크린 UI
+
+- chart_box_component: 월별 공수 차트 박스
+- column_box_component: 근로신고일수,근로일수를 보여주는 박스
+- main_box_component: 월별공수,세율,공수 및 캘린더 컨트롤박스
+- under_box_button_component: 하단에 위치한 다이얼로그 버튼모음
+
+4. **minor_issue**: 기타 UI 위젯
+5. **screen**: 메인 화면
+
 
 ## 🚀 주요 기술적 해결 과제
 ### 1. table_calendar 상태 관리
 **문제점**
-- setState로 UI 상태 변경 불가
+- table_calendar내에서 UI변경은 setState로 변경 불가
 
 **해결방안**
 - time_controller 클래스 구현
@@ -138,6 +128,4 @@
 2. **폼 관리**
     - flutter_formz에서 form_validator로 마이그레이션 검토
 
-3. **상태관리**
-    - GetX 도입 검토
 

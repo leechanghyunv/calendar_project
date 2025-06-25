@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view_model/formz_memo_model.dart';
+import '../view_model/formz_model/formz_memo_model.dart';
+
 
 part 'formz_memo_model.freezed.dart';
 
 @freezed
-class MemoForm with _$MemoForm {
+abstract class MemoForm with _$MemoForm {
   const factory MemoForm({
     required MemoInput memoData,
     required MemoFormzStatus status,

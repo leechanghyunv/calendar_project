@@ -1,11 +1,8 @@
-
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:intl/intl.dart';
-
 import '../../core/export_package.dart';
+import '../../view_model/view_provider/calendar_switcher_model.dart';
 import 'calendar_popupMenu.dart';
-import 'range_picker_component/date_range_section.dart';
 
 class CalendarHeader extends ConsumerWidget {
 
@@ -16,15 +13,17 @@ class CalendarHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 4.0, top: 2.0, bottom: 2.0),
+      padding: EdgeInsets.only(
+          left: appHeight > 750 ? 16.0 : 12.0, right: 4.0, top: 2.0, bottom: 2.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // 왼쪽에 날짜 표시
           Text(
             '${DateFormat.yMMMM('ko_KR').format(day)}',
+            textScaler: TextScaler.noScaling,
             style: TextStyle(
               shadows: Platform.isAndroid ? [
                 Shadow(
@@ -34,30 +33,38 @@ class CalendarHeader extends ConsumerWidget {
                 ),
               ] : null,
               fontSize: switch (appWidth) {
-                > 450 => 23,
+                > 450 => 25,
                 > 420 => 22,
                 > 400 => 21.5,
-                _ => 20,
+                _ => 19.5,
               },
-
               fontWeight: FontWeight.w800,
               letterSpacing: 1.2,
             ),
           ),
           Row(
             children: [
-              DateRangeButton(),
               SizedBox(width: appWidth > 400 ? 17.5 : 10),
               PopupWidget(),
+              SizedBox(width: appWidth > 450 ? 10 : null),
               IconButton(
-                icon: Icon(Icons.access_time,
-                    size: appWidth > 400 ? 25 : 20),
-                onPressed: () {
-                  ref.timeNot.moveToToday();
-                  customMsg('오늘날짜로');
-                },
+                onPressed: () => ref.timeNot.moveToToday(),
+                icon: Icon(
+                  Icons.calendar_today_outlined,
+                  size: appWidth >= 450 ? 27.5 : appWidth > 400 ? 25 : 22.5,
+              ),
               ),
 
+              SizedBox(width: appWidth > 450 ? 10 : null),
+
+              IconButton(
+                icon: Icon(Icons.remove_red_eye_outlined,
+                    size: appWidth >= 450 ? 30 : appWidth > 400 ? 27.5 : 25,
+                ),
+                onPressed: () {
+                  ref.read(calendarSwitcherProvider.notifier).toggle();
+                },
+              ),
             ],
           ),
         ],

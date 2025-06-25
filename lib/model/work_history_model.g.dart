@@ -6,8 +6,7 @@ part of 'work_history_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$WorkHistoryImpl _$$WorkHistoryImplFromJson(Map<String, dynamic> json) =>
-    _$WorkHistoryImpl(
+_WorkHistory _$WorkHistoryFromJson(Map<String, dynamic> json) => _WorkHistory(
       id: (json['id'] as num?)?.toInt(),
       date: const DateTimeConverter().fromJson(json['date'] as String),
       pay: (json['pay'] as num?)?.toInt() ?? 0,
@@ -17,7 +16,7 @@ _$WorkHistoryImpl _$$WorkHistoryImplFromJson(Map<String, dynamic> json) =>
       memo: json['memo'] as String? ?? '',
     );
 
-Map<String, dynamic> _$$WorkHistoryImplToJson(_$WorkHistoryImpl instance) =>
+Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
     <String, dynamic>{
       'id': instance.id,
       'date': const DateTimeConverter().toJson(instance.date),

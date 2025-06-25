@@ -1,5 +1,3 @@
-
-
 import '../../../../core/export_package.dart';
 
 class TextStyles {
@@ -13,7 +11,7 @@ class TextStyles {
       fontWeight: weight,
       color: color,
       backgroundColor: backgroundColor,
-      fontSize: appWidth < 376 ? 11.5 :  12.5,
+      fontSize: appWidth < 376 ? 11.5 :  (appWidth > 400 ? 13.5 : 12.5),
       letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
     );
   }
@@ -36,6 +34,7 @@ class TextStyles {
 }
 
 Widget RichTextBox(double width) => RichText(
+  textScaler: TextScaler.noScaling,
     text: TextSpan(
       children: [
         TextStyles.createSpan(

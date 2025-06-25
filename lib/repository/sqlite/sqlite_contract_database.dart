@@ -1,7 +1,4 @@
-import 'package:path/path.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sqflite/sqflite.dart';
-
+import '../repository_import.dart';
 import '../../model/contract_model.dart';
 
 part 'sqlite_contract_database.g.dart';
@@ -19,7 +16,7 @@ Future<Database> initCondition(InitConditionRef ref) async {
 
   return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database db, int version) async {
         await db.execute('''
       CREATE TABLE labour_condition(
@@ -30,10 +27,18 @@ Future<Database> initCondition(InitConditionRef ref) async {
         extend INTEGER NOT NULL DEFAULT 0,
         night INTEGER NOT NULL DEFAULT 0,
         tax REAL NOT NULL DEFAULT 0.0,
-        subsidy INTEGER NOT NULL DEFAULT 0
+        subsidy INTEGER NOT NULL DEFAULT 0,
+        site TEXT NOT NULL DEFAULT '',
+          job TEXT NOT NULL DEFAULT '' 
       )
     ''');
+      },
+    onUpgrade: (Database db, int oldVersion, int newVersion) async {
+      if (oldVersion < 2) {
+        await db.execute("ALTER TABLE labour_condition ADD COLUMN site TEXT NOT NULL DEFAULT ''");
+        await db.execute("ALTER TABLE labour_condition ADD COLUMN job TEXT NOT NULL DEFAULT ''");
       }
+    },
 
   );
 }
@@ -85,6 +90,7 @@ class ContractDatabase {
       throw Exception('goal 업데이트 중 오류: ${e.toString()}');
     }
   }
+
 
   Future<List<LabourCondition>> getAllLabourConditions() async {
     final db = await database;

@@ -1,8 +1,8 @@
 import 'package:calendar_project_240727/base_consumer.dart';
-
+import 'package:flutter_svg/svg.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
-import '../../../view_model/filted_source_model.dart';
+import '../../../view_model/filted_instance_model/filted_month_model.dart';
 
 class ChartInDialog extends ConsumerStatefulWidget {
   const ChartInDialog({super.key});
@@ -30,29 +30,27 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
   Widget chartInText(String text){
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Text(text,style: chartInStyle),
+      child: Text(text,
+          textScaler: TextScaler.noScaling,
+          style: chartInStyle),
     );
   }
 
   Widget chartInSmall(String text){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3.0),
-      child: Text(text,style: chartSmallStyle.copyWith(color: Colors.grey.shade700)),
+      child: Text(text,
+          textScaler: TextScaler.noScaling,
+          style: chartSmallStyle.copyWith(color: Colors.grey.shade700)),
     );
   }
 
-  Widget chartInSmall2(String text){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 3.0),
-      child: Text(text,style: chartSmallStyle.copyWith(
-          color: Colors.grey.shade700,fontWeight: FontWeight.w900)),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
 
-    final state = ref.watch(numericSourceModelProvider(ref.selected).notifier);
+    final data = ref.watch(monthRecordProvider(ref.selected));
 
     return GestureDetector(
       onTap: (){
@@ -76,37 +74,30 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6),
                 ),
-                child: ref.contract.when(data: (val){
-                  if (val.isEmpty) {
-                    return const SizedBox(); // 또는 다른 기본 위젯 반환
-                  }
-
-                  final normal = formatAmount(val.last.normal);
-                  final dayPay = val.last.subsidy;
-                  final dayPayMonth = formatAmount(ref.numericSource.totolSubsidyDaynMonth);
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      chartInText('근로수당: $normal'),
-                      Row(
-                        children: [
-                          chartInSmall(dayPay == 0 ? '일비는 미포함 되었습니다' : '일비 ${formatAmount(dayPay)}'),
-                          chartInSmall2(dayPay == 0 ?  '':'${ref.month}월 ${dayPayMonth}'),
+                child: ref.contract.maybeWhen(
+                    data: (val) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        chartInText('근로수당: ${formatAmount(val.last.normal)}'),
+                        Row(
+                          children: [
+                            chartInSmall(val.last.subsidy == 0
+                                ? '일비는 미포함 되었습니다'
+                                : '일비 ${formatAmount(val.last.subsidy)}'),
+                            chartInSmall(val.last.subsidy == 0
+                                ? ''
+                                : '${ref.month}월 ${data.valueOrNull!.totalSubsidy}'),
 
 
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey.shade300,
-                        thickness: 1,
-                      ),
-                    ],
-                  );
-                },
-                    error: (err,trace) => SizedBox(),
-                    loading: () => SizedBox(),
-                ),
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.grey.shade300,
+                          thickness: 1,
+                        ),
+                      ],
+                    ),
+                    orElse: () => SizedBox())
 
               ),
             ),
@@ -118,27 +109,68 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                     borderRadius: BorderRadius.circular(6),
                     color: Colors.grey.shade100,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      chartInText('🚀 주간 ${state.normalDay}일 ${formatPayInt(state.normalPay)}'),
-                      chartInText('🔥 연장 ${state.extendDay}일 ${formatPayInt(state.extendPay)}'),
-                      chartInText('🎉 야간 ${state.nightDay}일 ${formatPayInt(state.nightPay)}'),
-                    ],
-                  ),
+                  child: Consumer(
+                      builder: (context, ref, child){
+                        return switch(data){
+                          AsyncData(:final value) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Platform.isAndroid ? SvgPicture.asset(
+                                    'assets/rocket.svg',
+                                    width: 12.5,
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.grey.shade600,
+                                      BlendMode.srcIn,
+                                    ),
+                                    clipBehavior: Clip.antiAlias,
+                                  ) : SizedBox.shrink(),
+                                  chartInText('🚀 주간 ${data.value.normalDay}일 ${data.value.normalPay}'),
+                                ],
+                              ),
 
+                              Row(
+                                children: [
+                                  Platform.isAndroid ? SvgPicture.asset(
+                                    'assets/cuboid.svg',
+                                    width: 12.5,
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.grey.shade600,
+                                      BlendMode.srcIn,
+                                    ),
+                                    clipBehavior: Clip.antiAlias,
+                                  ) : SizedBox.shrink(),
+                                  chartInText('🔥 연장 ${data.value.extendDay}일 ${data.value.extendPay}'),
+                                ],
+                              ),
+
+                              Row(
+                                children: [
+                                  Platform.isAndroid ? SvgPicture.asset(
+                                    'assets/zap.svg',
+                                    width: 12.5,
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.grey.shade600,
+                                      BlendMode.srcIn,
+                                    ),
+                                    clipBehavior: Clip.antiAlias,
+                                  ) : SizedBox.shrink(),
+                                  chartInText('🎉 야간 ${data.value.nightDay}일 ${data.value.nightPay}'),
+                                ],
+                              ),
+                            ],
+                          ),
+                          AsyncError() => chartInText('Oops, something unexpected happened'),
+                          _ =>  chartInText('Loading...'),
+                        };
+                  }),
                 ),
             ),
           ],
         child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            borderRadius: BorderRadius.circular(12),
-            shape: BoxShape.rectangle,
-
-          ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3.0, horizontal: 6.0),
+            padding: EdgeInsets.symmetric(horizontal: 2.0),
             child: Icon(
               size: selected ? 22.5 : 25.5,
               Icons.more_horiz,

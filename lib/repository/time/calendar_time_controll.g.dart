@@ -6,7 +6,7 @@ part of 'calendar_time_controll.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeManagerHash() => r'e8bbe380fc3670bb9f6528a996baa49ce59b019e';
+String _$timeManagerHash() => r'df24f17c5ef22863821173faabb1a7a3178f01d9';
 
 /// See also [TimeManager].
 @ProviderFor(TimeManager)
@@ -22,4 +22,4 @@ final timeManagerProvider =
 
 typedef _$TimeManager = AutoDisposeNotifier<CalendarTimeModel>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,13 +1,9 @@
-import 'package:path/path.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:sqflite/sqflite.dart';
 
-import '../../model/work_history_model.dart';
-
+import '../repository_import.dart';
 part 'sqlite_history_database.g.dart';
 
 @riverpod
-Future<HistoryDatabase> workhistoryManager( ref) async {
+Future<HistoryDatabase> workHistoryManager( ref) async {
   final db = await ref.watch(initWorkHistoryProvider.future);
   return HistoryDatabase(db);
 }
@@ -32,9 +28,10 @@ Future<Database> initWorkHistory(ref) async {
         comment TEXT NOT NULL DEFAULT '정상근무'
       )
     ''');
-      }
-
+      },
+    
   );
+
 }
 
 
@@ -54,11 +51,13 @@ class HistoryDatabase {
           whereArgs: [date.toIso8601String()],
         );
       });
+      print('toIso8601String: ${date.toIso8601String()}');
       print('deleteWorkHistory: 삭제 성공');
     } catch (e) {
       print('deleteWorkHistory error: ${e.toString()}');
       throw Exception('데이터 삭제 중 오류 발생');
     }
+    // print('object');
   }
 
   Future<void> deleteWorkHistoryByMonth(DateTime start,DateTime end) async {
@@ -90,11 +89,27 @@ class HistoryDatabase {
     await db.execute('DELETE FROM workhistory');
   }
 
+
+
+  /// isolate 처리 isolate 처리 isolate 처리 isolate 처리 isolate 처리
   Future<List<WorkHistory>> getAllWorkHistories() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('workhistory');
-    return List.generate(maps.length, (i) => WorkHistory.fromMap(maps[i]));
+    return maps.map((map) => WorkHistory.fromJson(map)).toList();
   }
+
+  Future<List<WorkHistory>> getFilteredHistory(DateTime start, DateTime end) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'workhistory',
+      where: "date >= ? AND date <= ?",
+      whereArgs: [
+        start.toUtc().toIso8601String(),
+        end.toUtc().toIso8601String()],
+    );
+    return maps.map((map) => WorkHistory.fromJson(map)).toList();
+  }
+
 
   Future<WorkHistory?> getWorkHistoryByDate(DateTime date) async {
     final db = await database;
@@ -136,10 +151,10 @@ class HistoryDatabase {
         // 해당 날짜의 모든 기존 데이터 삭제
         await txn.delete(
           'workhistory',
+          /// where: 'date >= ? AND date < ?',
           where: "date LIKE ?",
           whereArgs: ['${history.date.toIso8601String().split('T')[0]}%'],
         );
-
         // 새 데이터 삽입
         await txn.insert(
             'workhistory',
@@ -151,6 +166,58 @@ class HistoryDatabase {
       throw Exception('데이터 저장/업데이트 중 오류 발생');
     }
   }
+
+// 해당 월 모두 데이터 저장하기
+  Future<void> insertWorkHistoryExcludeHolidays(
+      DateTime start, DateTime end, WorkHistory history) async {
+    try {
+      final db = await database;
+      await db.transaction((txn) async {
+        await txn.delete(
+          'workhistory',
+          where: "date >= ? AND date <= ?",
+          /// date에서 date를 utc 처리한다 25.1.13
+          whereArgs: [
+            start.toUtc().toIso8601String(),
+            end.toUtc().toIso8601String()],
+        );
+
+        for (var date = start;
+        date.isBefore(end.add(Duration(days: 1)));
+        date = date.add(Duration(days: 1))) {
+
+          if (date.weekday == DateTime.sunday) continue;
+
+          bool isHoliday = holidays.keys.any((holiday) =>
+          holiday.year == date.year &&
+              holiday.month == date.month &&
+              holiday.day == date.day
+          );
+
+          if (!isHoliday) {
+            DateTime utcDate = DateTime.utc(date.year, date.month, date.day);
+            /// date에서 date를 utc 처리한다 이후 시간을 00:00으로 설정 25.1.13
+            WorkHistory dayHistory = WorkHistory(
+                date: utcDate,
+                pay: history.pay,
+                record: history.record,
+                colorCode: history.colorCode,
+                comment: history.comment,
+                memo: history.memo
+            );
+            await txn.insert('workhistory', dayHistory.toMap());
+          }
+        }
+      });
+    } catch (e) {
+      print('insertWorkHistoryExcludeHolidays error: ${e.toString()}');
+      throw Exception('데이터 저장 중 오류 발생');
+    }
+  }
+
+
+
+
 
 // 복사 붙여넣기로 집단 데이터 저장시 사용
   Future<void> insertOrOverwriteWorkHistories(List<WorkHistory> histories) async {
@@ -174,7 +241,56 @@ class HistoryDatabase {
   }
 
 
-  Future<Map<DateTime, List<WorkHistory>>> calendarHistory() async {
+  Future<Map<DateTime, List<WorkHistory>>> calendarHistory(
+      DateTime start, DateTime end
+      ) async {
+    Map<DateTime, List<WorkHistory>> filteredData = {};
+    try {
+      final db = await database;
+      final List<Map<String, dynamic>> maps = await db.query(
+        'workhistory',
+        where: "date >= ? AND date <= ?",
+        whereArgs: [
+          start.toUtc().toIso8601String(),
+          end.toUtc().toIso8601String(),
+        ],
+      );
+      // SQLite 결과를 WorkHistory 객체 리스트로 변환
+      final List<WorkHistory> histories = List.generate(
+        maps.length,
+            (i) => WorkHistory.fromMap(maps[i]),
+      );
+      // 날짜별로 그룹화
+      for (var history in histories) {
+        // UTC로 변환된 날짜 키 생성
+        final dateKey = DateTime.utc(
+          history.date.year,
+          history.date.month,
+          history.date.day,
+        );
+        // 해당 날짜의 리스트가 없으면 새로 생성
+        filteredData[dateKey] ??= [];
+        // UTC 기준으로 변환된 새 WorkHistory 객체 생성
+        final newHistory = WorkHistory(
+          date: history.date.toUtc(),
+          pay: history.pay,
+          record: history.record,
+          colorCode: history.colorCode,
+          comment: history.comment,
+          memo: history.memo,
+        );
+        filteredData[dateKey]!.add(newHistory);
+      }
+      return filteredData;
+    } catch (e) {
+      print('Calendar history error: ${e.toString()}');
+      return {}; // 에러 발생 시 빈 Map 반환
+    }
+  }
+
+
+  Future<Map<DateTime, List<WorkHistory>>> calendarTotalHistory(
+      ) async {
     Map<DateTime, List<WorkHistory>> filteredData = {};
     try {
       final db = await database;
@@ -211,4 +327,6 @@ class HistoryDatabase {
       return {}; // 에러 발생 시 빈 Map 반환
     }
   }
+
 }
+

@@ -1,6 +1,5 @@
-
 import 'package:calendar_project_240727/base_consumer.dart';
-
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
 
 /// 달력 이동 버튼에 대한 간격을 설정하는 함수
@@ -32,25 +31,27 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
 
     final appHeight = MediaQuery.of(context).size.height;
     final appWidth = MediaQuery.of(context).size.width;
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
 
-    double leftIconSize = appWidth > 450 ? 32 : 27;
-    double rightIconSize = appWidth > 450 ? 32 : 27;
+    double leftIconSize = appWidth > 450 ? 37 : 32;
+    double rightIconSize = appWidth > 450 ? 37 : 32;
 
     void _animateIcon(bool isLeft) {
       setState(() {
         if (isLeft) {
-          leftIconSize = appWidth > 450 ? 37 : 32;
+          leftIconSize = appWidth > 450 ? 42 : 37;
         } else {
-          rightIconSize = appWidth > 450 ? 37 : 32;
+          rightIconSize = appWidth > 450 ? 42 : 37;
         }
       });
 
       Future.delayed(const Duration(milliseconds: 150), () {
         setState(() {
           if (isLeft) {
-            leftIconSize = appWidth > 450 ? 32 : 27;
+            leftIconSize = appWidth > 450 ? 37 : 32;
           } else {
-            rightIconSize = appWidth > 450 ? 32 : 27;
+            rightIconSize = appWidth > 450 ? 37 : 32;
           }
         });
       });
@@ -76,7 +77,10 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
           },
         ),
 
-        SizedBox(width: buttonBetween(appHeight,appWidth)),
+        SizedBox(
+            width: isFoldValue
+                ? 32.5
+                : buttonBetween(appHeight,appWidth)),
 
         IconButton(
           icon: AnimatedContainer(

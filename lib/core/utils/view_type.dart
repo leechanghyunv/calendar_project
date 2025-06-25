@@ -1,1 +1,8 @@
-enum ViewType { gongsu, amount, memo, and, more }
+enum ViewType {
+  gongsu,
+  amount,
+  memo,
+  and,
+  more,
+  // setting,
+}

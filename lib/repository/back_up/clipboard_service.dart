@@ -1,13 +1,9 @@
-import 'dart:convert';
 
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:super_clipboard/super_clipboard.dart';
 
-import '../../core/widget/toast_msg.dart';
-import '../../firebase_analytics.dart';
-import '../../view_model/filted_source_model.dart';
-import '../time/calendar_time_controll.dart';
+import '../repository_import.dart';
 import 'archive_zlib_base64.dart';
-import 'copyJsonToClipboard.dart';
 
 part 'clipboard_service.g.dart';
 
@@ -19,11 +15,11 @@ class BackUpClipboardService extends _$BackUpClipboardService {
 
   Future<void> clipboardHistory() async {
     ref.read(firebaseAnalyticsClassProvider.notifier).backupEvent('Backup_Event');
-    final timeManager = ref.watch(timeManagerProvider);
-    final combinedData = ref.watch(numericSourceModelProvider(timeManager.selected));
 
-    combinedData.when(data: (val) async {
-      final histories = val.history;
+    final history = ref.watch(viewHistoryProvider);
+
+    history.when(data: (val) async {
+      final histories = val;
       String jsonString = jsonEncode(histories.map((e) => e.toJson()).toList());
       final output = await ZlibBase64().compress(jsonString);
 
@@ -32,6 +28,9 @@ class BackUpClipboardService extends _$BackUpClipboardService {
       } else {
         copyJsonToClipboard(output);
         customMsg('클립보드에 복사되었습니다.');
+        SharePlus.instance.share(
+            ShareParams(text: output)
+        );
       }
 
     },
@@ -39,4 +38,17 @@ class BackUpClipboardService extends _$BackUpClipboardService {
         loading: () => customMsg('loading....'));
   }
 
+}
+
+Future<void> copyJsonToClipboard(String jsonString) async {
+
+  try {
+    final item = DataWriterItem();
+    item.add(Formats.plainText(jsonString));
+    await SystemClipboard.instance?.write([item]);
+
+  } catch (e) {
+    print('클립보드 복사 실패: $e');
+    rethrow;
+  }
 }

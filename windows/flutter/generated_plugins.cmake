@@ -3,9 +3,10 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  app_links
   firebase_core
-  flutter_localization
   irondash_engine_context
+  share_plus
   super_native_extensions
   url_launcher_windows
 )

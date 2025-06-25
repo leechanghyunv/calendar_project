@@ -4,7 +4,7 @@ part 'range_selected_model.freezed.dart';
 part 'range_selected_model.g.dart';
 
 @freezed
-class RangeSelectedModel with _$RangeSelectedModel {
+abstract class RangeSelectedModel with _$RangeSelectedModel {
   const factory RangeSelectedModel({
     required bool startSelected,
     required bool endSelected,

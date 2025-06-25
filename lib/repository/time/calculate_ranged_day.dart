@@ -1,6 +1,6 @@
+import '../repository_import.dart';
 
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../../model/work_history_model.dart';
+
 import 'calculate_day.dart';
 
 part 'calculate_ranged_day.g.dart';

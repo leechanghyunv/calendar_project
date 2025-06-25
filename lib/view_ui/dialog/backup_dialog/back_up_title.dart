@@ -54,10 +54,9 @@ class _BackupTitleBoxState extends State<BackupTitleBox> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(2.0, 0.0, 2.0, 8.0),
               child: SizedBox(
-                width: appWidth,
                 child: Row(
                   children: [
-                    DialogTextWidget('공수데이터 백업관리', 15.5),
+                    DialogTextWidget('공수데이터 백업관리', appWidth > 400 ? 17 : 15.5),
                   ],
                 ),
               ),

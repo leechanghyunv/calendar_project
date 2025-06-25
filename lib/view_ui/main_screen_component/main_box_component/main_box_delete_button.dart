@@ -1,45 +1,59 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:flutter_svg/svg.dart';
 import '../../../core/widget/toast_msg.dart';
-import '../../../view_model/history_model.dart';
+import '../../../view_model/sqlite_model/history_model.dart';
+import '../../dialog/delete_goal_dialog/delete_dialog.dart';
+import '../../screen/calendar_screen/provider/delete_count_provider.dart';
 
-class DeleteChip extends ConsumerStatefulWidget {
+class DeleteChip extends HookConsumerWidget {
   const DeleteChip({super.key});
 
-  @override
-  ConsumerState<DeleteChip> createState() => _DeleteChipState();
-}
-
-class _DeleteChipState extends ConsumerState<DeleteChip> {
-
-  double borderWidth = 0.75;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final borderWidth = useState(0.75);
 
     final data = ref.history;
     final appWidth = MediaQuery.of(context).size.width;
+    final tapCount = ref.watch(deleteTapCountProvider);
 
-    return GestureDetector(
-      onTap: (){
-        setState(() {
-          borderWidth = 1.25;
-        });
-        data.when(data: (val) async {
-          final selectedOne = val.where((e) => e.date.toUtc() == ref.selected);
-          if(selectedOne.isEmpty){
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.');
-          }else{
-            await ref.read(deleteHistoryProvider(ref.selected));
+    useEffect(() {
+      Future.microtask(() =>
+          ref.read(deleteTapCountProvider.notifier).loadCount()
+      );
+      return null;
+    }, []);
+
+    final handleTap = useCallback(() async {
+      borderWidth.value = 1.25;
+      await ref.read(deleteTapCountProvider.notifier).increment();
+      switch (data) {
+        case AsyncData(:final value):
+          final selectedOne = value.where((e) => e.date.toUtc() == ref.selected);
+          final hintMessage = tapCount < 3 ? '\n\n잠깐!! 삭제버튼을 길게 눌러보세요!' : '';
+          if (selectedOne.isEmpty) {
+            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.$hintMessage');
+          } else {
+            await ref.read(deleteHistoryProvider(ref.selected).future);
             await Future.delayed(const Duration(milliseconds: 50));
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
+            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.$hintMessage');
             ref.refreshState(context);
           }
-        },
-            error: (err,trace){},
-            loading: (){},
+        case AsyncError():
+          break;
+        case AsyncLoading():
+          break;
+      }
+    }, [data, tapCount]);
+    return GestureDetector(
+      onLongPress: (){
+        borderWidth.value = 1.25;
+
+        showDialog(
+            context: context,
+            builder: (context) => DeleteDialog(),
         );
       },
+      onTap: handleTap,
       child: Container(
 
         height: switch (appWidth) {
@@ -67,45 +81,33 @@ class _DeleteChipState extends ConsumerState<DeleteChip> {
               offset: const Offset(0, 2),
             ),
           ],
-          border: Border.all(color: Colors.grey.shade800, width: borderWidth),
+          border: Border.all(
+              color: Colors.grey.shade800,
+              width: borderWidth.value,
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(1.5),
-          child: Platform.isAndroid ? Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 3.0),
-              child: Row(
-                children: [
-                  Icon(Icons.delete,
-                      size: appWidth > 450 ? 15.5 : 14,
-                      color: Colors.grey.shade500),
-                  Text(
-                    '삭제',
-                    style:  TextStyle(
-                        shadows: [
-                          Shadow(
-                            blurRadius: 0.75,
-                            color: Colors.grey,
-                            offset: Offset(0.25, 0.25),
-                          ),
-                        ] ,
-                        color: Colors.black,
-                        fontSize: switch (appWidth) {
-                          > 450 => 13,
-                          > 420 => 12,
-                          > 400 => 11.5,
-                          _ => 11,
-                        },
-                        fontWeight: FontWeight.w900),
-                  ),
-                ],
-              ),
-            ),
-          )
-          : Center(
-            child: Text(
-              '🗑삭제',
-              style:  TextStyle(
+        padding: EdgeInsets.zero,
+        child: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Platform.isAndroid ? SvgPicture.asset(
+                'assets/Wastebasket.svg',
+                width: switch (appWidth) {
+                  > 450 => 14,
+                  > 420 => 13,
+                  > 400 => 12.5,
+                  _ => 12,
+                },
+                colorFilter: ColorFilter.mode(
+                  Colors.black,
+                  BlendMode.srcIn,
+                ),
+                clipBehavior: Clip.antiAlias,
+              ) : SizedBox.shrink(),
+              Text( '🗑️삭제',
+                textScaler: TextScaler.noScaling,
+                style: TextStyle(
                   color: Colors.black,
                   fontSize: switch (appWidth) {
                     > 450 => 13,
@@ -113,10 +115,11 @@ class _DeleteChipState extends ConsumerState<DeleteChip> {
                     > 400 => 11.5,
                     _ => 11,
                   },
-                  fontWeight: FontWeight.w900),
 
-
-            ),
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
           ),
         ),
       ),

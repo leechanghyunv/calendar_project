@@ -1,18 +1,21 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view_model/formz_manager_model.dart';
+import '../view_model/formz_model/formz_manager_model.dart';
+
 
 part 'formz_model.freezed.dart';
 
 @freezed
-class ContractForm with _$ContractForm {
+abstract class ContractForm with _$ContractForm {
   const factory ContractForm({
     required GoalInput goal,
-    required PayFirstInfut pay1,
+    required PayFirstInput pay1,
     required PayInput pay2,
     required PayInput pay3,
     required TaxInput tax,
     required SubsidyInput subsidy,
+
+
     required FormzStatus status,
   }) = _ContractForm;
 

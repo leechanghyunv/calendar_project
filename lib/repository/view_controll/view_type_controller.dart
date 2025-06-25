@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/repository/sharePreferences_init.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -7,8 +8,8 @@ part 'view_type_controller.g.dart';
 
 
 @riverpod
-Future<ViewTypeController> viewType(ViewTypeRef ref) async {
-  final prefs = await SharedPreferences.getInstance();
+Future<ViewTypeController> viewType(ref) async {
+  final prefs = await ref.prefsWatch;
   return ViewTypeController(prefs);
 }
 

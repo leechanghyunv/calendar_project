@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view_model/formz_decimal_model.dart';
+import '../view_model/formz_model/formz_decimal_model.dart';
 
 part 'formz_decimal_model.freezed.dart';
 
 @freezed
-class DecimalForm with _$DecimalForm {
+abstract class DecimalForm with _$DecimalForm {
   const factory DecimalForm({
     required DecimalInput decimalData,
     required DecimalFormzStatus status,

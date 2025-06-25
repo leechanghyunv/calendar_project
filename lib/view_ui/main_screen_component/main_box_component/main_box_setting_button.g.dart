@@ -6,7 +6,7 @@ part of 'main_box_setting_button.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingValueHash() => r'3883f9f897a3489490eb8b6482adf19e10d65f54';
+String _$settingValueHash() => r'cb138e564fe68a4514bbf36ba27995b89579f96a';
 
 /// See also [SettingValue].
 @ProviderFor(SettingValue)
@@ -22,4 +22,4 @@ final settingValueProvider =
 
 typedef _$SettingValue = AutoDisposeNotifier<ViewType>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

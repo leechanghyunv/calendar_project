@@ -1,0 +1,2 @@
+/Users/crazydoctoornaver.com/StudioProjects/calendar_project_240727/android/app/.cxx/Debug/2f5w223b/x86/CMakeFiles/edit_cache.dir
+/Users/crazydoctoornaver.com/StudioProjects/calendar_project_240727/android/app/.cxx/Debug/2f5w223b/x86/CMakeFiles/rebuild_cache.dir

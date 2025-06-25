@@ -1,12 +1,9 @@
+import 'package:calendar_project_240727/repository/view_controll/app_router_repo.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:calendar_project_240727/view_ui/screen/main_screen.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'core/widget/toast_msg.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'firebase_options.dart';
-import 'local_notification.dart';
-import 'one_signal_notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,23 +11,27 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  OneSignalNotification.init();
-  await initializeDateFormatting();
-  LocalNotificationManager.init();
 
+  await initializeDateFormatting();
+  await Supabase.initialize(
+    url: dotenv.get('SUPABASE_URL'),
+    anonKey: dotenv.get('SUPABASE_KEY'),
+  );
   runApp(ProviderScope(
       child: MyApp(),
   ),
   );
 }
 
-class MyApp extends StatelessWidget {
+
+class MyApp extends HookConsumerWidget {
    MyApp({super.key});
 
-  final analytics = FirebaseAnalytics.instance;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    final router = ref.watch(routerProvider);
+
     SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp]
     );
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
           ShowCaseWidget(
             builder: (context) => StyledToast(
               locale: const Locale('ko', 'KR'),
-              child: MaterialApp(
+              child: MaterialApp.router(
+
                 localizationsDelegates: const [
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
@@ -50,29 +52,24 @@ class MyApp extends StatelessWidget {
                 supportedLocales: const [
                   Locale('ko', 'KR'),
                 ],
-                navigatorObservers: [
-                  FirebaseAnalyticsObserver(analytics: analytics),
-                ],
-
-                navigatorKey: navigatorKey,
-                onGenerateRoute: (settings) {
-                switch (settings.name) {
-                  case '/main':
-                    return PageTransition(
-                      child: const MainScreen(),
-                      type: PageTransitionType.fade,
-                      settings: settings,
-                    );
-                  default:
-                    return null;
-                }
-              },
-              
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 useMaterial3: false,
               ),
-              home: const MainScreen(),
+                routerConfig: router,
+                builder: (context, child) {
+                  return Scaffold(
+                    backgroundColor: Colors.grey.shade50,
+                    body: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 470,
+                        ),
+                        child: child ?? const SizedBox(),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

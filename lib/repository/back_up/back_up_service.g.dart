@@ -7,7 +7,7 @@ part of 'back_up_service.dart';
 // **************************************************************************
 
 String _$backUpServiceProviderHash() =>
-    r'6d1e12768e6ca5eeee5f8cfab504ba4a44bb4fd9';
+    r'016a4a9b4a281a27a84fb817824da811f3a3ec27';
 
 /// See also [BackUpServiceProvider].
 @ProviderFor(BackUpServiceProvider)
@@ -24,4 +24,4 @@ final backUpServiceProviderProvider = AutoDisposeNotifierProvider<
 
 typedef _$BackUpServiceProvider = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

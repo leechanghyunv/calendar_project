@@ -1,7 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/firebase_analytics.dart';
-import 'package:calendar_project_240727/view_model/contract_model.dart';
+import 'package:calendar_project_240727/repository/view_controll/decimal_bool_repo.dart';
 import '../../../model/formz_decimal_model.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../minor_issue/default/default_dialog.dart';
@@ -11,130 +10,117 @@ import 'decimal_component.dart';
 import 'memo_decimal_textfield.dart';
 
 
-class EnrollDialogWidget extends ConsumerStatefulWidget {
+class EnrollDialogWidget extends HookConsumerWidget {
   const EnrollDialogWidget({super.key});
 
   @override
-  ConsumerState<EnrollDialogWidget> createState() => _EnrollDialogWidghtState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
 
-class _EnrollDialogWidghtState extends ConsumerState<EnrollDialogWidget> {
-
-  bool isStateEmpty = true;
-
-  final TextEditingController _memoController = TextEditingController();
-  final TextEditingController _decimalController = TextEditingController();
-
-  final FocusNode _nodeMemo = FocusNode();
-  final FocusNode _nodeDecimal = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.refresh(viewContractProvider.future);
-    });
-  }
-
-  @override
-  void dispose() {
-    _memoController.dispose();
-    _decimalController.dispose();
-    _nodeMemo.dispose();
-    _nodeDecimal.dispose();
-    super.dispose();
-  }
+    final appWidth = MediaQuery.of(context).size.width;
 
 
-  @override
-  Widget build(BuildContext context) {
+    final memoController = useTextEditingController();
+    final decimalController = useTextEditingController();
+    final memoFocus = useFocusNode();
+    final decimalFocus = useFocusNode();
 
-    final MemoState = ref.memoState;
     final formzMemoRefNot = ref.formzMemoWatch;
     final formzMemoRefread = ref.formzMemoRead;
 
-    final decimalState = ref.decimalState;
     final formzRefNot = ref.decimalWatch;
     final formzRefread = ref.decimalRead;
 
-    ref.listen(formzDecimalValidatorProvider, (pre,cur) async {
-      if (cur.status == DecimalFormzStatus.submissionSuccess) {
-        ref.refreshState(context);
-      }
-    });
+    final decimalBool = ref.watch(decimalBoolRepoProvider);
+    final data = ref.history;
 
+    // 상태 변화 리스닝 (기존 ref.listen 대체)
+    useEffect(() {
+      final sub = ref.listenManual(
+        formzDecimalValidatorProvider,
+            (prev, next) {
+          if (next.status == DecimalFormzStatus.submissionSuccess) {
+            ref.refreshState(context);
+          }
+        },
+      );
+      return sub.close;
+    }, []);
 
-    return DefaultDialog(
-      title: MemoDecimalTitle(),
-      children: [
-        Form(
-          child: MomoDecimalBox(
-            memoTextfield: MemoTextfield(
-              memoController: _memoController,
-              nodeMemo: _nodeMemo,
-              hintText: ' ${ref.month}월 ${ref.day}일 메모 내용을 입력해주세요',
-              onChanged: (val){
-                formzMemoRefread.onChangeMemo(val);
-              },
-              onFieldSubmitted: (val){
-                formzMemoRefread.onSubmit(ref);
-              },
-            ),
-            memoErrorText: formzMemoRefNot.memoError,
-            decimalTextfield: DecimalTextfield(
-              decimalController: _decimalController,
-              decimalNode: _nodeDecimal,
-              hintText: ' 근무유형을 직접 입력 해주세요',
-              onChanged: (val){
-                setState(() => isStateEmpty = val.isEmpty);
-                final decimalValue = val == '' ? 1.0 : double.parse(_decimalController.text);
-                formzRefread.onChangeDecimal(decimalValue);
-              },
-            ),
-            decimalErrorText: formzRefNot.decimalError,
-          ),
-        ),
-      ],
-
-
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    return data.maybeWhen(
+      data: (val) {
+        return DefaultDialog(
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(8.0.w, 0.0, 0.0, 4.0.w),
-              child: TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: ButtonTextWidget('${ref.month}월 모두 등록',
-                    13,color: isStateEmpty ? Colors.grey.shade700 : Colors.black,
+            Form(
+              child: MomoDecimalBox(
+                decimalTextField: DecimalTextField(
+                  decimalController: decimalController,
+                  decimalNode: decimalFocus,
+                  hintText: ' 공수를 직접 입력 해주세요',
+                  onChanged: (val) {
+                    ref.read(decimalBoolRepoProvider.notifier).changeDecimalBool(val.isEmpty);
+                    final decimalValue = val.isEmpty ? 1.0 : double.tryParse(val) ?? 1.0;
+                    print('decimalValue: $decimalValue');
+                    formzRefread.onChangeDecimal(decimalValue);
+                  },
                 ),
-              ),
-            ),
-            Spacer(),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0.0.w, 0.0, 0.0, 4.0.w),
-              child: TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: ButtonTextWidget('나가기',14,color: Colors.black),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(0.0.w, 0.0, 0.0, 4.0.w),
-              child: TextButton(
-                onPressed: () =>formzRefread.onSubmit(),
-                child: ButtonTextWidget(
-                    '확인',14,
-                    color: isStateEmpty ? Colors.black : Colors.green.shade600,
+                decimalErrorText: formzRefNot.decimalError,
+                memoTextField: MemoTextField(
+                  memoController: memoController,
+                  nodeMemo: memoFocus,
+                  hintText: ' ${ref.month}월 ${ref.day}일 메모입력 (필수아님)',
+                  onChanged: formzMemoRefread.onChangeMemo,
+                  onFieldSubmitted: (_) => formzMemoRefread.onSubmit(ref),
                 ),
+                memoErrorText: formzMemoRefNot.memoError,
+
               ),
             ),
           ],
-        ),
-      ],
+          actions: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(10.0.w, 0, 0, 4.0.w),
+                  child: TextButton(
+                    onPressed: () => formzRefread.onSubmitMonthAll(),
+                    child: ButtonTextWidget(
+                      '${ref.month}월 모두 등록',
+                      13,
+                      color: decimalBool ? Colors.white : Colors.grey.shade800,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 4.0.w),
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: ButtonTextWidget('나가기',
+                        appWidth > 450 ? 15.5 : 14, color: Colors.black),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 4.0.w),
+                  child: TextButton(
+                    onPressed: () {
+                      formzRefread.onSubmit();
+                      Future.delayed(const Duration(seconds: 1));
+                      ref.refreshState(context);
+                      Navigator.pop(context);
+                    },
+                    child: ButtonTextWidget(
+                      '등록', appWidth > 450 ? 15.5 : 14,
+                      color: decimalBool ? Colors.grey.shade700 : Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+      orElse: () => const SizedBox.shrink(),
     );
   }
 }
-
-
-

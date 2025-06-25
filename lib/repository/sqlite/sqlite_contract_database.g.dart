@@ -22,9 +22,11 @@ final labourConditionManagerProvider =
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef LabourConditionManagerRef
     = AutoDisposeFutureProviderRef<ContractDatabase>;
-String _$initConditionHash() => r'13be2d7f3030c766aa7ada931693dd3466871834';
+String _$initConditionHash() => r'c8e2475e21a3cae81ccea02f1383bf56301ae4fc';
 
 /// See also [initCondition].
 @ProviderFor(initCondition)
@@ -38,6 +40,8 @@ final initConditionProvider = AutoDisposeFutureProvider<Database>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef InitConditionRef = AutoDisposeFutureProviderRef<Database>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

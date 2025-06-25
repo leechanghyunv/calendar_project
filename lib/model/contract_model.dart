@@ -14,7 +14,7 @@ class DateTimeConverter implements JsonConverter<DateTime, String> {
 }
 
 @freezed
-class LabourCondition with _$LabourCondition {
+abstract class LabourCondition with _$LabourCondition {
   const factory LabourCondition({
     int? id,
     @DateTimeConverter()
@@ -25,6 +25,8 @@ class LabourCondition with _$LabourCondition {
     @Default(0) int night,
     @Default(0.0) double tax,
     @Default(0) int subsidy,
+    @Default('') String site,
+    @Default('') String job,
   }) = _LabourCondition;
 
   factory LabourCondition.fromJson(Map<String, dynamic> json) =>
@@ -41,6 +43,8 @@ class LabourCondition with _$LabourCondition {
     'night': night,
     'tax': tax,
     'subsidy': subsidy,
+    'site': site,  // 추가됨
+    'job': job,    // 추가됨
   };
   // SQLite Map에서 객체 생성
   static LabourCondition fromMap(Map<String, dynamic> map) {
@@ -53,6 +57,8 @@ class LabourCondition with _$LabourCondition {
       night: map['night'] as int,
       tax: (map['tax'] as num).toDouble(),
       subsidy: map['subsidy'] as int,
+      site: map['site'] as String, // 🆕 추가
+      job: map['job'] as String,   // 🆕 추가
     );
   }
 }

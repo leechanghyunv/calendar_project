@@ -1,42 +1,76 @@
 import 'package:calendar_project_240727/core/export_package.dart';
 
+import '../../view_model/view_provider/calendar_switcher_model.dart';
 
-class DefaultCell extends StatelessWidget {
 
+
+class DefaultCell extends ConsumerWidget {
   final DateTime date;
   final Color textColor;
 
   const DefaultCell({super.key, required this.date, required this.textColor});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
+    final switcher = ref.watch(calendarSwitcherProvider);
+
+    // 텍스트 위젯을 별도로 정의
+    final textWidget = Text(
+      '${date.day}',
+      textScaler: TextScaler.noScaling,
+      style: TextStyle(
+        fontSize: switch (appWidth) {
+          > 450 => 20,
+          > 400 => 17,
+          _ => 15,
+        },
+        fontWeight: FontWeight.w700,
+        color: textColor,
+      ),
+    );
 
     return Container(
       margin: EdgeInsets.all(4.0.r),
       decoration: BoxDecoration(
+        // color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(8.0.r),
       ),
-      child: Stack(
-        children: [
-          Center(
-            child: Text(
-              '${date.day}',
-              style: TextStyle(
-                fontSize: switch (appWidth) {
-                  > 450 => 18.5,
-                  > 400 => 17,
-                  _ => 16,
-                },
-                fontWeight: FontWeight.w700,
-                color: textColor,
-              ),
-            ),
-          ),
-        ],
+      // AsyncValue 상태에 따라 위젯 처리
+      child: switcher.maybeWhen(
+        data: (useColumn) {
+          if (useColumn) {
+            return Column(
+              children: [
+                Spacer(),
+                textWidget,
+                Spacer(),
+                Spacer(),
+                Spacer(),
+                Spacer(),
+                Spacer(),
+              ],
+            );
+          } else {
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                Center(
+                  child: textWidget,
+                ),
+              ],
+            );
+          }
+        },
+        // 로딩 중이거나 에러 상태에서는 기본값으로 Stack 사용
+        orElse: () => Stack(
+          alignment: Alignment.center,
+          children: [Center(
+              child: textWidget,
+          )],
+        ),
       ),
     );
   }
 }
-
 

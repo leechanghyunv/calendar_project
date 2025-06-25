@@ -2,6 +2,9 @@ import 'package:calendar_project_240727/base_consumer.dart';
 
 import '../../core/export_package.dart';
 import '../../theme_color.dart';
+import '../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../view_model/view_provider/is_galaxy_fold.dart';
+
 
 class HolidayCell extends ConsumerWidget {
 
@@ -14,8 +17,23 @@ class HolidayCell extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
     final appHeight = MediaQuery.of(context).size.height;
+    final switcher = ref.watch(calendarSwitcherProvider);
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
 
-    final hoildayName = holidays.entries .firstWhere(
+    final bool isExpanded = switcher.maybeWhen(
+      data: (value) => value,
+      orElse: () => false,
+    );
+
+    final marginSize = isExpanded
+
+        ? appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? 50.0 : 35.w)
+
+        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
+
+
+    final hoildayName = holidays.entries.firstWhere(
           (entry) =>
       entry.key.year == date.year &&
           entry.key.month == date.month &&
@@ -23,33 +41,41 @@ class HolidayCell extends ConsumerWidget {
       orElse: () => MapEntry(date, ''),
     ).value;
 
+    final holidayText = hoildayName.replaceAll('\n', '');
+
     Color cellColor = date.month == ref.month ? Colors.green : Colors.transparent;
+
+    if (date.weekday == DateTime.saturday && date.month == ref.month) {
+      cellColor = Colors.blue;
+    }
 
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(
-        top: appHeight < 700
-            ?  29.w  /// (se를 고려해야함)
-            :  (appWidth <= 370 ? 33.5.w : 35.w),
+        top: marginSize,
       ),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
         color: themeColor,
       ),
-      child: Text(hoildayName,
-        maxLines: 2,
-        style: TextStyle(
-            fontWeight: FontWeight.w900,
-          shadows: [
-            Shadow(
-              color: cellColor,
-              offset: Offset(0.3, 0),
-              blurRadius: 0,
+      child: Column(
+        children: [
+          Spacer(),
+
+          Text(
+            holidayText,
+            maxLines: 2,
+            textScaler: TextScaler.noScaling,
+            style: TextStyle(
+                fontWeight: FontWeight.w800,
+              height: Platform.isAndroid ? 1.2 : null,
+                fontSize: appWidth > 450 ? 10.5 : 8.5,
+                color: cellColor,
             ),
-          ],
-            fontSize: 8.sp,
-            color: cellColor,
-        ),
+          ),
+          Spacer(),
+          if (isExpanded) ...List.generate(6, (_) => Spacer()),
+        ],
       ),
     );
   }

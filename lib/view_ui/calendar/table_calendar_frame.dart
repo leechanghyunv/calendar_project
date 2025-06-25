@@ -1,7 +1,11 @@
+import 'package:calendar_project_240727/view_ui/calendar/selected_cell.dart';
+import 'package:calendar_project_240727/view_ui/calendar/today_cell.dart';
+
 import '../../core/export_package.dart';
 import '../../core/widget/text_widget.dart';
 import '../../model/work_history_model.dart';
 import 'calendar_header.dart';
+import '../../view_model/view_provider/calendar_switcher_model.dart';
 
 HeaderStyle get header => const HeaderStyle(
   leftChevronVisible: false,  // 왼쪽 화살표 숨김
@@ -10,7 +14,7 @@ HeaderStyle get header => const HeaderStyle(
   formatButtonVisible: false,
 );
 
-class TableCalendarFrame extends StatelessWidget {
+class TableCalendarFrame extends ConsumerWidget {
   final DateTime selectedDay;
   final OnDaySelected? onDayLongPressed;
   final OnDaySelected? onDaySelected;
@@ -20,31 +24,43 @@ class TableCalendarFrame extends StatelessWidget {
   final FocusedDayBuilder? defaultBuilder;
   final FocusedDayBuilder? outsideBuilder;
   final MarkerBuilder<WorkHistory>? markerBuilder;
+  final SingleMarkerBuilder<WorkHistory>? singleMarkerBuilder;
 
   const TableCalendarFrame(
       {super.key,
-      required this.selectedDay,
-      this.onDayLongPressed,
-      this.onDaySelected,
-      this.eventLoader,
-      this.selectedDayPredicate,
-      this.onPageChanged,
-      this.defaultBuilder,
-      this.outsideBuilder,
-      this.markerBuilder});
+        required this.selectedDay,
+        this.onDayLongPressed,
+        this.onDaySelected,
+        this.eventLoader,
+        this.selectedDayPredicate,
+        this.onPageChanged,
+        this.defaultBuilder,
+        this.outsideBuilder,
+        this.markerBuilder,
+        this.singleMarkerBuilder,
+      });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+    final switcher = ref.watch(calendarSwitcherProvider);
+
+    final bool isExpanded = switcher.maybeWhen(
+      data: (value) => value,
+      orElse: () => false,
+    );
+
+    final double rowHeight = isExpanded
+        ? (Platform.isAndroid ? 87.5.h : 85.h)
+        : (Platform.isAndroid ? appWidth > 550 ? 56.25.h : 56.25.h : 52.5.h);
 
     return TableCalendar<WorkHistory>(
       locale: 'ko_KR',
       focusedDay: selectedDay,
       firstDay: DateTime.utc(1900),
       lastDay: DateTime.utc(2100),
-      daysOfWeekHeight: 20.h,
-      rowHeight: Platform.isAndroid ? appWidth > 450 ? 57.5.h : 56.h : 52.5.h,
+      daysOfWeekHeight:  20.h,
+      rowHeight: rowHeight,
       calendarFormat: CalendarFormat.month,
       onDayLongPressed: onDayLongPressed,
       onDaySelected: onDaySelected,
@@ -56,52 +72,23 @@ class TableCalendarFrame extends StatelessWidget {
       weekendDays: const [DateTime.sunday],
       calendarStyle: CalendarStyle(
         isTodayHighlighted: true,
-        todayTextStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Colors.white,
-        ),
-        todayDecoration:
-            BoxDecoration(color: Colors.grey.shade500, shape: BoxShape.circle),
-        selectedTextStyle: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Color(0xFFFAFAFA),
-          fontSize: 20,
-        ),
-        selectedDecoration: BoxDecoration(
-          color: Colors.grey.shade600,
-          shape: BoxShape.circle,
-        ),
-        markerDecoration: const BoxDecoration(
-            color: Color(0xFF263238), shape: BoxShape.circle),
       ),
-
       calendarBuilders: CalendarBuilders(
+        selectedBuilder: (context, date, events) => SelectedCell(date),
+        todayBuilder: (context, date, events) => TodayCell(date),
         headerTitleBuilder: (context, day) => CalendarHeader(day),
-
         dowBuilder: (context, day) {
-          switch (day.weekday) {
-            case 1:
-              return Center(child: dayText('월', appWidth));
-            case 2:
-              return Center(child: dayText('화',appWidth));
-            case 3:
-              return Center(child: dayText('수',appWidth));
-            case 4:
-              return Center(child: dayText('목',appWidth));
-            case 5:
-              return Center(child: dayText('금',appWidth));
-            case 6:
-              return Center(child: dayText('토',appWidth));
-            case 7:
-              return Center(child: dayText('일',appWidth));
-          }
-          return null;
-          // return null;
+          final List<String> weekdays = ['', '월', '화', '수', '목', '금', '토', '일',];
+          return Center(
+            child: dayText(weekdays[day.weekday], appWidth),
+          );
         },
         defaultBuilder: defaultBuilder,
         outsideBuilder: outsideBuilder,
         markerBuilder: markerBuilder,
+
+
+
       ),
     );
   }

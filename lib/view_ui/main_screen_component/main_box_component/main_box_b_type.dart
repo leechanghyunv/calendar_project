@@ -1,0 +1,221 @@
+
+import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/view_ui/dialog/memo_decimal_dialog/memo_decimal_form.dart';
+import '../../../core/widget/toast_msg.dart';
+import '../../../view_model/filted_instance_model/filted_month_model.dart';
+import '../../../core/export_package.dart';
+import '../../../view_model/sqlite_model/history_model.dart';
+import '../chart_box_conponent/chart_in_dialog.dart';
+import 'component/main_box_component.dart';
+
+
+class MainBoxBTypeContainer extends ConsumerStatefulWidget {
+   MainBoxBTypeContainer({super.key});
+
+  @override
+  ConsumerState<MainBoxBTypeContainer> createState() => _MainBoxBTypeContainerState();
+}
+
+class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
+
+  String payString = '0.0만원';
+  String taxValue = '세율 0.0%';
+  String afterTax = '세후 0.0만원';
+  String percent = '0.0%';
+  String month = '';
+  int workDay = 0;
+  int offDay = 0;
+
+  @override
+  Widget build(BuildContext context) {
+
+    final data1 = ref.watch(monthRecordProvider(ref.selected));
+    final data2 = ref.watch(monthRecordProvider(ref.selected));    final data = ref.history;
+
+    final appWidth = MediaQuery.of(context).size.width;
+
+    data1.whenData((val) {
+      payString = val.totalPayString;
+      afterTax = val.afterTax;
+      taxValue = val.tax;
+      percent = val.percent;
+    });
+
+
+    data2.whenData((val) {
+      month = val.workRecord;
+      workDay = val.workDay;
+      offDay = val.offDay;
+    });
+
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0),
+      child: Container(
+        height: appWidth > 400 ? 135 : 110,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding:  EdgeInsets.symmetric(
+              vertical: appWidth > 400 ? 10.0 : 8.0,
+            horizontal: appWidth > 400 ? 10.0 : 8.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Row(
+
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 40,
+                    child: Consumer(
+                        builder: (context,ref,widget){
+                      final data = ref.history;
+                      return data.maybeWhen(
+                        data: (val){
+                          final selectedData = val.where((e) => e.date.toUtc() == ref.selected).map((e) => e.memo);
+                          if(selectedData.isEmpty || selectedData.join(', ').length == 0){
+                            return  Text(
+                              textScaler: TextScaler.noScaling,
+                                ' ${ref.month}월 ${ref.day}일 메모기록이 없습니다',
+                              style: TextStyle(fontSize: appWidth > 400 ? 15.5 : 14,
+
+                              ),
+                            );
+                          }
+                          final value = selectedData.join(', ');
+                          return Text( ' $value',
+                            textScaler: TextScaler.noScaling,
+                            style: TextStyle(
+                                fontSize: appWidth > 400 ? 15.5 : 14,
+                                letterSpacing: 0.5),
+                          );
+                        },
+                          orElse: () => const Text(''),
+                      );
+                    }),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ChartInDialog(),
+                  ),
+                ],
+              ),
+
+              Spacer(),
+              Row(
+                children: [
+                  CircularComponent(
+                    backgroundColor: Colors.grey.shade50,
+                    width: 85,
+                    child: Text(
+                      textScaler: TextScaler.noScaling,
+                      '$payString',
+                      style: TextStyle(
+                        fontSize: appWidth > 400 ? 14 : 13.5,
+
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  CircularComponent(
+                    backgroundColor: Colors.green.shade50,
+                    width: 65,
+                    child: Text(
+                      textScaler: TextScaler.noScaling,
+                      '$month',
+                      style: TextStyle(
+                        fontSize: appWidth > 400 ? 14 : 13.5,
+
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  CircularComponent(
+                    backgroundColor: Colors.blue.shade50,
+                    width: 50,
+                    child: Text(
+                      textScaler: TextScaler.noScaling,
+                      '$workDay일',
+                      style: TextStyle(
+                        fontSize: appWidth > 400 ? 14 : 13.5,
+
+                        color: Colors.grey.shade900,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                  Spacer(),
+
+                  Consumer(
+                      builder: (context,ref,widget){
+                        final val = ref.history;
+
+                        return CircularIconButton(
+                          icon: Icons.delete_outlined,
+                          iconColor: Colors.black,
+                          borderColor: Colors.grey.shade100,
+                          backgroundColor: Colors.grey.shade100,
+                          borderWidth: 0.5,
+                          size: appWidth > 400 ? 32 : 27.5,
+                      onPressed: () {
+                        val.maybeWhen(
+                            data: (val) async {
+                              final selectedOne = val.where((e) => e.date.toUtc() == ref.selected);
+                              if(selectedOne.isEmpty){
+                                customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.');
+                              }else{
+                                await ref.read(deleteHistoryProvider(ref.selected));
+                                await Future.delayed(const Duration(milliseconds: 50));
+                                customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
+                                ref.refreshState(context);
+                              }
+                            },
+                            orElse: () => customMsg('삭제할 데이터가 없습니다.'));
+
+                      },
+                    );
+                  }),
+                  CircularIconButton(
+                    icon: Icons.add,
+                    iconColor: Colors.black,
+                    borderColor: Colors.grey.shade100,
+                    backgroundColor: Colors.grey.shade100,
+                    borderWidth: 0.5,
+                    size: appWidth > 400 ? 32 : 27.5,
+                    onPressed: () {
+                      showDialog(
+                          context: context, builder: (context) => EnrollDialogWidget());
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+
+  }
+
+
+
+}
+
+

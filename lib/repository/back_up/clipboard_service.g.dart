@@ -7,7 +7,7 @@ part of 'clipboard_service.dart';
 // **************************************************************************
 
 String _$backUpClipboardServiceHash() =>
-    r'478512e589c4d1acc5d557513e6d82a045399812';
+    r'20c8d258ad68a72b918e348dd606b05d1d67f826';
 
 /// See also [BackUpClipboardService].
 @ProviderFor(BackUpClipboardService)
@@ -24,4 +24,4 @@ final backUpClipboardServiceProvider = AutoDisposeNotifierProvider<
 
 typedef _$BackUpClipboardService = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -41,6 +41,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                       padding: const EdgeInsets.only(top: 5.0),
                       child: Text(
                         '${month.month.toInt()}월',
+                        textScaler: TextScaler.noScaling,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 9,
@@ -50,7 +51,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                     );
                   },
                   interval: 1,
-                  reservedSize: 14,
+                  reservedSize: 18,
                 ),
               ),
             ),
@@ -66,7 +67,6 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                     thisMonth.year,
                     thisMonth.month - (4 - index),
                   );
-
                   return FlSpot(
                     (index + 1).toDouble(),
                     ref.watch(lineValueProvider(month)).when(

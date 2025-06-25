@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/crazydoctoornaver.com/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/crazydoctoornaver.com/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/crazydoctoornaver.com/StudioProjects/calendar_project_240727/android/app/.cxx/RelWithDebInfo/152j2w17/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/crazydoctoornaver.com/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/crazydoctoornaver.com/StudioProjects/calendar_project_240727/android/app/.cxx/RelWithDebInfo/152j2w17/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

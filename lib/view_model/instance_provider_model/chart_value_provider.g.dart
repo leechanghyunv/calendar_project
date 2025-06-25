@@ -6,7 +6,7 @@ part of 'chart_value_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lineValueHash() => r'6bf4910ef8142a8ebee409d6c01178e67743259a';
+String _$lineValueHash() => r'49eff7b895591d8edecfa19a897f8561d5ddd7e4';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -141,6 +141,8 @@ class LineValueProvider extends AutoDisposeFutureProvider<double> {
   }
 }
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 mixin LineValueRef on AutoDisposeFutureProviderRef<double> {
   /// The parameter `month` of this provider.
   DateTime get month;
@@ -154,4 +156,4 @@ class _LineValueProviderElement extends AutoDisposeFutureProviderElement<double>
   DateTime get month => (origin as LineValueProvider).month;
 }
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

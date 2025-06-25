@@ -1,42 +1,34 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-
+import 'package:flutter_svg/svg.dart';
+import 'package:path/path.dart' as go;
 import '../../../core/widget/toast_msg.dart';
-import '../../../view_model/history_model.dart';
-import '../../dialog/input_dialog/contract_form.dart';
+import '../../../view_model/sqlite_model/history_model.dart';
 
-class DraggableChipList extends ConsumerStatefulWidget {
-  const DraggableChipList({super.key});
+final selectedChipIndexProvider = StateProvider.autoDispose<int?>((ref) => null);
 
-  @override
-  ConsumerState<DraggableChipList> createState() => _DraggableChipListState();
-}
-
-class _DraggableChipListState extends ConsumerState<DraggableChipList> {
-  int? selectedIndex;
+class ChipList extends HookConsumerWidget {
+  const ChipList({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
 
     final appWidth = MediaQuery.of(context).size.width;
+    final selectedIndex = ref.watch(selectedChipIndexProvider);
 
-    final contract = ref.contract;
     return Container(
 
       height: switch (appWidth) {
-        > 450 => 25,
         > 420 => 24.5,
         > 400 => 23.5,
         _ => 22,
       },
-
 
       width: switch (appWidth) {
         > 450 => appWidth * 0.41,
         > 400 => appWidth * 0.39,
         _ => appWidth * 0.41,
       },
-
 
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -46,8 +38,7 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
               padding:  EdgeInsets.symmetric(horizontal: appWidth > 400 ? 4 : 3),
               child: GestureDetector(
                   onTap: () {
-                    // contract 상태 확인
-                    switch (contract) {
+                    switch (ref.contract) {
                       case AsyncData(value: final conditions) when conditions.isNotEmpty:
                         final condition = conditions.last;
                         switch (index) {
@@ -67,29 +58,23 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
                       case AsyncData(value: final conditions) when conditions.isEmpty:
                         customMsg('근로조건을 우선 입력해주세요');
                         return;
-                      default:
-                        customMsg('근로조건을 우선 입력해주세요');
-                        return;
                     }
-                    setState(() {
-                      selectedIndex = selectedIndex == index ? null : index;
-                    });
+                    ref.read(selectedChipIndexProvider.notifier).state =
+                    selectedIndex == index ? null : index;
+
                   },
 
                 onTapUp: (details){
-                  switch (contract){
+                  switch (ref.contract){
                     case AsyncData(value: final conditions) when conditions.isNotEmpty:
-                      ref.refreshState(context);
+                      Future.delayed(Duration(milliseconds: 100), () {
+                        ref.refreshState(context);
+                      });
                       break;
                     case AsyncData(value: final conditions) when conditions.isEmpty:
-                      showDialog(
-                        context: context,
-                        builder: (context) => const InitialSetForm(),
-                      );
+                      context.go('/setting');
                       break;
                   }
-
-
 
                   },
                   child: _buildChip(chipList[index],
@@ -102,11 +87,14 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
     );
   }
 
-  Widget _buildChip(Map<String, dynamic> chipData,double width, {bool isSelected = false}) {
+  Widget _buildChip(
+      Map<String, dynamic> chipData,
+      double width,
+      {bool isSelected = false,
+      }) {
     return Container(
-
       height: switch (width) {
-        > 450 => 23,
+        > 450 => 26,
         > 420 => 21,
         > 400 => 21,
         _ => 19,
@@ -114,11 +102,10 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
 
       width: switch (width) {
         > 450 => 52,
-        > 400 =>  48,
+        > 420 =>  48,
         > 400 =>  44.5,
-        _ => 43,
+        _ => 44,
       },
-
 
       decoration: BoxDecoration(
         color: Colors.grey.shade200, // 드래그 중 색상 변경
@@ -133,33 +120,50 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
         ],
         border: Border.all(
             color: isSelected ? Colors.black : Colors.grey.shade800,
-            width: isSelected ? 1.25 : 0.5,),
+            width: isSelected ? 1.25 : 0.75,
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(1.0),
-        child: Center( // Center 위젯으로 텍스트 중앙 정렬
-          child: Text(
-            '${chipData['imoji']!} ${chipData['value']!}',
-            style:  TextStyle(
-                color: chipData['color'],
+        child: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
 
-              fontSize: switch (width) {
-                > 450 => 13,
-                > 420 => 12,
-                > 400 => 11.5,
-                _ => 11,
-              },
-                fontWeight: FontWeight.w900,
-              shadows: Platform.isAndroid ? [
-                Shadow(
-                  blurRadius: 0.75,
-                  color: Colors.grey,
-                  offset: Offset(0.25, 0.25),
+              Platform.isAndroid ? SvgPicture.asset(
+                'assets/${chipData['icon']!}.svg',
+                width: switch (width) {
+                  > 450 => 13,
+                  > 420 => 12,
+                  > 400 => 11.5,
+                  _ => 11,
+                },
+                colorFilter: ColorFilter.mode(
+                  chipData['color'],
+                  BlendMode.srcIn,
                 ),
-              ] : null,
-            ),
+                clipBehavior: Clip.antiAlias,
+
+              ) : SizedBox.shrink(),
+
+              Text(
+                textScaler: TextScaler.noScaling,
+                ' ${chipData['value']!} ',
+                style:  TextStyle(
+                  fontSize: switch (width) {
+                    > 450 => 14,
+                    > 420 => 12,
+                    > 400 => 11.5,
+                    _ => 11,
+                  },
+                    fontWeight: FontWeight.w900,
+                ),
+              ),
+            ],
           ),
         ),
+
+
       ),
     );
   }
@@ -167,16 +171,21 @@ class _DraggableChipListState extends ConsumerState<DraggableChipList> {
 
 final List<Map<String,dynamic>> chipList = [
   {
-    'value' : '1.0',
-    'imoji' : '🚀'
+    'value' : Platform.isAndroid ? '1.0' : '🚀1.0',
+    'icon' : 'star',
+    'color' :  Colors.black,
+
   },
   {
-    'value' : '1.5',
-    'imoji' : '🔥'
+    'value' : Platform.isAndroid ? '1.5' : '🔥1.5',
+    'icon' : 'cuboid',
+    'color' :  Colors.black,
+
   },
   {
-    'value' : '2.0',
-    'imoji' : '🎉'
+    'value' : Platform.isAndroid ? '2.0' : '🎉2.0',
+    'icon' : 'zap',
+    'color' :  Colors.black,
   },
 
 ];

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,116 +10,67 @@ part of 'contract_model.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
-LabourCondition _$LabourConditionFromJson(Map<String, dynamic> json) {
-  return _LabourCondition.fromJson(json);
-}
 
 /// @nodoc
 mixin _$LabourCondition {
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @DateTimeConverter()
-  DateTime get date => throw _privateConstructorUsedError;
-  int get goal => throw _privateConstructorUsedError;
-  int get normal => throw _privateConstructorUsedError;
-  int get extend => throw _privateConstructorUsedError;
-  int get night => throw _privateConstructorUsedError;
-  double get tax => throw _privateConstructorUsedError;
-  int get subsidy => throw _privateConstructorUsedError;
+  DateTime get date;
+  int get goal;
+  int get normal;
+  int get extend;
+  int get night;
+  double get tax;
+  int get subsidy;
+  String get site;
+  String get job;
 
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $LabourConditionCopyWith<LabourCondition> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $LabourConditionCopyWith<$Res> {
-  factory $LabourConditionCopyWith(
-          LabourCondition value, $Res Function(LabourCondition) then) =
-      _$LabourConditionCopyWithImpl<$Res, LabourCondition>;
-  @useResult
-  $Res call(
-      {int? id,
-      @DateTimeConverter() DateTime date,
-      int goal,
-      int normal,
-      int extend,
-      int night,
-      double tax,
-      int subsidy});
-}
-
-/// @nodoc
-class _$LabourConditionCopyWithImpl<$Res, $Val extends LabourCondition>
-    implements $LabourConditionCopyWith<$Res> {
-  _$LabourConditionCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
+  /// Create a copy of LabourCondition
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
+  $LabourConditionCopyWith<LabourCondition> get copyWith =>
+      _$LabourConditionCopyWithImpl<LabourCondition>(
+          this as LabourCondition, _$identity);
+
+  /// Serializes this LabourCondition to a JSON map.
+  Map<String, dynamic> toJson();
+
   @override
-  $Res call({
-    Object? id = freezed,
-    Object? date = null,
-    Object? goal = null,
-    Object? normal = null,
-    Object? extend = null,
-    Object? night = null,
-    Object? tax = null,
-    Object? subsidy = null,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      goal: null == goal
-          ? _value.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as int,
-      normal: null == normal
-          ? _value.normal
-          : normal // ignore: cast_nullable_to_non_nullable
-              as int,
-      extend: null == extend
-          ? _value.extend
-          : extend // ignore: cast_nullable_to_non_nullable
-              as int,
-      night: null == night
-          ? _value.night
-          : night // ignore: cast_nullable_to_non_nullable
-              as int,
-      tax: null == tax
-          ? _value.tax
-          : tax // ignore: cast_nullable_to_non_nullable
-              as double,
-      subsidy: null == subsidy
-          ? _value.subsidy
-          : subsidy // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is LabourCondition &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.goal, goal) || other.goal == goal) &&
+            (identical(other.normal, normal) || other.normal == normal) &&
+            (identical(other.extend, extend) || other.extend == extend) &&
+            (identical(other.night, night) || other.night == night) &&
+            (identical(other.tax, tax) || other.tax == tax) &&
+            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
+            (identical(other.site, site) || other.site == site) &&
+            (identical(other.job, job) || other.job == job));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, date, goal, normal, extend,
+      night, tax, subsidy, site, job);
+
+  @override
+  String toString() {
+    return 'LabourCondition(id: $id, date: $date, goal: $goal, normal: $normal, extend: $extend, night: $night, tax: $tax, subsidy: $subsidy, site: $site, job: $job)';
   }
 }
 
 /// @nodoc
-abstract class _$$LabourConditionImplCopyWith<$Res>
-    implements $LabourConditionCopyWith<$Res> {
-  factory _$$LabourConditionImplCopyWith(_$LabourConditionImpl value,
-          $Res Function(_$LabourConditionImpl) then) =
-      __$$LabourConditionImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $LabourConditionCopyWith<$Res> {
+  factory $LabourConditionCopyWith(
+          LabourCondition value, $Res Function(LabourCondition) _then) =
+      _$LabourConditionCopyWithImpl;
   @useResult
   $Res call(
       {int? id,
@@ -128,17 +80,21 @@ abstract class _$$LabourConditionImplCopyWith<$Res>
       int extend,
       int night,
       double tax,
-      int subsidy});
+      int subsidy,
+      String site,
+      String job});
 }
 
 /// @nodoc
-class __$$LabourConditionImplCopyWithImpl<$Res>
-    extends _$LabourConditionCopyWithImpl<$Res, _$LabourConditionImpl>
-    implements _$$LabourConditionImplCopyWith<$Res> {
-  __$$LabourConditionImplCopyWithImpl(
-      _$LabourConditionImpl _value, $Res Function(_$LabourConditionImpl) _then)
-      : super(_value, _then);
+class _$LabourConditionCopyWithImpl<$Res>
+    implements $LabourConditionCopyWith<$Res> {
+  _$LabourConditionCopyWithImpl(this._self, this._then);
 
+  final LabourCondition _self;
+  final $Res Function(LabourCondition) _then;
+
+  /// Create a copy of LabourCondition
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -150,48 +106,58 @@ class __$$LabourConditionImplCopyWithImpl<$Res>
     Object? night = null,
     Object? tax = null,
     Object? subsidy = null,
+    Object? site = null,
+    Object? job = null,
   }) {
-    return _then(_$LabourConditionImpl(
+    return _then(_self.copyWith(
       id: freezed == id
-          ? _value.id
+          ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
       date: null == date
-          ? _value.date
+          ? _self.date
           : date // ignore: cast_nullable_to_non_nullable
               as DateTime,
       goal: null == goal
-          ? _value.goal
+          ? _self.goal
           : goal // ignore: cast_nullable_to_non_nullable
               as int,
       normal: null == normal
-          ? _value.normal
+          ? _self.normal
           : normal // ignore: cast_nullable_to_non_nullable
               as int,
       extend: null == extend
-          ? _value.extend
+          ? _self.extend
           : extend // ignore: cast_nullable_to_non_nullable
               as int,
       night: null == night
-          ? _value.night
+          ? _self.night
           : night // ignore: cast_nullable_to_non_nullable
               as int,
       tax: null == tax
-          ? _value.tax
+          ? _self.tax
           : tax // ignore: cast_nullable_to_non_nullable
               as double,
       subsidy: null == subsidy
-          ? _value.subsidy
+          ? _self.subsidy
           : subsidy // ignore: cast_nullable_to_non_nullable
               as int,
+      site: null == site
+          ? _self.site
+          : site // ignore: cast_nullable_to_non_nullable
+              as String,
+      job: null == job
+          ? _self.job
+          : job // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$LabourConditionImpl extends _LabourCondition {
-  const _$LabourConditionImpl(
+class _LabourCondition extends LabourCondition {
+  const _LabourCondition(
       {this.id,
       @DateTimeConverter() required this.date,
       this.goal = 0,
@@ -199,11 +165,12 @@ class _$LabourConditionImpl extends _LabourCondition {
       this.extend = 0,
       this.night = 0,
       this.tax = 0.0,
-      this.subsidy = 0})
+      this.subsidy = 0,
+      this.site = '',
+      this.job = ''})
       : super._();
-
-  factory _$LabourConditionImpl.fromJson(Map<String, dynamic> json) =>
-      _$$LabourConditionImplFromJson(json);
+  factory _LabourCondition.fromJson(Map<String, dynamic> json) =>
+      _$LabourConditionFromJson(json);
 
   @override
   final int? id;
@@ -228,17 +195,33 @@ class _$LabourConditionImpl extends _LabourCondition {
   @override
   @JsonKey()
   final int subsidy;
+  @override
+  @JsonKey()
+  final String site;
+  @override
+  @JsonKey()
+  final String job;
+
+  /// Create a copy of LabourCondition
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LabourConditionCopyWith<_LabourCondition> get copyWith =>
+      __$LabourConditionCopyWithImpl<_LabourCondition>(this, _$identity);
 
   @override
-  String toString() {
-    return 'LabourCondition(id: $id, date: $date, goal: $goal, normal: $normal, extend: $extend, night: $night, tax: $tax, subsidy: $subsidy)';
+  Map<String, dynamic> toJson() {
+    return _$LabourConditionToJson(
+      this,
+    );
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LabourConditionImpl &&
+            other is _LabourCondition &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.goal, goal) || other.goal == goal) &&
@@ -246,63 +229,110 @@ class _$LabourConditionImpl extends _LabourCondition {
             (identical(other.extend, extend) || other.extend == extend) &&
             (identical(other.night, night) || other.night == night) &&
             (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.subsidy, subsidy) || other.subsidy == subsidy));
+            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
+            (identical(other.site, site) || other.site == site) &&
+            (identical(other.job, job) || other.job == job));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, date, goal, normal, extend, night, tax, subsidy);
+  int get hashCode => Object.hash(runtimeType, id, date, goal, normal, extend,
+      night, tax, subsidy, site, job);
 
-  @JsonKey(ignore: true)
+  @override
+  String toString() {
+    return 'LabourCondition(id: $id, date: $date, goal: $goal, normal: $normal, extend: $extend, night: $night, tax: $tax, subsidy: $subsidy, site: $site, job: $job)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LabourConditionCopyWith<$Res>
+    implements $LabourConditionCopyWith<$Res> {
+  factory _$LabourConditionCopyWith(
+          _LabourCondition value, $Res Function(_LabourCondition) _then) =
+      __$LabourConditionCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {int? id,
+      @DateTimeConverter() DateTime date,
+      int goal,
+      int normal,
+      int extend,
+      int night,
+      double tax,
+      int subsidy,
+      String site,
+      String job});
+}
+
+/// @nodoc
+class __$LabourConditionCopyWithImpl<$Res>
+    implements _$LabourConditionCopyWith<$Res> {
+  __$LabourConditionCopyWithImpl(this._self, this._then);
+
+  final _LabourCondition _self;
+  final $Res Function(_LabourCondition) _then;
+
+  /// Create a copy of LabourCondition
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$LabourConditionImplCopyWith<_$LabourConditionImpl> get copyWith =>
-      __$$LabourConditionImplCopyWithImpl<_$LabourConditionImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$LabourConditionImplToJson(
-      this,
-    );
+  $Res call({
+    Object? id = freezed,
+    Object? date = null,
+    Object? goal = null,
+    Object? normal = null,
+    Object? extend = null,
+    Object? night = null,
+    Object? tax = null,
+    Object? subsidy = null,
+    Object? site = null,
+    Object? job = null,
+  }) {
+    return _then(_LabourCondition(
+      id: freezed == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      date: null == date
+          ? _self.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      goal: null == goal
+          ? _self.goal
+          : goal // ignore: cast_nullable_to_non_nullable
+              as int,
+      normal: null == normal
+          ? _self.normal
+          : normal // ignore: cast_nullable_to_non_nullable
+              as int,
+      extend: null == extend
+          ? _self.extend
+          : extend // ignore: cast_nullable_to_non_nullable
+              as int,
+      night: null == night
+          ? _self.night
+          : night // ignore: cast_nullable_to_non_nullable
+              as int,
+      tax: null == tax
+          ? _self.tax
+          : tax // ignore: cast_nullable_to_non_nullable
+              as double,
+      subsidy: null == subsidy
+          ? _self.subsidy
+          : subsidy // ignore: cast_nullable_to_non_nullable
+              as int,
+      site: null == site
+          ? _self.site
+          : site // ignore: cast_nullable_to_non_nullable
+              as String,
+      job: null == job
+          ? _self.job
+          : job // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 
-abstract class _LabourCondition extends LabourCondition {
-  const factory _LabourCondition(
-      {final int? id,
-      @DateTimeConverter() required final DateTime date,
-      final int goal,
-      final int normal,
-      final int extend,
-      final int night,
-      final double tax,
-      final int subsidy}) = _$LabourConditionImpl;
-  const _LabourCondition._() : super._();
-
-  factory _LabourCondition.fromJson(Map<String, dynamic> json) =
-      _$LabourConditionImpl.fromJson;
-
-  @override
-  int? get id;
-  @override
-  @DateTimeConverter()
-  DateTime get date;
-  @override
-  int get goal;
-  @override
-  int get normal;
-  @override
-  int get extend;
-  @override
-  int get night;
-  @override
-  double get tax;
-  @override
-  int get subsidy;
-  @override
-  @JsonKey(ignore: true)
-  _$$LabourConditionImplCopyWith<_$LabourConditionImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on
