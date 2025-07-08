@@ -23,6 +23,7 @@ mixin _$SelectedHistory {
   int get duration;
   String get memo;
   double get money;
+  double get afterTax; // 🆕 세후금액 추가
   double get record;
   String get job;
 
@@ -50,18 +51,20 @@ mixin _$SelectedHistory {
                 other.duration == duration) &&
             (identical(other.memo, memo) || other.memo == memo) &&
             (identical(other.money, money) || other.money == money) &&
+            (identical(other.afterTax, afterTax) ||
+                other.afterTax == afterTax) &&
             (identical(other.record, record) || other.record == record) &&
             (identical(other.job, job) || other.job == job));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, startDate, endDate, duration, memo, money, record, job);
+  int get hashCode => Object.hash(runtimeType, id, startDate, endDate, duration,
+      memo, money, afterTax, record, job);
 
   @override
   String toString() {
-    return 'SelectedHistory(id: $id, startDate: $startDate, endDate: $endDate, duration: $duration, memo: $memo, money: $money, record: $record, job: $job)';
+    return 'SelectedHistory(id: $id, startDate: $startDate, endDate: $endDate, duration: $duration, memo: $memo, money: $money, afterTax: $afterTax, record: $record, job: $job)';
   }
 }
 
@@ -78,6 +81,7 @@ abstract mixin class $SelectedHistoryCopyWith<$Res> {
       int duration,
       String memo,
       double money,
+      double afterTax,
       double record,
       String job});
 }
@@ -101,6 +105,7 @@ class _$SelectedHistoryCopyWithImpl<$Res>
     Object? duration = null,
     Object? memo = null,
     Object? money = null,
+    Object? afterTax = null,
     Object? record = null,
     Object? job = null,
   }) {
@@ -129,6 +134,10 @@ class _$SelectedHistoryCopyWithImpl<$Res>
           ? _self.money
           : money // ignore: cast_nullable_to_non_nullable
               as double,
+      afterTax: null == afterTax
+          ? _self.afterTax
+          : afterTax // ignore: cast_nullable_to_non_nullable
+              as double,
       record: null == record
           ? _self.record
           : record // ignore: cast_nullable_to_non_nullable
@@ -151,6 +160,7 @@ class _SelectedHistory extends SelectedHistory {
       this.duration = 0,
       this.memo = '',
       this.money = 1.0,
+      this.afterTax = 1.0,
       this.record = 1.0,
       this.job = ''})
       : super._();
@@ -174,6 +184,10 @@ class _SelectedHistory extends SelectedHistory {
   @override
   @JsonKey()
   final double money;
+  @override
+  @JsonKey()
+  final double afterTax;
+// 🆕 세후금액 추가
   @override
   @JsonKey()
   final double record;
@@ -209,18 +223,20 @@ class _SelectedHistory extends SelectedHistory {
                 other.duration == duration) &&
             (identical(other.memo, memo) || other.memo == memo) &&
             (identical(other.money, money) || other.money == money) &&
+            (identical(other.afterTax, afterTax) ||
+                other.afterTax == afterTax) &&
             (identical(other.record, record) || other.record == record) &&
             (identical(other.job, job) || other.job == job));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, startDate, endDate, duration, memo, money, record, job);
+  int get hashCode => Object.hash(runtimeType, id, startDate, endDate, duration,
+      memo, money, afterTax, record, job);
 
   @override
   String toString() {
-    return 'SelectedHistory(id: $id, startDate: $startDate, endDate: $endDate, duration: $duration, memo: $memo, money: $money, record: $record, job: $job)';
+    return 'SelectedHistory(id: $id, startDate: $startDate, endDate: $endDate, duration: $duration, memo: $memo, money: $money, afterTax: $afterTax, record: $record, job: $job)';
   }
 }
 
@@ -239,6 +255,7 @@ abstract mixin class _$SelectedHistoryCopyWith<$Res>
       int duration,
       String memo,
       double money,
+      double afterTax,
       double record,
       String job});
 }
@@ -262,6 +279,7 @@ class __$SelectedHistoryCopyWithImpl<$Res>
     Object? duration = null,
     Object? memo = null,
     Object? money = null,
+    Object? afterTax = null,
     Object? record = null,
     Object? job = null,
   }) {
@@ -289,6 +307,10 @@ class __$SelectedHistoryCopyWithImpl<$Res>
       money: null == money
           ? _self.money
           : money // ignore: cast_nullable_to_non_nullable
+              as double,
+      afterTax: null == afterTax
+          ? _self.afterTax
+          : afterTax // ignore: cast_nullable_to_non_nullable
               as double,
       record: null == record
           ? _self.record

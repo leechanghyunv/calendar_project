@@ -14,7 +14,6 @@ class HistoryManagerComponent extends ConsumerWidget {
     final switchAsync = ref.watch(switchNotifierProvider);
     final isOn = switchAsync.valueOrNull ?? false;
     final double height = MediaQuery.of(context).size.height;
-    final appWidth = MediaQuery.of(context).size.width;
     /// appWidth > 400 ? 370 : (appWidth < 376 ? 290 : 250)
     return Container(
       height: isOn

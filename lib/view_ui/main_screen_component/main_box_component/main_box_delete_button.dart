@@ -29,13 +29,12 @@ class DeleteChip extends HookConsumerWidget {
       switch (data) {
         case AsyncData(:final value):
           final selectedOne = value.where((e) => e.date.toUtc() == ref.selected);
-          final hintMessage = tapCount < 3 ? '\n\n잠깐!! 삭제버튼을 길게 눌러보세요!' : '';
           if (selectedOne.isEmpty) {
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.$hintMessage');
+            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.');
           } else {
             await ref.read(deleteHistoryProvider(ref.selected).future);
             await Future.delayed(const Duration(milliseconds: 50));
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.$hintMessage');
+            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
             ref.refreshState(context);
           }
         case AsyncError():
@@ -92,12 +91,12 @@ class DeleteChip extends HookConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Platform.isAndroid ? SvgPicture.asset(
-                'assets/Wastebasket.svg',
+                'assets/trash.svg',
                 width: switch (appWidth) {
-                  > 450 => 14,
-                  > 420 => 13,
-                  > 400 => 12.5,
-                  _ => 12,
+                  > 450 => 13,
+                  > 420 => 12,
+                  > 400 => 11.5,
+                  _ => 11,
                 },
                 colorFilter: ColorFilter.mode(
                   Colors.black,
@@ -105,18 +104,24 @@ class DeleteChip extends HookConsumerWidget {
                 ),
                 clipBehavior: Clip.antiAlias,
               ) : SizedBox.shrink(),
-              Text( '🗑️삭제',
+              Text(Platform.isAndroid ? ' 삭제' :'🗑️삭제',
                 textScaler: TextScaler.noScaling,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: switch (appWidth) {
-                    > 450 => 13,
+                  fontSize: Platform.isAndroid
+                      ? switch (appWidth) {
+                    > 450 => 15,
+                    > 420 => 13,
+                    > 400 => 12.5,
+                    _ => 12,
+                  } : switch (appWidth) {
+                    > 450 => 14,
                     > 420 => 12,
                     > 400 => 11.5,
                     _ => 11,
                   },
 
-                  fontWeight: FontWeight.w900,
+                  fontWeight: Platform.isAndroid ? FontWeight.w700 :  FontWeight.w900,
                 ),
               ),
             ],

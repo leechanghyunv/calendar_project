@@ -19,14 +19,14 @@ Future<List<LabourCondition>> viewContract(ViewContractRef ref) async {
 }
 
 @riverpod
-Future<void> addContract(ref,LabourCondition condition) async {
+Future<void> addContract(AddContractRef ref,LabourCondition condition) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   db.insertLabourCondition(condition);
   ref.invalidate(viewContractProvider);
 }
 
 @riverpod
-Future<void> updateContract(ref, int goal) async {
+Future<void> updateContract(UpdateContractRef ref, int goal) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   db.updateLastLabourConditionGoal(goal);
   await Future.delayed(const Duration(milliseconds: 200));
@@ -35,7 +35,7 @@ Future<void> updateContract(ref, int goal) async {
 }
 
 @riverpod
-Future<void> clearContract(ref,LabourCondition condition) async {
+Future<void> clearContract(ClearContractRef ref,LabourCondition condition) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   await Future.delayed(const Duration(milliseconds: 200));
    db.truncateLabourCondition();

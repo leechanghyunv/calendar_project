@@ -30,8 +30,7 @@ class HolidayCell extends ConsumerWidget {
 
         ? appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? 50.0 : 35.w)
 
-        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
-
+        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 33.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
 
     final hoildayName = holidays.entries.firstWhere(
           (entry) =>

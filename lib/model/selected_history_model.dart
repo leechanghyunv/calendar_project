@@ -25,6 +25,7 @@ abstract class SelectedHistory with _$SelectedHistory {
     @Default(0) int duration,
     @Default('') String memo,
     @Default(1.0) double money,
+    @Default(1.0) double afterTax,  // 🆕 세후금액 추가
     @Default(1.0) double record,
     @Default('') String job,
   }) = _SelectedHistory;
@@ -41,6 +42,7 @@ abstract class SelectedHistory with _$SelectedHistory {
     'duration': duration, ///
     'memo': memo,
     'money': money,
+    'afterTax': afterTax,  // 🆕 추가
     'record': record,
     'job': job,
   };
@@ -53,6 +55,7 @@ abstract class SelectedHistory with _$SelectedHistory {
       duration: int.tryParse(map['duration'].toString()) ?? 0,
       memo: map['memo'] as String,
       money: (map['money'] as num).toDouble(),
+      afterTax: (map['afterTax'] as num?)?.toDouble() ?? 1.0,  // 🆕 추가
       record: (map['record'] as num).toDouble(),
       job: map['job'] as String,
     );

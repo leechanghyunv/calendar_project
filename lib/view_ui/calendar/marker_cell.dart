@@ -71,9 +71,11 @@ class MarkerCell extends ConsumerWidget {
 
     final month = date.month;
 
+
     if (events.isNotEmpty){
 
       final WorkHistory event = events[0];
+
 
 
       final calendarMemo = event.memo;

@@ -6,7 +6,7 @@ part of 'chart_value_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$lineValueHash() => r'f4a76cb9d93e4260b8c34dfc5ccfc40b5f3ea8ff';
+String _$lineValueHash() => r'49eff7b895591d8edecfa19a897f8561d5ddd7e4';
 
 /// Copied from Dart SDK
 class _SystemHash {

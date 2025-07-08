@@ -34,7 +34,6 @@ class BackUpServiceProvider extends _$BackUpServiceProvider {
               await Future.delayed(const Duration(milliseconds: 500) ,(){
                 ref.refresh(calendarEventProvider);
                 ref.read(timeManagerProvider.notifier).selectedNextDay();
-                // Navigator.pushReplacementNamed(context, '/calendar');
               });
             },
             orElse: (){}

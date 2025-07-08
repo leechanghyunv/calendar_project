@@ -21,36 +21,35 @@ void invalidateProviders(Ref ref) {
 }
 
 @riverpod
-Future<List<WorkHistory>> viewHistory(ref) async {
+Future<List<WorkHistory>> viewHistory(ViewHistoryRef ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   return db.getAllWorkHistories();
 }
 
 @riverpod
 Future<List<WorkHistory>> viewRangeHistory(
-    ref, DateTime start, DateTime end) async {
+    ViewRangeHistoryRef ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   return db.getFilteredHistory(start, end);
 }
 
 @riverpod
-Future<void> addAllHistory(ref, List<WorkHistory> list) async {
+Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.insertOrOverwriteWorkHistories(list);
   invalidateProviders(ref);
 }
 
 @riverpod
-Future<void> addHistory(ref, int pay, DateTime date) async {
-
+Future<void> addHistory(AddHistoryRef ref, int pay, DateTime date) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final addCustom = ref.watch(formzDecimalValidatorProvider);
   final recode = addCustom.decimalData.value.decimal;
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
+
   final Map<String, dynamic> event = {};
   late WorkHistory history;
-
 
   contract.when(
       data: (val) {
@@ -101,7 +100,6 @@ Future<void> addHistory(ref, int pay, DateTime date) async {
       },
       error: (err, trace) => print(err.toString()),
       loading: () => print('loading....'));
-
   event.addAll({
     'recode': history.record,
     'pay': history.pay,
@@ -118,7 +116,7 @@ Future<void> addHistory(ref, int pay, DateTime date) async {
 
 @riverpod
 Future<void> rangeExcludHoliday(
-    ref, WorkHistory history) async {
+    RangeExcludHolidayRef ref, WorkHistory history) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final selected = ref.watch(timeManagerProvider.notifier).DaySelected;
 
@@ -130,7 +128,7 @@ Future<void> rangeExcludHoliday(
 }
 
 @riverpod
-Future<void> latestHistory(ref) async {
+Future<void> latestHistory(LatestHistoryRef ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final selected = ref.watch(timeManagerProvider.notifier);
@@ -162,7 +160,7 @@ Future<void> latestHistory(ref) async {
 }
 
 @riverpod
-Future<void> deleteHistory(ref, DateTime time) async {
+Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteHistory $time');
   db.deleteWorkHistory(time);
@@ -171,14 +169,14 @@ Future<void> deleteHistory(ref, DateTime time) async {
 
 @riverpod
 Future<void> deleteMonthHistory(
-    ref, DateTime start, DateTime end) async {
+    DeleteMonthHistoryRef ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.deleteWorkHistoryByMonth(start, end);
   invalidateProviders(ref);
 }
 
 @riverpod
-Future<void> clearHistory(ref) async {
+Future<void> clearHistory(ClearHistoryRef ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.clearWorkHistory();
   invalidateProviders(ref);
@@ -186,7 +184,7 @@ Future<void> clearHistory(ref) async {
 
 @riverpod
 Future<void> updateMemoHistory(
-    ref, DateTime date, String memo) async {
+    UpdateMemoHistoryRef ref, DateTime date, String memo) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.updateMemo(date, memo);
   invalidateProviders(ref);

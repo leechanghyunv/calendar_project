@@ -126,7 +126,9 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                                     ),
                                     clipBehavior: Clip.antiAlias,
                                   ) : SizedBox.shrink(),
-                                  chartInText('🚀 주간 ${data.value.normalDay}일 ${data.value.normalPay}'),
+                                  chartInText(Platform.isAndroid
+                                      ? ' 주간 ${data.value.normalDay}일 ${data.value.normalPay}'
+                                      : '🚀 주간 ${data.value.normalDay}일 ${data.value.normalPay}'),
                                 ],
                               ),
 
@@ -141,7 +143,9 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                                     ),
                                     clipBehavior: Clip.antiAlias,
                                   ) : SizedBox.shrink(),
-                                  chartInText('🔥 연장 ${data.value.extendDay}일 ${data.value.extendPay}'),
+                                  chartInText(Platform.isAndroid
+                                      ? ' 연장 ${data.value.extendDay}일 ${data.value.extendPay}'
+                                      : '🔥 연장 ${data.value.extendDay}일 ${data.value.extendPay}'),
                                 ],
                               ),
 
@@ -156,7 +160,11 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                                     ),
                                     clipBehavior: Clip.antiAlias,
                                   ) : SizedBox.shrink(),
-                                  chartInText('🎉 야간 ${data.value.nightDay}일 ${data.value.nightPay}'),
+                                  chartInText(
+                                      Platform.isAndroid
+                                          ?' 야간 ${data.value.nightDay}일 ${data.value.nightPay}'
+                                          : '🎉 야간 ${data.value.nightDay}일 ${data.value.nightPay}'
+                                  ),
                                 ],
                               ),
                             ],

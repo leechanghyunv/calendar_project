@@ -18,6 +18,7 @@ class DefaultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appHeight = MediaQuery.of(context).size.height;
     final appWidth = MediaQuery.of(context).size.width;
+
     final double isSmall = Platform.isAndroid ? appHeight * 0.0125 : appHeight * 0.0225;
     final double isBig = Platform.isAndroid ? appHeight * 0.008 : appHeight * 0.028;
 

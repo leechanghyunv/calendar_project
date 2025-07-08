@@ -48,7 +48,6 @@ class SettingScreen extends HookConsumerWidget {
     }, []);
 
     useEffect(() {
-      // 모달 열릴 때 스크롤을 맨 위로
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (_scrollController.hasClients) {
           _scrollController.animateTo(
@@ -87,6 +86,7 @@ class SettingScreen extends HookConsumerWidget {
 
     final formzRefNot = ref.formzWatch;
     final formzRefRead = ref.formzRead;
+
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
@@ -153,7 +153,7 @@ class SettingScreen extends HookConsumerWidget {
                 children: [
                   InfoRow(
                     title: '일당을 입력해주세요 ',
-                    subtitle: '일당과 세율 입력 후 @설정완료를 눌러주세요',
+                    subtitle: '일당과 세율 정보는 통계자료에 활용됩니다.',
                   ),
                   Spacer(),
                   FunctionChip(
@@ -228,7 +228,7 @@ class SettingScreen extends HookConsumerWidget {
                               textScaler: TextScaler.noScaling,
                               style: TextStyle(
                                 fontSize: height > 750 ? 13.5 : 13,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                 color: bgColor,
                               ),
                             ),
@@ -265,7 +265,7 @@ class SettingScreen extends HookConsumerWidget {
                               textScaler: TextScaler.noScaling,
                               style: TextStyle(
                                 fontSize: height > 750 ? 13.5 : 13,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
                                 color: Colors.grey,
                               ),
                             ),

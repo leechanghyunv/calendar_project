@@ -5,7 +5,7 @@ Widget siteBox(BuildContext context, String siteName, IconData icon, {bool isSel
   final  height = MediaQuery.of(context).size.height;
   final  width = MediaQuery.of(context).size.width;
   return Container(
-    width: height > 750 ? (width > 450 ? 100 : width > 400 ? 90 : 80) : 77,
+    width: height > 750 ? (width > 450 ? 100 : width > 400 ? 90 : (width > 370 ? 80 : 75)) : 77,
     height: height > 750 ? (width > 450 ? 90 : width > 400 ? 85 : 75) : 70,
     decoration: BoxDecoration(
       color: isSelected ? Colors.grey.shade50 : Colors.grey.shade50,
@@ -39,7 +39,7 @@ Widget siteBox(BuildContext context, String siteName, IconData icon, {bool isSel
               color: isSelected ? Colors.black : Colors.black,
 
               fontSize: height > 750 ? (width > 400 ? 16 : (width < 370 ? 14 : 15)) : 13.5,
-              fontWeight: FontWeight.w800,
+              fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w800,
             ),
           ),
           Spacer(),
@@ -98,7 +98,7 @@ Widget _buildStyledBox({
           fontSize: height > 750
               ? (width > 400 ? 14.5 : (width < 370 ? 12.5 : 13.5))
               : 12.5,
-          fontWeight: FontWeight.w900,
+          fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
           color: textColor,
         ),
       ),

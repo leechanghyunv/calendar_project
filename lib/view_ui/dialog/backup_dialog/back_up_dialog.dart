@@ -5,6 +5,7 @@ import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../model/work_history_model.dart';
 import '../../../repository/back_up/archive_zlib_base64.dart';
+import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
 import '../dialog_text.dart';
 
@@ -19,6 +20,7 @@ class BackUpDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = MediaQuery.of(context).size.width;
+    final isFocused = ref.watch(focusStateProvider);
 
     final _backupController = useTextEditingController();
     final _backupNode = useFocusNode();
@@ -36,19 +38,32 @@ class BackUpDialog extends HookConsumerWidget {
       }
     }
 
+    useEffect(() {
+      void listener() {
+        ref.read(focusStateProvider.notifier).setFocus(_backupNode.hasFocus);
+      }
+
+      _backupNode.addListener(listener);
+      return () => _backupNode.removeListener(listener);
+    }, [_backupNode]);
+
+
+
+
     return AlertDialog(
       title: BackupTitleBox(
         focusNode: _backupNode,
       ),
       content: SingleChildScrollView(
         child: Container(
+          width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
 
-              RichTextBox(appWidth),
+              BackUpDialogTextSpan(),
 
-              SizedBox(height: 10),
+
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 12.0),
                 child: Container(

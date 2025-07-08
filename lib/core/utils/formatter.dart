@@ -91,3 +91,29 @@ class PercentInputFormatter extends TextInputFormatter {
     );
   }
 }
+
+class DisplayNumberInputFormatter extends TextInputFormatter {
+  final int decimalRange;
+
+  DisplayNumberInputFormatter({this.decimalRange = 3});
+
+  @override
+  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
+    String raw = newValue.text;
+
+    // 허용: 1~2자리 정수 또는 소수점 3자리까지
+    final regex = RegExp(r'^\d{0,2}(\.\d{0,3})?$');
+
+    if (!regex.hasMatch(raw)) {
+      return oldValue;
+    }
+
+    return TextEditingValue(
+      text: raw,
+      selection: TextSelection.collapsed(offset: raw.length),
+    );
+  }
+}
+
+
+

@@ -1,5 +1,5 @@
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/auth_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_ui/main_screen_component/under_box_button_component/main_button.dart';
 import '../../view_ui/screen/calendar_screen/calendar_screen.dart';
 import '../../view_ui/screen/calendar_screen/provider/main_box_selector_provider.dart';
@@ -10,8 +10,8 @@ import '../repository_import.dart';
 
 part 'app_router_repo.g.dart';
 
-@Riverpod(keepAlive: true) 
-GoRouter router(ref) {
+@Riverpod(keepAlive: true)
+FutureOr<GoRouter> router(ref) async {
 
   final analytics = FirebaseAnalytics.instance;
 

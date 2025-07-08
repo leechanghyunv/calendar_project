@@ -56,7 +56,7 @@ Widget DeleteRichTextBox(double width,String month) => RichText(
       TextStyles.createSpan(
         text: ' 삭제하기 ',
         appWidth: width,
-        weight: FontWeight.w900,
+        weight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
         backgroundColor: Colors.grey.withOpacity(0.3),
       ),
       TextStyles.createSpan(
@@ -66,7 +66,7 @@ Widget DeleteRichTextBox(double width,String month) => RichText(
       TextStyles.createSpan(
         text: ' ${month}월 모두 삭제 ',
         appWidth: width,
-        weight: FontWeight.w900,
+        weight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
         backgroundColor: Colors.blue.withOpacity(0.3),
       ),
       TextStyles.createSpan(

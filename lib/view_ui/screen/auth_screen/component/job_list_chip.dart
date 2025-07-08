@@ -30,9 +30,7 @@ class WorkTypeWrap extends HookConsumerWidget {
 
     final List<String> surveyTypeList = surveyList.getCurrentWorkList();
 
-    print(surveyTypeList);
-
-    final inputValue = useState(''); // 🎣 간단한 상태 관리
+    final inputValue = useState('');
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -97,9 +95,7 @@ class WorkTypeWrap extends HookConsumerWidget {
                       onTapSub?.call();
                       field.didChange('기타'); // ✅ 값 변경
                       nodeFocus.requestFocus(); // ✅ 텍스트필드에 포커스 이동
-                      ref
-                          .read(conditionListProvider.notifier)
-                          .updateCondition(1, '기타');
+                      ref.read(conditionListProvider.notifier).updateCondition(1, '기타');
                     },
                     child: greyBox('넘어가기', height,width),
                   ),
@@ -131,7 +127,12 @@ class WorkTypeWrap extends HookConsumerWidget {
                             .map((sub) => PopupMenuItem(
                                   value: '$type-$sub',
                                   child: Text(sub,
-                                      textScaler: TextScaler.noScaling),
+                                      textScaler: TextScaler.noScaling,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ))
                             .toList(),
                       );

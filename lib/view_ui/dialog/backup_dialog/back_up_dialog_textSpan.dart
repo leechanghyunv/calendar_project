@@ -1,5 +1,17 @@
 import '../../../../core/export_package.dart';
 
+class BackUpDialogTextSpan extends StatelessWidget {
+
+  const BackUpDialogTextSpan({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final appWidth = MediaQuery.of(context).size.width;
+    return RichTextBox(appWidth);
+  }
+}
+
+
 class TextStyles {
   static TextStyle getCommonStyle({
     required double appWidth,
@@ -44,7 +56,7 @@ Widget RichTextBox(double width) => RichText(
         TextStyles.createSpan(
           text: ' 입력칸 좌측에 아이콘을 눌러 저장 ',
           appWidth: width,
-          weight: FontWeight.w900,
+          weight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
           backgroundColor: Colors.blue.withOpacity(0.3),
         ),
         TextStyles.createSpan(

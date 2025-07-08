@@ -45,12 +45,6 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
       fontWeight: FontWeight.w600,
     );
 
-    TextStyle  getSettingStyle = TextStyle(
-      fontSize: appWidth > 450 ? 14 : 12,
-      color: Colors.grey.shade900,
-      fontWeight: FontWeight.w600,
-    );
-
     return GestureDetector(
       onTap: (){
         setState(() => borderWidth = 1.25);
@@ -119,19 +113,19 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
             side: BorderSide(color: Colors.grey.shade100),
           ),
           position: PopupMenuPosition.under,
-          offset: const Offset(30, -300),
+          offset: const Offset(30, -330),
           padding: EdgeInsets.zero,
           child: Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Platform.isAndroid ? SvgPicture.asset(
-                  'assets/Gear.svg',
+                  'assets/settings.svg',
                   width: switch (appWidth) {
-                    > 450 => 14,
-                    > 420 => 13,
-                    > 400 => 12.5,
-                    _ => 12,
+                    > 450 => 13,
+                    > 420 => 12,
+                    > 400 => 11.5,
+                    _ => 11,
                   },
                   colorFilter: ColorFilter.mode(
                     Colors.black,
@@ -139,17 +133,23 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                   ),
                   clipBehavior: Clip.antiAlias,
                 ) : SizedBox.shrink(),
-                Text( '️⚙️설정',
+                Text(Platform.isAndroid ? '️ 설정' :  '️⚙️설정',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: switch (appWidth) {
-                      > 450 => 13,
+                    fontSize: Platform.isAndroid
+                        ? switch (appWidth) {
+                      > 450 => 15,
+                      > 420 => 13,
+                      > 400 => 12.5,
+                      _ => 12,
+                    } : switch (appWidth) {
+                      > 450 => 14,
                       > 420 => 12,
                       > 400 => 11.5,
                       _ => 11,
                     },
-                    fontWeight: FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w700 :  FontWeight.w900,
                   ),
                 ),
               ],
@@ -168,7 +168,7 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                     style: TextStyle(
                       fontSize: appWidth > 450 ? 15 : 12,
                       color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                     ),
                   ),
                   const SizedBox(height: 2),
@@ -187,17 +187,20 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
             PopupMenuItem<ViewType>(
               value: ViewType.memo,
               height: 40,
-              child: _SettingBox('🚀 메모기록으로 보기','rocket', getStyle),
+              child: PopupSettingBox(Platform.isAndroid ? ' 메모기록으로 보기' : '🚀 메모기록으로 보기',
+                  'rocket', getStyle),
             ),
             PopupMenuItem<ViewType>(
               value: ViewType.amount,
               height: 40,
-              child: _SettingBox('🔥 일당기록으로 보기','cuboid', getStyle),
+              child: PopupSettingBox(Platform.isAndroid ? ' 일당기록으로 보기' :'🔥 일당기록으로 보기',
+                  'cuboid', getStyle),
             ),
             PopupMenuItem<ViewType>(
               value: ViewType.gongsu,
               height: 40,
-              child: _SettingBox('🎉 공수기록으로 보기','zap', getStyle),
+              child: PopupSettingBox(Platform.isAndroid ? ' 공수기록으로 보기': '🎉 공수기록으로 보기',
+                  'zap', getStyle),
 
 
             ),
@@ -213,7 +216,8 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _SettingBox('👉 근무유형 직접 등록','sparkle', getStyle),
+                    PopupSettingBox(Platform.isAndroid ? ' 근무유형 직접 등록' : '👉 근무유형 직접 등록',
+                        'sparkle', getStyle),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -236,43 +240,37 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
             PopupMenuItem<ViewType>(
               value: ViewType.more,
               height: 40,
-              child: _SettingBox('🎈 이전공수 복사 등록','flame', getStyle),
+              child: PopupSettingBox(Platform.isAndroid ? ' 이전공수 복사 등록' : '🎈 이전공수 복사 등록','flame', getStyle),
             ),
-            // PopupMenuItem<ViewType>(
-            //   value: ViewType.setting,
-            //   height: 40,
-            //   child: _SettingBox(' 근로조건 설정 하기','clover',isSetting: true,
-            //       getSettingStyle),
-            // ),
           ],
         ),
       ),
     );
   }
+}
 
-  Widget _SettingBox(String msg,String svg, TextStyle getStyle,{bool? isSetting = false}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-      child: Row(
-        children: [
-          Platform.isAndroid ? SvgPicture.asset(
-            'assets/${svg}.svg',
-            width: getStyle.fontSize,
-            colorFilter: ColorFilter.mode(
-              isSetting == false ? Colors.grey.shade600 : Colors.green.shade900,
-              BlendMode.srcIn,
-            ),
-            clipBehavior: Clip.antiAlias,
-          ) : SizedBox.shrink(),
-          Text(
-              textScaler: TextScaler.noScaling,
-              msg, style: getStyle),
-        ],
-      ),
-    );
-  }
+Widget PopupSettingBox(String msg,String svg, TextStyle getStyle,{bool? isSetting = false}) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.grey.shade50,
+      borderRadius: BorderRadius.circular(6),
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+    child: Row(
+      children: [
+        Platform.isAndroid ? SvgPicture.asset(
+          'assets/${svg}.svg',
+          width: getStyle.fontSize,
+          colorFilter: ColorFilter.mode(
+            isSetting == false ? Colors.grey.shade600 : Colors.green.shade900,
+            BlendMode.srcIn,
+          ),
+          clipBehavior: Clip.antiAlias,
+        ) : SizedBox.shrink(),
+        Text(
+            textScaler: TextScaler.noScaling,
+            msg, style: getStyle),
+      ],
+    ),
+  );
 }

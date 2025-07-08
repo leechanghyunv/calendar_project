@@ -36,10 +36,12 @@ class MonthRecord extends _$MonthRecord {
   @override
   Future<LaborFiltedModel> build(DateTime time) async {
 
-    final startDate = DateTime(time.year, time.month, 1);
-    final endDate = DateTime(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
-    final prevStartDate = DateTime(time.year, time.month - 1, 1);
-    final prevEndDate = DateTime(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+    final startDate = DateTime.utc(time.year, time.month, 1);
+    final endDate = DateTime.utc(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
+
+    final prevStartDate = DateTime.utc(time.year, time.month - 1, 1);
+    final prevEndDate = DateTime.utc(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+
     final timeManagerDay = ref.read(timeManagerProvider.notifier).DaySelected;
 
     try {
@@ -94,7 +96,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
 
 // 날짜 범위로 히스토리 필터링
   final filteredHistory = _filterHistoryByDateRange(history, startDate, endDate);
-  final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate);
+      final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate);
 
 
   final subsidyDay = filteredHistory.where((e) => e.record >= 1.0).length;

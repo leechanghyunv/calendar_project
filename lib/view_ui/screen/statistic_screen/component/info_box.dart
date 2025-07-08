@@ -1,7 +1,5 @@
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/info_box_sub_provider.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/utils/converter.dart';
 import '../provider/info_box_provider.dart';
 
@@ -28,8 +26,7 @@ class InfoBoxProviderWidget extends ConsumerWidget {
             Flexible(
               flex: 1,
               child: InfoBox(
-                // svg: 'party',
-                name: '🎉누적금액',
+                name: '누적금액',
                 unit: '만원',
                 value: data.total.toInt().toString(),
                 text: '${dateText} 기록은 ${formatAmount(subData.total.toInt())} 입니다',
@@ -39,8 +36,7 @@ class InfoBoxProviderWidget extends ConsumerWidget {
             Flexible(
               flex: 1,
               child: InfoBox(
-                // svg: 'rocket',
-                name: '🚀누적공수',
+                name: '누적공수',
                 unit: '공수',
                 value: data.record.toInt().toString(),
                 text: '${dateText} 공수는 ${subData.record}공수 입니다',
@@ -54,8 +50,7 @@ class InfoBoxProviderWidget extends ConsumerWidget {
             Flexible(
               flex: 1,
               child: InfoBox(
-                // svg: 'flame',
-                name: '🎈출력일수',
+                name: '출력일수',
                 unit: '일',
                 value: data.workDay.toString(),
                 text: '${dateText} 공수는 23공수 입니다',
@@ -66,8 +61,7 @@ class InfoBoxProviderWidget extends ConsumerWidget {
             Flexible(
               flex: 1,
               child: InfoBox(
-                // svg: 'clover',
-                name: '🍀공제금액',
+                name: '공제금액',
                 unit: '만원',
                 value: data.retire.toString(),
                 text: '공제금은 하루당 6,200원으로 계산합니다. 주휴일수를 포함합니다',
@@ -102,7 +96,7 @@ class InfoBox extends StatelessWidget {
     final double width = MediaQuery.of(context).size.width;
 
     return Container(
-      height: height > 750 ? (width > 400 ? 145.0 : (width < 375 ? 130.0 : 140.0)) : 125,
+      height: height > 750 ? (width > 400 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
       width: width,
       decoration: BoxDecoration(
         color: Colors.grey.shade100,
@@ -135,7 +129,7 @@ class InfoBox extends StatelessWidget {
                   style: TextStyle(
                     fontSize: height > 750 ? (width > 400 ? 15.0 : (width < 370 ? 12.0 : 14.0)) : 12.0,
                     color: Colors.grey.shade600,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.w900,
                   ),
                 ),
               ],
@@ -147,9 +141,8 @@ class InfoBox extends StatelessWidget {
                   value,
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
-
                     fontSize: height > 750 ? (width >= 450 ? 36 : width > 400 ? 33.0 : (width < 370 ? 30.0 : 32.0)) : 26.0,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.w900,
                   ),
                 ),
                 Spacer(),
@@ -175,7 +168,7 @@ class InfoBox extends StatelessWidget {
                     ? (width >= 450
                     ? 11.0
                     : width > 400
-                    ? 10.0
+                    ? 10.5
                     : width < 370
                     ? 8.5
                     : 9.5)

@@ -1,6 +1,8 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../core/export_package.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../calendar/calendar_widget.dart';
+import '../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
 
 
 class CalendarScreen extends HookConsumerWidget {
@@ -10,6 +12,27 @@ class CalendarScreen extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final appWidth = MediaQuery.of(context).size.width;
+
+    useEffect(() {
+      Future<void> checkFirstLaunch() async {
+        final prefs = await SharedPreferences.getInstance();
+        final isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
+        if (isFirstLaunch) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            showDialog(
+                context: context,
+                builder: (context) => InitialLaunchDialog()
+            );
+          });
+          await prefs.setBool('isFirstLaunch', false);
+        }
+      }
+
+      checkFirstLaunch();
+      return null;
+    }, []);
+
+
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

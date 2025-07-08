@@ -11,16 +11,17 @@ class BackUpBox extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(7.5),
       ),
       child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+        padding:  EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 100),
           child: Material(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   children: [
@@ -83,7 +84,7 @@ class BackUpBox extends ConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 2.5),
+
               ],
 
             ),

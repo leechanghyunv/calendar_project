@@ -1,6 +1,47 @@
 import 'package:calendar_project_240727/repository/repository_import.dart';
-import 'package:flutter_svg/svg.dart';
 import '../provider/info_box_provider.dart';
+import '../provider/statistic_switch_provider.dart';
+
+
+class GoalAnimatedSwitcher extends HookConsumerWidget {
+  const GoalAnimatedSwitcher({super.key});
+
+  @override
+  Widget build(BuildContext context,WidgetRef ref) {
+    final double height = MediaQuery.of(context).size.height;
+    final switchAsync = ref.watch(switchNotifierProvider);
+    final isOn = switchAsync.valueOrNull ?? false;
+
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      switchInCurve: Curves.easeIn,
+      switchOutCurve: Curves.easeOut,
+      transitionBuilder: (child, animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: SizeTransition(
+            sizeFactor: animation,
+            axisAlignment: -1.0,
+            child: child,
+          ),
+        );
+      },
+      child: isOn
+          ? const SizedBox(key: ValueKey('off'))
+          : Column(
+        key: const ValueKey('on'),
+        children: [
+          GoalRecordBox(
+            Colors.green.shade700,
+          ),
+          SizedBox(height: height > 750 ? 20.0 : 15.0),
+        ],
+      ),
+    );
+  }
+}
+
+
 
 class GoalRecordBox extends ConsumerWidget {
 
@@ -37,8 +78,8 @@ class GoalRecordBox extends ConsumerWidget {
                             : '목표금액은 ${goalValue}만원 입니다',
                         textScaler: TextScaler.noScaling,
                         style: TextStyle(
-                          fontSize: height > 750 ? (width > 400 ? 22 : 20) : 16.5,
-                          fontWeight: FontWeight.w900,
+                          fontSize: height > 750 ? (width > 400 ? 22 : 20) : 18.5,
+                          fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                           color: Colors.black,
                         ),
                       ),
@@ -48,14 +89,14 @@ class GoalRecordBox extends ConsumerWidget {
                         text: TextSpan(
                           text: '목표금액은 ',
                           style: TextStyle(
-                            fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 10,
+                            fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
                             color: Colors.grey.shade700,
                           ),
                           children: <TextSpan>[
                             TextSpan(
                               text: '✅목표관리버튼',
                               style: TextStyle(
-                                fontWeight: FontWeight.w900,
+                                fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                 letterSpacing: 0.75,
                                 color: Colors.black,
                               ),
@@ -68,25 +109,19 @@ class GoalRecordBox extends ConsumerWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            // SvgPicture.asset(
-                            //   'assets/sparkle.svg',
-                            //   width: height > 750 ? (width > 400 ? 13.5 : 12.5) : 10,
-                            //   color: color,
-                            //   clipBehavior: Clip.antiAlias,
-                            // ),
                             RichText(
                               textScaler: TextScaler.noScaling,
                               text: TextSpan(
                                 text: '🔥 누적금액 ${data.total}만원 ',
                                 style: TextStyle(
-                                  fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 10,
+                                  fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
                                   color: Colors.grey.shade700,
                                 ),
                                 children: <TextSpan>[
                                   TextSpan(
                                     text: '목표금액의 $percent%',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.w900,
+                                      fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                       letterSpacing: 0.75,
                                       color: Colors.black,
                                     ),
@@ -110,8 +145,8 @@ class GoalRecordBox extends ConsumerWidget {
           Text('목표금액은 ${0}만원 입니다',
             textScaler: TextScaler.noScaling,
             style: TextStyle(
-              fontSize: height > 750 ? (width > 400 ? 22 : 20) : 16.5,
-              fontWeight: FontWeight.w900,
+              fontSize: height > 750 ? (width > 400 ? 22 : 20) : 18.5,
+              fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
               color: Colors.black,
             ),
           ),
@@ -120,14 +155,14 @@ class GoalRecordBox extends ConsumerWidget {
             text: TextSpan(
               text: '목표금액은 ',
               style: TextStyle(
-                fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 10,
+                fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
                 color: Colors.grey.shade700,
               ),
               children: <TextSpan>[
                 TextSpan(
                   text: '✅목표관리버튼',
                   style: TextStyle(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                     letterSpacing: 0.75,
                     color: Colors.black,
                   ),

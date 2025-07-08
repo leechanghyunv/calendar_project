@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/supabase_service.dart';
+import 'package:calendar_project_240727/data/repositories/supabase_service.dart';
 
 import '../../core/utils/converter.dart';
 import '../repository_import.dart';
@@ -205,18 +205,22 @@ class FormzValidator extends _$FormzValidator {
           job: workType,
         );
         ref.read(addContractProvider(contract));
-        ref.read(insertNoteProvider(contract));
-        ref.read(firebaseAnalyticsClassProvider.notifier).
-        goalEvent({
-          'goal': contract.goal,
-          'tax': contract.tax,
-          'normal': contract.normal,
-          'extend': contract.extend,
-          'night': contract.night,
-          'day_pay': contract.subsidy,
-          'site': contract.site,
-          'job' : contract.job,
-        });
+
+        if (workSite.isNotEmpty && workType.isNotEmpty) {
+          ref.read(supaBaseServiceProvider).insertNote(contract);
+        }
+
+        // ref.read(firebaseAnalyticsClassProvider.notifier).
+        // goalEvent({
+        //   'goal': contract.goal,
+        //   'tax': contract.tax,
+        //   'normal': contract.normal,
+        //   'extend': contract.extend,
+        //   'night': contract.night,
+        //   'day_pay': contract.subsidy,
+        //   'site': contract.site,
+        //   'job' : contract.job,
+        // });
 
         state = state.copyWith(status: FormzStatus.submissionSuccess);
         ref.invalidate(viewContractProvider);

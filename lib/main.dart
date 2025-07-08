@@ -7,6 +7,14 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isAndroid) {
+    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
+      statusBarColor: Colors.grey.shade50,
+      statusBarIconBrightness: Brightness.dark,
+    ));
+  }
+
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -36,45 +44,60 @@ class MyApp extends HookConsumerWidget {
       [DeviceOrientation.portraitUp]
     );
 
-    return ScreenUtilInit(
-      designSize: const Size(390, 850),
-      builder: (_,child) =>
-          ShowCaseWidget(
-            builder: (context) => StyledToast(
-              locale: const Locale('ko', 'KR'),
-              child: MaterialApp.router(
-
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: const [
-                  Locale('ko', 'KR'),
-                ],
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                useMaterial3: false,
-              ),
-                routerConfig: router,
-                builder: (context, child) {
-                  return Scaffold(
-                    backgroundColor: Colors.grey.shade50,
-                    body: Center(
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(
-                          maxWidth: 470,
+    return router.when(data: (router){
+      return ScreenUtilInit(
+        designSize: const Size(390, 850),
+        builder: (_,child) =>
+            ShowCaseWidget(
+              builder: (context) => StyledToast(
+                locale: const Locale('ko', 'KR'),
+                child: MaterialApp.router(
+                  localizationsDelegates: const [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: const [
+                    Locale('ko', 'KR'),
+                  ],
+                  debugShowCheckedModeBanner: false,
+                  theme: ThemeData(
+                    useMaterial3: false,
+                  ),
+                  routerConfig: router,
+                  builder: (context, child) {
+                    return Scaffold(
+                      backgroundColor: Colors.grey.shade50,
+                      body: Center(
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 470,
+                          ),
+                          child: child ?? const SizedBox(),
                         ),
-                        child: child ?? const SizedBox(),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
 
+      );
+    }, loading: () => const MaterialApp(
+      home: Scaffold(
+        body: Center(child: Text('Loading.....')),
+      ),
+    ),
+      error: (err, stack) => MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: Text('라우터 로딩 중 오류 발생'),
+          ),
+        ),
+      ),
     );
+      
+
   }
 }
 

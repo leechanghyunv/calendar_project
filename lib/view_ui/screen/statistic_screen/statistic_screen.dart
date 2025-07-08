@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
 import '../../../core/export_package.dart';
+import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../dialog/backup_dialog/back_up_dialog.dart';
 import '../../dialog/delete_goal_dialog/all_delete_dialog.dart';
 import '../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
@@ -21,9 +22,11 @@ class StatisticScreen extends HookConsumerWidget {
     final double height = MediaQuery.of(context).size.height;
     final switchAsync = ref.watch(switchNotifierProvider);
     final isOn = switchAsync.valueOrNull ?? false;
+    final isFocused = ref.watch(focusStateProvider);
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: Colors.grey.shade50,
         body: Center(
           child: NestedScrollView(
@@ -41,24 +44,13 @@ class StatisticScreen extends HookConsumerWidget {
                         SingleChildScrollView(
                           child: Column(
                             children: [
+                              height > 750 ?
                               InfoRow(
                                 title: '누적기록관리',
                                 subtitle: '등록된 공수를 기반으로 통계를 보여드립니다.',
-                                trailing: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: BoxConstraints(),
-                                  splashRadius: 15.0,
-                                  onPressed: () {
-                                  },
-                                  icon: Icon(
-                                    Icons.settings,
-                                    size: (width > 400 ? 25.0 : 22.5),
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
-                              ),
+                              ) : SizedBox.shrink(),
 
-                              SizedBox(height: height > 750 ? 10.0 : 7.5),
+                              SizedBox(height: height > 750 ? 10.0 : 15),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -97,6 +89,7 @@ class StatisticScreen extends HookConsumerWidget {
                                     borderColor: Colors.grey.shade600,
                                     textColor: Colors.grey.shade900,
                                     onTap: () {
+                                      // showBackUpModal(context);
                                       showDialog(
                                           context: context,
                                           builder: (context) => BackUpDialog());
@@ -105,7 +98,7 @@ class StatisticScreen extends HookConsumerWidget {
                                 ],
                               ),
 
-                              SizedBox(height: height > 750 ? 15.0 : 10.0),
+                              SizedBox(height: height > 750 ? 15.0 : 20.0),
                               InfoBoxProviderWidget(),
                               SizedBox(height: height > 750 ? 20.0 : 15.0),
 
@@ -119,91 +112,51 @@ class StatisticScreen extends HookConsumerWidget {
               ];
             },
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-              children: [
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  switchInCurve: Curves.easeIn,
-                  switchOutCurve: Curves.easeOut,
-                  transitionBuilder: (child, animation) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: SizeTransition(
-                        sizeFactor: animation,
-                        axisAlignment: -1.0,
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: isOn
-                      ? const SizedBox(key: ValueKey('off'))
-                      : Column(
-                    key: const ValueKey('on'),
-                    children: [
-                      GoalRecordBox(
-                        Colors.green.shade700,
-                      ),
-                      SizedBox(height: height > 750 ? 25.0 : 20.0),
-                    ],
-                  ),
-                ),
-                Row(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0),
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    FilterHistoryChip(),
-                    SizedBox(width: 10.0),
-                    IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                      splashRadius: 15.0,
-                      onPressed: () {
-
-                      },
-                      icon: Icon(
-                        Icons.add,
-                        size: 20.0,
-                        color: Colors.grey.shade600,
+                    SizedBox(height: height > 750 ? 0 : 10.0),
+                    GoalAnimatedSwitcher(),
+                    Row(
+                      children: [
+                        FilterHistoryChip(),
+                        Spacer(),
+                        FunctionChip(
+                          label: '@검색',
+                          color: isOn ? Colors.blue.shade100 : Colors.green.shade100,
+                          borderColor: isOn ? Colors.blue.shade400 : Colors.green.shade400,
+                          textColor: isOn ? Colors.blue.shade900 : Colors.green.shade900,
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => DataDialog(),
+                            );
+                          },
+                        ),
+                
+                      ],
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(
+                        vertical: height > 750 ? 3.0 : 0.0,
+                        horizontal: 8.0),
+                      child: Divider(
+                          color: Colors.grey.shade300, thickness: 1.0),
+                    ),
+                    Container(
+                      constraints: BoxConstraints(
                       ),
+                      child: SelectedListview(),
                     ),
-                    Spacer(),
-                    FunctionChip(
-                      label: '@검색',
-                      color: isOn ? Colors.blue.shade100 : Colors.green.shade100,
-                      borderColor: isOn ? Colors.blue.shade400 : Colors.green.shade400,
-                      textColor: isOn ? Colors.blue.shade900 : Colors.green.shade900,
-
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => DataDialog(),
-                        );
-                      },
-                    ),
-
                   ],
                 ),
-                Padding(
-                  padding:  EdgeInsets.symmetric(
-                      vertical: height > 750 ? 3.0 : 0.0, horizontal: 8.0),
-                  child: Divider(color: Colors.grey.shade300, thickness: 1.0),
-                ),
-                Expanded(
-                  child: Container(
-                    child: SelectedListview(),
-                  ),
-                ),
-              ],
               ),
             ),
           ),
-
-
           ),
-
           ),
         );
-
-
-
   }
 }

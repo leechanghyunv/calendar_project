@@ -57,12 +57,12 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
           PopupMenuItem<String>(
             value: 'option1',
             height: 40,
-            child: sideButton('🚀 ${version} 버전 설명'),
+            child: sideButton(Platform.isAndroid ? ' ${version} 버전 설명' : '🚀 ${version} 버전 설명'),
           ),
           PopupMenuItem<String>(
             value: 'option2',
             height: 40,
-            child: sideButton('🍀 의견 보내기'),
+            child: sideButton(Platform.isAndroid ? ' 의견 보내기' : '🍀 의견 보내기'),
 
           ),
         ],

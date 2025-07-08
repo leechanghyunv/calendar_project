@@ -40,6 +40,8 @@ class EnrollDialogWidget extends HookConsumerWidget {
             (prev, next) {
           if (next.status == DecimalFormzStatus.submissionSuccess) {
             ref.refreshState(context);
+            Navigator.pop(context);
+
           }
         },
       );
@@ -59,10 +61,11 @@ class EnrollDialogWidget extends HookConsumerWidget {
                   onChanged: (val) {
                     ref.read(decimalBoolRepoProvider.notifier).changeDecimalBool(val.isEmpty);
                     final decimalValue = val.isEmpty ? 1.0 : double.tryParse(val) ?? 1.0;
-                    print('decimalValue: $decimalValue');
                     formzRefread.onChangeDecimal(decimalValue);
                   },
                 ),
+
+
                 decimalErrorText: formzRefNot.decimalError,
                 memoTextField: MemoTextField(
                   memoController: memoController,
@@ -103,12 +106,7 @@ class EnrollDialogWidget extends HookConsumerWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 4.0.w),
                   child: TextButton(
-                    onPressed: () {
-                      formzRefread.onSubmit();
-                      Future.delayed(const Duration(seconds: 1));
-                      ref.refreshState(context);
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => formzRefread.onSubmit(),
                     child: ButtonTextWidget(
                       '등록', appWidth > 450 ? 15.5 : 14,
                       color: decimalBool ? Colors.grey.shade700 : Colors.black,

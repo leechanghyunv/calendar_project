@@ -1,11 +1,7 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
-import '../../core/utils/holidays.dart';
-import 'package:calendar_project_240727/core/export_package.dart';
-import '../../core/widget/toast_msg.dart';
-import '../../model/work_history_model.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
-import '../../view_model/view_provider/main_button_index_provider.dart';
 import '../dialog/memo_decimal_dialog/memo_decimal_form.dart';
 import 'default_cell.dart';
 import 'holiday_cell.dart';
@@ -46,11 +42,7 @@ class WorkCalendar extends ConsumerWidget {
 
     final timeManagerNot = ref.timeNot;
     final data = ref.history;
-    final filtedAsync = ref.watch(filtedEventsProvider);
-    final filted = switch (filtedAsync) {
-      AsyncData(value: final data) => data,
-      _ => <DateTime, List<WorkHistory>>{},
-    };
+    final filted = ref.watch(filtedEventsProvider);
 
     _initHolidayCache();
     return Padding(
@@ -63,7 +55,8 @@ class WorkCalendar extends ConsumerWidget {
         width: appWidth,
         child: TableCalendarFrame(
             selectedDay: ref.selected,
-            onDayLongPressed: (DateTime? selected, DateTime? focused) {
+            onDayLongPressed:
+                (DateTime? selected, DateTime? focused) {
               data.whenData((val){
                 final utcAdjustedData = val.map((workHistory) =>
                     workHistory.copyWith(

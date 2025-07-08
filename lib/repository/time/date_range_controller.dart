@@ -44,18 +44,28 @@ class TimeRangeManager extends _$TimeRangeManager {
   }
 
   void updateStartDate(DateTime newStartDate) {
-    print('updateStartDate: $newStartDate');
+    final utcStartDate = DateTime.utc(
+      newStartDate.year,
+      newStartDate.month,
+      newStartDate.day,
+    );
+
     state = DateRangeModel(
-      startDate: newStartDate,
+      startDate: utcStartDate,
       endDate: state.endDate,
     );
   }
 
   void updateEndDate(DateTime newEndDate) {
-    print('updateEndDate: $newEndDate');
+    final utcEndDate = DateTime.utc(
+      newEndDate.year,
+      newEndDate.month,
+      newEndDate.day,
+    );
+
     state = DateRangeModel(
       startDate: state.startDate,
-      endDate: newEndDate,
+      endDate: utcEndDate,
     );
   }
 }

@@ -7,7 +7,7 @@ part of 'selected_model.dart';
 // **************************************************************************
 
 String _$viewSelectedHistoryHash() =>
-    r'52dfc9acf5b0466e4f97a8f9f3e180ef4fd34fc0';
+    r'998e05197f93fd29b197be84f3ebe890614225ed';
 
 /// See also [viewSelectedHistory].
 @ProviderFor(viewSelectedHistory)
@@ -26,7 +26,7 @@ final viewSelectedHistoryProvider =
 // ignore: unused_element
 typedef ViewSelectedHistoryRef
     = AutoDisposeFutureProviderRef<List<SelectedHistory>>;
-String _$addSelectedHash() => r'499dd32007adbda3fc4bd72b3558197bb4704d3f';
+String _$addSelectedHash() => r'ac66d99717728d16b8e7b219621a83fe3378429f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -62,12 +62,14 @@ class AddSelectedFamily extends Family<AsyncValue<void>> {
   AddSelectedProvider call(
     DateTime start,
     DateTime end,
+    double tax,
     String memo,
     String job,
   ) {
     return AddSelectedProvider(
       start,
       end,
+      tax,
       memo,
       job,
     );
@@ -80,6 +82,7 @@ class AddSelectedFamily extends Family<AsyncValue<void>> {
     return call(
       provider.start,
       provider.end,
+      provider.tax,
       provider.memo,
       provider.job,
     );
@@ -106,6 +109,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
   AddSelectedProvider(
     DateTime start,
     DateTime end,
+    double tax,
     String memo,
     String job,
   ) : this._internal(
@@ -113,6 +117,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
             ref as AddSelectedRef,
             start,
             end,
+            tax,
             memo,
             job,
           ),
@@ -127,6 +132,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
               AddSelectedFamily._allTransitiveDependencies,
           start: start,
           end: end,
+          tax: tax,
           memo: memo,
           job: job,
         );
@@ -140,12 +146,14 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
     required super.from,
     required this.start,
     required this.end,
+    required this.tax,
     required this.memo,
     required this.job,
   }) : super.internal();
 
   final DateTime start;
   final DateTime end;
+  final double tax;
   final String memo;
   final String job;
 
@@ -164,6 +172,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
         debugGetCreateSourceHash: null,
         start: start,
         end: end,
+        tax: tax,
         memo: memo,
         job: job,
       ),
@@ -180,6 +189,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
     return other is AddSelectedProvider &&
         other.start == start &&
         other.end == end &&
+        other.tax == tax &&
         other.memo == memo &&
         other.job == job;
   }
@@ -189,6 +199,7 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, start.hashCode);
     hash = _SystemHash.combine(hash, end.hashCode);
+    hash = _SystemHash.combine(hash, tax.hashCode);
     hash = _SystemHash.combine(hash, memo.hashCode);
     hash = _SystemHash.combine(hash, job.hashCode);
 
@@ -204,6 +215,9 @@ mixin AddSelectedRef on AutoDisposeFutureProviderRef<void> {
 
   /// The parameter `end` of this provider.
   DateTime get end;
+
+  /// The parameter `tax` of this provider.
+  double get tax;
 
   /// The parameter `memo` of this provider.
   String get memo;
@@ -221,13 +235,15 @@ class _AddSelectedProviderElement extends AutoDisposeFutureProviderElement<void>
   @override
   DateTime get end => (origin as AddSelectedProvider).end;
   @override
+  double get tax => (origin as AddSelectedProvider).tax;
+  @override
   String get memo => (origin as AddSelectedProvider).memo;
   @override
   String get job => (origin as AddSelectedProvider).job;
 }
 
 String _$deleteSelectedHistoryHash() =>
-    r'247911b0945d441e7e4819a2d1cfc41784ce917f';
+    r'9ba33730a22ecd85bff606d65767637fe4f92b81';
 
 /// See also [deleteSelectedHistory].
 @ProviderFor(deleteSelectedHistory)
@@ -359,7 +375,7 @@ class _DeleteSelectedHistoryProviderElement
 }
 
 String _$clearSelectedHistoryHash() =>
-    r'715254424c8a36a2b0b6c81cf7e315e5347fcfb2';
+    r'797c27deb572ece94e23d86cf10a74647ad79084';
 
 /// See also [clearSelectedHistory].
 @ProviderFor(clearSelectedHistory)
@@ -377,7 +393,7 @@ final clearSelectedHistoryProvider = AutoDisposeFutureProvider<void>.internal(
 // ignore: unused_element
 typedef ClearSelectedHistoryRef = AutoDisposeFutureProviderRef<void>;
 String _$deleteOldSelectedHistoryDatabaseHash() =>
-    r'28c8403b6098c386695dfd65429ceb4cfdd51d2b';
+    r'221b42308aedcc86d63098b6e8d8ffdaa201c79f';
 
 /// See also [deleteOldSelectedHistoryDatabase].
 @ProviderFor(deleteOldSelectedHistoryDatabase)

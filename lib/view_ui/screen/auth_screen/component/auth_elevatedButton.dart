@@ -5,8 +5,9 @@ import '../../../../core/widget/text_widget.dart';
 class AuthButton extends StatelessWidget {
 
   final VoidCallback? onPressed;
+  final String? text;
 
-  const AuthButton({super.key, this.onPressed});
+  const AuthButton({super.key, this.onPressed, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class AuthButton extends StatelessWidget {
                 width: 1.0,
               ),
             ),
-            child: TextWidget('모두 입력했습니다!', 15,width
+            child: TextWidget(text ?? '모두 입력했습니다!', 15,width
 
             ),
           ),

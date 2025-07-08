@@ -1,7 +1,7 @@
 import '../../../core/export_package.dart';
 import '../dialog_text.dart';
 
-class BackupTitleBox extends StatefulWidget {
+class BackupTitleBox extends HookWidget {
   final FocusNode focusNode;
 
   const BackupTitleBox({
@@ -10,39 +10,24 @@ class BackupTitleBox extends StatefulWidget {
   });
 
   @override
-  State<BackupTitleBox> createState() => _BackupTitleBoxState();
-}
-
-class _BackupTitleBoxState extends State<BackupTitleBox> {
-  bool isKeyboardVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    widget.focusNode.addListener(_handleFocusChange);
-  }
-
-  @override
-  void dispose() {
-    widget.focusNode.removeListener(_handleFocusChange);
-    super.dispose();
-  }
-
-  void _handleFocusChange() {
-    setState(() {
-      isKeyboardVisible = widget.focusNode.hasFocus;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
+    final isKeyboardVisible = useState(false);
+
+    useEffect(() {
+      void handleFocusChange() {
+        isKeyboardVisible.value = focusNode.hasFocus;
+      }
+
+      focusNode.addListener(handleFocusChange);
+      return () => focusNode.removeListener(handleFocusChange);
+    }, [focusNode]);
 
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 300),
       tween: Tween<double>(
         begin: 40,
-        end: isKeyboardVisible ? 0 : 40,
+        end: isKeyboardVisible.value ? 0 : 40,
       ),
       builder: (context, height, child) {
         if (height == 0) return const SizedBox.shrink();

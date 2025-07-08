@@ -1,7 +1,6 @@
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
 
-import '../../../../../../core/export_package.dart';
 import '../../../../../../core/utils/converter.dart';
 import '../../../../../../model/selected_history_model.dart';
 import '../../../../../../theme_color.dart';
@@ -19,6 +18,7 @@ class HistoryBox extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
+    final contract = ref.watch(viewContractProvider);
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -94,11 +94,6 @@ class HistoryBox extends ConsumerWidget {
                   ),
                   Row(
                     children: [
-                      // Icon(
-                      //   size: 20.5,
-                      //   Icons.more_horiz,
-                      //   color: Colors.grey.shade300,
-                      // ),
                       Spacer(),
                       MomoChip(
                         selectedHistory: selectedHistory,
@@ -144,12 +139,15 @@ class MomoChip extends StatelessWidget {
 
   MomoChip({super.key, required this.selectedHistory});
 
+  // afterTax: pay.toDouble() * (1 - tax),
+
   List<String> get result {
     return [
-      '${(selectedHistory.money / 10000).toInt()}만원',
+      if (selectedHistory.job.trim().isNotEmpty) selectedHistory.job,
       '${selectedHistory.record.toInt()}공수',
-      // '${selectedHistory.duration}개월',
-      selectedHistory.job,
+      '${(selectedHistory.money / 10000).toInt()}만원',
+      if (selectedHistory.money != selectedHistory.afterTax && selectedHistory.money != 0)
+        selectedHistory.afterTax == 1.0 ? '' : '${(selectedHistory.afterTax / 10000).toInt()}만원',
     ];
   }
 
@@ -169,7 +167,6 @@ class MomoChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-
     return Wrap(
       alignment: WrapAlignment.end,
       spacing: 8.0,
@@ -178,7 +175,7 @@ class MomoChip extends StatelessWidget {
         final color = baseColors[index % baseColors.length];
         final textColor = textColors[index % textColors.length];
         final type = result[index];
-        return Container(
+        return type.isNotEmpty ?  Container(
           height: height > 750 ? (width > 400 ? 24 : 23) : 22,
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           decoration: BoxDecoration(
@@ -197,22 +194,22 @@ class MomoChip extends StatelessWidget {
             ],
           ),
           child: Text(
-            '#$type',
+              '#$type',
             textScaler: TextScaler.noScaling,
             style: TextStyle(
               height: textHeight,
               fontSize: height > 750
                   ? (width >= 450
-                  ? 14.0
+                  ? 13.5
                   : width > 400
-                  ? 12.0
-                  : 11.0)
-                  : 10.5,
+                  ? 11.5
+                  : 10.5)
+                  : 10.0,
               fontWeight: FontWeight.bold,
               color: textColor,
             ),
           ),
-        );
+        ) : SizedBox.shrink();
       }),
     );
   }

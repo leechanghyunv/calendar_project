@@ -43,17 +43,14 @@ class SelectedListview extends ConsumerWidget {
             break;
         }
 
-
-
         if (value.isEmpty) {
           return IntroSelectedBox();
         }
         return Align(
           alignment: Alignment.topCenter, // 🎯 위쪽 정렬
           child: ListView.builder(
-
-
-              // reverse: true,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: sortedList.length,
               itemBuilder: (context, index){
                 final item = sortedList[index];

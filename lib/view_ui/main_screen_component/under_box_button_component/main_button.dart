@@ -1,5 +1,6 @@
 import '../../../core/export_package.dart';
 import '../../../core/export_package.dart' as badges;
+import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
 import 'button_option.dart';
@@ -10,6 +11,7 @@ class MainButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+    final isFocused = ref.watch(focusStateProvider);
 
     final _scrollController = useScrollController();
     final selectedIndex = ref.watch(selectedIndexProvider);
@@ -47,7 +49,7 @@ class MainButton extends HookConsumerWidget {
       }
     }
 
-    return Padding(
+    return isFocused ? SizedBox.shrink() :  Padding(
       padding: EdgeInsets.only(right: 8.0),
       child: Row(
         children: [
@@ -81,20 +83,20 @@ class MainButton extends HookConsumerWidget {
                         ),
                         avatar: Icon(
                           options[index]['icon'],
-                          size: appWidth > 450 ? 20 : 18,
+                          size: appWidth > 450 ? 20 :  appWidth < 376 ? 17 :  18,
                           color: selectedIndex == index
-                              ? Colors.white
+                              ? Colors.grey.shade700
                               : Colors.grey.shade700,
                         ),
                         label: Text(
                           options[index]['label'],
                           textScaler: TextScaler.noScaling,
                           style: TextStyle(
-                            fontSize: appWidth > 450 ? 16 :14,
+                            fontSize: appWidth > 450 ? 16 : appWidth < 376 ? 13 : 14,
                             letterSpacing: appWidth > 450 ? 1.0 : null,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
                             color: selectedIndex == index
-                                ? Colors.white
+                                ? Colors.black87
                                 : Colors.black87,
                           ),
                         ),

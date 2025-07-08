@@ -12,7 +12,7 @@ Widget bigText(String text, double height) => Text(
         : height > 750
         ? 17.5
         : 15.5,
-    fontWeight: FontWeight.bold,
+    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.bold,
     color: Colors.black,
   ),
 );
@@ -32,34 +32,48 @@ Widget MediumText(String text, double height) => Text(
   ),
 );
 
-Widget introText(double height) => Text.rich(
-  TextSpan(
-    text: '워크캘린더는 근로조건을 우선 설정하셔야 원활하게 공수등록을 하실 수 있습니다. 근로조건은 유저통계자료에 활용되며, ',
-    style: TextStyle(
-      height: textHeight,
-      fontSize: height >= 850
-          ? 15.0
-          : height > 750
-          ? 14.0
-          : 13.5,
-      color: Colors.black,
-    ),
-    children: [
-      TextSpan(
-        text: '통계자료는 모든 유저에게 공유 ',
-        style: TextStyle(
-          backgroundColor: Colors.green.shade100, // 강조 배경색
-          fontWeight: FontWeight.bold, // 글씨도 강조하고 싶다면
+
+
+Widget introText(double height) {
+  final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
+  final baseStyle = TextStyle(
+    height: Platform.isAndroid ? 1.5 : null,
+    fontSize: fontSize,
+    color: Colors.black,
+  );
+  return Text.rich(
+    TextSpan(
+      children: [
+        TextSpan(
+          text: '워크캘린더는 ',
+          style: baseStyle,
         ),
-      ),
-      TextSpan(text: '됩니다. '),
-    ],
-  ),
-  textScaler: TextScaler.noScaling,
-);
-
-
-
+        TextSpan(
+          text: '근로조건을 우선 설정하셔야 원활하게 공수등록',
+          style: baseStyle.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        TextSpan(
+          text: ' 을 하실 수 있습니다. 근로조건은 유저 통계자료에 활용되며, ',
+          style: baseStyle,
+        ),
+        TextSpan(
+          text: '통계자료는 모든 유저에게 공유 ',
+          style: baseStyle.copyWith(
+            backgroundColor: Colors.green.shade100,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        TextSpan(
+          text: '됩니다.',
+          style: baseStyle,
+        ),
+      ],
+    ),
+    textScaler: TextScaler.noScaling,
+  );
+}
 
 
 Widget smallText(String text, double height) => Text(

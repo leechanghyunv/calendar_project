@@ -8,7 +8,8 @@ part 'selected_model.g.dart';
 
 
 @riverpod
-Future<List<SelectedHistory>> viewSelectedHistory(ref) async {
+Future<List<SelectedHistory>> viewSelectedHistory(
+    ViewSelectedHistoryRef ref) async {
 final db = await ref.watch(selectedHistoryManagerProvider.future);
   return db.getSelectedHistories();
 }
@@ -16,7 +17,7 @@ final db = await ref.watch(selectedHistoryManagerProvider.future);
 
 @riverpod
 Future<void> addSelected(
-    ref,DateTime start, DateTime end,String memo,String job) async {
+    AddSelectedRef ref,DateTime start, DateTime end,double tax, String memo,String job) async {
 
   final utcStart = DateTime.utc(start.year, start.month, start.day);
   final utcEnd = DateTime.utc(end.year, end.month, end.day);
@@ -36,6 +37,7 @@ Future<void> addSelected(
       duration: durationValue,
       memo: memo,
       money: pay.toDouble(),
+      afterTax: pay.toDouble() * (1 - tax),
       record: record,
       job: job
     );
@@ -51,7 +53,7 @@ Future<void> addSelected(
 }
 
 @riverpod
-Future<void> deleteSelectedHistory(ref,int index) async {
+Future<void> deleteSelectedHistory(ClearSelectedHistoryRef ref,int index) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.deleteSelectedHistory(index);
@@ -60,14 +62,14 @@ Future<void> deleteSelectedHistory(ref,int index) async {
 
 
 @riverpod
-Future<void> clearSelectedHistory(ref) async {
+Future<void> clearSelectedHistory(ClearSelectedHistoryRef ref) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.clearSelectedHistory();
 }
 
 @riverpod
-Future<void> deleteOldSelectedHistoryDatabase(ref) async {
+Future<void> deleteOldSelectedHistoryDatabase(ClearSelectedHistoryRef ref) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.deleteOldDatabase();

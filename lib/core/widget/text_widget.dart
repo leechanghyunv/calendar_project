@@ -30,7 +30,7 @@ Widget ErrorText(String msg, double appWidth, {Color? color}) {
           fontWeight: fontWeight,
           height: textHeight,
           color: color ?? Colors.grey[700],  // color가 null이면 기본값 Colors.blue[700] 사용
-          fontSize: (appWidth >= 450 ? 12.0 : appWidth > 400 ? 11 : 10),
+          fontSize: (appWidth >= 450 ? 12.0 : appWidth > 400 ? 11 : (appWidth > 370 ? 10 : 9.5)),
         ),
       ),
     ],

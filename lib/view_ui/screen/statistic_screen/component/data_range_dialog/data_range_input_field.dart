@@ -103,7 +103,7 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
           hintText: ' 2025/01/01 ~ 2025/12/31',
           isDense: true,
           hintStyle: TextStyle(
-            fontSize: (width > 400 ? 14 : 13.5),
+            fontSize: (width > 400 ? 15 : 14.5),
             letterSpacing: 1.25,
           ),
           border: InputBorder.none,

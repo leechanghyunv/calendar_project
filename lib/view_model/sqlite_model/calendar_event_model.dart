@@ -17,14 +17,15 @@ final _calendarCacheProvider = StateProvider<CalendarCache?>((ref) => null);
 
 
 @riverpod
-Future<Map<DateTime, List<WorkHistory>>> calendarEvent(ref) async {
+Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
+    CalendarEventRef ref) async {
 
 
   final (year, month) = ref.watch(timeManagerProvider.select(
           (t) => (t.selected.year, t.selected.month)));
 
-  final start = DateTime(year, month, 1);
-  final end = DateTime(year, month + 1, 1).subtract(const Duration(seconds: 1));
+  final start = DateTime.utc(year, month, 1);
+  final end = DateTime.utc(year, month + 1, 1).subtract(const Duration(seconds: 1));
 
   // 이전 start, end 값이 변경되지 않았다면 캐싱된 값 반환
   final cache = ref.watch(_calendarCacheProvider);

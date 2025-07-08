@@ -45,13 +45,16 @@ class DeleteDialog extends HookConsumerWidget {
         children: [
 
           DateRangeInputField(
-            /// newDateRange는 List<DateTime>? type
               onDateRangeChanged: (newDateRange){
                 dateRange.value = newDateRange;
                 if (newDateRange != null) {
+
                   ref.rangeNot.updateStartDate(dateRange.value![0]);
+
                   ref.rangeSelectNot.updateStartSelected(true);
+
                   ref.rangeNot.updateEndDate(dateRange.value![1]);
+
                   ref.rangeSelectNot.updateEndSelected(true);
                 }
               },
@@ -97,7 +100,7 @@ class DeleteDialog extends HookConsumerWidget {
             }
             ref.refreshState(context);
             Navigator.of(context).pop();
-            customMsg('선택하신 기간이 저장되었습니다.');
+            customMsg('선택하신 기간이 삭제되었습니다.');
           },
           child: TextWidget('삭제하기',15,appWidth),
         ),

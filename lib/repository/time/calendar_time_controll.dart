@@ -9,10 +9,10 @@ class TimeManager extends _$TimeManager {
   final nextDay = DateTime.now().add(const Duration(days: 1));
   final yesterDay = DateTime.now().subtract(const Duration(days: 1));
 
-  DateTime get prevStartDate => DateTime(state.selected.year, state.selected.month - 1, 1);
+  DateTime get prevStartDate => DateTime.utc(state.selected.year, state.selected.month - 1, 1);
 
-  DateTime get startDate => DateTime(state.selected.year, state.selected.month, 1);
-  DateTime get endDate => DateTime(state.selected.year, state.selected.month + 1, 1).subtract(const Duration(seconds: 1));
+  DateTime get startDate => DateTime.utc(state.selected.year, state.selected.month, 1);
+  DateTime get endDate => DateTime.utc(state.selected.year, state.selected.month + 1, 1).subtract(const Duration(seconds: 1));
 
   DateTime get DaySelected => state.selected;
 
@@ -32,12 +32,19 @@ class TimeManager extends _$TimeManager {
   }
 
   void onDaySelected(DateTime selected, DateTime focused) {
-    state = state.copyWith(selected: selected, focused: focused);
+    state = state.copyWith(
+        selected: DateTime.utc(selected.year, selected.month, selected.day),
+        focused: focused);
 
   }
 
   void onPageChanged(DateTime? focused) {
-    state = state.copyWith(selected: focused!, focused: focused);
+    if (focused != null) {
+      state = state.copyWith(
+        focused: focused,
+        selected: DateTime.utc(focused.year, focused.month, focused.day),
+      );
+    }
   }
 
   void moveMonth(int month) {

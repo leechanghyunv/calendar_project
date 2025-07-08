@@ -1,4 +1,5 @@
 import '../../../../core/export_package.dart';
+import '../../../../data/usecases/supabase_provider.dart';
 import '../../../../theme_color.dart';
 
 class StatisticsFilterChip extends HookConsumerWidget {
@@ -6,7 +7,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<String> options = ['하이테크', '일반현장', '조선소', '플랜트'];
+    final List<String> options = ['하이테크', '일반현장', '조선소','플랜트','전체'];
     final selectedValue = useState<String?>(null);
     final _scrollController = useScrollController(); // 🎯 스크롤 컨트롤러 추가
 
@@ -55,6 +56,12 @@ class StatisticsFilterChip extends HookConsumerWidget {
                   child: GestureDetector(
                     onTap: () {
                       selectedValue.value = option;
+
+                      if (option == '전체') {
+                        ref.read(payStatsNotifierProvider.notifier).showAllStats();
+                      } else {
+                        ref.read(payStatsNotifierProvider.notifier).showSiteStats(option);
+                      }
                       _scrollToSelected(index, width);
                     },
                     child: AnimatedContainer(
@@ -62,10 +69,13 @@ class StatisticsFilterChip extends HookConsumerWidget {
                       height: height > 750 ? (width > 400 ? 27 : 25) : 24,
                       padding: EdgeInsets.symmetric(horizontal: width > 370 ? 8 : 4, vertical: 4),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.grey.shade300 : Colors.grey.shade200,
+                        color:
+                        option == '전체' ? Colors.green.shade100 :
+                        isSelected ? Colors.grey.shade300 : Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: isSelected ? Colors.grey.shade600 : Colors.grey.shade400,
+                          color: option == '전체' ? Colors.green.shade400 :
+                          isSelected ? Colors.grey.shade600 : Colors.grey.shade400,
                           width: isSelected ? 1.5 : 1.25,
                         ),
                         boxShadow: [
@@ -77,15 +87,17 @@ class StatisticsFilterChip extends HookConsumerWidget {
                         ],
                       ),
                       child: Text(
-                        '#$option',
+                        option == '전체' ? '@${option}' : '#$option',
                         textScaler: TextScaler.noScaling,
                         style: TextStyle(
                           height: textHeight,
+                          letterSpacing: Platform.isAndroid ? 1.0 : null,
                           fontSize: height > 750
-                              ? (width > 400 ? 14.5 : width < 370 ? 11.4 : 13)
+                              ? (width > 400 ? 15 : width < 370 ? 11.5 : 12.5)
                               : 11.5,
                           fontWeight: FontWeight.bold,
-                          color: isSelected ? Colors.black : Colors.grey.shade800,
+                          color: option == '전체' ? Colors.green.shade900 :
+                          isSelected ? Colors.black : Colors.grey.shade800,
                         ),
                       ),
                     ),
@@ -95,43 +107,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
             ),
           ),
         ),
-        const SizedBox(width: 8),
 
-        GestureDetector(
-          onTap: (){},
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: height > 750 ? (width > 400 ? 27 : 25) : 24,
-            padding: EdgeInsets.symmetric(horizontal: width > 370 ? 8 : 4, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.green.shade100,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.green.shade400,
-                width: 1.25,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade300,
-                  blurRadius: 4,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Text(
-              '@@',
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                height: textHeight,
-                fontSize: height > 750
-                    ? (width > 400 ? 14.5 : width < 370 ? 11.4 : 13)
-                    : 11.5,
-                fontWeight: FontWeight.bold,
-                color:  Colors.green.shade800,
-              ),
-            ),
-          ),
-        ),
 
       ],
     );

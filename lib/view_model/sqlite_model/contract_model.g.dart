@@ -22,7 +22,7 @@ final viewContractProvider = FutureProvider<List<LabourCondition>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ViewContractRef = FutureProviderRef<List<LabourCondition>>;
-String _$addContractHash() => r'eba80dcf8e981cedcfb862617bb0a0188185b98b';
+String _$addContractHash() => r'699abecbd2b72ba225daf075b9e72066c14577de';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -173,7 +173,7 @@ class _AddContractProviderElement extends AutoDisposeFutureProviderElement<void>
   LabourCondition get condition => (origin as AddContractProvider).condition;
 }
 
-String _$updateContractHash() => r'8415c50cf3a0aa02b65a3a3e2831b7f7df658814';
+String _$updateContractHash() => r'5eccd8650dc0b9138080959e3f19049b4ff5ec42';
 
 /// See also [updateContract].
 @ProviderFor(updateContract)
@@ -303,7 +303,7 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
-String _$clearContractHash() => r'bffa90a6ef97527b68d69511d2e503c9e5f78d5d';
+String _$clearContractHash() => r'9c2f4c31365bca589a4530878746413b875df7b1';
 
 /// See also [clearContract].
 @ProviderFor(clearContract)

@@ -14,9 +14,9 @@ class PopupWidget extends ConsumerWidget {
       child: IconButton(
         onPressed: null,
         icon: Icon(
-          Icons.menu,
-          size: appWidth >= 450 ? 30 : appWidth > 400 ? 25 : 22.5,
-          color: Colors.black,
+          Icons.calendar_today_outlined,
+          size: appWidth >= 450 ? 27.5 : appWidth > 400 ? 25 : 22.5,
+          color: Colors.grey.shade800,
         ),
       ),
       offset: const Offset(35, 35),
@@ -33,7 +33,7 @@ class PopupWidget extends ConsumerWidget {
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
                         fontSize: appWidth > 450 ? 16 : 13,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                       ),
                     ),
                   ],

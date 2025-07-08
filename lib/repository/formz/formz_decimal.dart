@@ -21,8 +21,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   }
 
   Future<void> onChangeDecimal(double number) async {
-
-
     final time = ref.watch(timeManagerProvider.notifier).DaySelected;
     final pay = ref.watch(viewContractProvider).value!.last.normal;
 
@@ -47,8 +45,10 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     final date = ref.watch(timeManagerProvider).selected;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
+
     try{
       ref.read(addHistoryProvider(calculated, date));
+
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
 

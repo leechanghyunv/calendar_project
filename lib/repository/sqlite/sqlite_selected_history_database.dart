@@ -17,16 +17,18 @@ Future<Database> initSelectedHistory( ref) async {
 
   return await openDatabase(
     path,
-    version: 2, // ← 기존 버전보다 1 이상으로 변경
+    version: 3, // ← 기존 버전보다 1 이상으로 변경
     onCreate: (db, version) async {
       await db.execute('''
       CREATE TABLE selected_history(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         startDate TEXT NOT NULL,
         endDate TEXT NOT NULL,
+        
         duration INTEGER NOT NULL DEFAULT 0,
         memo TEXT NOT NULL DEFAULT '',
         money REAL NOT NULL DEFAULT 1.0,
+        afterTax REAL NOT NULL DEFAULT 1.0,  -- 🆕 추가
         record REAL NOT NULL DEFAULT 1.0,
         job TEXT NOT NULL DEFAULT ''
       )
@@ -35,6 +37,9 @@ Future<Database> initSelectedHistory( ref) async {
     onUpgrade: (db, oldVersion, newVersion) async {
       if (oldVersion < 2) {
         await db.execute('ALTER TABLE selected_history ADD COLUMN endDate TEXT NOT NULL DEFAULT ""');
+      }
+      if (oldVersion < 3) {  // 🆕 버전 3 마이그레이션
+        await db.execute('ALTER TABLE selected_history ADD COLUMN afterTax REAL NOT NULL DEFAULT 1.0');
       }
     },
   );

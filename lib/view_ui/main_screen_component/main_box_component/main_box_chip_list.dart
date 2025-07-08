@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/view_model/view_provider/display_view_record_model.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:path/path.dart' as go;
 import '../../../core/widget/toast_msg.dart';
@@ -15,9 +16,22 @@ class ChipList extends HookConsumerWidget {
 
     final appWidth = MediaQuery.of(context).size.width;
     final selectedIndex = ref.watch(selectedChipIndexProvider);
+    final displayValue = ref.watch(displayValueProvider);
 
-    return Container(
+    final formZRefNot = ref.decimalWatch;
+    final formZRefRead = ref.decimalRead;
 
+    final chipList = switch (displayValue) {
+      AsyncData(value: final model) => model.chipList,
+      _ => <Map<String, dynamic>>[],
+    };
+
+    final displayVal = switch (displayValue) {
+      AsyncData(value: final model) => model.valueChange,
+      _ => false,
+    };
+
+      return Container(
       height: switch (appWidth) {
         > 420 => 24.5,
         > 400 => 23.5,
@@ -25,9 +39,9 @@ class ChipList extends HookConsumerWidget {
       },
 
       width: switch (appWidth) {
-        > 450 => appWidth * 0.41,
-        > 400 => appWidth * 0.39,
-        _ => appWidth * 0.41,
+        > 450 => appWidth * 0.43,
+        > 400 => appWidth * 0.43,
+        _ => appWidth * 0.43,
       },
 
       child: ListView.builder(
@@ -35,35 +49,39 @@ class ChipList extends HookConsumerWidget {
           itemCount: chipList.length,
           itemBuilder: (context,index){
             return Padding(
-              padding:  EdgeInsets.symmetric(horizontal: appWidth > 400 ? 4 : 3),
+              padding:  EdgeInsets.symmetric(
+                  horizontal: appWidth > 400
+                      ? 4
+                      : appWidth < 370 ? 1.75 :  3,
+              ),
               child: GestureDetector(
-                  onTap: () {
-                    switch (ref.contract) {
-                      case AsyncData(value: final conditions) when conditions.isNotEmpty:
-                        final condition = conditions.last;
-                        switch (index) {
-                          case 0:
-                            enrollMsg(ref.selected, '정상근무');
-                            ref.read(addHistoryProvider(condition.normal, ref.selected));
-                            break;
-                          case 1:
-                            enrollMsg(ref.selected, '연장근무');
-                            ref.read(addHistoryProvider(condition.extend, ref.selected));
-                            break;
-                          case 2:
-                            enrollMsg(ref.selected, '야간근무');
-                            ref.read(addHistoryProvider(condition.night, ref.selected));
-                            break;
-                        }
-                      case AsyncData(value: final conditions) when conditions.isEmpty:
-                        customMsg('근로조건을 우선 입력해주세요');
-                        return;
+                  onTap: () async {
+              switch (ref.contract) {
+                case AsyncData(value: final conditions) when conditions.isNotEmpty:
+                  final condition = conditions.last;
+                  if (displayVal) {
+                    switch (displayValue) {
+                      case AsyncData(value: final model):
+                        final values = [model.normal, model.extended, model.night];
+                        formZRefRead.onChangeDecimal(values[index]);
+                        await Future.delayed(const Duration(milliseconds: 100));
+                        formZRefRead.onSubmit();
+                        break;
                     }
-                    ref.read(selectedChipIndexProvider.notifier).state =
-                    selectedIndex == index ? null : index;
-
-                  },
-
+                  } else {
+                    final workTypes = ['정상근무', '연장근무', '야간근무'];
+                    final conditionValues = [condition.normal, condition.extend, condition.night];
+                    enrollMsg(ref.selected, workTypes[index]);
+                    ref.read(addHistoryProvider(conditionValues[index], ref.selected));
+                  }
+                  break;
+                case AsyncData(value: final conditions) when conditions.isEmpty:
+                  customMsg('근로조건을 우선 입력해주세요');
+                  return;
+              }
+              ref.read(selectedChipIndexProvider.notifier).state =
+              selectedIndex == index ? null : index;
+              },
                 onTapUp: (details){
                   switch (ref.contract){
                     case AsyncData(value: final conditions) when conditions.isNotEmpty:
@@ -100,13 +118,6 @@ class ChipList extends HookConsumerWidget {
         _ => 19,
       },
 
-      width: switch (width) {
-        > 450 => 52,
-        > 420 =>  48,
-        > 400 =>  44.5,
-        _ => 44,
-      },
-
       decoration: BoxDecoration(
         color: Colors.grey.shade200, // 드래그 중 색상 변경
         borderRadius: BorderRadius.circular(10.0),
@@ -129,7 +140,6 @@ class ChipList extends HookConsumerWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-
               Platform.isAndroid ? SvgPicture.asset(
                 'assets/${chipData['icon']!}.svg',
                 width: switch (width) {
@@ -150,7 +160,13 @@ class ChipList extends HookConsumerWidget {
                 textScaler: TextScaler.noScaling,
                 ' ${chipData['value']!} ',
                 style:  TextStyle(
-                  fontSize: switch (width) {
+                  fontSize: Platform.isAndroid
+                      ? switch (width) {
+                    > 450 => 15.5,
+                    > 420 => 13.5,
+                    > 400 => 13,
+                    _ => 12.5,
+                  } : switch (width) {
                     > 450 => 14,
                     > 420 => 12,
                     > 400 => 11.5,
@@ -168,25 +184,3 @@ class ChipList extends HookConsumerWidget {
     );
   }
 }
-
-final List<Map<String,dynamic>> chipList = [
-  {
-    'value' : Platform.isAndroid ? '1.0' : '🚀1.0',
-    'icon' : 'star',
-    'color' :  Colors.black,
-
-  },
-  {
-    'value' : Platform.isAndroid ? '1.5' : '🔥1.5',
-    'icon' : 'cuboid',
-    'color' :  Colors.black,
-
-  },
-  {
-    'value' : Platform.isAndroid ? '2.0' : '🎉2.0',
-    'icon' : 'zap',
-    'color' :  Colors.black,
-  },
-
-];
-

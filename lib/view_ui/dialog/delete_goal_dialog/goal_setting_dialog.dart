@@ -15,9 +15,12 @@ class GoalSettingDialog extends HookConsumerWidget {
     final _controller = useTextEditingController();
 
     ref.contractForm;
+
     final appWidth = MediaQuery.of(context).size.width;
     final formzRefNot = ref.formzWatch;
     final formzRefread = ref.formzRead;
+
+
 
     return AlertDialog(
       title: Column(
@@ -27,9 +30,10 @@ class GoalSettingDialog extends HookConsumerWidget {
               TextWidget('목표금액 수정', 17,appWidth),
             ],
           ),
+          SizedBox(height: 2.5),
           Row(
             children: [
-              TextWidget('목표금액을 수정해주세요', 11,appWidth,color: Colors.grey.shade500),
+              TextWidget('목표금액이 화면에 반영됩니다', 11,appWidth,color: Colors.grey.shade500),
             ],
           ),
         ],
@@ -40,6 +44,7 @@ class GoalSettingDialog extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              height: 60,
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
                 color: Colors.grey[100],
@@ -56,15 +61,19 @@ class GoalSettingDialog extends HookConsumerWidget {
                 ],
                 borderRadius: BorderRadius.circular(7.5),
               ),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(5.0.w, 0.0, 0.0, 0.0),
-                child: SettingBox(
-                  controller: _controller,
-                  onChanged: (val) {
-                    final cleanedValue = _controller.text.replaceAll(',', '');
-                    formzRefread.onChangeGoal(cleanedValue);
-                  },
-                ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(5.0.w, 0.0, 0.0, 0.0),
+                    child: SettingBox(
+                      controller: _controller,
+                      onChanged: (val) {
+                        final cleanedValue = _controller.text.replaceAll(',', '');
+                        formzRefread.onChangeGoal(cleanedValue);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 7.5),
@@ -139,10 +148,15 @@ class SettingBox extends ConsumerWidget {
 
   const SettingBox({super.key,required this.onChanged, required this.controller,});
 
+
+
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+
+
     return TextFormField(
       controller: controller,
+
       autofocus: true,
       cursorColor: Colors.grey.shade500,
       keyboardType: TextInputType.number,
