@@ -7,34 +7,51 @@ Widget initialText(double height) {
     fontSize: fontSize,
     color: Colors.black,
   );
-  return Text.rich(
-    TextSpan(
-      children: [
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text.rich(
         TextSpan(
-          text: '우선 근로조건 설정',
-          style: baseStyle.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: fontSize + 0.5,
-          ),
-        ),
-        TextSpan(
-          text: '을 하셔야 원활하게 이용 하실 수 있습니다. 근로조건 설정에는 설문조사가 포함되어 있지만 ',
-          style: baseStyle,
-        ),
-        TextSpan(
-          text: '원치 않으시면 제외 가능',
-          style: baseStyle.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: fontSize + 0.5,
-          ),
-        ),
-        TextSpan(
-          text: '합니다. ',
-          style: baseStyle,
-        ),
+          children: [
+            TextSpan(
+              text: '근무지,직무',
+              style: baseStyle.copyWith(
+                fontWeight: FontWeight.w700,
+                fontSize: fontSize + 1.25,
+              ),
+            ),
+            TextSpan(
+              text: '에 대한 아주 간단한 설정이 있습니다. ',
+              style: baseStyle.copyWith(
+              ),
+            ),
+            TextSpan(
+              text: ' 선택사항이며, 건너뛰기가 가능합니다. ',
+              style: baseStyle.copyWith(
+              ),
+            ),
+            TextSpan(
+              text: '통계 자료로 활용',
+              style: baseStyle.copyWith(
+                backgroundColor: Colors.green.shade100,
+                fontWeight: FontWeight.w700,
+                fontSize: fontSize + 1.25,
+              ),
+            ),
+            TextSpan(
+              text: ' 됩니다.',
+              style: baseStyle.copyWith(
 
-      ],
-    ),
-    textScaler: TextScaler.noScaling,
+              ),
+            ),
+          ],
+        ),
+        textScaler: TextScaler.noScaling,
+      ),
+      SizedBox(height: 5),
+
+
+
+    ],
   );
 }

@@ -6,6 +6,7 @@ import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../chart_box_conponent/chart_in_dialog.dart';
+import 'b_type_segment_button.dart';
 import 'component/main_box_component.dart';
 
 
@@ -52,7 +53,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0),
       child: Container(
-        height: appWidth > 400 ? 135 : 110,
+        height: 135,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: Colors.white,
@@ -71,10 +72,9 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
             horizontal: appWidth > 400 ? 10.0 : 8.0,
           ),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-
                 children: [
                   Container(
                     alignment: Alignment.center,
@@ -110,6 +110,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: ChartInDialog(),
+                    /// ChartInDialog()
                   ),
                 ],
               ),
@@ -118,21 +119,26 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
               Row(
                 children: [
                   CircularComponent(
-                    backgroundColor: Colors.grey.shade50,
+                    backgroundColor: Colors.grey.shade100,
                     width: 85,
-                    child: Text(
-                      textScaler: TextScaler.noScaling,
-                      '$payString',
-                      style: TextStyle(
-                        fontSize: appWidth > 400 ? 14 : 13.5,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          textScaler: TextScaler.noScaling,
+                          '$payString',
+                          style: TextStyle(
+                            fontSize: appWidth > 400 ? 14 : 13.5,
 
-                        color: Colors.grey.shade900,
-                        fontWeight: FontWeight.w600,
-                      ),
+                            color: Colors.grey.shade900,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   CircularComponent(
-                    backgroundColor: Colors.green.shade50,
+                    backgroundColor: Colors.white,
                     width: 65,
                     child: Text(
                       textScaler: TextScaler.noScaling,
@@ -145,20 +151,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                       ),
                     ),
                   ),
-                  CircularComponent(
-                    backgroundColor: Colors.blue.shade50,
-                    width: 50,
-                    child: Text(
-                      textScaler: TextScaler.noScaling,
-                      '$workDay일',
-                      style: TextStyle(
-                        fontSize: appWidth > 400 ? 14 : 13.5,
 
-                        color: Colors.grey.shade900,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
 
                   Spacer(),
 
@@ -170,7 +163,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                           icon: Icons.delete_outlined,
                           iconColor: Colors.black,
                           borderColor: Colors.grey.shade100,
-                          backgroundColor: Colors.grey.shade100,
+                          // backgroundColor: Colors.grey.shade100,
                           borderWidth: 0.5,
                           size: appWidth > 400 ? 32 : 27.5,
                       onPressed: () {
@@ -195,7 +188,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     icon: Icons.add,
                     iconColor: Colors.black,
                     borderColor: Colors.grey.shade100,
-                    backgroundColor: Colors.grey.shade100,
+                    // backgroundColor: Colors.grey.shade100,
                     borderWidth: 0.5,
                     size: appWidth > 400 ? 32 : 27.5,
                     onPressed: () {

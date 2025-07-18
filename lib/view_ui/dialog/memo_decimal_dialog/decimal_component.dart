@@ -1,6 +1,8 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 
+import '../../../theme_color.dart';
+
 
 class TitleRow extends ConsumerWidget {
   const TitleRow({super.key});
@@ -17,6 +19,7 @@ class TitleRow extends ConsumerWidget {
           '${ref.month}월 ${ref.day}일 등록',
           textScaler: TextScaler.noScaling,
           style: TextStyle(
+              height: textHeight,
               fontSize: appWidth > 450 ? 18 : appWidth > 410 ? 16 : 15,
               fontWeight: FontWeight.bold),
         ),
@@ -33,8 +36,9 @@ Widget  decimalContainer1(double width) => Container(
       width: width > 410 ? 80 : 75,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.grey.shade300,
+        color: Colors.grey.shade100,
         borderRadius: BorderRadius.circular(8),
+        border: Border.all(width: 0.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
@@ -42,9 +46,10 @@ Widget  decimalContainer1(double width) => Container(
           '휴무는 0처리',
           textScaler: TextScaler.noScaling,
           style: TextStyle(
+              height: textHeight,
               color: Colors.grey.shade900,
               fontSize: width > 410 ? 12 : 11,
-              fontWeight: FontWeight.w900),
+              fontWeight: Platform.isAndroid  ? FontWeight.w600 : FontWeight.w900),
         ),
       ),
     );

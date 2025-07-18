@@ -7,7 +7,7 @@ part of 'formz_decimal.dart';
 // **************************************************************************
 
 String _$formzDecimalValidatorHash() =>
-    r'1e604e48bb835ede9650e575ee27844cb63d7888';
+    r'e53a63f27f34901dfec3e0d1579ca1844dc5aa1f';
 
 /// See also [FormzDecimalValidator].
 @ProviderFor(FormzDecimalValidator)

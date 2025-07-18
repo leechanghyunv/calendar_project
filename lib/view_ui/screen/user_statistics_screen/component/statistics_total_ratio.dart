@@ -1,4 +1,3 @@
-
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';
 
@@ -20,14 +19,14 @@ class StatisticsTotalRatio extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
 
     ratiosAsync.whenData((d) {
-      siteName = d.first.siteName;
-      site_ratio = d.first.percentage.toStringAsFixed(1);
+      siteName = d.siteName;
+      site_ratio = d.percentage.toStringAsFixed(1);
 
     });
 
     jobRatiosAsync.whenData((d) {
-      job = d.first.jobName;
-      job_ratio = d.first.percentage.toStringAsFixed(1);
+      job = d.jobName;
+      job_ratio = d.percentage.toStringAsFixed(1);
 
     });
 
@@ -42,7 +41,7 @@ class StatisticsTotalRatio extends ConsumerWidget {
           child: Text.rich(
             TextSpan(
               style: TextStyle(
-                fontSize: height > 800 ? 16.5 : 14,
+                fontSize: width > 400 ? 21 : 19,
                 color: Colors.grey.shade600,
                 fontWeight: FontWeight.w600,
               ),
@@ -52,7 +51,7 @@ class StatisticsTotalRatio extends ConsumerWidget {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w900,
-                    fontSize: 20,
+
                   ),
                 ),
                 TextSpan(text: ' 비율은 '),
@@ -60,44 +59,62 @@ class StatisticsTotalRatio extends ConsumerWidget {
                   text: '${site_ratio}%',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                TextSpan(text: '로 가장 많습니다.\n'),
-                TextSpan(
-                  text: '🔩${job}',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.w900,
-                    letterSpacing: 0.75,
-                    fontSize: height > 800 ? 16.5 : 15,
-                  ),
-                ),
-                TextSpan(text: '는 '),
-                TextSpan(
-                  text: '${job_ratio}%',
-                  style: TextStyle(
-                    color: Colors.black,
-                    letterSpacing: 0.75,
-                    fontSize: height > 800 ? 16.5 : 15,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                TextSpan(
-                  text: ' 로 가장 많이 선택된 공종입니다.',
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                    letterSpacing: 0.75,
-                    fontSize: height > 800 ? 12.5 : 11.5,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
+                TextSpan(text: ' 입니다.'),
+
 
               ],
             ),
           ),
         ),
+        SizedBox(height: 5),
+        Center(
+          child: Text.rich(
+              TextSpan(
+                style: TextStyle(
+                  fontSize: width > 400 ? 14.5 : 13.5,
+                  color: Colors.grey.shade600,
+                  fontWeight: FontWeight.w600,
+                ),
+                children: [
+                  TextSpan(
+                    text: '${job}',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900,
+                      letterSpacing: 0.75,
+                      fontSize: height > 800 ? 17.5 : 15,
+                    ),
+                  ),
+                  TextSpan(text: ' 공종은 ',
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      letterSpacing: 0.75,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${job_ratio}%',
+                    style: TextStyle(
+                      color: Colors.black,
+                      letterSpacing: 0.75,
+                      fontSize: height > 800 ? 17.5 : 15,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  TextSpan(
+                    text: ' 로 나타납니다',
+                    style: TextStyle(
+                      color: Colors.grey.shade600,
+                      letterSpacing: 0.75,
+                    ),
+                  ),
+                ]
+              ),
+          ),
+        ),
+
 
       ],
     );

@@ -1,3 +1,4 @@
+import '../../view_model/decimal_value_provider.dart';
 import '../repository_import.dart';
 
 import '../time/calendar_time_controll.dart';
@@ -24,11 +25,13 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     final time = ref.watch(timeManagerProvider.notifier).DaySelected;
     final pay = ref.watch(viewContractProvider).value!.last.normal;
 
+    ref.read(decimalRawInputProvider.notifier).update(number);
+
     final decimal = DecimalInput.dirty(
       DecimalPayModel(
       month: time.month.toString(),
       day: time.day.toString(),
-      decimal: number,
+      decimal: number, /// number가 공수기록임
       pay: pay,
     ),
     );
@@ -41,13 +44,14 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     );
   }
 
-  void onSubmit(){
+  void onSubmit({double? decimal}) async {
     final date = ref.watch(timeManagerProvider).selected;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
 
     try{
-      ref.read(addHistoryProvider(calculated, date));
+      await ref.read(
+          addHistoryProvider(calculated, date, decimal: decimal));
 
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);

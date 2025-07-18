@@ -3,6 +3,10 @@ import 'package:calendar_project_240727/data/entities/pay_statistics.dart';
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';
 import '../../statistic_screen/component/info_box.dart';
+import '../provider/selected_site_provider.dart';
+
+
+
 
 class StatisticsBox extends HookConsumerWidget {
   const StatisticsBox({super.key});
@@ -10,11 +14,10 @@ class StatisticsBox extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final statsAsync = ref.watch(payStatsNotifierProvider);
+    final selectedSite = ref.watch(selectedSiteProvider); // ✅ 선택된 사이트
 
     final  value = statsAsync
         .whenData((d) => d).value ?? PayStatistics();
-
-
 
     return Column(
       children: [
@@ -34,22 +37,46 @@ class StatisticsBox extends HookConsumerWidget {
             Expanded(
               flex: 1,
               child: InfoBox(
+                name: '전기 평균',
+                unit: '만원',
+                value: _formatPay(value.electricAverage.toInt()),
+                text: '${selectedSite} 주요공종인 전기 공종의 평균일당은 ${_formatPay(value.electricAverage.toInt())}만원입니다',
+              ),
+            ),
+          ],
+        ),
+
+        SizedBox(height: 15),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: InfoBox(
                 name: '최대값',
                 unit: '만원',
                 value: _formatPay(value.maximum),
                 text: '일반적으로 일당이 높은 공종은 공기가 짧거나 위험부담이 큰 공종입니다',
               ),
             ),
+            SizedBox(width: 10,),
+            Expanded(
+              flex: 1,
+              child: InfoBox(
+                name: '덕트 평균',
+                unit: '만원',
+                value: _formatPay(value.ductAverage.toInt()),
+                text: '${selectedSite} 주요공종인 덕트 공종의 평균일당은 ${_formatPay(value.ductAverage.toInt())}만원입니다',
+              ),
+            ),
           ],
         ),
-
-        SizedBox(height: 10),
+        SizedBox(height: 15),
         Row(
           children: [
             Expanded(
               flex: 1,
               child: InfoBox(
-                name: '최소값',
+                name: '최초값',
                 unit: '만원',
                 value: _formatPay(value.minimum),
                 text: '특히 일반현장에서 최대값, 최소값의 차이가 가장 크게 나타났습니다',
@@ -59,14 +86,15 @@ class StatisticsBox extends HookConsumerWidget {
             Expanded(
               flex: 1,
               child: InfoBox(
-                name: '세율',
-                unit: '%',
-                value: '3.3',
-                text: '3.3%의 비율이 가장 많습니다. 이외 나머지는 10% 내외로 받습니다',
+                name: '배관 평균',
+                unit: '만원',
+                value: _formatPay(value.pipeAverage.toInt()),
+                text: '${selectedSite} 주요공종인 배관 공종의 평균일당은 ${_formatPay(value.pipeAverage.toInt())}만원입니다',
               ),
             ),
           ],
         ),
+
       ],
     );
 

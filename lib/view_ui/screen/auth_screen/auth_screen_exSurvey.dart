@@ -38,7 +38,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
         if (!_scrollController.hasClients) return;
 
         final currentOffset = _scrollController.offset;
-        final targetOffset = currentOffset + 80;
+        final targetOffset = currentOffset + 100;
 
         _scrollController.animateTo(
           targetOffset,
@@ -83,10 +83,13 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
-        ref.read(selectedIndexProvider.notifier).setIndex(1);
-        OneSignalNotification.init();
-        context.go('/calendar');
-        Navigator.of(context, rootNavigator: true).pop();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted) {
+            ref.read(selectedIndexProvider.notifier).setIndex(1);
+            context.go('/calendar');
+          }
+        });
+
       }
     });
 
@@ -263,6 +266,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                      onSubmitted: (val) {
                        dayPayFocusNode.requestFocus();
                        ref.read(conditionListProvider.notifier).updateCondition(2, val);
+                       _scrollToBottom();
                      },
                      onChanged: (val) {
 

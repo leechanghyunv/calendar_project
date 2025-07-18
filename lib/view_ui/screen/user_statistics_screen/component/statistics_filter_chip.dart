@@ -1,6 +1,9 @@
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';
 import '../../../../theme_color.dart';
+import '../provider/selected_site_provider.dart';
 
 class StatisticsFilterChip extends HookConsumerWidget {
   const StatisticsFilterChip({super.key});
@@ -56,11 +59,13 @@ class StatisticsFilterChip extends HookConsumerWidget {
                   child: GestureDetector(
                     onTap: () {
                       selectedValue.value = option;
-
+                      ref.read(selectedSiteProvider.notifier).setSite(option);
                       if (option == '전체') {
                         ref.read(payStatsNotifierProvider.notifier).showAllStats();
+                        customMsg('전체 통계');
                       } else {
                         ref.read(payStatsNotifierProvider.notifier).showSiteStats(option);
+                        customMsg('${option} 통계');
                       }
                       _scrollToSelected(index, width);
                     },

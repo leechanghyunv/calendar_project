@@ -22,12 +22,12 @@ final payStatsNotifierProvider =
 );
 
 typedef _$PayStatsNotifier = AutoDisposeAsyncNotifier<PayStatistics>;
-String _$siteRatioNotifierHash() => r'8f1acda8a8d13a8559dd76a4f723afe066918072';
+String _$siteRatioNotifierHash() => r'0e2a4869d477c4bed46c4298994cbf339a36e6cf';
 
 /// See also [SiteRatioNotifier].
 @ProviderFor(SiteRatioNotifier)
-final siteRatioNotifierProvider = AutoDisposeAsyncNotifierProvider<
-    SiteRatioNotifier, List<SiteRatio>>.internal(
+final siteRatioNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<SiteRatioNotifier, SiteRatio>.internal(
   SiteRatioNotifier.new,
   name: r'siteRatioNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -37,13 +37,13 @@ final siteRatioNotifierProvider = AutoDisposeAsyncNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$SiteRatioNotifier = AutoDisposeAsyncNotifier<List<SiteRatio>>;
-String _$jobRatioNotifierHash() => r'c64b60548924414a98074f85868c2409aa573a2a';
+typedef _$SiteRatioNotifier = AutoDisposeAsyncNotifier<SiteRatio>;
+String _$jobRatioNotifierHash() => r'fd981b9b6c1aaa8d467a2e5b8084aa55170e64ee';
 
 /// See also [JobRatioNotifier].
 @ProviderFor(JobRatioNotifier)
 final jobRatioNotifierProvider =
-    AutoDisposeAsyncNotifierProvider<JobRatioNotifier, List<JobRatio>>.internal(
+    AutoDisposeAsyncNotifierProvider<JobRatioNotifier, JobRatio>.internal(
   JobRatioNotifier.new,
   name: r'jobRatioNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -53,6 +53,6 @@ final jobRatioNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$JobRatioNotifier = AutoDisposeAsyncNotifier<List<JobRatio>>;
+typedef _$JobRatioNotifier = AutoDisposeAsyncNotifier<JobRatio>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -16,21 +16,30 @@ Widget build(BuildContext context) {
     resizeToAvoidBottomInset: true,
     backgroundColor: Colors.grey.shade50,
     body: Center(
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
+      child: Scrollbar(
+        thickness: 6,         // 스크롤바 두께
+        radius: Radius.circular(4.0),  // 둥근 모서리
+        thumbVisibility: true,  // 항상 스크롤바 표시
+
         controller: scrollController,
-        child: Container(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.of(context).size.height
-                - MediaQuery.of(context).padding.top
-                - MediaQuery.of(context).padding.bottom, // SafeArea 높이
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: FormBuilder(
-              autovalidateMode: AutovalidateMode.always,
-              key: authKey,
-              child: widget,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: scrollController,
+          child: Container(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.of(context).size.height
+                  - MediaQuery.of(context).padding.top
+                  - MediaQuery.of(context).padding.bottom, // SafeArea 높이
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                  vertical: 16.0),
+              child: FormBuilder(
+                autovalidateMode: AutovalidateMode.always,
+                key: authKey,
+                child: widget,
+              ),
             ),
           ),
         ),

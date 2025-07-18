@@ -2,7 +2,6 @@ import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
 import '../../main_screen_component/column_box_component/indicator_box.dart';
 import '../auth_screen/component/auth_text.dart';
 import '../statistic_screen/component/function_chip.dart';
@@ -42,19 +41,7 @@ class UserStatisticsScreen extends StatelessWidget {
                               children: [
                                 bigText('근로조건 설정',height),
                                 Spacer(),
-                                GestureDetector(
-                                  onTap: (){
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => InitialLaunchDialog()
-                                    );
-                                  },
-                                  child: Icon(
-                                    Icons.more_vert,
-                                    size: (width > 400 ? 25.0 : 22.5),
-                                    color: Colors.grey.shade500,
-                                  ),
-                                ),
+
                               ],
                             ),
                             SizedBox(height: 1.5),
@@ -69,7 +56,7 @@ class UserStatisticsScreen extends StatelessWidget {
 
                         SizedBox(height: height > 750 ? 20 : 15),
                         Container(
-                          height: height > 850 ? 200 : 180,
+                          height: height > 800 ? 200 : 190,
                           width: MediaQuery.of(context).size.width,
                           decoration: UserSettingBoxDecoration,
                           child: Padding(
@@ -105,7 +92,8 @@ class UserStatisticsScreen extends StatelessWidget {
                                         child: Padding(
                                           padding: EdgeInsets.all(2), // 원하는 크기로 조정
                                           child:  Text('설문없이 설정하기',
-                                            style: TextStyle(fontSize: 13.5,
+                                            style: TextStyle(
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey,
                                             ),
@@ -142,7 +130,7 @@ class UserStatisticsScreen extends StatelessWidget {
                   vertical: 8.0, horizontal: 18.0),
               child: SingleChildScrollView(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     StatisticsTotalRatio(),
                     SizedBox(height: height > 750 ? 30 : 15),

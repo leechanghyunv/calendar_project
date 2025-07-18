@@ -110,10 +110,10 @@ class DeleteChip extends HookConsumerWidget {
                   color: Colors.black,
                   fontSize: Platform.isAndroid
                       ? switch (appWidth) {
-                    > 450 => 15,
-                    > 420 => 13,
-                    > 400 => 12.5,
-                    _ => 12,
+                    > 450 => 14.5,
+                    > 420 => 12.5,
+                    > 400 => 12,
+                    _ => 11.5,
                   } : switch (appWidth) {
                     > 450 => 14,
                     > 420 => 12,

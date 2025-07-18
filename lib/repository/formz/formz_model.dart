@@ -150,7 +150,6 @@ class FormzValidator extends _$FormzValidator {
       isValid = false;
       state = state.copyWith(status: FormzStatus.invalid);
       errorMessages.add('세율을 입력해주세요');
-      // FocusScope.of(context).requestFocus(taxNode);
 
     }
 
@@ -210,17 +209,6 @@ class FormzValidator extends _$FormzValidator {
           ref.read(supaBaseServiceProvider).insertNote(contract);
         }
 
-        // ref.read(firebaseAnalyticsClassProvider.notifier).
-        // goalEvent({
-        //   'goal': contract.goal,
-        //   'tax': contract.tax,
-        //   'normal': contract.normal,
-        //   'extend': contract.extend,
-        //   'night': contract.night,
-        //   'day_pay': contract.subsidy,
-        //   'site': contract.site,
-        //   'job' : contract.job,
-        // });
 
         state = state.copyWith(status: FormzStatus.submissionSuccess);
         ref.invalidate(viewContractProvider);

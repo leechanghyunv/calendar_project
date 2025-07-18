@@ -16,7 +16,7 @@ class PopupWidget extends ConsumerWidget {
         icon: Icon(
           Icons.calendar_today_outlined,
           size: appWidth >= 450 ? 27.5 : appWidth > 400 ? 25 : 22.5,
-          color: Colors.grey.shade800,
+          color: Colors.grey.shade900,
         ),
       ),
       offset: const Offset(35, 35),

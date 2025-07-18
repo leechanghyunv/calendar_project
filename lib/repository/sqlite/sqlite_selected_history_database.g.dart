@@ -27,7 +27,7 @@ final selectedHistoryManagerProvider =
 typedef SelectedHistoryManagerRef
     = AutoDisposeFutureProviderRef<SelectedHistoryDatabase>;
 String _$initSelectedHistoryHash() =>
-    r'4fdab4cc404df6a9a13a4e7eb2c0072c90c52e71';
+    r'93ab89aeebd0a4b87f255dfeba9afe02b92ec754';
 
 /// See also [initSelectedHistory].
 @ProviderFor(initSelectedHistory)

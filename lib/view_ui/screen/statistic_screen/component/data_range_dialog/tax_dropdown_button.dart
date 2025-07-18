@@ -91,7 +91,8 @@ class TaxDropdownButton extends HookConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 4),
               child: Text(displayRate,
                   textScaler: TextScaler.noScaling,
-                  style: getStyle),
+                  style: getStyle,
+              ),
             ),
           );
         }).toList(),

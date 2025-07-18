@@ -6,7 +6,7 @@ part of 'date_range_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeRangeManagerHash() => r'da6c77270b0f18d26fba9db578044eb2729cc676';
+String _$timeRangeManagerHash() => r'bad61460dec3d0197f62627055933b9eaedd3627';
 
 /// See also [TimeRangeManager].
 @ProviderFor(TimeRangeManager)

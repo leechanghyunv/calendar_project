@@ -142,7 +142,7 @@ class InfoBox extends StatelessWidget {
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     fontSize: height > 750 ? (width >= 450 ? 36 : width > 400 ? 33.0 : (width < 370 ? 30.0 : 32.0)) : 26.0,
-                    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w800 : FontWeight.w900,
                   ),
                 ),
                 Spacer(),

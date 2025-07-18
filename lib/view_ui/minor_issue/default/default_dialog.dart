@@ -33,10 +33,10 @@ class _DefaultDialogState extends State<DefaultDialog> {
       content: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: Colors.grey.shade100,
+          // color: Colors.grey.shade100,
         ),
         child: Padding(
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(5.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,

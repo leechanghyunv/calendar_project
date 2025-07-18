@@ -90,10 +90,13 @@ class SettingScreen extends HookConsumerWidget {
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
-        ref.read(selectedIndexProvider.notifier).setIndex(1);
-        OneSignalNotification.init();
-        context.go('/calendar');
-        Navigator.of(context, rootNavigator: true).pop();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (context.mounted) {
+            ref.read(selectedIndexProvider.notifier).setIndex(1);
+            context.go('/calendar');
+          }
+        });
+
       }
     });
 

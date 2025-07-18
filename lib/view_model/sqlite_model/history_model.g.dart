@@ -323,7 +323,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'0cc44bb8bfa2bbbe37dbc33def11e69558fbec82';
+String _$addHistoryHash() => r'6dc292fd989ae9cd6ea51d2e2a16f7074053483b';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -337,11 +337,13 @@ class AddHistoryFamily extends Family<AsyncValue<void>> {
   /// See also [addHistory].
   AddHistoryProvider call(
     int pay,
-    DateTime date,
-  ) {
+    DateTime date, {
+    double? decimal,
+  }) {
     return AddHistoryProvider(
       pay,
       date,
+      decimal: decimal,
     );
   }
 
@@ -352,6 +354,7 @@ class AddHistoryFamily extends Family<AsyncValue<void>> {
     return call(
       provider.pay,
       provider.date,
+      decimal: provider.decimal,
     );
   }
 
@@ -375,12 +378,14 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [addHistory].
   AddHistoryProvider(
     int pay,
-    DateTime date,
-  ) : this._internal(
+    DateTime date, {
+    double? decimal,
+  }) : this._internal(
           (ref) => addHistory(
             ref as AddHistoryRef,
             pay,
             date,
+            decimal: decimal,
           ),
           from: addHistoryProvider,
           name: r'addHistoryProvider',
@@ -393,6 +398,7 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
               AddHistoryFamily._allTransitiveDependencies,
           pay: pay,
           date: date,
+          decimal: decimal,
         );
 
   AddHistoryProvider._internal(
@@ -404,10 +410,12 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
     required super.from,
     required this.pay,
     required this.date,
+    required this.decimal,
   }) : super.internal();
 
   final int pay;
   final DateTime date;
+  final double? decimal;
 
   @override
   Override overrideWith(
@@ -424,6 +432,7 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
         debugGetCreateSourceHash: null,
         pay: pay,
         date: date,
+        decimal: decimal,
       ),
     );
   }
@@ -437,7 +446,8 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
   bool operator ==(Object other) {
     return other is AddHistoryProvider &&
         other.pay == pay &&
-        other.date == date;
+        other.date == date &&
+        other.decimal == decimal;
   }
 
   @override
@@ -445,6 +455,7 @@ class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, pay.hashCode);
     hash = _SystemHash.combine(hash, date.hashCode);
+    hash = _SystemHash.combine(hash, decimal.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -458,6 +469,9 @@ mixin AddHistoryRef on AutoDisposeFutureProviderRef<void> {
 
   /// The parameter `date` of this provider.
   DateTime get date;
+
+  /// The parameter `decimal` of this provider.
+  double? get decimal;
 }
 
 class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
@@ -468,6 +482,8 @@ class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
   int get pay => (origin as AddHistoryProvider).pay;
   @override
   DateTime get date => (origin as AddHistoryProvider).date;
+  @override
+  double? get decimal => (origin as AddHistoryProvider).decimal;
 }
 
 String _$rangeExcludHolidayHash() =>

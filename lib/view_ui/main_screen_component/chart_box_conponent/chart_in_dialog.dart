@@ -1,8 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/theme_color.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
+import '../../../view_model/view_provider/calendar_switcher_model.dart';
 
 class ChartInDialog extends ConsumerStatefulWidget {
   const ChartInDialog({super.key});
@@ -50,14 +52,19 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
   @override
   Widget build(BuildContext context) {
 
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     final data = ref.watch(monthRecordProvider(ref.selected));
+
+    final switcher = ref.watch(calendarSwitcherProvider
+        .select((value) => value.valueOrNull ?? false));
 
     return GestureDetector(
       onTap: (){
         setState(() {
           selected = !selected;
         });
-
       },
       child: PopupMenuButton(
         color: Colors.grey.shade50,
@@ -176,10 +183,31 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                 ),
             ),
           ],
+
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.0),
-            child: Icon(
+            child: switcher
+                ? Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.grey.shade100,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 6.0),
+                child: Text('${ref.month}월기록',
+                  style: TextStyle(
+                      height: textHeight,
+                      fontSize: 12.5,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            )
+                : Icon(
               size: selected ? 22.5 : 25.5,
               Icons.more_horiz,
               color: Colors.grey.shade600,

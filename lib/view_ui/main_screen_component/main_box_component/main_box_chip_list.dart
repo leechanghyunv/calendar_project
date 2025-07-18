@@ -40,8 +40,8 @@ class ChipList extends HookConsumerWidget {
 
       width: switch (appWidth) {
         > 450 => appWidth * 0.43,
-        > 400 => appWidth * 0.43,
-        _ => appWidth * 0.43,
+        > 400 => appWidth * 0.45,
+        _ => appWidth * 0.454,
       },
 
       child: ListView.builder(
@@ -135,7 +135,7 @@ class ChipList extends HookConsumerWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(1.0),
+        padding: EdgeInsets.symmetric(horizontal: 3.0),
         child: Center(
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -162,17 +162,17 @@ class ChipList extends HookConsumerWidget {
                 style:  TextStyle(
                   fontSize: Platform.isAndroid
                       ? switch (width) {
-                    > 450 => 15.5,
-                    > 420 => 13.5,
-                    > 400 => 13,
-                    _ => 12.5,
+                    > 450 => 15,
+                    > 420 => 13,
+                    > 400 => 12.5,
+                    _ => 12,
                   } : switch (width) {
                     > 450 => 14,
                     > 420 => 12,
                     > 400 => 11.5,
                     _ => 11,
                   },
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w800,
                 ),
               ),
             ],

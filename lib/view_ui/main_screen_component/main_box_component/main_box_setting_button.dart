@@ -103,8 +103,6 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
               case ViewType.more:
                 ref.read(latestHistoryProvider);
                 ref.refreshState(context);
-              // case ViewType.setting:
-              //   showBasicModal(context);
             }
           },
           color: Colors.white,
@@ -139,10 +137,10 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                     color: Colors.black,
                     fontSize: Platform.isAndroid
                         ? switch (appWidth) {
-                      > 450 => 15,
-                      > 420 => 13,
-                      > 400 => 12.5,
-                      _ => 12,
+                      > 450 => 14.5,
+                      > 420 => 12.5,
+                      > 400 => 12,
+                      _ => 11.5,
                     } : switch (appWidth) {
                       > 450 => 14,
                       > 420 => 12,

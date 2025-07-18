@@ -41,11 +41,13 @@ Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
 }
 
 @riverpod
-Future<void> addHistory(AddHistoryRef ref, int pay, DateTime date) async {
+Future<void> addHistory(AddHistoryRef ref,
+    int pay, DateTime date,{double? decimal}) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final addCustom = ref.watch(formzDecimalValidatorProvider);
-  final recode = addCustom.decimalData.value.decimal;
+  /// value가 1.4일때 왜 1.5가 기록되는가
+  // final recode = addCustom.decimalData.value.decimal;
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
 
   final Map<String, dynamic> event = {};
@@ -87,15 +89,16 @@ Future<void> addHistory(AddHistoryRef ref, int pay, DateTime date) async {
             record: 0.0,
             memo: memoNote,
           );
-        } else {
+        } else if (decimal != null && decimal != 0.0){
           history = WorkHistory(
             date: date,
             comment: '기타근무',
             pay: pay, // 기본값 혹은 예외 처리
             colorCode: 'AB47BC',
-            record: recode,
+            record: decimal,
             memo: memoNote,
           );
+
         }
       },
       error: (err, trace) => print(err.toString()),

@@ -25,14 +25,13 @@ class InitialLaunchDialog extends HookConsumerWidget {
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
-        OneSignalNotification.init();
         Navigator.of(context).pop();
       }
     });
 
 
     return AlertDialog(
-      title: TextWidget(Platform.isAndroid ? '안녕하세요 워크캘린더입니다' : '🎉 안녕하세요 워크캘린더입니다',
+      title: TextWidget(Platform.isAndroid ? '워크캘린더 시작하기' : '🎉 워크캘린더 시작하기',
           16, width),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -76,14 +75,16 @@ class InitialLaunchDialog extends HookConsumerWidget {
                   onPressed: () {
                     showBasicModal(context,false);
                   },
-                  child: ButtonTextWidget('설문제외',15, color: Colors.black)
+                  child: ButtonTextWidget('빠른시작',15, color: Colors.black)
+                /// 설문제외 -> 빠른시작 으로 변경
               ),
               SizedBox(width: 10),
               TextButton(
                 onPressed: () {
                   showBasicModal(context,true);
                 },
-                child: ButtonTextWidget('설문포함',15),
+                /// 설문포함 -> 설문도 함께하기 로 변경
+                child: ButtonTextWidget('시작하기',15),
               ),
             ],
           ),

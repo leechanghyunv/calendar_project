@@ -22,6 +22,7 @@ class CalendarHeader extends ConsumerWidget {
           bottom: 2.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             '${DateFormat.yMMMM('ko_KR').format(day)}',
@@ -46,39 +47,42 @@ class CalendarHeader extends ConsumerWidget {
               letterSpacing: 1.2,
             ),
           ),
-          Row(
-            children: [
-              SizedBox(width: appWidth > 400 ? 17.5 : 10),
-              IconButton(
-                onPressed: () => ref.timeNot.moveToToday(),
-                icon: Container(
-                  height: appWidth >= 450 ? 27 : appWidth > 400 ? 25 : 22.5,
-                  width: 50,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(7.5)),
-                    border:
-                    Border.all(width: 1.5, color: Colors.grey.shade700),
-                    color: Colors.grey.shade100,
-                  ),
-                  child: Text(
-                    '${(DateTime.now().day).toString().padLeft(2,'0')}',
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey.shade800,
-                    ),
+          Spacer(),
+
+          GestureDetector(
+            onTap: () => ref.timeNot.moveToToday(),
+            child: Container(
+              height: appWidth >= 450 ? 27 : appWidth > 400 ? 25 : 22.5,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                border: Border.all(
+                    width: 1.5,
+                    color: Colors.grey.shade900),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 4.0),
+                child: Text(
+                  '${(DateTime.now().day).toString().padLeft(2, '0')}',
+                  textScaler: TextScaler.noScaling,
+                  style: TextStyle(
+                    fontSize: appWidth >= 450 ? 17 : 16,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.grey.shade800,
                   ),
                 ),
               ),
-              SizedBox(width: appWidth > 450 ? 10 : null),
-
-
-              PopupWidget(),
-              SizedBox(width: appWidth > 450 ? 10 : null),
-              SettingPopupWidget(),
-            ],
+            ),
           ),
+          SizedBox(width: 10),
+          SizedBox(width: appWidth > 450 ? 10 : null),
+          PopupWidget(),
+          SizedBox(width: appWidth > 450 ? 10 : null),
+          SettingPopupWidget(),
+
+
+
         ],
       ),
     );

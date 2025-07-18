@@ -124,17 +124,43 @@ class SelectedTime extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+
+    String hintValue() {
+      final data = ref.history.value;
+
+      final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day
+      );
+
+      try{
+        final existingMemo = data
+            ?.where((e) =>
+        e.date.year == selectedDate.year &&
+            e.date.month == selectedDate.month &&
+            e.date.day == selectedDate.day)
+            .firstOrNull
+            ?.memo;
+
+        return existingMemo?.isNotEmpty ?? false
+            ? ' ${existingMemo}'
+            : ' ${ref.selected.year}년 ${ref.selected.month}월 급여';
+      }catch(e){
+        return ' ${ref.selected.year}년 ${ref.selected.month}월 급여';
+      }
+    }
+
     final appWidth = MediaQuery.of(context).size.width;
+
     return Row(
       children: [
         Text(
             textScaler: TextScaler.noScaling,
-            ' ${ref.selected.year}년 ${ref.selected.month}월 급여',
+            hintValue(),
             style: TextStyle(
               letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : null,
               height: textHeight,
               color: Colors.grey.shade600,
               fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
               fontSize: switch (appWidth) {
                 > 450 => 14,
                 > 400 => 13,

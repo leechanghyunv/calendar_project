@@ -59,7 +59,8 @@ class SettingPopupWidget extends ConsumerWidget {
         PopupMenuItem(
           value: 'enroll',
           height: 30,
-          child: CalendarSettingBox('설문없이 근로설정', getStyle),
+          child: CalendarSettingBox('근로조건 설정하기', getStyle),
+
         ),
         PopupMenuDivider(),
         PopupMenuItem(
@@ -84,7 +85,7 @@ class SettingPopupWidget extends ConsumerWidget {
                   ],
                 ),
                 Text(
-                  '메모기록포함 & 재외',
+                  '메모기록포함 & 제외',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     fontSize: appWidth > 450 ? 12 : 10,

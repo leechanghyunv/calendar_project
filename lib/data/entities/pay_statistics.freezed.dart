@@ -19,6 +19,9 @@ mixin _$PayStatistics {
   int get minimum;
   int get maximum;
   int get count;
+  double get electricAverage; // 전기
+  double get pipeAverage; // 배관
+  double get ductAverage;
 
   /// Create a copy of PayStatistics
   /// with the given fields replaced by the non-null parameter values.
@@ -36,16 +39,22 @@ mixin _$PayStatistics {
             (identical(other.average, average) || other.average == average) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
             (identical(other.maximum, maximum) || other.maximum == maximum) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.electricAverage, electricAverage) ||
+                other.electricAverage == electricAverage) &&
+            (identical(other.pipeAverage, pipeAverage) ||
+                other.pipeAverage == pipeAverage) &&
+            (identical(other.ductAverage, ductAverage) ||
+                other.ductAverage == ductAverage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, average, minimum, maximum, count);
+  int get hashCode => Object.hash(runtimeType, average, minimum, maximum, count,
+      electricAverage, pipeAverage, ductAverage);
 
   @override
   String toString() {
-    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count)';
+    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage)';
   }
 }
 
@@ -55,7 +64,14 @@ abstract mixin class $PayStatisticsCopyWith<$Res> {
           PayStatistics value, $Res Function(PayStatistics) _then) =
       _$PayStatisticsCopyWithImpl;
   @useResult
-  $Res call({double average, int minimum, int maximum, int count});
+  $Res call(
+      {double average,
+      int minimum,
+      int maximum,
+      int count,
+      double electricAverage,
+      double pipeAverage,
+      double ductAverage});
 }
 
 /// @nodoc
@@ -75,6 +91,9 @@ class _$PayStatisticsCopyWithImpl<$Res>
     Object? minimum = null,
     Object? maximum = null,
     Object? count = null,
+    Object? electricAverage = null,
+    Object? pipeAverage = null,
+    Object? ductAverage = null,
   }) {
     return _then(_self.copyWith(
       average: null == average
@@ -93,6 +112,18 @@ class _$PayStatisticsCopyWithImpl<$Res>
           ? _self.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      electricAverage: null == electricAverage
+          ? _self.electricAverage
+          : electricAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      pipeAverage: null == pipeAverage
+          ? _self.pipeAverage
+          : pipeAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      ductAverage: null == ductAverage
+          ? _self.ductAverage
+          : ductAverage // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -101,7 +132,13 @@ class _$PayStatisticsCopyWithImpl<$Res>
 
 class _PayStatistics implements PayStatistics {
   const _PayStatistics(
-      {this.average = 0.0, this.minimum = 0, this.maximum = 0, this.count = 0});
+      {this.average = 0.0,
+      this.minimum = 0,
+      this.maximum = 0,
+      this.count = 0,
+      this.electricAverage = 0.0,
+      this.pipeAverage = 0.0,
+      this.ductAverage = 0.0});
 
   @override
   @JsonKey()
@@ -115,6 +152,17 @@ class _PayStatistics implements PayStatistics {
   @override
   @JsonKey()
   final int count;
+  @override
+  @JsonKey()
+  final double electricAverage;
+// 전기
+  @override
+  @JsonKey()
+  final double pipeAverage;
+// 배관
+  @override
+  @JsonKey()
+  final double ductAverage;
 
   /// Create a copy of PayStatistics
   /// with the given fields replaced by the non-null parameter values.
@@ -132,16 +180,22 @@ class _PayStatistics implements PayStatistics {
             (identical(other.average, average) || other.average == average) &&
             (identical(other.minimum, minimum) || other.minimum == minimum) &&
             (identical(other.maximum, maximum) || other.maximum == maximum) &&
-            (identical(other.count, count) || other.count == count));
+            (identical(other.count, count) || other.count == count) &&
+            (identical(other.electricAverage, electricAverage) ||
+                other.electricAverage == electricAverage) &&
+            (identical(other.pipeAverage, pipeAverage) ||
+                other.pipeAverage == pipeAverage) &&
+            (identical(other.ductAverage, ductAverage) ||
+                other.ductAverage == ductAverage));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, average, minimum, maximum, count);
+  int get hashCode => Object.hash(runtimeType, average, minimum, maximum, count,
+      electricAverage, pipeAverage, ductAverage);
 
   @override
   String toString() {
-    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count)';
+    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage)';
   }
 }
 
@@ -153,7 +207,14 @@ abstract mixin class _$PayStatisticsCopyWith<$Res>
       __$PayStatisticsCopyWithImpl;
   @override
   @useResult
-  $Res call({double average, int minimum, int maximum, int count});
+  $Res call(
+      {double average,
+      int minimum,
+      int maximum,
+      int count,
+      double electricAverage,
+      double pipeAverage,
+      double ductAverage});
 }
 
 /// @nodoc
@@ -173,6 +234,9 @@ class __$PayStatisticsCopyWithImpl<$Res>
     Object? minimum = null,
     Object? maximum = null,
     Object? count = null,
+    Object? electricAverage = null,
+    Object? pipeAverage = null,
+    Object? ductAverage = null,
   }) {
     return _then(_PayStatistics(
       average: null == average
@@ -191,6 +255,18 @@ class __$PayStatisticsCopyWithImpl<$Res>
           ? _self.count
           : count // ignore: cast_nullable_to_non_nullable
               as int,
+      electricAverage: null == electricAverage
+          ? _self.electricAverage
+          : electricAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      pipeAverage: null == pipeAverage
+          ? _self.pipeAverage
+          : pipeAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      ductAverage: null == ductAverage
+          ? _self.ductAverage
+          : ductAverage // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }

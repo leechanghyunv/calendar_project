@@ -33,7 +33,6 @@ class EnrollDialogWidget extends HookConsumerWidget {
     final decimalBool = ref.watch(decimalBoolRepoProvider);
     final data = ref.history;
 
-    // 상태 변화 리스닝 (기존 ref.listen 대체)
     useEffect(() {
       final sub = ref.listenManual(
         formzDecimalValidatorProvider,
@@ -63,6 +62,14 @@ class EnrollDialogWidget extends HookConsumerWidget {
                     final decimalValue = val.isEmpty ? 1.0 : double.tryParse(val) ?? 1.0;
                     formzRefread.onChangeDecimal(decimalValue);
                   },
+                  onRecordChanged: (String? val){
+                    if(val != null){
+                      ref.read(decimalBoolRepoProvider.notifier).changeDecimalBool(val.isEmpty);
+                      final decimalValue = val.isEmpty ? 1.0 : double.tryParse(val) ?? 1.0;
+                      formzRefread.onChangeDecimal(decimalValue);
+                      decimalController.text = decimalValue.toString();
+                    }
+                  }
                 ),
 
 
@@ -70,7 +77,6 @@ class EnrollDialogWidget extends HookConsumerWidget {
                 memoTextField: MemoTextField(
                   memoController: memoController,
                   nodeMemo: memoFocus,
-                  hintText: ' ${ref.month}월 ${ref.day}일 메모입력 (필수아님)',
                   onChanged: formzMemoRefread.onChangeMemo,
                   onFieldSubmitted: (_) => formzMemoRefread.onSubmit(ref),
                 ),
@@ -106,7 +112,9 @@ class EnrollDialogWidget extends HookConsumerWidget {
                 Padding(
                   padding: EdgeInsets.only(bottom: 4.0.w),
                   child: TextButton(
-                    onPressed: () => formzRefread.onSubmit(),
+                    onPressed: () => formzRefread.onSubmit(
+                      decimal: double.tryParse(decimalController.text),
+                    ),
                     child: ButtonTextWidget(
                       '등록', appWidth > 450 ? 15.5 : 14,
                       color: decimalBool ? Colors.grey.shade700 : Colors.black,

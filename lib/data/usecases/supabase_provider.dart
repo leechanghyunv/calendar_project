@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../../repository/repository_import.dart';
 import '../entities/pay_statistics.dart';
 import '../entities/site_ratio.dart';
@@ -31,20 +33,42 @@ class PayStatsNotifier extends _$PayStatsNotifier {
   }
 }
 
+
+
 @riverpod
 class SiteRatioNotifier extends _$SiteRatioNotifier {
+
+  final _sites = ['조선소', '하이테크', '플랜트', '일반현장'];
+
   @override
-  Future<List<SiteRatio>> build() async {
+  Future<SiteRatio> build() async {
     final repository = ref.read(supaBaseServiceProvider);
-    return await repository.getSiteRatios();
+    final randomSite = _sites[Random().nextInt(_sites.length)];
+    return await repository.getSiteRatio(randomSite);
+  }
+
+  Future<void> fetchBySite(String site) async {
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async {
+      final repository = ref.read(supaBaseServiceProvider);
+      return await repository.getSiteRatio(site);
+    });
   }
 }
 
+
+
+
 @riverpod
 class JobRatioNotifier extends _$JobRatioNotifier {
+
+  final _job = ['전기', '덕트', '비계', '배관','용접'];
+
   @override
-  Future<List<JobRatio>> build() async {
+  Future<JobRatio> build() async {
     final repository = ref.read(supaBaseServiceProvider);
-    return await repository.getJobRatios();
+    final randomSite = _job[Random().nextInt(_job.length)];
+
+    return await repository.getJobRatio(randomSite);
   }
 }

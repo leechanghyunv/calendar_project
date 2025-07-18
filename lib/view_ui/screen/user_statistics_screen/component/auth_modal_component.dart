@@ -1,4 +1,7 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/export_package.dart';
+import '../../../dialog/initial_finish_dialog/initial_finish_dialog.dart';
+import '../../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
 import '../../auth_screen/auth_screen.dart';
 import '../../auth_screen/auth_screen_exSurvey.dart';
 
@@ -33,7 +36,6 @@ void showBasicModal(BuildContext context,bool survey) {
         ),
         child: Column(
           children: [
-            // 🎯 핸들바를 모달 레벨에서 처리
             Container(
               width: 30,
               height: 4,
@@ -50,6 +52,21 @@ void showBasicModal(BuildContext context,bool survey) {
         ),
       );
     },
+  ).then((onValue) async {
+    final prefs = await SharedPreferences.getInstance();
+    final hasShownReview = prefs.getBool('wellcome_massage') ?? false;
+    return hasShownReview ? null : _showWelcomeDialog(context);
+  });
+}
+
+void _showWelcomeDialog(BuildContext context) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('wellcome_massage', true);
+
+  showDialog(
+    context: context,
+    builder: (context) => InitialFinishDialog(),
   );
 }
+
 

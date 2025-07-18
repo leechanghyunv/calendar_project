@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_router_repo.dart';
+part of 'selected_site_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'23d033f0ae1e65542237249d11272f3258e9a919';
+String _$selectedSiteHash() => r'87114530b354def4e54b49fb27c5537852d9a96b';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = FutureProvider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
+/// See also [SelectedSite].
+@ProviderFor(SelectedSite)
+final selectedSiteProvider =
+    AutoDisposeNotifierProvider<SelectedSite, String>.internal(
+  SelectedSite.new,
+  name: r'selectedSiteProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$selectedSiteHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef RouterRef = FutureProviderRef<GoRouter>;
+typedef _$SelectedSite = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

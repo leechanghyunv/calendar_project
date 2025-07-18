@@ -35,10 +35,11 @@ class MarkerCell extends ConsumerWidget {
      /// top side margin
     final double marginValue = appHeight < 700
         ? 28.w
-        : (appWidth <= 370 ? isFoldValue ? 40.w : 35.w /// 갤럭시 폴드에서 40.w, 37.5가 적당함
+        : (appWidth <= 370 ? isFoldValue ? 41.25.w : 35.w /// 갤럭시 폴드에서 40.w, 37.5가 적당함
 
         : appWidth > 500 ? isFoldValue ? 18.5.w : 25.w /// 원래값 47.5 갤럭시 폴드에서 32, 18.5.w가 적당함
-        : 35.w); /// 값이 클수록 밑으로
+        : Platform.isAndroid ? 37.5.w : 35.w); /// 값이 클수록 밑으로
+          /// 안드 테스트폰으론 38.w 가 적당한 384
 
 
     ViewType? isViewType = ViewType.gongsu;
@@ -134,14 +135,15 @@ class MarkerCell extends ConsumerWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.0,),
               child: Text(
-                calendarMemoText,
+                calendarPayText,
                 textScaler: TextScaler.noScaling,
                 maxLines: 2,
                 style: TextStyle(
+
                   fontWeight: FontWeight.bold,
                   color: Colors.grey.shade900,
                   height: textHeight,
-                  fontSize: appWidth < 376 ? 8.0 : 9.5,
+                  fontSize: appWidth < 376 ? 10.0 : 11.5,
               ),
               ),
             ),

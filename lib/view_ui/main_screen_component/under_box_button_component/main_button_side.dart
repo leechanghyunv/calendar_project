@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/export_package.dart';
 
+import '../../../app_review.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
 import '../../version_introduce/new_version_dialog.dart';
 
@@ -35,9 +36,10 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
               );
               break;
             case 'option2':
-              if (await inAppReview.isAvailable()) {
-                inAppReview.requestReview();
-              }
+              showDialog(
+                context: context,
+                builder: (context) => CustomReviewDialog(),
+              );
               break;
           }
         },
