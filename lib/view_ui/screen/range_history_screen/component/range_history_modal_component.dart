@@ -2,9 +2,11 @@
 
 import 'package:calendar_project_240727/core/export_package.dart';
 
+import '../provider/modal_page_provider.dart';
+import '../range_calendar_screen.dart';
 import '../range_history_screen.dart';
 
-void showRangeModal(BuildContext context){
+void showRangeModal(BuildContext context,WidgetRef ref){
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
@@ -20,32 +22,54 @@ void showRangeModal(BuildContext context){
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-      return Container(
-        height: Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7,
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      return Consumer(builder: (context, ref, child){
+        final currentPage = ref.watch(modalPageNotifierProvider);
+        return Container(
+          height: Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7,
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
           ),
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: 30,
-              height: 4,
-              margin: EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(2),
+          child: Column(
+            children: [
+              Container(
+                width: 30,
+                height: 4,
+                margin: EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-            ),
-            Expanded(
-              child: RangeHistoryScreen(),
-            ),
-          ],
-        ),
-      );
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 300),
+                  child: currentPage == 0
+                      ? RangeCalendarScreen(
+                     () {
+                      // ref.read(modalPageNotifierProvider.notifier).setPage(1);
+                    },
+                  )
+                      : RangeHistoryScreen(
+                    () {
+                      // ref.read(modalPageNotifierProvider.notifier).setPage(0);
+                    },
+                  ),
+                ),
+
+
+
+
+              ),
+            ],
+          ),
+        );
+      });
+
+
     },
   );
 

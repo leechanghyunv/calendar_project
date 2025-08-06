@@ -7,7 +7,10 @@ import 'component/buttom_chip_list.dart';
 import 'component/range_info_box.dart';
 
 class RangeHistoryScreen extends ConsumerWidget {
-  const RangeHistoryScreen({super.key});
+
+  final VoidCallback? onBack;
+
+  const RangeHistoryScreen(this.onBack, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +25,7 @@ class RangeHistoryScreen extends ConsumerWidget {
           children: [
             SizedBox(width: 2.5),
             Container(
-              width: 7.5,
+              width: 3.5,
               height: 20,
               color: Colors.green,
             ),

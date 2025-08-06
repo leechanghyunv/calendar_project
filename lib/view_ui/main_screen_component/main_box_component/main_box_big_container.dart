@@ -3,6 +3,7 @@ import '../../../core/export_package.dart';
 import '../../../theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 import 'component/animated_pay_number.dart';
 
 class MainBoxBigContainer extends ConsumerStatefulWidget {
@@ -22,6 +23,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final animateText = ref.watch(animationTextProviderProvider);
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
 
@@ -48,8 +50,9 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
         SelectedTime(),
         Row(
           children: [
-            // PayNumberCounter(end: totalPay.toDouble()),
-            Text(
+            animateText
+                ? PayNumberCounter(end: totalPay.toDouble())
+                : Text(
               textScaler: TextScaler.noScaling,
               '${payString}',
                 style: TextStyle(

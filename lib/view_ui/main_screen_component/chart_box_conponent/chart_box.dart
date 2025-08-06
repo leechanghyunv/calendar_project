@@ -23,6 +23,19 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
   int workDay = 0;
   int offDay = 0;
 
+  @override
+  void initState() {
+    super.initState();
+    // 🚀 위젯이 처음 빌드된 후 애니메이션 종료 시점에 상태 변경
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 800), () {
+        if (mounted) {
+          ref.read(animationTextProviderProvider.notifier).stateChange();
+        }
+      });
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +66,10 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('${month}',
+
+                animateText
+                    ? NumberCounter(end: monthRecord)
+                    : Text('${month}',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                       letterSpacing: Platform.isAndroid ? 1.5 : null,

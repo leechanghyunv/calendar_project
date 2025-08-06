@@ -156,30 +156,33 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
           itemBuilder: (context) => [
             PopupMenuItem<ViewType>(
               enabled: false,
-              height: 60,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '공수표 형식 선택함',
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                      fontSize: appWidth > 450 ? 15 : 12,
-                      color: Colors.grey.shade800,
-                      fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+              height: 40,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '공수표 형식 선택함',
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        fontSize: appWidth > 450 ? 15 : 12,
+                        color: Colors.grey.shade800,
+                        fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    '달력상에 표시할 내용 선택\n(공수,일당,메모)',
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                      fontSize: appWidth > 450 ? 13 : 11,
-                      color: Colors.grey.shade500,
-                      height: 1.3,
+                    const SizedBox(height: 2),
+                    Text(
+                      '달력상에 표시할 내용 선택',
+                      textScaler: TextScaler.noScaling,
+                      style: TextStyle(
+                        fontSize: appWidth > 450 ? 13 : 11,
+                        color: Colors.grey.shade500,
+                        height: 1.3,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             PopupMenuItem<ViewType>(

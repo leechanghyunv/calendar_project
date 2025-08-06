@@ -31,7 +31,7 @@ class SettingPopupWidget extends ConsumerWidget {
       onSelected: (value) {
         switch (value) {
           case 'erase':
-            showRangeModal(context);
+            showRangeModal(context,ref);
             // showDialog(
             //   context: context,
             //   builder: (context) => DeleteDialog(),

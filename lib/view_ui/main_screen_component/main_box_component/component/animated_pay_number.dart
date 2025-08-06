@@ -12,7 +12,7 @@ class PayNumberCounter extends ConsumerWidget {
     super.key,
     this.start = 0,
     required this.end,
-    this.duration = const Duration(milliseconds: 1500),
+    this.duration = const Duration(milliseconds: 3000),
   });
 
   @override

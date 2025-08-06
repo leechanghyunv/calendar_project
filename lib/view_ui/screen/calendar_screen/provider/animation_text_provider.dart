@@ -2,7 +2,7 @@ import '../../../../repository/repository_import.dart';
 
 part 'animation_text_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AnimationTextProvider extends _$AnimationTextProvider {
   @override
   bool build() => true;

@@ -1,14 +1,9 @@
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
-import 'package:calendar_project_240727/view_model/filted_instance_model/filted_month_model.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../../../../core/utils/converter.dart';
 import '../../../../../../model/selected_history_model.dart';
 import '../../../../../../theme_color.dart';
-import '../../../../../calendar_rangefield/date_picker_2.dart';
-import 'history_dialog.dart';
-
+import 'history_info_menuButton.dart';
 
 
 class HistoryBox extends ConsumerWidget {
@@ -20,9 +15,10 @@ class HistoryBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(viewContractProvider);
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-    final contract = ref.watch(viewContractProvider);
+
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -215,14 +211,7 @@ class MomoChip extends StatelessWidget {
             ],
           ),
           child: type == ' 더보기... '
-              ? GestureDetector(
-            onTap: () => showDialog(
-                context: context,
-                builder: (context) => HistoryDialog(
-                    selectedHistory: selectedHistory,
-                ),
-            ),
-                child: MoreText)
+              ? HistoryInfoMenuButton(selectedHistory: selectedHistory)
               : MoreText,
         ) : SizedBox.shrink();
       }),

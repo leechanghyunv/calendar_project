@@ -3,8 +3,9 @@ import '../../../core/export_package.dart';
 class RangeDefaultScreen extends StatelessWidget {
 
   final List<Widget> children;
+  final Widget? floatingActionButton;
 
-   RangeDefaultScreen({super.key, required this.children});
+   RangeDefaultScreen({super.key, required this.children, this.floatingActionButton});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,11 @@ class RangeDefaultScreen extends StatelessWidget {
                   - MediaQuery.of(context).padding.bottom, // SafeArea 높이
             ),
             child: Padding(
+              /// calendar일때는 vertical: 0.0, 아닐때는 vertical: 12.0
+              /// /// calendar일때는 horizontal: 12.0, 아닐때는 horizontal: 24.0
               padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 12.0),
+                  horizontal: 12.0,
+                  vertical: 0.0),
               child: Column(
                 children: children,
               ),
@@ -30,6 +33,8 @@ class RangeDefaultScreen extends StatelessWidget {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: floatingActionButton,
     );
   }
 }
