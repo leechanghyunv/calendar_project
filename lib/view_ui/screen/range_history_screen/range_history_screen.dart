@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/info_box.dart';
 import '../../../core/export_package.dart';
@@ -13,8 +15,10 @@ class RangeHistoryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final time = ref.watch(timeRangeManagerProvider);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
 
     return RangeDefaultScreen(
       isCalendarScreen: false,
@@ -45,7 +49,7 @@ class RangeHistoryScreen extends ConsumerWidget {
                 fontSize: switch (width) {
                   > 450 => 19,
                   > 420 => 18,
-                  _ => 16.5,
+                  _ => 17.5,
                 },
                 fontWeight: FontWeight.w800,
               ),

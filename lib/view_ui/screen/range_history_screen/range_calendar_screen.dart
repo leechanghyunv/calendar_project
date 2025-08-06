@@ -1,4 +1,6 @@
 
+
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/holidays.dart';
@@ -81,6 +83,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
               headerTitleBuilder: (context, day) =>
                   CalendarRangeHeader(
                     day: day,
+                    startDay: rangeStart.value,
+                    endDay: rangeEnd.value,
                     onPreviousMonth: () {
                       focusedDay.value = DateTime(
                         focusedDay.value.year,
@@ -181,7 +185,23 @@ class RangeCalendarScreen extends HookConsumerWidget {
                             width: 0.75,
                           ),
                         ),
-                          onPressed: onNavigateToHistory,
+                          onPressed: () {
+                            onNavigateToHistory?.call();
+                            print(rangeStart.value);
+                            print(rangeEnd.value);
+                            if (rangeStart.value != null && rangeEnd.value != null) {
+
+                              ref.rangeNot.updateStartDate(rangeStart.value!);
+
+                              ref.rangeSelectNot.updateStartSelected(true);
+
+                              ref.rangeNot.updateEndDate(rangeEnd.value!);
+
+                              ref.rangeSelectNot.updateEndSelected(true);
+                            }
+
+                            
+                          },
                           child: TextWidget('날짜범위설정', 15, appWidth)),
                   ),
                 ],

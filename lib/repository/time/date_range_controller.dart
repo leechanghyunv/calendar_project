@@ -54,6 +54,8 @@ class TimeRangeManager extends _$TimeRangeManager {
       startDate: utcStartDate,
       endDate: state.endDate,
     );
+
+    print('updateStartDate: ${state.startDate}');
   }
 
   void updateEndDate(DateTime newEndDate) {
@@ -67,6 +69,7 @@ class TimeRangeManager extends _$TimeRangeManager {
       startDate: state.startDate,
       endDate: utcEndDate,
     );
+    print('updateEndDate: ${state.endDate}');
   }
 }
 

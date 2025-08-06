@@ -48,6 +48,7 @@ extension TimerExtension on WidgetRef {
 
   DateTime get selected => timeManager.selected;
   TimeRangeManager get rangeNot => read(timeRangeManagerProvider.notifier);
+
   TimeManager get timeNot => read(timeManagerProvider.notifier);
   int get year => selected.year;
   int get month => selected.month;

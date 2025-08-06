@@ -1,10 +1,12 @@
-
-
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/view_ui/screen/range_history_screen/loading_screen.dart';
 
 import '../provider/modal_page_provider.dart';
 import '../range_calendar_screen.dart';
 import '../range_history_screen.dart';
+
+final modalLoadingProvider = StateProvider<bool>((ref) => false);
+
 
 void showRangeModal(BuildContext context,WidgetRef ref){
   showModalBottomSheet(
@@ -24,6 +26,7 @@ void showRangeModal(BuildContext context,WidgetRef ref){
       final screenHeight = MediaQuery.of(context).size.height;
       return Consumer(builder: (context, ref, child){
         final currentPage = ref.watch(modalPageNotifierProvider);
+        final isLoading = ref.watch(modalLoadingProvider);
         return Container(
           height: Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7,
           decoration: BoxDecoration(
@@ -47,10 +50,13 @@ void showRangeModal(BuildContext context,WidgetRef ref){
               Expanded(
                 child: AnimatedSwitcher(
                   duration: Duration(milliseconds: 100),
-                  child: currentPage == 0
+                  child: isLoading ? LoadingScreen() : currentPage == 0
                       ? RangeCalendarScreen(
-                     () {
-                      ref.read(modalPageNotifierProvider.notifier).setPage(1);
+                     () async {
+                       ref.read(modalLoadingProvider.notifier).state = true;
+                       await Future.delayed(Duration(milliseconds: 2000));
+                       ref.read(modalPageNotifierProvider.notifier).setPage(1);
+                       ref.read(modalLoadingProvider.notifier).state = false;
                     },
                   )
                       : RangeHistoryScreen(

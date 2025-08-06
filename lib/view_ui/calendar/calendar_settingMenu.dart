@@ -32,10 +32,6 @@ class SettingPopupWidget extends ConsumerWidget {
         switch (value) {
           case 'erase':
             showRangeModal(context,ref);
-            // showDialog(
-            //   context: context,
-            //   builder: (context) => DeleteDialog(),
-            // );
             break;
           case 'enroll':
             showBasicModal(context,false);

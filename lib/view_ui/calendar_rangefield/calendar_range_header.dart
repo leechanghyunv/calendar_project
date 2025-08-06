@@ -1,4 +1,3 @@
-
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:intl/intl.dart';
 
@@ -6,21 +5,41 @@ import '../../core/export_package.dart';
 
 class CalendarRangeHeader extends StatelessWidget {
   final DateTime day;
+  final DateTime? startDay;
+  final DateTime? endDay;
   final VoidCallback? onPreviousYear;
   final VoidCallback? onPreviousMonth;
   final VoidCallback? onNextMonth;
 
-  const CalendarRangeHeader({super.key, required this.day, this.onPreviousMonth, this.onNextMonth, this.onPreviousYear});
+  const CalendarRangeHeader(
+      {super.key,
+      required this.day,
+      this.onPreviousMonth,
+      this.onNextMonth,
+      this.onPreviousYear, this.startDay, this.endDay});
 
   @override
   Widget build(BuildContext context) {
+
+    String _formatDate(DateTime? date) {
+      if (date == null) return '선택 안됨';
+
+      final formatter = DateFormat('yyyy년 MM월 dd일', 'ko_KR');
+      return formatter.format(date);
+    }
+
+    // 간단한 포맷 (월 표시용)
+    String _formatMonth(DateTime date) {
+      final formatter = DateFormat('yyyy년 MM월', 'ko_KR');
+      return formatter.format(date);
+    }
+
+
     final appWidth = MediaQuery.of(context).size.width;
 
     return Padding(
-      padding: EdgeInsets.only(
-          left: 10, bottom: 20.0),
-      child:
-      Column(
+      padding: EdgeInsets.only(left: 10, bottom: 20.0),
+      child: Column(
         children: [
           Row(
             children: [
@@ -32,10 +51,14 @@ class CalendarRangeHeader extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1.75,color: Colors.grey.shade500),
+                    border:
+                        Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,
                   ),
-                  child: Text('2025/08/12',style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(
+                     '${_formatDate(startDay)}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               SizedBox(width: 10),
@@ -47,10 +70,14 @@ class CalendarRangeHeader extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1.75,color: Colors.grey.shade500),
+                    border:
+                        Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,
                   ),
-                  child: Text('2025/08/12',style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(
+                    '${_formatDate(endDay)}',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
             ],
@@ -68,25 +95,21 @@ class CalendarRangeHeader extends StatelessWidget {
                   color: Colors.green,
                 ),
                 SizedBox(width: 10),
-                TextWidget('${DateFormat.yMMMM('ko_KR').format(day)}',
-                    20, appWidth),
+                TextWidget(
+                    '${DateFormat.yMMMM('ko_KR').format(day)}', 20, appWidth),
                 Spacer(),
                 InkWell(
                   onTap: onPreviousMonth,
                   borderRadius: BorderRadius.circular(20),
-                  child: Icon(
-                      Icons.keyboard_arrow_left,
-                      color: Colors.grey.shade700,
-                      size: 30),
+                  child: Icon(Icons.keyboard_arrow_left,
+                      color: Colors.grey.shade700, size: 30),
                 ),
                 SizedBox(width: 20),
                 InkWell(
                   onTap: onNextMonth,
                   borderRadius: BorderRadius.circular(20),
-                  child: Icon(
-                      Icons.keyboard_arrow_right,
-                      color: Colors.grey.shade700,
-                      size: 30),
+                  child: Icon(Icons.keyboard_arrow_right,
+                      color: Colors.grey.shade700, size: 30),
                 ),
                 SizedBox(width: 10),
               ],
