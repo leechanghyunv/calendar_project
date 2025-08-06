@@ -6,3 +6,4 @@ enum ViewType {
   more,
   // setting,
 }
+

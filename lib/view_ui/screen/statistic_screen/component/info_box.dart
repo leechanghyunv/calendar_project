@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/info_box_sub_provider.dart';
 import '../../../../core/utils/converter.dart';
 import '../provider/info_box_provider.dart';
@@ -53,7 +55,7 @@ class InfoBoxProviderWidget extends ConsumerWidget {
                 name: '출력일수',
                 unit: '일',
                 value: data.workDay.toString(),
-                text: '${dateText} 공수는 23공수 입니다',
+                text: '${dateText} 공수는 ${subData.record}공수 입니다',
 
               ),
             ),
@@ -75,16 +77,16 @@ class InfoBoxProviderWidget extends ConsumerWidget {
 }
 
 class InfoBox extends StatelessWidget {
-  // final String svg;
   final String name;
+  final Widget? widget;
   final String unit;
   final String value;
   final String text;
 
   const InfoBox({
     super.key,
-    // required this.svg,
     required this.name,
+    this.widget,
     required this.unit,
     required this.value,
     required this.text,
@@ -122,16 +124,19 @@ class InfoBox extends StatelessWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   name,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: height > 750 ? (width > 400 ? 15.0 : (width < 370 ? 12.0 : 14.0)) : 12.0,
+                    fontSize: (width > 400 ? 15.0 : (width < 376 ? 12.0 : 14.0)),
                     color: Colors.grey.shade600,
-                    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.w900,
+                    fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                   ),
                 ),
+                Spacer(),
+                widget ?? const SizedBox.shrink(),
               ],
             ),
             Row(
@@ -141,8 +146,8 @@ class InfoBox extends StatelessWidget {
                   value,
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
-                    fontSize: height > 750 ? (width >= 450 ? 36 : width > 400 ? 33.0 : (width < 370 ? 30.0 : 32.0)) : 26.0,
-                    fontWeight: Platform.isAndroid ? FontWeight.w800 : FontWeight.w900,
+                    fontSize: (width >= 450 ? 36 : width > 400 ? 33.0 : (width < 376 ? 30.0 : 32.0)),
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
                 Spacer(),
@@ -153,7 +158,7 @@ class InfoBox extends StatelessWidget {
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: height > 700 ? (width >= 450 ? 15 : width > 400 ? 14.5 : 14.0) : 12.0,
+                        fontSize: (width >= 450 ? 15 : width > 400 ? 14.5 : 14.0),
                       )),
                 ),
 
@@ -164,15 +169,7 @@ class InfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: height > 750
-                    ? (width >= 450
-                    ? 11.0
-                    : width > 400
-                    ? 10.5
-                    : width < 370
-                    ? 8.5
-                    : 9.5)
-                    : 8.25,
+                fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 8.5 : 9.5),
                 color: Colors.grey.shade700,
               ),
             ),

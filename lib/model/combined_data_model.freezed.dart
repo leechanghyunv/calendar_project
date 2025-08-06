@@ -669,6 +669,7 @@ mixin _$LaborFiltedModel {
   String get totalPayString;
   String get prevPayString;
   String get totalPayAnd;
+  double get record;
   String get workRecord;
   int get normalDay;
   String get normalPay;
@@ -713,6 +714,7 @@ mixin _$LaborFiltedModel {
                 other.prevPayString == prevPayString) &&
             (identical(other.totalPayAnd, totalPayAnd) ||
                 other.totalPayAnd == totalPayAnd) &&
+            (identical(other.record, record) || other.record == record) &&
             (identical(other.workRecord, workRecord) ||
                 other.workRecord == workRecord) &&
             (identical(other.normalDay, normalDay) ||
@@ -747,6 +749,7 @@ mixin _$LaborFiltedModel {
         totalPayString,
         prevPayString,
         totalPayAnd,
+        record,
         workRecord,
         normalDay,
         normalPay,
@@ -760,7 +763,7 @@ mixin _$LaborFiltedModel {
 
   @override
   String toString() {
-    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
+    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
   }
 }
 
@@ -782,6 +785,7 @@ abstract mixin class $LaborFiltedModelCopyWith<$Res> {
       String totalPayString,
       String prevPayString,
       String totalPayAnd,
+      double record,
       String workRecord,
       int normalDay,
       String normalPay,
@@ -817,6 +821,7 @@ class _$LaborFiltedModelCopyWithImpl<$Res>
     Object? totalPayString = null,
     Object? prevPayString = null,
     Object? totalPayAnd = null,
+    Object? record = null,
     Object? workRecord = null,
     Object? normalDay = null,
     Object? normalPay = null,
@@ -872,6 +877,10 @@ class _$LaborFiltedModelCopyWithImpl<$Res>
           ? _self.totalPayAnd
           : totalPayAnd // ignore: cast_nullable_to_non_nullable
               as String,
+      record: null == record
+          ? _self.record
+          : record // ignore: cast_nullable_to_non_nullable
+              as double,
       workRecord: null == workRecord
           ? _self.workRecord
           : workRecord // ignore: cast_nullable_to_non_nullable
@@ -927,6 +936,7 @@ class _LaborFiltedModel implements LaborFiltedModel {
       this.totalPayString = '0.0만원',
       this.prevPayString = '0만원',
       this.totalPayAnd = '0만원',
+      this.record = 0.0,
       this.workRecord = '0공수',
       this.normalDay = 0,
       this.normalPay = '0만원',
@@ -972,6 +982,9 @@ class _LaborFiltedModel implements LaborFiltedModel {
   @override
   @JsonKey()
   final String totalPayAnd;
+  @override
+  @JsonKey()
+  final double record;
   @override
   @JsonKey()
   final String workRecord;
@@ -1038,6 +1051,7 @@ class _LaborFiltedModel implements LaborFiltedModel {
                 other.prevPayString == prevPayString) &&
             (identical(other.totalPayAnd, totalPayAnd) ||
                 other.totalPayAnd == totalPayAnd) &&
+            (identical(other.record, record) || other.record == record) &&
             (identical(other.workRecord, workRecord) ||
                 other.workRecord == workRecord) &&
             (identical(other.normalDay, normalDay) ||
@@ -1072,6 +1086,7 @@ class _LaborFiltedModel implements LaborFiltedModel {
         totalPayString,
         prevPayString,
         totalPayAnd,
+        record,
         workRecord,
         normalDay,
         normalPay,
@@ -1085,7 +1100,7 @@ class _LaborFiltedModel implements LaborFiltedModel {
 
   @override
   String toString() {
-    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
+    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
   }
 }
 
@@ -1109,6 +1124,7 @@ abstract mixin class _$LaborFiltedModelCopyWith<$Res>
       String totalPayString,
       String prevPayString,
       String totalPayAnd,
+      double record,
       String workRecord,
       int normalDay,
       String normalPay,
@@ -1144,6 +1160,7 @@ class __$LaborFiltedModelCopyWithImpl<$Res>
     Object? totalPayString = null,
     Object? prevPayString = null,
     Object? totalPayAnd = null,
+    Object? record = null,
     Object? workRecord = null,
     Object? normalDay = null,
     Object? normalPay = null,
@@ -1199,6 +1216,10 @@ class __$LaborFiltedModelCopyWithImpl<$Res>
           ? _self.totalPayAnd
           : totalPayAnd // ignore: cast_nullable_to_non_nullable
               as String,
+      record: null == record
+          ? _self.record
+          : record // ignore: cast_nullable_to_non_nullable
+              as double,
       workRecord: null == workRecord
           ? _self.workRecord
           : workRecord // ignore: cast_nullable_to_non_nullable

@@ -63,6 +63,7 @@ class GoalRecordBox extends ConsumerWidget {
     return contract.whenData(
             (val) {
               final goal = (val.last.goal).toStringAsFixed(0);
+              final  left = (val.last.goal/10000 - data.total).toStringAsFixed(0);
               final goalInt = int.tryParse(goal) ?? 0;
               final goalValue = goalInt ~/ 10000;
               final percent = goalValue > 0 ? ((total / goalValue) * 100).floor() : 0;
@@ -84,53 +85,61 @@ class GoalRecordBox extends ConsumerWidget {
                         ),
                       ),
 
-                      goalValue == 0 ? RichText(
-                        textScaler: TextScaler.noScaling,
-                        text: TextSpan(
-                          text: '목표금액은 ',
-                          style: TextStyle(
-                            fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                            color: Colors.grey.shade700,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '✅목표관리버튼',
-                              style: TextStyle(
-                                fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                                letterSpacing: 0.75,
-                                color: Colors.black,
-                              ),
+                      goalValue == 0 ? Padding(
+                        padding: EdgeInsets.only(top: 2.0),
+                        child: RichText(
+                          textScaler: TextScaler.noScaling,
+                          text: TextSpan(
+                            text: '목표금액은 ',
+                            style: TextStyle(
+                              fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
+                              color: Colors.grey.shade700,
                             ),
-                            TextSpan(text: ' 으로 설정합니다.'),
-                          ],
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '목표관리버튼',
+                                style: TextStyle(
+                                  fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+                                  letterSpacing: 0.75,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(text: ' 으로 설정'),
+                            ],
+                          ),
                         ),
                       ) :
-                      Center(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            RichText(
-                              textScaler: TextScaler.noScaling,
-                              text: TextSpan(
-                                text: '🔥 누적금액 ${data.total}만원 ',
-                                style: TextStyle(
-                                  fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                                  color: Colors.grey.shade700,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: '목표금액의 $percent%',
-                                    style: TextStyle(
-                                      fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                                      letterSpacing: 0.75,
-                                      color: Colors.black,
-                                    ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 2.0),
+                        child: Center(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              RichText(
+                                textScaler: TextScaler.noScaling,
+                                text: TextSpan(
+                                  text: '남은금액 ${left}만원, ',
+                                  style: TextStyle(
+                                    fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+                                    fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
+                                    color: Colors.grey.shade700,
                                   ),
-                                  TextSpan(text: ' 달성'),
-                                ],
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: '목표금액 $percent%',
+                                      style: TextStyle(
+                                        fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+                                        letterSpacing: 0.75,
+                                        color: Colors.grey.shade700,
+                                      ),
+                                    ),
+                                    TextSpan(text: ' 달성'),
+                                  ],
+
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -150,25 +159,28 @@ class GoalRecordBox extends ConsumerWidget {
               color: Colors.black,
             ),
           ),
-          RichText(
-            textScaler: TextScaler.noScaling,
-            text: TextSpan(
-              text: '목표금액은 ',
-              style: TextStyle(
-                fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                color: Colors.grey.shade700,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: '✅목표관리버튼',
-                  style: TextStyle(
-                    fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                    letterSpacing: 0.75,
-                    color: Colors.black,
-                  ),
+          Padding(
+            padding: EdgeInsets.only(top: 2.0),
+            child: RichText(
+              textScaler: TextScaler.noScaling,
+              text: TextSpan(
+                text: '목표금액은 ',
+                style: TextStyle(
+                  fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
+                  color: Colors.grey.shade700,
                 ),
-                TextSpan(text: ' 으로 설정합니다.'),
-              ],
+                children: <TextSpan>[
+                  TextSpan(
+                    text: '목표관리버튼',
+                    style: TextStyle(
+                      fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
+                      letterSpacing: 0.75,
+                      color: Colors.black,
+                    ),
+                  ),
+                  TextSpan(text: ' 으로 설정합니다.'),
+                ],
+              ),
             ),
           )
         ],

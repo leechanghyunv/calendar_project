@@ -26,7 +26,7 @@ class EnrollDialogWidget extends HookConsumerWidget {
 
     final formzMemoRefNot = ref.formzMemoWatch;
     final formzMemoRefread = ref.formzMemoRead;
-
+    ref.watch(formzDecimalValidatorProvider);
     final formzRefNot = ref.decimalWatch;
     final formzRefread = ref.decimalRead;
 
@@ -117,7 +117,7 @@ class EnrollDialogWidget extends HookConsumerWidget {
                     ),
                     child: ButtonTextWidget(
                       '등록', appWidth > 450 ? 15.5 : 14,
-                      color: decimalBool ? Colors.grey.shade700 : Colors.black,
+                      color: Colors.black,
                     ),
                   ),
                 ),

@@ -154,6 +154,7 @@ class _DecimalTextFieldState extends ConsumerState<DecimalTextField> {
   @override
   Widget build(BuildContext context) {
       final formzRefread = ref.read(formzDecimalValidatorProvider.notifier);
+      ref.watch(formzDecimalValidatorProvider);
 
     return Container(
       alignment: Alignment.center,
@@ -182,13 +183,17 @@ class _DecimalTextFieldState extends ConsumerState<DecimalTextField> {
                     TwoDigitInputFormatter(),
                   ],
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 7),
                     hintText: widget.hintText,
                     hintStyle: TextStyle(fontSize: 13),
                     border: InputBorder.none,
                     isDense: true,
 
                   ),
-                  onChanged: widget.onChanged,
+                  onChanged: (val){
+                    widget.onChanged?.call(val);
+
+                  },
                   onFieldSubmitted: widget.onFieldSubmitted,
                 );
               },
@@ -201,6 +206,7 @@ class _DecimalTextFieldState extends ConsumerState<DecimalTextField> {
                   return data.reversed
                       .where((e) => ![0.0, 1.0, 1.5, 2.0].contains(e.record)) // 제외 조건 추가
                       .map((e) => {'record': e.record})
+                      .toSet()
                       .where((item) =>
                   item['record']!.toString().isNotEmpty &&
                       item['record']!.toString().contains(search)) // 빈 문자열 제외 및 검색 필터
@@ -243,6 +249,7 @@ class _DecimalTextFieldState extends ConsumerState<DecimalTextField> {
                   if (val != null) {
                     widget.onRecordChanged?.call(val);
                   }
+
 
                 },
             ),

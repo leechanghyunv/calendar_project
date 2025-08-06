@@ -3,6 +3,7 @@ import '../../../core/export_package.dart';
 import '../../../theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import 'component/animated_pay_number.dart';
 
 class MainBoxBigContainer extends ConsumerStatefulWidget {
   const MainBoxBigContainer({super.key});
@@ -17,6 +18,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
   String taxValue = '세율 0.0%';
   String afterTax = '세후 0.0만원';
   String percent = '0.0%';
+  double totalPay = 0.0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
     final data = ref.watch(monthRecordProvider(ref.selected));
 
     data.whenData((val) {
+      totalPay = (val.totalPay/10000);
       payString = val.totalPayString;
       afterTax = val.afterTax;
       taxValue = val.tax;
@@ -45,6 +48,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
         SelectedTime(),
         Row(
           children: [
+            // PayNumberCounter(end: totalPay.toDouble()),
             Text(
               textScaler: TextScaler.noScaling,
               '${payString}',

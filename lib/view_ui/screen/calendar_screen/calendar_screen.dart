@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/animation_text_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/export_package.dart';
@@ -26,6 +27,7 @@ class CalendarScreen extends HookConsumerWidget {
           });
           await prefs.setBool('isFirstLaunch', false);
         }
+
       }
 
       checkFirstLaunch();
@@ -34,21 +36,23 @@ class CalendarScreen extends HookConsumerWidget {
 
 
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Platform.isAndroid ? const SizedBox(height: 1.0) :
-        SizedBox(
-          height: switch (appWidth) {
-            < 376 => 0.0,
-            > 500 => 10.0,
-            _ => 25.0,
-          },
-        ),
-        WorkCalendar(),
-
-      ],
-
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Platform.isAndroid ? const SizedBox(height: 2.5) :
+          SizedBox(
+            height: switch (appWidth) {
+              < 376 => 0.0,
+              > 500 => 10.0,
+              _ => 25.0,
+            },
+          ),
+          WorkCalendar(),
+      
+        ],
+      
+      ),
     );
   }
 }

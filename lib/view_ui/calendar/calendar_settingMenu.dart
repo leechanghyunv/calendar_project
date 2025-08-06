@@ -2,6 +2,7 @@ import '../../core/export_package.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
 import '../dialog/basic_setting_dialog/basic_setting_dialog.dart';
 import '../dialog/delete_goal_dialog/delete_dialog.dart';
+import '../screen/range_history_screen/component/range_history_modal_component.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 
 class SettingPopupWidget extends ConsumerWidget {
@@ -30,10 +31,11 @@ class SettingPopupWidget extends ConsumerWidget {
       onSelected: (value) {
         switch (value) {
           case 'erase':
-            showDialog(
-              context: context,
-              builder: (context) => DeleteDialog(),
-            );
+            showRangeModal(context);
+            // showDialog(
+            //   context: context,
+            //   builder: (context) => DeleteDialog(),
+            // );
             break;
           case 'enroll':
             showBasicModal(context,false);
@@ -53,7 +55,7 @@ class SettingPopupWidget extends ConsumerWidget {
         PopupMenuItem(
           value: 'erase',
           height: 30,
-          child: CalendarSettingBox('공수삭제 범위설정', getStyle),
+          child: CalendarSettingBox('근로기간 설정', getStyle),
         ),
         PopupMenuDivider(),
         PopupMenuItem(

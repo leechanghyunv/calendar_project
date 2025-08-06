@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/theme_color.dart';
+
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';
 
@@ -17,7 +19,6 @@ class StatisticsTotalRatio extends ConsumerWidget {
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     ratiosAsync.whenData((d) {
       siteName = d.siteName;
       site_ratio = d.percentage.toStringAsFixed(1);
@@ -35,13 +36,13 @@ class StatisticsTotalRatio extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-
       children: [
         Center(
           child: Text.rich(
             TextSpan(
               style: TextStyle(
-                fontSize: width > 400 ? 21 : 19,
+                height: textHeight,
+                fontSize: height > 800 ? 21 : 19,
                 color: Colors.grey.shade600,
                 fontWeight: FontWeight.w600,
               ),
@@ -74,7 +75,8 @@ class StatisticsTotalRatio extends ConsumerWidget {
           child: Text.rich(
               TextSpan(
                 style: TextStyle(
-                  fontSize: width > 400 ? 14.5 : 13.5,
+                  height: textHeight,
+                  fontSize: height > 800 ? 16 : 14.5,
                   color: Colors.grey.shade600,
                   fontWeight: FontWeight.w600,
                 ),

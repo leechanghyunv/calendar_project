@@ -8,12 +8,11 @@ import '../../../core/export_package.dart';
 import '../../../core/utils/formatter.dart';
 import '../../../firebase_analytics.dart';
 import '../../../model/formz_model.dart';
-import '../../../one_signal_notification.dart';
 import '../../../repository/formz/formz_model.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
-import '../statistic_screen/component/function_chip.dart';
 import 'auth_default_screen.dart';
 import 'component/auth_elevatedButton.dart';
+import 'component/pay_input_button.dart';
 import 'component/pay_numberField.dart';
 import 'component/tax_numberField.dart';
 import 'const_widget.dart';
@@ -33,6 +32,18 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
 
     final _scrollController = useScrollController();
 
+    final _scrollToTop = useCallback(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!_scrollController.hasClients) return;
+
+        _scrollController.animateTo(
+          0, // 맨 위로 스크롤
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      });
+    }, []);
+
     final _scrollToBottom = useCallback(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!_scrollController.hasClients) return;
@@ -47,6 +58,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
         );
       });
     }, []);
+
+
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -74,12 +87,12 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     }, [taxFocusNode]);
 
     final normalFieldValue = useState<String>('');
-    final hasNormalValue = normalFieldValue.value.isNotEmpty;
 
     ref.contractForm;
 
     final formzRefNot = ref.formzWatch;
     final formzRefRead = ref.formzRead;
+    ref.watch(digitColorProvider);
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
@@ -94,7 +107,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     });
 
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     final bgColor = ref.watch(digitColorProvider);
     final dateNow = DateTime.utc(
         DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -106,22 +118,25 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
      mainAxisAlignment: MainAxisAlignment.start,
      children: [
        Row(
-         crossAxisAlignment: CrossAxisAlignment.center,
+         crossAxisAlignment: CrossAxisAlignment.start,
          children: [
            InfoRow(
              title: '일당을 입력해주세요 ',
              subtitle: '일당과 세율 정보는 통계자료에 활용됩니다.',
            ),
            Spacer(),
-           FunctionChip(
-             label: '일단나가기',
-             color: Colors.grey.shade300,
-             borderColor: Colors.grey.shade600,
-             textColor: Colors.grey.shade900,
-             onTap: () {
-               Navigator.of(context, rootNavigator: true).pop();
-             },
+           PayInputButton(
+             onSelected: (value) {
+               normalFieldValue.value = value.toString();
+               ref.read(digitColorProvider.notifier).colorProvider(
+                   value.toString());
+               formzRefRead.onChangePay1(value.toString());
+               final formatter = NumberFormat('#,###');
+               final formatted = formatter.format(value);
+               _formKey.currentState?.fields['normal']?.didChange(formatted);
+             }
            ),
+           // ),
          ],
        ),
        SizedBox(height: 20),
@@ -139,13 +154,11 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  normalFieldValue.value = val ?? '';
                  ref.read(digitColorProvider.notifier).colorProvider(val);
                  if (val != null && val.isNotEmpty) {
-                   // _scrollToBottom(); // 📜 입력 시 스크롤 실행
                    final cleanedValue = val.replaceAll(',', '');
                    formzRefRead.onChangePay1(cleanedValue);
                  }
                },
                onSubmitted: (val) {
-                 // _scrollToBottom(); // 📜 입력 시 스크롤 실행
                  wageFocusNodeB.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
                  ref.read(payListProvider.notifier).update(0, val);
                },
@@ -174,7 +187,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    ref.read(firebaseAnalyticsClassProvider.notifier).autoCopyEvent();
                    WidgetsBinding.instance.addPostFrameCallback((_) {
                      taxFocusNode.requestFocus();
-                     // _scrollToBottom();
                    });
                  },
                  child: Padding(
@@ -194,7 +206,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                ),
              ),
              ValidationText(text: formzRefNot.pay1Error),
-             SizedBox(height: 5),
              PayNumberField(
                name: 'extended',
                hintText: '225,000',
@@ -231,7 +242,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                ),
              ),
              ValidationText(text: formzRefNot.pay2Error),
-             SizedBox(height: 5),
              PayNumberField(
                name: 'night',
                hintText: '300,000',
@@ -251,7 +261,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                },
              ),
              ValidationText(text: formzRefNot.pay3Error),
-             SizedBox(height: 5),
              Row(
                children: [
                  Expanded(
@@ -269,7 +278,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                        _scrollToBottom();
                      },
                      onChanged: (val) {
-
                        if (val == null || val.isEmpty) {
                          return;
                        }
@@ -287,7 +295,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                      },
                    ),
                  ),
-                 SizedBox(width: 20),
+                 SizedBox(width: 10),
                  Expanded(
                    flex: 3,
                    child: PayNumberField(
@@ -318,6 +326,12 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
              ),
              SizedBox(height: 20),
              AuthButton(
+               onPressedReset: (){
+                 _formKey.currentState?.reset();
+                 ref.read(digitColorProvider.notifier).resetColor();
+                 wageFocusNodeA.requestFocus();
+                 _scrollToTop();
+               },
                onPressed: (){
                  final site = _formKey.currentState?.fields['site']?.value ?? '';
                  final workType = _formKey.currentState?.fields['work_type']?.value ?? '';

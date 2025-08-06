@@ -21,6 +21,14 @@ class CommaInputFormatter6Digits extends TextInputFormatter {
 
     if (digitsOnly.length > 6) return oldValue;
 
+    // 빈 문자열 처리
+    if (digitsOnly.isEmpty) {
+      return newValue.copyWith(
+        text: '',
+        selection: const TextSelection.collapsed(offset: 0),
+      );
+    }
+
     final number = int.tryParse(digitsOnly);
     final formatted = NumberFormat('#,###').format(number ?? 0);
 

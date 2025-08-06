@@ -21,7 +21,11 @@ mixin _$PayStatistics {
   int get count;
   double get electricAverage; // 전기
   double get pipeAverage; // 배관
-  double get ductAverage;
+  double get ductAverage; // 덕트
+  double get scaffoldAverage; // 비계 ⭐
+  double get partitionAverage; // 칸막이 ⭐
+  double get weldingAverage; // 용접 🔥
+  double get facilityAverage;
 
   /// Create a copy of PayStatistics
   /// with the given fields replaced by the non-null parameter values.
@@ -45,16 +49,35 @@ mixin _$PayStatistics {
             (identical(other.pipeAverage, pipeAverage) ||
                 other.pipeAverage == pipeAverage) &&
             (identical(other.ductAverage, ductAverage) ||
-                other.ductAverage == ductAverage));
+                other.ductAverage == ductAverage) &&
+            (identical(other.scaffoldAverage, scaffoldAverage) ||
+                other.scaffoldAverage == scaffoldAverage) &&
+            (identical(other.partitionAverage, partitionAverage) ||
+                other.partitionAverage == partitionAverage) &&
+            (identical(other.weldingAverage, weldingAverage) ||
+                other.weldingAverage == weldingAverage) &&
+            (identical(other.facilityAverage, facilityAverage) ||
+                other.facilityAverage == facilityAverage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, average, minimum, maximum, count,
-      electricAverage, pipeAverage, ductAverage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      average,
+      minimum,
+      maximum,
+      count,
+      electricAverage,
+      pipeAverage,
+      ductAverage,
+      scaffoldAverage,
+      partitionAverage,
+      weldingAverage,
+      facilityAverage);
 
   @override
   String toString() {
-    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage)';
+    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage, scaffoldAverage: $scaffoldAverage, partitionAverage: $partitionAverage, weldingAverage: $weldingAverage, facilityAverage: $facilityAverage)';
   }
 }
 
@@ -71,7 +94,11 @@ abstract mixin class $PayStatisticsCopyWith<$Res> {
       int count,
       double electricAverage,
       double pipeAverage,
-      double ductAverage});
+      double ductAverage,
+      double scaffoldAverage,
+      double partitionAverage,
+      double weldingAverage,
+      double facilityAverage});
 }
 
 /// @nodoc
@@ -94,6 +121,10 @@ class _$PayStatisticsCopyWithImpl<$Res>
     Object? electricAverage = null,
     Object? pipeAverage = null,
     Object? ductAverage = null,
+    Object? scaffoldAverage = null,
+    Object? partitionAverage = null,
+    Object? weldingAverage = null,
+    Object? facilityAverage = null,
   }) {
     return _then(_self.copyWith(
       average: null == average
@@ -124,6 +155,22 @@ class _$PayStatisticsCopyWithImpl<$Res>
           ? _self.ductAverage
           : ductAverage // ignore: cast_nullable_to_non_nullable
               as double,
+      scaffoldAverage: null == scaffoldAverage
+          ? _self.scaffoldAverage
+          : scaffoldAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      partitionAverage: null == partitionAverage
+          ? _self.partitionAverage
+          : partitionAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      weldingAverage: null == weldingAverage
+          ? _self.weldingAverage
+          : weldingAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      facilityAverage: null == facilityAverage
+          ? _self.facilityAverage
+          : facilityAverage // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -138,7 +185,11 @@ class _PayStatistics implements PayStatistics {
       this.count = 0,
       this.electricAverage = 0.0,
       this.pipeAverage = 0.0,
-      this.ductAverage = 0.0});
+      this.ductAverage = 0.0,
+      this.scaffoldAverage = 0.0,
+      this.partitionAverage = 0.0,
+      this.weldingAverage = 0.0,
+      this.facilityAverage = 0.0});
 
   @override
   @JsonKey()
@@ -163,6 +214,22 @@ class _PayStatistics implements PayStatistics {
   @override
   @JsonKey()
   final double ductAverage;
+// 덕트
+  @override
+  @JsonKey()
+  final double scaffoldAverage;
+// 비계 ⭐
+  @override
+  @JsonKey()
+  final double partitionAverage;
+// 칸막이 ⭐
+  @override
+  @JsonKey()
+  final double weldingAverage;
+// 용접 🔥
+  @override
+  @JsonKey()
+  final double facilityAverage;
 
   /// Create a copy of PayStatistics
   /// with the given fields replaced by the non-null parameter values.
@@ -186,16 +253,35 @@ class _PayStatistics implements PayStatistics {
             (identical(other.pipeAverage, pipeAverage) ||
                 other.pipeAverage == pipeAverage) &&
             (identical(other.ductAverage, ductAverage) ||
-                other.ductAverage == ductAverage));
+                other.ductAverage == ductAverage) &&
+            (identical(other.scaffoldAverage, scaffoldAverage) ||
+                other.scaffoldAverage == scaffoldAverage) &&
+            (identical(other.partitionAverage, partitionAverage) ||
+                other.partitionAverage == partitionAverage) &&
+            (identical(other.weldingAverage, weldingAverage) ||
+                other.weldingAverage == weldingAverage) &&
+            (identical(other.facilityAverage, facilityAverage) ||
+                other.facilityAverage == facilityAverage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, average, minimum, maximum, count,
-      electricAverage, pipeAverage, ductAverage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      average,
+      minimum,
+      maximum,
+      count,
+      electricAverage,
+      pipeAverage,
+      ductAverage,
+      scaffoldAverage,
+      partitionAverage,
+      weldingAverage,
+      facilityAverage);
 
   @override
   String toString() {
-    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage)';
+    return 'PayStatistics(average: $average, minimum: $minimum, maximum: $maximum, count: $count, electricAverage: $electricAverage, pipeAverage: $pipeAverage, ductAverage: $ductAverage, scaffoldAverage: $scaffoldAverage, partitionAverage: $partitionAverage, weldingAverage: $weldingAverage, facilityAverage: $facilityAverage)';
   }
 }
 
@@ -214,7 +300,11 @@ abstract mixin class _$PayStatisticsCopyWith<$Res>
       int count,
       double electricAverage,
       double pipeAverage,
-      double ductAverage});
+      double ductAverage,
+      double scaffoldAverage,
+      double partitionAverage,
+      double weldingAverage,
+      double facilityAverage});
 }
 
 /// @nodoc
@@ -237,6 +327,10 @@ class __$PayStatisticsCopyWithImpl<$Res>
     Object? electricAverage = null,
     Object? pipeAverage = null,
     Object? ductAverage = null,
+    Object? scaffoldAverage = null,
+    Object? partitionAverage = null,
+    Object? weldingAverage = null,
+    Object? facilityAverage = null,
   }) {
     return _then(_PayStatistics(
       average: null == average
@@ -266,6 +360,22 @@ class __$PayStatisticsCopyWithImpl<$Res>
       ductAverage: null == ductAverage
           ? _self.ductAverage
           : ductAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      scaffoldAverage: null == scaffoldAverage
+          ? _self.scaffoldAverage
+          : scaffoldAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      partitionAverage: null == partitionAverage
+          ? _self.partitionAverage
+          : partitionAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      weldingAverage: null == weldingAverage
+          ? _self.weldingAverage
+          : weldingAverage // ignore: cast_nullable_to_non_nullable
+              as double,
+      facilityAverage: null == facilityAverage
+          ? _self.facilityAverage
+          : facilityAverage // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }

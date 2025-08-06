@@ -152,6 +152,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
     totalPayString: formatAmount(totalPay),
     prevPayString: formatAmount(prevPay),
     totalPayAnd: formatAmount(totalPayAnd),
+    record: workRecord,
     workRecord: '${workRecord.toStringAsFixed(1)}공수',
     normalDay: normalDay,
     normalPay: formatAmount(normalPay),

@@ -1,5 +1,6 @@
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
+import 'package:calendar_project_240727/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../main_screen_component/column_box_component/indicator_box.dart';
@@ -18,7 +19,6 @@ class UserStatisticsScreen extends StatelessWidget {
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey.shade50,
@@ -93,7 +93,8 @@ class UserStatisticsScreen extends StatelessWidget {
                                           padding: EdgeInsets.all(2), // 원하는 크기로 조정
                                           child:  Text('설문없이 설정하기',
                                             style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: Platform.isAndroid ? 15.0 : 14.0,
+                                              height: textHeight,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.grey,
                                             ),
@@ -133,9 +134,10 @@ class UserStatisticsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     StatisticsTotalRatio(),
-                    SizedBox(height: height > 750 ? 30 : 15),
+                    SizedBox(height: height > 750 ? 30 : 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width < 370 ? 2.5 : 4.0),
                       child: StatisticsFilterChip(),
                     ),
                     Padding(
@@ -143,7 +145,7 @@ class UserStatisticsScreen extends StatelessWidget {
                           vertical: height > 750 ? 3.0 : 0.0, horizontal: 8.0),
                       child: Divider(color: Colors.grey.shade300, thickness: 1.0),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     StatisticsBox(),
                 
                   ],

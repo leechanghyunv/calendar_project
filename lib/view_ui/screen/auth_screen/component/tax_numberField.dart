@@ -25,11 +25,9 @@ class TaxNumberField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  height = MediaQuery.of(context).size.height;
     return Autocomplete<double>(
       optionsBuilder: (textValue) {
         final values = [3.3, 10.0];
-        // 포커스되자마자 모든 옵션 표시
         return values.where((value) =>
         textValue.text.isEmpty || value.toString().contains(textValue.text)
         );

@@ -1,9 +1,13 @@
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
+import 'package:calendar_project_240727/view_model/filted_instance_model/filted_month_model.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
-
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../../../../core/utils/converter.dart';
 import '../../../../../../model/selected_history_model.dart';
 import '../../../../../../theme_color.dart';
+import '../../../../../calendar_rangefield/date_picker_2.dart';
+import 'history_dialog.dart';
 
 
 
@@ -109,10 +113,11 @@ class HistoryBox extends ConsumerWidget {
               right: 10,
               child: Row(
                 children: [
+                  SizedBox(width: 7.5),
                   IconButton(
                     icon: Icon(
                       Icons.close,
-                      size: 20,
+                      size: 17,
                       color: Colors.grey,
                     ),
                     onPressed: () {
@@ -139,15 +144,11 @@ class MomoChip extends StatelessWidget {
 
   MomoChip({super.key, required this.selectedHistory});
 
-  // afterTax: pay.toDouble() * (1 - tax),
-
   List<String> get result {
     return [
-      if (selectedHistory.job.trim().isNotEmpty) selectedHistory.job,
-      '${selectedHistory.record.toInt()}공수',
+      '${selectedHistory.record}공수',
       '${(selectedHistory.money / 10000).toInt()}만원',
-      if (selectedHistory.money != selectedHistory.afterTax && selectedHistory.money != 0)
-        selectedHistory.afterTax == 1.0 ? '' : '${(selectedHistory.afterTax / 10000).toInt()}만원',
+      ' 더보기... ',
     ];
   }
 
@@ -163,6 +164,7 @@ class MomoChip extends StatelessWidget {
     Colors.grey.shade900,
   ];
 
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -175,6 +177,25 @@ class MomoChip extends StatelessWidget {
         final color = baseColors[index % baseColors.length];
         final textColor = textColors[index % textColors.length];
         final type = result[index];
+
+        Widget  MoreText = Text(
+          type == ' 더보기... ' ? '$type' : '#$type',
+          textScaler: TextScaler.noScaling,
+          style: TextStyle(
+            height: textHeight,
+            fontSize: height > 750
+                ? (width >= 450
+                ? 13.5
+                : width > 400
+                ? 11.5
+                : 10.5)
+                : 10.0,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        );
+
+
         return type.isNotEmpty ?  Container(
           height: height > 750 ? (width > 400 ? 24 : 23) : 22,
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
@@ -193,22 +214,16 @@ class MomoChip extends StatelessWidget {
               ),
             ],
           ),
-          child: Text(
-              '#$type',
-            textScaler: TextScaler.noScaling,
-            style: TextStyle(
-              height: textHeight,
-              fontSize: height > 750
-                  ? (width >= 450
-                  ? 13.5
-                  : width > 400
-                  ? 11.5
-                  : 10.5)
-                  : 10.0,
-              fontWeight: FontWeight.bold,
-              color: textColor,
+          child: type == ' 더보기... '
+              ? GestureDetector(
+            onTap: () => showDialog(
+                context: context,
+                builder: (context) => HistoryDialog(
+                    selectedHistory: selectedHistory,
+                ),
             ),
-          ),
+                child: MoreText)
+              : MoreText,
         ) : SizedBox.shrink();
       }),
     );

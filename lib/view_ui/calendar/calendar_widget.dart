@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../dialog/memo_decimal_dialog/memo_decimal_form.dart';
+import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'default_cell.dart';
 import 'holiday_cell.dart';
 import 'marker_cell.dart';
@@ -33,23 +34,21 @@ class WorkCalendar extends ConsumerWidget {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
     final appWidth = MediaQuery.of(context).size.width;
 
+    ref.history;
     final timeManagerNot = ref.timeNot;
-    final data = ref.history;
     final filted = ref.watch(filtedEventsProvider);
 
     _initHolidayCache();
     return Padding(
       padding: EdgeInsets.fromLTRB(
-          appWidth > 550 ? 7.5.w : 15.w,
-          10.h,
-          appWidth > 550 ? 7.5.w : 15.w,
+          appWidth > 550 ? 7.5.w : (appWidth < 376 ? 7.5.w : 15.w),
+          appWidth < 376 ? 5.h : 10.h,
+          appWidth > 550 ? 7.5.w : appWidth < 376 ? 7.5.w : 15.w,
           0),
       child: Container(
         width: appWidth,
@@ -57,29 +56,15 @@ class WorkCalendar extends ConsumerWidget {
             selectedDay: ref.selected,
             onDayLongPressed:
                 (DateTime? selected, DateTime? focused) {
-              data.whenData((val){
-                final utcAdjustedData = val.map((workHistory) =>
-                    workHistory.copyWith(
-                        date: DateTime.utc(
-                          workHistory.date.year,
-                          workHistory.date.month,
-                          workHistory.date.day,
-                        ),
-                    ),
-                ).toList();
-                final selectedOne =
-                utcAdjustedData.where((e){
-                  return e.date.toUtc() == selected;
-                });
-                if (selectedOne.isEmpty) {
-                  customMsg('해당 날짜에 공수기록이 없습니다.');
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (context) => EnrollDialogWidget());
-                }
-
-              });
+                 if (ref.contract.value!.isEmpty) {
+                   customMsg('근로조건을 우선 입력해주세요');
+                   showBasicModal(context,false);
+                 } else {
+                   showDialog(
+                     context: context,
+                     builder: (context) => EnrollDialogWidget(),
+                   );
+                 }
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);

@@ -73,8 +73,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     final date = ref.watch(timeManagerProvider).selected;
     final memoString = ref.watch(formzMemoValidatorProvider.notifier).value;
 
-    print('memoString: ${memoString}');
-    print('calculated: $calculated');
     final history = WorkHistory(
       date: date,
       pay: pay,

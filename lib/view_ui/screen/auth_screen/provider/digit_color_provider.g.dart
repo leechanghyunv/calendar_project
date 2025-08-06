@@ -6,7 +6,7 @@ part of 'digit_color_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$digitColorHash() => r'29c14f68ec02df7ce383166dc2f971e70e629f0b';
+String _$digitColorHash() => r'dfdc55abb065dd3f1290b46fd842d0bfd042d183';
 
 /// See also [DigitColor].
 @ProviderFor(DigitColor)

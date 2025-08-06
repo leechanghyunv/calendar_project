@@ -62,9 +62,11 @@ class StatisticsFilterChip extends HookConsumerWidget {
                       ref.read(selectedSiteProvider.notifier).setSite(option);
                       if (option == '전체') {
                         ref.read(payStatsNotifierProvider.notifier).showAllStats();
+                        ref.read(electricJobStatsNotifierProvider.notifier).fetchBySite('');
                         customMsg('전체 통계');
                       } else {
                         ref.read(payStatsNotifierProvider.notifier).showSiteStats(option);
+                        ref.read(electricJobStatsNotifierProvider.notifier).fetchBySite(option);
                         customMsg('${option} 통계');
                       }
                       _scrollToSelected(index, width);
@@ -72,7 +74,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       height: height > 750 ? (width > 400 ? 27 : 25) : 24,
-                      padding: EdgeInsets.symmetric(horizontal: width > 370 ? 8 : 4, vertical: 4),
+                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color:
                         option == '전체' ? Colors.green.shade100 :
@@ -96,9 +98,9 @@ class StatisticsFilterChip extends HookConsumerWidget {
                         textScaler: TextScaler.noScaling,
                         style: TextStyle(
                           height: textHeight,
-                          letterSpacing: Platform.isAndroid ? 1.0 : null,
+                          letterSpacing: null,
                           fontSize: height > 750
-                              ? (width > 400 ? 15 : width < 370 ? 11.5 : 12.5)
+                              ? (width > 400 ? 15 : width < 370 ? 11.0 : 12.5)
                               : 11.5,
                           fontWeight: FontWeight.bold,
                           color: option == '전체' ? Colors.green.shade900 :

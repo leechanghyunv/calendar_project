@@ -59,7 +59,7 @@ class TableCalendarFrame extends ConsumerWidget {
       focusedDay: selectedDay,
       firstDay: DateTime.utc(1900),
       lastDay: DateTime.utc(2100),
-      daysOfWeekHeight:  20.h,
+      daysOfWeekHeight: 20.h,
       rowHeight: rowHeight,
       calendarFormat: CalendarFormat.month,
       onDayLongPressed: onDayLongPressed,

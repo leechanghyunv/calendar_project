@@ -105,8 +105,7 @@ class DataDialog extends HookConsumerWidget {
       actions: [
         TextButton(
           onPressed: () {
-            print(selectedTax.value);
-            // Navigator.of(context).pop();
+
           },
           child: const Text('취소',
             textScaler: TextScaler.noScaling,

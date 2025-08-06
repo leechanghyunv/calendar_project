@@ -54,5 +54,22 @@ final jobRatioNotifierProvider =
 );
 
 typedef _$JobRatioNotifier = AutoDisposeAsyncNotifier<JobRatio>;
+String _$electricJobStatsNotifierHash() =>
+    r'3a8a3a40ee7552dd7640165702ae28ebf494db9d';
+
+/// See also [ElectricJobStatsNotifier].
+@ProviderFor(ElectricJobStatsNotifier)
+final electricJobStatsNotifierProvider = AutoDisposeAsyncNotifierProvider<
+    ElectricJobStatsNotifier, ElectricJobStats>.internal(
+  ElectricJobStatsNotifier.new,
+  name: r'electricJobStatsNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$electricJobStatsNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ElectricJobStatsNotifier = AutoDisposeAsyncNotifier<ElectricJobStats>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

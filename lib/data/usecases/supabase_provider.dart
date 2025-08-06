@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import '../../repository/repository_import.dart';
+import '../entities/electric_job_stats.dart';
 import '../entities/pay_statistics.dart';
 import '../entities/site_ratio.dart';
 import '../repositories/supabase_service.dart';
@@ -57,8 +58,6 @@ class SiteRatioNotifier extends _$SiteRatioNotifier {
 }
 
 
-
-
 @riverpod
 class JobRatioNotifier extends _$JobRatioNotifier {
 
@@ -72,3 +71,22 @@ class JobRatioNotifier extends _$JobRatioNotifier {
     return await repository.getJobRatio(randomSite);
   }
 }
+
+@riverpod
+class ElectricJobStatsNotifier extends _$ElectricJobStatsNotifier {
+  @override
+  Future<ElectricJobStats> build() async {
+    final repository = ref.read(supaBaseServiceProvider);
+    return await repository.getElectricJobStatsBySite('');
+  }
+
+  Future<void> fetchBySite(String site) async {
+    state = const AsyncLoading();
+    print('site $site');
+    state = await AsyncValue.guard(() async {
+      final repository = ref.read(supaBaseServiceProvider);
+      return await repository.getElectricJobStatsBySite(site);
+    });
+  }
+}
+

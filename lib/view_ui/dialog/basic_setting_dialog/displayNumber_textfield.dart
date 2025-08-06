@@ -20,7 +20,7 @@ class _DisplayNumberTextFieldState extends State<DisplayNumberTextField> {
     return TextFormField(
       controller: widget.controller,
       focusNode: widget.focusNode,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
       cursorColor: Colors.grey.shade700,
       cursorWidth: 2.0,
       inputFormatters: [

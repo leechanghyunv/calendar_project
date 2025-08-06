@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:path/path.dart' as go;
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
+import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
 
 final selectedChipIndexProvider = StateProvider.autoDispose<int?>((ref) => null);
 
@@ -69,10 +70,12 @@ class ChipList extends HookConsumerWidget {
                         break;
                     }
                   } else {
+
                     final workTypes = ['정상근무', '연장근무', '야간근무'];
                     final conditionValues = [condition.normal, condition.extend, condition.night];
                     enrollMsg(ref.selected, workTypes[index]);
                     ref.read(addHistoryProvider(conditionValues[index], ref.selected));
+
                   }
                   break;
                 case AsyncData(value: final conditions) when conditions.isEmpty:
@@ -82,6 +85,7 @@ class ChipList extends HookConsumerWidget {
               ref.read(selectedChipIndexProvider.notifier).state =
               selectedIndex == index ? null : index;
               },
+
                 onTapUp: (details){
                   switch (ref.contract){
                     case AsyncData(value: final conditions) when conditions.isNotEmpty:
@@ -90,7 +94,7 @@ class ChipList extends HookConsumerWidget {
                       });
                       break;
                     case AsyncData(value: final conditions) when conditions.isEmpty:
-                      context.go('/setting');
+                      showBasicModal(context,false);
                       break;
                   }
 

@@ -14,6 +14,7 @@ class authContainer extends StatelessWidget {
     final  width = MediaQuery.of(context).size.width;
     return Container(
       height: height > 700 ? (width > 400 ? 48 : 45) : 43,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.grey.shade50,

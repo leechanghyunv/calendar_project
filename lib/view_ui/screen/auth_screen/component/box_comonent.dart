@@ -29,15 +29,15 @@ Widget siteBox(BuildContext context, String siteName, IconData icon, {bool isSel
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Icon(icon, size:  height > 750 ? (width > 400 ? 35 : 30) : 28,
-            color: isSelected ? Colors.black : Colors.black,
+            color: Colors.black,
 
           ),
           Spacer(),
           Text(
             siteName,
             style: TextStyle(
-              color: isSelected ? Colors.black : Colors.black,
-
+              color: Colors.black,
+              height: textHeight,
               fontSize: height > 750 ? (width > 400 ? 16 : (width < 370 ? 14 : 15)) : 13.5,
               fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w800,
             ),

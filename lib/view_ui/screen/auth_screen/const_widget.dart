@@ -56,7 +56,7 @@ class ValidationText extends StatelessWidget {
       children: [
         SizedBox(height: 5),
         ErrorText(' ${text}',appWidth),
-        SizedBox(height: 10),
+        SizedBox(height: 15),
       ],
     );
   }

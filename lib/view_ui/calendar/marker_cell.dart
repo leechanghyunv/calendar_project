@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/utils/view_type.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import '../../core/export_package.dart';
 import '../../repository/time/calendar_time_controll.dart';
 import '../../theme_color.dart';
@@ -26,6 +27,8 @@ class MarkerCell extends ConsumerWidget {
     final switcher = ref.watch(calendarSwitcherProvider);
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+    final switchAsync = ref.watch(bTypeSwitchProviderProvider);
+    final isOn = switchAsync.valueOrNull ?? false;
 
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
@@ -117,7 +120,7 @@ class MarkerCell extends ConsumerWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 5.0,
-                    vertical: appWidth < 376 ? 0.0 : 1.0,
+                    vertical: 1.0,
                 ),
                 child: Text(
                   maxLines: 1,
@@ -126,25 +129,24 @@ class MarkerCell extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                     height: textHeight,
-                    fontSize: 13,
+                    fontSize: Platform.isAndroid ? null : appWidth < 376 ? 11.5 : 12.5,
                   ),
                 ),
               ),
             ),
-            appWidth < 376 ? SizedBox.shrink() : SizedBox(height: 3.5),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0,),
+            appWidth < 376 ? SizedBox(height: 1.0) : SizedBox(height: 3),
+            Flexible(
               child: Text(
-                calendarPayText,
+                isOn ? calendarPayText : calendarMemoText,
                 textScaler: TextScaler.noScaling,
                 maxLines: 2,
                 style: TextStyle(
-
+                  overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold,
                   color: Colors.grey.shade900,
                   height: textHeight,
-                  fontSize: appWidth < 376 ? 10.0 : 11.5,
-              ),
+                  fontSize: appWidth < 376 ? (isOn ? 10 : 9.5) : 10.5,
+                ),
               ),
             ),
           ],

@@ -16,7 +16,7 @@ class FormzValidator extends _$FormzValidator {
   String get pay3Error => state.pay3.displayError?.toString() ?? '야간근무 수당을 입력해주세요';
   String get taxError => state.tax.displayError?.toString() ?? '세율을 입력해주세요';
 
-  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비 없으면 바로 설정완료 누르세요';
+  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비 없으면 바로 넘어가기';
   String get errorState => state.status.toString();
 
   double get extended {
@@ -127,7 +127,6 @@ class FormzValidator extends _$FormzValidator {
     state = state.copyWith(status: FormzStatus.submissionInProgress);
     bool isValid = true;
     List<String> errorMessages = [];
-    print('onSubmit을 시작');
     // 유효성 검사
     if (state.pay1.value == 0) {
       isValid = false;

@@ -68,11 +68,14 @@ class InitialFinishDialog extends StatelessWidget {
           child: Row(
             children: [
               Spacer(),
-              TextButton(onPressed: () async {
+              TextButton(
+                  onPressed: () {
                 Navigator.pop(context);
               },
                   child: Text('워크캘린더 시작하기',
-                  style: baseStyle)),
+                  style: baseStyle,
+                  ),
+              ),
             ],
           ),
         ),

@@ -6,7 +6,7 @@ part of 'decimal_value_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$decimalRawInputHash() => r'79dc6108f5f53a9601e0582119a38f3c77623db3';
+String _$decimalRawInputHash() => r'858cb571fdd78997f74df3a850dacc1747e963d8';
 
 /// See also [DecimalRawInput].
 @ProviderFor(DecimalRawInput)

@@ -13,5 +13,10 @@ abstract class PayStatistics with _$PayStatistics {
     @Default(0.0) double electricAverage,  // 전기
     @Default(0.0) double pipeAverage,      // 배관
     @Default(0.0) double ductAverage,      // 덕트
+    @Default(0.0) double scaffoldAverage,  // 비계 ⭐
+    @Default(0.0) double partitionAverage, // 칸막이 ⭐
+    @Default(0.0) double weldingAverage,   // 용접 🔥
+    @Default(0.0) double facilityAverage,  // 설비 ⚙️
+
   }) = _PayStatistics;
 }

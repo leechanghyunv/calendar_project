@@ -4,6 +4,7 @@ Widget initialText(double height) {
   final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.6 : 1.20,
+    fontWeight: FontWeight.w500,
     fontSize: fontSize,
     color: Colors.black,
   );
@@ -14,10 +15,9 @@ Widget initialText(double height) {
         TextSpan(
           children: [
             TextSpan(
-              text: '근무지,직무',
+              text: '근무현장,공종 ',
               style: baseStyle.copyWith(
                 fontWeight: FontWeight.w700,
-                fontSize: fontSize + 1.25,
               ),
             ),
             TextSpan(
@@ -35,7 +35,6 @@ Widget initialText(double height) {
               style: baseStyle.copyWith(
                 backgroundColor: Colors.green.shade100,
                 fontWeight: FontWeight.w700,
-                fontSize: fontSize + 1.25,
               ),
             ),
             TextSpan(

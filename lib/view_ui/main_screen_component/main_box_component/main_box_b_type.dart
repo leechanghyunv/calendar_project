@@ -1,12 +1,13 @@
 
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/dialog/memo_decimal_dialog/memo_decimal_form.dart';
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../chart_box_conponent/chart_in_dialog.dart';
-import 'b_type_segment_button.dart';
+import 'b_type_toggle_button.dart';
 import 'component/main_box_component.dart';
 
 
@@ -34,7 +35,6 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
     final data2 = ref.watch(monthRecordProvider(ref.selected));    final data = ref.history;
 
     final appWidth = MediaQuery.of(context).size.width;
-
     data1.whenData((val) {
       payString = val.totalPayString;
       afterTax = val.afterTax;
@@ -107,11 +107,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     }),
                   ),
                   Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ChartInDialog(),
-                    /// ChartInDialog()
-                  ),
+                  SwitchExample(),
                 ],
               ),
 
@@ -152,7 +148,6 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     ),
                   ),
 
-
                   Spacer(),
 
                   Consumer(
@@ -188,7 +183,6 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     icon: Icons.add,
                     iconColor: Colors.black,
                     borderColor: Colors.grey.shade100,
-                    // backgroundColor: Colors.grey.shade100,
                     borderWidth: 0.5,
                     size: appWidth > 400 ? 32 : 27.5,
                     onPressed: () {

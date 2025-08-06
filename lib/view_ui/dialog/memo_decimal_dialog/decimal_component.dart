@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../theme_color.dart';
 
@@ -15,17 +16,9 @@ class TitleRow extends ConsumerWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          '${ref.month}월 ${ref.day}일 등록',
-          textScaler: TextScaler.noScaling,
-          style: TextStyle(
-              height: textHeight,
-              fontSize: appWidth > 450 ? 18 : appWidth > 410 ? 16 : 15,
-              fontWeight: FontWeight.bold),
-        ),
+        TextWidget('${ref.month}월 ${ref.day}일 등록', 15, appWidth),
         Spacer(),
         decimalContainer1(appWidth),
-
       ],
     );
   }
@@ -84,32 +77,12 @@ class MomoDecimalBox extends StatelessWidget {
         SizedBox(height: 15),
         decimalTextField,
         SizedBox(height: 7.5),
-        Row(
-          children: [
-            Text(decimalErrorText,
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(fontSize: appWidth > 450 ? 11 : 10,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade800),
-            ),
-          ],
-        ),
+        ErrorText(decimalErrorText, appWidth),
         SizedBox(height: 20),
         memoTextField,
         SizedBox(height: 7.5),
-        Row(
-          children: [
-            Text(memoErrorText,
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(fontSize: appWidth > 450 ? 11 : 10,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade800),
-            ),
-          ],
-        ),
+        ErrorText(memoErrorText, appWidth),
         SizedBox(height: 15),
-
-
       ],
     );
   }

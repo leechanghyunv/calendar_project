@@ -12,12 +12,14 @@ class SelectedCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final switcher = ref.watch(calendarSwitcherProvider);
+    final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
       orElse: () => false,
     );
     final circleContainer = Container(
-      width: 40,
+      width: appHeight < 700 ? 35 : 40,
       height: isExpanded ? 50 : 100,
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(

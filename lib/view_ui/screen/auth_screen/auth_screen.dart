@@ -8,12 +8,11 @@ import 'package:path/path.dart' as go;
 import '../../../core/export_package.dart';
 import '../../../core/utils/formatter.dart';
 import '../../../model/formz_model.dart';
-import '../../../one_signal_notification.dart';
 import '../../../repository/formz/formz_model.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
-import '../statistic_screen/component/function_chip.dart';
 import 'auth_default_screen.dart';
 import 'component/auth_elevatedButton.dart';
+import 'component/pay_input_button.dart';
 import 'const_widget.dart';
 import 'provider/condition_list_provider.dart';
 import 'provider/pay_list_provider.dart';
@@ -35,6 +34,18 @@ class SettingScreen extends HookConsumerWidget {
     final dayPayFocusNode = useFocusNode();
 
     final _scrollController = useScrollController();
+
+    final _scrollToTop = useCallback(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!_scrollController.hasClients) return;
+
+        _scrollController.animateTo(
+          0, // 맨 위로 스크롤
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOut,
+        );
+      });
+    }, []);
 
     final _scrollToBottom = useCallback(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -152,21 +163,23 @@ class SettingScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoRow(
                     title: '일당을 입력해주세요 ',
                     subtitle: '일당과 세율 정보는 통계자료에 활용됩니다.',
                   ),
                   Spacer(),
-                  FunctionChip(
-                    label: '일단나가기',
-                    color: Colors.grey.shade300,
-                    borderColor: Colors.grey.shade600,
-                    textColor: Colors.grey.shade900,
-                    onTap: () {
-                      Navigator.of(context, rootNavigator: true).pop();
-                    },
+                  PayInputButton(
+                      onSelected: (value) {
+                        normalFieldValue.value = value.toString();
+                        ref.read(digitColorProvider.notifier).colorProvider(
+                            value.toString());
+                        formzRefRead.onChangePay1(value.toString());
+                        final formatter = NumberFormat('#,###');
+                        final formatted = formatter.format(value);
+                        _formKey.currentState?.fields['normal']?.didChange(formatted);
+                      }
                   ),
                 ],
               ),
@@ -239,8 +252,13 @@ class SettingScreen extends HookConsumerWidget {
                         ),
                       ),
                     ),
+
+
+
                     ValidationText(text: formzRefNot.pay1Error),
-                    SizedBox(height: 5),
+
+
+
                     PayNumberField(
                       name: 'extended',
                       hintText: '225,000',
@@ -277,7 +295,7 @@ class SettingScreen extends HookConsumerWidget {
                       ),
                     ),
                     ValidationText(text: formzRefNot.pay2Error),
-                    SizedBox(height: 5),
+
                     PayNumberField(
                       name: 'night',
                       hintText: '300,000',
@@ -295,9 +313,26 @@ class SettingScreen extends HookConsumerWidget {
                         taxFocusNode.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
                         ref.read(payListProvider.notifier).update(2, val);
                       },
+                      suffixIcon: GestureDetector(
+                        onTap: () =>  Navigator.of(context, rootNavigator: true).pop(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Container(
+                            child: Text(
+                              '# 일단 나가기',
+                              textScaler: TextScaler.noScaling,
+                              style: TextStyle(
+                                fontSize: height > 750 ? 13.5 : 13,
+                                fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
+                                color: Colors.grey.shade700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
                     ),
                     ValidationText(text: formzRefNot.pay3Error),
-                    SizedBox(height: 5),
                     Row(
                       children: [
                         Expanded(
@@ -331,7 +366,7 @@ class SettingScreen extends HookConsumerWidget {
                             },
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 10),
                         Expanded(
                           flex: 3,
                           child: PayNumberField(
@@ -364,6 +399,12 @@ class SettingScreen extends HookConsumerWidget {
                       ...[
                         SizedBox(height: 20),
                         AuthButton(
+                          onPressedReset: (){
+                            _formKey.currentState?.reset();
+                            ref.read(digitColorProvider.notifier).resetColor();
+                            wageFocusNodeA.requestFocus();
+                            _scrollToTop();
+                          },
                           onPressed: (){
                             final site = _formKey.currentState?.fields['site']?.value ?? '';
                             final workType = _formKey.currentState?.fields['work_type']?.value ?? '';

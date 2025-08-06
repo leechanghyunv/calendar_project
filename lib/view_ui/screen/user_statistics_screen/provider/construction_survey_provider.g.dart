@@ -7,7 +7,7 @@ part of 'construction_survey_provider.dart';
 // **************************************************************************
 
 String _$constructionSurveyHash() =>
-    r'b6270a4bae3b4395b6097a8205b68a9bea77ff38';
+    r'7278073ac75edc56ae208027cf23698741d426e9';
 
 /// See also [ConstructionSurvey].
 @ProviderFor(ConstructionSurvey)

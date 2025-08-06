@@ -45,9 +45,6 @@ Future<void> addHistory(AddHistoryRef ref,
     int pay, DateTime date,{double? decimal}) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
-  final addCustom = ref.watch(formzDecimalValidatorProvider);
-  /// value가 1.4일때 왜 1.5가 기록되는가
-  // final recode = addCustom.decimalData.value.decimal;
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
 
   final Map<String, dynamic> event = {};

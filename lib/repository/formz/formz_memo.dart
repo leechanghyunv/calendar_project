@@ -7,7 +7,7 @@ part 'formz_memo.g.dart';
 class FormzMemoValidator extends _$FormzMemoValidator {
 
   String get memoError =>
-      state.memoData.displayError?.toString() ?? ' 메모 열람방법은 설정 - 메모기록으로 보기';
+      state.memoData.displayError?.toString() ?? ' 해당 날짜를 고르시면 메인 UI에서 확인 가능합니다';
 
   String get value => state.memoData.value;
 
@@ -20,8 +20,6 @@ class FormzMemoValidator extends _$FormzMemoValidator {
   }
 
   Future<void> onChangeMemo(String val) async {
-    print('onChangeMemo: ${state.status}');
-    print(val);
     state = state.copyWith(
       memoData: MemoInput.dirty(val),
     status: Formz.validate([])
@@ -46,8 +44,6 @@ class FormzMemoValidator extends _$FormzMemoValidator {
           state = state.copyWith(status: MemoFormzStatus.invalid);
         } else {
           customMsg('메모가 저장되었습니다.\n근무유형을 선택해주세요');
-          print('memoValueProvider: $val');
-
           ref.read(firebaseAnalyticsClassProvider.notifier).
           memoEvent({
             'memoEvent': 'memoEvent',

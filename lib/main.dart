@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/view_controll/app_router_repo.dart';
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,7 +34,7 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final count = prefs.getInt('app_count') ?? 0;
   await prefs.setInt('app_count', count + 1);
-  print('앱 실행 횟수: ${count + 1}'); // 디버그용
+  // print('앱 실행 횟수: ${count + 1}'); // 디버그용
 
 
   runApp(ProviderScope(
@@ -49,6 +50,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
+    ref.watch(switchNotifierProvider);
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp]
     );
@@ -63,14 +65,15 @@ class MyApp extends HookConsumerWidget {
           OneSignalNotification.init();
           /// 유저 이탈율을 막고 oneSignal의 참여수를 증가시키고자 변경함
         }
-        if (count == 5 && !hasShownReview) {
-          /// 리뷰 독려 다이얼로그 5번 이상 앱을 켰을때 진행 
+        if (count == 6 && !hasShownReview) {
+          /// 리뷰 독려 다이얼로그, 5번 이상 앱을 켰을때 진행
           await prefs.setBool('review_shown', true);
           final context = navigatorKey.currentContext;
           if (context != null && context.mounted){
             _showReview(context);
           };
         }
+
       });
       return null;
     }, []);

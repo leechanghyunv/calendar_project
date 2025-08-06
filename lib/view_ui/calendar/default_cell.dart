@@ -23,6 +23,7 @@ class DefaultCell extends ConsumerWidget {
         fontSize: switch (appWidth) {
           > 450 => 20,
           > 400 => 17,
+          > 370 => 14,
           _ => 15,
         },
         fontWeight: FontWeight.w700,

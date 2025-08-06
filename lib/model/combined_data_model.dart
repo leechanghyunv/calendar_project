@@ -56,6 +56,7 @@ abstract class LaborFiltedModel with _$LaborFiltedModel {
     @Default('0.0만원') String totalPayString,
     @Default('0만원') String prevPayString,
     @Default('0만원') String totalPayAnd,
+    @Default(0.0) double record,
     @Default('0공수') String workRecord,
     @Default(0) int normalDay,
     @Default('0만원') String normalPay,

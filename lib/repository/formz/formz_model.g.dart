@@ -6,7 +6,7 @@ part of 'formz_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$formzValidatorHash() => r'6843237a70d24ac89852712ca63aab8ba8648add';
+String _$formzValidatorHash() => r'03deaa3cb2043c7aac4460e70c89e577f183fd13';
 
 /// See also [FormzValidator].
 @ProviderFor(FormzValidator)

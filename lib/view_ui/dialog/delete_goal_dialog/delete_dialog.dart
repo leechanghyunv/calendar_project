@@ -90,13 +90,13 @@ class DeleteDialog extends HookConsumerWidget {
         ),
         TextButton(
           onPressed: () async {
-
             final range = dateRange.value;
-
             if (range != null) {
-              await ref.read(deleteMonthHistoryProvider(range[0], range[1]).future);
+              await ref.read(deleteMonthHistoryProvider(
+                  range[0], range[1]).future);
             } else {
-              await ref.read(deleteMonthHistoryProvider(ref.startDate, ref.endDate).future);
+              await ref.read(deleteMonthHistoryProvider(
+                  ref.startDate, ref.endDate).future);
             }
             ref.refreshState(context);
             Navigator.of(context).pop();
