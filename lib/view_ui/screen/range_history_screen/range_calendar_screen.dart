@@ -1,7 +1,5 @@
 
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
-import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_history_screen.dart';
-
 import '../../../core/export_package.dart';
 import '../../../core/utils/holidays.dart';
 import '../../../core/widget/text_widget.dart';
@@ -22,6 +20,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final appWidth = MediaQuery.of(context).size.width;
+    final appHeight = MediaQuery.of(context).size.height;
 
     final rangeStart = useState<DateTime?>(DateTime.now());
     final rangeEnd = useState<DateTime?>(null);
@@ -55,6 +54,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
     initHolidayCache();
 
     return RangeDefaultScreen(
+      isCalendarScreen: true,
       children: [
         Container(
 
@@ -131,26 +131,58 @@ class RangeCalendarScreen extends HookConsumerWidget {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Container(
-          height: 100,
-          // color: Colors.grey.shade100,
+          height: appHeight * 0.125,
           child: Column(
             children: [
               Spacer(),
               Row(
                 children: [
                   Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey.shade50,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.5),
+                          ),
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.grey,
+                            width: 0.75,
+                          ),
+                        ),
+                        onPressed: (){
+                          Navigator.of(context, rootNavigator: true).pop();
+                        },
+                        child: TextWidget('나가기', 15, appWidth)),
+                  ),
+                  SizedBox(width: 10),
+                  Expanded(
+                    flex: 2,
                       child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue),
-                          shadowColor:WidgetStatePropertyAll<Color>(Colors.grey),
-                          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)
-                              )
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey.shade50,
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                          textStyle: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.5),
+                          ),
+                          elevation: 0,
+                          side: const BorderSide(
+                            color: Colors.grey,
+                            width: 0.75,
                           ),
                         ),
                           onPressed: onNavigateToHistory,
-                          child: TextWidget('날짜범위설정', 15, appWidth,color: Colors.white)),
+                          child: TextWidget('날짜범위설정', 15, appWidth)),
                   ),
                 ],
               ),

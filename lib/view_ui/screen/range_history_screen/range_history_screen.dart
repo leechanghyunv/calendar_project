@@ -2,7 +2,6 @@ import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/info_box.dart';
 import '../../../core/export_package.dart';
-import '../../calendar_rangefield/date_picker_2.dart';
 import 'component/buttom_chip_list.dart';
 import 'component/range_info_box.dart';
 
@@ -18,10 +17,10 @@ class RangeHistoryScreen extends ConsumerWidget {
     final width = MediaQuery.of(context).size.width;
 
     return RangeDefaultScreen(
+      isCalendarScreen: false,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
-          /// Navigator.of(context, rootNavigator: true).pop(),
           children: [
             SizedBox(width: 2.5),
             Container(
@@ -44,16 +43,13 @@ class RangeHistoryScreen extends ConsumerWidget {
                 ]
                     : null,
                 fontSize: switch (width) {
-                  > 450 => 18,
-                  > 420 => 17,
-                  _ => 15,
+                  > 450 => 19,
+                  > 420 => 18,
+                  _ => 16.5,
                 },
                 fontWeight: FontWeight.w800,
               ),
             ),
-
-            Spacer(),
-            DateRangeButton(),
           ],
         ),
         SizedBox(height: 25),

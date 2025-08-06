@@ -4,8 +4,9 @@ class RangeDefaultScreen extends StatelessWidget {
 
   final List<Widget> children;
   final Widget? floatingActionButton;
+  final bool isCalendarScreen;  // 파라미터로 받기
 
-   RangeDefaultScreen({super.key, required this.children, this.floatingActionButton});
+   RangeDefaultScreen({super.key, required this.children, this.floatingActionButton, required this.isCalendarScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,9 @@ class RangeDefaultScreen extends StatelessWidget {
                   - MediaQuery.of(context).padding.bottom, // SafeArea 높이
             ),
             child: Padding(
-              /// calendar일때는 vertical: 0.0, 아닐때는 vertical: 12.0
-              /// /// calendar일때는 horizontal: 12.0, 아닐때는 horizontal: 24.0
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 0.0),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isCalendarScreen ? 12.0 : 24.0,
+                  vertical: isCalendarScreen ? 0.0 : 12.0),
               child: Column(
                 children: children,
               ),

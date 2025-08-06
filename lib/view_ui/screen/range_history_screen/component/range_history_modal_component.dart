@@ -10,7 +10,7 @@ void showRangeModal(BuildContext context,WidgetRef ref){
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
-    backgroundColor: Colors.black26,
+    backgroundColor: Colors.grey.shade900,
     context: context,
     isDismissible: true,
     enableDrag: true,
@@ -46,16 +46,16 @@ void showRangeModal(BuildContext context,WidgetRef ref){
               ),
               Expanded(
                 child: AnimatedSwitcher(
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 100),
                   child: currentPage == 0
                       ? RangeCalendarScreen(
                      () {
-                      // ref.read(modalPageNotifierProvider.notifier).setPage(1);
+                      ref.read(modalPageNotifierProvider.notifier).setPage(1);
                     },
                   )
                       : RangeHistoryScreen(
                     () {
-                      // ref.read(modalPageNotifierProvider.notifier).setPage(0);
+                      ref.read(modalPageNotifierProvider.notifier).setPage(0);
                     },
                   ),
                 ),

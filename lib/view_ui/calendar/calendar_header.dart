@@ -24,12 +24,6 @@ class CalendarHeader extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: 3,
-            height: 20,
-            color: Colors.green,
-          ),
-          SizedBox(width: 5.5),
           Text(
             '${DateFormat.yMMMM('ko_KR').format(day)}',
             textScaler: TextScaler.noScaling,
