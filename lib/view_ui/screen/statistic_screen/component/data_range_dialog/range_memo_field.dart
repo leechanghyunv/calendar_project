@@ -22,9 +22,6 @@ class RangeMemoField extends HookConsumerWidget {
         : Colors.grey.shade50;
 
 
-    final selectedTax = useState<double>(3.3);
-
-
     final double width = MediaQuery.of(context).size.width;
     return Container(
       height: 100,

@@ -18,7 +18,6 @@ class StatisticScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     final switchAsync = ref.watch(switchNotifierProvider);
     final isOn = switchAsync.valueOrNull ?? false;

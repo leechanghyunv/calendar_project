@@ -28,13 +28,6 @@ class CalendarRangeHeader extends StatelessWidget {
       return formatter.format(date);
     }
 
-    // 간단한 포맷 (월 표시용)
-    String _formatMonth(DateTime date) {
-      final formatter = DateFormat('yyyy년 MM월', 'ko_KR');
-      return formatter.format(date);
-    }
-
-
     final appWidth = MediaQuery.of(context).size.width;
 
     return Padding(
@@ -51,8 +44,7 @@ class CalendarRangeHeader extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(width: 1.75, color: Colors.grey.shade500),
+                    border: Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,
                   ),
                   child: Text(
@@ -70,8 +62,7 @@ class CalendarRangeHeader extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(width: 1.75, color: Colors.grey.shade500),
+                    border: Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,
                   ),
                   child: Text(

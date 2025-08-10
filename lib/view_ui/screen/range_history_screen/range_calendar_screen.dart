@@ -150,48 +150,14 @@ class RangeCalendarScreen extends HookConsumerWidget {
               Row(
                 children: [
                   Expanded(
-                    flex: 1,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey.shade50,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                          textStyle: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.5),
-                          ),
-                          elevation: 0,
-                          side: const BorderSide(
-                            color: Colors.grey,
-                            width: 0.75,
-                          ),
-                        ),
-                        onPressed: (){
-                          Navigator.of(context, rootNavigator: true).pop();
-                        },
-                        child: TextWidget('나가기', 15, appWidth)),
-                  ),
-                  SizedBox(width: 10),
-                  Expanded(
-                    flex: 2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey.shade50,
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                          textStyle: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
+                          backgroundColor: Colors.green.shade600,
+                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.5),
                           ),
                           elevation: 0,
-                          side: const BorderSide(
-                            color: Colors.grey,
-                            width: 0.75,
-                          ),
                         ),
                           onPressed: ()  async {
                             if (rangeStart.value != null && rangeEnd.value != null) {
@@ -199,7 +165,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                               onNavigateToHistory?.call();
                             }
                           },
-                          child: TextWidget('날짜범위설정', 15, appWidth)),
+                          child: TextWidget('날짜범위설정', 16, appWidth,color: Colors.white)),
                   ),
                 ],
               ),
