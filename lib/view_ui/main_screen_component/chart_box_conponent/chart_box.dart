@@ -28,7 +28,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
     super.initState();
     // 🚀 위젯이 처음 빌드된 후 애니메이션 종료 시점에 상태 변경
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(const Duration(milliseconds: 800), () {
+      Future.delayed(const Duration(milliseconds: 1700), () {
         if (mounted) {
           ref.read(animationTextProviderProvider.notifier).stateChange();
         }

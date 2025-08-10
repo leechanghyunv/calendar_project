@@ -1,7 +1,6 @@
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
 import '../dialog/basic_setting_dialog/basic_setting_dialog.dart';
-import '../dialog/delete_goal_dialog/delete_dialog.dart';
 import '../screen/range_history_screen/component/range_history_modal_component.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 

@@ -3,8 +3,8 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
-import '../../dialog/delete_goal_dialog/delete_dialog.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
+import 'component/number_picker_modal_component.dart';
 
 class DeleteChip extends HookConsumerWidget {
   const DeleteChip({super.key});
@@ -45,12 +45,7 @@ class DeleteChip extends HookConsumerWidget {
     }, [data, tapCount]);
     return GestureDetector(
       onLongPress: (){
-        borderWidth.value = 1.25;
-
-        showDialog(
-            context: context,
-            builder: (context) => DeleteDialog(),
-        );
+        NumberPickerModal(context);
       },
       onTap: handleTap,
       child: Container(

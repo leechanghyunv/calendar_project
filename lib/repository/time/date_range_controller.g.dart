@@ -6,12 +6,12 @@ part of 'date_range_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$timeRangeManagerHash() => r'bad61460dec3d0197f62627055933b9eaedd3627';
+String _$timeRangeManagerHash() => r'e35664d5e40b5737432059054fdeae85ad0f3382';
 
 /// See also [TimeRangeManager].
 @ProviderFor(TimeRangeManager)
 final timeRangeManagerProvider =
-    AutoDisposeNotifierProvider<TimeRangeManager, DateRangeModel>.internal(
+    NotifierProvider<TimeRangeManager, DateRangeModel>.internal(
   TimeRangeManager.new,
   name: r'timeRangeManagerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,7 +21,7 @@ final timeRangeManagerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$TimeRangeManager = AutoDisposeNotifier<DateRangeModel>;
+typedef _$TimeRangeManager = Notifier<DateRangeModel>;
 String _$rangeSelectManagerHash() =>
     r'8e131c97b492f5dee4fd9319b18d90b4605527fa';
 

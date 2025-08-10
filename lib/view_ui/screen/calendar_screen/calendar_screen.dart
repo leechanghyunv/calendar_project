@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/animation_text_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/export_package.dart';

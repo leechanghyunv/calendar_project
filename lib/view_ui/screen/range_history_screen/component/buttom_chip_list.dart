@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/chip_action_provider.dart';
+
 import '../../../../core/export_package.dart';
 import '../../../../theme_color.dart';
 
@@ -29,6 +31,8 @@ class BottomManagerChip extends HookConsumerWidget {
             return GestureDetector(
               onTap: () {
                 selectedValue.value = option;
+                ref.read(chipActionValueProvider.notifier)
+                    .handleAction(option, context,ref);
               },
               child: AnimatedContainer(
                 alignment: Alignment.center, // ✅ 중앙 정렬 추가

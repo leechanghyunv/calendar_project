@@ -5,7 +5,7 @@ import 'calendar_time_controll.dart';
 
 part 'date_range_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class TimeRangeManager extends _$TimeRangeManager {
 
   DateTime get startDate => state.startDate;

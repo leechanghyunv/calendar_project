@@ -2,7 +2,6 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/component/auth_text.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/data_range_dialog/range_memo_field.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/data_range_dialog/tax_dropdown_button.dart';
 import '../../../../../view_model/sqlite_model/selected_model.dart';
 import 'data_range_input_field.dart';
 import 'job_list_chip.dart';

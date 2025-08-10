@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/export_package.dart';
 import '../../../dialog/initial_finish_dialog/initial_finish_dialog.dart';
-import '../../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
+
 import '../../auth_screen/auth_screen.dart';
 import '../../auth_screen/auth_screen_exSurvey.dart';
 

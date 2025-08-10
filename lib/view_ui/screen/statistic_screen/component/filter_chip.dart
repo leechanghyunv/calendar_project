@@ -30,7 +30,7 @@ class FilterHistoryChip extends HookConsumerWidget {
     return Wrap(
       spacing: 8.0,
       runSpacing: 8.0,
-      children: options.map((option) { // type → option으로 명확하게
+      children: options.map((option) {
         final bool isSelected = selectedValue.value == option;
 
         return GestureDetector(

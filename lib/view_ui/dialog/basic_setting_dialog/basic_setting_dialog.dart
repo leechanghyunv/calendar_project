@@ -221,7 +221,6 @@ class BasicSettingDialog extends HookConsumerWidget {
                 thirdFocusNode.unfocus();
                 firstFocusNode.requestFocus();
                 customMsg('취소되었습니다.');
-                // Navigator.pop(context);
               },
               child: TextWidget('취소', 15,width),
             ),

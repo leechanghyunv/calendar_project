@@ -1,12 +1,10 @@
 
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/dialog/memo_decimal_dialog/memo_decimal_form.dart';
-import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
-import '../chart_box_conponent/chart_in_dialog.dart';
 import 'b_type_toggle_button.dart';
 import 'component/main_box_component.dart';
 

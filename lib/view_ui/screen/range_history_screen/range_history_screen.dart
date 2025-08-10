@@ -1,62 +1,47 @@
-import 'package:calendar_project_240727/base_consumer.dart';
+
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/info_box.dart';
 import '../../../core/export_package.dart';
+import '../../../view_model/filted_instance_model/range_filted_model.dart';
 import 'component/buttom_chip_list.dart';
 import 'component/range_info_box.dart';
 
 class RangeHistoryScreen extends ConsumerWidget {
 
-  final VoidCallback? onBack;
-
-  const RangeHistoryScreen(this.onBack, {super.key});
+  const RangeHistoryScreen( {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final time = ref.watch(timeRangeManagerProvider);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
+    final dateRange = ref.watch(timeRangeManagerProvider);
+
+    // ✅ RangeSource를 사용해서 실제 데이터 가져오기
+    final rangeData = ref.watch(
+        rangeSourceProvider(dateRange.startDate, dateRange.endDate)
+    );
+
+    final startMonth = '${dateRange.startDate.year}년 '
+        '${dateRange.startDate.month.toString().padLeft(2, '0')}월 '
+        '${dateRange.startDate.day.toString().padLeft(2, '0')}일';
+    final endMonth = '${dateRange.endDate.year}년 '
+        '${dateRange.endDate.month.toString().padLeft(2, '0')}월 '
+        '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
 
 
     return RangeDefaultScreen(
       isCalendarScreen: false,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 2.5),
-            Container(
-              width: 3.5,
-              height: 20,
-              color: Colors.green,
-            ),
-            SizedBox(width: 5),
-            Text(
-              '2025년 09월 ~ 2024년 09월',
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                shadows: Platform.isAndroid
-                    ? [
-                  Shadow(
-                    blurRadius: 0.75,
-                    color: Colors.grey,
-                    offset: Offset(0.25, 0.25),
-                  ),
-                ]
-                    : null,
-                fontSize: switch (width) {
-                  > 450 => 19,
-                  > 420 => 18,
-                  _ => 17.5,
-                },
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ],
+        BottomManagerChip(),
+        SizedBox(height: 7.5),
+        Divider(
+          color: Colors.grey.shade300,
+          thickness: 0.8,
         ),
-        SizedBox(height: 25),
+        SizedBox(height: 7.5),
         Container(
           height: height / 1.7,
           alignment: Alignment.center,
@@ -87,8 +72,6 @@ class RangeHistoryScreen extends ConsumerWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 15),
-              BottomManagerChip(),
               SizedBox(height: 15),
               RangeInfoBox(
                 children: [
@@ -153,10 +136,10 @@ class RangeHistoryScreen extends ConsumerWidget {
 
                 ],
               ),
-              SizedBox(height: 22.5),
-              TextWidget('반장님 근로기간 부터 설정해주세요',16,width),
-              SizedBox(height: 2.5),
-              TextWidget('기본 데이터는 24년 08월달 기록입니다.',13.5,width),
+              SizedBox(height: 40),
+              TextWidget('${startMonth} ~ ${endMonth}',16,width),
+              SizedBox(height: 7.5),
+              TextWidget('총 금액 2033만원 에서 20% 달성',14.5,width),
             ],
           ),
         ),

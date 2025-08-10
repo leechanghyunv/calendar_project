@@ -22,7 +22,7 @@ class CalendarRangeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String _formatDate(DateTime? date) {
-      if (date == null) return '선택 안됨';
+      if (date == null) return '날짜를 선택 해주세요';
 
       final formatter = DateFormat('yyyy년 MM월 dd일', 'ko_KR');
       return formatter.format(date);
@@ -50,7 +50,7 @@ class CalendarRangeHeader extends StatelessWidget {
                   width: 180,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     border:
                         Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,
@@ -69,7 +69,7 @@ class CalendarRangeHeader extends StatelessWidget {
                   width: 180,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                     border:
                         Border.all(width: 1.75, color: Colors.grey.shade500),
                     color: Colors.grey.shade50,

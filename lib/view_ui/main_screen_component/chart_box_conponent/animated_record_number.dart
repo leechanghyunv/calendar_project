@@ -10,7 +10,7 @@ class NumberCounter extends StatelessWidget {
     super.key,
     this.start = 0,
     required this.end,
-    this.duration = const Duration(milliseconds: 750),
+    this.duration = const Duration(milliseconds: 2000),
   });
 
   @override

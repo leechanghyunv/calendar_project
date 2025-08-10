@@ -11,6 +11,7 @@ import '../../calendar/table_calendar_frame.dart';
 import '../../calendar_rangefield/calendar_range_header.dart';
 import '../../calendar_rangefield/range_today_cell.dart';
 
+
 class RangeCalendarScreen extends HookConsumerWidget {
 
   final VoidCallback? onNavigateToHistory;
@@ -54,6 +55,13 @@ class RangeCalendarScreen extends HookConsumerWidget {
 
     // 👇 위젯 빌드 시 캐시 초기화
     initHolidayCache();
+
+    void finishRangeSelect(){
+      ref.rangeNot.updateStartDate(rangeStart.value!);
+      ref.rangeSelectNot.updateStartSelected(true);
+      ref.rangeNot.updateEndDate(rangeEnd.value!);
+      ref.rangeSelectNot.updateEndSelected(true);
+    }
 
     return RangeDefaultScreen(
       isCalendarScreen: true,
@@ -185,22 +193,11 @@ class RangeCalendarScreen extends HookConsumerWidget {
                             width: 0.75,
                           ),
                         ),
-                          onPressed: () {
-                            onNavigateToHistory?.call();
-                            print(rangeStart.value);
-                            print(rangeEnd.value);
+                          onPressed: ()  async {
                             if (rangeStart.value != null && rangeEnd.value != null) {
-
-                              ref.rangeNot.updateStartDate(rangeStart.value!);
-
-                              ref.rangeSelectNot.updateStartSelected(true);
-
-                              ref.rangeNot.updateEndDate(rangeEnd.value!);
-
-                              ref.rangeSelectNot.updateEndSelected(true);
+                              finishRangeSelect();
+                              onNavigateToHistory?.call();
                             }
-
-                            
                           },
                           child: TextWidget('날짜범위설정', 15, appWidth)),
                   ),

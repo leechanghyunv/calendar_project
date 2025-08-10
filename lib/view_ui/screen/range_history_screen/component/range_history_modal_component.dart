@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/loading_screen.dart';
 
 import '../provider/modal_page_provider.dart';
@@ -27,6 +28,7 @@ void showRangeModal(BuildContext context,WidgetRef ref){
       return Consumer(builder: (context, ref, child){
         final currentPage = ref.watch(modalPageNotifierProvider);
         final isLoading = ref.watch(modalLoadingProvider);
+        final  selected = ref.watch(rangeSelectManagerProvider);
         return Container(
           height: Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7,
           decoration: BoxDecoration(
@@ -59,11 +61,7 @@ void showRangeModal(BuildContext context,WidgetRef ref){
                        ref.read(modalLoadingProvider.notifier).state = false;
                     },
                   )
-                      : RangeHistoryScreen(
-                    () {
-                      ref.read(modalPageNotifierProvider.notifier).setPage(0);
-                    },
-                  ),
+                      : RangeHistoryScreen(),
                 ),
 
 

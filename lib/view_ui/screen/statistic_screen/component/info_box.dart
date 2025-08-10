@@ -1,6 +1,5 @@
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
+
 import 'package:calendar_project_240727/repository/repository_import.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/info_box_sub_provider.dart';
 import '../../../../core/utils/converter.dart';
 import '../provider/info_box_provider.dart';

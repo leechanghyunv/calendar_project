@@ -1,5 +1,4 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../view_ui/main_screen_component/under_box_button_component/main_button.dart';
 import '../../view_ui/screen/calendar_screen/calendar_screen.dart';
 import '../../view_ui/screen/calendar_screen/provider/main_box_selector_provider.dart';
