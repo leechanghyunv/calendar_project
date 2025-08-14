@@ -135,8 +135,7 @@ class SelectedTime extends ConsumerWidget {
     String hintValue() {
       final data = ref.history.value;
 
-      final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day
-      );
+      final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day);
 
       try{
         final existingMemo = data

@@ -97,25 +97,25 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
                   children: [
                     Row(
                       children: [
-                        chartInText('${labels[1]}:'),
+                        chartInText('- ${labels[1]}:'),
                         chartInText(values[1]),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('${labels[2]}:'),
+                        chartInText('- ${labels[2]}:'),
                         chartInText(values[2]),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('${labels[3]}:'),
+                        chartInText('- ${labels[3]}:'),
                         chartInText(values[3]),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('${labels[4]}:'),
+                        chartInText('- ${labels[4]}:'),
                         chartInText(values[4]),
                       ],
                     ),

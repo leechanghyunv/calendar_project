@@ -44,9 +44,7 @@ class DeleteChip extends HookConsumerWidget {
       }
     }, [data, tapCount]);
     return GestureDetector(
-      onLongPress: (){
-        NumberPickerModal(context);
-      },
+
       onTap: handleTap,
       child: Container(
 

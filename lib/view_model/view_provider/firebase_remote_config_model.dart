@@ -13,7 +13,7 @@ part 'firebase_remote_config_model.g.dart';
 class Version extends _$Version {
   late FirebaseRemoteConfig _remoteConfig;
 
-  String get version => state.value?.version ?? '1.4.6';
+  String get version => state.value?.version ?? '1.5.1';
 
   @override
   Future<VersionInfo> build() async {

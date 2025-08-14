@@ -6,7 +6,10 @@ import '../../../../theme_color.dart';
 import '../provider/selected_site_provider.dart';
 
 class StatisticsFilterChip extends HookConsumerWidget {
-  const StatisticsFilterChip({super.key});
+
+  final ScrollController nestedScrollController;
+
+  const StatisticsFilterChip(this.nestedScrollController, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,27 +22,27 @@ class StatisticsFilterChip extends HookConsumerWidget {
 
     final chipExtraWidth = width > 370 ? 16.0 : 8.0; // 패딩에 따른 추가 너비
 
-    final _scrollToSelected = useCallback((int index, double screenWidth) {
-      if (_scrollController.hasClients) {
-        double totalWidth = 0;
-        for (int i = 0; i < index; i++) {
-          final textWidth = options[i].length * 8.0; // 대략적인 글자 너비
-          totalWidth += textWidth + chipExtraWidth + 8.0; // 패딩 + 마진
-        }
-
-        final currentChipWidth = options[index].length * 8.0 + chipExtraWidth;
-        final scrollPosition = totalWidth - (screenWidth / 2) + (currentChipWidth / 2);
-
-        _scrollController.animateTo(
-          scrollPosition.clamp(
-            0.0,
-            _scrollController.position.maxScrollExtent,
-          ),
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      }
-    }, [_scrollController, options]);
+    // final _scrollToSelected = useCallback((int index, double screenWidth) {
+    //   if (_scrollController.hasClients) {
+    //     double totalWidth = 0;
+    //     for (int i = 0; i < index; i++) {
+    //       final textWidth = options[i].length * 8.0; // 대략적인 글자 너비
+    //       totalWidth += textWidth + chipExtraWidth + 8.0; // 패딩 + 마진
+    //     }
+    //
+    //     final currentChipWidth = options[index].length * 8.0 + chipExtraWidth;
+    //     final scrollPosition = totalWidth - (screenWidth / 2) + (currentChipWidth / 2);
+    //
+    //     _scrollController.animateTo(
+    //       scrollPosition.clamp(
+    //         0.0,
+    //         _scrollController.position.maxScrollExtent,
+    //       ),
+    //       duration: const Duration(milliseconds: 300),
+    //       curve: Curves.easeInOut,
+    //     );
+    //   }
+    // }, [_scrollController, options]);
 
     return Row(
       children: [
@@ -69,7 +72,12 @@ class StatisticsFilterChip extends HookConsumerWidget {
                         ref.read(electricJobStatsNotifierProvider.notifier).fetchBySite(option);
                         customMsg('${option} 통계');
                       }
-                      _scrollToSelected(index, width);
+                      nestedScrollController.animateTo(
+                        nestedScrollController.position.maxScrollExtent,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                      // _scrollToSelected(index, width);
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),

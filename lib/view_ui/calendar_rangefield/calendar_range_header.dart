@@ -81,7 +81,7 @@ class CalendarRangeHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: 3,
+                  width: 5,
                   height: 20,
                   color: Colors.green,
                 ),

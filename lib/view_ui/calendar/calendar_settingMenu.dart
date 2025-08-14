@@ -50,7 +50,7 @@ class SettingPopupWidget extends ConsumerWidget {
         PopupMenuItem(
           value: 'erase',
           height: 30,
-          child: CalendarSettingBox('근로기간 설정', getStyle),
+          child: CalendarSettingBox('근로기간 설정하기', getStyle),
         ),
         PopupMenuDivider(),
         PopupMenuItem(

@@ -11,19 +11,22 @@ import 'component/statistics_filter_chip.dart';
 import 'component/statistics_box.dart';
 import 'component/statistics_total_ratio.dart';
 
-class UserStatisticsScreen extends StatelessWidget {
+class UserStatisticsScreen extends HookConsumerWidget {
   const UserStatisticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-
+  Widget build(BuildContext context, WidgetRef ref) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
+    final nestedScrollController = useScrollController();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey.shade50,
         body: Center(
           child: NestedScrollView(
+            controller: nestedScrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 SliverToBoxAdapter(
@@ -54,16 +57,18 @@ class UserStatisticsScreen extends StatelessWidget {
                           ],
                         ) : SizedBox.shrink(),
 
-                        SizedBox(height: height > 750 ? 20 : 15),
+                        SizedBox(height: height > 750 ? 10 : 10),
                         Container(
-                          height: height > 800 ? 200 : 190,
+                          height: height > 800 ? 190 : 180,
                           width: MediaQuery.of(context).size.width,
                           decoration: UserSettingBoxDecoration,
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 12.0, horizontal: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                SizedBox(height: 5),
                                 Row(
                                   children: [
                                     AnimatedEmoji(
@@ -76,49 +81,85 @@ class UserStatisticsScreen extends StatelessWidget {
                                     TextWidget('안녕하세요 워크캘린더입니다.',15,width),
                                   ],
                                 ),
-                                Spacer(),
-                                introText(height),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 18.0),
+                                  child: introText(height),
+                                ),
                                 Spacer(),
                                 Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        onTap: () {
+                                    /// 근로조건 설정하기
+                                    Expanded(
+                                      child: GestureDetector(
+                                        onTap: (){
                                           showBasicModal(context,false);
                                         },
-                                        borderRadius: BorderRadius.circular(4),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(2), // 원하는 크기로 조정
-                                          child:  Text('설문없이 설정하기',
-                                            style: TextStyle(
-                                              fontSize: Platform.isAndroid ? 15.0 : 14.0,
-                                              height: textHeight,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey,
+                                        child: Container(
+                                          height: 35,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(
+                                              color: Colors.green.shade700,
+                                              width: 1.0,
                                             ),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.shade300,
+                                                blurRadius: 5,
+                                                offset: const Offset(2, 5),
+                                              ),
+                                            ],
                                           ),
+                                          child: TextWidget(
+                                              '근로조건 설정하기', 15, width,
+                                              color: Colors.grey.shade100),
                                         ),
                                       ),
                                     ),
-                                    Spacer(),
-                                    FunctionChip(
-                                      label: '근로조건 설정하기',
-                                      color: Colors.grey.shade300,
-                                      borderColor: Colors.grey.shade600,
-                                      textColor: Colors.grey.shade900,
-                                      onTap: () {
-                                        showBasicModal(context,true);
-                                      },
-                                    ),
                                   ],
                                 ),
+                                // Row(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: [
+                                //     Material(
+                                //       color: Colors.transparent,
+                                //       child: InkWell(
+                                //         onTap: () {
+                                //           showBasicModal(context,false);
+                                //         },
+                                //         borderRadius: BorderRadius.circular(4),
+                                //         child: Padding(
+                                //           padding: EdgeInsets.all(2), // 원하는 크기로 조정
+                                //           child:  Text('설문없이 설정하기',
+                                //             style: TextStyle(
+                                //               fontSize: Platform.isAndroid ? 15.0 : 14.0,
+                                //               height: textHeight,
+                                //               fontWeight: FontWeight.bold,
+                                //               color: Colors.grey,
+                                //             ),
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     Spacer(),
+                                //     FunctionChip(
+                                //       label: '근로조건 설정하기',
+                                //       color: Colors.grey.shade300,
+                                //       borderColor: Colors.grey.shade600,
+                                //       textColor: Colors.grey.shade900,
+                                //       onTap: () {
+                                //         showBasicModal(context,true);
+                                //       },
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(height: height > 750 ? 20: 15),
+                        // SizedBox(height: height > 750 ? 15: 15),
 
                       ],
                     ),
@@ -127,18 +168,20 @@ class UserStatisticsScreen extends StatelessWidget {
               ];
             },
             body: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 8.0, horizontal: 18.0),
+              padding: const EdgeInsets.symmetric(horizontal: 18.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    StatisticsTotalRatio(),
-                    SizedBox(height: height > 750 ? 30 : 20),
+                    // StatisticsTotalRatio(),
+                    SizedBox(height: height > 750 ? 20 : 20),
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: width < 370 ? 2.5 : 4.0),
-                      child: StatisticsFilterChip(),
+                      child: StatisticsFilterChip(
+                        nestedScrollController
+
+                      ),
                     ),
                     Padding(
                       padding:  EdgeInsets.symmetric(

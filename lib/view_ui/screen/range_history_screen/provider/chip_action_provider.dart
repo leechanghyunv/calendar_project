@@ -1,7 +1,9 @@
 
 
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/show_memo_history_provider.dart';
 
+import '../../../../core/widget/text_widget.dart';
 import '../../../../repository/repository_import.dart';
 import '../../../../repository/time/date_range_controller.dart';
 import '../entities/optinos_enum.dart';
@@ -15,15 +17,41 @@ class ChipActionValue extends _$ChipActionValue {
   void build() {}
 
   void handleAction(String action, BuildContext context,WidgetRef ref) {
+    final appWidth = MediaQuery.of(context).size.width;
     final dateRange = ref.watch(timeRangeManagerProvider);
 
     if (action == ChipAction.delete.label) {
-      ref.read(deleteMonthHistoryProvider(dateRange.startDate,dateRange.endDate));
-      Navigator.of(context, rootNavigator: true).pop();
-      ref.refreshState(context);
-      customMsg('선택하신 기간이 삭제되었습니다.');
+      showDialog(context: context, builder: (context) =>
+          AlertDialog(
+            backgroundColor: Colors.grey.shade50,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+
+            content: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: TextWidget('공수기록을 모두 삭제하시겠습니까?',15,appWidth),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: TextWidget('취소', 15,appWidth),
+              ),
+              TextButton(
+                onPressed: () {
+                  deleteMonthHistoryProvider(dateRange.startDate,dateRange.endDate);
+                  ref.refreshState(context);
+                  Navigator.of(context, rootNavigator: true).pop();
+                  customMsg('선택하신 기간이 삭제되었습니다.');
+                },
+                child: TextWidget('삭제', 15,appWidth),
+              ),
+            ],
+          ),
+      );
+
     } else if (action == ChipAction.save.label) {
-      customMsg('누적기록에서 저장된 데이터 확인가능');
+      ref.read(showMemoHistoryStateProvider.notifier).historyMemoState();
     } else if (action == ChipAction.tax.label) {
       customMsg('세율조정');
     } else if (action == ChipAction.exit.label) {

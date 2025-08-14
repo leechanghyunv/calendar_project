@@ -2,7 +2,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
-import '../dialog/memo_decimal_dialog/memo_decimal_form.dart';
+import '../main_screen_component/main_box_component/component/number_picker_modal_component.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'default_cell.dart';
 import 'holiday_cell.dart';
@@ -60,10 +60,7 @@ class WorkCalendar extends ConsumerWidget {
                    customMsg('근로조건을 우선 입력해주세요');
                    showBasicModal(context,false);
                  } else {
-                   showDialog(
-                     context: context,
-                     builder: (context) => EnrollDialogWidget(),
-                   );
+                   NumberPickerModal(context);
                  }
             },
             onDaySelected: (DateTime? selected, DateTime? focused) {

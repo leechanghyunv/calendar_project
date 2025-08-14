@@ -5,7 +5,6 @@ import '../../dialog/backup_dialog/back_up_dialog.dart';
 import '../../dialog/delete_goal_dialog/all_delete_dialog.dart';
 import '../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
 import '../auth_screen/const_widget.dart';
-import 'component/data_range_dialog/data_dialog.dart';
 import 'component/filter_chip.dart';
 import 'component/function_chip.dart';
 import 'component/goal_record_box.dart';
@@ -22,6 +21,9 @@ class StatisticScreen extends HookConsumerWidget {
     final switchAsync = ref.watch(switchNotifierProvider);
     final isOn = switchAsync.valueOrNull ?? false;
     final isFocused = ref.watch(focusStateProvider);
+    final nestedScrollController = useScrollController();
+    final isScrolledDown = useState(false);
+
 
     return SafeArea(
       child: Scaffold(
@@ -29,6 +31,7 @@ class StatisticScreen extends HookConsumerWidget {
         backgroundColor: Colors.grey.shade50,
         body: Center(
           child: NestedScrollView(
+            controller: nestedScrollController,
             headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
               return [
                 SliverToBoxAdapter(
@@ -123,15 +126,31 @@ class StatisticScreen extends HookConsumerWidget {
                         FilterHistoryChip(),
                         Spacer(),
                         FunctionChip(
-                          label: '@검색',
+                          label: isScrolledDown.value ? '돌아가기' : '상세히',
                           color: isOn ? Colors.blue.shade100 : Colors.green.shade100,
                           borderColor: isOn ? Colors.blue.shade400 : Colors.green.shade400,
                           textColor: isOn ? Colors.blue.shade900 : Colors.green.shade900,
                           onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => DataDialog(),
-                            );
+
+                            if (isScrolledDown.value) {
+                              // 원래 위치로 복귀
+                              nestedScrollController.animateTo(
+                                0,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeInOut,
+                              );
+                              isScrolledDown.value = false;
+                            } else {
+                              // 헤더를 위로 올려서 body만 보이게 스크롤
+                              nestedScrollController.animateTo(
+                                nestedScrollController.position.maxScrollExtent,
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeInOut,
+                              );
+                              isScrolledDown.value = true;
+                            }
+
+
                           },
                         ),
                 

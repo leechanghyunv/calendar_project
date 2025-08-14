@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/view_controll/app_router_repo.dart';
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/today_info_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,6 +53,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     ref.watch(dynamicHolidaysProvider);
+    ref.watch(bTypeSwitchProviderProvider);
 
     ref.watch(switchNotifierProvider);
     SystemChrome.setPreferredOrientations(

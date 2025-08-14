@@ -1,6 +1,18 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/show_range_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
+import 'package:intl/intl.dart';
 import '../../../core/export_package.dart';
+import '../../../model/formz_decimal_model.dart';
+import '../../../repository/formz/formz_decimal.dart';
+import '../../../view_model/sqlite_model/contract_model.dart';
+import '../../../view_model/sqlite_model/history_model.dart';
+import '../../screen/calendar_screen/provider/show_memo_provider.dart';
+import '../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
+import 'component/memo_component.dart';
+import 'component/number_picker_record_component.dart';
+import 'component/quickSelectChip_component.dart';
 
 class NumberPickerModalSheet extends HookConsumerWidget {
   const NumberPickerModalSheet({super.key});
@@ -12,13 +24,51 @@ class NumberPickerModalSheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    final contract = ref.watch(viewContractProvider);
+    final history = ref.watch(viewHistoryProvider);
+    final  showRange = ref.watch(showRangeStateProvider);
+
+    final dateRange = useState<List<DateTime>?>(null);
+
+    final memoController = useTextEditingController();
+    final memoFocus = useFocusNode();
+    final rangeFocus = useFocusNode();
+    int initial = 20;
+
+    if (contract.hasValue && contract.hasValue) {
+      final contracts = contract.value!; // List<LabourCondition>
+      final histories = history.value!; // List<WorkHistory>
+      if (contracts.isNotEmpty && histories.isNotEmpty) {
+        initial = (histories.last.record * 20).toInt();
+
+      }
+    }
+
     final appWidth = MediaQuery.of(context).size.width;
-    final currentIndex = useState(10);
+
+    final currentIndex = useState(initial);
+
     final currentValue = currentIndex.value * _step;
+
+    final currentContract = (contract.hasValue && contract.value!.isNotEmpty)
+        ? contract.value!.last
+        : null;
+
+    final calculatedPay = currentContract != null
+        ? (currentContract.normal * currentValue).toInt()
+        : 0;
+
+    final formattedPay = NumberFormat('#,###').format(calculatedPay);
+
+    final previousValue = usePrevious(currentValue) ?? currentValue;
 
     final quickSelectValues = [0.5, 0.75, 1.25, 1.75, 2.25];
 
-    final formattedValue = currentValue.toStringAsFixed(2); // "1.000"
+    final formzMemoRefNot = ref.formzMemoWatch;
+    final formzMemoRefread = ref.formzMemoRead;
+    ref.watch(formzDecimalValidatorProvider);
+    final formzRefNot = ref.decimalWatch;
+    final formzRefread = ref.decimalRead;
 
     void increment() {
       if (currentValue < _maxValue) {
@@ -37,53 +87,18 @@ class NumberPickerModalSheet extends HookConsumerWidget {
       currentIndex.value = newIndex;
     }
 
-    Widget quickSelectChip(double value) {
-      final isSelected = currentValue == value;
-      return GestureDetector(
-        onTap: () => selectValue(value),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isSelected ? Colors.green.shade800 : Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(width: 0.5,
-                  color: isSelected ? Colors.green.shade800 : Colors.grey.shade900),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade400,
-                  blurRadius: 5,
-                  offset: const Offset(4, 4),
-                ),
-              ],
-            ),
-            height: 25,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 10.0),
-              child: Text(value.toStringAsFixed(2),
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: value == 0.0 ? 12.5 : null,
-                  color: isSelected ? Colors.white : Colors.black87,
-                ),),
-            ),
-          ),
+    useEffect(() {
+      final sub = ref.listenManual(
+        formzDecimalValidatorProvider,
+            (prev, next) {
+          if (next.status == DecimalFormzStatus.submissionSuccess) {
+            ref.refreshState(context);
+            Navigator.pop(context);
+          }
+        },
       );
-    }
-
-    Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.grey.shade900,
-        width: 0.55,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    );
+      return sub.close;
+    }, []);
 
     return Scaffold(
       body: Center(
@@ -94,128 +109,101 @@ class NumberPickerModalSheet extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidget('08월 08일 공수등록', 16.5, appWidth),
+                    showRange ? DateRangeInputField(
+                      rangeNode: rangeFocus,
+                      onDateRangeChanged: (newDateRange) {
+                        dateRange.value = newDateRange;
+                        if (newDateRange != null) {
+                          ref.rangeNot.updateStartDate(dateRange.value![0]);
+                          ref.rangeNot.updateEndDate(dateRange.value![1]);
+                        } else {
+                        }
+                      },
+
+                    ) :
+                    TextWidget(
+                        '${ref.monthString}월 ${ref.dayString}일 공수등록',
+                        17.5, appWidth),
+
                     Spacer(),
-                    FunctionChip(label: '기본공수설정',
+                    FunctionChip(label: showRange ? '@돌아가기': '@등록범위설정',
                         color: Colors.grey.shade200,
                         borderColor: Colors.grey.shade600,
                         textColor: Colors.grey.shade900,
                         onTap: (){
-
-                        }),
-                    SizedBox(width: 10),
-                    FunctionChip(label: '나가기',
-                        color: Colors.grey.shade200,
-                        borderColor: Colors.grey.shade600,
-                        textColor: Colors.grey.shade900,
-                        onTap: (){
-
-                        }),
+                          if (!showRange) {
+                            Future.microtask(() => rangeFocus.requestFocus());
+                          }
+                          ref.read(showRangeStateProvider.notifier).rangeState();
+                    }),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              showRange ? SizedBox(height: 13) : SizedBox(height: 15),
               SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    TextWidget(formattedValue, 55, appWidth),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: TextWidget('공수', 20, appWidth),
-                                    ),
-                                  ],
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
-                                  ),
-                                  width: 175,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: 4.0,vertical: 1.0),
-                                    child: TextWidget('일당은 150,000원 입니다.', 13.5, appWidth),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-
-                          Spacer(),
-                          IconButton(onPressed: () => decrement(),
-                            icon: Icon(Icons.remove,size: 40,
-                            color: Colors.grey.shade700,
-                          ),
-                          ),
-                          SizedBox(width: 5),
-                          IconButton(onPressed: () => increment(),
-                            icon: Icon(Icons.add,size: 40,
-                              color: Colors.grey.shade700,
-                          ),
-                          ),
-                        ],
+                      recordPickerAnimatedWidget(
+                        previousValue: previousValue,
+                        currentValue: currentValue,
+                        formattedPay: formattedPay,
+                        currentIndex: currentIndex.value,
+                        onDecrement: decrement,
+                        onIncrement: increment,
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 5.0),
                       Row(
                         children: [
                           Flexible(
-                            flex: 10,
                             child: Container(
                               height: 45, // 칩 높이에 맞춰 조정
                               alignment: Alignment.center,
-                              // color: Colors.grey.shade200,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: quickSelectValues.length,
-                                itemBuilder: (context, index) {
-                                  final value = quickSelectValues[index];
-                                  return Padding(
-                                    padding: EdgeInsets.only(
-                                      top: 10,
-                                      right: index < quickSelectValues.length - 1 ? 10 : 0,
-                                      bottom: 10,
-                                    ),
-                                    child: quickSelectChip(value),
-                                  );
-                                },
+                              decoration: BoxDecoration(
+                                // color: Colors.grey.shade200,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                                child: ListView.builder(
+                                  // shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: quickSelectValues.length,
+                                  itemBuilder: (context, index) {
+                                    final value = quickSelectValues[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                        top: 9.5,
+                                        right: index < quickSelectValues.length - 1 ? 10 : 0,
+                                        bottom: 9.5,
+                                      ),
+                                      child: QuickSelectChip(
+                                        value: value,
+                                        currentValue: currentValue,
+                                        onTap: () => selectValue(value),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),
 
                         ],
                       ),
-
-                      SizedBox(height: 20),
-
-                      Row(
-                        children: [
-                          TextWidget('08월 메모기록(0)', 14, appWidth),
-                          Spacer(),
-                          TextWidget('+ 메모추가', 14, appWidth),
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.grey.shade300,
-                        thickness: 0.8,
-                      ),
-                      SizedBox(height: 15),
-                      Container(
-                        height: 190,
-                        decoration: infoBoxDeco,
+                      MemoComponent(
+                        memoFocus,
+                        memoController,
+                        formzMemoRefread.onChangeMemo,
+                          (_){
+                            ref.read(showMemoStateProvider.notifier).memoState(false);
+                            formzMemoRefread.onSubmit(ref);
+                          },
                       ),
                     ],
                   ),
@@ -232,14 +220,29 @@ class NumberPickerModalSheet extends HookConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
         child: Row(
           children: [
+
+            TextButton(onPressed: (){
+              formzRefread.onChangeDecimal(0.0);
+              formzRefread.onSubmit(decimal: 0.0);
+            },
+                child: TextWidget('휴일등록', 16.5, appWidth)),
+
             Spacer(),
-            TextButton(onPressed: (){
 
-            }, child: TextWidget('휴일등록', 15, appWidth)),
-            SizedBox(width: 10),
             TextButton(onPressed: (){
-
-            }, child: TextWidget('공수등록', 15, appWidth)),
+              formzRefread.onChangeDecimal(currentValue.toDouble());
+              if (showRange) {
+                formzRefread.onSubmitMonthAll(
+                  dateRange.value![0],dateRange.value![1],
+                );
+              } else {
+                formzRefread.onSubmit(decimal: currentValue.toDouble());
+              }
+            },
+              child: TextWidget('공수등록', 16.5, appWidth,
+                color: showRange ? Colors.blue.shade800 : Colors.black,
+              ),
+            ),
           ],
         )
       ),

@@ -1,12 +1,13 @@
 
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/view_ui/dialog/memo_decimal_dialog/memo_decimal_form.dart';
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import 'b_type_toggle_button.dart';
 import 'component/main_box_component.dart';
+import 'component/number_picker_modal_component.dart';
 
 
 class MainBoxBTypeContainer extends ConsumerStatefulWidget {
@@ -152,14 +153,12 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                       builder: (context,ref,widget){
                         final val = ref.history;
 
-                        return CircularIconButton(
-                          icon: Icons.delete_outlined,
-                          iconColor: Colors.black,
-                          borderColor: Colors.grey.shade100,
-                          // backgroundColor: Colors.grey.shade100,
-                          borderWidth: 0.5,
-                          size: appWidth > 400 ? 32 : 27.5,
-                      onPressed: () {
+                        return FunctionChip(
+                          label: '삭제하기',
+                          color: Colors.grey.shade100,
+                          borderColor: Colors.grey.shade600,
+                          textColor: Colors.grey.shade900,
+                          onTap: () {
                         val.maybeWhen(
                             data: (val) async {
                               final selectedOne = val.where((e) => e.date.toUtc() == ref.selected);
@@ -177,17 +176,16 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                       },
                     );
                   }),
-                  CircularIconButton(
-                    icon: Icons.add,
-                    iconColor: Colors.black,
-                    borderColor: Colors.grey.shade100,
-                    borderWidth: 0.5,
-                    size: appWidth > 400 ? 32 : 27.5,
-                    onPressed: () {
-                      showDialog(
-                          context: context, builder: (context) => EnrollDialogWidget());
-                    },
-                  ),
+                  SizedBox(width: 10),
+                  FunctionChip(
+                      label: '공수등록',
+                      color: Colors.grey.shade100,
+                      borderColor: Colors.grey.shade600,
+                      textColor: Colors.grey.shade900,
+                      onTap: (){
+                        NumberPickerModal(context);
+                      }),
+                  SizedBox(width: 7.5),
                 ],
               ),
             ],

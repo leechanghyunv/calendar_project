@@ -49,26 +49,35 @@ Widget introText(double height) {
           style: baseStyle,
         ),
         TextSpan(
-          text: '근로조건을 우선 설정하셔야 원활하게 공수등록',
+          text: '근로조건을 설정하셔야 공수등록',
           style: baseStyle.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
+        /// ' 을 하실 수 있습니다. 근로조건은 유저 통계자료에 활용되며, '
         TextSpan(
-          text: ' 을 하실 수 있습니다. 근로조건은 유저 통계자료에 활용되며, ',
+          text: ' 을 하실 수 있습니다. 근로조건 설정은 ',
           style: baseStyle,
         ),
         TextSpan(
-          text: '통계자료는 모든 유저에게 공유 ',
+          text: '캘린더에서도 설정가능 합니다',
           style: baseStyle.copyWith(
-            backgroundColor: Colors.green.shade100,
+            fontSize: height >= 850 ? 15 : height > 750 ? 13.5 : 13,
             fontWeight: FontWeight.bold,
           ),
         ),
-        TextSpan(
-          text: '됩니다.',
-          style: baseStyle,
-        ),
+
+        // TextSpan(
+        //   text: '통계자료는 모든 유저에게 공유 ',
+        //   style: baseStyle.copyWith(
+        //     backgroundColor: Colors.green.shade100,
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
+        // TextSpan(
+        //   text: '됩니다.',
+        //   style: baseStyle,
+        // ),
       ],
     ),
     textScaler: TextScaler.noScaling,

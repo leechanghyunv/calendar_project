@@ -35,7 +35,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
       pay: pay,
     ),
     );
-
     state = state.copyWith(
       decimalData: decimal,
       status: Formz.validate([decimal])
@@ -48,7 +47,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     final date = ref.watch(timeManagerProvider).selected;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
-
     try{
       await ref.read(
           addHistoryProvider(calculated, date, decimal: decimal));
@@ -66,7 +64,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
 
 
 
-  Future<void> onSubmitMonthAll() async {
+  Future<void> onSubmitMonthAll(DateTime start,DateTime end) async {
     final value = state.decimalData.value;
     final calculated = value.pay * value.decimal;
     int pay = calculated.toInt();
@@ -95,7 +93,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     );
     try{
       ref.read(
-          rangeExcludHolidayProvider(history));
+          rangeExcludHolidayProvider(history,start,end ));
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
         customMsg('근로조건이 등록되었습니다.');

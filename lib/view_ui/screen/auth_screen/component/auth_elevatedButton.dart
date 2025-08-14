@@ -22,20 +22,13 @@ class AuthButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey.shade100,
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              textStyle: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.5),
+                borderRadius: BorderRadius.circular(7.5),
               ),
-              elevation: 0,
-              side: const BorderSide(
-                color: Colors.grey,
-                width: 1.25,
-              ),
+              elevation: 2,
             ),
-            child: TextWidget(text ?? '초기화', 15,width
+            child: TextWidget(text ?? '초기화',
+                15,width,color: Colors.grey.shade900
 
             ),
           ),
@@ -46,22 +39,15 @@ class AuthButton extends StatelessWidget {
           child: ElevatedButton(
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.grey.shade100,
+              backgroundColor: Colors.green,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              textStyle: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.5),
+                borderRadius: BorderRadius.circular(7.5),
               ),
-              elevation: 0,
-              side: const BorderSide(
-                color: Colors.grey,
-                width: 1.0,
-              ),
+              elevation: 2,
             ),
-            child: TextWidget(text ?? '모두 입력했습니다!', 15,width
+            child: TextWidget(text ?? '모두 입력했습니다!',
+                15,width,color: Colors.grey.shade100
 
             ),
           ),

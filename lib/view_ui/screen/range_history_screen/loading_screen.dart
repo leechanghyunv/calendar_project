@@ -15,7 +15,7 @@ class LoadingScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedEmoji(
-              AnimatedEmojis.peace,
+              AnimatedEmojis.comet,
               repeat: true,
               animate: true,
               size: 125,

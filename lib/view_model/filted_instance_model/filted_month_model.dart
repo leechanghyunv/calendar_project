@@ -76,9 +76,7 @@ class MonthRecord extends _$MonthRecord {
 }
 
 LaborFiltedModel _calculateStats(CombinedDataModel data){
-  if (data.history.isEmpty || data.contract.isEmpty) {
-    return const LaborFiltedModel();
-  }
+
   final contract = data.contract;
   final history = data.history;
   final startDate = data.startDate;

@@ -27,6 +27,13 @@ class BTypeSwitchProvider extends _$BTypeSwitchProvider {
   Future<void> setValue(bool value) async {
     final prefs = await ref.prefsRead;
     state = AsyncValue.data(value);
+
+    if (value) {
+      customMsg('공수 & 일당');
+    } else {
+      customMsg('공수 & 메모기록');
+    }
+
     await prefs.setBool(_key, value);
 
   }

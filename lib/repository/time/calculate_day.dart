@@ -80,10 +80,6 @@ int calculateAdditionalHolidays(Map<DateTime, List<WorkHistory>> list) {
   return additionalHolidays;
 }
 
-// @riverpod
-// Map<DateTime, List<WorkHistory>> extraDay(ExtraDayRef ref,
-//     Map<DateTime, List<WorkHistory>> list) => {};
-
 final eventsProvider = StateProvider<Map<DateTime, List<WorkHistory>>>((ref) {
   return {};
 });

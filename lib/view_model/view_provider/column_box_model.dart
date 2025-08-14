@@ -14,8 +14,6 @@ ColumnBoxValueModel columnStatistics(ref) {
   final workDay = ref.watch(workRecordProvider).value?.workDay ?? 0;
   final extraDay = ref.watch(calculateValueProvider);
 
-  // print('workDay: ${workDay}, extraDay: $extraDay');
-
   final wrd = workDay + extraDay;
   final severancePay = (wrd * 6200) / 10000;
   final total = wrd / 252;

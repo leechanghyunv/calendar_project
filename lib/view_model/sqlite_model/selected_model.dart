@@ -17,7 +17,12 @@ final db = await ref.watch(selectedHistoryManagerProvider.future);
 
 @riverpod
 Future<void> addSelected(
-    AddSelectedRef ref,DateTime start, DateTime end,double tax, String memo,String job) async {
+    AddSelectedRef ref,
+    DateTime start,
+    DateTime end,
+    double tax,
+    String memo,
+    String job) async {
 
   final utcStart = DateTime.utc(start.year, start.month, start.day);
   final utcEnd = DateTime.utc(end.year, end.month, end.day);

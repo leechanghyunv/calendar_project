@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chip_action_provider.dart';
+part of 'show_memo_history_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chipActionValueHash() => r'1288d724917466e267be0e3a40403d3f904de1b8';
+String _$showMemoHistoryStateHash() =>
+    r'4649f5eab3dcf6cd61aaba5b56fff619c351ed66';
 
-/// See also [ChipActionValue].
-@ProviderFor(ChipActionValue)
-final chipActionValueProvider =
-    AutoDisposeNotifierProvider<ChipActionValue, void>.internal(
-  ChipActionValue.new,
-  name: r'chipActionValueProvider',
+/// See also [ShowMemoHistoryState].
+@ProviderFor(ShowMemoHistoryState)
+final showMemoHistoryStateProvider =
+    AutoDisposeNotifierProvider<ShowMemoHistoryState, bool>.internal(
+  ShowMemoHistoryState.new,
+  name: r'showMemoHistoryStateProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$chipActionValueHash,
+      : _$showMemoHistoryStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ChipActionValue = AutoDisposeNotifier<void>;
+typedef _$ShowMemoHistoryState = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

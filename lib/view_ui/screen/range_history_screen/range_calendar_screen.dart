@@ -149,7 +149,13 @@ class RangeCalendarScreen extends HookConsumerWidget {
               Spacer(),
               Row(
                 children: [
+                  // Expanded(
+                  //     flex: 2,
+                  //     child: Container(),
+                  // ),
+                  // SizedBox(width: 10),
                   Expanded(
+                    flex: 2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green.shade600,

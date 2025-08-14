@@ -34,9 +34,6 @@ class WorkRecord extends _$WorkRecord {
 }
 
    LaborStatsModel _calculateStats(CombinedDataModel data){
-     if (data.history.isEmpty || data.contract.isEmpty) {
-       return const LaborStatsModel();
-     }
 
      final subsidyWorkDay = data.history.where((e) => e.record >= 1.0).length;
      final workDay = data.history.where((e) => e.record != 0.0).length;

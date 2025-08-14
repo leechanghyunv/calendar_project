@@ -18,7 +18,6 @@ class ChipList extends HookConsumerWidget {
     final appWidth = MediaQuery.of(context).size.width;
     final selectedIndex = ref.watch(selectedChipIndexProvider);
     final displayValue = ref.watch(displayValueProvider);
-
     final formZRefNot = ref.decimalWatch;
     final formZRefRead = ref.decimalRead;
 
@@ -32,6 +31,7 @@ class ChipList extends HookConsumerWidget {
       _ => false,
     };
 
+
       return Container(
       height: switch (appWidth) {
         > 420 => 24.5,
@@ -44,6 +44,8 @@ class ChipList extends HookConsumerWidget {
         > 400 => appWidth * 0.45,
         _ => appWidth * 0.454,
       },
+
+
 
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -60,17 +62,17 @@ class ChipList extends HookConsumerWidget {
               switch (ref.contract) {
                 case AsyncData(value: final conditions) when conditions.isNotEmpty:
                   final condition = conditions.last;
+
                   if (displayVal) {
                     switch (displayValue) {
                       case AsyncData(value: final model):
                         final values = [model.normal, model.extended, model.night];
                         formZRefRead.onChangeDecimal(values[index]);
                         await Future.delayed(const Duration(milliseconds: 100));
-                        formZRefRead.onSubmit();
+                        formZRefRead.onSubmit(decimal: values[index]);
                         break;
                     }
                   } else {
-
                     final workTypes = ['정상근무', '연장근무', '야간근무'];
                     final conditionValues = [condition.normal, condition.extend, condition.night];
                     enrollMsg(ref.selected, workTypes[index]);

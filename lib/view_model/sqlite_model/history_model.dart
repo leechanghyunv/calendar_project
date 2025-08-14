@@ -115,15 +115,10 @@ Future<void> addHistory(AddHistoryRef ref,
 
 @riverpod
 Future<void> rangeExcludHoliday(
-    RangeExcludHolidayRef ref, WorkHistory history) async {
+    RangeExcludHolidayRef ref, WorkHistory history,DateTime start,DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  final selected = ref.watch(timeManagerProvider.notifier).DaySelected;
-
-  final start = DateTime(selected.year, selected.month, 1);
-  final end = DateTime(selected.year, selected.month + 1, 1)
-      .subtract(Duration(days: 1));
-
-  return db.insertWorkHistoryExcludeHolidays(start, end, history);
+   db.insertWorkHistoryExcludeHolidays(start, end, history);
+   invalidateProviders(ref);
 }
 
 @riverpod
@@ -144,9 +139,9 @@ Future<void> latestHistory(LatestHistoryRef ref) async {
                   comment: val.last.comment,
                   pay: val.last.pay,
                   colorCode: val.last.colorCode,
+                  /// record * 20이 currentValue
                   record: val.last.record,
                   memo: val.last.memo);
-              print('latest: $latest');
             },
             error: (err, trace) => print(err.toString()),
             loading: () => print('loading....'));
