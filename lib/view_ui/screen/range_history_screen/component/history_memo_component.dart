@@ -1,11 +1,12 @@
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/show_memo_history_provider.dart';
 
-import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../repository/time/date_range_controller.dart';
+import '../../../../theme_color.dart';
 import '../../../../view_model/filted_instance_model/search_source_model.dart';
 import '../../../../view_model/sqlite_model/selected_model.dart';
+import '../../statistic_screen/provider/info_box_provider.dart';
 
 class HistoryMemoComponent extends HookConsumerWidget {
 
@@ -32,6 +33,8 @@ class HistoryMemoComponent extends HookConsumerWidget {
     final state = ref.watch(searchSourceModelProvider);
     final timeRange = ref.watch(timeRangeManagerProvider);
 
+    final data = ref.watch(infoBoxProvider)
+        .whenData((d) => d).value ?? InfoBoxModel();
 
     useListenable(historyController);
 
@@ -134,21 +137,61 @@ class HistoryMemoComponent extends HookConsumerWidget {
         ],
       ),
 
-    ) : Container(
-      height: 100,
-      decoration: infoBoxDeco,
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextWidget('${start} ~ ${end}',
-              16,appWidth,color: Colors.grey.shade800),
-          SizedBox(height: 7.5),
-          TextWidget('총 금액 2033만원 에서 20% 달성',
-              14.5,appWidth,color: Colors.grey.shade800),
-        ],
+    ) : Consumer(builder: (context,ref,child){
+      final state = ref.watch(searchSourceModelProvider);
 
-      ),
-    );
+      return switch (state){
+        AsyncData(:final value) => (){
+
+          final totalAmount = data.total.toInt();  // 전체 목표 금액 (만원)
+          final currentAmount = value.total / 10000;  // 현재 달성 금액 (만원)
+          final percentage = (currentAmount / totalAmount * 100).toStringAsFixed(1);
+
+          return Container(
+            height: 100,
+            decoration: infoBoxDeco,
+            alignment: Alignment.center,
+            child:
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextWidget('${start} ~ ${end}',
+                    16,appWidth,color: Colors.grey.shade800),
+                SizedBox(height: 7.5),
+                Text.rich(
+                  TextSpan(
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      height: textHeight,
+                      color: Colors.grey.shade800,
+                      fontSize: appWidth <= 376 ? 13.5 : (appWidth > 400 ? 16 : 14.5),
+                      letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
+                    ),
+                    children: [
+                      TextSpan(text: '총 금액 ${totalAmount}만원 에서 '),
+                      TextSpan(
+                        text: '${percentage}%',
+                        style: TextStyle(
+                          fontSize: appWidth <= 376 ? 15 : (appWidth > 400 ? 17.5 : 16),
+                          fontWeight: FontWeight.w900,  // 더 굵게
+                        ),
+                      ),
+                      TextSpan(text: ' 달성'),
+                    ],
+                  ),
+                  textScaler: TextScaler.noScaling,
+                ),
+              ],
+
+            ),
+          );
+        }(),
+        AsyncLoading() => Container(),
+        _ => Container(),
+      };
+    });
+
+
+
   }
 }

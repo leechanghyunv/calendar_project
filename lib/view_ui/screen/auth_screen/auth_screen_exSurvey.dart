@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/condition_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/digit_color_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/pay_list_provider.dart';
@@ -16,13 +17,25 @@ import 'component/pay_input_button.dart';
 import 'component/pay_numberField.dart';
 import 'component/tax_numberField.dart';
 import 'const_widget.dart';
+import 'new_component/pay_chip_list_widget.dart';
+import 'new_component/tax_button.dart';
+import 'new_component/tax_button_listView.dart';
 
 class ExSurveyAuthScreen extends HookConsumerWidget {
   const ExSurveyAuthScreen({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+
+    final appHeight = MediaQuery.of(context).size.height;
+    final appWidth = MediaQuery.of(context).size.width;
+
     final _formKey = useMemoized(() => GlobalKey<FormBuilderState>());
+
+    final normalPay = useState(150000);
+    final taxRate = useState(3.3);
+    final sliderValue = useState(10.0);
+    final selectedTaxRate = useState<double?>(3.3);
 
     final wageFocusNodeA = useFocusNode();
     final wageFocusNodeB = useFocusNode();
@@ -122,22 +135,24 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
          children: [
            InfoRow(
              title: '일당을 입력해주세요 ',
-             subtitle: '일당과 세율 정보는 통계자료에 활용됩니다.',
+             subtitle: '일당 버튼 탭만으로 간편하게 일당 설정하기',
            ),
            Spacer(),
-           PayInputButton(
-             onSelected: (value) {
-               normalFieldValue.value = value.toString();
-               ref.read(digitColorProvider.notifier).colorProvider(
-                   value.toString());
-               formzRefRead.onChangePay1(value.toString());
-               final formatter = NumberFormat('#,###');
-               final formatted = formatter.format(value);
-               _formKey.currentState?.fields['normal']?.didChange(formatted);
-             }
-           ),
-           // ),
+
+
          ],
+       ),
+       SizedBox(height: 15),
+       PayChips(
+         selectedValue: normalPay.value,
+         onSelected: (value) {
+           normalFieldValue.value = value.toString();
+           normalPay.value = value;
+           formzRefRead.onChangePay1(value.toString());
+           final formatter = NumberFormat('#,###');
+           final formatted = formatter.format(value);
+           _formKey.currentState?.fields['normal']?.didChange(formatted);
+         },
        ),
        SizedBox(height: 20),
        Container(
@@ -261,46 +276,112 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                },
              ),
              ValidationText(text: formzRefNot.pay3Error),
-             Row(
-               children: [
-                 Expanded(
-                   flex: 2,
-                   child: TaxNumberField(
-                     name: 'tax',
-                     hintText: '3.3%',
-                     focusNode: taxFocusNode,
-                     inputFormatters: [
-                       PercentInputFormatter(),
-                     ],
-                     onSubmitted: (val) {
-                       dayPayFocusNode.requestFocus();
-                       ref.read(conditionListProvider.notifier).updateCondition(2, val);
-                       _scrollToBottom();
-                     },
-                     onChanged: (val) {
-                       if (val == null || val.isEmpty) {
-                         return;
-                       }
-                       final double doubleValue =
-                           double.tryParse(val) ?? 0.0;
-                       formzRefRead.onChangeTax(doubleValue);
-                     },
-                     onSelected: (val) {
-                       final formatted =
-                       val.toStringAsFixed(2); // 예: 10.0 -> "10.0"
-                       ref.read(conditionListProvider.notifier).updateCondition(2, val.toString());
-                       _formKey.currentState?.fields['tax']
-                           ?.didChange(formatted);
-                       dayPayFocusNode.requestFocus();
+             SizedBox(height: 5),
+
+             Container(
+               height: 135,
+               width: MediaQuery.of(context).size.width,
+               decoration: BoxDecoration(
+                 color: Colors.grey.shade50,
+                 border: Border.all(width: 1,color: Colors.grey.shade700),
+                 borderRadius: BorderRadius.circular(10),
+
+               ),
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   Padding(
+                     padding: const EdgeInsets.symmetric(
+                         vertical: 12.0,
+                         horizontal: 16.0),
+                     child: Row(
+                       children: [
+                         TextWidget('세율을 설정해주세요 (기본값 ${taxRate.value}%)',
+                             13.5, appWidth,color: Colors.grey.shade700),
+                       ],
+                     ),
+                   ),
+                   Padding(
+                     padding: const EdgeInsets.only(right: 12.0),
+                     child: Row(
+                       children: [
+                         Expanded(
+                           child: SliderTheme(
+                             data: SliderTheme.of(context).copyWith(
+                               activeTrackColor: Colors.green[400],
+                               inactiveTrackColor: Colors.grey[300],
+                               thumbColor: Colors.white,
+                               thumbShape: RoundSliderThumbShape(enabledThumbRadius: 14),
+                               overlayColor: Colors.grey.withOpacity(0.2),
+                             ),
+                             child: Slider(
+                               value: sliderValue.value,
+                               min: 7,
+                               max: 15,
+                               divisions: 70,
+                               onChanged: (val){
+
+                               },
+                             ),
+                           ),
+                         ),
+                         TextWidget('3.3%', 13.5, appWidth,
+                             color: Colors.grey.shade700),
+                       ],
+                     ),
+                   ),
+                   TaxButtonList(
+                     selectedTaxRate: selectedTaxRate.value,
+                     onTaxSelected: (rate) {
+                       selectedTaxRate.value = rate;
                      },
                    ),
-                 ),
-                 SizedBox(width: 10),
+                   Spacer(),
+
+                 ],
+               ),
+             ),
+             SizedBox(height: 20),
+             Row(
+               children: [
+                 // Expanded(
+                 //   flex: 2,
+                 //   child: TaxNumberField(
+                 //     name: 'tax',
+                 //     hintText: '3.3%',
+                 //     focusNode: taxFocusNode,
+                 //     inputFormatters: [
+                 //       PercentInputFormatter(),
+                 //     ],
+                 //     onSubmitted: (val) {
+                 //       dayPayFocusNode.requestFocus();
+                 //       ref.read(conditionListProvider.notifier).updateCondition(2, val);
+                 //       _scrollToBottom();
+                 //     },
+                 //     onChanged: (val) {
+                 //       if (val == null || val.isEmpty) {
+                 //         return;
+                 //       }
+                 //       final double doubleValue =
+                 //           double.tryParse(val) ?? 0.0;
+                 //       formzRefRead.onChangeTax(doubleValue);
+                 //     },
+                 //     onSelected: (val) {
+                 //       final formatted =
+                 //       val.toStringAsFixed(2); // 예: 10.0 -> "10.0"
+                 //       ref.read(conditionListProvider.notifier).updateCondition(2, val.toString());
+                 //       _formKey.currentState?.fields['tax']
+                 //           ?.didChange(formatted);
+                 //       dayPayFocusNode.requestFocus();
+                 //     },
+                 //   ),
+                 // ),
+                 // SizedBox(width: 10),
                  Expanded(
                    flex: 3,
                    child: PayNumberField(
                      name: 'day_pay',
-                     hintText: '10,000',
+                     hintText: formzRefNot.subsidyError,
                      focusNode: dayPayFocusNode,
                      inputFormatters: [
                        CommaInputFormatter5Digits(),
@@ -319,12 +400,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  ),
                ],
              ),
-             SizedBox(height: 5),
-             ValidationTextRow(
-               right: formzRefNot.taxError,
-               left: formzRefNot.subsidyError,
-             ),
-             SizedBox(height: 20),
+             SizedBox(height: 15),
+             // ValidationText(text: formzRefNot.subsidyError2),
              AuthButton(
                onPressedReset: (){
                  _formKey.currentState?.reset();

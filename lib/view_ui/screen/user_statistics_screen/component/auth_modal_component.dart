@@ -22,10 +22,9 @@ void showBasicModal(BuildContext context,bool survey) {
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-
+      final modalHeight = Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.8;
       return Container(
-        height: survey ? Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.8:
-        Platform.isAndroid ? screenHeight * 0.4 : screenHeight * 0.6,
+        height: modalHeight,
         /// 안드로이드의 키보드가 더 높기때문에 overflow 에러가 발생 해답은 이렇게 해결
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
@@ -46,7 +45,9 @@ void showBasicModal(BuildContext context,bool survey) {
               ),
             ),
             Expanded(
-              child: survey ? SettingScreen() : ExSurveyAuthScreen(), // 내부에서 핸들바 제거하고 사용
+              /// survey ? SettingScreen() : ExSurveyAuthScreen(), // 내부에서 핸들바 제거하고 사용
+
+              child: ExSurveyAuthScreen(),
             ),
           ],
         ),

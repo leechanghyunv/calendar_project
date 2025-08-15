@@ -171,7 +171,7 @@ class MemoComponent extends HookConsumerWidget {
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.blue.shade600,
+                                color: Colors.green.shade600,
                               ),
                             ),
                           ),

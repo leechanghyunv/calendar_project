@@ -144,20 +144,9 @@ class RangeHistoryScreen extends HookConsumerWidget {
                   historyMemoFocus,
                   historyMemoController,
                   (value) {
-
                   },
-
                 ),
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   height: 100,
-                //   decoration: BoxDecoration(
-                //     color: Colors.grey
-                //   ),
-                // ),
-                // TextWidget('${startMonth} ~ ${endMonth}',16,width),
-                // SizedBox(height: 7.5),
-                // TextWidget('총 금액 2033만원 에서 20% 달성',14.5,width),
+
               ],
             ),
           ),

@@ -29,12 +29,15 @@ Future<void> addSelected(
   await ref.watch(rangeSourceProvider(utcStart, utcEnd).future);
   final rangeValue = ref.read(rangeSourceProvider(utcStart,utcEnd).notifier);
 
+
+
   try{
     final db = await ref.watch(selectedHistoryManagerProvider.future);
 
     final record = rangeValue.workRecodeRange;
     final pay = rangeValue.totalPayRange;
     final int durationValue = calculateMonthDifference(utcStart, utcEnd);
+    /// 업체명입력
 
     final selectedHistory = SelectedHistory(
       startDate: utcStart,
@@ -46,7 +49,7 @@ Future<void> addSelected(
       record: record,
       job: job
     );
-
+    print('addSelected value : $pay, $record, ${pay.toDouble() * (1 - tax)}');
     await db.insertSelectedHistory(selectedHistory);
     ref.invalidate(viewSelectedHistoryProvider);
     ref.invalidate(rangeSourceProvider(utcStart, utcEnd)); // 기존 코드 유지

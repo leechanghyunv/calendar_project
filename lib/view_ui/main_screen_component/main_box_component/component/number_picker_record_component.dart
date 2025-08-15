@@ -25,7 +25,7 @@ class recordPickerAnimatedWidget extends StatelessWidget {
     return Container(
 
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Stack(
@@ -71,11 +71,12 @@ class recordPickerAnimatedWidget extends StatelessWidget {
                         width: 175,
                         child: Padding(
                           padding:
-                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 3.0),
+                          EdgeInsets.symmetric(horizontal: 10.0, vertical: 2.0),
                           child: Row(
                             children: [
                               TextWidget(
-                                  '일당은 ${formattedPay}원 입니다.', 13.5, appWidth),
+                                  '일당은 ${formattedPay}원 입니다.', 13.5,
+                                  appWidth,color: Colors.grey.shade600),
                               Spacer(),
                             ],
                           ),
@@ -102,22 +103,29 @@ class recordPickerAnimatedWidget extends StatelessWidget {
               padding: const EdgeInsets.all(0.0),
               child: Row(
                 children: [
-
-                  IconButton(
-                    onPressed: onDecrement,
-                    icon: Icon(
-                      Icons.remove,
-                      size: 40,
-                      color: Colors.black,
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.grey.shade300,
+                    child: GestureDetector(
+                      onTap: onDecrement,
+                      child: Icon(
+                        Icons.remove,
+                        size: 40,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),
-                  IconButton(
-                    onPressed: onIncrement,
-                    icon: Icon(
-                      Icons.add,
-                      size: 40,
-                      color: Colors.black,
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.grey.shade300,
+                    child: GestureDetector(
+                      onTap: onIncrement,
+                      child: Icon(
+                        Icons.add,
+                        size: 40,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   SizedBox(width: 5),

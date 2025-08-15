@@ -1,6 +1,3 @@
-
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../../../core/export_package.dart';
 import '../../../../../../model/selected_history_model.dart';
 import '../../../../../../theme_color.dart';
@@ -51,19 +48,15 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
   List<String> get result {
     return [
       '${widget.selectedHistory.memo}',
-      if (widget.selectedHistory.job
-          .trim()
-          .isNotEmpty) widget.selectedHistory.job,
+      widget.selectedHistory.job.trim().isNotEmpty
+          ? widget.selectedHistory.job
+          : '',
       '${(widget.selectedHistory.money / 10000).toInt()}만원',
-      if (widget.selectedHistory.money != widget.selectedHistory.afterTax &&
-          widget.selectedHistory.money != 0)
-        widget.selectedHistory.afterTax == 1.0 ? '' : '${(widget.selectedHistory.afterTax /
-            10000).toInt()}만원',
       '${widget.selectedHistory.record}공수',
       '${widget.selectedHistory.duration}개월'
-
     ];
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,3 @@
-
-
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import '../../../core/export_package.dart';
@@ -15,8 +13,6 @@ import '../../calendar_rangefield/range_today_cell.dart';
 class RangeCalendarScreen extends HookConsumerWidget {
 
   final VoidCallback? onNavigateToHistory;
-
-
   const RangeCalendarScreen(this.onNavigateToHistory, {super.key});
 
   @override
@@ -28,6 +24,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
     final rangeStart = useState<DateTime?>(DateTime.now());
     final rangeEnd = useState<DateTime?>(null);
     final focusedDay = useState<DateTime>(DateTime.now());
+    final selectedDay = useState<DateTime?>(null); // 👈 selectedDay 추가
 
     final Map<DateTime, bool> _holidayCache = {};
     final Map<DateTime, bool> _substituteHolidayCache = {};
@@ -63,6 +60,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
       ref.rangeSelectNot.updateEndSelected(true);
     }
 
+
+
     return RangeDefaultScreen(
       isCalendarScreen: true,
       children: [
@@ -82,6 +81,11 @@ class RangeCalendarScreen extends HookConsumerWidget {
             rangeStartDay: rangeStart.value,
             rangeEndDay: rangeEnd.value,
             rangeSelectionMode: RangeSelectionMode.toggledOn,
+            onDaySelected: (selected, focused) { // 👈 날짜 선택 핸들러 추가
+              print('선택된 날짜: $selected'); // 👈 선택된 날짜 확인
+              selectedDay.value = selected;
+              focusedDay.value = focused;
+            },
             onRangeSelected: (start, end, focused) {
               rangeStart.value = start;
               rangeEnd.value = end;
@@ -149,11 +153,30 @@ class RangeCalendarScreen extends HookConsumerWidget {
               Spacer(),
               Row(
                 children: [
-                  // Expanded(
-                  //     flex: 2,
-                  //     child: Container(),
-                  // ),
-                  // SizedBox(width: 10),
+                  Expanded(
+                    flex: 1,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey.shade100,
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.5),
+                        ),
+                        elevation: 1,
+                      ),
+                      onPressed: (){
+                        final now = DateTime.now();
+                        final start = rangeStart.value ?? now;
+                        final end = DateTime(start.year, start.month - 1, start.day);
+
+                        rangeStart.value = end;
+                        rangeEnd.value = start;
+                        focusedDay.value = end;
+                      },
+                      child: TextWidget('1개월 선택', 15, appWidth, color: Colors.black),
+                    ),
+                  ),
+                  SizedBox(width: 10),
                   Expanded(
                     flex: 2,
                       child: ElevatedButton(
@@ -163,7 +186,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.5),
                           ),
-                          elevation: 0,
+                          elevation: 1,
                         ),
                           onPressed: ()  async {
                             if (rangeStart.value != null && rangeEnd.value != null) {
@@ -171,7 +194,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                               onNavigateToHistory?.call();
                             }
                           },
-                          child: TextWidget('날짜범위설정', 16, appWidth,color: Colors.white)),
+                          child: TextWidget('선택완료', 16, appWidth,color: Colors.white)),
                   ),
                 ],
               ),

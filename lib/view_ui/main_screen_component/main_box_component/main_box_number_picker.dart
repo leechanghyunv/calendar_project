@@ -221,28 +221,50 @@ class NumberPickerModalSheet extends HookConsumerWidget {
         child: Row(
           children: [
 
-            TextButton(onPressed: (){
-              formzRefread.onChangeDecimal(0.0);
-              formzRefread.onSubmit(decimal: 0.0);
-            },
-                child: TextWidget('휴일등록', 16.5, appWidth)),
-
-            Spacer(),
-
-            TextButton(onPressed: (){
-              formzRefread.onChangeDecimal(currentValue.toDouble());
-              if (showRange) {
-                formzRefread.onSubmitMonthAll(
-                  dateRange.value![0],dateRange.value![1],
-                );
-              } else {
-                formzRefread.onSubmit(decimal: currentValue.toDouble());
-              }
-            },
-              child: TextWidget('공수등록', 16.5, appWidth,
-                color: showRange ? Colors.blue.shade800 : Colors.black,
+            Expanded(
+              flex: 1,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey.shade100,
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.5),
+                  ),
+                  elevation: 1,
+                ),
+                onPressed: (){
+                  formzRefread.onChangeDecimal(0.0);
+                  formzRefread.onSubmit(decimal: 0.0);
+                },
+                child: TextWidget('휴일등록', 15, appWidth, color: Colors.black),
               ),
             ),
+            // Spacer(),
+            SizedBox(width: 10),
+            Expanded(
+              flex: 2,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade700,
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.5),
+                    ),
+                    elevation: 1,
+                  ),
+                  onPressed: ()  {
+                    formzRefread.onChangeDecimal(currentValue.toDouble());
+                    if (showRange) {
+                      formzRefread.onSubmitMonthAll(
+                        dateRange.value![0],dateRange.value![1],
+                      );
+                    } else {
+                      formzRefread.onSubmit(decimal: currentValue.toDouble());
+                    }
+                  },
+                  child: TextWidget('날짜범위설정', 16, appWidth,color: Colors.white)),
+            ),
+
           ],
         )
       ),

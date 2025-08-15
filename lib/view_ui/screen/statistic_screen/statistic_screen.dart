@@ -126,7 +126,7 @@ class StatisticScreen extends HookConsumerWidget {
                         FilterHistoryChip(),
                         Spacer(),
                         FunctionChip(
-                          label: isScrolledDown.value ? '돌아가기' : '상세히',
+                          label: isScrolledDown.value ? '@돌아가기' : '@상세히',
                           color: isOn ? Colors.blue.shade100 : Colors.green.shade100,
                           borderColor: isOn ? Colors.blue.shade400 : Colors.green.shade400,
                           textColor: isOn ? Colors.blue.shade900 : Colors.green.shade900,
