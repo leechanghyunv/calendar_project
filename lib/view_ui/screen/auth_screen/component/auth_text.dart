@@ -60,7 +60,7 @@ Widget introText(double height) {
           style: baseStyle,
         ),
         TextSpan(
-          text: '캘린더에서도 등록가능 합니다',
+          text: '캘린더에서도 가능 합니다',
           style: baseStyle.copyWith(
             fontSize: height >= 850 ? 15 : height > 750 ? 13.5 : 13,
             fontWeight: FontWeight.bold,

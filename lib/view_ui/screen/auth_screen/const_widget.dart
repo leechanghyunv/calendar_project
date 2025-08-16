@@ -76,12 +76,12 @@ class ValidationTextRow extends StatelessWidget {
     return  Row(
       children: [
         Expanded(
-          flex: 2,
+          flex: 3,
           child: ErrorText(' ${right}',appWidth),
         ),
         SizedBox(width: 20),
         Expanded(
-          flex: 3,
+          flex: 2,
           child: ErrorText(' ${left}',appWidth),
         ),
 

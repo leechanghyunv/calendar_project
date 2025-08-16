@@ -13,12 +13,10 @@ import '../../../repository/formz/formz_model.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
 import 'auth_default_screen.dart';
 import 'component/auth_elevatedButton.dart';
-import 'component/pay_input_button.dart';
 import 'component/pay_numberField.dart';
-import 'component/tax_numberField.dart';
 import 'const_widget.dart';
+import 'new_component/auth_header.dart';
 import 'new_component/pay_chip_list_widget.dart';
-import 'new_component/tax_button.dart';
 import 'new_component/tax_button_listView.dart';
 
 class ExSurveyAuthScreen extends HookConsumerWidget {
@@ -27,20 +25,16 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appHeight = MediaQuery.of(context).size.height;
-    final appWidth = MediaQuery.of(context).size.width;
-
     final _formKey = useMemoized(() => GlobalKey<FormBuilderState>());
 
     final normalPay = useState(150000);
     final taxRate = useState(3.3);
     final sliderValue = useState(10.0);
-    final selectedTaxRate = useState<double?>(3.3);
+
 
     final wageFocusNodeA = useFocusNode();
     final wageFocusNodeB = useFocusNode();
     final wageFocusNodeC = useFocusNode();
-    final taxFocusNode = useFocusNode();
     final dayPayFocusNode = useFocusNode();
 
     final _scrollController = useScrollController();
@@ -48,7 +42,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     final _scrollToTop = useCallback(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!_scrollController.hasClients) return;
-
         _scrollController.animateTo(
           0, // 맨 위로 스크롤
           duration: const Duration(milliseconds: 400),
@@ -74,30 +67,19 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
 
 
 
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scrollController.hasClients) {
-          _scrollController.animateTo(
-            0,
-            duration: Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
-      });
-      return null;
-    }, []);
+    // useEffect(() {
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     if (_scrollController.hasClients) {
+    //       _scrollController.animateTo(
+    //         0,
+    //         duration: Duration(milliseconds: 300),
+    //         curve: Curves.easeOut,
+    //       );
+    //     }
+    //   });
+    //   return null;
+    // }, []);
 
-
-    useEffect(() {
-      void listener() {
-        if (taxFocusNode.hasFocus) {
-          ref.read(digitColorProvider.notifier).colorProvider(null);
-          _scrollToBottom();
-        }
-      }
-      taxFocusNode.addListener(listener);
-      return () => taxFocusNode.removeListener(listener);
-    }, [taxFocusNode]);
 
     final normalFieldValue = useState<String>('');
 
@@ -119,7 +101,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
       }
     });
 
-    final height = MediaQuery.of(context).size.height;
+    final appWidth = MediaQuery.of(context).size.width;
+
     final bgColor = ref.watch(digitColorProvider);
     final dateNow = DateTime.utc(
         DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -130,19 +113,18 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
    widget: Column(
      mainAxisAlignment: MainAxisAlignment.start,
      children: [
-       Row(
-         crossAxisAlignment: CrossAxisAlignment.start,
-         children: [
-           InfoRow(
-             title: '일당을 입력해주세요 ',
-             subtitle: '일당 버튼 탭만으로 간편하게 일당 설정하기',
-           ),
-           Spacer(),
-
-
-         ],
+       SizedBox(height: 5),
+       AuthHeader(
+         value: normalPay.value,
+         onChanged: (val){
+           normalPay.value = val;
+           formzRefRead.onChangePay1(val.toString());
+           final formatter = NumberFormat('#,###');
+           final formatted = formatter.format(val);
+           _formKey.currentState?.fields['normal']?.didChange(formatted);
+         },
        ),
-       SizedBox(height: 15),
+       SizedBox(height: 20),
        PayChips(
          selectedValue: normalPay.value,
          onSelected: (value) {
@@ -200,22 +182,12 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    _formKey.currentState?.fields['extended']?.didChange(extended);
                    _formKey.currentState?.fields['night']?.didChange(night);
                    ref.read(firebaseAnalyticsClassProvider.notifier).autoCopyEvent();
-                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                     taxFocusNode.requestFocus();
-                   });
+
                  },
                  child: Padding(
                    padding: const EdgeInsets.all(12.0),
                    child: Container(
-                     child: Text(
-                       '# 자동완성',
-                       textScaler: TextScaler.noScaling,
-                       style: TextStyle(
-                         fontSize: height > 750 ? 13.5 : 13,
-                         fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                         color: bgColor,
-                       ),
-                     ),
+                     child: TextWidget('# 자동완성', 14, appWidth,color: bgColor),
                    ),
                  ),
                ),
@@ -243,43 +215,76 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  child: Padding(
                    padding: const EdgeInsets.all(12.0),
                    child: Container(
-                     child: Text(
-                       '# 키보드 숨기기',
-                       textScaler: TextScaler.noScaling,
-                       style: TextStyle(
-                         fontSize: height > 750 ? 13.5 : 13,
-                         fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
-                         color: Colors.grey,
-                       ),
-                     ),
+                     child: TextWidget('# 키보드 숨기기', 14, appWidth,color: Colors.grey),
                    ),
                  ),
                ),
              ),
              ValidationText(text: formzRefNot.pay2Error),
-             PayNumberField(
-               name: 'night',
-               hintText: '300,000',
-               focusNode: wageFocusNodeC,
-               inputFormatters: [
-                 CommaInputFormatter6Digits(),
+             Row(
+               children: [
+                 Expanded(
+                   flex: 3,
+                   child: PayNumberField(
+                     name: 'night',
+                     hintText: '300,000',
+                     focusNode: wageFocusNodeC,
+                     inputFormatters: [
+                       CommaInputFormatter6Digits(),
+                     ],
+                     onChanged: (val) {
+                       if (val != null && val.isNotEmpty) {
+                         final cleanedValue = val.replaceAll(',', '');
+                         formzRefRead.onChangePay3(cleanedValue);
+                       }
+                     },
+                     onSubmitted: (val) {
+                       ref.read(payListProvider.notifier).update(2, val);
+                     },
+                     suffixIcon: GestureDetector(
+                       onTap: () => Navigator.of(context, rootNavigator: true).pop(),
+                       child: Padding(
+                         padding: const EdgeInsets.all(12.0),
+                         child: Container(
+                           child: TextWidget('# 나가기', 14, appWidth,color: Colors.grey.shade700),
+                         ),
+                       ),
+                     ),
+                   ),
+                 ),
+                 SizedBox(width: 15),
+                 Expanded(
+                   flex: 2,
+                   child: PayNumberField(
+                     name: 'day_pay',
+                     hintText: '10,000',
+                     focusNode: dayPayFocusNode,
+                     inputFormatters: [
+                       CommaInputFormatter5Digits(),
+                     ],
+                     onChanged: (val) {
+                       if (val == null || val.isEmpty) {
+                         return;
+                       }
+                       formzRefRead.onChangeSubsidy(val);
+                     },
+                     onSubmitted: (val) {
+                       ref.read(conditionListProvider.notifier).updateCondition(3, val);
+                       FocusScope.of(context).unfocus();
+                     },
+                   ),
+                 ),
                ],
-               onChanged: (val) {
-                 if (val != null && val.isNotEmpty) {
-                   final cleanedValue = val.replaceAll(',', '');
-                   formzRefRead.onChangePay3(cleanedValue);
-                 }
-               },
-               onSubmitted: (val) {
-                 taxFocusNode.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
-                 ref.read(payListProvider.notifier).update(2, val);
-               },
              ),
-             ValidationText(text: formzRefNot.pay3Error),
              SizedBox(height: 5),
+             ValidationTextRow(
+               right: formzRefNot.pay3Error,
+               left: formzRefNot.subsidyError,
+             ),
+             SizedBox(height: 20),
 
              Container(
-               height: 135,
+               height: 130,
                width: MediaQuery.of(context).size.width,
                decoration: BoxDecoration(
                  color: Colors.grey.shade50,
@@ -292,11 +297,11 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  children: [
                    Padding(
                      padding: const EdgeInsets.symmetric(
-                         vertical: 12.0,
+                         vertical: 10.0,
                          horizontal: 16.0),
                      child: Row(
                        children: [
-                         TextWidget('세율을 설정해주세요 (기본값 ${taxRate.value}%)',
+                         TextWidget('세율을 설정해주세요 (${(taxRate.value).toStringAsFixed(1)}%)',
                              13.5, appWidth,color: Colors.grey.shade700),
                        ],
                      ),
@@ -320,20 +325,26 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                                max: 15,
                                divisions: 70,
                                onChanged: (val){
-
+                                 sliderValue.value = val;
+                                 taxRate.value = val;
                                },
                              ),
                            ),
                          ),
-                         TextWidget('3.3%', 13.5, appWidth,
+                         TextWidget('${(taxRate.value).toStringAsFixed(1)}%', 13.5, appWidth,
                              color: Colors.grey.shade700),
                        ],
                      ),
                    ),
                    TaxButtonList(
-                     selectedTaxRate: selectedTaxRate.value,
+                     selectedTaxRate: taxRate.value,
                      onTaxSelected: (rate) {
-                       selectedTaxRate.value = rate;
+                       taxRate.value = rate;
+                       if (rate != 3.3) {
+                         sliderValue.value = rate;
+                       }
+                       _formKey.currentState?.fields['tax']?.didChange(taxRate.value);
+                       // _scrollToBottom();
                      },
                    ),
                    Spacer(),
@@ -341,67 +352,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  ],
                ),
              ),
+
              SizedBox(height: 20),
-             Row(
-               children: [
-                 // Expanded(
-                 //   flex: 2,
-                 //   child: TaxNumberField(
-                 //     name: 'tax',
-                 //     hintText: '3.3%',
-                 //     focusNode: taxFocusNode,
-                 //     inputFormatters: [
-                 //       PercentInputFormatter(),
-                 //     ],
-                 //     onSubmitted: (val) {
-                 //       dayPayFocusNode.requestFocus();
-                 //       ref.read(conditionListProvider.notifier).updateCondition(2, val);
-                 //       _scrollToBottom();
-                 //     },
-                 //     onChanged: (val) {
-                 //       if (val == null || val.isEmpty) {
-                 //         return;
-                 //       }
-                 //       final double doubleValue =
-                 //           double.tryParse(val) ?? 0.0;
-                 //       formzRefRead.onChangeTax(doubleValue);
-                 //     },
-                 //     onSelected: (val) {
-                 //       final formatted =
-                 //       val.toStringAsFixed(2); // 예: 10.0 -> "10.0"
-                 //       ref.read(conditionListProvider.notifier).updateCondition(2, val.toString());
-                 //       _formKey.currentState?.fields['tax']
-                 //           ?.didChange(formatted);
-                 //       dayPayFocusNode.requestFocus();
-                 //     },
-                 //   ),
-                 // ),
-                 // SizedBox(width: 10),
-                 Expanded(
-                   flex: 3,
-                   child: PayNumberField(
-                     name: 'day_pay',
-                     hintText: formzRefNot.subsidyError,
-                     focusNode: dayPayFocusNode,
-                     inputFormatters: [
-                       CommaInputFormatter5Digits(),
-                     ],
-                     onChanged: (val) {
-                       if (val == null || val.isEmpty) {
-                         return;
-                       }
-                       formzRefRead.onChangeSubsidy(val);
-                     },
-                     onSubmitted: (val) {
-                       ref.read(conditionListProvider.notifier).updateCondition(3, val);
-                       FocusScope.of(context).unfocus();
-                     },
-                   ),
-                 ),
-               ],
-             ),
-             SizedBox(height: 15),
-             // ValidationText(text: formzRefNot.subsidyError2),
              AuthButton(
                onPressedReset: (){
                  _formKey.currentState?.reset();
@@ -413,8 +365,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  final site = _formKey.currentState?.fields['site']?.value ?? '';
                  final workType = _formKey.currentState?.fields['work_type']?.value ?? '';
                  formzRefRead.onSubmit(
-                     context, wageFocusNodeA,
-                     taxFocusNode, site,
+                     context, wageFocusNodeA, site,
                      workType, dateNow, true);
                  Navigator.of(context, rootNavigator: true).pop();
                },
@@ -425,8 +376,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
        ),
      ],
    ),
-
-
     );
   }
 }

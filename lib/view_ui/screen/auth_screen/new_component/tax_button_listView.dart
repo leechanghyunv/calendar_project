@@ -16,7 +16,7 @@ class TaxButtonList extends HookWidget {
   Widget build(BuildContext context) {
     final taxRates = [
       {'rate': 3.3, 'isSpecial': true},
-      {'rate': 9.9},
+      {'rate': 10.0},
       {'rate': 10.4},
       {'rate': 11.0},
       {'rate': 12.0},

@@ -107,7 +107,6 @@ class SettingScreen extends HookConsumerWidget {
             context.go('/calendar');
           }
         });
-
       }
     });
 
@@ -409,8 +408,7 @@ class SettingScreen extends HookConsumerWidget {
                             final site = _formKey.currentState?.fields['site']?.value ?? '';
                             final workType = _formKey.currentState?.fields['work_type']?.value ?? '';
                             formzRefRead.onSubmit(
-                                context, wageFocusNodeA,
-                                taxFocusNode, site,
+                                context, wageFocusNodeA, site,
                                 workType, dateNow, true);
                             Navigator.of(context, rootNavigator: true).pop();
                           },
