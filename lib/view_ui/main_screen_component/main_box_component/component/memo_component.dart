@@ -1,4 +1,5 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/show_memo_provider.dart';
 
@@ -18,13 +19,13 @@ class MemoComponent extends HookConsumerWidget {
       this.memoController,
       this.onChanged,
       this.onFieldSubmitted,
-
        {super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
+    final appHeight = context.height;
     final  memoState = ref.watch(showMemoStateProvider);
 
     final selectedDate = ref.selected;
@@ -60,25 +61,9 @@ class MemoComponent extends HookConsumerWidget {
     }
 
 
-    Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.grey.shade900,
-        width: 0.55,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    );
-
     return Column(
       children: [
-        SizedBox(height: 10),
+        SizedBox(height: 5),
         Row(
           children: [
             TextWidget('${ref.monthString}월 메모기록(${monthlyMemoCount})', 14, appWidth),
@@ -98,11 +83,10 @@ class MemoComponent extends HookConsumerWidget {
           color: Colors.grey.shade300,
           thickness: 0.8,
         ),
-        SizedBox(height: 5),
-
         Container(
-          height: 200,
-          decoration: infoBoxDeco,
+          /// appHeight > 750 ? appHeight > 850 ? 150 : 120 : 100
+          height: appHeight > 750 ? 165 : 155,
+
           alignment: Alignment.center,
           child: memoState ?  Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -146,7 +130,6 @@ class MemoComponent extends HookConsumerWidget {
 
                 return monthlyHistoriesWithMemo.isNotEmpty
                     ? ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 10),
                   itemCount: monthlyHistoriesWithMemo.length,
                   separatorBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -161,7 +144,7 @@ class MemoComponent extends HookConsumerWidget {
                     final history = monthlyHistoriesWithMemo[index];
 
                     return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 9, horizontal: 12),
+                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                       child: Row(
                         children: [
                           SizedBox(
@@ -206,12 +189,13 @@ class MemoComponent extends HookConsumerWidget {
                   },
                 )
                     : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    SizedBox(height: 30),
                     Text(
                       '이번 달 메모가 없습니다',
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: appHeight > 900 ? 17 : 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
@@ -220,7 +204,7 @@ class MemoComponent extends HookConsumerWidget {
                     Text(
                       '+ 메모추가로 시작하세요',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: appHeight > 900 ? 14 : 12,
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w500,
                       ),

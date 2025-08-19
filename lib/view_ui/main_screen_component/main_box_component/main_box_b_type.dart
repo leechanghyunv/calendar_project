@@ -1,4 +1,5 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../core/widget/toast_msg.dart';
@@ -33,7 +34,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
     final data1 = ref.watch(monthRecordProvider(ref.selected));
     final data2 = ref.watch(monthRecordProvider(ref.selected));    final data = ref.history;
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     data1.whenData((val) {
       payString = val.totalPayString;
       afterTax = val.afterTax;

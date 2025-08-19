@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
 import '../dialog_text.dart';
 
@@ -7,7 +9,7 @@ class BackUpBox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     return Container(
       decoration: BoxDecoration(

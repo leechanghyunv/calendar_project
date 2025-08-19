@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 
 import '../../core/export_package.dart';
@@ -15,8 +16,8 @@ class HolidayCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+    final appWidth =  context.width;
+    final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;

@@ -35,7 +35,7 @@ Widget MediumText(String text, double height) => Text(
 
 
 Widget introText(double height) {
-  final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
+  final fontSize = height >= 850 ? 15.5 : height > 750 ? 15.0 : 13.5;
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.5 : null,
     fontSize: fontSize,
@@ -45,16 +45,16 @@ Widget introText(double height) {
     TextSpan(
       children: [
         TextSpan(
-          text: '워크캘린더는 ',
+          text: '이용해주셔서 감사합니다. 워크캘린더는 ',
           style: baseStyle,
         ),
+
         TextSpan(
           text: '근로조건을 설정하셔야 공수등록',
           style: baseStyle.copyWith(
             fontWeight: FontWeight.bold,
           ),
         ),
-        /// ' 을 하실 수 있습니다. 근로조건은 유저 통계자료에 활용되며, '
         TextSpan(
           text: ' 을 하실 수 있습니다. 근로조건 설정은 ',
           style: baseStyle,
@@ -66,18 +66,6 @@ Widget introText(double height) {
             fontWeight: FontWeight.bold,
           ),
         ),
-
-        // TextSpan(
-        //   text: '통계자료는 모든 유저에게 공유 ',
-        //   style: baseStyle.copyWith(
-        //     backgroundColor: Colors.green.shade100,
-        //     fontWeight: FontWeight.bold,
-        //   ),
-        // ),
-        // TextSpan(
-        //   text: '됩니다.',
-        //   style: baseStyle,
-        // ),
       ],
     ),
     textScaler: TextScaler.noScaling,

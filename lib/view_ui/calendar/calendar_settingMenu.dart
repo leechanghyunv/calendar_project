@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
 import '../dialog/basic_setting_dialog/basic_setting_dialog.dart';
@@ -9,7 +11,7 @@ class SettingPopupWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     TextStyle getStyle = TextStyle(
       fontSize: appWidth > 450 ? 14 : 13,
@@ -56,7 +58,22 @@ class SettingPopupWidget extends ConsumerWidget {
         PopupMenuItem(
           value: 'enroll',
           height: 30,
-          child: CalendarSettingBox('근로조건 설정하기', getStyle),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(textScaler: TextScaler.noScaling,
+                    '근로조건 설정하기',
+                    style: getStyle.copyWith(
+                        fontWeight: FontWeight.w900,
+                        color: Colors.green.shade800)),
+              ],
+            ),
+          ),
 
         ),
         PopupMenuDivider(),

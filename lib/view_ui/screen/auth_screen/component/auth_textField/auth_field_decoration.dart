@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../../core/export_package.dart';
 
 class authContainer extends StatelessWidget {
@@ -10,10 +12,10 @@ class authContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  height = MediaQuery.of(context).size.height;
-    final  width = MediaQuery.of(context).size.width;
+    final  height = context.height;
+    final  width =  context.width;
     return Container(
-      height: height > 700 ? (width > 400 ? 48 : 45) : 43,
+      height: height > 750 ? (width > 400 ? 48 : 45) : 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

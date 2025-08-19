@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../core/export_package.dart';
 import '../../theme_color.dart';
 
@@ -11,8 +13,8 @@ class ScreenUtil {
   double width = 0;
 
   void init(BuildContext context) {
-    height = MediaQuery.of(context).size.height;
-    width = MediaQuery.of(context).size.width;
+    height = context.height;
+    width =  context.width;
   }
 }
 

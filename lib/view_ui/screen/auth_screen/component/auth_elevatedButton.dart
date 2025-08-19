@@ -13,6 +13,7 @@ class AuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return  Row(
       children: [
         Expanded(
@@ -21,7 +22,8 @@ class AuthButton extends StatelessWidget {
             onPressed: onPressedReset,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.grey.shade100,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              padding:  EdgeInsets.symmetric(horizontal: 12,
+                  vertical: height > 750 ? 12 : 6),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7.5),
               ),
@@ -40,7 +42,9 @@ class AuthButton extends StatelessWidget {
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.green,
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              padding: EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: height > 750 ? 12 : 6),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7.5),
               ),

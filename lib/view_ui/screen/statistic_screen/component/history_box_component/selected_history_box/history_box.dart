@@ -142,7 +142,7 @@ class MomoChip extends StatelessWidget {
 
   List<String> get result {
     return [
-      '${selectedHistory.record}공수',
+      '${selectedHistory.record.toStringAsFixed(1)}공수',
       '${(selectedHistory.money / 10000).toInt()}만원',
       ' 더보기... ',
     ];

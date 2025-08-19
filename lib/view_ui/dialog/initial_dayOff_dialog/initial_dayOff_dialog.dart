@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 
 class InitialDayOffDialog extends StatelessWidget {
@@ -5,9 +7,6 @@ class InitialDayOffDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
 
     final baseStyle = TextStyle(
       height: Platform.isAndroid ? 1.75 : 1.30,

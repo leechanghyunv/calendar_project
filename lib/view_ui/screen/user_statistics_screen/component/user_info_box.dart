@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
 
 class UserInfoBox extends StatelessWidget {
@@ -19,8 +21,8 @@ class UserInfoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
+    final double height = context.height;
+    final double width =  context.width;
 
     return Container(
       height: height > 750 ? (width > 400 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
@@ -70,7 +72,7 @@ class UserInfoBox extends StatelessWidget {
                   value,
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
-                    fontSize: (width >= 450 ? 36 : width > 400 ? 33.0 : (width < 376 ? 30.0 : 32.0)),
+                    fontSize: (width >= 450 ? 40 : width > 400 ? 38.0 : 33.0),
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -93,7 +95,7 @@ class UserInfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 8.5 : 9.5),
+                fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 9.0 : 9.5),
                 color: Colors.grey.shade700,
               ),
             ),

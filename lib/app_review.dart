@@ -1,6 +1,7 @@
 
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
+import 'package:calendar_project_240727/base_app_size.dart';
 
 import 'core/export_package.dart';
 
@@ -9,8 +10,8 @@ class CustomReviewDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final width = context.width;
+    final height = context.height;
 
     final baseStyle = TextStyle(
       height: Platform.isAndroid ? 1.75 : 1.30,

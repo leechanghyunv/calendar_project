@@ -15,34 +15,11 @@ Widget initialText(double height) {
         TextSpan(
           children: [
             TextSpan(
-              text: '근무현장,공종 ',
-              style: baseStyle.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            TextSpan(
-              text: '에 대한 아주 간단한 설정이 있습니다. ',
+              text: '아직은 유명하지 않은 워크캘린더를 선택해주셔서 감사합니다. 워크캘린더와 함께 원하시는 목표를 달성하시길 기원합니다.',
               style: baseStyle.copyWith(
               ),
             ),
-            TextSpan(
-              text: ' 선택사항이며, 건너뛰기가 가능합니다. ',
-              style: baseStyle.copyWith(
-              ),
-            ),
-            TextSpan(
-              text: '통계 자료로 활용',
-              style: baseStyle.copyWith(
-                backgroundColor: Colors.green.shade100,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            TextSpan(
-              text: ' 됩니다.',
-              style: baseStyle.copyWith(
 
-              ),
-            ),
           ],
         ),
         textScaler: TextScaler.noScaling,

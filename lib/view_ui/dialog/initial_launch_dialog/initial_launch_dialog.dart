@@ -1,9 +1,7 @@
-import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../../model/formz_model.dart';
-import '../../../repository/formz/formz_model.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
 import '../dialog_text.dart';
 import 'intro_text.dart';
@@ -14,23 +12,22 @@ class InitialLaunchDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    final width =  context.width;
+    final height = context.height;
 
-    ref.contractForm;
 
-    final formzRefNot = ref.formzWatch;
-    final formzRefRead = ref.formzRead;
-
-    ref.listen(formzValidatorProvider, (pre, cur) {
-      if (cur.status == FormzStatus.submissionSuccess) {
-        Navigator.of(context).pop();
-      }
-    });
-
+    // Transform.translate(
+    //   offset: Offset(0, -0.5), // 위로 2픽셀 이동
+    //   child: AnimatedEmoji(
+    //     AnimatedEmojis.clap.mediumLight,
+    //     repeat: true,
+    //     animate: true,
+    //     size: width > 400 ? 20 : 18,
+    //   ),
+    // ),
 
     return AlertDialog(
-      title: TextWidget(Platform.isAndroid ? '워크캘린더 시작하기' : '🎉 워크캘린더 시작하기',
+      title: TextWidget(Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
           16, width),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -48,42 +45,34 @@ class InitialLaunchDialog extends HookConsumerWidget {
               child: initialText(height),
             ),
           ),
-          SizedBox(height: 15),
-          Row(
-            children: [
-              Text('아래 버튼으로 근로조건 등록을 진행해주세요',
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade700,
-                ),
-              ),
-            ],
-          ),
+
+
         ],
       ),
       actions: [
-
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0),
           child: Row(
             children: [
-              const Spacer(),
-              TextButton(
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade700,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.5),
+                    ),
+                    elevation: 2,
+                  ),
                   onPressed: () {
                     showBasicModal(context,false);
                   },
-                  child: ButtonTextWidget('빠른시작',15, color: Colors.black)
-                /// 설문제외 -> 빠른시작 으로 변경
-              ),
-              SizedBox(width: 10),
-              TextButton(
-                onPressed: () {
-                  showBasicModal(context,true);
-                },
-                /// 설문포함 -> 설문도 함께하기 로 변경
-                child: ButtonTextWidget('시작하기',15),
+                  child: ButtonTextWidget('시작하기',
+                      15, color: Colors.grey.shade100),
+
+                ),
               ),
             ],
           ),

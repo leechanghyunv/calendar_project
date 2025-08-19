@@ -84,7 +84,8 @@ class IntroSelectedBox extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('검색버튼을 눌려서 공사기간을 설정해주세요',
+                  SizedBox(height: 35.0),
+                  Text('공수등록 상단에서 근로기간 설정하기',
                     textScaler: TextScaler.noScaling,
                     style: TextStyle(
                       height: textHeight,
@@ -92,13 +93,12 @@ class IntroSelectedBox extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5.0),
-                  Text('누적금액,공사기간,공수,메모내용을 보여드립니다.',
+                  Text('근로기간 설정 후 저장 후 보관',
                     textScaler: TextScaler.noScaling,
                     style: TextStyle(
-                      height: textHeight,
-                      fontSize: (width > 400 ? 13.5 : (width < 370 ? 11.0 : 12.0)),
-
-                    ),
+                        height: textHeight,
+                        fontSize: (width > 400 ? 17 : (width < 370 ? 14.0 : 15.0)),
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

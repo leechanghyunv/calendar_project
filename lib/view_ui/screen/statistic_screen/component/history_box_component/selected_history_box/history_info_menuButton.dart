@@ -45,26 +45,12 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
     );
   }
 
-  List<String> get result {
-    return [
-      '${widget.selectedHistory.memo}',
-      widget.selectedHistory.job.trim().isNotEmpty
-          ? widget.selectedHistory.job
-          : '',
-      '${(widget.selectedHistory.money / 10000).toInt()}만원',
-      '${widget.selectedHistory.record}공수',
-      '${widget.selectedHistory.duration}개월'
-    ];
-  }
-
-
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
     final labels = ['직무', '세전', '세후', '공수', '기간'];
-    final values = result.skip(1).toList();
 
     return PopupMenuButton(
       color: Colors.grey.shade50,
@@ -91,25 +77,25 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
                     Row(
                       children: [
                         chartInText('- ${labels[1]}:'),
-                        chartInText(values[1]),
+                        chartInText('${(widget.selectedHistory.money / 10000).toInt()}만원',),
                       ],
                     ),
                     Row(
                       children: [
                         chartInText('- ${labels[2]}:'),
-                        chartInText(values[2]),
+                        chartInText('${(widget.selectedHistory.afterTax / 10000).toInt()}만원',),
                       ],
                     ),
                     Row(
                       children: [
                         chartInText('- ${labels[3]}:'),
-                        chartInText(values[3]),
+                        chartInText('${(widget.selectedHistory.record).toStringAsFixed(1)}공수',),
                       ],
                     ),
                     Row(
                       children: [
                         chartInText('- ${labels[4]}:'),
-                        chartInText(values[4]),
+                        chartInText('${widget.selectedHistory.duration}개월'),
                       ],
                     ),
                   ],

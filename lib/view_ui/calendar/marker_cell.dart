@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/utils/view_type.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
@@ -20,8 +21,8 @@ class MarkerCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+    final appWidth =  context.width;
+    final appHeight = context.height;
     final controllerFuture = ref.watch(viewTypeModelProvider);
     final viewTypeValue = AsyncValue.data(controllerFuture.value);
     final switcher = ref.watch(calendarSwitcherProvider);

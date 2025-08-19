@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
 
 class BackUpDialogTextSpan extends StatelessWidget {
@@ -6,7 +8,7 @@ class BackUpDialogTextSpan extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     return RichTextBox(appWidth);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
@@ -37,7 +38,7 @@ class WorkCalendar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     ref.history;
     final timeManagerNot = ref.timeNot;

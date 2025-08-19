@@ -1,10 +1,10 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
-import 'component/number_picker_modal_component.dart';
 
 class DeleteChip extends HookConsumerWidget {
   const DeleteChip({super.key});
@@ -13,7 +13,7 @@ class DeleteChip extends HookConsumerWidget {
     final borderWidth = useState(0.75);
 
     final data = ref.history;
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final tapCount = ref.watch(deleteTapCountProvider);
 
     useEffect(() {

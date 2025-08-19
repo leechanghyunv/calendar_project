@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:intl/intl.dart';
 import '../../core/export_package.dart';
@@ -11,8 +12,8 @@ class CalendarHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+    final appWidth =  context.width;
+    final appHeight = context.height;
 
     return Padding(
       padding: EdgeInsets.only(

@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/utils/view_type.dart';
+import '../../../core/widget/toast_msg.dart';
+import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'component/number_picker_modal_component.dart';
 
 part 'main_box_setting_button.g.dart';
@@ -37,7 +40,12 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
     return GestureDetector(
       onTap: (){
         setState(() => borderWidth = 1.25);
-        NumberPickerModal(context);
+        if (ref.contract.value!.isEmpty) {
+          customMsg('근로조건을 우선 입력해주세요');
+          showBasicModal(context,false);
+        } else {
+          NumberPickerModal(context);
+        }
       },
 
       child: Container(

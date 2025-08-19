@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/view_ui/calendar/selected_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/today_cell.dart';
 
@@ -42,7 +43,7 @@ class TableCalendarFrame extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final switcher = ref.watch(calendarSwitcherProvider);
 
     final bool isExpanded = switcher.maybeWhen(

@@ -40,7 +40,7 @@ class CalendarRangeHeader extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   height: 35,
-                  width: 180,
+                  width: 200,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -58,7 +58,7 @@ class CalendarRangeHeader extends StatelessWidget {
                 flex: 1,
                 child: Container(
                   height: 35,
-                  width: 180,
+                  width: 200,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),

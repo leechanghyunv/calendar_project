@@ -1,6 +1,6 @@
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/new_component/tax_button.dart';
+import 'package:calendar_project_240727/view_ui/screen/auth_screen/new_component/tax_component/tax_button.dart';
 
-import '../../../../core/export_package.dart';
+import '../../../../../core/export_package.dart';
 
 class TaxButtonList extends HookWidget {
   final double? selectedTaxRate;

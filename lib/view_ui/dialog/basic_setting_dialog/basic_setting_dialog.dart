@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../core/widget/toast_msg.dart';
@@ -12,8 +14,8 @@ class BasicSettingDialog extends HookConsumerWidget {
 
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    final double width =  context.width;
+    final double height = context.height;
     final firstController = useTextEditingController();
     final secondController = useTextEditingController();
     final thirdController = useTextEditingController();
@@ -29,6 +31,13 @@ class BasicSettingDialog extends HookConsumerWidget {
     final showSecondField = useState(false);
     final showThirdField = useState(false);
 
+    // 빌드 후 자동 포커스
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        firstFocusNode.requestFocus();
+      });
+      return null;
+    }, []);
 
 
     useEffect(() {
@@ -222,7 +231,7 @@ class BasicSettingDialog extends HookConsumerWidget {
                 firstFocusNode.requestFocus();
                 customMsg('취소되었습니다.');
               },
-              child: TextWidget('취소', 15,width),
+              child: TextWidget('지우기', 15,width),
             ),
             TextButton(
               onPressed: () {

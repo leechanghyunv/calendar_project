@@ -1,4 +1,5 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 
 import '../../view_model/view_provider/calendar_switcher_model.dart';
@@ -12,8 +13,7 @@ class SelectedCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final switcher = ref.watch(calendarSwitcherProvider);
-    final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+    final appHeight = context.height;
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
       orElse: () => false,

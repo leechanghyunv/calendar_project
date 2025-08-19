@@ -10,6 +10,9 @@ final modalLoadingProvider = StateProvider<bool>((ref) => false);
 
 
 void showRangeModal(BuildContext context,WidgetRef ref){
+
+  final height = MediaQuery.of(context).size.height;
+
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
@@ -30,7 +33,10 @@ void showRangeModal(BuildContext context,WidgetRef ref){
         final isLoading = ref.watch(modalLoadingProvider);
         final  selected = ref.watch(rangeSelectManagerProvider);
         return Container(
-          height: Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7,
+          // height > 750
+          height: height > 750
+              ? Platform.isAndroid ? screenHeight * 0.6 : screenHeight * 0.7
+              : Platform.isAndroid ? screenHeight * 0.75 : screenHeight * 0.85,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(

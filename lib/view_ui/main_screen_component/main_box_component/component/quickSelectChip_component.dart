@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
 
 class QuickSelectChip extends StatelessWidget {
@@ -20,27 +22,20 @@ class QuickSelectChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: isSelected ? Colors.grey.shade200 : Colors.grey.shade100,
+          color: isSelected ? Colors.green.shade700 : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(width: isSelected ? 2.25 : 0.95,
-              color: isSelected ? Colors.grey.shade800 : Colors.grey.shade900),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.shade400,
-              blurRadius: 5,
-              offset: const Offset(4, 4),
-            ),
-          ],
+          border: Border.all(width: isSelected ? 2.25 : 1.25,
+              color: isSelected ? Colors.green.shade700 : Colors.grey.shade200),
         ),
-        height: 26,
+        height: 25,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 10.0),
           child: Text(value.toStringAsFixed(2),
             textScaler: TextScaler.noScaling,
             style: TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: value == 0.0 ? 12.5 : null,
-              color:  Colors.black87,
+              fontSize: value == 0.0 ? 12.5 : context.height > 900 ? 16.5 : 15,
+              color: isSelected ? Colors.grey.shade200 : Colors.black87,
             ),),
         ),
       ),

@@ -50,12 +50,8 @@ SearchHistoryModel _SearchModelState(
   final wrd = workDay + extraDay;
   final severancePay = (wrd * 6200) / 10000;
 
-  // final total = wrd / 252;
-  // final getRate = (total * 100).clamp(0.0, 100);
-  // final percentage = (workDay / 180 * 100);
-  // final percent = (percentage > 100 ? 100 : percentage).toStringAsFixed(0);
 
-  final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (contract.last.tax ?? 0))).toStringAsFixed(1));
+  final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (contract.last.tax/100))).toStringAsFixed(1));
 
   return SearchHistoryModel(
     total: totalPay.toDouble(),

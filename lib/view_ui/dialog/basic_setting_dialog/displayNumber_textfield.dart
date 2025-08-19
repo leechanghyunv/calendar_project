@@ -20,7 +20,7 @@ class _DisplayNumberTextFieldState extends State<DisplayNumberTextField> {
     return TextFormField(
       controller: widget.controller,
       focusNode: widget.focusNode,
-      keyboardType: TextInputType.numberWithOptions(decimal: true, signed: true),
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
       cursorColor: Colors.grey.shade700,
       cursorWidth: 2.0,
       inputFormatters: [
@@ -28,15 +28,15 @@ class _DisplayNumberTextFieldState extends State<DisplayNumberTextField> {
       ],
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
-              vertical: 2,
-              horizontal: 3),
+              // vertical: 10,
+              horizontal: 10),
           isDense: true,
           border: InputBorder.none,
           hintText: widget.hintText,
           hintStyle: TextStyle(
-            fontSize: 14.5,
+            fontSize: 15.5,
             fontWeight: FontWeight.w500,
-            color: Colors.grey,
+            color: Colors.grey.shade700,
           ),
       ),
     );

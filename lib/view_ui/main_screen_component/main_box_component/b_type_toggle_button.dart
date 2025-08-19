@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 
 import '../../../core/export_package.dart';
@@ -9,7 +10,7 @@ class SwitchExample extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final switchAsync = ref.watch(bTypeSwitchProviderProvider);
     final isOn = switchAsync.valueOrNull ?? false;
-    final width = MediaQuery.of(context).size.width;
+    final width = context.width;
     final height = width > 750 ? 25.0 : 24.0;
 
     return SizedBox(

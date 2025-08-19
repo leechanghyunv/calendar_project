@@ -204,7 +204,7 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
           hintStyle: TextStyle(
             color: Colors.grey.shade600,
             fontWeight: FontWeight.bold,
-            fontSize: (width > 400 ? 16 : 15),
+            fontSize: (width > 400 ? 15 : 14),
             letterSpacing: 1.25,
           ),
           border: InputBorder.none,

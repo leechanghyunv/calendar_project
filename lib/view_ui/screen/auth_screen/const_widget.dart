@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import 'component/auth_text.dart';
@@ -52,11 +54,12 @@ class ValidationText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final  appWidth = MediaQuery.of(context).size.width;
+    final  appHeight = MediaQuery.of(context).size.height;
     return Column(
       children: [
         SizedBox(height: 5),
         ErrorText(' ${text}',appWidth),
-        SizedBox(height: 15),
+        SizedBox(height: appHeight > 750 ? 15 : 12.5),
       ],
     );
   }
@@ -71,7 +74,7 @@ class ValidationTextRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  appWidth = MediaQuery.of(context).size.width;
+    final  appWidth = context.width;
 
     return  Row(
       children: [

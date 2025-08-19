@@ -91,6 +91,7 @@ dependencies:
 
 
 
+
   # https://pub.dev/packages/change_app_package_name/ 안드로이드,ios 패키지 네일 바꾸는 방법 참고
   # flutter pub run change_app_package_name:main com.app.calendar_project_240727 --android
 

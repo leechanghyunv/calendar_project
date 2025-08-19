@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/view_model/view_provider/display_view_record_model.dart';
@@ -15,7 +16,7 @@ class ChipList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final selectedIndex = ref.watch(selectedChipIndexProvider);
     final displayValue = ref.watch(displayValueProvider);
     final formZRefNot = ref.decimalWatch;
@@ -173,10 +174,10 @@ class ChipList extends HookConsumerWidget {
                     > 400 => 12.5,
                     _ => 12,
                   } : switch (width) {
-                    > 450 => 14,
-                    > 420 => 12,
-                    > 400 => 11.5,
-                    _ => 11,
+                    > 450 => 14.5,
+                    > 420 => 12.5,
+                    > 400 => 12,
+                    _ => 11.5,
                   },
                     fontWeight: FontWeight.w800,
                 ),

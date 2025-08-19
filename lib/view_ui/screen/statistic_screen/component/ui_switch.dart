@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,7 +11,7 @@ class CustomTrackSwitch extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final switchAsync = ref.watch(switchNotifierProvider);
-    final width = MediaQuery.of(context).size.width;
+    final width = context.width;
     final height = width > 750 ? 25.0 : 24.0;
     final isOn = switchAsync.valueOrNull ?? false;
 

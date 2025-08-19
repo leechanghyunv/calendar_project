@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 import '../../../theme_color.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
@@ -16,9 +18,9 @@ class MainBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+    final width = context.width; // ✅ 한 번만 가져오기
 
 
     return Container(
@@ -26,13 +28,13 @@ class MainBox extends ConsumerWidget {
         color: themeColor,
         borderRadius: BorderRadius.circular(8.0),
       ),
-      width: appWidth * 0.95,
-      height: appWidth > 400 ? isFoldValue ? 325 : 370 : (appWidth < 376 ? 290 : 330),
+      width:  width * 0.95,
+      height: width > 400 ? isFoldValue ? 325 : 370 : (width < 376 ? 290 : 330),
       child: Padding(
 
         padding: EdgeInsets.symmetric(
           /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
-            vertical: appWidth > 380 ? 10.0 : 6.0,
+            vertical: width > 380 ? 10.0 : 6.0,
             horizontal: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -40,12 +42,12 @@ class MainBox extends ConsumerWidget {
           children: [
             Container(
               decoration: MainBoxDecoration,
-              height: appWidth > 400 ? isFoldValue ? 140 : 170 : (appWidth < 376 ? 135 : 140),
+              height: width > 400 ? isFoldValue ? 140 : 170 : (width < 376 ? 135 : 140),
               child: Stack(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0,
-                        vertical: isFoldValue && appWidth > 500 ? 8.0 : 12.0),
+                        vertical: isFoldValue && width > 500 ? 8.0 : 12.0),
 
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -59,16 +61,16 @@ class MainBox extends ConsumerWidget {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          width: appWidth * 0.9,
-                          height: appWidth > 400 ? isFoldValue ? 25 : 35 : 25,
+                          width: width * 0.9,
+                          height: width > 400 ? isFoldValue ? 25 : 35 : 25,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ChipList(),
                               Spacer(),
-                              SizedBox(width: appWidth > 400 ? 7.5 : 5),
+                              SizedBox(width: width > 400 ? 7.5 : 5),
                               DeleteChip(),
-                              SizedBox(width: appWidth > 400 ? 7.5 : 5),
+                              SizedBox(width: width > 400 ? 7.5 : 5),
                               SettingButton(),
                             ],
                           ),
@@ -78,7 +80,7 @@ class MainBox extends ConsumerWidget {
                   ),
                   Positioned(
                     top: 16,
-                    right: appWidth > 450 ? isFoldValue ? 16 : 22.5 : 16,
+                    right: width > 450 ? isFoldValue ? 16 : 22.5 : 16,
                     child: Row(
                       children: [
                         MonthMoveButton(),
@@ -89,7 +91,7 @@ class MainBox extends ConsumerWidget {
               ),
             ),
 
-            appWidth < 380 ? SizedBox(height: 7.5) : SizedBox(height: 10),
+            width < 380 ? SizedBox(height: 7.5) : SizedBox(height: 10),
 
             Row(
               children: [

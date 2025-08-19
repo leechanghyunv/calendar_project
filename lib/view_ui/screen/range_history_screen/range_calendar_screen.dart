@@ -155,25 +155,46 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey.shade100,
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.5),
-                        ),
-                        elevation: 1,
-                      ),
-                      onPressed: (){
+                    child: PopupMenuButton<int>(
+                      initialValue: 1,
+                      onSelected: (months) {
                         final now = DateTime.now();
                         final start = rangeStart.value ?? now;
-                        final end = DateTime(start.year, start.month - 1, start.day);
+                        final end = DateTime(start.year, start.month - months, start.day);
 
                         rangeStart.value = end;
                         rangeEnd.value = start;
                         focusedDay.value = end;
                       },
-                      child: TextWidget('1개월 선택', 15, appWidth, color: Colors.black),
+                      itemBuilder: (context) => [
+                        PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth)),
+                        PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth)),
+                        PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14, appWidth)),
+                        PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14, appWidth)),
+                        PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth)),
+                      ],
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12.5),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 1,
+                              offset: Offset(0, 1),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextWidget('기간 선택', 15, appWidth, color: Colors.black),
+                            SizedBox(width: 5),
+                            Icon(Icons.arrow_drop_down, size: 20),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: 10),

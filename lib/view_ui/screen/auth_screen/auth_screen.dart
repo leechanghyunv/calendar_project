@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/component/tax_numberField.dart';
@@ -82,8 +83,8 @@ class SettingScreen extends HookConsumerWidget {
       return () => taxFocusNode.removeListener(listener);
     }, [taxFocusNode]);
 
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = context.height;
+    final width =  context.width;
     final bgColor = ref.watch(digitColorProvider);
     final dateNow = DateTime.utc(
         DateTime.now().year, DateTime.now().month, DateTime.now().day);
@@ -361,6 +362,7 @@ class SettingScreen extends HookConsumerWidget {
                               ref.read(conditionListProvider.notifier).updateCondition(2, val.toString());
                               _formKey.currentState?.fields['tax']
                                   ?.didChange(formatted);
+
                               dayPayFocusNode.requestFocus();
                             },
                           ),

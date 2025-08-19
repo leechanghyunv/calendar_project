@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../../../core/export_package.dart';
@@ -17,8 +18,8 @@ class StatisticsFilterChip extends HookConsumerWidget {
     final selectedValue = useState<String?>(null);
     final _scrollController = useScrollController(); // 🎯 스크롤 컨트롤러 추가
 
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
+    final double height = context.height;
+    final double width = context.width;
 
     final chipExtraWidth = width > 370 ? 16.0 : 8.0; // 패딩에 따른 추가 너비
 
@@ -53,6 +54,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
               itemCount: options.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 final option = options[index];
                 final bool isSelected = selectedValue.value == option;
@@ -108,7 +110,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                           height: textHeight,
                           letterSpacing: null,
                           fontSize: height > 750
-                              ? (width > 400 ? 15 : width < 370 ? 11.0 : 12.5)
+                              ? (width > 400 ? 14 : width < 370 ? 11.5 : 12.5)
                               : 11.5,
                           fontWeight: FontWeight.bold,
                           color: option == '전체' ? Colors.green.shade900 :

@@ -61,9 +61,7 @@ class BottomManagerChip extends HookConsumerWidget {
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     height: textHeight,
-                    fontSize: height > 750
-                        ? (width > 400 ? 14.5 : width < 375 ? 12 : 13.5)
-                        : 12,
+                    fontSize: width > 400 ? 14.5 : 13.5,
                     fontWeight: FontWeight.bold,
                     color: isSelected ? Colors.black : Colors.grey.shade800,
                   ),

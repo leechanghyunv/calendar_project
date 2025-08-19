@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 import '../dialog_text.dart';
 
@@ -11,7 +13,7 @@ class BackupTitleBox extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final isKeyboardVisible = useState(false);
 
     useEffect(() {

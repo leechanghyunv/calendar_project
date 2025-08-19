@@ -1,8 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../core/export_package.dart';
-import '../../../dialog/initial_finish_dialog/initial_finish_dialog.dart';
-
-import '../../auth_screen/auth_screen.dart';
 import '../../auth_screen/auth_screen_exSurvey.dart';
 
 
@@ -21,6 +17,7 @@ void showBasicModal(BuildContext context,bool survey) {
       ),
     ),
     builder: (context) {
+
       final screenHeight = MediaQuery.of(context).size.height;
       final modalHeight = Platform.isAndroid ? screenHeight * 0.525 : screenHeight * 0.725;
       return Container(
@@ -45,7 +42,6 @@ void showBasicModal(BuildContext context,bool survey) {
               ),
             ),
             Expanded(
-              /// survey ? SettingScreen() : ExSurveyAuthScreen(), // 내부에서 핸들바 제거하고 사용
 
               child: ExSurveyAuthScreen(),
             ),
@@ -54,20 +50,17 @@ void showBasicModal(BuildContext context,bool survey) {
       );
     },
   ).then((onValue) async {
-    final prefs = await SharedPreferences.getInstance();
-    final hasShownReview = prefs.getBool('wellcome_massage') ?? false;
-    return hasShownReview ? null : _showWelcomeDialog(context);
+    // final prefs = await SharedPreferences.getInstance();
+    // final hasShownReview = prefs.getBool('wellcome_massage') ?? false;
+    // return hasShownReview ? null : _showWelcomeDialog(context);
   });
 }
 
-void _showWelcomeDialog(BuildContext context) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setBool('wellcome_massage', true);
-
-  showDialog(
-    context: context,
-    builder: (context) => InitialFinishDialog(),
-  );
-}
+// void _showWelcomeDialog(BuildContext context) async {
+//   final prefs = await SharedPreferences.getInstance();
+//   await prefs.setBool('wellcome_massage', true);
+//
+//
+// }
 
 

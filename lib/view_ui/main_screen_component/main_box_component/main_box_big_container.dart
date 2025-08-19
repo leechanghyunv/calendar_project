@@ -62,6 +62,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
                     height: textHeight,
                     fontSize : switch (appWidth) {
                       > 450 => isFoldValue ? 37 : 40.5,
+                      > 420 => 40,
                       > 400 => 37,
                       < 376 => 31.5,
                       _ => 32
@@ -108,7 +109,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
                     shadows: commonShadow,
                     fontWeight: FontWeight.bold,
                   fontSize : switch (appWidth) {
-                    > 400 => isFoldValue ? 12 : 12.5,
+                    > 450 => isFoldValue ? 12 : 12.5,
                     > 400 => 12,
                     < 376 => 9.25,
                     _ => 10

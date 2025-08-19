@@ -37,117 +37,121 @@ class RangeHistoryScreen extends HookConsumerWidget {
         isCalendarScreen: false,
         children: [
           BottomManagerChip(),
-          SizedBox(height: 7.5),
+          height > 750 ? SizedBox(height: 7.5) : SizedBox(height: 2.5),
           Divider(
             color: Colors.grey.shade300,
             thickness: 0.8,
           ),
-          SizedBox(height: 7.5),
+          height > 750 ? SizedBox(height: 7.5) : SizedBox(height: 2.5),
           Container(
-            height: height / 1.7,
-            alignment: Alignment.center,
+            height: height > 750 ? height / 1.7 : height / 1.5,
+            alignment: Alignment.topCenter,
             decoration: BoxDecoration(
               color: Colors.grey.shade50,
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      child: InfoBox(
-                          name: '누적금액',
-                          unit: '만원',
-                          value: '${(value.total/10000).toStringAsFixed(1)}',
-                          text: '마지막 근로일은 24년 08월 13일입니다. 8월 금액은 223.3만원 입니다'),
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      flex: 1,
-                      child: InfoBox(
-                          name: '누적공수',
-                          unit: '공수',
-                          value: '${(value.record).toStringAsFixed(1)}',
-                          text: '반장님의 마지막 근로일은 2025년 08월 29일 입니다'),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                RangeInfoBox(
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          child: Container(
-                            child: Padding(
-                              padding:  EdgeInsets.symmetric(
-                                horizontal: 8.0, vertical: 8.0,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    children: [
-                                      TextWidget('세후(${value.tax}%)',13.5,width,color: Colors.grey.shade700),
-                                      Spacer(),
-                                      TextWidget('${(value.afterTax/10000).toStringAsFixed(1)}만원',13.5,width),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      TextWidget('퇴직공제금액',13.5,width,color: Colors.grey.shade700),
-                                      Spacer(),
-                                      TextWidget('${(value.severancePay).toStringAsFixed(1)}만원',13.5,width),
-                                    ],
-                                  ),
-
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      TextWidget('근로신고일수',13.5,width,color: Colors.grey.shade700),
-                                      Spacer(),
-                                      TextWidget('233일',13.5,width),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      TextWidget('총 출력일수',13.5,width,color: Colors.grey.shade700),
-                                      Spacer(),
-                                      TextWidget('${value.workDay}일',13.5,width),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      TextWidget('근로공제일수',13.5,width,color: Colors.grey.shade700),
-                                      Spacer(),
-                                      TextWidget('${value.wrd}일',13.5,width),
-                                    ],
-                                  ),
-                                ],
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: InfoBox(
+                            name: '누적금액',
+                            unit: '만원',
+                            value: '${(value.total/10000).toStringAsFixed(1)}',
+                            text: '마지막 근로일은 24년 08월 13일입니다. 8월 금액은 223.3만원 입니다'),
+                      ),
+                      SizedBox(width: 10),
+                      Flexible(
+                        flex: 1,
+                        child: InfoBox(
+                            name: '누적공수',
+                            unit: '공수',
+                            value: '${(value.record).toStringAsFixed(1)}',
+                            text: '반장님의 마지막 근로일은 2025년 08월 29일 입니다'),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  RangeInfoBox(
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Container(
+                              child: Padding(
+                                padding:  EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        TextWidget('세후(${value.tax}%)',13.5,width,color: Colors.grey.shade700),
+                                        Spacer(),
+                                        TextWidget(
+                                            '${(value.afterTax/10000).toStringAsFixed(1)}만원',
+                                            13.5,width),
+                                      ],
+                                    ),
+                                    SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        TextWidget('퇴직공제금액',13.5,width,color: Colors.grey.shade700),
+                                        Spacer(),
+                                        TextWidget('${(value.severancePay).toStringAsFixed(1)}만원',13.5,width),
+                                      ],
+                                    ),
+              
+                                    SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        TextWidget('근로신고일수',13.5,width,color: Colors.grey.shade700),
+                                        Spacer(),
+                                        TextWidget('233일',13.5,width),
+                                      ],
+                                    ),
+                                    SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        TextWidget('총 출력일수',13.5,width,color: Colors.grey.shade700),
+                                        Spacer(),
+                                        TextWidget('${value.workDay}일',13.5,width),
+                                      ],
+                                    ),
+                                    SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        TextWidget('근로공제일수',13.5,width,color: Colors.grey.shade700),
+                                        Spacer(),
+                                        TextWidget('${value.wrd}일',13.5,width),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-
-                  ],
-                ),
-                SizedBox(height: 15),
-                HistoryMemoComponent(
-                  startMonth,
-                  endMonth,
-                  historyMemoFocus,
-                  historyMemoController,
-                  (value) {
-                  },
-                ),
-
-              ],
+                        ],
+                      ),
+              
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  HistoryMemoComponent(
+                    startMonth,
+                    endMonth,
+                    historyMemoFocus,
+                    historyMemoController,
+                    (value) {
+                    },
+                  ),
+              
+                ],
+              ),
             ),
           ),
         ],

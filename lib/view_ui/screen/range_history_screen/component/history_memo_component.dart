@@ -172,7 +172,8 @@ class HistoryMemoComponent extends HookConsumerWidget {
                       TextSpan(
                         text: '${percentage}%',
                         style: TextStyle(
-                          fontSize: appWidth <= 376 ? 15 : (appWidth > 400 ? 17.5 : 16),
+                          color: Colors.green.shade700,
+                          fontSize: appWidth <= 376 ? 16 : (appWidth > 400 ? 18 : 17),
                           fontWeight: FontWeight.w900,  // 더 굵게
                         ),
                       ),

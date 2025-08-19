@@ -81,7 +81,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                         ),
                       ] : null,
                       height: textHeight,
-                      fontSize: appWidth > 400 ? 30 : (appWidth < 376 ? 26 : 28),
+                      fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
                       fontWeight: FontWeight.w800),
                 ),
 

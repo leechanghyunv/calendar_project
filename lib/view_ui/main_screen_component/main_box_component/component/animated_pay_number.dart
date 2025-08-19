@@ -41,6 +41,7 @@ class PayNumberCounter extends ConsumerWidget {
               height: textHeight,
               fontSize : switch (appWidth) {
                 > 450 => isFoldValue ? 37 : 40.5,
+                > 420 => 40,
                 > 400 => 37,
                 < 376 => 31.5,
                 _ => 32

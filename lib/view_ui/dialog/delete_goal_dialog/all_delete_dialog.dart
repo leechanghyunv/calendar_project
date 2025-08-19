@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../core/widget/toast_msg.dart';
@@ -9,7 +11,7 @@ class AllDeleteDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     return AlertDialog(
       backgroundColor: Colors.grey.shade50,

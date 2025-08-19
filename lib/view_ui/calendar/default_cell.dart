@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 
 import '../../view_model/view_provider/calendar_switcher_model.dart';
@@ -12,7 +13,7 @@ class DefaultCell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final switcher = ref.watch(calendarSwitcherProvider);
 
     // 텍스트 위젯을 별도로 정의
