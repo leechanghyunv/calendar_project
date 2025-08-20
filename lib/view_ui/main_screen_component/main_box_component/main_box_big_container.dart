@@ -73,7 +73,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
             SizedBox(width: 10),
             Container(
               decoration: BoxDecoration(
-                color: Colors.green.shade100,
+                color: Colors.teal.shade100,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
@@ -89,7 +89,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
                         _ => 11,
                       },
                       fontWeight: FontWeight.w700,
-                      color: Colors.green.shade800),
+                      color: Colors.teal.shade700),
                 ),
               ),
 

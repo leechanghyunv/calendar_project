@@ -130,7 +130,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 } else if (date.weekday == DateTime.sunday ||
                     isSubstituteHoliday ||
                     isHoliday) {
-                  textColor = Colors.green; // 일요일
+                  textColor = Colors.teal; // 일요일
                 } else {
                   textColor = Colors.black; // 평일
                 }
@@ -202,7 +202,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                     flex: 2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green.shade600,
+                          backgroundColor: Color(0xFF059669),
                           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.5),

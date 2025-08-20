@@ -21,20 +21,21 @@ class QuickSelectChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.green.shade700 : Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(width: isSelected ? 2.25 : 1.25,
-              color: isSelected ? Colors.green.shade700 : Colors.grey.shade200),
+          color: isSelected ? Colors.teal : Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(15.0),
+          border: Border.all(width: isSelected ? 2.25 : 1.75,
+              color: isSelected ? Colors.teal : Colors.grey.shade400),
         ),
-        height: 25,
+        height: 30,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 3.0,horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 12),
           child: Text(value.toStringAsFixed(2),
             textScaler: TextScaler.noScaling,
             style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: value == 0.0 ? 12.5 : context.height > 900 ? 16.5 : 15,
+              fontWeight: FontWeight.w800,
+              fontSize: context.height > 900 ? 16 : 15,
               color: isSelected ? Colors.grey.shade200 : Colors.black87,
             ),),
         ),

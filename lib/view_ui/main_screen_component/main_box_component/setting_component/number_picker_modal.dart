@@ -1,7 +1,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_screen.dart';
 
 import '../../../../core/export_package.dart';
-import '../setting_component/main_box_record_picker.dart';
+import 'main_box_record_picker.dart';
 
 
 void NumberPickerModal(BuildContext context){
@@ -21,10 +22,9 @@ void NumberPickerModal(BuildContext context){
       builder: (BuildContext context) {
         final screenHeight = context.height;
         return Container(
-          // alignment: Alignment.center,
           height: screenHeight > 750
-              ? Platform.isAndroid ? screenHeight * 0.55 : screenHeight * 0.65
-              : Platform.isAndroid ? screenHeight * 0.70 : screenHeight * 0.80,
+              ? Platform.isAndroid ? screenHeight * 0.70 : screenHeight * 0.8
+              : Platform.isAndroid ? screenHeight * 0.80 : screenHeight * 0.85,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(
@@ -44,7 +44,8 @@ void NumberPickerModal(BuildContext context){
                 ),
               ),
               Expanded(
-                child: RecordPickerModalSheet(),
+                /// SettingScreen,RecordPickerModalSheet
+                child: SettingScreen(),
               ),
             ],
           ),

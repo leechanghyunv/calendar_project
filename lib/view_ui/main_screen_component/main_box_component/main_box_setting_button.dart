@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/utils/view_type.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
-import 'component/number_picker_modal_component.dart';
+import 'setting_component/number_picker_modal.dart';
 
 part 'main_box_setting_button.g.dart';
 
@@ -35,7 +36,7 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
   @override
   Widget build(BuildContext context) {
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     return GestureDetector(
       onTap: (){

@@ -107,7 +107,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                   style: TextStyle(
                       letterSpacing: Platform.isAndroid ? 0.5 : null,
                       fontSize: appWidth > 400 ? 10.5 : 10,
-                      color: Colors.green,
+                      color: Colors.teal,
                       fontWeight: FontWeight.bold),
                 ),
                 Spacer(),

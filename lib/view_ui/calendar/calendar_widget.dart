@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
-import '../main_screen_component/main_box_component/component/number_picker_modal_component.dart';
+import '../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'default_cell.dart';
 import 'holiday_cell.dart';
@@ -92,7 +92,7 @@ class WorkCalendar extends ConsumerWidget {
               } else if (date.weekday == DateTime.sunday ||
                   isSubstituteHoliday ||
                   isHoliday) {
-                textColor = Colors.green; // 일요일
+                textColor = Colors.teal; // 일요일
               } else {
                 textColor = Colors.black; // 평일
               }

@@ -27,7 +27,7 @@ class CustomTrackSwitch extends HookConsumerWidget {
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
                 ? Colors.blue.shade300
-                : Colors.green.shade300;
+                : Colors.teal.shade300;
           }),
 
           // ✅ 트랙 색상 (ON/OFF)
@@ -35,7 +35,7 @@ class CustomTrackSwitch extends HookConsumerWidget {
             if (states.contains(WidgetState.selected)) {
               return Colors.blue.shade100; // ON 상태
             }
-            return Colors.green.shade100; // OFF 상태
+            return Colors.teal.shade100; // OFF 상태
           }),
           // ✅ 트랙 외곽선 색상
           trackOutlineColor: WidgetStateProperty.all(Colors.black26),

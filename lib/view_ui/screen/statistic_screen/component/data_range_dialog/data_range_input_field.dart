@@ -198,13 +198,13 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
         keyboardType: TextInputType.number,
         maxLength: 23, // "YY/MM/DD ~ YY/MM/DD" 형식
         decoration: InputDecoration(
-          hintText: ' 25/01/01 ~ 25/12/31',
+          hintText: ' 25.01.01 ~ 25.12.31',
           isDense: true,
           counterText: '', // 글자 수 카운터 숨김
           hintStyle: TextStyle(
             color: Colors.grey.shade600,
             fontWeight: FontWeight.bold,
-            fontSize: (width > 400 ? 15 : 14),
+            fontSize: 15,
             letterSpacing: 1.25,
           ),
           border: InputBorder.none,

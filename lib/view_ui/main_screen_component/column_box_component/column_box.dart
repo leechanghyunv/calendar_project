@@ -30,7 +30,7 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
           title: '근로신고일수',
           value: '${state.wrd}/252',
           progress: state.wrdProgress,
-          progressColor: Colors.green,
+          progressColor: Colors.teal,
           description: state.text1,
         ),
         appWidth < 380 ? SizedBox(height: 5) : SizedBox(height: 10),

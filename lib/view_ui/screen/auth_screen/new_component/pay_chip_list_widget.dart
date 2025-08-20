@@ -55,15 +55,15 @@ class PayChips extends HookWidget {
                 ),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? Colors.green.shade700
+                      ? Color(0xFF059669)
                       : isPopular
                       ? Color(0xFFE8F5E9)
                       : Color(0xFFF8F9FA),
                   border: Border.all(
                     color: isSelected
-                        ? Colors.green.shade700
+                        ? Color(0xFF059669)
                         : isPopular
-                        ? Colors.green.shade700
+                        ? Color(0xFF059669)
                         : Color(0xFFE9ECEF),
                     width: isSelected ? 2.5 : 2,
                   ),

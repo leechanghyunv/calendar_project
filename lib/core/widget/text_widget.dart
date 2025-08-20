@@ -55,7 +55,7 @@ Widget dayText(String day, double width) => Text(
       color: day == '토'
           ? Colors.blue
           : day == '일'
-          ? Colors.green
+          ? Colors.teal
           : Colors.black,
       fontWeight: FontWeight.w800,
     )

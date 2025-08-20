@@ -2,7 +2,6 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../model/formz_decimal_model.dart';
@@ -14,7 +13,7 @@ import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
 import '../component/memo_component.dart';
-import '../component/quickSelectChip_component.dart';
+import 'quickSelectChip_component.dart';
 
 class RecordPickerModalSheet extends HookConsumerWidget {
   const RecordPickerModalSheet({super.key});
@@ -32,7 +31,7 @@ class RecordPickerModalSheet extends HookConsumerWidget {
     final dateRange = useState<List<DateTime>?>(null);
 
     int initial = 20;
-    final quickSelectValues = [0.5, 0.75, 1.25, 1.75, 2.25,2.75];
+    final quickSelectValues = [0.5, 0.75, 1.25, 1.75, 2.25];
 
     if (contract.hasValue && contract.hasValue) {
       final contracts = contract.value!; // List<LabourCondition>
@@ -118,10 +117,11 @@ class RecordPickerModalSheet extends HookConsumerWidget {
 
 
     return Scaffold(
+      // backgroundColor: Colors.grey,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: 12.0, horizontal: 18.0),
+              vertical: 16.0, horizontal: 18.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,19 +130,67 @@ class RecordPickerModalSheet extends HookConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextWidget(
-                        '${ref.monthString}월 ${ref.dayString}일 공수등록',
-                        16.5, appWidth),
+                        '${ref.monthString}월 ${ref.dayString}일 등록',
+                        17.5, appWidth),
                     Spacer(),
-                    FunctionChip(
-                        label: '@나가기',
-                        color: Colors.grey.shade200,
-                        borderColor: Colors.grey.shade700,
-                        textColor: Colors.grey.shade900,
-                        onTap: (){
-                          Navigator.pop(context);
-                        }),
+                    CircleAvatar(
+                        radius: 17.5,
+                        backgroundColor: Colors.grey.shade200,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Icon(
+                            size: 17.5,
+                            Icons.close_outlined,
+                            color: Colors.grey.shade800,
+                          ),
+                        )),
                     
         
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: RecordButton(
+                        width: 300,
+                        icon: showRange ? DateRangeInputField(
+                          rangeNode: rangeFocus,
+                          onDateRangeChanged: (newDateRange) {
+                            dateRange.value = newDateRange;
+                            if (newDateRange != null) {
+                              ref.rangeNot.updateStartDate(dateRange.value![0]);
+                              ref.rangeNot.updateEndDate(dateRange.value![1]);
+                            } else {
+                            }
+                          },
+                        ) :
+                        Container(
+                          height: 35,
+                          alignment: Alignment.center,
+                          child: TextWidget(
+                              '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일',
+                              15.5, appWidth),
+
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    Flexible(
+                      flex: 2,
+                      child: RecordButton(
+                        onTap: (){
+                          if (!showRange) {
+                            Future.microtask(() => rangeFocus.requestFocus());
+                          }
+                          ref.read(showRangeStateProvider.notifier).rangeState();
+                        },
+                        icon: TextWidget(showRange ? '단일 날짜': '범위 설정', 14,
+                            appWidth,color: Colors.grey.shade700),
+                        width: 300,
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -155,13 +203,14 @@ class RecordPickerModalSheet extends HookConsumerWidget {
                             height: context.height > 900 ? 50 : 45, // 칩 높이에 맞춰 조정
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
+                              color: Colors.grey.shade200,
                               borderRadius: BorderRadius.circular(10),
                             ),
 
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 2.0),
                               child: ListView.builder(
+                                shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: quickSelectValues.length,
                                 itemBuilder: (context, index) {
@@ -239,45 +288,6 @@ class RecordPickerModalSheet extends HookConsumerWidget {
                         ],
                       ),
                       SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Flexible(
-                            flex: 3,
-                            child: RecordButton(
-                              width: 300,
-                              icon: showRange ? DateRangeInputField(
-                                rangeNode: rangeFocus,
-                                onDateRangeChanged: (newDateRange) {
-                                  dateRange.value = newDateRange;
-                                  if (newDateRange != null) {
-                                    ref.rangeNot.updateStartDate(dateRange.value![0]);
-                                    ref.rangeNot.updateEndDate(dateRange.value![1]);
-                                  } else {
-                                  }
-                                },
-                              ) :
-                              Container(
-                                height: 35,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          Flexible(
-                            flex: 2,
-                            child: RecordButton(
-                              onTap: (){
-                                if (!showRange) {
-                                  Future.microtask(() => rangeFocus.requestFocus());
-                                }
-                                ref.read(showRangeStateProvider.notifier).rangeState();
-                              },
-                              icon: TextWidget(showRange ? '돌아가기': '날짜범위설정', 14,
-                                  appWidth,color: Colors.grey.shade700),
-                              width: 300,
-                            ),
-                          ),
-                        ],
-                      ),
                       context.height > 900 ? SizedBox(height: 25) : SizedBox(height: 15),
                       MemoComponent(
                         memoFocus,

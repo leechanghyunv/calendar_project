@@ -70,7 +70,7 @@ class SettingPopupWidget extends ConsumerWidget {
                     '근로조건 설정하기',
                     style: getStyle.copyWith(
                         fontWeight: FontWeight.w900,
-                        color: Colors.green.shade800)),
+                        color: Color(0xFF059669))),
               ],
             ),
           ),

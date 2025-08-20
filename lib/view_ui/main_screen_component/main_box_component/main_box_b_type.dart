@@ -8,7 +8,7 @@ import '../../../core/export_package.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import 'b_type_toggle_button.dart';
 import 'component/main_box_component.dart';
-import 'component/number_picker_modal_component.dart';
+import 'setting_component/number_picker_modal.dart';
 
 
 class MainBoxBTypeContainer extends ConsumerStatefulWidget {

@@ -83,7 +83,7 @@ class CalendarRangeHeader extends StatelessWidget {
                 Container(
                   width: 5,
                   height: 20,
-                  color: Colors.green,
+                  color: Colors.teal,
                 ),
                 SizedBox(width: 10),
                 TextWidget(

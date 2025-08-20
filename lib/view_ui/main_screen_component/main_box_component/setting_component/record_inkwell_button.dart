@@ -1,12 +1,16 @@
 import '../../../../core/export_package.dart';
 
 class RecordButton extends HookConsumerWidget {
+  final Color? backgroundColor;
+  final Color? borderColor;
   final GestureTapCallback? onTap;
   final Widget? icon;
   final double? width;
 
   const RecordButton(
       {super.key,
+        this.backgroundColor,
+        this.borderColor,
         this.onTap,
         this.icon,
         this.width,});
@@ -14,15 +18,15 @@ class RecordButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
-      height: 35,
+      height: 50,
       width: width ?? 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10.0),
+        color: backgroundColor ?? Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(15.0),
         border: Border.all(
-          color: Colors.grey.shade900,
-          width: 0.55,
+          color: borderColor ?? Colors.grey.shade400,
+          width: 2.0,
         ),
         boxShadow: [
           BoxShadow(

@@ -21,30 +21,6 @@ class StatisticsFilterChip extends HookConsumerWidget {
     final double height = context.height;
     final double width = context.width;
 
-    final chipExtraWidth = width > 370 ? 16.0 : 8.0; // 패딩에 따른 추가 너비
-
-    // final _scrollToSelected = useCallback((int index, double screenWidth) {
-    //   if (_scrollController.hasClients) {
-    //     double totalWidth = 0;
-    //     for (int i = 0; i < index; i++) {
-    //       final textWidth = options[i].length * 8.0; // 대략적인 글자 너비
-    //       totalWidth += textWidth + chipExtraWidth + 8.0; // 패딩 + 마진
-    //     }
-    //
-    //     final currentChipWidth = options[index].length * 8.0 + chipExtraWidth;
-    //     final scrollPosition = totalWidth - (screenWidth / 2) + (currentChipWidth / 2);
-    //
-    //     _scrollController.animateTo(
-    //       scrollPosition.clamp(
-    //         0.0,
-    //         _scrollController.position.maxScrollExtent,
-    //       ),
-    //       duration: const Duration(milliseconds: 300),
-    //       curve: Curves.easeInOut,
-    //     );
-    //   }
-    // }, [_scrollController, options]);
-
     return Row(
       children: [
         Expanded(
@@ -87,11 +63,11 @@ class StatisticsFilterChip extends HookConsumerWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color:
-                        option == '전체' ? Colors.green.shade100 :
+                        option == '전체' ? Colors.teal.shade100 :
                         isSelected ? Colors.grey.shade300 : Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: option == '전체' ? Colors.green.shade400 :
+                          color: option == '전체' ? Colors.green.shade500 :
                           isSelected ? Colors.grey.shade600 : Colors.grey.shade400,
                           width: isSelected ? 1.5 : 1.25,
                         ),
@@ -113,7 +89,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                               ? (width > 400 ? 14 : width < 370 ? 11.5 : 12.5)
                               : 11.5,
                           fontWeight: FontWeight.bold,
-                          color: option == '전체' ? Colors.green.shade900 :
+                          color: option == '전체' ? Colors.green.shade700 :
                           isSelected ? Colors.black : Colors.grey.shade800,
                         ),
                       ),

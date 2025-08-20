@@ -77,12 +77,8 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                           height: 32.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: Colors.green.shade700,
+                                            color: Color(0xFF059669),
                                             borderRadius: BorderRadius.circular(8),
-                                            border: Border.all(
-                                              color: Colors.green.shade700,
-                                              width: 1.0,
-                                            ),
                                             boxShadow: [
                                               BoxShadow(
                                                 color: Colors.grey.shade300,

@@ -43,7 +43,7 @@ class HolidayCell extends ConsumerWidget {
 
     final holidayText = hoildayName.replaceAll('\n', '');
 
-    Color cellColor = date.month == ref.month ? Colors.green : Colors.transparent;
+    Color cellColor = date.month == ref.month ? Colors.teal : Colors.transparent;
 
     if (date.weekday == DateTime.saturday && date.month == ref.month) {
       cellColor = Colors.blue;
