@@ -181,15 +181,12 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     return Container(
       height: 25,
       width: 200,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
         borderRadius: BorderRadius.circular(7.5),
-
       ),
       child: TextField(
         focusNode: widget.rangeNode,
@@ -204,6 +201,7 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
           hintStyle: TextStyle(
             color: Colors.grey.shade600,
             fontWeight: FontWeight.bold,
+            backgroundColor: Colors.grey.shade100,
             fontSize: 15,
             letterSpacing: 1.25,
           ),

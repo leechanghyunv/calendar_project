@@ -72,7 +72,7 @@ class MemoComponent extends HookConsumerWidget {
             Spacer(),
             GestureDetector(
                 onTap: (){
-                  ref.read(showMemoStateProvider.notifier).memoState(true);
+                  ref.read(showMemoStateProvider.notifier).memoState();
                   Future.microtask(() => nodeMemo.requestFocus());
                 },
                 /// 메모추가를 누르면 memofocus가 집중되도록
@@ -88,7 +88,7 @@ class MemoComponent extends HookConsumerWidget {
           height: appHeight > 750 ? 165 : 155,
 
           alignment: Alignment.center,
-          child: memoState ?  Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -117,102 +117,7 @@ class MemoComponent extends HookConsumerWidget {
               ),
 
             ],
-          ) : Consumer(
-              builder: (context, ref, child) {
-                final selectedDate = ref.selected;
-                final data = ref.history.value;
-
-                final monthlyHistoriesWithMemo = data?.where((history) =>
-                history.date.year == selectedDate.year &&
-                    history.date.month == selectedDate.month &&
-                    history.memo.isNotEmpty
-                ).toList() ?? [];
-
-                return monthlyHistoriesWithMemo.isNotEmpty
-                    ? ListView.separated(
-                  itemCount: monthlyHistoriesWithMemo.length,
-                  separatorBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Divider(
-                      color: Colors.grey.shade300,
-                      height: 1,
-                      thickness: 0.5,
-                      indent: 45,  // 날짜 너비만큼 들여쓰기
-                    ),
-                  ),
-                  itemBuilder: (context, index) {
-                    final history = monthlyHistoriesWithMemo[index];
-
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 35,
-                            child: Text(
-                              '${history.date.day}일',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.green.shade600,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          // 메모 내용
-                          Expanded(
-                            child: Text(
-                              history.memo,
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey.shade800,
-                                fontWeight: FontWeight.bold,
-                                height: 1.3,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-
-                            },
-                            child: Icon(
-                              Icons.remove,
-                              size: 16,
-                              color: Colors.grey.shade600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                )
-                    : Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 30),
-                    Text(
-                      '이번 달 메모가 없습니다',
-                      style: TextStyle(
-                        fontSize: appHeight > 900 ? 17 : 14,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Text(
-                      '+ 메모추가로 시작하세요',
-                      style: TextStyle(
-                        fontSize: appHeight > 900 ? 14 : 12,
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ],
-                );
-              }
-          )
+          ),
 
         ),
       ],

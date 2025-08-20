@@ -9,7 +9,7 @@ class ShowMemoState extends _$ShowMemoState {
     return false;
   }
 
-  void memoState (bool memoState){
-    state = memoState;
+  void memoState (){
+    state = !state;
   }
 }

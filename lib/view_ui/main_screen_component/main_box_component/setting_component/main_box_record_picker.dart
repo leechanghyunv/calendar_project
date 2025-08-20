@@ -294,7 +294,7 @@ class RecordPickerModalSheet extends HookConsumerWidget {
                         memoController,
                         ref.formzMemoRead.onChangeMemo,
                             (_){
-                          ref.read(showMemoStateProvider.notifier).memoState(false);
+                          ref.read(showMemoStateProvider.notifier).memoState();
                           ref.formzMemoRead.onSubmit(ref);
                         },
                       ),

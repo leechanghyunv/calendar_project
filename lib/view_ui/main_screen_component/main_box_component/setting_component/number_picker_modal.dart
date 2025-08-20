@@ -2,7 +2,8 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_screen.dart';
 
 import '../../../../core/export_package.dart';
-import 'main_box_record_picker.dart';
+import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
+import 'memo_list_screen.dart';
 
 
 void NumberPickerModal(BuildContext context){
@@ -44,8 +45,13 @@ void NumberPickerModal(BuildContext context){
                 ),
               ),
               Expanded(
-                /// SettingScreen,RecordPickerModalSheet
-                child: SettingScreen(),
+                child: Consumer(
+                    builder: (context, ref, child){
+                      final memoState = ref.watch(showMemoStateProvider);
+                      return memoState
+                          ? MemoListScreen()
+                          : SettingScreen();
+                    }),
               ),
             ],
           ),

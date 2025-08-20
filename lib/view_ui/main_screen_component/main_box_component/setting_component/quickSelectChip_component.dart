@@ -26,7 +26,7 @@ class QuickSelectChip extends StatelessWidget {
           color: isSelected ? Colors.teal : Colors.grey.shade200,
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(width: isSelected ? 2.25 : 1.75,
-              color: isSelected ? Colors.teal : Colors.grey.shade400),
+              color: isSelected ? Colors.teal : Colors.grey.shade300),
         ),
         height: 30,
         child: Padding(

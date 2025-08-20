@@ -1,10 +1,8 @@
-
-
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/quickSelectChip_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
-
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
@@ -28,6 +26,10 @@ class SettingScreen extends HookConsumerWidget {
     final decimalFocus = useFocusNode();
     final rangeFocus = useFocusNode();
     final memoFocus = useFocusNode();
+    useListenable(memoFocus);
+
+    final borderColor = memoFocus.hasFocus
+        ? Colors.teal : Colors.grey.shade500;
 
     int initial = 20;
 
@@ -57,7 +59,7 @@ class SettingScreen extends HookConsumerWidget {
       ],
     );
 
-
+  /// NestedScrollView
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
@@ -70,7 +72,7 @@ class SettingScreen extends HookConsumerWidget {
               children: [
                 TextWidget(
                     showRange ? '공수 범위 등록' : '${ref.monthString}월 ${ref.dayString}일 등록',
-                    20, context.width),
+                    18, context.width),
                 Spacer(),
                 CircleAvatar(
                     radius: 17.5,
@@ -93,9 +95,11 @@ class SettingScreen extends HookConsumerWidget {
                   flex: 3,
                   child: RecordButton(
                     width: 300,
+                    borderColor: showRange ? Colors.teal.shade600 : Colors.grey.shade400,
                     icon: showRange ? DateRangeInputField(
                       rangeNode: rangeFocus,
                       onDateRangeChanged: (newDateRange) {
+
                       },
                     ) :
                     Container(
@@ -103,7 +107,8 @@ class SettingScreen extends HookConsumerWidget {
                       alignment: Alignment.center,
                       child: TextWidget(
                           '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일 화요일',
-                          15.5, context.width),
+                          15.5, context.width,
+                          color: Colors.grey.shade800),
 
                     ),
                   ),
@@ -112,8 +117,8 @@ class SettingScreen extends HookConsumerWidget {
                 Flexible(
                   flex: 2,
                   child: RecordButton(
-                    backgroundColor: showRange ? Colors.teal.shade600 : Colors.grey.shade100,
-                    borderColor: showRange ? Colors.teal.shade600 : Colors.grey.shade400,
+                    backgroundColor: showRange ? Colors.teal.shade50 : Colors.grey.shade100,
+                    borderColor: showRange ? Colors.teal.shade600 : Colors.teal.shade400,
                     onTap: (){
                       if (!showRange) {
                         // Future.microtask(() => rangeFocus.requestFocus());
@@ -121,7 +126,7 @@ class SettingScreen extends HookConsumerWidget {
                       ref.read(showRangeStateProvider.notifier).rangeState();
                     },
                     icon: TextWidget(showRange ? '단일 날짜': '범위 설정', 16,
-                        context.width,color: showRange ? Colors.grey.shade100 : Colors.grey.shade800),
+                        context.width,color: showRange ? Colors.teal.shade800 : Colors.teal.shade800),
                     width: 300,
                   ),
                 ),
@@ -137,7 +142,8 @@ class SettingScreen extends HookConsumerWidget {
                 borderRadius: BorderRadius.circular(20.0),
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF10B981), // #10b981
+                    Colors.teal, // #059669
+                    // Color(0xFF10B981), // #10b981
                     Colors.teal, // #059669
                   ],
                   begin: Alignment.topLeft,
@@ -206,25 +212,39 @@ class SettingScreen extends HookConsumerWidget {
                 SizedBox(width: 5),
                 TextWidget('빠른선택', 16, context.width),
                 Spacer(),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(10),
+                InkWell(
+                  onTap: () => ref.read(showMemoStateProvider.notifier).memoState(),
+                  borderRadius: BorderRadius.circular(10),
+                  child: Container(
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: 120,
+                    height: 30,
+                    child: TextWidget(
+                      '${ref.monthString}월 메모 보기',
+                      15,
+                      context.width,
+                      color: Colors.grey.shade800,
+                    ),
                   ),
-                  width: 120,
-                  height: 30,
-                  child: TextWidget('${ref.monthString}월 메모 보기', 14, context.width,
-                  color: Colors.grey.shade600),
                 ),
+
               ],
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 2.5),
+            Divider(
+              color: Colors.grey.shade300,
+              thickness: 2.5,
+            ),
+            SizedBox(height: 5),
             Row(
               children: [
                 Flexible(
                   child: Container(
-                    height: context.height > 900 ? 35 : 35, // 칩 높이에 맞춰 조정
+                    height: context.height > 900 ? 30 : 30, // 칩 높이에 맞춰 조정
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade50,
@@ -260,14 +280,110 @@ class SettingScreen extends HookConsumerWidget {
               ],
             ),
             SizedBox(height: 20),
-            Container(
-              height: 75,
-              decoration: infoBoxDeco,
+
+
+
+            Row(
+              children: [
+                // 공수 조절 그룹
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    padding: EdgeInsets.all(4),
+                    decoration: infoBoxDeco,
+                    child: Row(
+                      children: [
+                        // - 버튼
+                        IconButton(
+                          onPressed: () {
+                            if (currentIndex.value > 0) {
+                              currentIndex.value--;
+                            }
+                          },
+                          icon: Icon(Icons.remove),
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                        ),
+                        // 현재 값 표시
+                        Expanded(
+                          child: Text(
+                            currentValue.toStringAsFixed(2),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        // + 버튼
+                        IconButton(
+                          onPressed: () {
+                            if (currentValue < _maxValue) {
+                              currentIndex.value++;
+                            }
+                          },
+                          icon: Icon(Icons.add),
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: 12),
+
+                // 직접 입력 버튼
+                OutlinedButton(
+                  onPressed: () {
+                    decimalFocus.requestFocus();
+                    // 직접 입력 모드 활성화
+                  },
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(50, 50),
+                    side: BorderSide(
+                      color: Colors.teal,
+                      width: 2,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    '직접 입력',
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
             ),
+
+
+
             SizedBox(height: 20),
+
             Container(
               height: 75,
-              decoration: infoBoxDeco,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  color: borderColor,
+                  width: memoFocus.hasFocus  ? 1.55 : 1.05,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.shade300,
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
               child: TextFormField(
                 focusNode: memoFocus,
                 controller: memoController,
