@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
 
 class RecordButton extends HookConsumerWidget {
@@ -18,7 +20,7 @@ class RecordButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
-      height: 50,
+      height: 42.5,
       width: width ?? 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(

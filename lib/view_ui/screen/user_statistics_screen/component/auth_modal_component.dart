@@ -19,7 +19,7 @@ void showBasicModal(BuildContext context,bool survey) {
     builder: (context) {
 
       final screenHeight = MediaQuery.of(context).size.height;
-      final modalHeight = Platform.isAndroid ? screenHeight * 0.525 : screenHeight * 0.725;
+      final modalHeight = Platform.isAndroid ? screenHeight * 0.625 : screenHeight * 0.725;
       return Container(
         height: modalHeight,
         /// 안드로이드의 키보드가 더 높기때문에 overflow 에러가 발생 해답은 이렇게 해결
@@ -50,17 +50,8 @@ void showBasicModal(BuildContext context,bool survey) {
       );
     },
   ).then((onValue) async {
-    // final prefs = await SharedPreferences.getInstance();
-    // final hasShownReview = prefs.getBool('wellcome_massage') ?? false;
-    // return hasShownReview ? null : _showWelcomeDialog(context);
   });
 }
 
-// void _showWelcomeDialog(BuildContext context) async {
-//   final prefs = await SharedPreferences.getInstance();
-//   await prefs.setBool('wellcome_massage', true);
-//
-//
-// }
 
 

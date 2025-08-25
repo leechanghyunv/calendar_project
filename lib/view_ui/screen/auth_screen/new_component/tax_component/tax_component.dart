@@ -58,7 +58,7 @@ class TaxComponent extends StatelessWidget {
                     Expanded(
                       child: SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: Color(0xFF059669),
+                          activeTrackColor: Colors.teal.shade600,
                           inactiveTrackColor: Colors.grey[300],
                           thumbColor: Colors.white,
                           thumbShape: RoundSliderThumbShape(enabledThumbRadius: 14),

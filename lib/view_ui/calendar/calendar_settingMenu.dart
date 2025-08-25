@@ -20,6 +20,11 @@ class SettingPopupWidget extends ConsumerWidget {
     );
 
     return PopupMenuButton<String>(
+      color: Colors.grey.shade50,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
       offset: Offset(230, 40),
       icon: Icon(
         Icons.menu,

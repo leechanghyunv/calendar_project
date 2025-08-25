@@ -38,12 +38,12 @@ class UserStatisticsScreen extends HookConsumerWidget {
                       children: [
                         SizedBox(height: 10),
                         Container(
-                          height: height > 800 ? 190 : height > 750 ? 180 : 160,
+                          height: height > 800 ? 190 : height > 750 ? 180 : 165,
                           width: context.width,
                           decoration: UserSettingBoxDecoration,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 12.0, horizontal: 16.0),
+                            padding: EdgeInsets.symmetric(
+                                vertical: height > 750 ? 12.0 : 8.0, horizontal: 16.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -74,10 +74,10 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                           showBasicModal(context,false);
                                         },
                                         child: Container(
-                                          height: 32.5,
+                                          height: height > 750 ? 32.5 : 30.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF059669),
+                                            color: Colors.teal,
                                             borderRadius: BorderRadius.circular(8),
                                             boxShadow: [
                                               BoxShadow(
@@ -99,7 +99,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                             ),
                           ),
                         ),
-                        // SizedBox(height: height > 750 ? 15: 15),
 
                       ],
                     ),

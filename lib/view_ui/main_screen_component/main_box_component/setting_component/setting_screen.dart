@@ -2,9 +2,15 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/quickSelectChip_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
-import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/show_memo_provider.dart';
+import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_component.dart';
+import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_memo_textfield.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
+import '../../../../model/formz_decimal_model.dart';
+import '../../../../repository/formz/formz_decimal.dart';
+import '../../../../view_model/sqlite_model/contract_model.dart';
+import '../../../../view_model/sqlite_model/history_model.dart';
+import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
 
@@ -16,10 +22,19 @@ class SettingScreen extends HookConsumerWidget {
   static const double _maxValue = 5.0;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    final quickSelectValues = [0.5, 0.75, 1.25, 1.75, 2.25];
+
+    final nestedScrollController = useScrollController();
 
     final  showRange = ref.watch(showRangeStateProvider);
     final dateRange = useState<List<DateTime>?>(null);
+    final contract = ref.watch(viewContractProvider);
+    final history = ref.watch(viewHistoryProvider);
+    ref.watch(formzDecimalValidatorProvider);
+    ref.formzMemoWatch;
+    ref.decimalWatch;
 
     final memoController = useTextEditingController();
     final decimalController = useTextEditingController();
@@ -28,44 +43,78 @@ class SettingScreen extends HookConsumerWidget {
     final memoFocus = useFocusNode();
     useListenable(memoFocus);
 
-    final borderColor = memoFocus.hasFocus
-        ? Colors.teal : Colors.grey.shade500;
-
     int initial = 20;
 
-    final currentIndex = useState(initial);
-    final currentValue = currentIndex.value * _step;
+    if (contract.hasValue && contract.hasValue) {
+      final contracts = contract.value!; // List<LabourCondition>
+      final histories = history.value!; // List<WorkHistory>
+      if (contracts.isNotEmpty && histories.isNotEmpty) {
+        initial = (histories.last.record * 20).toInt();
 
-    void selectValue(double value) {
-      final newIndex = (value / _step).round();
-      currentIndex.value = newIndex;
+      }
     }
 
-    final quickSelectValues = [0.5, 0.75, 1.25, 1.75, 2.25];
+    final currentIndex = useState(initial);
+    final customValue = useState<double?>(null); // 직접 입력값 저장
+    final currentValue = customValue.value ?? (currentIndex.value * _step);
 
-    Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.grey.shade900,
-        width: 0.55,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    );
 
-    final nestedScrollController = useScrollController();
+    useEffect(() {
+      decimalController.text = currentValue.toStringAsFixed(2);
+      return null;
+    }, []);
 
-  /// NestedScrollView
+    void selectValue(double value) {
+      customValue.value = null; // 커스텀 값 초기화
+      final newIndex = (value / _step).round();
+      currentIndex.value = newIndex;
+      decimalController.text = value.toStringAsFixed(2);
+    }
+
+    useEffect(() {
+      void scrollToBottom() {
+        if ((memoFocus.hasFocus || decimalFocus.hasFocus) && nestedScrollController.hasClients) {
+          Future.delayed(const Duration(milliseconds: 100), () {
+            if (nestedScrollController.hasClients) {
+              nestedScrollController.animateTo(
+                nestedScrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 250),
+                curve: Curves.easeInOut,
+              );
+            }
+          });
+        }
+      }
+      // 포커스 리스너 추가
+      memoFocus.addListener(scrollToBottom);
+      decimalFocus.addListener(scrollToBottom);
+      // cleanup 함수
+      return () {
+        memoFocus.removeListener(scrollToBottom);
+        decimalFocus.removeListener(scrollToBottom);
+      };
+    }, [memoFocus.hasFocus,decimalFocus.hasFocus]); // memoFocus.hasFocus가 변경될 때마다 실행
+
+
+
+    useEffect(() {
+      final sub = ref.listenManual(
+        formzDecimalValidatorProvider,
+            (prev, next) {
+          if (next.status == DecimalFormzStatus.submissionSuccess) {
+            ref.refreshState(context);
+            Navigator.pop(context);
+          }
+        },
+      );
+      return sub.close;
+    }, []);
+
+
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: 16.0, horizontal: 24.0),
+        padding: EdgeInsets.symmetric(
+            vertical: context.height > 750 ? 16.0 : 8.0, horizontal: 24.0),
         child: NestedScrollView(
             controller: nestedScrollController,
             headerSliverBuilder: (context, innerBoxIsScrolled){
@@ -95,7 +144,7 @@ class SettingScreen extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 10),
                       Row(
                         children: [
                           Flexible(
@@ -106,14 +155,19 @@ class SettingScreen extends HookConsumerWidget {
                               icon: showRange ? DateRangeInputField(
                                 rangeNode: rangeFocus,
                                 onDateRangeChanged: (newDateRange) {
-
+                                  dateRange.value = newDateRange;
+                                  if (newDateRange != null) {
+                                    ref.rangeNot.updateStartDate(dateRange.value![0]);
+                                    ref.rangeNot.updateEndDate(dateRange.value![1]);
+                                  } else {
+                                  }
                                 },
                               ) :
                               Container(
                                 height: 35,
                                 alignment: Alignment.center,
                                 child: TextWidget(
-                                    '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일 화요일',
+                                    '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일 ${ref.weekdayKr}',
                                     15.5, context.width,
                                     color: Colors.grey.shade800),
 
@@ -128,7 +182,7 @@ class SettingScreen extends HookConsumerWidget {
                               borderColor: showRange ? Colors.teal.shade600 : Colors.teal.shade400,
                               onTap: (){
                                 if (!showRange) {
-                                  // Future.microtask(() => rangeFocus.requestFocus());
+                                  Future.microtask(() => rangeFocus.requestFocus());
                                 }
                                 ref.read(showRangeStateProvider.notifier).rangeState();
                               },
@@ -139,293 +193,96 @@ class SettingScreen extends HookConsumerWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
-                      AnimatedContainer(
-                        height: 100,
-                        alignment: Alignment.center,
-                        duration: Duration(milliseconds: 300),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.teal, // #059669
-                              // Color(0xFF10B981), // #10b981
-                              Colors.teal, // #059669
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 2.5),
-                                  Text(
-                                    '설정 공수',
-                                    style: TextStyle(
-                                      color: Colors.white.withOpacity(0.9),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  SizedBox(height: 2.5),
-                                  Text(
-                                    '1.25',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  SizedBox(height: 2.5),
-                                  Text(
-                                    '예상 일당',
-                                    style: TextStyle(
-                                      color: Colors.white.withOpacity(0.9),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  SizedBox(height: 2.5),
-                                  Text(
-                                    '15.2만원',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
 
-                      SizedBox(height: 20),
+
+
+
                     ],
                   ),
                 ),
               ];
             },
-            body: Column(
-              children: [
-                Row(
-                  children: [
-                    SizedBox(width: 5),
-                    TextWidget('빠른선택', 16, context.width),
-                    Spacer(),
-                    InkWell(
-                      onTap: () => ref.read(showMemoStateProvider.notifier).memoState(),
-                      borderRadius: BorderRadius.circular(10),
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        width: 120,
-                        height: 30,
-                        child: TextWidget(
-                          '${ref.monthString}월 메모 보기',
-                          15,
-                          context.width,
-                          color: Colors.grey.shade800,
-                        ),
-                      ),
-                    ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
+                  SettingDisplay(
+                    currentValue: currentValue,
+                  ),
+                  context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
+                  MemoStateComponent(),
+                  context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
+                  Divider(
+                    color: Colors.grey.shade300,
+                    thickness: 2.5,
+                  ),
+                  SizedBox(height: 5),
+                  QuickSelectChipList(
+                    values: quickSelectValues,
+                    currentValue: currentValue,
+                    onValueSelected: selectValue,
+                  ),
+                  SizedBox(height: 20),
+                  SettingControllerComponent(
+                    decimalController: decimalController,
+                    decimalFocus: decimalFocus,
+                    currentValue: currentValue,
+                    minus: () {
+                      customValue.value = null; // 🎯 커스텀 값 초기화
+                      if (currentIndex.value > 0) {
+                        currentIndex.value--;
+                        final newValue = currentIndex.value * _step;
+                        decimalController.text = newValue.toStringAsFixed(2);
 
-                  ],
-                ),
-                SizedBox(height: 2.5),
-                Divider(
-                  color: Colors.grey.shade300,
-                  thickness: 2.5,
-                ),
-                SizedBox(height: 5),
-                Row(
-                  children: [
-                    Flexible(
-                      child: Container(
-                        height: context.height > 900 ? 30 : 30, // 칩 높이에 맞춰 조정
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade50,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                      }
+                    },
+                    plus: () {
+                      customValue.value = null; // 🎯 커스텀 값 초기화
+                      if (currentValue < _maxValue) {
+                        currentIndex.value++;
+                        final newValue = currentIndex.value * _step;
+                        decimalController.text = newValue.toStringAsFixed(2); //
 
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: quickSelectValues.length,
-                            itemBuilder: (context, index) {
-                              final value = quickSelectValues[index];
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                  // top: 9.5,
-                                  right: index < quickSelectValues.length - 1 ? 8.0 : 0,
-                                  // bottom: 9.5,
-                                ),
-                                child: QuickSelectChip(
-                                  value: value,
-                                  currentValue: currentValue,
-                                  onTap: () => selectValue(value),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-
-                  ],
-                ),
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    // 공수 조절 그룹
-                    Expanded(
-                      child: Container(
-                        height: 50,
-                        padding: EdgeInsets.all(4),
-                        decoration: infoBoxDeco,
-                        child: Row(
-                          children: [
-                            // - 버튼
-                            IconButton(
-                              onPressed: () {
-                                if (currentIndex.value > 0) {
-                                  currentIndex.value--;
-                                }
-                              },
-                              icon: Icon(Icons.remove),
-                              style: IconButton.styleFrom(
-                                backgroundColor: Colors.white,
-                              ),
-                            ),
-                            // 현재 값 표시
-                            Expanded(
-                              child: Text(
-                                currentValue.toStringAsFixed(2),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                            // + 버튼
-                            IconButton(
-                              onPressed: () {
-                                if (currentValue < _maxValue) {
-                                  currentIndex.value++;
-                                }
-                              },
-                              icon: Icon(Icons.add),
-                              style: IconButton.styleFrom(
-                                backgroundColor: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    SizedBox(width: 12),
-
-                    // 직접 입력 버튼
-                    OutlinedButton(
-                      onPressed: () {
-                        decimalFocus.requestFocus();
-                        // 직접 입력 모드 활성화
+                      }
+                    },
+                    onValueChanged: (val){
+                      if (val >= _minValue && val <= _maxValue) {
+                        customValue.value = val; // 커스텀 값 저장
+                      }
                       },
-                      style: OutlinedButton.styleFrom(
-                        minimumSize: Size(50, 50),
-                        side: BorderSide(
-                          color: Colors.teal,
-                          width: 2,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                  ),
+                  decimalFocus.hasFocus ? Column(
+                    children: [
+                      SizedBox(height: 7.5),
+                      Row(
+                        children: [
+                          TextWidget(' 공수입력 후 설정완료를 꼭 눌러주세요', 11.5, context.width,
+                          color: Colors.teal),
+                        ],
                       ),
-                      child: Text(
-                        '직접 입력',
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-
-
-                SizedBox(height: 20),
-
-                Container(
-                  height: 75,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: borderColor,
-                      width: memoFocus.hasFocus  ? 1.55 : 1.05,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade300,
-                        blurRadius: 4,
-                        offset: const Offset(0, 4),
-                      ),
+                      SizedBox(height: 10),
                     ],
-                  ),
-                  child: TextFormField(
-                    focusNode: memoFocus,
-                    controller: memoController,
-                    onChanged: (val){},
-                    onFieldSubmitted: (val){},
-                    maxLines: null, // 자동으로 여러 줄 입력 가능
-                    cursorColor: Colors.grey.shade500,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 12.0,
-                        horizontal: 6.0,
-                      ),
-                      hintText: ' 메모내용을 입력해주세요',
-                      hintStyle: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5,
-                          overflow: TextOverflow.ellipsis),
-                      border: InputBorder.none,
-                      isDense: true,
-                    ),
-                  ),
-                ),
+                  ) : SizedBox(height: 20),
 
-              ],
-
+                  SettingMemoTextField(
+                    nodeMemo: memoFocus,
+                    decimalMemo: decimalFocus,
+                    memoController: memoController,
+                    onChanged: (val){
+                      ref.formzMemoRead.onChangeMemo(val);
+                    },
+                    onFieldSubmitted: (val){
+                      ref.read(showMemoStateProvider.notifier).memoState();
+                      ref.formzMemoRead.onSubmit(ref);
+                    },
+                    onTap: () => Navigator.pop(context),
+                  ),
+                ],
+              ),
             ),
         ),
-
-
-
       ),
+
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
@@ -443,8 +300,8 @@ class SettingScreen extends HookConsumerWidget {
                   elevation: 2,
                 ),
                 onPressed: (){
-                  // ref.decimalRead.onChangeDecimal(0.0);
-                  // ref.decimalRead.onSubmit(decimal: 0.0);
+                  ref.decimalRead.onChangeDecimal(0.0);
+                  ref.decimalRead.onSubmit(decimal: 0.0);
                 },
                 child: TextWidget('휴일등록', 15, context.width, color: Colors.black),
               ),
@@ -462,16 +319,18 @@ class SettingScreen extends HookConsumerWidget {
                     elevation: 1,
                   ),
                   onPressed: ()  {
-                    // ref.decimalRead.onChangeDecimal(currentValue.toDouble());
-                    // if (showRange) {
-                    //   ref.decimalRead.onSubmitMonthAll(
-                    //     dateRange.value![0],dateRange.value![1],
-                    //   );
-                    // } else {
-                    //   ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
-                    // }
+
+                    ref.decimalRead.onChangeDecimal(currentValue.toDouble());
+                    if (showRange) {
+                      ref.decimalRead.onSubmitMonthAll(
+                        dateRange.value![0],dateRange.value![1],
+                      );
+                    } else {
+                      ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
+                    }
                   },
-                  child: TextWidget('설정완료', 16, context.width,color: Colors.white)),
+                  child: TextWidget('설정완료', 16,
+                      context.width,color: Colors.white)),
             ),
 
           ],

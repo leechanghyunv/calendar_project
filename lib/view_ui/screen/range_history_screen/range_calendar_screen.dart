@@ -156,6 +156,12 @@ class RangeCalendarScreen extends HookConsumerWidget {
                   Expanded(
                     flex: 1,
                     child: PopupMenuButton<int>(
+                      color: Colors.grey.shade50,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        side: BorderSide(color: Colors.grey.shade200),
+                      ),
+                      offset: const Offset(0,  200),
                       initialValue: 1,
                       onSelected: (months) {
                         final now = DateTime.now();
@@ -202,7 +208,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                     flex: 2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF059669),
+                          backgroundColor: Colors.teal,
                           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.5),

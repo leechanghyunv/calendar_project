@@ -2,6 +2,57 @@ import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../../../core/export_package.dart';
 
+class QuickSelectChipList extends HookConsumerWidget {
+  final List<double> values;
+  final double currentValue;
+  final ValueChanged<double> onValueSelected;
+
+  const QuickSelectChipList( {required this.values,required this.currentValue, required this.onValueSelected,super.key});
+
+  @override
+  Widget build(BuildContext context,WidgetRef ref) {
+
+    return  Row(
+      children: [
+        Flexible(
+          child: Container(
+            height: context.height > 900 ? 30 : 30, // 칩 높이에 맞춰 조정
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade50,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: values.length,
+                itemBuilder: (context, index) {
+                  final value = values[index];
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      right: index < values.length - 1 ? 8.0 : 0,
+                    ),
+                    child: QuickSelectChip(
+                      value: value,
+                      currentValue: currentValue,
+                      onTap: () => onValueSelected(value),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+
 class QuickSelectChip extends StatelessWidget {
   final double value;
   final double currentValue;

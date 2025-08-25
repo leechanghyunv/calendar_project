@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
-class DateRangeInputField extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+class DateRangeInputField extends HookWidget {
   final FocusNode rangeNode;
   final String labelText;
   final ValueChanged<List<DateTime>?> onDateRangeChanged;
@@ -13,174 +16,34 @@ class DateRangeInputField extends StatefulWidget {
     this.labelText = 'YY/MM/DD ~ YY/MM/DD',
     required this.rangeNode,
     required this.onDateRangeChanged,
-
   }) : super(key: key);
 
   @override
-  _DateRangeInputFieldState createState() => _DateRangeInputFieldState();
-}
-
-class _DateRangeInputFieldState extends State<DateRangeInputField> {
-  final TextEditingController _controller = TextEditingController();
-  final DateFormat _dateFormat = DateFormat('yyyy/MM/dd');
-  String _previousText = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _controller.addListener(_handleTextChange);
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_handleTextChange);
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _handleTextChange() {
-    String currentText = _controller.text;
-    String formattedText = _formatDateRange(currentText);
-
-    if (formattedText != currentText) {
-      _controller.value = TextEditingValue(
-        text: formattedText,
-        selection: TextSelection.collapsed(offset: formattedText.length),
-      );
-    }
-
-    // 날짜 범위 파싱 및 콜백
-    final dateRange = _parseDateRange(formattedText);
-    widget.onDateRangeChanged(dateRange);
-
-    _previousText = formattedText;
-  }
-
-  String _formatDateRange(String input) {
-    // 숫자만 추출
-    String digits = input.replaceAll(RegExp(r'[^0-9]'), '');
-    if (digits.isEmpty) return '';
-
-    StringBuffer formatted = StringBuffer();
-    int index = 0;
-
-    // 두 개의 날짜를 처리 (각각 6자리: YY/MM/DD)
-    for (int dateIndex = 0; dateIndex < 2 && index < digits.length; dateIndex++) {
-      if (dateIndex == 1) {
-        formatted.write(' ~ ');
-      }
-
-      // 년도 (2자리)
-      if (index < digits.length) {
-        formatted.write(digits[index++]);
-        if (index < digits.length) {
-          formatted.write(digits[index++]);
-        }
-      }
-
-      // 월 (2자리) - 스마트 입력
-      if (index < digits.length) {
-        formatted.write('/');
-        int firstMonthDigit = int.parse(digits[index]);
-
-        if (firstMonthDigit > 1) {
-          // 2 이상이면 0을 앞에 추가
-          formatted.write('0');
-          formatted.write(digits[index++]);
-        } else if (firstMonthDigit == 1) {
-          // 1이면 그대로 입력
-          formatted.write(digits[index++]);
-          if (index < digits.length) {
-            int secondMonthDigit = int.parse(digits[index]);
-            if (secondMonthDigit > 2) {
-              // 13 이상은 불가능하므로 01로 변경하고 3을 일자로
-              formatted.write('2');
-              index++; // 다음 숫자는 일자의 첫 번째로
-            } else {
-              formatted.write(digits[index++]);
-            }
-          }
-        } else {
-          // 0이면 다음 숫자 확인
-          formatted.write(digits[index++]);
-          if (index < digits.length) {
-            formatted.write(digits[index++]);
-          }
-        }
-      }
-
-      // 일 (2자리) - 스마트 입력
-      if (index < digits.length) {
-        formatted.write('/');
-        int firstDayDigit = int.parse(digits[index]);
-
-        if (firstDayDigit > 3) {
-          // 4 이상이면 0을 앞에 추가
-          formatted.write('0');
-          formatted.write(digits[index++]);
-        } else if (firstDayDigit == 3) {
-          // 3이면 다음 숫자 확인 (31까지만 가능)
-          formatted.write(digits[index++]);
-          if (index < digits.length) {
-            int secondDayDigit = int.parse(digits[index]);
-            if (secondDayDigit > 1) {
-              // 32 이상은 불가능
-              formatted.write('1');
-            } else {
-              formatted.write(digits[index++]);
-            }
-          }
-        } else {
-          // 0, 1, 2
-          formatted.write(digits[index++]);
-          if (index < digits.length) {
-            formatted.write(digits[index++]);
-          }
-        }
-      }
-    }
-
-    return formatted.toString();
-  }
-
-  List<DateTime>? _parseDateRange(String dateRangeString) {
-    // ~ 기준으로 분리
-    List<String> parts = dateRangeString.split(' ~ ');
-    if (parts.length != 2) return null;
-
-    try {
-      DateTime? startDate = _parseDate(parts[0]);
-      DateTime? endDate = _parseDate(parts[1]);
-
-      if (startDate == null || endDate == null) return null;
-      if (startDate.isAfter(endDate)) return null;
-
-      return [startDate, endDate];
-    } catch (e) {
-      return null;
-    }
-  }
-
-  DateTime? _parseDate(String dateStr) {
-    List<String> parts = dateStr.split('/');
-    if (parts.length != 3) return null;
-
-    try {
-      int year = int.parse('20${parts[0]}'); // YY -> 20YY
-      int month = int.parse(parts[1]);
-      int day = int.parse(parts[2]);
-
-      if (month < 1 || month > 12) return null;
-      if (day < 1 || day > 31) return null;
-
-      return DateTime(year, month, day);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // MaskTextInputFormatter로 자동 포맷팅
+    final maskFormatter = useMemoized(
+          () => MaskTextInputFormatter(
+        mask: '##.##.## ~ ##.##.##',
+        filter: {"#": RegExp(r'[0-9]')},
+        type: MaskAutoCompletionType.lazy,
+      ),
+    );
+
+    final controller = useTextEditingController();
+
+    // 텍스트 변경 감지 및 날짜 파싱
+    useValueListenable(controller).text;
+    useEffect(() {
+      void listener() {
+        final text = controller.text;
+        final dateRange = _parseDateRange(text);
+        onDateRangeChanged(dateRange);
+      }
+
+      controller.addListener(listener);
+      return () => controller.removeListener(listener);
+    }, [controller]);
+
     return Container(
       height: 25,
       width: 200,
@@ -189,15 +52,14 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
         borderRadius: BorderRadius.circular(7.5),
       ),
       child: TextField(
-        focusNode: widget.rangeNode,
+        focusNode: rangeNode,
         cursorColor: Colors.grey.shade700,
-        controller: _controller,
+        controller: controller,
         keyboardType: TextInputType.number,
-        maxLength: 23, // "YY/MM/DD ~ YY/MM/DD" 형식
+        inputFormatters: [maskFormatter],
         decoration: InputDecoration(
           hintText: ' 25.01.01 ~ 25.12.31',
           isDense: true,
-          counterText: '', // 글자 수 카운터 숨김
           hintStyle: TextStyle(
             color: Colors.grey.shade600,
             fontWeight: FontWeight.bold,
@@ -210,5 +72,41 @@ class _DateRangeInputFieldState extends State<DateRangeInputField> {
         ),
       ),
     );
+  }
+
+  List<DateTime>? _parseDateRange(String text) {
+    // "YY.MM.DD ~ YY.MM.DD" 형식 파싱
+    final parts = text.split(' ~ ');
+    if (parts.length != 2) return null;
+
+    final startDate = _parseDate(parts[0]);
+    final endDate = _parseDate(parts[1]);
+
+    if (startDate == null || endDate == null) return null;
+    if (startDate.isAfter(endDate)) return null;
+
+    return [startDate, endDate];
+  }
+
+  DateTime? _parseDate(String dateStr) {
+    final parts = dateStr.split('.');
+    if (parts.length != 3) return null;
+
+    try {
+      final year = int.parse('20${parts[0]}');
+      final month = int.parse(parts[1]);
+      final day = int.parse(parts[2]);
+
+      if (month < 1 || month > 12) return null;
+      if (day < 1 || day > 31) return null;
+
+      // 실제 날짜 유효성 검증
+      final date = DateTime(year, month, day);
+      if (date.month != month || date.day != day) return null;
+
+      return date;
+    } catch (_) {
+      return null;
+    }
   }
 }

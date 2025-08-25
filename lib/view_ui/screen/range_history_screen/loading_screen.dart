@@ -15,13 +15,13 @@ class LoadingScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             AnimatedEmoji(
-              AnimatedEmojis.comet,
+              AnimatedEmojis.dolphin,
               repeat: true,
               animate: true,
               size: 125,
             ),
-            SizedBox(height: 30,),
-            Text('불러오는 중',
+            SizedBox(height: 40),
+            Text('불러오는 중...',
               textScaler: TextScaler.noScaling,
               style: TextStyle(
                 fontSize: 20,

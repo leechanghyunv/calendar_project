@@ -1,8 +1,9 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
 import '../../../../../../core/utils/converter.dart';
 import '../../../../../../model/selected_history_model.dart';
-import '../../../../../../theme_color.dart';
 import 'history_info_menuButton.dart';
 
 
@@ -47,50 +48,13 @@ class HistoryBox extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    textScaler: TextScaler.noScaling,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text:
-                              '${formatSelectedDate(selectedHistory.startDate)} ~ ${formatSelectedDate(selectedHistory.endDate)}',
-                          style: TextStyle(
-                            color: Colors.grey.shade600,
-                            fontSize: height > 750
-                                ? (width >= 450
-                                ? 14
-                                : width > 400
-                                ? 11.5
-                                : 10.5)
-                                : 10,
+                  TextWidget('${formatSelectedDate(selectedHistory.startDate)} ~ ${formatSelectedDate(selectedHistory.endDate)}',
+                      11, context.width,color: Colors.grey.shade700),
 
-
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 7.0),
-                    child: Text(
-                      '${selectedHistory.memo}',
-                      style: TextStyle(
-                        color: Colors.black,
-                        height: textHeight,
-                        fontSize: height > 750
-                            ? (width >= 450
-                            ? 20
-                            : width > 400
-                            ? 18.0
-                            : 17.0)
-                            : 16.5,
-
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: TextWidget('${selectedHistory.memo}',
+                        18, context.width)
                   ),
                   Row(
                     children: [
@@ -148,19 +112,6 @@ class MomoChip extends StatelessWidget {
     ];
   }
 
-  final List<MaterialColor> baseColors = [
-    Colors.grey,
-    Colors.grey,
-    Colors.grey,
-  ];
-
-  final List<Color> textColors = [
-    Colors.grey.shade900,
-    Colors.grey.shade900,
-    Colors.grey.shade900,
-  ];
-
-
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -170,41 +121,24 @@ class MomoChip extends StatelessWidget {
       spacing: 8.0,
       runSpacing: 8.0,
       children: List.generate(result.length, (index) {
-        final color = baseColors[index % baseColors.length];
-        final textColor = textColors[index % textColors.length];
         final type = result[index];
 
-        Widget  MoreText = Text(
-          type == ' 더보기... ' ? '$type' : '#$type',
-          textScaler: TextScaler.noScaling,
-          style: TextStyle(
-            height: textHeight,
-            fontSize: height > 750
-                ? (width >= 450
-                ? 13.5
-                : width > 400
-                ? 11.5
-                : 10.5)
-                : 10.0,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        );
-
+        Widget  MoreText = TextWidget(type == ' 더보기... ' ? '$type' : '#$type',
+            11, width,color: Colors.grey.shade800);
 
         return type.isNotEmpty ?  Container(
           height: height > 750 ? (width > 400 ? 24 : 23) : 22,
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           decoration: BoxDecoration(
-            color: color.shade100,
+            color: Colors.grey.shade100,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: color.shade700,
+              color: Colors.grey.shade700,
               width: 0.25,
             ),
             boxShadow: [
               BoxShadow(
-                color: color.shade400,
+                color: Colors.grey.shade400,
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),

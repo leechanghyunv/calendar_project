@@ -14,7 +14,6 @@ import 'one_signal_notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   if (Platform.isAndroid) {
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: Colors.grey.shade50,

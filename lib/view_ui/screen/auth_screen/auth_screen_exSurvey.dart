@@ -161,7 +161,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                        final formatter = NumberFormat('#,###');
                        return formatter.format(value);
                      }
-     
+
+                     _scrollToBottom();
                      final extended = formatWithComma((normal * 1.5).round());
                      final night = formatWithComma((normal * 2).round());
      

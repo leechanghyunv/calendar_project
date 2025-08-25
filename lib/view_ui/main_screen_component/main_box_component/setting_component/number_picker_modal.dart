@@ -24,8 +24,8 @@ void NumberPickerModal(BuildContext context){
         final screenHeight = context.height;
         return Container(
           height: screenHeight > 750
-              ? Platform.isAndroid ? screenHeight * 0.70 : screenHeight * 0.8
-              : Platform.isAndroid ? screenHeight * 0.80 : screenHeight * 0.85,
+              ? screenHeight * 0.8
+              : screenHeight * 0.85,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
             borderRadius: BorderRadius.only(

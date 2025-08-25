@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
+import 'memo_list_view.dart';
 
 class MemoListScreen extends HookConsumerWidget {
   const MemoListScreen({super.key});
@@ -82,6 +83,7 @@ class MemoListScreen extends HookConsumerWidget {
                   thickness: 2.5,
                 ),
               ),
+              MemoListView(),
 
             ],
           ),

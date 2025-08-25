@@ -16,16 +16,6 @@ class InitialLaunchDialog extends HookConsumerWidget {
     final height = context.height;
 
 
-    // Transform.translate(
-    //   offset: Offset(0, -0.5), // 위로 2픽셀 이동
-    //   child: AnimatedEmoji(
-    //     AnimatedEmojis.clap.mediumLight,
-    //     repeat: true,
-    //     animate: true,
-    //     size: width > 400 ? 20 : 18,
-    //   ),
-    // ),
-
     return AlertDialog(
       title: TextWidget(Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
           16, width),
@@ -59,7 +49,7 @@ class InitialLaunchDialog extends HookConsumerWidget {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green.shade700,
+                    backgroundColor: Colors.teal,
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7.5),
@@ -67,6 +57,7 @@ class InitialLaunchDialog extends HookConsumerWidget {
                     elevation: 2,
                   ),
                   onPressed: () {
+                    Navigator.pop(context);
                     showBasicModal(context,false);
                   },
                   child: ButtonTextWidget('시작하기',

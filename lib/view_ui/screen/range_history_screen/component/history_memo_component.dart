@@ -63,10 +63,11 @@ class HistoryMemoComponent extends HookConsumerWidget {
     );
 
     return memoState ? Container(
-      height: 100,
+
       decoration: infoBoxDeco,
       alignment: Alignment.center,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextFormField(
             focusNode: historyMemoNode,
