@@ -2,12 +2,14 @@
 import '../../../core/export_package.dart';
 import '../../../theme_color.dart';
 import '../../minor_issue/widget/indicator_widget.dart';
+import 'animated_number.dart';
 
 Widget buildStatsBox({
   required double width,
   required double height,
   required String title,
-  required String value,
+  required double value,
+  required bool type,
   required double progress,
   required Color progressColor,
   required String description,
@@ -45,12 +47,10 @@ Widget buildStatsBox({
                         fontWeight: FontWeight.bold,
                         fontSize: appWidth > 450 ? 13 : 12)),
                     const Spacer(),
-                    Text(value,
-                        textScaler: TextScaler.noScaling,
-                        style: TextStyle(
-                        height: textHeight,
-                        fontWeight: FontWeight.bold, color: Colors.grey.shade700,
-                        fontSize: appWidth > 450 ? 12.5 : 11)),
+                    AnimatedNumber(
+                      end: value,
+                      type: type,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 5),

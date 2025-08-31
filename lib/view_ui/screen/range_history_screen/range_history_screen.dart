@@ -44,7 +44,6 @@ class RangeHistoryScreen extends HookConsumerWidget {
           ),
           height > 750 ? SizedBox(height: 7.5) : SizedBox(height: 2.5),
           Container(
-            // height: height > 750 ? height / 1.7 : height / 1.5,
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
               color: Colors.grey.shade50,

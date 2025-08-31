@@ -177,7 +177,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                       },
                     );
                   }),
-                  SizedBox(width: 10),
+                  SizedBox(width: 7.5),
                   FunctionChip(
                       label: '공수등록',
                       color: Colors.grey.shade100,

@@ -131,7 +131,6 @@ Widget CalendarSettingBox(String msg, TextStyle getStyle,
     {bool? isSetting = false}) {
   return Container(
     decoration: BoxDecoration(
-      // color: Colors.grey.shade50,
       borderRadius: BorderRadius.circular(6),
     ),
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),

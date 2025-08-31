@@ -159,6 +159,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                     horizontal: 12.0,
                     vertical: 6.0),
                 child: Text('${ref.month}월기록',
+                  textScaler: TextScaler.noScaling,
                   style: TextStyle(
                       height: textHeight,
                       fontSize: 12.5,

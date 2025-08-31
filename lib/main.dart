@@ -35,7 +35,6 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   final count = prefs.getInt('app_count') ?? 0;
   await prefs.setInt('app_count', count + 1);
-  // print('앱 실행 횟수: ${count + 1}'); // 디버그용
 
 
   runApp(ProviderScope(

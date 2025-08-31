@@ -67,7 +67,8 @@ class DefaultCell extends ConsumerWidget {
         // 로딩 중이거나 에러 상태에서는 기본값으로 Stack 사용
         orElse: () => Stack(
           alignment: Alignment.center,
-          children: [Center(
+          children: [
+            Center(
               child: textWidget,
           )],
         ),

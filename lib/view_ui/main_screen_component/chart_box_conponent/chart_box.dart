@@ -100,13 +100,14 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                   style: TextStyle(
                       letterSpacing: Platform.isAndroid ? 0.5 : null,
                       fontSize: appWidth > 400 ? 13 : 12,
-                      fontWeight: FontWeight.w900),),
+                      fontWeight: FontWeight.w900),
+                ),
                 SizedBox(width: 5),
                 Text('${offDay}일 휴일',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                       letterSpacing: Platform.isAndroid ? 0.5 : null,
-                      fontSize: appWidth > 400 ? 10.5 : 10,
+                      fontSize: 10,
                       color: Colors.teal,
                       fontWeight: FontWeight.bold),
                 ),

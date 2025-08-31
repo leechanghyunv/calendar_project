@@ -19,7 +19,7 @@ class CalendarHeader extends ConsumerWidget {
       padding: EdgeInsets.only(
           left: appHeight > 750 ? 16.0 : 12.0,
           right: 4.0,
-          top: 2.0,
+          top: Platform.isAndroid ? 6.0 : 2.0,
           bottom: 2.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,9 +81,6 @@ class CalendarHeader extends ConsumerWidget {
           PopupWidget(),
           SizedBox(width: appWidth > 450 ? 10 : null),
           SettingPopupWidget(),
-
-
-
         ],
       ),
     );
