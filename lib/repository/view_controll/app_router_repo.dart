@@ -16,6 +16,7 @@ FutureOr<GoRouter> router(ref) async {
 
   return GoRouter(
       navigatorKey: navigatorKey,
+
       observers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],

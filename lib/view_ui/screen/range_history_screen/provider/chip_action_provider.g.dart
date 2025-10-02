@@ -6,7 +6,7 @@ part of 'chip_action_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$chipActionValueHash() => r'1288d724917466e267be0e3a40403d3f904de1b8';
+String _$chipActionValueHash() => r'30a672e6557d03ac8fe6ca42bd53a10b98a99199';
 
 /// See also [ChipActionValue].
 @ProviderFor(ChipActionValue)

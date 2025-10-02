@@ -1,6 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/base_consumer.dart';
 import '../../core/export_package.dart';
+import '../screen/search_screen/search_screen.dart';
 
 class PopupWidget extends ConsumerWidget {
 
@@ -11,39 +11,57 @@ class PopupWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final appWidth = context.width;
 
-    return PopupMenuButton<int>(
-      child: IconButton(
-        onPressed: null,
-        icon: Icon(
-          Icons.calendar_today_outlined,
-          size: appWidth >= 450 ? 27.5 : appWidth > 400 ? 25 : 22.5,
-          color: Colors.grey.shade900,
-        ),
-      ),
-      offset: const Offset(35, 35),
-      itemBuilder: (context){
-        return List.generate(
-            7,
-                (index){
-              return PopupMenuItem(
-                value: index + 1,
-                child: Row(
+    return IconButton(
+      onPressed: (){
+        showModalBottomSheet(
+          useRootNavigator: true,
+          isScrollControlled: true,
+          context: context,
+          isDismissible: true,
+          enableDrag: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+          builder: (context){
+            final screenHeight = context.height;
+            return Container(
+                height: screenHeight * 0.88,
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+                child: Column(
                   children: [
-                    Text(
-                      ref.timeNot.getFormattedDate(ref.year, ref.month - (index + 1)),
-                      textScaler: TextScaler.noScaling,
-                      style: TextStyle(
-                        fontSize: appWidth > 450 ? 16 : 13,
-                        fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
+                    Container(
+                      width: 30,
+                      height: 4,
+                      margin: EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(2),
                       ),
+                    ),
+                    Expanded(
+                        child: SearchScreen(),
                     ),
                   ],
                 ),
-              );
-            }
+
+            );
+          }
         );
       },
-      onSelected: (value) => ref.timeNot.moveMonth(value),
+      icon: Icon(
+        Icons.calendar_today_outlined,
+        size: appWidth >= 450 ? 27 : appWidth > 400 ? 25 : 22.5,
+        color: Colors.grey.shade900,
+      ),
     );
   }
 }

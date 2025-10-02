@@ -135,7 +135,7 @@ class MarkerCell extends ConsumerWidget {
                 ),
               ),
             ),
-            appWidth < 376 ? SizedBox(height: 1.0) : SizedBox(height: 3),
+            appWidth < 376 ? SizedBox(height: 1.0) : SizedBox(height: 5),
             Flexible(
               child: Text(
                 isOn ? calendarPayText : calendarMemoText,

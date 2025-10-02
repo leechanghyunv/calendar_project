@@ -75,30 +75,6 @@ class CommaInputFormatter extends TextInputFormatter {
 }
 
 
-class PercentInputFormatter extends TextInputFormatter {
-  final int decimalRange;
-
-  PercentInputFormatter({this.decimalRange = 1});
-
-  @override
-  TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
-    String raw = newValue.text.replaceAll('%', '');
-
-    // 허용: 1~2자리 정수 또는 소수점 첫째자리까지
-    final regex = RegExp(r'^\d{0,2}(\.\d{0,1})?$');
-
-    if (!regex.hasMatch(raw)) {
-      return oldValue;
-    }
-
-    final newText = raw;
-
-    return TextEditingValue(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newText.length),
-    );
-  }
-}
 
 class DisplayNumberInputFormatter extends TextInputFormatter {
   final int decimalRange;

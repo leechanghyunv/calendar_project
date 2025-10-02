@@ -26,7 +26,7 @@ final viewSelectedHistoryProvider =
 // ignore: unused_element
 typedef ViewSelectedHistoryRef
     = AutoDisposeFutureProviderRef<List<SelectedHistory>>;
-String _$addSelectedHash() => r'9ff9cc15f9319251534f2bf42492db5344038011';
+String _$addSelectedHash() => r'8b517d83e31d2069dd5c5214a24b6adcffb5f240';
 
 /// Copied from Dart SDK
 class _SystemHash {

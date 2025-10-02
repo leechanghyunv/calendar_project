@@ -13,30 +13,6 @@ class MemoListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final selectedDate = ref.selected;
-    final data = ref.history.value;
-
-    final monthlyHistoriesWithMemo = data?.where((history) =>
-    history.date.year == selectedDate.year &&
-        history.date.month == selectedDate.month &&
-        history.memo.isNotEmpty
-    ).toList() ?? [];
-
-    Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.grey.shade700,
-        width: 0.75,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    );
 
     return Container(
       height: screenHeight > 750

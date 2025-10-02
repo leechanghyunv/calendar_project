@@ -1,0 +1,218 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/model/work_history_model.dart';
+
+// 🎯 검색 결과 위젯 분리
+class SearchResultWidget extends StatelessWidget {
+  final AsyncValue<List<WorkHistory>> historyAsync;
+  final List<WorkHistory> filteredResults;
+  final String selectedPeriod;
+
+  const SearchResultWidget({
+    super.key,
+    required this.historyAsync,
+    required this.filteredResults,
+    required this.selectedPeriod,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return switch (historyAsync) {
+      AsyncLoading() => _buildLoading(context),
+      AsyncError(:final error) => _buildError(context, error),
+      AsyncData() => filteredResults.isEmpty
+          ? _buildEmpty(context)
+          : _buildList(context),
+      _ => SizedBox(),
+    };
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return Center(
+      child: TextWidget('로딩중....', 14, context.width),
+    );
+  }
+
+  Widget _buildError(BuildContext context, Object error) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget('${error.toString()}', 14, context.width,
+              color: Colors.grey.shade700),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEmpty(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextWidget('검색 결과가 여기에 표시됩니다', 14, context.width,
+              color: Colors.grey[500]),
+          SizedBox(height: 4),
+          TextWidget('선택된 기간: $selectedPeriod', 12, context.width,
+              color: Colors.grey[400]),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildList(BuildContext context) {
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      itemCount: filteredResults.length,
+      itemBuilder: (context, index) {
+        final history = filteredResults[index];
+        return _HistoryCard(history: history);
+      },
+    );
+  }
+}
+
+// 📋 개별 카드 위젯
+class _HistoryCard extends StatelessWidget {
+  final WorkHistory history;
+
+  const _HistoryCard({required this.history});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: 60,
+            child: Column(
+              children: [
+                TextWidget(
+                  history.date.day.toString(),
+                  22,
+                  context.width,
+                  color: Colors.teal,
+                ),
+                TextWidget(
+                  '${history.date.month}월',
+                  12,
+                  context.width,
+                  color: Colors.teal[200],
+                  fontWeight: FontWeight.normal,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 16),
+          Expanded(
+            child: TextWidget(
+              history.memo,
+              14,
+              context.width,
+              color: Colors.grey[800],
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          Spacer(),
+          SearchMoreContent(history: history),
+
+        ],
+      ),
+    );
+  }
+}
+
+
+class SearchMoreContent extends StatelessWidget {
+  final WorkHistory history;
+  const SearchMoreContent({super.key, required this.history});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final labels = ['일당', '공수', '근무'];
+
+    Widget chartInText(String text){
+      return Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Text(text,
+            textScaler: TextScaler.noScaling,
+            style: TextStyle(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade700,
+            ),
+        ),
+      );
+    }
+
+    return PopupMenuButton(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      offset: const Offset(15, 30),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          enabled: false,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            decoration: BoxDecoration(
+              // color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      chartInText('- ${labels[0]}:'),
+                      chartInText('${(history.pay / 10000).toInt()}만원',),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      chartInText('- ${labels[1]}:'),
+                      chartInText('${(history.record).toInt()}공수',),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      chartInText('- ${labels[2]}:'),
+                      chartInText('${(history.comment)}',),
+                    ],
+                  ),
+
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+      child: Icon(
+        Icons.more_horiz,
+        color: Colors.grey.shade400,
+      ),
+    );
+  }
+}

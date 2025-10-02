@@ -32,6 +32,16 @@ class RangeHistoryScreen extends HookConsumerWidget {
         '${dateRange.endDate.month.toString().padLeft(2, '0')}월 '
         '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
 
+    final month = '${dateRange.endDate.month.toString().padLeft(2, '0')}월';
+    final day = '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
+
+
+    String _format(double amount) {
+      return amount >= 1000
+          ? amount.toStringAsFixed(0)
+          : amount.toStringAsFixed(1);
+    }
+
     return switch (state) {
       AsyncData(:final value) => RangeDefaultScreen(
         isCalendarScreen: false,
@@ -60,8 +70,8 @@ class RangeHistoryScreen extends HookConsumerWidget {
                         child: InfoBox(
                             name: '누적금액',
                             unit: '만원',
-                            value: '${(value.total/10000).toStringAsFixed(1)}',
-                            text: '마지막 근로일은 24년 08월 13일입니다. 8월 금액은 223.3만원 입니다'),
+                            value: _format(value.total / 10000),
+                            text: '마지막 근로일은 ${endMonth}입니다. ${month} 금액은 223.3만원 입니다'),
                       ),
                       SizedBox(width: 10),
                       Flexible(
@@ -70,7 +80,7 @@ class RangeHistoryScreen extends HookConsumerWidget {
                             name: '누적공수',
                             unit: '공수',
                             value: '${(value.record).toStringAsFixed(1)}',
-                            text: '반장님의 마지막 근로일은 2025년 08월 29일 입니다'),
+                            text: '반장님의 마지막 근로일은 ${endMonth} 입니다. 수고하셨습니다'),
                       ),
                     ],
                   ),

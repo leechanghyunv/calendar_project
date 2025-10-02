@@ -7,7 +7,7 @@ part of 'b_type_switch_provider.dart';
 // **************************************************************************
 
 String _$bTypeSwitchProviderHash() =>
-    r'725ba184f8b49541b6cef99a074a5a69dadf6164';
+    r'7c6b8d2d885244f711c93f6900f24eed8f34bcb3';
 
 /// See also [BTypeSwitchProvider].
 @ProviderFor(BTypeSwitchProvider)

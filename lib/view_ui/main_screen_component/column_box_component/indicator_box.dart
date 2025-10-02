@@ -51,6 +51,8 @@ Widget buildStatsBox({
                       end: value,
                       type: type,
                     ),
+
+
                   ],
                 ),
                 const SizedBox(height: 5),

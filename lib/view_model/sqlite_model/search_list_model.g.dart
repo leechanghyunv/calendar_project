@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'version_manager.dart';
+part of 'search_list_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$versionManagerHash() => r'd3fc83744c343212456cf6dee40eb861b87eb58e';
+String _$searchHistoryNotifierHash() =>
+    r'c3a4fc99f5b76a8c76b48d9d96df0f13daefbfac';
 
-/// See also [VersionManager].
-@ProviderFor(VersionManager)
-final versionManagerProvider =
-    AutoDisposeAsyncNotifierProvider<VersionManager, String?>.internal(
-  VersionManager.new,
-  name: r'versionManagerProvider',
+/// See also [SearchHistoryNotifier].
+@ProviderFor(SearchHistoryNotifier)
+final searchHistoryNotifierProvider = AutoDisposeAsyncNotifierProvider<
+    SearchHistoryNotifier, List<String>>.internal(
+  SearchHistoryNotifier.new,
+  name: r'searchHistoryNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$versionManagerHash,
+      : _$searchHistoryNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$VersionManager = AutoDisposeAsyncNotifier<String?>;
+typedef _$SearchHistoryNotifier = AutoDisposeAsyncNotifier<List<String>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

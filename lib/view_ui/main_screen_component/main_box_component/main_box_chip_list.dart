@@ -32,7 +32,6 @@ class ChipList extends HookConsumerWidget {
       _ => false,
     };
 
-
       return Container(
       height: switch (appWidth) {
         > 420 => 24.5,
@@ -85,8 +84,7 @@ class ChipList extends HookConsumerWidget {
                   customMsg('근로조건을 우선 입력해주세요');
                   return;
               }
-              ref.read(selectedChipIndexProvider.notifier).state =
-              selectedIndex == index ? null : index;
+              ref.read(selectedChipIndexProvider.notifier).state = selectedIndex == index ? null : index;
               },
 
                 onTapUp: (details){

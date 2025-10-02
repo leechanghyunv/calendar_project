@@ -84,9 +84,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                       fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
                       fontWeight: FontWeight.w800),
                 ),
-
-
-
                 Spacer(),
                 ChartInDialog(),
 

@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
 import '../dialog/basic_setting_dialog/basic_setting_dialog.dart';
+import '../screen/calendar_screen/provider/popup_menu_provider.dart';
 import '../screen/range_history_screen/component/range_history_modal_component.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 
@@ -34,7 +35,10 @@ class SettingPopupWidget extends ConsumerWidget {
                 ? 27
                 : 25,
       ),
+      onOpened: () => ref.read(popupMenuOpenProvider.notifier).open(),
+      onCanceled: () => ref.read(popupMenuOpenProvider.notifier).close(),
       onSelected: (value) {
+        ref.read(popupMenuOpenProvider.notifier).close();
         switch (value) {
           case 'erase':
             showRangeModal(context,ref);
@@ -53,6 +57,7 @@ class SettingPopupWidget extends ConsumerWidget {
             break;
         }
       },
+
       itemBuilder: (context) => [
         PopupMenuItem(
           value: 'erase',
@@ -75,7 +80,8 @@ class SettingPopupWidget extends ConsumerWidget {
                     '근로조건 설정하기',
                     style: getStyle.copyWith(
                         fontWeight: FontWeight.w900,
-                        color: Color(0xFF059669))),
+
+                    )),
               ],
             ),
           ),
@@ -122,6 +128,12 @@ class SettingPopupWidget extends ConsumerWidget {
           height: 30,
           child: CalendarSettingBox('기본공수 변경', getStyle),
         ),
+        // PopupMenuDivider(),
+        // PopupMenuItem(
+        //   value: 'theme',
+        //   height: 30,
+        //   child: CalendarSettingBox('다크모드 변경', getStyle),
+        // ),
       ],
     );
   }

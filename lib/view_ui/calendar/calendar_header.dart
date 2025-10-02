@@ -1,9 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:intl/intl.dart';
 import '../../core/export_package.dart';
 import 'calendar_popupMenu.dart';
 import 'calendar_settingMenu.dart';
+import 'calendar_settingMenu2.dart';
+import 'month_move_popup.dart';
 
 class CalendarHeader extends ConsumerWidget {
   final DateTime day;
@@ -13,11 +14,10 @@ class CalendarHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appWidth =  context.width;
-    final appHeight = context.height;
 
     return Padding(
       padding: EdgeInsets.only(
-          left: appHeight > 750 ? 16.0 : 12.0,
+          left: 4.0,
           right: 4.0,
           top: Platform.isAndroid ? 6.0 : 2.0,
           bottom: 2.0),
@@ -25,31 +25,12 @@ class CalendarHeader extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            '${DateFormat.yMMMM('ko_KR').format(day)}',
-            textScaler: TextScaler.noScaling,
-            style: TextStyle(
-              shadows: Platform.isAndroid
-                  ? [
-                      Shadow(
-                        blurRadius: 0.75,
-                        color: Colors.grey,
-                        offset: Offset(0.25, 0.25),
-                      ),
-                    ]
-                  : null,
-              fontSize: switch (appWidth) {
-                > 450 => 25,
-                > 420 => 22,
-                > 400 => 21.5,
-                _ => 19.5,
-              },
-              fontWeight: FontWeight.w800,
-              letterSpacing: 1.2,
-            ),
-          ),
-          Spacer(),
 
+
+
+          ArrowDialogRow(day),
+
+          Spacer(),
           GestureDetector(
             onTap: () => ref.timeNot.moveToToday(),
             child: Container(
@@ -78,9 +59,26 @@ class CalendarHeader extends ConsumerWidget {
           ),
           SizedBox(width: 10),
           SizedBox(width: appWidth > 450 ? 10 : null),
+
           PopupWidget(),
+
           SizedBox(width: appWidth > 450 ? 10 : null),
+          // Builder(
+          //   builder: (BuildContext context) {
+          //     return IconButton(
+          //       icon: Icon(
+          //         Icons.menu,
+          //         size: appWidth >= 450 ? 30 : appWidth > 400 ? 27 : 25,
+          //       ),
+          //       onPressed: () {
+          //         Scaffold.of(context).openEndDrawer();
+          //       },
+          //     );
+          //   },
+          // ),
+
           SettingPopupWidget(),
+          // CalendarSettingMenu2(),
         ],
       ),
     );

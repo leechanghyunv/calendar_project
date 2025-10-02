@@ -62,12 +62,13 @@ class HistoryMemoComponent extends HookConsumerWidget {
       ],
     );
 
-    return memoState ? Container(
+    return memoState
+        ? Container(
+      height: 100,
 
       decoration: infoBoxDeco,
       alignment: Alignment.center,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           TextFormField(
             focusNode: historyMemoNode,
@@ -85,7 +86,8 @@ class HistoryMemoComponent extends HookConsumerWidget {
               customMsg('누적기록에서 저장내역 확인');
               Navigator.of(context, rootNavigator: true).pop();
             },
-            maxLines: null, // 자동으로 여러 줄 입력 가능
+            minLines: 1,
+            maxLines: 3, // 자동으로 여러 줄 입력 가능
             cursorColor: Colors.grey.shade500,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -138,58 +140,58 @@ class HistoryMemoComponent extends HookConsumerWidget {
         ],
       ),
 
-    ) : Consumer(builder: (context,ref,child){
+    ) :
+    Consumer(
+        builder: (context,ref,child){
       final state = ref.watch(searchSourceModelProvider);
+      return switch (state) {
+        AsyncData(:final value) => Container(  // ✅ => 바로 Container
+          height: 100,
+          decoration: infoBoxDeco,
+          alignment: Alignment.center,
+          child: Builder(
+            builder: (context) {
+              final totalAmount = data.total.toInt();
+              final currentAmount = value.total / 10000;
+              final percentage = (currentAmount / totalAmount * 100).toStringAsFixed(1);
 
-      return switch (state){
-        AsyncData(:final value) => (){
-
-          final totalAmount = data.total.toInt();  // 전체 목표 금액 (만원)
-          final currentAmount = value.total / 10000;  // 현재 달성 금액 (만원)
-          final percentage = (currentAmount / totalAmount * 100).toStringAsFixed(1);
-
-          return Container(
-            height: 100,
-            decoration: infoBoxDeco,
-            alignment: Alignment.center,
-            child:
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextWidget('${start} ~ ${end}',
-                    16,appWidth,color: Colors.grey.shade800),
-                SizedBox(height: 7.5),
-                Text.rich(
-                  TextSpan(
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      height: textHeight,
-                      color: Colors.grey.shade800,
-                      fontSize: appWidth <= 376 ? 13.5 : (appWidth > 400 ? 16 : 14.5),
-                      letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
-                    ),
-                    children: [
-                      TextSpan(text: '총 금액 ${totalAmount}만원 에서 '),
-                      TextSpan(
-                        text: '${percentage}%',
-                        style: TextStyle(
-                          color: Colors.teal,
-                          fontSize: appWidth <= 376 ? 16 : (appWidth > 400 ? 18 : 17),
-                          fontWeight: FontWeight.w900,  // 더 굵게
-                        ),
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextWidget('${start} ~ ${end}', 16, appWidth, color: Colors.grey.shade800),
+                  SizedBox(height: 7.5),
+                  Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        height: textHeight,
+                        color: Colors.grey.shade800,
+                        fontSize: appWidth <= 376 ? 13.5 : (appWidth > 400 ? 16 : 14.5),
+                        letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
                       ),
-                      TextSpan(text: ' 달성'),
-                    ],
+                      children: [
+                        TextSpan(text: '총 금액 ${totalAmount}만원 에서 '),
+                        TextSpan(
+                          text: '${percentage}%',
+                          style: TextStyle(
+                            color: Colors.teal,
+                            fontSize: appWidth <= 376 ? 16 : (appWidth > 400 ? 18 : 17),
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        TextSpan(text: ' 달성'),
+                      ],
+                    ),
+                    textScaler: TextScaler.noScaling,
                   ),
-                  textScaler: TextScaler.noScaling,
-                ),
-              ],
-
-            ),
-          );
-        }(),
-        AsyncLoading() => Container(),
-        _ => Container(),
+                ],
+              );
+            },
+          ),
+        ),
+        AsyncLoading() => SizedBox(height: 100),
+        _ => SizedBox(height: 100),
       };
     });
 

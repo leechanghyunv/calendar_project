@@ -1,6 +1,7 @@
 import '../../../../../../core/export_package.dart';
 import '../../../../../../model/selected_history_model.dart';
 import '../../../../../../theme_color.dart';
+import '../../../../calendar_screen/provider/popup_menu_provider.dart';
 
 class HistoryInfoMenuButton extends ConsumerStatefulWidget {
 
@@ -58,6 +59,8 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: Colors.grey.shade200),
       ),
+      onOpened: () => ref.read(popupMenuOpenProvider.notifier).open(),
+      onCanceled: () => ref.read(popupMenuOpenProvider.notifier).close(),
       offset: const Offset(35, -140),
         itemBuilder: (context) => [
           PopupMenuItem(

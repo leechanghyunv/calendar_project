@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'version_manager.dart';
+part of 'dark_light.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$versionManagerHash() => r'd3fc83744c343212456cf6dee40eb861b87eb58e';
+String _$lightDarkModeHash() => r'96c3c1bd035023e1cddfd4bf16cd25c10e858caa';
 
-/// See also [VersionManager].
-@ProviderFor(VersionManager)
-final versionManagerProvider =
-    AutoDisposeAsyncNotifierProvider<VersionManager, String?>.internal(
-  VersionManager.new,
-  name: r'versionManagerProvider',
+/// See also [LightDarkMode].
+@ProviderFor(LightDarkMode)
+final lightDarkModeProvider =
+    AutoDisposeNotifierProvider<LightDarkMode, ThemeMode>.internal(
+  LightDarkMode.new,
+  name: r'lightDarkModeProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$versionManagerHash,
+      : _$lightDarkModeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$VersionManager = AutoDisposeAsyncNotifier<String?>;
+typedef _$LightDarkMode = AutoDisposeNotifier<ThemeMode>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

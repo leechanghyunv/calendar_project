@@ -49,6 +49,11 @@ class TimeManager extends _$TimeManager {
     }
   }
 
+  void moveToMonth(int year, int month) {
+   final selected = DateTime.utc(year, month, 1);
+   state = state.copyWith(selected: selected, focused: selected);
+  }
+
   void moveMonth(int month) {
     final nextMonth = DateTime.utc(
       state.selected.year,

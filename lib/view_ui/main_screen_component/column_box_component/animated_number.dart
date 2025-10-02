@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../../core/export_package.dart';
 import '../../../theme_color.dart';
+import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 
 class AnimatedNumber extends ConsumerWidget {
   final double start;
@@ -19,7 +20,10 @@ class AnimatedNumber extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return TweenAnimationBuilder<double>(
+    final animateText = ref.watch(animationTextProviderProvider);
+
+
+    return animateText ? TweenAnimationBuilder<double>(
         tween: Tween(begin: start, end: end),
         duration: duration,
         builder: (context, value, child) {
@@ -45,6 +49,14 @@ class AnimatedNumber extends ConsumerWidget {
             maxLines: 1,
           );
         }
+    ) : Text(type == true
+        ? '${end.toStringAsFixed(0)}/252'
+        : '${end.toStringAsFixed(0)}/180',
+        textScaler: TextScaler.noScaling,
+        style: TextStyle(
+        height: textHeight,
+        fontWeight: FontWeight.bold, color: Colors.grey.shade700,
+        fontSize: context.width > 450 ? 12.5 : 11),
     );
   }
 }

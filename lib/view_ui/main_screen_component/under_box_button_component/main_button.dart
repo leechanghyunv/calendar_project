@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/popup_menu_provider.dart';
+
 import '../../../core/export_package.dart';
 import '../../../core/export_package.dart' as badges;
 import '../../../view_model/view_provider/focus_node_listner.dart';
@@ -21,7 +23,7 @@ class MainButton extends HookConsumerWidget {
     final appWidth = MediaQuery.of(context).size.width;
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
-
+    final popupAction = ref.watch(popupMenuOpenProvider);
 
     // 🎯 스크롤 함수
     final _scrollToSelected = useCallback((int index, double screenWidth) {
@@ -39,14 +41,16 @@ class MainButton extends HookConsumerWidget {
       }
     }, [_scrollController]);
 
-
     void handleSelection(int index) {
       if (index >= options.length) return;
+
       switch (index) {
         case 0: context.go('/setting'); break;
         case 1: context.go('/calendar'); break;
         case 2: context.go('/statics'); break;
       }
+
+
     }
 
     return isFocused ? SizedBox.shrink() :  Padding(
@@ -101,9 +105,8 @@ class MainButton extends HookConsumerWidget {
                           ),
                         ),
 
-
                         selected: selectedIndex == index,
-                        onSelected: (bool selected) {
+                        onSelected: popupAction ? (_) {} : (bool selected) {
                           ref.read(selectedIndexProvider.notifier)
                               .setIndex(selected ? index : null);
                           if (selected) {
