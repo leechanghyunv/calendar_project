@@ -28,7 +28,8 @@ void showRangeModal(BuildContext context,WidgetRef ref){
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-      return Consumer(builder: (context, ref, child){
+      return Consumer(
+          builder: (context, ref, child){
         final currentPage = ref.watch(modalPageNotifierProvider);
         final isLoading = ref.watch(modalLoadingProvider);
         final  selected = ref.watch(rangeSelectManagerProvider);

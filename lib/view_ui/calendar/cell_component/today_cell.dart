@@ -1,6 +1,6 @@
 
-import '../../core/export_package.dart';
-import '../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../../core/export_package.dart';
+import '../../../view_model/view_provider/calendar_switcher_model.dart';
 
 class TodayCell extends ConsumerWidget {
   final DateTime day;

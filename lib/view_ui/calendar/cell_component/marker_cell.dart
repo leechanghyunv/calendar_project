@@ -2,12 +2,12 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/utils/view_type.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
-import '../../core/export_package.dart';
-import '../../repository/time/calendar_time_controll.dart';
-import '../../theme_color.dart';
-import '../../view_model/view_provider/calendar_switcher_model.dart';
-import '../../view_model/view_provider/is_galaxy_fold.dart';
-import '../../view_model/view_provider/view_type_model.dart';
+import '../../../core/export_package.dart';
+import '../../../repository/time/calendar_time_controll.dart';
+import '../../../theme_color.dart';
+import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../../view_model/view_provider/view_type_model.dart';
 
 
 

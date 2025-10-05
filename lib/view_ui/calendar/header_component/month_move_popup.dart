@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
-import '../dialog/month_move_dialog/month_move_dialog.dart';
+import '../../dialog/month_move_dialog/month_move_dialog.dart';
 
 class ArrowDialogRow extends HookWidget {
 

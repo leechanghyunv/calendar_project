@@ -1,11 +1,12 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 
-import '../../core/export_package.dart';
-import '../../view_model/view_provider/calendar_switcher_model.dart';
-import '../dialog/basic_setting_dialog/basic_setting_dialog.dart';
-import '../screen/calendar_screen/provider/popup_menu_provider.dart';
-import '../screen/range_history_screen/component/range_history_modal_component.dart';
-import '../screen/user_statistics_screen/component/auth_modal_component.dart';
+import '../../dialog/basic_setting_dialog/basic_setting_dialog.dart';
+import '../../screen/calendar_screen/provider/popup_menu_provider.dart';
+import '../../screen/range_history_screen/component/range_history_modal_component.dart';
+import '../../screen/setting_screen/setting_modal.dart';
+import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
+import '/core/export_package.dart';
+
 
 class SettingPopupWidget extends ConsumerWidget {
   const SettingPopupWidget({super.key});
@@ -47,7 +48,8 @@ class SettingPopupWidget extends ConsumerWidget {
             showBasicModal(context,false);
             break;
           case 'settings':
-            ref.read(calendarSwitcherProvider.notifier).toggle();
+            showSettingModal(context);
+            // ref.read(calendarSwitcherProvider.notifier).toggle();
             break;
           case 'theme':
             showDialog(

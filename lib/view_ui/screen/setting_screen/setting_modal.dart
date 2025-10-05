@@ -1,8 +1,8 @@
+import 'package:calendar_project_240727/view_ui/screen/setting_screen/setting_screen.dart';
+
 import '../../../../core/export_package.dart';
-import '../../auth_screen/auth_screen_exSurvey.dart';
 
-
-void showBasicModal(BuildContext context,bool survey) {
+void showSettingModal(BuildContext context){
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
@@ -18,7 +18,7 @@ void showBasicModal(BuildContext context,bool survey) {
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-      final modalHeight = Platform.isAndroid ? screenHeight * 0.625 : screenHeight * 0.725;
+      final modalHeight = screenHeight * 0.725;
       return Container(
         height: modalHeight,
         /// 안드로이드의 키보드가 더 높기때문에 overflow 에러가 발생 해답은 이렇게 해결
@@ -41,8 +41,7 @@ void showBasicModal(BuildContext context,bool survey) {
               ),
             ),
             Expanded(
-
-              child: ExSurveyAuthScreen(),
+              child: AppSettingScreen(),
             ),
           ],
         ),
@@ -50,6 +49,3 @@ void showBasicModal(BuildContext context,bool survey) {
     },
   );
 }
-
-
-

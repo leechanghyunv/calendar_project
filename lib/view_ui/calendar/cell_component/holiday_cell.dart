@@ -1,10 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 
-import '../../core/export_package.dart';
-import '../../theme_color.dart';
-import '../../view_model/view_provider/calendar_switcher_model.dart';
-import '../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../../core/export_package.dart';
+import '../../../theme_color.dart';
+import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 
 
 class HolidayCell extends ConsumerWidget {
