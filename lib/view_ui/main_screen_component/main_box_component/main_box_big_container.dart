@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
@@ -26,7 +27,6 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
     final animateText = ref.watch(animationTextProviderProvider);
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
-
     final commonShadow = Platform.isAndroid
         ? [Shadow(blurRadius: 0.25, color: Colors.grey, offset: Offset(0.25, 0.25))]
         : null;
@@ -73,7 +73,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
             SizedBox(width: 10),
             Container(
               decoration: BoxDecoration(
-                color: Colors.teal.shade100,
+                color: context.isLight ? Colors.teal.shade100 : Colors.teal.shade900,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
@@ -89,7 +89,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
                         _ => 11,
                       },
                       fontWeight: FontWeight.w700,
-                      color: Colors.teal.shade700),
+                      color: context.isLight ? Colors.teal.shade700 : Colors.tealAccent),
                 ),
               ),
 

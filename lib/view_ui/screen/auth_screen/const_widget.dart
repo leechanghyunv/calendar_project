@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
@@ -29,7 +30,7 @@ class InfoRow extends StatelessWidget {
           children: [
             bigText(title, height),
             if (subtitle != null && height > 750)
-              smallText(subtitle!, height)
+              smallText(context,subtitle!, height)
             else
               const SizedBox.shrink(),
           ],
@@ -58,7 +59,9 @@ class ValidationText extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 5),
-        ErrorText(' ${text}',appWidth),
+        /// Colors.grey[700]
+        ErrorText(' ${text}',appWidth,
+        color: context.subTextColor),
         SizedBox(height: appHeight > 750 ? 15 : 12.5),
       ],
     );
@@ -80,12 +83,14 @@ class ValidationTextRow extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: ErrorText(' ${right}',appWidth),
+          child: ErrorText(' ${right}',appWidth,
+              color: context.subTextColor),
         ),
         SizedBox(width: 20),
         Expanded(
           flex: 2,
-          child: ErrorText(' ${left}',appWidth),
+          child: ErrorText(' ${left}',appWidth,
+              color: context.subTextColor),
         ),
 
       ],

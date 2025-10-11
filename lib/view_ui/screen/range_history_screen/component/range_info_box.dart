@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+
 import '../../../../core/export_package.dart';
 
 class RangeInfoBox extends StatelessWidget {
@@ -17,21 +19,7 @@ class RangeInfoBox extends StatelessWidget {
     return Container(
       height: height > 750 ? (width > 400 ? 205.0 : (width < 375 ? 185.0 : 195.0)) : 180,
       width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: Colors.grey.shade900,
-          width: 0.35,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      decoration: context.cardDecoration,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
         child: Column(

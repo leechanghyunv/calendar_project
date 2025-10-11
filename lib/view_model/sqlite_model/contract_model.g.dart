@@ -303,6 +303,136 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
+String _$updateSubsidyHash() => r'd5d63c423d0a0e108e8b4d7af0b61a793c482cd9';
+
+/// See also [updateSubsidy].
+@ProviderFor(updateSubsidy)
+const updateSubsidyProvider = UpdateSubsidyFamily();
+
+/// See also [updateSubsidy].
+class UpdateSubsidyFamily extends Family<AsyncValue<void>> {
+  /// See also [updateSubsidy].
+  const UpdateSubsidyFamily();
+
+  /// See also [updateSubsidy].
+  UpdateSubsidyProvider call(
+    int newSubsidy,
+  ) {
+    return UpdateSubsidyProvider(
+      newSubsidy,
+    );
+  }
+
+  @override
+  UpdateSubsidyProvider getProviderOverride(
+    covariant UpdateSubsidyProvider provider,
+  ) {
+    return call(
+      provider.newSubsidy,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateSubsidyProvider';
+}
+
+/// See also [updateSubsidy].
+class UpdateSubsidyProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [updateSubsidy].
+  UpdateSubsidyProvider(
+    int newSubsidy,
+  ) : this._internal(
+          (ref) => updateSubsidy(
+            ref as UpdateSubsidyRef,
+            newSubsidy,
+          ),
+          from: updateSubsidyProvider,
+          name: r'updateSubsidyProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$updateSubsidyHash,
+          dependencies: UpdateSubsidyFamily._dependencies,
+          allTransitiveDependencies:
+              UpdateSubsidyFamily._allTransitiveDependencies,
+          newSubsidy: newSubsidy,
+        );
+
+  UpdateSubsidyProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.newSubsidy,
+  }) : super.internal();
+
+  final int newSubsidy;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(UpdateSubsidyRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateSubsidyProvider._internal(
+        (ref) => create(ref as UpdateSubsidyRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        newSubsidy: newSubsidy,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _UpdateSubsidyProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateSubsidyProvider && other.newSubsidy == newSubsidy;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, newSubsidy.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateSubsidyRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `newSubsidy` of this provider.
+  int get newSubsidy;
+}
+
+class _UpdateSubsidyProviderElement
+    extends AutoDisposeFutureProviderElement<void> with UpdateSubsidyRef {
+  _UpdateSubsidyProviderElement(super.provider);
+
+  @override
+  int get newSubsidy => (origin as UpdateSubsidyProvider).newSubsidy;
+}
+
 String _$clearContractHash() => r'9c2f4c31365bca589a4530878746413b875df7b1';
 
 /// See also [clearContract].

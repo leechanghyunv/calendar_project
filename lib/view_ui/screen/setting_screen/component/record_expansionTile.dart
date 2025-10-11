@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 
@@ -34,10 +35,11 @@ class CustomExpansionTile extends HookWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidget(title, 15, context.width),
+                    TextWidget(title, 15, context.width,
+                    color: context.textColor),
                     const SizedBox(height: 2.5),
                     TextWidget(subtitle, 12, context.width,
-                        color: Colors.grey.shade500),
+                        color: context.subTextColor),
                   ],
                 ),
                 const Spacer(),

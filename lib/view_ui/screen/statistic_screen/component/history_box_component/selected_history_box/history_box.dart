@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
@@ -29,13 +31,13 @@ class HistoryBox extends ConsumerWidget {
           Container(
             width: width,
             decoration: BoxDecoration(
-              color: Colors.grey.shade100,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: Colors.grey.shade800,
+                color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
                 width: 0.35,
               ),
-              boxShadow: [
+              boxShadow: context.isDark ? null : [
                 BoxShadow(
                   color: Colors.grey.shade300,
                   blurRadius: 2,
@@ -49,12 +51,12 @@ class HistoryBox extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget('${formatSelectedDate(selectedHistory.startDate)} ~ ${formatSelectedDate(selectedHistory.endDate)}',
-                      11, context.width,color: Colors.grey.shade700),
+                      11, context.width,color: context.subTextColor),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 7.0),
                     child: TextWidget('${selectedHistory.memo}',
-                        18, context.width)
+                        18, context.width,color: context.textColor)
                   ),
                   Row(
                     children: [
@@ -124,25 +126,19 @@ class MomoChip extends StatelessWidget {
         final type = result[index];
 
         Widget  MoreText = TextWidget(type == ' 더보기... ' ? '$type' : '#$type',
-            11, width,color: Colors.grey.shade800);
+            11, width,color: context.textColor);
 
         return type.isNotEmpty ?  Container(
           height: height > 750 ? (width > 400 ? 24 : 23) : 22,
           padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
           decoration: BoxDecoration(
-            color: Colors.grey.shade100,
+            color: context.isDark ? Colors.black87 : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: Colors.grey.shade700,
+              color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
               width: 0.25,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade400,
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
+            boxShadow: context.defaultShadow,
           ),
           child: type == ' 더보기... '
               ? HistoryInfoMenuButton(selectedHistory: selectedHistory)

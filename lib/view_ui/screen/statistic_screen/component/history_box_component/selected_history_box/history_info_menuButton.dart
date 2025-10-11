@@ -1,6 +1,6 @@
 import '../../../../../../core/export_package.dart';
 import '../../../../../../model/selected_history_model.dart';
-import '../../../../../../theme_color.dart';
+import '../../../../../../core/extentions/theme_color.dart';
 import '../../../../calendar_screen/provider/popup_menu_provider.dart';
 
 class HistoryInfoMenuButton extends ConsumerStatefulWidget {
@@ -28,12 +28,14 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
     color: Colors.grey.shade400,
   );
 
-  Widget chartInText(String text){
+  Widget chartInText(BuildContext context,String text){
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Text(text,
           textScaler: TextScaler.noScaling,
-          style: chartInStyle),
+          style: chartInStyle.copyWith(
+            color: context.isDark ? Colors.grey.shade200 : null,
+          )),
     );
   }
 
@@ -54,7 +56,7 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
     final labels = ['직무', '세전', '세후', '공수', '기간'];
 
     return PopupMenuButton(
-      color: Colors.grey.shade50,
+      color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: Colors.grey.shade200),
@@ -68,7 +70,7 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
             child: Container(
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                color: Colors.grey.shade100,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Padding(
@@ -79,26 +81,26 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
                   children: [
                     Row(
                       children: [
-                        chartInText('- ${labels[1]}:'),
-                        chartInText('${(widget.selectedHistory.money / 10000).toInt()}만원',),
+                        chartInText(context,'- ${labels[1]}:'),
+                        chartInText(context,'${(widget.selectedHistory.money / 10000).toInt()}만원',),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('- ${labels[2]}:'),
-                        chartInText('${(widget.selectedHistory.afterTax / 10000).toInt()}만원',),
+                        chartInText(context,'- ${labels[2]}:'),
+                        chartInText(context,'${(widget.selectedHistory.afterTax / 10000).toInt()}만원',),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('- ${labels[3]}:'),
-                        chartInText('${(widget.selectedHistory.record).toStringAsFixed(1)}공수',),
+                        chartInText(context,'- ${labels[3]}:'),
+                        chartInText(context,'${(widget.selectedHistory.record).toStringAsFixed(1)}공수',),
                       ],
                     ),
                     Row(
                       children: [
-                        chartInText('- ${labels[4]}:'),
-                        chartInText('${widget.selectedHistory.duration}개월'),
+                        chartInText(context,'- ${labels[4]}:'),
+                        chartInText(context,'${widget.selectedHistory.duration}개월'),
                       ],
                     ),
                   ],
@@ -120,7 +122,7 @@ class _HistoryInfoMenuButtonState extends ConsumerState<HistoryInfoMenuButton> {
               : 10)
               : 9.5,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: context.textColor,
         ),
       ),
 

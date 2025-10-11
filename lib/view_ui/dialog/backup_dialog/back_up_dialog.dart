@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/repository/back_up/clipboard_service.dart';
 import 'package:calendar_project_240727/repository/back_up/back_up_service.dart';
 
@@ -51,6 +53,8 @@ class BackUpDialog extends HookConsumerWidget {
 
 
     return AlertDialog(
+      backgroundColor: context.dialogColor,
+      shape: context.dialogShape,
       title: BackupTitleBox(
         focusNode: _backupNode,
       ),
@@ -70,12 +74,12 @@ class BackUpDialog extends HookConsumerWidget {
                   height: 50,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade100,
+                    color: context.bTypeChipColor,
 
                     border: Border.all(
                         color: Colors.grey.shade700,
                         width: 0.85),
-                    boxShadow: [
+                    boxShadow: context.isDark ? null : [
                       BoxShadow(
                         color: Colors.grey.shade300,
                         blurRadius: 2,
@@ -101,12 +105,13 @@ class BackUpDialog extends HookConsumerWidget {
                       _backupController.clear();
                     },
                     iconColor: isStateEmpty.value
-                        ? Colors.grey.shade700
-                        : Colors.blue.shade700,
+                        ? context.isDark ? Colors.grey.shade700 : Colors.grey.shade200
+                        : context.isDark ? Colors.blue.shade700 : Colors.blue.shade200,
                   ),
                 ),
               ),
-              ErrorText(' 근로조건을 저장한 후에 공수 기록이 달력에 반영됩니다.', appWidth),
+              ErrorText(' 근로조건을 저장한 후에 공수 기록이 달력에 반영됩니다.', appWidth,
+              color: context.subTextColor),
               SizedBox(height: 20),
               BackUpBox(),
             ],
@@ -122,7 +127,7 @@ class BackUpDialog extends HookConsumerWidget {
                   Navigator.of(context).pop();
                   ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
                   },
-                child: ButtonTextWidget('공수기록 백업',14, color: Colors.black)
+                child: ButtonTextWidget('공수기록 백업',14, color: context.textColor)
             ),
             TextButton(
               onPressed: () {
@@ -130,7 +135,7 @@ class BackUpDialog extends HookConsumerWidget {
                 Navigator.of(context).pop();
                 context.go('/calendar');
               },
-              child: ButtonTextWidget('확인',15),
+              child: ButtonTextWidget('확인',15,color: context.textColor),
             ),
           ],
         ),

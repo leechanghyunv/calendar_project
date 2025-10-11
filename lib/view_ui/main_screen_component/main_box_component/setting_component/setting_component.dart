@@ -1,5 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_number_animation.dart';
 
@@ -38,7 +40,7 @@ class SettingDisplay extends HookConsumerWidget {
       duration: Duration(milliseconds: 300),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: Colors.teal,
+        color: context.isDark ? Colors.teal.shade900 : Colors.teal,
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -50,7 +52,7 @@ class SettingDisplay extends HookConsumerWidget {
               children: [
                 SizedBox(height: 2.5),
                 TextWidget('설정 공수', 15, context.width,
-                    color: Colors.white),
+                    color: context.buttonColor),
                 context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
                 SettingNumberAnimation(
                     end: currentValue,textSize: 33,pay: false),
@@ -62,12 +64,12 @@ class SettingDisplay extends HookConsumerWidget {
               children: [
                 SizedBox(height: 2.5),
                 TextWidget('예상 일당', 15, context.width,
-                    color: Colors.white),
+                    color: context.buttonColor),
                 context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
                 Text(
                   formattedPay,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: context.buttonColor,
                     fontSize: 30,
                     fontWeight: FontWeight.w800,
                   ),
@@ -104,6 +106,8 @@ class SettingControllerComponent extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    final boxColor =context.isDark ?Colors.grey.shade100 : Colors.grey.shade900;
+    final buttonColor =context.isDark ? Colors.white : Colors.black;
 
     useEffect(() {
       // currentValue가 변경될 때마다 컨트롤러 자동 업데이트
@@ -112,19 +116,13 @@ class SettingControllerComponent extends HookConsumerWidget {
     }, [currentValue]);
 
     Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
+      color: context.isDark ? Colors.black54 : Colors.grey.shade100,
       borderRadius: BorderRadius.circular(10.0),
       border: Border.all(
-        color: decimalFocus.hasFocus ?  Colors.teal.shade700 : Colors.grey.shade900,
+        color: decimalFocus.hasFocus ?  Colors.teal.shade700 : boxColor,
         width: decimalFocus.hasFocus ? 1.75 : 0.55,
       ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
+      boxShadow: context.defaultShadow,
     );
 
     useListenable(decimalFocus);
@@ -146,7 +144,7 @@ class SettingControllerComponent extends HookConsumerWidget {
                     minus();
                   },
                   icon: Icon(Icons.remove,
-                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : Colors.black),
+                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.white,
                   ),
@@ -157,6 +155,7 @@ class SettingControllerComponent extends HookConsumerWidget {
                 Expanded(
                     child: Container(
                       alignment: Alignment.center,
+
                       child: TextFormField(
                         controller: decimalController,
                         focusNode: decimalFocus,
@@ -197,7 +196,7 @@ class SettingControllerComponent extends HookConsumerWidget {
                     plus();
                   },
                   icon: Icon(Icons.add,
-                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : Colors.black),
+                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
                   style: IconButton.styleFrom(
                     backgroundColor: Colors.white,
                   ),
@@ -255,7 +254,8 @@ class MemoStateComponent extends HookConsumerWidget {
     return Row(
       children: [
         SizedBox(width: 5),
-        TextWidget('빠른선택', 16, context.width),
+        TextWidget('빠른선택', 16, context.width,
+            color: context.textColor),
         Spacer(),
         InkWell(
           onTap: () => ref.read(showMemoStateProvider.notifier).memoState(),
@@ -263,8 +263,9 @@ class MemoStateComponent extends HookConsumerWidget {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: context.chipColor,
               borderRadius: BorderRadius.circular(10),
+              border: context.isLight ? null : Border.all(width: 0.25,color: Colors.white),
             ),
             width: 120,
             height: 30,
@@ -272,7 +273,7 @@ class MemoStateComponent extends HookConsumerWidget {
               '${ref.monthString}월 메모 보기',
               15,
               context.width,
-              color: Colors.grey.shade800,
+              color: context.chipTextColor,
             ),
           ),
         ),

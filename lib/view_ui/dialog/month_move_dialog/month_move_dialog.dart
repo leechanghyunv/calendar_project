@@ -1,6 +1,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 
@@ -19,24 +21,34 @@ class MonthMoveDialog extends HookConsumerWidget {
     final rowCount = isSmall ? 4 : 3;
     final colCount = isSmall ? 3 : 4;
     return AlertDialog(
-      backgroundColor: Colors.grey.shade50,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      backgroundColor:  context.dialogColor,
+      shape: context.dialogShape,
       title: Row(
         children: [
           PopupMenuButton<int>(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+              side: BorderSide(
+                  width: 0.5,
+                  color: Colors.grey.shade200),
+            ),
             itemBuilder: (context) => years
                 .map((year) => PopupMenuItem(
               value: year,
-              child: TextWidget('$year년', 15, context.width),
+              child: TextWidget('$year년', 15, context.width,
+                  color: context.textColor),
             ))
                 .toList(),
             child: Row(
               children: [
-                TextWidget('${selectedYear.value}년', 18, context.width),
+                TextWidget('${selectedYear.value}년', 18, context.width,
+                    color: context.textColor),
                 const SizedBox(width: 2.5),
                 Padding(
                   padding: EdgeInsets.only(bottom: 4.0),
-                  child: Icon(Icons.keyboard_arrow_down_rounded, size: 25.5, color: Colors.grey.shade900),
+                  child: Icon(Icons.keyboard_arrow_down_rounded, size: 25.5,
+                      color: context.textColor),
                 ),
               ],
             ),
@@ -53,7 +65,7 @@ class MonthMoveDialog extends HookConsumerWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7.5),
-              color: Colors.grey.shade100,
+              color: context.isDark ? Colors.black87 : Colors.grey.shade100,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -75,10 +87,16 @@ class MonthMoveDialog extends HookConsumerWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                             decoration: BoxDecoration(
-                              color: isSelected ? Colors.grey.shade300 : Colors.grey.shade100,
+                              color: isSelected
+                                  ? context.isDark ? Colors.black : Colors.grey.shade300
+                                  : context.isDark ? Colors.black : Colors.grey.shade100,
                               borderRadius: BorderRadius.circular(7.5),
+                              border: context.isLight
+                                  ? null
+                                  : isSelected ? Border.all(width: 1.25,color: Colors.white) : null,
                             ),
-                            child: TextWidget('${month.toString().padLeft(2, '0')}월', 15, context.width),
+                            child: TextWidget('${month.toString().padLeft(2, '0')}월',
+                                15, context.width,color: context.textColor),
                           ),
                         );
                       }),
@@ -94,7 +112,8 @@ class MonthMoveDialog extends HookConsumerWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('나가기', 15, context.width),
+          child: TextWidget('나가기', 15, context.width,
+              color: context.textColor),
         ),
         TextButton(
           onPressed: selectedMonth.value != null
@@ -103,8 +122,9 @@ class MonthMoveDialog extends HookConsumerWidget {
             ref.timeNot.moveToMonth(selectedYear.value, selectedMonth.value!);
             Navigator.of(context).pop();
           }
-              : null,
-          child: TextWidget('확인', 15, context.width),
+          : null,
+          child: TextWidget('확인', 15, context.width,
+              color: context.textColor),
         ),
       ],
     );

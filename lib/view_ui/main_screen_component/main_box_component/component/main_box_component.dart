@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../../core/export_package.dart';
 
 class CircularIconButton extends StatelessWidget {
@@ -70,6 +72,7 @@ class CircularComponent extends StatelessWidget {
         width: width,
         height: appWidth > 400 ? 32 : 27.5,
         decoration: BoxDecoration(
+          border: context.isLight ? null : Border.all(width: 0.35, color: Colors.white),
           borderRadius: BorderRadius.circular(10),
           color: backgroundColor,
         ),

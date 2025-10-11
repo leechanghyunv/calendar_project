@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import '../provider/info_box_provider.dart';
 import '../provider/statistic_switch_provider.dart';
@@ -31,9 +32,7 @@ class GoalAnimatedSwitcher extends HookConsumerWidget {
           : Column(
         key: const ValueKey('on'),
         children: [
-          GoalRecordBox(
-            Colors.green.shade700,
-          ),
+          GoalRecordBox(),
           SizedBox(height: height > 750 ? 20.0 : 15.0),
         ],
       ),
@@ -45,9 +44,7 @@ class GoalAnimatedSwitcher extends HookConsumerWidget {
 
 class GoalRecordBox extends ConsumerWidget {
 
-  final Color color;
-
-  const GoalRecordBox(this.color, {super.key});
+  const GoalRecordBox({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -81,7 +78,7 @@ class GoalRecordBox extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: height > 750 ? (width > 400 ? 22 : 20) : 18.5,
                           fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                          color: Colors.black,
+                          // color: Colors.black,
                         ),
                       ),
 
@@ -93,7 +90,7 @@ class GoalRecordBox extends ConsumerWidget {
                             text: '목표금액은 ',
                             style: TextStyle(
                               fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                              color: Colors.grey.shade700,
+                              color: context.isDark ? null : Colors.grey.shade700,
                             ),
                             children: <TextSpan>[
                               TextSpan(
@@ -101,7 +98,7 @@ class GoalRecordBox extends ConsumerWidget {
                                 style: TextStyle(
                                   fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                   letterSpacing: 0.75,
-                                  color: Colors.black,
+                                  // color: Colors.black,
                                 ),
                               ),
                               TextSpan(text: ' 으로 설정'),
@@ -122,7 +119,7 @@ class GoalRecordBox extends ConsumerWidget {
                                   style: TextStyle(
                                     fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                     fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                                    color: Colors.grey.shade700,
+                                    color: context.isDark ? null : Colors.grey.shade700,
                                   ),
                                   children: <TextSpan>[
                                     TextSpan(
@@ -130,7 +127,7 @@ class GoalRecordBox extends ConsumerWidget {
                                       style: TextStyle(
                                         fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                         letterSpacing: 0.75,
-                                        color: Colors.grey.shade700,
+                                        color: context.isDark ? null : Colors.grey.shade700,
                                       ),
                                     ),
                                     TextSpan(text: ' 달성'),
@@ -156,7 +153,7 @@ class GoalRecordBox extends ConsumerWidget {
             style: TextStyle(
               fontSize: height > 750 ? (width > 400 ? 22 : 20) : 18.5,
               fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-              color: Colors.black,
+              // color: Colors.black,
             ),
           ),
           Padding(
@@ -167,7 +164,7 @@ class GoalRecordBox extends ConsumerWidget {
                 text: '목표금액은 ',
                 style: TextStyle(
                   fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
-                  color: Colors.grey.shade700,
+                  color: context.isDark ? null : Colors.grey.shade700,
                 ),
                 children: <TextSpan>[
                   TextSpan(
@@ -175,7 +172,7 @@ class GoalRecordBox extends ConsumerWidget {
                     style: TextStyle(
                       fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                       letterSpacing: 0.75,
-                      color: Colors.black,
+                      // color: Colors.black,
                     ),
                   ),
                   TextSpan(text: ' 으로 설정합니다.'),

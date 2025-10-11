@@ -1,6 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 
@@ -23,7 +24,8 @@ class SelectedCell extends ConsumerWidget {
       height: isExpanded ? 50 : 100,
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
-        color: Colors.grey.shade600,
+        color:  context.isDark ? null : Colors.grey.shade600,
+        border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,

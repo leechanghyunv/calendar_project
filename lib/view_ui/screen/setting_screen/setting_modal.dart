@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/setting_screen/setting_screen.dart';
 
 import '../../../../core/export_package.dart';
@@ -6,7 +7,6 @@ void showSettingModal(BuildContext context){
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
-    backgroundColor: Colors.black26,
     context: context,
     isDismissible: true,
     enableDrag: true,
@@ -15,6 +15,10 @@ void showSettingModal(BuildContext context){
         topLeft: Radius.circular(20),
         topRight: Radius.circular(20),
       ),
+      side: context.isDark ? BorderSide(
+        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+        width: 1,
+      ) : BorderSide.none,
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;

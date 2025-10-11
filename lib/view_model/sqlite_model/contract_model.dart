@@ -1,12 +1,8 @@
-
 import 'dart:core';
 
 import 'package:calendar_project_240727/repository/sqlite/sqlite_contract_database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
 import '../../model/contract_model.dart';
-
-
 part 'contract_model.g.dart';
 
 
@@ -31,7 +27,15 @@ Future<void> updateContract(UpdateContractRef ref, int goal) async {
   db.updateLastLabourConditionGoal(goal);
   await Future.delayed(const Duration(milliseconds: 200));
   ref.invalidate(viewContractProvider);
+}
 
+
+@riverpod
+Future<void> updateSubsidy(UpdateSubsidyRef ref,int newSubsidy) async {
+  final db = await ref.read(labourConditionManagerProvider.future);
+  await db.updateLastLabourConditionSubsidy(newSubsidy);
+  await Future.delayed(const Duration(milliseconds: 200));
+  ref.invalidateSelf();
 }
 
 @riverpod

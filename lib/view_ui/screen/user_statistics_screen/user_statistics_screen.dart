@@ -1,9 +1,10 @@
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../main_screen_component/column_box_component/indicator_box.dart';
 import '../auth_screen/component/auth_text.dart';
 import 'component/auth_modal_component.dart';
 import 'component/statistics_filter_chip.dart';
@@ -21,7 +22,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: NestedScrollView(
             controller: nestedScrollController,
@@ -40,7 +41,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                         Container(
                           height: height > 800 ? 190 : height > 750 ? 180 : 165,
                           width: context.width,
-                          decoration: UserSettingBoxDecoration,
+                          decoration: context.OpeningBoxDeco,
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 vertical: height > 750 ? 12.0 : 8.0, horizontal: 16.0),
@@ -57,7 +58,8 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                       size: width > 400 ? 18 : 17,
                                     ),
                                     SizedBox(width: 5),
-                                    TextWidget('안녕하세요 워크캘린더입니다.',15,width),
+                                    TextWidget('안녕하세요 워크캘린더입니다.',15,width,
+                                    color: context.textColor),
                                   ],
                                 ),
                                 Padding(
@@ -70,26 +72,25 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     /// 근로조건 설정하기
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: (){
-                                          showBasicModal(context,false);
-                                        },
+                                        onTap: () => showBasicModal(context,false),
                                         child: Container(
                                           height: height > 750 ? 32.5 : 30.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
-                                            color: Colors.teal,
+                                            color: context.isDark ? Colors.teal.shade900 : Colors.teal,
                                             borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
+                                            // border: context.defaultBorder,
+                                            boxShadow: context.isDark ? null : [
                                               BoxShadow(
                                                 color: Colors.grey.shade300,
-                                                blurRadius: 5,
+                                                blurRadius: 3,
                                                 offset: const Offset(2, 5),
                                               ),
                                             ],
                                           ),
                                           child: TextWidget(
                                               '근로조건 설정하기', 15, width,
-                                              color: Colors.grey.shade100),
+                                              color: context.buttonColor),
                                         ),
                                       ),
                                     ),

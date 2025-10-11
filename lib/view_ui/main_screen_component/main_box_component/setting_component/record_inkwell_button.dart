@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../../core/export_package.dart';
 
@@ -24,19 +26,13 @@ class RecordButton extends HookConsumerWidget {
       width: width ?? 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        color: backgroundColor ?? Colors.grey.shade100,
+        color: backgroundColor ?? context.bTypeChipColor,
         borderRadius: BorderRadius.circular(15.0),
         border: Border.all(
           color: borderColor ?? Colors.grey.shade400,
           width: 2.0,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: context.defaultShadow,
       ),
       duration: const Duration(seconds: 1),
       child: Material(

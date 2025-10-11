@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../core/export_package.dart';
 
 import 'header_component/month_move_popup.dart';
@@ -13,6 +14,8 @@ class CalendarHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     final appWidth =  context.width;
 
     return Padding(
@@ -40,7 +43,8 @@ class CalendarHeader extends ConsumerWidget {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 border: Border.all(
                     width: 1.5,
-                    color: Colors.grey.shade900),
+                    color: context.isLight ?  Colors.grey.shade900 : Colors.white,
+                ),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -51,7 +55,7 @@ class CalendarHeader extends ConsumerWidget {
                   style: TextStyle(
                     fontSize: appWidth >= 450 ? 17 : 16,
                     fontWeight: FontWeight.w800,
-                    color: Colors.grey.shade800,
+                    color: context.isLight ?  Colors.grey.shade800 : Colors.white,
                   ),
                 ),
               ),

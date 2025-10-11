@@ -1,6 +1,8 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 import '../../minor_issue/widget/indicator_widget.dart';
 import 'animated_number.dart';
 
@@ -13,17 +15,16 @@ Widget buildStatsBox({
   required double progress,
   required Color progressColor,
   required String description,
+  required BuildContext context,
 }) {
   return Container(
-
-    decoration: MainBoxDecoration,
+    decoration: context.boxDecoration,
     width: width,
     height: height,
     child: Padding(
       padding: const EdgeInsets.all(8.0),
       child: LayoutBuilder(
           builder: (context, constraints){
-
             final appWidth = MediaQuery.of(context).size.width;
             final heightValue = appWidth < 376 ? 3.0 : 4.0;
 
@@ -56,15 +57,17 @@ Widget buildStatsBox({
                   ],
                 ),
                 const SizedBox(height: 5),
-                IndicatorWidget(heightValue,constraints.maxWidth,
+                IndicatorWidget(context.isDark, heightValue,constraints.maxWidth,
                     progress, progressColor),
                 const SizedBox(height: 5),
                 Text(description,
                   textScaler: TextScaler.noScaling,
                     style: TextStyle(
+                        color: context.textColor,
                         height: textHeight,
-                        fontWeight: FontWeight.w500,
-                        fontSize: font),
+                        fontWeight: context.isDark ? FontWeight.w600 : FontWeight.w500,
+                        fontSize: font,
+                    ),
                 ),
               ],
             );
@@ -74,32 +77,4 @@ Widget buildStatsBox({
   );
 }
 
-BoxDecoration get MainBoxDecoration => BoxDecoration(
-  color: boxColor,
-  borderRadius: BorderRadius.circular(8),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.grey.withOpacity(0.2),
-      spreadRadius: 1,
-      blurRadius: 4,
-      offset: const Offset(0, 2),
-    ),
-  ],
-);
 
-BoxDecoration get UserSettingBoxDecoration => BoxDecoration(
-  color: Colors.grey.shade100,
-  borderRadius: BorderRadius.circular(12),
-  border: Border.all(
-    width: 0.75,
-    // color: Colors.grey.shade300,
-  ),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.grey.withOpacity(0.2),
-      spreadRadius: 1,
-      blurRadius: 4,
-      offset: const Offset(0, 2),
-    ),
-  ],
-);

@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/quickSelectChip_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_component.dart';
@@ -13,6 +14,8 @@ import '../../../../view_model/sqlite_model/history_model.dart';
 import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
+import '../../../widgets/elevated_button.dart';
+import '../../../widgets/left_eleveted_button.dart';
 
 class SettingScreen extends HookConsumerWidget {
   const SettingScreen({super.key});
@@ -112,6 +115,7 @@ class SettingScreen extends HookConsumerWidget {
 
 
     return Scaffold(
+
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: context.height > 750 ? 16.0 : 8.0, horizontal: 24.0),
@@ -128,17 +132,17 @@ class SettingScreen extends HookConsumerWidget {
                         children: [
                           TextWidget(
                               showRange ? '공수 범위 등록' : '${ref.monthString}월 ${ref.dayString}일 등록',
-                              18, context.width),
+                              18, context.width,color: context.textColor),
                           Spacer(),
                           CircleAvatar(
                             radius: 17.5,
-                            backgroundColor: Colors.grey.shade200,
+                            backgroundColor: context.chipColor,
                             child: GestureDetector(
                               onTap: () => Navigator.pop(context),
                               child: Icon(
-                                size: 17.5,
+                                size: context.isDark ? 22.5 : 17.5,
                                 Icons.close_outlined,
-                                color: Colors.grey.shade800,
+                                color: context.chipTextColor,
                               ),
                             ),
                           ),
@@ -169,7 +173,7 @@ class SettingScreen extends HookConsumerWidget {
                                 child: TextWidget(
                                     '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일 ${ref.weekdayKr}',
                                     15.5, context.width,
-                                    color: Colors.grey.shade800),
+                                    color: context.chipTextColor),
 
                               ),
                             ),
@@ -178,16 +182,22 @@ class SettingScreen extends HookConsumerWidget {
                           Flexible(
                             flex: 2,
                             child: RecordButton(
-                              backgroundColor: showRange ? Colors.teal.shade50 : Colors.grey.shade100,
-                              borderColor: showRange ? Colors.teal.shade600 : Colors.teal.shade400,
+                              backgroundColor: showRange
+                                  ? context.rangeChipColor
+                                  : context.bTypeChipColor,
+                              borderColor: showRange
+                                  ? Colors.teal.shade600
+                                  : Colors.teal.shade400,
                               onTap: (){
                                 if (!showRange) {
                                   Future.microtask(() => rangeFocus.requestFocus());
                                 }
                                 ref.read(showRangeStateProvider.notifier).rangeState();
                               },
-                              icon: TextWidget(showRange ? '단일 날짜': '범위 설정', 16,
-                                  context.width,color: showRange ? Colors.teal.shade800 : Colors.teal.shade800),
+                              icon: TextWidget(
+                                  showRange ? '단일 날짜': '범위 설정', 16,
+                                  context.width,
+                                  color: context.idChipTextColor),
                               width: 300,
                             ),
                           ),
@@ -290,47 +300,54 @@ class SettingScreen extends HookConsumerWidget {
           children: [
             Expanded(
               flex: 1,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey.shade100,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.5),
-                  ),
-                  elevation: 2,
-                ),
+              child: LeftElevatedButton(
+                text: '휴일등록',
                 onPressed: (){
                   ref.decimalRead.onChangeDecimal(0.0);
                   ref.decimalRead.onSubmit(decimal: 0.0);
                 },
-                child: TextWidget('휴일등록', 15, context.width, color: Colors.black),
               ),
             ),
             SizedBox(width: 10),
             Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.5),
-                    ),
-                    elevation: 1,
-                  ),
-                  onPressed: ()  {
+              flex: 2,
+              child: CustomElevatedButton(
+                text: '설정완료',
+                onPressed: (){
+                  ref.decimalRead.onChangeDecimal(currentValue.toDouble());
+                  if (showRange) {
+                    ref.decimalRead.onSubmitMonthAll(
+                      dateRange.value![0],dateRange.value![1],
+                    );
+                  } else {
+                    ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
+                  }
+                },
 
-                    ref.decimalRead.onChangeDecimal(currentValue.toDouble());
-                    if (showRange) {
-                      ref.decimalRead.onSubmitMonthAll(
-                        dateRange.value![0],dateRange.value![1],
-                      );
-                    } else {
-                      ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
-                    }
-                  },
-                  child: TextWidget('설정완료', 16,
-                      context.width,color: Colors.white)),
+              ),
+              // child: ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
+              //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(12.5),
+              //       ),
+              //       elevation: 1,
+              //     ),
+              //     onPressed: ()  {
+              //       ref.decimalRead.onChangeDecimal(currentValue.toDouble());
+              //       if (showRange) {
+              //         ref.decimalRead.onSubmitMonthAll(
+              //           dateRange.value![0],dateRange.value![1],
+              //         );
+              //       } else {
+              //         ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
+              //       }
+              //
+              //     },
+              //     child: TextWidget('설정완료', 16,
+              //         context.width,color: context.buttonColor),
+              // ),
             ),
 
           ],

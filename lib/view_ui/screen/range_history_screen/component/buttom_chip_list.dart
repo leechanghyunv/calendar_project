@@ -1,8 +1,9 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/chip_action_provider.dart';
 
 import '../../../../core/export_package.dart';
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 
 class BottomManagerChip extends HookConsumerWidget {
   const BottomManagerChip({super.key});
@@ -42,19 +43,13 @@ class BottomManagerChip extends HookConsumerWidget {
                     horizontal: width > 375 ? 7 : 4,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected ? Colors.grey.shade300 : Colors.grey.shade200,
+                  color: isSelected ? context.selectedChipColor : context.chipColor,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                     color: isSelected ? Colors.grey.shade600 : Colors.grey.shade400,
                     width: isSelected ? 1.5 : 1.25,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 4,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
+                  boxShadow: context.defaultShadow,
                 ),
                 child: Text(
                   ' ${option} ',
@@ -63,7 +58,7 @@ class BottomManagerChip extends HookConsumerWidget {
                     height: textHeight,
                     fontSize: width > 400 ? 14.5 : 13.5,
                     fontWeight: FontWeight.bold,
-                    color: isSelected ? Colors.black : Colors.grey.shade800,
+                    color: isSelected ? context.textColor : context.chipTextColor,
                   ),
                 ),
               ),

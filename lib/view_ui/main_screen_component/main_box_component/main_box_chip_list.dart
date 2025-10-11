@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_model/view_provider/display_view_record_model.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:path/path.dart' as go;
@@ -23,7 +24,7 @@ class ChipList extends HookConsumerWidget {
     final formZRefRead = ref.decimalRead;
 
     final chipList = switch (displayValue) {
-      AsyncData(value: final model) => model.chipList,
+      AsyncData(value: final model) => model.chipList(context),
       _ => <Map<String, dynamic>>[],
     };
 
@@ -100,8 +101,7 @@ class ChipList extends HookConsumerWidget {
                   }
 
                   },
-                  child: _buildChip(chipList[index],
-                    appWidth,
+                  child: _buildChip(chipList[index], context,
                     isSelected: selectedIndex == index,
                   ),
               ),
@@ -112,11 +112,14 @@ class ChipList extends HookConsumerWidget {
 
   Widget _buildChip(
       Map<String, dynamic> chipData,
-      double width,
+      BuildContext context,
       {bool isSelected = false,
       }) {
+
+   final isLight = Theme.of(context).brightness == Brightness.light;
+
     return Container(
-      height: switch (width) {
+      height: switch (context.width) {
         > 450 => 26,
         > 420 => 21,
         > 400 => 21,
@@ -124,16 +127,16 @@ class ChipList extends HookConsumerWidget {
       },
 
       decoration: BoxDecoration(
-        color: Colors.grey.shade200, // 드래그 중 색상 변경
+        color: isLight ? Colors.grey.shade200 : Colors.black54, // 드래그 중 색상 변경
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(isLight ? 0.2 : 0.1),
             spreadRadius: 1.5,
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
-        ],
+        ] ,
         border: Border.all(
             color: isSelected ? Colors.black : Colors.grey.shade800,
             width: isSelected ? 1.25 : 0.75,
@@ -147,11 +150,25 @@ class ChipList extends HookConsumerWidget {
             children: [
               Platform.isAndroid ? SvgPicture.asset(
                 'assets/${chipData['icon']!}.svg',
-                width: switch (width) {
+                width: switch (context.width) {
                   > 450 => 13,
                   > 420 => 12,
                   > 400 => 11.5,
                   _ => 11,
+                },
+                colorFilter: ColorFilter.mode(
+                  chipData['color'],
+                  BlendMode.srcIn,
+                ),
+                clipBehavior: Clip.antiAlias,
+
+              ) :  context.isDark ? SvgPicture.asset(
+                'assets/${chipData['icon']!}.svg',
+                width: switch (context.width) {
+                  > 450 => 13.5,
+                  > 420 => 12.5,
+                  > 400 => 12,
+                  _ => 11.5,
                 },
                 colorFilter: ColorFilter.mode(
                   chipData['color'],
@@ -166,12 +183,12 @@ class ChipList extends HookConsumerWidget {
                 ' ${chipData['value']!} ',
                 style:  TextStyle(
                   fontSize: Platform.isAndroid
-                      ? switch (width) {
+                      ? switch (context.width) {
                     > 450 => 15,
                     > 420 => 13,
                     > 400 => 12.5,
                     _ => 12,
-                  } : switch (width) {
+                  } : switch (context.width) {
                     > 450 => 14.5,
                     > 420 => 12.5,
                     > 400 => 12,

@@ -1,6 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 
@@ -17,8 +18,8 @@ class OutSideCell extends ConsumerWidget {
     final appWidth = context.width;
     final switcher = ref.watch(calendarSwitcherProvider);
 
-    bool hasMarker = day.weekday ==
-        DateTime.saturday; // Example condition for markers
+    bool hasMarker = day.weekday == DateTime.saturday;
+    bool hasMarker2 = day.weekday == DateTime.sunday;
 
     final textWidget = Text(
       '${day.day}',
@@ -30,7 +31,9 @@ class OutSideCell extends ConsumerWidget {
           _ => 15,
         },
         fontWeight: FontWeight.w700,
-        color: hasMarker ? Colors.blue.shade100 : Colors.grey.shade400,
+        color: hasMarker ? context.isDark ? Colors.teal.shade100 : Colors.blue.shade100
+             : hasMarker2 ? Colors.teal.shade100
+             : Colors.grey.shade400,
       ),
     );
 
@@ -39,6 +42,7 @@ class OutSideCell extends ConsumerWidget {
       margin:  EdgeInsets.all(4.0.r),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0.r),
+
       ),
       child: switcher.maybeWhen(
         data: (useColumn) {

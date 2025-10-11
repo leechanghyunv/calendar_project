@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../core/export_package.dart';
 import '../dialog_text.dart';
@@ -43,7 +44,10 @@ class BackupTitleBox extends HookWidget {
               child: SizedBox(
                 child: Row(
                   children: [
-                    DialogTextWidget('공수데이터 백업관리', appWidth > 400 ? 17 : 15.5),
+                    DialogTextWidget(
+                        '공수데이터 백업관리',
+                        appWidth > 400 ? 17 : 15.5,
+                        color: context.textColor),
                   ],
                 ),
               ),

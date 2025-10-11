@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../core/export_package.dart';
 import '../dialog_text.dart';
@@ -40,8 +41,12 @@ class BackUpTextField extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: BackupFontStyle(13,width: appWidth),
-            labelStyle: BackupFontStyle(15,height: 1.5,),
+            hintStyle: BackupFontStyle(13,width: appWidth).copyWith(
+              color: context.subTextColor,
+            ),
+            labelStyle: BackupFontStyle(15,height: 1.5,).copyWith(
+              color: context.subTextColor,
+            ),
             suffixIcon: IconButton(
               iconSize: 30,
               splashRadius: 25,

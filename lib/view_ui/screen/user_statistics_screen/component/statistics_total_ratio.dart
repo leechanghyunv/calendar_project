@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';

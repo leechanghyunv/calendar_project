@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,7 +32,6 @@ class SettingButton extends ConsumerStatefulWidget {
 
 class _SettingButtonState extends ConsumerState<SettingButton> {
 
-  Color _backgroundColor = Colors.grey.shade200;
   double borderWidth = 0.75;
 
   @override
@@ -67,16 +68,16 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
 
 
         decoration: BoxDecoration(
-          color: _backgroundColor,
+          color: context.isLight ? Colors.grey.shade200 :  Colors.black54, // 드래그 중 색상 변경,
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-          ],
+              color: Colors.grey.withOpacity(context.isLight ? 0.2 : 0.1),
+              spreadRadius: 1.5,
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ] ,
           border: Border.all(
               color: Colors.grey.shade800,
               width: borderWidth,
@@ -99,18 +100,37 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                   BlendMode.srcIn,
                 ),
                 clipBehavior: Clip.antiAlias,
+              ) : context.isDark ? SvgPicture.asset(
+                'assets/settings.svg',
+                width: switch (appWidth) {
+                  > 450 => 13.5,
+                  > 420 => 12.5,
+                  > 400 => 12,
+                  _ => 11.5,
+                },
+                colorFilter: ColorFilter.mode(
+                  context.textColor,
+                  BlendMode.srcIn,
+                ),
+                clipBehavior: Clip.antiAlias,
               ) : SizedBox.shrink(),
-              Text(Platform.isAndroid ? '️ 설정' :  '️⚙️설정',
+              Text(Platform.isAndroid ? '️ 설정' : context.isDark ?  '️ 설정' : '️⚙️설정',
                 textScaler: TextScaler.noScaling,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: context.textColor,
                   fontSize: Platform.isAndroid
                       ? switch (appWidth) {
                     > 450 => 14.5,
                     > 420 => 12.5,
                     > 400 => 12,
                     _ => 11.5,
-                  } : switch (appWidth) {
+                  } : context.isDark ? switch (appWidth) {
+                    > 450 => 13.5,
+                    > 420 => 11.5,
+                    > 400 => 11,
+                    _ => 10.5,
+                  } :
+                  switch (appWidth) {
                     > 450 => 14,
                     > 420 => 12,
                     > 400 => 11.5,

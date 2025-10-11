@@ -1,8 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-
-import '../../theme_color.dart';
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
+import '../extentions/theme_color.dart';
 
 Widget TextWidget(
     String msg, double size, double appWidth, {Color? color,FontWeight? fontWeight}) => Text(
@@ -39,25 +37,27 @@ Widget ErrorText(String msg, double appWidth, {Color? color}) {
 }
 
 
+Widget dayText(String day) {
+  return Consumer(builder: (context,ref,_){
+      final isLight = Theme.of(context).brightness == Brightness.light;
+      return  Text(day,
+          textScaler: TextScaler.noScaling,
+          style: TextStyle(
+            height: textHeight,
+            fontSize: switch (context.width) {
+              > 420 => 19,
+              > 400 => 18,
+              _ => 16,
+            },
+            color: day == '토'
+                ? isLight ? Colors.blue :  Colors.tealAccent
+                : day == '일'
+                ? isLight ? Colors.teal : Colors.tealAccent
+                : isLight ? Colors.black : Colors.white,
+            fontWeight: FontWeight.w800,
+          )
+      );
+    },
 
-
-
-Widget dayText(String day, double width) => Text(
-    day,
-    textScaler: TextScaler.noScaling,
-    style: TextStyle(
-      height: textHeight,
-      fontSize: switch (width) {
-        // > 450 => 20,
-        > 420 => 19,
-        > 400 => 18,
-        _ => 16,
-      },
-      color: day == '토'
-          ? Colors.blue
-          : day == '일'
-          ? Colors.teal
-          : Colors.black,
-      fontWeight: FontWeight.w800,
-    )
-);
+  );
+}

@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../../core/export_package.dart';
 
 class PayChips extends HookWidget {
@@ -55,10 +57,10 @@ class PayChips extends HookWidget {
                 ),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? Colors.teal
+                      ? context.isDark ? Colors.teal.shade900 : Colors.teal
                       : isPopular
-                      ? Colors.teal.shade50
-                      : Color(0xFFF8F9FA),
+                      ? context.isDark ? Colors.teal.shade800 : Colors.teal.shade50
+                      : context.boxColor,
                   border: Border.all(
                     color: isSelected
                         ? Colors.teal
@@ -82,7 +84,9 @@ class PayChips extends HookWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
-                      color: isSelected ? Colors.white : Color(0xFF495057),
+                      color: isSelected
+                          ? context.isDark ? Colors.tealAccent : Colors.white
+                          : context.isDark ? Colors.white : Color(0xFF495057),
                     ),
                   ),
                 ),

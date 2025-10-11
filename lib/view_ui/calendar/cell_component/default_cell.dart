@@ -3,8 +3,6 @@ import 'package:calendar_project_240727/core/export_package.dart';
 
 import '/../../view_model/view_provider/calendar_switcher_model.dart';
 
-
-
 class DefaultCell extends ConsumerWidget {
   final DateTime date;
   final Color textColor;

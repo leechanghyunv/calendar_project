@@ -1,5 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../../core/export_package.dart';
 
@@ -27,21 +29,7 @@ class UserInfoBox extends StatelessWidget {
     return Container(
       height: height > 750 ? (width > 400 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
       width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: Colors.grey.shade900,
-          width: 0.35,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      decoration: context.cardDecoration,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
         child: Column(
@@ -96,7 +84,7 @@ class UserInfoBox extends StatelessWidget {
               textScaler: TextScaler.noScaling,
               style: TextStyle(
                 fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 9.0 : 9.5),
-                color: Colors.grey.shade700,
+                color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
               ),
             ),
           ],

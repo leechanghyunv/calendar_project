@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'app_review.dart';
+import 'core/dark_light/dark_light.dart';
 import 'firebase_options.dart';
 import 'one_signal_notification.dart';
 
@@ -49,6 +50,10 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final themeMode = ref.watch(lightDarkModeProvider);
+    final themeNotifier = ref.read(lightDarkModeProvider.notifier);
+
     final router = ref.watch(routerProvider);
     ref.watch(dynamicHolidaysProvider);
     ref.watch(bTypeSwitchProviderProvider);
@@ -100,9 +105,12 @@ class MyApp extends HookConsumerWidget {
                         Locale('ko', 'KR'),
                       ],
                       debugShowCheckedModeBanner: false,
-                      theme: ThemeData(
-                        useMaterial3: false,
-                      ),
+                      // theme: ThemeData(
+                      //   useMaterial3: false,
+                      // ),
+                      themeMode: themeMode,
+                      theme: themeNotifier.lightMode,
+                      darkTheme: themeNotifier.darkMode,
                       routerConfig: router,
                       builder: (context, child) {
                         return Scaffold(
@@ -124,7 +132,7 @@ class MyApp extends HookConsumerWidget {
       );
     },
       loading: () =>
-      const MaterialApp(
+       MaterialApp(
         home: Scaffold(
           body: Center(child: Text('Loading.....')),
         ),

@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../../../core/export_package.dart';
 
@@ -19,18 +21,12 @@ class authContainer extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey.shade50,
+        color: Theme.of(context).scaffoldBackgroundColor,
         border: Border.all(
-          color: Colors.grey.shade800,
+          color: context.isDark ? Colors.white : Colors.grey.shade800,
           width: 0.85,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade100,
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        boxShadow: context.defaultShadow,
       ),
       child: child,
     );

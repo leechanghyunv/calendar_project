@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/holidays.dart';
@@ -76,6 +77,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
             calendarFormat: CalendarFormat.month,
             weekendDays: const [DateTime.sunday],
             calendarStyle: CalendarStyle(
+              rangeHighlightColor: Colors.teal.withOpacity(0.2), // 범위 배경색
+              rangeHighlightScale: 1.0, // 배경 크기 조절
               isTodayHighlighted: true,
             ),
             rangeStartDay: rangeStart.value,
@@ -91,7 +94,41 @@ class RangeCalendarScreen extends HookConsumerWidget {
               rangeEnd.value = end;
               focusedDay.value = focused;
             },
+
             calendarBuilders: CalendarBuilders(
+              rangeStartBuilder: (context, day, focusedDay) {
+                return Container(
+                  margin: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: context.isDark ? null : Colors.teal.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                    border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
+
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${day.day}',
+                      style: TextStyle(color: context.textColor, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                );
+              },
+              rangeEndBuilder: (context, day, focusedDay) {
+                return Container(
+                  margin: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: context.isDark ? null : Colors.teal.withOpacity(0.2),
+                    shape: BoxShape.circle,
+                    border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${day.day}',
+                      style: TextStyle(color: context.textColor, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                );
+              },
               headerTitleBuilder: (context, day) =>
                   CalendarRangeHeader(
                     day: day,
@@ -114,7 +151,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
               dowBuilder: (context, day) {
                 final List<String> weekdays = ['', '월', '화', '수', '목', '금', '토', '일',];
                 return Center(
-                  child: dayText(weekdays[day.weekday], appWidth),
+                  child: dayText(weekdays[day.weekday]),
                 );
               },
               defaultBuilder: (context, date, events) {
@@ -126,13 +163,13 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 final isSubstituteHoliday = _substituteHolidayCache[utcDate] ?? false;
 
                 if (date.weekday == DateTime.saturday) {
-                  textColor = Colors.blue; // 토요일
+                  textColor = context.saturdayColor;
                 } else if (date.weekday == DateTime.sunday ||
                     isSubstituteHoliday ||
                     isHoliday) {
-                  textColor = Colors.teal; // 일요일
+                  textColor = context.sundayColor;
                 } else {
-                  textColor = Colors.black; // 평일
+                  textColor = context.textColor; // 평일
                 }
 
                 return DefaultCell(date: date, textColor: textColor);
@@ -156,7 +193,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                   Expanded(
                     flex: 1,
                     child: PopupMenuButton<int>(
-                      color: Colors.grey.shade50,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                         side: BorderSide(color: Colors.grey.shade200),
@@ -173,16 +210,17 @@ class RangeCalendarScreen extends HookConsumerWidget {
                         focusedDay.value = end;
                       },
                       itemBuilder: (context) => [
-                        PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth)),
-                        PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth)),
-                        PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14, appWidth)),
-                        PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14, appWidth)),
-                        PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth)),
+                        PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth,color: context.textColor)),
+                        PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth,color: context.textColor)),
+                        PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14, appWidth,color: context.textColor)),
+                        PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14, appWidth,color: context.textColor)),
+                        PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth,color: context.textColor)),
                       ],
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
+                          color: context.boxColor,
+                          border: context.isLight ? null : Border.all(width: 0.35,color: Colors.white),
                           borderRadius: BorderRadius.circular(12.5),
                           boxShadow: [
                             BoxShadow(
@@ -195,7 +233,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            TextWidget('기간 선택', 15, appWidth, color: Colors.black),
+                            TextWidget('기간 선택', 15, appWidth, color: context.textColor),
                             SizedBox(width: 5),
                             Icon(Icons.arrow_drop_down, size: 20),
                           ],
@@ -208,7 +246,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                     flex: 2,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.teal,
+                          backgroundColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
                           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.5),
@@ -221,7 +259,9 @@ class RangeCalendarScreen extends HookConsumerWidget {
                               onNavigateToHistory?.call();
                             }
                           },
-                          child: TextWidget('선택완료', 16, appWidth,color: Colors.white)),
+                          child: TextWidget('선택완료', 16,
+                              appWidth,color: context.buttonColor),
+                      ),
                   ),
                 ],
               ),

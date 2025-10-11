@@ -3,6 +3,7 @@ import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
@@ -43,13 +44,13 @@ class MemoListView extends StatelessWidget {
                       Container(
                         width: context.width,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade100,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(
-                            color: Colors.grey.shade800,
+                            color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade800,
                             width: 0.35,
                           ),
-                          boxShadow: [
+                          boxShadow: context.isDark ? null :[
                             BoxShadow(
                               color: Colors.grey.shade300,
                               blurRadius: 2,
@@ -78,7 +79,11 @@ class MemoListView extends StatelessWidget {
                                   SizedBox(width: 10),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 4.0, bottom: 2.0),
-                                    child: TextWidget(history.memo, 15, context.width),
+                                    child: TextWidget(
+                                      history.memo, 15,
+                                      context.width,
+                                        color: context.textColor,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -131,14 +136,17 @@ class MemoListView extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: AnimatedEmoji(
-                    AnimatedEmojis.dolphin,
+                    AnimatedEmojis.peace,
                     repeat: true,
                     animate: true,
                     size: 125,
                   ),
                 ),
                 SizedBox(height: 20),
-                TextWidget('이번 달 메모가 없습니다', 18, context.width),
+                TextWidget('이번 달 메모가 없습니다',
+                    18, context.width,
+                color: context.textColor,
+                ),
               ],
             );
           }
@@ -151,13 +159,13 @@ class MemoListView extends StatelessWidget {
   Widget infoChips (String text, BuildContext context) => Container(
     padding:  EdgeInsets.symmetric(horizontal: 6, vertical: 4),
     decoration: BoxDecoration(
-      color: Colors.grey.shade100,
+      color: context.bTypeChipColor,
       borderRadius: BorderRadius.circular(10),
       border: Border.all(
-        color: Colors.grey.shade700,
+        color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade700,
         width: 0.25,
       ),
-      boxShadow: [
+      boxShadow: context.isDark ? null : [
         BoxShadow(
           color: Colors.grey.shade400,
           blurRadius: 4,
@@ -165,7 +173,10 @@ class MemoListView extends StatelessWidget {
         ),
       ],
     ),
-    child: TextWidget(text, 11, context.width),
+    child: TextWidget(
+        text, 11,
+        context.width,
+        color: context.textColor),
   );
 
 }

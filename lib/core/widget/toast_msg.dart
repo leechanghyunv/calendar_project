@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../export_package.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -13,6 +15,7 @@ void _showCustomToast(Widget child) {
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.7),
         borderRadius: BorderRadius.circular(8),
+        border: context.isDark ? Border.all(color: Colors.white, width: 0.5) : null,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),

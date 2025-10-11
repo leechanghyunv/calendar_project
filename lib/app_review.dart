@@ -2,6 +2,8 @@
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 
 import 'core/export_package.dart';
 
@@ -17,11 +19,13 @@ class CustomReviewDialog extends StatelessWidget {
       height: Platform.isAndroid ? 1.75 : 1.30,
       fontSize: 15,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: context.textColor,
     );
 
 
     return AlertDialog(
+      backgroundColor:  context.dialogColor,
+      shape: context.dialogShape,
       title: Row(
         children: [
           AnimatedEmoji(
@@ -47,13 +51,17 @@ class CustomReviewDialog extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7.5),
-                color: Colors.grey.shade200
+                border: Border.all(
+                  color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade900,
+                  width: 0.35,
+                ),
+                color: context.isDark ? Colors.grey.shade900 : Colors.grey.shade200
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 16.0,horizontal: 12.0,
               ),
-              child: reviewText(height),
+              child: reviewText(height,context),
             ),
           ),
 
@@ -88,12 +96,11 @@ class CustomReviewDialog extends StatelessWidget {
 }
 
 
-Widget reviewText(double height) {
+Widget reviewText(double height,BuildContext context) {
   final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.75 : 1.30,
     fontSize: fontSize,
-    color: Colors.black,
   );
   return Text.rich(
     TextSpan(
@@ -101,7 +108,7 @@ Widget reviewText(double height) {
         TextSpan(
           text: '워크캘린더는 쓸만한 앱인가요?',
           style: baseStyle.copyWith(
-              backgroundColor: Colors.green.shade100,
+              backgroundColor: context.isDark ? null : Colors.green.shade100,
               fontWeight: FontWeight.bold,fontSize: 16),
         ),
         TextSpan(

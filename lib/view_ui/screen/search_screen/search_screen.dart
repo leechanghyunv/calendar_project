@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_duration_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_list_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_component.dart';
@@ -76,7 +77,7 @@ class SearchScreen extends HookConsumerWidget {
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) {
         return Scaffold(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             top: true,
             bottom: false,
@@ -89,14 +90,18 @@ class SearchScreen extends HookConsumerWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: Icon(Icons.arrow_back_ios, size: 20),
+                        icon: Icon(Icons.arrow_back_ios, size: 20,),
                         onPressed: () => Navigator.pop(context),
                       ),
                       Expanded(
                         child: Container(
                           height: 40,
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: context.isDark ? Colors.black87 : Colors.grey[200],
+                            border: Border.all(
+                              color: context.isDark ? Colors.white : Colors.white,
+                              width: context.isDark ? 0.75 : 0.35,
+                            ),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: TextField(
@@ -116,7 +121,7 @@ class SearchScreen extends HookConsumerWidget {
                                 },
                                 icon: Icon(
                                     Icons.search,
-                                    color: Colors.teal,
+                                    color: context.isDark ? Colors.white : Colors.teal,
                                     size: 20),
                               ),
                               isDense: true,

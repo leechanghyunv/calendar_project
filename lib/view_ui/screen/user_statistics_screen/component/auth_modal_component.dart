@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../../core/export_package.dart';
 import '../../auth_screen/auth_screen_exSurvey.dart';
 
@@ -15,6 +17,10 @@ void showBasicModal(BuildContext context,bool survey) {
         topLeft: Radius.circular(20),
         topRight: Radius.circular(20),
       ),
+      side: context.isDark ? BorderSide(
+        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+        width: 1,
+      ) : BorderSide.none,
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;

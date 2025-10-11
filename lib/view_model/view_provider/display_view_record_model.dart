@@ -1,6 +1,6 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../repository/repository_import.dart';
 
 part 'display_view_record_model.freezed.dart';
@@ -20,23 +20,25 @@ abstract class DisplayViewRecordModel with _$DisplayViewRecordModel {
 }
 
 extension DisplayViewRecordModelExt on DisplayViewRecordModel {
-  List<Map<String, dynamic>> get chipList => [
+
+  List<Map<String, dynamic>> chipList(BuildContext context) => [
     {
-      'value': Platform.isAndroid ? '$normal' : '🚀$normal',
+      'value': Platform.isAndroid ? '$normal' : context.isDark ? '$normal' : '🚀$normal',
       'icon': 'rocket',
-      'color': Colors.black,
+      'color': context.textColor, // 🎯 context 사용
     },
     {
-      'value': Platform.isAndroid ? '$extended' : '🔥$extended',
+      'value': Platform.isAndroid ? '$extended' : context.isDark ? '$extended' : '🔥$extended',
       'icon': 'cuboid',
-      'color': Colors.black,
+      'color': context.textColor,
     },
     {
-      'value': Platform.isAndroid ? '$night' : '🎉$night',
+      'value': Platform.isAndroid ? '$night' : context.isDark ? '$night' : '🎉$night',
       'icon': 'zap',
-      'color': Colors.black,
+      'color': context.textColor,
     },
   ];
+
 }
 
 @riverpod
@@ -61,7 +63,6 @@ class DisplayValue extends _$DisplayValue {
     await prefs.setDouble('normal', normal);
     await prefs.setDouble('extended', extended);
     await prefs.setDouble('night', night);
-    // await prefs.setBool('valueChange', true);
 
     final isDefault = normal == 1.0 && extended == 1.5 && night == 2.0;
     await prefs.setBool('valueChange', !isDefault);

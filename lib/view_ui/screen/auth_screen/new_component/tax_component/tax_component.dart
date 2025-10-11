@@ -1,5 +1,6 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/new_component/tax_component/tax_button_listView.dart';
 
 import '../../../../../core/export_package.dart';
@@ -33,8 +34,9 @@ class TaxComponent extends StatelessWidget {
           height: 130,
           width: appWidth,
           decoration: BoxDecoration(
-            color: Colors.grey.shade50,
-            border: Border.all(width: 1, color: Colors.grey.shade700),
+            color: Theme.of(context).scaffoldBackgroundColor,
+            border: Border.all(
+                width: 1, color: Colors.grey.shade700),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Column(
@@ -47,7 +49,7 @@ class TaxComponent extends StatelessWidget {
                 child: Row(
                   children: [
                     TextWidget('세율을 설정해주세요 (${taxRate.toStringAsFixed(1)}%)',
-                        13.5, appWidth, color: Colors.grey.shade700),
+                        13.5, appWidth, color: context.subTextColor),
                   ],
                 ),
               ),
@@ -77,7 +79,7 @@ class TaxComponent extends StatelessWidget {
                       ),
                     ),
                     TextWidget('${taxRate.toStringAsFixed(1)}%', 13.5, appWidth,
-                        color: Colors.grey.shade700),
+                        color: context.subTextColor),
                   ],
                 ),
               ),

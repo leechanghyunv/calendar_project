@@ -1,4 +1,7 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/formatter.dart';
 import '../../../core/widget/text_widget.dart';
@@ -23,17 +26,21 @@ class GoalSettingDialog extends HookConsumerWidget {
 
 
     return AlertDialog(
+      backgroundColor:  context.dialogColor,
+      shape: context.dialogShape,
       title: Column(
         children: [
           Row(
             children: [
-              TextWidget('목표금액 수정', 17,appWidth),
+              TextWidget('목표금액 수정', 17,appWidth,
+                  color: context.textColor),
             ],
           ),
           SizedBox(height: 2.5),
           Row(
             children: [
-              TextWidget('목표금액이 화면에 반영됩니다', 11,appWidth,color: Colors.grey.shade500),
+              TextWidget('목표금액이 화면에 반영됩니다', 11,appWidth,
+                  color: Colors.grey.shade500),
             ],
           ),
         ],
@@ -47,18 +54,12 @@ class GoalSettingDialog extends HookConsumerWidget {
               height: 60,
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                color: Colors.grey[100],
+                color: context.isDark ? Colors.grey[900] : Colors.grey[100],
                 border: Border.all(
                   color: Colors.grey.shade700,
                   width: 0.85,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    blurRadius: 2,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                boxShadow: context.defaultShadow,
                 borderRadius: BorderRadius.circular(7.5),
               ),
               child: Column(
@@ -79,11 +80,7 @@ class GoalSettingDialog extends HookConsumerWidget {
             SizedBox(height: 7.5),
             Consumer(
                 builder: (context,ref,child){
-
-                  final contract = ref.watch(viewContractProvider);
-                  final goal = (contract.value?.last.goal ?? 0).toStringAsFixed(0);
-                  final goalInt = int.tryParse(goal) ?? 0;
-                  // final goalValue = goalInt ~/ 10000;
+                  ref.watch(viewContractProvider);
                   ref.watch(infoBoxProvider).whenData((d) => d).value ?? const InfoBoxModel();
                   return Container(
                     alignment: Alignment.centerLeft,
@@ -116,7 +113,8 @@ class GoalSettingDialog extends HookConsumerWidget {
                 customMsg('취소되었습니다.');
                 Navigator.pop(context);
               },
-              child: TextWidget('취소', 15,appWidth),
+              child: TextWidget('취소', 15,appWidth,
+                  color: context.textColor),
             ),
             TextButton(
               onPressed: () {
@@ -130,7 +128,8 @@ class GoalSettingDialog extends HookConsumerWidget {
                 Navigator.pop(context);
                 },
 
-              child: TextWidget('수정', 15,appWidth),
+              child: TextWidget('수정', 15,appWidth,
+                  color: context.textColor),
             ),
           ],
         )

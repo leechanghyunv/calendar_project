@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:intl/intl.dart';
 
@@ -44,8 +45,9 @@ class CalendarRangeHeader extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1.75, color: Colors.grey.shade500),
-                    color: Colors.grey.shade50,
+                    border: Border.all(
+                        width: 1.75, color: Colors.grey.shade500),
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Text(
                      '${_formatDate(startDay)}',
@@ -63,7 +65,7 @@ class CalendarRangeHeader extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(width: 1.75, color: Colors.grey.shade500),
-                    color: Colors.grey.shade50,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Text(
                     '${_formatDate(endDay)}',
@@ -83,24 +85,27 @@ class CalendarRangeHeader extends StatelessWidget {
                 Container(
                   width: 5,
                   height: 20,
-                  color: Colors.teal,
+                  color: context.isDark ? Colors.tealAccent : Colors.teal,
                 ),
                 SizedBox(width: 10),
                 TextWidget(
-                    '${DateFormat.yMMMM('ko_KR').format(day)}', 20, appWidth),
+                    '${DateFormat.yMMMM('ko_KR').format(day)}',
+                    20, appWidth,color: context.textColor),
                 Spacer(),
                 InkWell(
                   onTap: onPreviousMonth,
                   borderRadius: BorderRadius.circular(20),
                   child: Icon(Icons.keyboard_arrow_left,
-                      color: Colors.grey.shade700, size: 30),
+                      color: context.isDark ? Colors.white : Colors.grey.shade700,
+                      size: 30),
                 ),
                 SizedBox(width: 20),
                 InkWell(
                   onTap: onNextMonth,
                   borderRadius: BorderRadius.circular(20),
                   child: Icon(Icons.keyboard_arrow_right,
-                      color: Colors.grey.shade700, size: 30),
+                      color: context.isDark ? Colors.white : Colors.grey.shade700,
+                      size: 30),
                 ),
                 SizedBox(width: 10),
               ],

@@ -1,9 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../data/usecases/supabase_provider.dart';
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 import '../provider/selected_site_provider.dart';
 
 class StatisticsFilterChip extends HookConsumerWidget {
@@ -63,21 +64,15 @@ class StatisticsFilterChip extends HookConsumerWidget {
                       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color:
-                        option == '전체' ? Colors.teal.shade100 :
-                        isSelected ? Colors.grey.shade300 : Colors.grey.shade200,
+                        option == '전체' ?  context.idChipColor :
+                        isSelected ? context.selectedChipColor : context.chipColor,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                          color: option == '전체' ? Colors.green.shade500 :
+                          color: option == '전체' ? context.idChipBorderColor :
                           isSelected ? Colors.grey.shade600 : Colors.grey.shade400,
                           width: isSelected ? 1.5 : 1.25,
                         ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300,
-                            blurRadius: 4,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
+                        boxShadow: context.defaultShadow,
                       ),
                       child: Text(
                         option == '전체' ? '@${option}' : '#$option',
@@ -89,8 +84,8 @@ class StatisticsFilterChip extends HookConsumerWidget {
                               ? (width > 400 ? 14 : width < 370 ? 11.5 : 12.5)
                               : 11.5,
                           fontWeight: FontWeight.bold,
-                          color: option == '전체' ? Colors.green.shade700 :
-                          isSelected ? Colors.black : Colors.grey.shade800,
+                          color: option == '전체' ? context.idChipTextColor :
+                          isSelected ? context.textColor : context.chipTextColor,
                         ),
                       ),
                     ),

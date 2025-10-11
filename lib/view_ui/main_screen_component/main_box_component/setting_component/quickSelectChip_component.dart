@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../../core/export_package.dart';
 
@@ -19,7 +20,7 @@ class QuickSelectChipList extends HookConsumerWidget {
             height: context.height > 900 ? 30 : 30, // 칩 높이에 맞춰 조정
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Padding(
@@ -74,10 +75,15 @@ class QuickSelectChip extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.teal : Colors.grey.shade200,
+          color: isSelected
+              ? context.isDark ? Colors.teal.shade900 : Colors.teal
+              : context.chipColor,
           borderRadius: BorderRadius.circular(15.0),
           border: Border.all(width: isSelected ? 2.25 : 1.75,
-              color: isSelected ? Colors.teal : Colors.grey.shade300),
+              color: isSelected
+                  ? context.isDark ? Colors.teal : Colors.teal
+                  : Colors.grey.shade300,
+          ),
         ),
         height: 30,
         child: Padding(
@@ -87,7 +93,7 @@ class QuickSelectChip extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: context.height > 900 ? 16 : 15,
-              color: isSelected ? Colors.grey.shade200 : Colors.black87,
+              color: isSelected ? Colors.white : context.textColor,
             ),),
         ),
       ),

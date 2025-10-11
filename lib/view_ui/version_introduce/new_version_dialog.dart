@@ -1,3 +1,8 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
+
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/firebase_remote_config_model.dart';
 
@@ -13,6 +18,8 @@ class NewVersionDialog extends ConsumerWidget {
     final version = ref.watch(versionProvider.notifier).version;
 
     return AlertDialog(
+      backgroundColor:  context.dialogColor,
+      shape: context.dialogShape,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -22,15 +29,20 @@ class NewVersionDialog extends ConsumerWidget {
           Spacer(),
           Container(
             decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: context.chipColor,
                 borderRadius: BorderRadius.circular(7.5),
-              border: Border.all(color: Colors.grey.shade100,width: 0.75,),
+              border: Border.all(
+                color: Colors.grey.shade100,width: 0.75,),
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8.5,2.5,8.5,2.5),
               child: Text('${version}',
                   textScaler: TextScaler.noScaling,
-                  style: titleText.copyWith(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold)),
+                  style: titleText.copyWith(
+                      color: context.textColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -49,7 +61,8 @@ class NewVersionDialog extends ConsumerWidget {
                   ...value.changes.map((e) => introBox(e.title, e.description)),
                 ],
               ),
-              AsyncError() => const Text('업데이트 정보를 불러올 수 없어요 😅'),
+              AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
+                  context.width, color: context.textColor),
               _ => const Text('............'),
               };
             }),
@@ -62,13 +75,13 @@ class NewVersionDialog extends ConsumerWidget {
             inAppReview.requestReview();
             }
             },
-          child: Text('의견보내기',style: buttonText),
+          child: TextWidget('의견보내기', 15,
+              context.width, color: context.textColor),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('확인',style: buttonText),
+          onPressed: () => Navigator.of(context).pop(),
+          child: TextWidget('확인', 15,
+              context.width, color: context.textColor),
         ),
       ],
     );
@@ -109,7 +122,7 @@ Widget introBox(String title, String description) => Column(
     Text(description,
       textScaler: TextScaler.noScaling,
       style: contentText.copyWith(
-          color: Colors.blue.shade700,
+          color: Colors.teal,
           fontSize: 11),
     ),
     SizedBox(height: 7.5),

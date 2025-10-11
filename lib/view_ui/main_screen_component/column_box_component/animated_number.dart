@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 
 class AnimatedNumber extends ConsumerWidget {
@@ -21,7 +21,7 @@ class AnimatedNumber extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animateText = ref.watch(animationTextProviderProvider);
-
+    final fillColor = context.isDark ? Colors.grey.shade200 : Colors.grey.shade700;
 
     return animateText ? TweenAnimationBuilder<double>(
         tween: Tween(begin: start, end: end),
@@ -35,6 +35,7 @@ class AnimatedNumber extends ConsumerWidget {
               ? '$paddedValue/252'
               : '$paddedValue/180';
 
+
           return Text(
             displayText,
             textAlign: TextAlign.end,
@@ -42,7 +43,7 @@ class AnimatedNumber extends ConsumerWidget {
             style: TextStyle(
               height: textHeight,
               fontWeight: FontWeight.bold,
-              color: Colors.grey.shade700,
+              color: fillColor,
               fontSize: ref.context.width > 450 ? 12.5 : 11,
               fontFamily: 'monospace',
             ),
@@ -55,7 +56,7 @@ class AnimatedNumber extends ConsumerWidget {
         textScaler: TextScaler.noScaling,
         style: TextStyle(
         height: textHeight,
-        fontWeight: FontWeight.bold, color: Colors.grey.shade700,
+        fontWeight: FontWeight.bold, color: fillColor,
         fontSize: context.width > 450 ? 12.5 : 11),
     );
   }

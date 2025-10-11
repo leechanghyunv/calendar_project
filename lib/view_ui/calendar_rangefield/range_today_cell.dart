@@ -1,4 +1,6 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../core/export_package.dart';
 
 class RangeTodayCell extends ConsumerWidget {
@@ -21,7 +23,7 @@ class RangeTodayCell extends ConsumerWidget {
         textScaler: TextScaler.noScaling,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: context.textColor,
           // fontSize: 20,
         ),
       ),

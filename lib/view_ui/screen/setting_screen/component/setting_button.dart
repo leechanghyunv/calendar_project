@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../../core/export_package.dart';
 
@@ -29,13 +30,16 @@ class SettingItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextWidget(title, 15, context.width),
+                TextWidget(
+                    title, 15, context.width,
+                color: context.textColor),
 
                 Text(
                   subtitle,
+                  textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     fontSize: 11,
-                    color: Colors.grey.shade600,
+                    color: context.subTextColor,
                   ),
                 ),
               ],

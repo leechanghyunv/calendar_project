@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/column_box_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
@@ -31,8 +33,9 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
           value: state.wrd.toDouble(),
           type: true,
           progress: state.wrdProgress,
-          progressColor: Colors.teal,
+          progressColor: context.isDark ? Colors.teal : Colors.teal,
           description: state.text1,
+          context: context,
         ),
         appWidth < 380 ? SizedBox(height: 5) : SizedBox(height: 10),
         buildStatsBox(
@@ -42,8 +45,10 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
           value: state.workDayValue.toDouble(),
           type: false,
           progress: state.workDayProgress,
-          progressColor: Colors.blue,
+          /// Colors.indigo
+          progressColor: context.isDark ? Colors.teal : Colors.blue,
           description: state.text2,
+          context: context,
         ),
       ],
     );

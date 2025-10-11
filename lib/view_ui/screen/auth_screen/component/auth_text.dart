@@ -1,6 +1,6 @@
 
 import '../../../../core/export_package.dart';
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 
 Widget bigText(String text, double height) => Text(
   text,
@@ -13,22 +13,7 @@ Widget bigText(String text, double height) => Text(
         ? 17.5
         : 15.5,
     fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.bold,
-    color: Colors.black,
-  ),
-);
-
-
-Widget MediumText(String text, double height) => Text(
-  text,
-  textScaler: TextScaler.noScaling,
-  style: TextStyle(
-    height: textHeight,
-    fontSize: height >= 850
-        ? 15.0
-        : height > 750
-        ? 14.0
-        : 13.5,
-    color: Colors.black,
+    // color: Colors.black,
   ),
 );
 
@@ -39,7 +24,6 @@ Widget introText(double height) {
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.5 : null,
     fontSize: fontSize,
-    color: Colors.black,
   );
   return Text.rich(
     TextSpan(
@@ -73,7 +57,7 @@ Widget introText(double height) {
 }
 
 
-Widget smallText(String text, double height) => Text(
+Widget smallText(BuildContext context,String text, double height) => Text(
   text,
   textScaler: TextScaler.noScaling,
   style: TextStyle(
@@ -83,7 +67,7 @@ Widget smallText(String text, double height) => Text(
         : height > 750
         ? 11.0
         : 10.5,
-    color: Colors.grey,
+    color: context.subTextColor,
   ),
 );
 

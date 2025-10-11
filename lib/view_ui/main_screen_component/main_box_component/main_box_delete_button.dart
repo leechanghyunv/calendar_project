@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
@@ -11,6 +12,7 @@ class DeleteChip extends HookConsumerWidget {
 
   Widget build(BuildContext context,WidgetRef ref) {
     final borderWidth = useState(0.75);
+    final isLight = Theme.of(context).brightness == Brightness.light;
 
     final data = ref.history;
     final appWidth = context.width;
@@ -63,16 +65,16 @@ class DeleteChip extends HookConsumerWidget {
         },
 
         decoration: BoxDecoration(
-          color: Colors.grey.shade200, // 드래그 중 색상 변경
+          color: isLight ? Colors.grey.shade200 :  Colors.black54, // 드래그 중 색상 변경
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 1,
+              color: Colors.grey.withOpacity(isLight ? 0.2 : 0.1),
+              spreadRadius: 1.5,
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
-          ],
+          ] ,
           border: Border.all(
               color: Colors.grey.shade800,
               width: borderWidth.value,
@@ -81,6 +83,7 @@ class DeleteChip extends HookConsumerWidget {
         padding: EdgeInsets.zero,
         child: Center(
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Platform.isAndroid ? SvgPicture.asset(
@@ -96,17 +99,35 @@ class DeleteChip extends HookConsumerWidget {
                   BlendMode.srcIn,
                 ),
                 clipBehavior: Clip.antiAlias,
+              ) : context.isDark ? SvgPicture.asset(
+                'assets/trash.svg',
+                width: switch (appWidth) {
+                  > 450 => 13.5,
+                  > 420 => 12.5,
+                  > 400 => 12,
+                  _ => 11.5,
+                },
+                colorFilter: ColorFilter.mode(
+                  context.textColor,
+                  BlendMode.srcIn,
+                ),
+                clipBehavior: Clip.antiAlias,
               ) : SizedBox.shrink(),
-              Text(Platform.isAndroid ? ' 삭제' :'🗑️삭제',
+              Text(Platform.isAndroid ? ' 삭제' : context.isDark ?  ' 삭제' : '🗑️삭제',
                 textScaler: TextScaler.noScaling,
                 style: TextStyle(
-                  color: Colors.black,
+                  color: context.textColor,
                   fontSize: Platform.isAndroid
                       ? switch (appWidth) {
                     > 450 => 14.5,
                     > 420 => 12.5,
                     > 400 => 12,
                     _ => 11.5,
+                  } : context.isDark ? switch (appWidth) {
+                    > 450 => 13.5,
+                    > 420 => 11.5,
+                    > 400 => 11,
+                    _ => 10.5,
                   } : switch (appWidth) {
                     > 450 => 14,
                     > 420 => 12,

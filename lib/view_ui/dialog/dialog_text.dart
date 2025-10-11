@@ -2,7 +2,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../core/export_package.dart';
-import '../../theme_color.dart';
+import '../../core/extentions/theme_color.dart';
 
 class ScreenUtil {
   static final ScreenUtil _instance = ScreenUtil._internal();

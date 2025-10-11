@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_model/instance_provider_model/chart_value_provider.dart';
 
 class SimpleLineChart extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                         '${month.month.toInt()}월',
                         textScaler: TextScaler.noScaling,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: context.textColor,
                           fontSize: 9,
                           fontWeight: FontWeight.w400,
                         ),
@@ -77,7 +78,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                   );
                 }),
                 isCurved: true,
-                color: Colors.blue.shade400,
+                color: context.isDark ? Colors.teal : Colors.blue.shade400,
                 barWidth: 3,
                 isStrokeCapRound: true,
                 dotData: FlDotData(
@@ -87,7 +88,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                       radius: 3.5,
                       color: Colors.white,
                       strokeWidth: 1.5,
-                      strokeColor: Colors.blue.shade400,
+                      strokeColor: context.isDark ? Colors.teal : Colors.blue.shade400,
                     );
                   },
                 ),

@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
 
@@ -86,8 +87,10 @@ class _HistoryCard extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.boxColor,
         borderRadius: BorderRadius.circular(12),
+        border: context.isLight ? null : Border.all(width: 0.75,
+            color: Colors.white),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -125,7 +128,7 @@ class _HistoryCard extends StatelessWidget {
               history.memo,
               14,
               context.width,
-              color: Colors.grey[800],
+              color: context.isDark ? Colors.grey[100] : Colors.grey[800],
               fontWeight: FontWeight.normal,
             ),
           ),
@@ -156,14 +159,14 @@ class SearchMoreContent extends StatelessWidget {
             style: TextStyle(
               fontSize: 12.5,
               fontWeight: FontWeight.w600,
-              color: Colors.grey.shade700,
+              color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
             ),
         ),
       );
     }
 
     return PopupMenuButton(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: Colors.grey.shade200),
@@ -175,7 +178,7 @@ class SearchMoreContent extends StatelessWidget {
           child: Container(
             alignment: Alignment.centerLeft,
             decoration: BoxDecoration(
-              // color: Colors.grey.shade100,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(6),
             ),
             child: Padding(

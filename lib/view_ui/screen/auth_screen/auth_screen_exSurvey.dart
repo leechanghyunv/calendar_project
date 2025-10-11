@@ -1,8 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/condition_list_provider.dart';
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/digit_color_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/pay_list_provider.dart';
 import 'package:intl/intl.dart';
 
@@ -79,7 +78,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
 
     final formzRefNot = ref.formzWatch;
     final formzRefRead = ref.formzRead;
-    ref.watch(digitColorProvider);
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
@@ -96,7 +94,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     final appWidth = context.width;
     final  appHeight = context.height;
 
-    final bgColor = ref.watch(digitColorProvider);
     final dateNow = DateTime.utc(
         DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -138,12 +135,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  name: 'normal',
                  hintText: '150,000',
                  focusNode: wageFocusNodeA,
-                 inputFormatters: [
-                   CommaInputFormatter6Digits(),
-                 ],
                  onChanged: (val) {
                    normalFieldValue.value = val ?? '';
-                   ref.read(digitColorProvider.notifier).colorProvider(val);
                    if (val != null && val.isNotEmpty) {
                      final cleanedValue = val.replaceAll(',', '');
                      formzRefRead.onChangePay1(cleanedValue);
@@ -182,7 +175,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    child: Padding(
                      padding: const EdgeInsets.all(12.0),
                      child: Container(
-                       child: TextWidget('# 자동완성', 14, appWidth,color: bgColor),
+                       child: TextWidget('# 자동완성', 14, appWidth,
+                           color: context.subTextColor),
                      ),
                    ),
                  ),
@@ -192,9 +186,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  name: 'extended',
                  hintText: '225,000',
                  focusNode: wageFocusNodeB,
-                 inputFormatters: [
-                   CommaInputFormatter6Digits(),
-                 ],
                  onSubmitted: (val) {
                    wageFocusNodeC.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
                    ref.read(payListProvider.notifier).update(1, val);
@@ -210,7 +201,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    child: Padding(
                      padding: const EdgeInsets.all(12.0),
                      child: Container(
-                       child: TextWidget('# 키보드 숨기기', 14, appWidth,color: Colors.grey),
+                       child: TextWidget('# 키보드 숨기기',
+                           14, appWidth,color: context.subTextColor),
                      ),
                    ),
                  ),
@@ -224,9 +216,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                        name: 'night',
                        hintText: '300,000',
                        focusNode: wageFocusNodeC,
-                       inputFormatters: [
-                         CommaInputFormatter6Digits(),
-                       ],
                        onChanged: (val) {
                          if (val != null && val.isNotEmpty) {
                            final cleanedValue = val.replaceAll(',', '');
@@ -241,42 +230,50 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                          child: Padding(
                            padding: const EdgeInsets.all(12.0),
                            child: Container(
-                             child: TextWidget('# 나가기', 14, appWidth,color: Colors.grey.shade700),
+                             child: TextWidget('# 입력창에서 나가기', 14, appWidth,
+                                 color: context.subTextColor),
                            ),
                          ),
                        ),
                      ),
                    ),
-                   SizedBox(width: 15),
-                   Expanded(
-                     flex: 2,
-                     child: PayNumberField(
-                       name: 'day_pay',
-                       hintText: '10,000',
-                       focusNode: dayPayFocusNode,
-                       inputFormatters: [
-                         CommaInputFormatter5Digits(),
-                       ],
-                       onChanged: (val) {
-     
-                         if (val == null || val.isEmpty) {
-                           return;
-                         }
-                         formzRefRead.onChangeSubsidy(val);
-                       },
-                       onSubmitted: (val) {
-                         ref.read(conditionListProvider.notifier).updateCondition(3, val);
-                         FocusScope.of(context).unfocus();
-                       },
-                     ),
-                   ),
+                   // SizedBox(width: 15),
+                   // Expanded(
+                   //   flex: 2,
+                   //   child: PayNumberField(
+                   //     name: 'day_pay',
+                   //     hintText: '10,000',
+                   //     focusNode: dayPayFocusNode,
+                   //     inputFormatters: [
+                   //       CommaInputFormatter5Digits(),
+                   //     ],
+                   //     onChanged: (val) {
+                   //       if (val == null || val.isEmpty) {
+                   //         return;
+                   //       }
+                   //       formzRefRead.onChangeSubsidy(val);
+                   //     },
+                   //     onSubmitted: (val) {
+                   //       ref.read(conditionListProvider.notifier).updateCondition(3, val);
+                   //       FocusScope.of(context).unfocus();
+                   //     },
+                   //   ),
+                   // ),
                  ],
                ),
                SizedBox(height: 5),
-               ValidationTextRow(
-                 right: formzRefNot.pay3Error,
-                 left: formzRefNot.subsidyError,
+               // ValidationText(text: formzRefNot.pay3Error),
+               Row(
+                 children: [
+                   ErrorText(' ${formzRefNot.pay3Error}',appWidth,
+                       color: context.subTextColor),
+                 ],
                ),
+               // ValidationTextRow(
+               //   right: formzRefNot.pay3Error,
+               //   left: formzRefNot.subsidyError,
+               // ),
+
                TaxComponent(
                  taxRate: taxRate.value,
                  sliderValue: sliderValue.value,
@@ -294,7 +291,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    _scrollToBottom();
                    taxRate.value = rate;
                    formzRefRead.onChangeTax(rate);
-     
                    // 3.3이 아닌 경우만 슬라이더 값 업데이트
                    if (rate >= 7 && rate <= 15) {
                      sliderValue.value = rate;
@@ -308,7 +304,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                AuthButton(
                  onPressedReset: (){
                    _formKey.currentState?.reset();
-                   ref.read(digitColorProvider.notifier).resetColor();
                    wageFocusNodeA.requestFocus();
                    _scrollToTop();
                  },

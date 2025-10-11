@@ -4,7 +4,7 @@ import 'package:calendar_project_240727/model/work_history_model.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../repository/time/calendar_time_controll.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/view_type_model.dart';
@@ -30,7 +30,6 @@ class MarkerCell extends ConsumerWidget {
     final isFoldValue = isFold.asData?.value ?? false;
     final switchAsync = ref.watch(bTypeSwitchProviderProvider);
     final isOn = switchAsync.valueOrNull ?? false;
-
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
       orElse: () => false,
@@ -108,7 +107,7 @@ class MarkerCell extends ConsumerWidget {
         width: isExpanded
             ? appHeight < 700 ?  42.5.w : appWidth > 500 ? 22.5.w : 45.w
             : appHeight < 700 ?  37.5.w : appWidth > 500 ? 22.5.w : 40.w,
-        decoration: isExpanded ? null : markerDeco(selectedMonth,month),
+        decoration: isExpanded ? null : markerDeco(context.isLight,selectedMonth,month),
         child: isExpanded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +116,7 @@ class MarkerCell extends ConsumerWidget {
             Container(
               width: 50.w,
               alignment: Alignment.center,
-              decoration: markerDeco(selectedMonth,month),
+              decoration: markerDeco(context.isLight,selectedMonth,month),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 5.0,
@@ -128,7 +127,6 @@ class MarkerCell extends ConsumerWidget {
                   calendarText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
                     height: textHeight,
                     fontSize: Platform.isAndroid ? null : appWidth < 376 ? 11.5 : 12.5,
                   ),
@@ -166,7 +164,7 @@ class MarkerCell extends ConsumerWidget {
               },
                 style: TextStyle(
                   height: textHeight,
-                    color: Colors.black,
+                    color: context.textColor,
                     fontSize: 8),
               ),
                 TextSpan(
@@ -184,7 +182,7 @@ class MarkerCell extends ConsumerWidget {
                       _ => fontSizeNonMemo,
                       },
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                      color: context.textColor,
                       height: textHeight,
                       shadows: Platform.isAndroid ? [
                         Shadow(
@@ -209,12 +207,12 @@ class MarkerCell extends ConsumerWidget {
 
 
 
-BoxDecoration  markerDeco(int selectedMonth,int month){
+BoxDecoration  markerDeco(bool isLight,int selectedMonth,int month){
   return BoxDecoration(
     boxShadow: selectedMonth == month
         ? [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.3),
+        color: Colors.grey.withOpacity(isLight ? 0.3 : 0.15),
         spreadRadius: 1,
         blurRadius: 3,
         offset: const Offset(0, 2),
@@ -226,7 +224,7 @@ BoxDecoration  markerDeco(int selectedMonth,int month){
         width: Platform.isAndroid ? 0.6 : 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
-        ? Colors.grey.shade200
+        ? isLight ? Colors.grey.shade200 : Colors.grey.shade900
         : Colors.transparent,
   );
 }

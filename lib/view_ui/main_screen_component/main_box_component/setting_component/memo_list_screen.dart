@@ -1,6 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
@@ -29,7 +30,8 @@ class MemoListScreen extends HookConsumerWidget {
                 children: [
                   TextWidget(
                       '${ref.monthString}월 메모기록',
-                      18, context.width),
+                      18, context.width,
+                      color: context.textColor),
                   Spacer(),
                   InkWell(
                     onTap: () => ref.read(showMemoStateProvider.notifier).memoState(),
@@ -37,8 +39,9 @@ class MemoListScreen extends HookConsumerWidget {
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
+                        color: context.chipColor,
                         borderRadius: BorderRadius.circular(10),
+                        border: context.isDark ? Border.all(width: 0.25, color: Colors.white) : null,
                       ),
                       width: 100,
                       height: 30,
@@ -46,7 +49,7 @@ class MemoListScreen extends HookConsumerWidget {
                         '돌아가기',
                         16,
                         context.width,
-                        color: Colors.grey.shade800,
+                        color: context.chipTextColor,
                       ),
                     ),
                   ),

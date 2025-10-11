@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/theme_color.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
@@ -29,21 +28,25 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
     color: Colors.grey.shade400,
   );
 
-  Widget chartInText(String text){
+  Widget chartInText(String text,BuildContext context){
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Text(text,
           textScaler: TextScaler.noScaling,
-          style: chartInStyle),
+          style: chartInStyle.copyWith(
+            color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade800,
+          )),
     );
   }
 
-  Widget chartInSmall(String text){
+  Widget chartInSmall(String text,BuildContext context){
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3.0),
       child: Text(text,
           textScaler: TextScaler.noScaling,
-          style: chartSmallStyle.copyWith(color: Colors.grey.shade700)),
+          style: chartSmallStyle.copyWith(
+              color: context.isDark ? Colors.grey.shade400 : Colors.grey.shade700),
+      ),
     );
   }
 
@@ -57,6 +60,8 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
     final switcher = ref.watch(calendarSwitcherProvider
         .select((value) => value.valueOrNull ?? false));
 
+    final boxColor = context.isDark ? Colors.black54 : Colors.grey.shade100;
+
     return GestureDetector(
       onTap: (){
         setState(() {
@@ -64,7 +69,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
         });
       },
       child: PopupMenuButton(
-        color: Colors.grey.shade50,
+        color: Theme.of(context).scaffoldBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(color: Colors.grey.shade200),
@@ -82,15 +87,15 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                     data: (val) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        chartInText('근로수당: ${formatAmount(val.last.normal)}'),
+                        chartInText('근로수당: ${formatAmount(val.last.normal)}',context),
                         Row(
                           children: [
                             chartInSmall(val.last.subsidy == 0
                                 ? '일비는 미포함 되었습니다'
-                                : '일비 ${formatAmount(val.last.subsidy)}'),
+                                : '일비 ${formatAmount(val.last.subsidy)}',context),
                             chartInSmall(val.last.subsidy == 0
                                 ? ''
-                                : '${ref.month}월 ${data.valueOrNull!.totalSubsidy}'),
+                                : '${ref.month}월 ${data.valueOrNull!.totalSubsidy}',context),
                           ],
                         ),
                         Divider(
@@ -110,7 +115,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                   alignment: Alignment.centerLeft,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
-                    color: Colors.grey.shade100,
+                    color: boxColor,
                   ),
                   child: Consumer(
                       builder: (context, ref, child){
@@ -120,25 +125,25 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                             children: [
                               Row(
                                 children: [
-                                  chartInText('주간 ${data.value.normalDay}일 ${data.value.normalPay}'),
+                                  chartInText('주간 ${data.value.normalDay}일 ${data.value.normalPay}',context),
                                 ],
                               ),
 
                               Row(
                                 children: [
-                                  chartInText('연장 ${data.value.extendDay}일 ${data.value.extendPay}'),
+                                  chartInText('연장 ${data.value.extendDay}일 ${data.value.extendPay}',context),
                                 ],
                               ),
 
                               Row(
                                 children: [
-                                  chartInText('야간 ${data.value.nightDay}일 ${data.value.nightPay}'),
+                                  chartInText('야간 ${data.value.nightDay}일 ${data.value.nightPay}',context),
                                 ],
                               ),
                             ],
                           ),
-                          AsyncError() => chartInText('Oops, something unexpected happened'),
-                          _ =>  chartInText('Loading...'),
+                          AsyncError() => chartInText('Oops, something unexpected happened',context),
+                          _ =>  chartInText('Loading...',context),
                         };
                   }),
                 ),
@@ -172,7 +177,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                 : Icon(
               size: selected ? 22.5 : 25.5,
               Icons.more_horiz,
-              color: Colors.grey.shade600,
+              color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
             ),
           ),
         ),

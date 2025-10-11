@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
 
@@ -65,7 +66,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
             duration: const Duration(milliseconds: 150),
             child: Icon(
               Icons.chevron_left,
-              color: Colors.grey.shade600,
+              color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
               size: leftIconSize,
             ),
           ),
@@ -87,7 +88,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
             duration: const Duration(milliseconds: 150),
             child: Icon(
               Icons.chevron_right,
-              color: Colors.grey.shade600,
+              color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
               size: rightIconSize,
             ),
           ),

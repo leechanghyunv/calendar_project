@@ -1,8 +1,8 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/month_move_button.dart';
 import '../chart_box_conponent/chart_box.dart';
@@ -25,7 +25,6 @@ class MainBox extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: themeColor,
         borderRadius: BorderRadius.circular(8.0),
       ),
       width:  width * 0.95,
@@ -41,7 +40,7 @@ class MainBox extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              decoration: MainBoxDecoration,
+              decoration: context.boxDecoration,
               height: width > 400 ? isFoldValue ? 140 : 170 : (width < 376 ? 135 : 140),
               child: Stack(
                 children: [
@@ -54,11 +53,10 @@ class MainBox extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainBoxBigContainer(),
-                        const Divider(thickness: 1.0),
+                        Divider(thickness: 1.0),
                         Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           width: width * 0.9,
@@ -104,7 +102,8 @@ class MainBox extends ConsumerWidget {
                 ),
                 Expanded(
                   flex: 10,
-                    child: ColumnReactiveBox()),
+                    child: ColumnReactiveBox(),
+                ),
               ],
             ),
 
@@ -114,16 +113,3 @@ class MainBox extends ConsumerWidget {
     );
   }
 }
-
-BoxDecoration get MainBoxDecoration => BoxDecoration(
-  color: boxColor,
-  borderRadius: BorderRadius.circular(8),
-  boxShadow: [
-    BoxShadow(
-      color: Colors.grey.withOpacity(0.2),
-      spreadRadius: 1,
-      blurRadius: 4,
-      offset: const Offset(0, 2),
-    ),
-  ],
-);

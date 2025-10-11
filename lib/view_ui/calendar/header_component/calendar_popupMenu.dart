@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../screen/search_screen/search_screen.dart';
 import '/core/export_package.dart';
 
@@ -22,6 +23,10 @@ class PopupWidget extends ConsumerWidget {
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
               ),
+              side: context.isDark ? BorderSide(
+                color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                width: 1,
+              ) : BorderSide.none,
             ),
           builder: (context){
             final screenHeight = context.height;
@@ -58,7 +63,7 @@ class PopupWidget extends ConsumerWidget {
       icon: Icon(
         Icons.calendar_today_outlined,
         size: appWidth >= 450 ? 27 : appWidth > 400 ? 25 : 22.5,
-        color: Colors.grey.shade900,
+        // color: Colors.grey.shade900,
       ),
     );
   }

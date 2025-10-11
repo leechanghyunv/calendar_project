@@ -1,6 +1,5 @@
-
-import '../../../core/export_package.dart';
-import '../../../core/utils/formatter.dart';
+import '../../../../core/utils/formatter.dart';
+import '/../../core/export_package.dart';
 
 class DisplayNumberTextField extends StatefulWidget {
 
@@ -27,17 +26,17 @@ class _DisplayNumberTextFieldState extends State<DisplayNumberTextField> {
         DisplayNumberInputFormatter(),
       ],
       decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              // vertical: 10,
-              horizontal: 10),
-          isDense: true,
-          border: InputBorder.none,
-          hintText: widget.hintText,
-          hintStyle: TextStyle(
-            fontSize: 15.5,
-            fontWeight: FontWeight.w500,
-            color: Colors.grey.shade700,
-          ),
+        contentPadding: EdgeInsets.symmetric(
+          // vertical: 10,
+            horizontal: 10),
+        isDense: true,
+        border: InputBorder.none,
+        hintText: widget.hintText,
+        hintStyle: TextStyle(
+          fontSize: 15.5,
+          fontWeight: FontWeight.w500,
+          color: Colors.grey.shade700,
+        ),
       ),
     );
   }

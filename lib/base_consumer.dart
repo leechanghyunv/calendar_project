@@ -56,13 +56,9 @@ extension TimerExtension on WidgetRef {
   int get day => selected.day;
   String get weekdayKr => DateFormat.EEEE('ko_KR').format(selected);
 
-
-
   String get monthString => selected.month.toString().padLeft(2, '0');
   String get dayString => selected.day.toString().padLeft(2, '0');
 
-  // bool get startSelected => rangeSelected.startSelected;
-  // bool get endSelected => rangeSelected.endSelected;
 
   DateTime get startDate => rangeNot.startDate;
   DateTime get endDate => rangeNot.endDate;

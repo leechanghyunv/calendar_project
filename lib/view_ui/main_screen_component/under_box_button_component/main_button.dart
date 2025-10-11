@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/popup_menu_provider.dart';
 
 import '../../../core/export_package.dart';
@@ -83,14 +84,14 @@ class MainButton extends HookConsumerWidget {
                       child: ChoiceChip(
                         side: BorderSide(
                           color: Colors.grey.shade200,
-                          width: 0.25,
+                          width: context.isDark ? 0.35 : 0.25,
                         ),
                         avatar: Icon(
                           options[index]['icon'],
                           size: appWidth > 450 ? 20 :  appWidth < 376 ? 17 :  18,
                           color: selectedIndex == index
-                              ? Colors.grey.shade700
-                              : Colors.grey.shade700,
+                              ? context.isDark ? Colors.grey.shade200 : Colors.grey.shade700
+                              : context.isDark ? Colors.grey.shade200 : Colors.grey.shade700,
                         ),
                         label: Text(
                           options[index]['label'],
@@ -100,8 +101,8 @@ class MainButton extends HookConsumerWidget {
                             letterSpacing: appWidth > 450 ? 1.0 : null,
                             fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
                             color: selectedIndex == index
-                                ? Colors.black87
-                                : Colors.black87,
+                                ? context.textColor
+                                : context.textColor,
                           ),
                         ),
 
@@ -114,8 +115,8 @@ class MainButton extends HookConsumerWidget {
                             _scrollToSelected(index, appWidth * 0.7);
                           }
                         },
-                        selectedColor: options[index]['selectedColor'],
-                        backgroundColor: Colors.white,
+                        selectedColor: context.isDark ? Colors.grey.shade900 : options[index]['selectedColor'],
+                        backgroundColor: context.underBoxColor,
                         padding: EdgeInsets.symmetric(horizontal: appWidth < 376 ? 1.0 : 4.0),
                         elevation: 4, // 그림자 추가
                         shadowColor: Colors.grey.withOpacity(0.2),

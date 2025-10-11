@@ -1,8 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
-
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 
@@ -21,6 +19,7 @@ class HolidayCell extends ConsumerWidget {
     final switcher = ref.watch(calendarSwitcherProvider);
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+    final isLight = Theme.of(context).brightness == Brightness.light;
 
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
@@ -43,7 +42,9 @@ class HolidayCell extends ConsumerWidget {
 
     final holidayText = hoildayName.replaceAll('\n', '');
 
-    Color cellColor = date.month == ref.month ? Colors.teal : Colors.transparent;
+    Color cellColor = date.month == ref.month
+        ? isLight ? Colors.teal : Colors.tealAccent
+        : Colors.transparent;
 
     if (date.weekday == DateTime.saturday && date.month == ref.month) {
       cellColor = Colors.blue;
@@ -56,7 +57,8 @@ class HolidayCell extends ConsumerWidget {
       ),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: themeColor,
+        color: Theme.of(context).scaffoldBackgroundColor,
+
       ),
       child: Column(
         children: [

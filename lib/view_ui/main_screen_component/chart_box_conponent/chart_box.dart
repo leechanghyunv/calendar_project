@@ -1,11 +1,11 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/animation_text_provider.dart';
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
-import '../main_box_component/main_box.dart';
 import 'animated_record_number.dart';
 import 'chart_in_dialog.dart';
 
@@ -56,7 +56,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
     final appWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      decoration: MainBoxDecoration,
+      decoration: context.boxDecoration,
       width: appWidth * 0.4,
       height: appWidth > 400 ? isFoldValue ? 155 : 170 : (appWidth < 376 ? 133 : 155),
       child: Padding(
@@ -66,7 +66,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-
                 animateText
                     ? NumberCounter(end: monthRecord)
                     : Text('${month}',
@@ -105,7 +104,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                   style: TextStyle(
                       letterSpacing: Platform.isAndroid ? 0.5 : null,
                       fontSize: 10,
-                      color: Colors.teal,
+                      color: context.isDark ? Colors.tealAccent : Colors.teal,
                       fontWeight: FontWeight.bold),
                 ),
                 Spacer(),

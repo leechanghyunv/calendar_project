@@ -6,6 +6,8 @@ class DaySelectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+
       appBar: AppBar(
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,

@@ -1,17 +1,16 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:intl/intl.dart';
+import 'package:calendar_project_240727/core/export_package.dart';
 import '../../dialog/month_move_dialog/month_move_dialog.dart';
+import 'package:intl/intl.dart';
 
-class ArrowDialogRow extends HookWidget {
+class ArrowDialogRow extends HookConsumerWidget {
 
   final DateTime day;
 
   const ArrowDialogRow(this.day, {super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final isLight = Theme.of(context).brightness == Brightness.light;
     final isDialogOpen = useState(false); // dialog 열림 상태 관리
     final appWidth = MediaQuery.of(context).size.width;
 
@@ -66,7 +65,7 @@ class ArrowDialogRow extends HookWidget {
                 child: Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 25.5,
-                  color: Colors.grey.shade800,
+                  color: isLight ? Colors.grey.shade800 : Colors.grey.shade100,
                 ),
               ),
             ],

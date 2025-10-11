@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -53,7 +54,7 @@ class DateRangeInputField extends HookWidget {
       ),
       child: TextField(
         focusNode: rangeNode,
-        cursorColor: Colors.grey.shade700,
+        cursorColor: context.subTextColor,
         controller: controller,
         keyboardType: TextInputType.number,
         inputFormatters: [maskFormatter],
@@ -61,9 +62,9 @@ class DateRangeInputField extends HookWidget {
           hintText: ' 25.01.01 ~ 25.12.31',
           isDense: true,
           hintStyle: TextStyle(
-            color: Colors.grey.shade600,
+            color: context.subTextColor,
             fontWeight: FontWeight.bold,
-            backgroundColor: Colors.grey.shade100,
+            backgroundColor: context.bTypeChipColor,
             fontSize: 15,
             letterSpacing: 1.25,
           ),

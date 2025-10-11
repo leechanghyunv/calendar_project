@@ -2,12 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-Widget IndicatorWidget(double height,double width,double percent,Color color){
+Widget IndicatorWidget(bool isDark,double height,double width,double percent,Color color){
   return LinearPercentIndicator(
     width: width,
     lineHeight: height, // 바의 높이
     percent: percent, // 퍼센트
-    backgroundColor: Colors.grey.shade200, // 배경색
+
+    backgroundColor: isDark ? Colors.black : Colors.grey.shade200, // 배경색
+
     progressColor: color, // 진행 바 색상
     barRadius: Radius.circular(4), // 모서리 둥글게
     padding: EdgeInsets.zero, // 패딩 제거

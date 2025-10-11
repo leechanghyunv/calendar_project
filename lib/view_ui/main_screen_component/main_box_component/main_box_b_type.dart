@@ -1,6 +1,8 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
@@ -54,18 +56,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0),
       child: Container(
         height: 135,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
+        decoration: context.boxDecoration,
         child: Padding(
           padding:  EdgeInsets.symmetric(
               vertical: appWidth > 400 ? 10.0 : 8.0,
@@ -89,7 +80,8 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                             return  Text(
                               textScaler: TextScaler.noScaling,
                                 ' ${ref.month}월 ${ref.day}일 메모기록이 없습니다',
-                              style: TextStyle(fontSize: appWidth > 400 ? 15.5 : 14,
+                              style: TextStyle(
+                                fontSize: appWidth > 400 ? 15.5 : 14,
 
                               ),
                             );
@@ -98,6 +90,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                           return Text( ' $value',
                             textScaler: TextScaler.noScaling,
                             style: TextStyle(
+
                                 fontSize: appWidth > 400 ? 15.5 : 14,
                                 letterSpacing: 0.5),
                           );
@@ -115,7 +108,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
               Row(
                 children: [
                   CircularComponent(
-                    backgroundColor: Colors.grey.shade100,
+                    backgroundColor: context.bTypeChipColor,
                     width: 85,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -126,7 +119,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                           style: TextStyle(
                             fontSize: appWidth > 400 ? 14 : 13.5,
 
-                            color: Colors.grey.shade900,
+                            color: context.textColor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -134,7 +127,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     ),
                   ),
                   CircularComponent(
-                    backgroundColor: Colors.white,
+                    backgroundColor: context.bTypeChipColor,
                     width: 65,
                     child: Text(
                       textScaler: TextScaler.noScaling,
@@ -142,7 +135,7 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                       style: TextStyle(
                         fontSize: appWidth > 400 ? 14 : 13.5,
 
-                        color: Colors.grey.shade900,
+                        color: context.textColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -156,9 +149,9 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
 
                         return FunctionChip(
                           label: '삭제하기',
-                          color: Colors.grey.shade100,
+                          color: context.chipColor,
                           borderColor: Colors.grey.shade600,
-                          textColor: Colors.grey.shade900,
+                          textColor: context.chipTextColor,
                           onTap: () {
                         val.maybeWhen(
                             data: (val) async {
@@ -180,9 +173,9 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                   SizedBox(width: 7.5),
                   FunctionChip(
                       label: '공수등록',
-                      color: Colors.grey.shade100,
+                      color: context.chipColor,
                       borderColor: Colors.grey.shade600,
-                      textColor: Colors.grey.shade900,
+                      textColor: context.chipTextColor,
                       onTap: (){
                         NumberPickerModal(context);
                       }),

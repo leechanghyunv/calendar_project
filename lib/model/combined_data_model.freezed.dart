@@ -1,6 +1,5 @@
-// dart format width=80
-// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
@@ -293,6 +292,298 @@ class _$LaborStatsModelCopyWithImpl<$Res>
           : remainingGoalAfterTax // ignore: cast_nullable_to_non_nullable
               as String,
     ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [LaborStatsModel].
+extension LaborStatsModelPatterns on LaborStatsModel {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LaborStatsModel value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_LaborStatsModel value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LaborStatsModel value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            int subsidyWorkDay,
+            int totalSubsidy,
+            int workDay,
+            String totalPay,
+            String totalPayAnd,
+            double workRecord,
+            double normalValue,
+            int normalDay,
+            double extendValue,
+            int extendDay,
+            double nightValue,
+            int nightDay,
+            double extraValue,
+            int extraDay,
+            int offDay,
+            String goalRate,
+            String goalRateAnd,
+            String goalRateAfterTax,
+            String goalRateAndAfterTax,
+            String afterTaxTotal,
+            String remainingAfterTax,
+            String remainingGoalAfterTax)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel() when $default != null:
+        return $default(
+            _that.subsidyWorkDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.totalPayAnd,
+            _that.workRecord,
+            _that.normalValue,
+            _that.normalDay,
+            _that.extendValue,
+            _that.extendDay,
+            _that.nightValue,
+            _that.nightDay,
+            _that.extraValue,
+            _that.extraDay,
+            _that.offDay,
+            _that.goalRate,
+            _that.goalRateAnd,
+            _that.goalRateAfterTax,
+            _that.goalRateAndAfterTax,
+            _that.afterTaxTotal,
+            _that.remainingAfterTax,
+            _that.remainingGoalAfterTax);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            int subsidyWorkDay,
+            int totalSubsidy,
+            int workDay,
+            String totalPay,
+            String totalPayAnd,
+            double workRecord,
+            double normalValue,
+            int normalDay,
+            double extendValue,
+            int extendDay,
+            double nightValue,
+            int nightDay,
+            double extraValue,
+            int extraDay,
+            int offDay,
+            String goalRate,
+            String goalRateAnd,
+            String goalRateAfterTax,
+            String goalRateAndAfterTax,
+            String afterTaxTotal,
+            String remainingAfterTax,
+            String remainingGoalAfterTax)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel():
+        return $default(
+            _that.subsidyWorkDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.totalPayAnd,
+            _that.workRecord,
+            _that.normalValue,
+            _that.normalDay,
+            _that.extendValue,
+            _that.extendDay,
+            _that.nightValue,
+            _that.nightDay,
+            _that.extraValue,
+            _that.extraDay,
+            _that.offDay,
+            _that.goalRate,
+            _that.goalRateAnd,
+            _that.goalRateAfterTax,
+            _that.goalRateAndAfterTax,
+            _that.afterTaxTotal,
+            _that.remainingAfterTax,
+            _that.remainingGoalAfterTax);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            int subsidyWorkDay,
+            int totalSubsidy,
+            int workDay,
+            String totalPay,
+            String totalPayAnd,
+            double workRecord,
+            double normalValue,
+            int normalDay,
+            double extendValue,
+            int extendDay,
+            double nightValue,
+            int nightDay,
+            double extraValue,
+            int extraDay,
+            int offDay,
+            String goalRate,
+            String goalRateAnd,
+            String goalRateAfterTax,
+            String goalRateAndAfterTax,
+            String afterTaxTotal,
+            String remainingAfterTax,
+            String remainingGoalAfterTax)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborStatsModel() when $default != null:
+        return $default(
+            _that.subsidyWorkDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.totalPayAnd,
+            _that.workRecord,
+            _that.normalValue,
+            _that.normalDay,
+            _that.extendValue,
+            _that.extendDay,
+            _that.nightValue,
+            _that.nightDay,
+            _that.extraValue,
+            _that.extraDay,
+            _that.offDay,
+            _that.goalRate,
+            _that.goalRateAnd,
+            _that.goalRateAfterTax,
+            _that.goalRateAndAfterTax,
+            _that.afterTaxTotal,
+            _that.remainingAfterTax,
+            _that.remainingGoalAfterTax);
+      case _:
+        return null;
+    }
   }
 }
 
@@ -918,6 +1209,292 @@ class _$LaborFiltedModelCopyWithImpl<$Res>
           : offDay // ignore: cast_nullable_to_non_nullable
               as int,
     ));
+  }
+}
+
+/// Adds pattern-matching-related methods to [LaborFiltedModel].
+extension LaborFiltedModelPatterns on LaborFiltedModel {
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LaborFiltedModel value)? $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel() when $default != null:
+        return $default(_that);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// Callbacks receives the raw object, upcasted.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case final Subclass2 value:
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_LaborFiltedModel value) $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel():
+        return $default(_that);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `map` that fallback to returning `null`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LaborFiltedModel value)? $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel() when $default != null:
+        return $default(_that);
+      case _:
+        return null;
+    }
+  }
+
+  /// A variant of `when` that fallback to an `orElse` callback.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(
+            int subsidyDay,
+            String totalSubsidy,
+            int workDay,
+            int totalPay,
+            String tax,
+            String afterTax,
+            int prevPay,
+            String percent,
+            String totalPayString,
+            String prevPayString,
+            String totalPayAnd,
+            double record,
+            String workRecord,
+            int normalDay,
+            String normalPay,
+            int extendDay,
+            String extendPay,
+            int nightDay,
+            String nightPay,
+            int extraDay,
+            int offDay)?
+        $default, {
+    required TResult orElse(),
+  }) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel() when $default != null:
+        return $default(
+            _that.subsidyDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.tax,
+            _that.afterTax,
+            _that.prevPay,
+            _that.percent,
+            _that.totalPayString,
+            _that.prevPayString,
+            _that.totalPayAnd,
+            _that.record,
+            _that.workRecord,
+            _that.normalDay,
+            _that.normalPay,
+            _that.extendDay,
+            _that.extendPay,
+            _that.nightDay,
+            _that.nightPay,
+            _that.extraDay,
+            _that.offDay);
+      case _:
+        return orElse();
+    }
+  }
+
+  /// A `switch`-like method, using callbacks.
+  ///
+  /// As opposed to `map`, this offers destructuring.
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case Subclass2(:final field2):
+  ///     return ...;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(
+            int subsidyDay,
+            String totalSubsidy,
+            int workDay,
+            int totalPay,
+            String tax,
+            String afterTax,
+            int prevPay,
+            String percent,
+            String totalPayString,
+            String prevPayString,
+            String totalPayAnd,
+            double record,
+            String workRecord,
+            int normalDay,
+            String normalPay,
+            int extendDay,
+            String extendPay,
+            int nightDay,
+            String nightPay,
+            int extraDay,
+            int offDay)
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel():
+        return $default(
+            _that.subsidyDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.tax,
+            _that.afterTax,
+            _that.prevPay,
+            _that.percent,
+            _that.totalPayString,
+            _that.prevPayString,
+            _that.totalPayAnd,
+            _that.record,
+            _that.workRecord,
+            _that.normalDay,
+            _that.normalPay,
+            _that.extendDay,
+            _that.extendPay,
+            _that.nightDay,
+            _that.nightPay,
+            _that.extraDay,
+            _that.offDay);
+      case _:
+        throw StateError('Unexpected subclass');
+    }
+  }
+
+  /// A variant of `when` that fallback to returning `null`
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case Subclass(:final field):
+  ///     return ...;
+  ///   case _:
+  ///     return null;
+  /// }
+  /// ```
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(
+            int subsidyDay,
+            String totalSubsidy,
+            int workDay,
+            int totalPay,
+            String tax,
+            String afterTax,
+            int prevPay,
+            String percent,
+            String totalPayString,
+            String prevPayString,
+            String totalPayAnd,
+            double record,
+            String workRecord,
+            int normalDay,
+            String normalPay,
+            int extendDay,
+            String extendPay,
+            int nightDay,
+            String nightPay,
+            int extraDay,
+            int offDay)?
+        $default,
+  ) {
+    final _that = this;
+    switch (_that) {
+      case _LaborFiltedModel() when $default != null:
+        return $default(
+            _that.subsidyDay,
+            _that.totalSubsidy,
+            _that.workDay,
+            _that.totalPay,
+            _that.tax,
+            _that.afterTax,
+            _that.prevPay,
+            _that.percent,
+            _that.totalPayString,
+            _that.prevPayString,
+            _that.totalPayAnd,
+            _that.record,
+            _that.workRecord,
+            _that.normalDay,
+            _that.normalPay,
+            _that.extendDay,
+            _that.extendPay,
+            _that.nightDay,
+            _that.nightPay,
+            _that.extraDay,
+            _that.offDay);
+      case _:
+        return null;
+    }
   }
 }
 

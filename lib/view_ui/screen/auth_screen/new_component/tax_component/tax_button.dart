@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../../../core/export_package.dart';
 
 class TaxButton extends StatelessWidget {
@@ -15,12 +17,16 @@ class TaxButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 5),
         decoration: BoxDecoration(
-          color: isSelected ? Color(0xFFF0F0F0) : Colors.white,
+          color: isSelected ? context.boxColor
+              : context.boxColor,
           border: Border.all(
             color: isSelected ? Colors.grey : Color(0xFFE0E0E0),
             width: isSelected ? 2.5 : 2,
@@ -35,7 +41,7 @@ class TaxButton extends StatelessWidget {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w800,
-                color: Color(0xFF333333),
+                color: context.subTextColor,
               ),
             ),
           ),

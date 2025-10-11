@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
@@ -27,19 +29,13 @@ class SettingMemoTextField extends HookConsumerWidget {
     return Container(
       height: 75,
       decoration: BoxDecoration(
-        color: Colors.grey.shade100,
+        color: context.isDark ? Colors.black54 : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),
         border: Border.all(
           color: borderColor,
           width: nodeMemo.hasFocus ? 1.55 : 1.05,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: context.defaultShadow,
       ),
       child: Column(
         children: [

@@ -1,4 +1,5 @@
 
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
@@ -35,6 +36,7 @@ class RangeHistoryScreen extends HookConsumerWidget {
     final month = '${dateRange.endDate.month.toString().padLeft(2, '0')}월';
     final day = '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
 
+    final subTextColor = context.isDark ? Colors.grey.shade400 : Colors.grey.shade700;
 
     String _format(double amount) {
       return amount >= 1000
@@ -56,7 +58,7 @@ class RangeHistoryScreen extends HookConsumerWidget {
           Container(
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
+              color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(15),
             ),
             child: SingleChildScrollView(
@@ -100,44 +102,52 @@ class RangeHistoryScreen extends HookConsumerWidget {
                                   children: [
                                     Row(
                                       children: [
-                                        TextWidget('세후(${value.tax}%)',13.5,width,color: Colors.grey.shade700),
+                                        TextWidget('세후(${value.tax}%)',
+                                            13.5,width,color: subTextColor),
                                         Spacer(),
                                         TextWidget(
                                             '${(value.afterTax/10000).toStringAsFixed(1)}만원',
-                                            13.5,width),
+                                            13.5,width, color: context.textColor),
                                       ],
                                     ),
                                     SizedBox(height: 15),
                                     Row(
                                       children: [
-                                        TextWidget('퇴직공제금액',13.5,width,color: Colors.grey.shade700),
+                                        TextWidget('퇴직공제금액',13.5,
+                                            width,color: subTextColor),
                                         Spacer(),
-                                        TextWidget('${(value.severancePay).toStringAsFixed(1)}만원',13.5,width),
+                                        TextWidget('${(value.severancePay).toStringAsFixed(1)}만원',
+                                            13.5,width,color: context.textColor),
                                       ],
                                     ),
               
                                     SizedBox(height: 15),
                                     Row(
                                       children: [
-                                        TextWidget('근로신고일수',13.5,width,color: Colors.grey.shade700),
+                                        TextWidget('근로신고일수',13.5,
+                                            width,color: subTextColor),
                                         Spacer(),
-                                        TextWidget('233일',13.5,width),
+                                        TextWidget('233일',13.5,width
+                                            ,color: context.textColor),
                                       ],
                                     ),
                                     SizedBox(height: 15),
                                     Row(
                                       children: [
-                                        TextWidget('총 출력일수',13.5,width,color: Colors.grey.shade700),
+                                        TextWidget('총 출력일수',13.5,
+                                            width,color: subTextColor),
                                         Spacer(),
-                                        TextWidget('${value.workDay}일',13.5,width),
+                                        TextWidget('${value.workDay}일',13.5,width,
+                                            color: context.textColor),
                                       ],
                                     ),
                                     SizedBox(height: 15),
                                     Row(
                                       children: [
-                                        TextWidget('근로공제일수',13.5,width,color: Colors.grey.shade700),
+                                        TextWidget('근로공제일수',13.5,
+                                            width,color: subTextColor),
                                         Spacer(),
-                                        TextWidget('${value.wrd}일',13.5,width),
+                                        TextWidget('${value.wrd}일',13.5,width,color: context.textColor),
                                       ],
                                     ),
                                   ],

@@ -1,6 +1,6 @@
 
 import '../../../../core/export_package.dart';
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 import '../../../../view_model/view_provider/is_galaxy_fold.dart';
 
 class PayNumberCounter extends ConsumerWidget {

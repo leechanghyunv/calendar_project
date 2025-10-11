@@ -1,5 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/info_box_sub_provider.dart';
 import '../../../../core/utils/converter.dart';
@@ -100,21 +102,7 @@ class InfoBox extends StatelessWidget {
     return Container(
       height: height > 750 ? (width > 400 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
       width: width,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade100,
-        borderRadius: BorderRadius.circular(10.0),
-        border: Border.all(
-          color: Colors.grey.shade900,
-          width: 0.35,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      decoration: context.cardDecoration,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
         child: Column(
@@ -131,7 +119,7 @@ class InfoBox extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: (width > 400 ? 15.0 : (width < 376 ? 12.0 : 14.0)),
-                    color: Colors.grey.shade600,
+                    color: context.isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                     fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                   ),
                 ),
@@ -170,7 +158,7 @@ class InfoBox extends StatelessWidget {
               textScaler: TextScaler.noScaling,
               style: TextStyle(
                 fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 9.0 : 9.5),
-                color: Colors.grey.shade700,
+                color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade700,
               ),
             ),
           ],

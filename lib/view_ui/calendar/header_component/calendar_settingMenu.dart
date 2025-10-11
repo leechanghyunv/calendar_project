@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
-import '../../dialog/basic_setting_dialog/basic_setting_dialog.dart';
 import '../../screen/calendar_screen/provider/popup_menu_provider.dart';
 import '../../screen/range_history_screen/component/range_history_modal_component.dart';
 import '../../screen/setting_screen/setting_modal.dart';
@@ -13,19 +14,23 @@ class SettingPopupWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     final appWidth = context.width;
 
     TextStyle getStyle = TextStyle(
       fontSize: appWidth > 450 ? 14 : 13,
-      color: Colors.grey.shade900,
+      color: context.isLight ? Colors.grey.shade900 : Colors.grey.shade100,
       fontWeight: FontWeight.w600,
     );
 
     return PopupMenuButton<String>(
-      color: Colors.grey.shade50,
+      color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(
+            width: 0.5,
+            color: Colors.grey.shade200),
       ),
       offset: Offset(230, 40),
       icon: Icon(
@@ -49,13 +54,6 @@ class SettingPopupWidget extends ConsumerWidget {
             break;
           case 'settings':
             showSettingModal(context);
-            // ref.read(calendarSwitcherProvider.notifier).toggle();
-            break;
-          case 'theme':
-            showDialog(
-              context: context,
-              builder: (context) => BasicSettingDialog(),
-            );
             break;
         }
       },
@@ -66,7 +64,9 @@ class SettingPopupWidget extends ConsumerWidget {
           height: 30,
           child: CalendarSettingBox('근로기간 설정하기', getStyle),
         ),
-        PopupMenuDivider(),
+        PopupMenuDivider(
+          color: context.isDark ? Colors.grey.shade600 : null,
+        ),
         PopupMenuItem(
           value: 'enroll',
           height: 30,
@@ -89,53 +89,33 @@ class SettingPopupWidget extends ConsumerWidget {
           ),
 
         ),
-        PopupMenuDivider(),
+        PopupMenuDivider(
+          color: context.isDark ? Colors.grey.shade600 : null,
+        ),
         PopupMenuItem(
           value: 'settings',
           height: 30,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade50,
               borderRadius: BorderRadius.circular(6),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:  Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+                Column(
                   children: [
                     Text(
                         textScaler: TextScaler.noScaling,
-                        '캘린더모드 변경',
+                        '기본설정 변경하기',
                         style: getStyle),
+
                   ],
-                ),
-                Text(
-                  '메모기록포함 & 제외',
-                  textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                    fontSize: appWidth > 450 ? 12 : 10,
-                    color: Colors.grey.shade500,
-                    fontWeight: FontWeight.w600,
-                  ),
                 ),
               ],
             ),
           ),
         ),
-        PopupMenuDivider(),
-        PopupMenuItem(
-          value: 'theme',
-          height: 30,
-          child: CalendarSettingBox('기본공수 변경', getStyle),
-        ),
-        // PopupMenuDivider(),
-        // PopupMenuItem(
-        //   value: 'theme',
-        //   height: 30,
-        //   child: CalendarSettingBox('다크모드 변경', getStyle),
-        // ),
       ],
     );
   }

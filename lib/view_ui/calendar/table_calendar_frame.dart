@@ -81,7 +81,7 @@ class TableCalendarFrame extends ConsumerWidget {
         dowBuilder: (context, day) {
           final List<String> weekdays = ['', '월', '화', '수', '목', '금', '토', '일',];
           return Center(
-            child: dayText(weekdays[day.weekday], appWidth),
+            child: dayText(weekdays[day.weekday]),
           );
         },
         defaultBuilder: defaultBuilder,

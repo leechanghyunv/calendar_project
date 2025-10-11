@@ -1,6 +1,7 @@
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 
 class FunctionChip extends StatefulWidget {
   final String label;
@@ -40,15 +41,11 @@ class _FunctionChipState extends State<FunctionChip> {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: widget.borderColor,
-          width: isSelected ? 1.75 : 0.75,
+          width: isSelected
+              ? 1.75
+              : context.isDark ? 1.25 : 0.75,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        boxShadow: context.defaultShadow,
       ),
       child: GestureDetector(
         onTapDown: (_){

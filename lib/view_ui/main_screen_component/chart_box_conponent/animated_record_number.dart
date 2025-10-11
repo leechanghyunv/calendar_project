@@ -1,5 +1,5 @@
 import '../../../core/export_package.dart';
-import '../../../theme_color.dart';
+import '../../../core/extentions/theme_color.dart';
 
 class NumberCounter extends StatelessWidget {
   final double start;

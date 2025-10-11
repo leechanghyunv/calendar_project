@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
@@ -22,9 +23,13 @@ class SettingNumberAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder<double>(
         tween: Tween(begin: start, end: end),
-        duration: duration, builder: (context, value, child){
-      return TextWidget(pay ? '만원': value.toStringAsFixed(2), textSize, context.width,
-      color: Colors.white);
+        duration: duration,
+        builder: (context, value, child){
+      return TextWidget(
+          pay ? '만원': value.toStringAsFixed(2),
+          textSize, context.width,
+          color: context.buttonColor,
+      );
     });
 
   }

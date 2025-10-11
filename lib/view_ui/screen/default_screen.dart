@@ -1,6 +1,4 @@
 import 'package:calendar_project_240727/core/export_package.dart';
-import '../../theme_color.dart';
-import '../calendar/header_component/calendar_drawer.dart';
 
 
 class DefaultScreen extends HookConsumerWidget {
@@ -18,10 +16,7 @@ class DefaultScreen extends HookConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: themeColor,
-      endDrawer: buildSettingsDrawer(context, ref),
-      drawerScrimColor: Colors.black.withOpacity(0.4), // 기본값은 0.54 정도
-
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
         child: body,
       ),

@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -26,16 +27,16 @@ class CustomTrackSwitch extends HookConsumerWidget {
           // ✅ thumb 색상 (ON/OFF)
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
-                ? Colors.blue.shade300
-                : Colors.teal.shade300;
+                ? context.isDark ? Colors.blue.shade700 : Colors.blue.shade300
+                : context.isDark ? Colors.teal.shade700 : Colors.teal.shade300;
           }),
 
           // ✅ 트랙 색상 (ON/OFF)
           trackColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
-              return Colors.blue.shade100; // ON 상태
+              return context.isDark ? Colors.blue.shade300 : Colors.blue.shade100; // ON 상태
             }
-            return Colors.teal.shade100; // OFF 상태
+            return context.isDark ? Colors.teal.shade300 : Colors.teal.shade100; // OFF 상태
           }),
           // ✅ 트랙 외곽선 색상
           trackOutlineColor: WidgetStateProperty.all(Colors.black26),

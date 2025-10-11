@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/focus_node_listner.dart';
@@ -28,7 +29,7 @@ class StatisticScreen extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.grey.shade50,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: NestedScrollView(
             controller: nestedScrollController,
@@ -58,9 +59,9 @@ class StatisticScreen extends HookConsumerWidget {
                                 children: [
                                   FunctionChip(
                                     label: '목표관리',
-                                    color: Colors.grey.shade200,
+                                    color: context.chipColor,
                                     borderColor: Colors.grey.shade600,
-                                    textColor: Colors.grey.shade900,
+                                    textColor: context.chipTextColor,
                                     onTap: () {
                                       showDialog(
                                         context: context,
@@ -72,9 +73,9 @@ class StatisticScreen extends HookConsumerWidget {
                                   SizedBox(width: 10.0),
                                   FunctionChip(
                                     label: '전체삭제',
-                                    color: Colors.grey.shade200,
+                                    color: context.chipColor,
                                     borderColor: Colors.grey.shade600,
-                                    textColor: Colors.grey.shade900,
+                                    textColor: context.chipTextColor,
                                     onTap: () {
                                       showDialog(
                                           context: context,
@@ -87,9 +88,9 @@ class StatisticScreen extends HookConsumerWidget {
 
                                   FunctionChip(
                                     label: '공수기록백업',
-                                    color: Colors.grey.shade200,
+                                    color: context.chipColor,
                                     borderColor: Colors.grey.shade600,
-                                    textColor: Colors.grey.shade900,
+                                    textColor: context.chipTextColor,
                                     onTap: () {
                                       // showBackUpModal(context);
                                       showDialog(
@@ -127,9 +128,9 @@ class StatisticScreen extends HookConsumerWidget {
                         Spacer(),
                         FunctionChip(
                           label: isScrolledDown.value ? '@돌아가기' : '@상세히',
-                          color: isOn ? Colors.blue.shade100 : Colors.teal.shade100,
-                          borderColor: isOn ? Colors.blue.shade400 : Colors.teal.shade400,
-                          textColor: isOn ? Colors.blue.shade900 : Colors.teal.shade800,
+                          color: context.idChipColor,
+                          borderColor: context.idChipBorderColor,
+                          textColor: context.idChipTextColor,
                           onTap: () {
 
                             if (isScrolledDown.value) {

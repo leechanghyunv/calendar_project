@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/loading_screen.dart';
 
@@ -25,6 +26,10 @@ void showRangeModal(BuildContext context,WidgetRef ref){
         topLeft: Radius.circular(20),
         topRight: Radius.circular(20),
       ),
+      side: context.isDark ? BorderSide(
+        color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+        width: 1,
+      ) : BorderSide.none,
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
@@ -69,10 +74,6 @@ void showRangeModal(BuildContext context,WidgetRef ref){
                   )
                       : RangeHistoryScreen(),
                 ),
-
-
-
-
               ),
             ],
           ),

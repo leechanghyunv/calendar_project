@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
@@ -37,6 +38,7 @@ class WorkCalendar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
 
     final appWidth = context.width;
 
@@ -88,13 +90,13 @@ class WorkCalendar extends ConsumerWidget {
               final isSubstituteHoliday = _substituteHolidayCache[utcDate] ?? false;
 
               if (date.weekday == DateTime.saturday) {
-                textColor = Colors.blue; // 토요일
+                textColor = context.saturdayColor;
               } else if (date.weekday == DateTime.sunday ||
                   isSubstituteHoliday ||
                   isHoliday) {
-                textColor = Colors.teal; // 일요일
+                textColor = context.sundayColor;
               } else {
-                textColor = Colors.black; // 평일
+                textColor = context.textColor;
               }
 
               return DefaultCell(date: date, textColor: textColor);

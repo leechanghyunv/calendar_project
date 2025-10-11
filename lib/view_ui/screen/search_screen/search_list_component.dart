@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 // 🕐 검색 히스토리 위젯
@@ -48,11 +49,13 @@ class SearchListWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         TextWidget('최근 검색', 13, context.width,
-            color: Colors.grey[600], fontWeight: FontWeight.w500),
+            color: context.isDark ? Colors.grey[200] : Colors.grey[600],
+            fontWeight: FontWeight.w500),
         GestureDetector(
           onTap: () => onClearAll,
           child: TextWidget('전체삭제', 12, context.width,
-              color: Colors.grey[500], fontWeight: FontWeight.normal),
+              color:  context.isDark ? Colors.grey[200] : Colors.grey[500],
+              fontWeight: FontWeight.normal),
         ),
       ],
     );
@@ -91,23 +94,29 @@ class _HistoryChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final textColor = context.isDark ? Colors.grey[100] : Colors.grey[700];
+    final iconColor = context.isDark ? Colors.grey[100] : Colors.grey[600];
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: context.isDark ? Colors.black54 : Colors.grey[200],
+          border: context.isLight ? null : Border.all(width: 0.75,
+              color: Colors.white),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextWidget(text, 13, context.width,
-                color: Colors.grey[700], fontWeight: FontWeight.normal),
+                color: textColor, fontWeight: FontWeight.normal,
+            ),
             SizedBox(width: 4),
             GestureDetector(
               onTap: onDelete,
-              child: Icon(Icons.close, size: 14, color: Colors.grey[600]),
+              child: Icon(Icons.close, size: 14, color: iconColor),
             ),
           ],
         ),

@@ -1,9 +1,10 @@
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/show_memo_history_provider.dart';
 
 import '../../../../core/widget/text_widget.dart';
 import '../../../../repository/time/date_range_controller.dart';
-import '../../../../theme_color.dart';
+import '../../../../core/extentions/theme_color.dart';
 import '../../../../view_model/filted_instance_model/search_source_model.dart';
 import '../../../../view_model/sqlite_model/selected_model.dart';
 import '../../statistic_screen/provider/info_box_provider.dart';
@@ -46,21 +47,7 @@ class HistoryMemoComponent extends HookConsumerWidget {
     }, [memoState]);
 
 
-    Decoration infoBoxDeco = BoxDecoration(
-      color: Colors.grey.shade100,
-      borderRadius: BorderRadius.circular(10.0),
-      border: Border.all(
-        color: Colors.grey.shade900,
-        width: 0.35,
-      ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade300,
-          blurRadius: 4,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    );
+    Decoration infoBoxDeco = context.cardDecoration;
 
     return memoState
         ? Container(
@@ -159,14 +146,15 @@ class HistoryMemoComponent extends HookConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextWidget('${start} ~ ${end}', 16, appWidth, color: Colors.grey.shade800),
+                  TextWidget('${start} ~ ${end}', 16, appWidth,
+                      color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800),
                   SizedBox(height: 7.5),
                   Text.rich(
                     TextSpan(
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         height: textHeight,
-                        color: Colors.grey.shade800,
+                        color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
                         fontSize: appWidth <= 376 ? 13.5 : (appWidth > 400 ? 16 : 14.5),
                         letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
                       ),
