@@ -19,6 +19,22 @@ extension ThemeColorExtension on BuildContext {
       ? Colors.black54
       : Colors.white;
 
+  Color get toggleOffColor => isDark
+      ? Colors.blueAccent.shade700
+      : Colors.blue.shade300;
+
+  Color get toggleOnColor => isDark
+      ? Colors.teal.shade700
+      : Colors.teal.shade300;
+
+  Color get toggleTrackOffColor => isDark
+      ? Colors.blueAccent.shade100
+      : Colors.blue.shade100;
+
+  Color get toggleTrackOnColor => isDark
+      ? Colors.teal.shade300
+      : Colors.teal.shade100;
+
 
   Color get chipColor => isDark
       ? Colors.black54

@@ -142,7 +142,7 @@ class MarkerCell extends ConsumerWidget {
                 style: TextStyle(
                   overflow: TextOverflow.ellipsis,
                   fontWeight: FontWeight.bold,
-                  color: Colors.grey.shade900,
+                  color: context.subTextColor,
                   height: textHeight,
                   fontSize: appWidth < 376 ? (isOn ? 10 : 9.5) : 10.5,
                 ),

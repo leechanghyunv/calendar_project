@@ -6,7 +6,6 @@ import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/pay_
 import 'package:intl/intl.dart';
 
 import '../../../core/export_package.dart';
-import '../../../core/utils/formatter.dart';
 import '../../../firebase_analytics.dart';
 import '../../../model/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
@@ -65,7 +64,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeOut,
         );
-
         // 스크롤 완료 후 제한 활성화
         _hasScrolled.value = true;
       });
@@ -134,6 +132,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                PayNumberField(
                  name: 'normal',
                  hintText: '150,000',
+                 action: PayFieldAction.autoComplete,
                  focusNode: wageFocusNodeA,
                  onChanged: (val) {
                    normalFieldValue.value = val ?? '';
@@ -146,45 +145,36 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    wageFocusNodeB.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
                    ref.read(payListProvider.notifier).update(0, val);
                  },
-                 suffixIcon: GestureDetector(
-                   onTap: () async {
-                     final normalStr = _formKey.currentState?.fields['normal']?.value ?? '0';
-                     final normal = int.tryParse(normalStr.replaceAll(',', '')) ?? 0;
-                     String formatWithComma(int value) {
-                       final formatter = NumberFormat('#,###');
-                       return formatter.format(value);
-                     }
+                 onActionTap: (){
+                   final normalStr = _formKey.currentState?.fields['normal']?.value ?? '0';
+                   final normal = int.tryParse(normalStr.replaceAll(',', '')) ?? 0;
+                   String formatWithComma(int value) {
+                     final formatter = NumberFormat('#,###');
+                     return formatter.format(value);
+                   }
 
-                     _scrollToBottom();
-                     final extended = formatWithComma((normal * 1.5).round());
-                     final night = formatWithComma((normal * 2).round());
-     
-                     formzRefRead.onChangePay1(normal.toString());
-                     formzRefRead.onChangePay2(extended);
-                     formzRefRead.onChangePay3(night);
-     
-                     ref.read(payListProvider.notifier).update(0, normalStr);
-                     ref.read(payListProvider.notifier).update(1, extended);
-                     ref.read(payListProvider.notifier).update(2, night);
-     
-                     _formKey.currentState?.fields['extended']?.didChange(extended);
-                     _formKey.currentState?.fields['night']?.didChange(night);
-                     ref.read(firebaseAnalyticsClassProvider.notifier).autoCopyEvent();
-     
-                   },
-                   child: Padding(
-                     padding: const EdgeInsets.all(12.0),
-                     child: Container(
-                       child: TextWidget('# 자동완성', 14, appWidth,
-                           color: context.subTextColor),
-                     ),
-                   ),
-                 ),
+                   _scrollToBottom();
+                   final extended = formatWithComma((normal * 1.5).round());
+                   final night = formatWithComma((normal * 2).round());
+
+                   formzRefRead.onChangePay1(normal.toString());
+                   formzRefRead.onChangePay2(extended);
+                   formzRefRead.onChangePay3(night);
+
+                   ref.read(payListProvider.notifier).update(0, normalStr);
+                   ref.read(payListProvider.notifier).update(1, extended);
+                   ref.read(payListProvider.notifier).update(2, night);
+
+                   _formKey.currentState?.fields['extended']?.didChange(extended);
+                   _formKey.currentState?.fields['night']?.didChange(night);
+                   ref.read(firebaseAnalyticsClassProvider.notifier).autoCopyEvent();
+                 },
                ),
                ValidationText(text: formzRefNot.pay1Error),
                PayNumberField(
                  name: 'extended',
                  hintText: '225,000',
+                 action: PayFieldAction.hideKeyboard,
                  focusNode: wageFocusNodeB,
                  onSubmitted: (val) {
                    wageFocusNodeC.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
@@ -196,16 +186,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                      formzRefRead.onChangePay2(cleanedValue);
                    }
                  },
-                 suffixIcon: GestureDetector(
-                   onTap: () => FocusScope.of(context).unfocus(),
-                   child: Padding(
-                     padding: const EdgeInsets.all(12.0),
-                     child: Container(
-                       child: TextWidget('# 키보드 숨기기',
-                           14, appWidth,color: context.subTextColor),
-                     ),
-                   ),
-                 ),
                ),
                ValidationText(text: formzRefNot.pay2Error),
                Row(
@@ -215,6 +195,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                      child: PayNumberField(
                        name: 'night',
                        hintText: '300,000',
+                       action: PayFieldAction.closeInput,
                        focusNode: wageFocusNodeC,
                        onChanged: (val) {
                          if (val != null && val.isNotEmpty) {
@@ -225,16 +206,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                        onSubmitted: (val) {
                          ref.read(payListProvider.notifier).update(2, val);
                        },
-                       suffixIcon: GestureDetector(
-                         onTap: () => Navigator.of(context, rootNavigator: true).pop(),
-                         child: Padding(
-                           padding: const EdgeInsets.all(12.0),
-                           child: Container(
-                             child: TextWidget('# 입력창에서 나가기', 14, appWidth,
-                                 color: context.subTextColor),
-                           ),
-                         ),
-                       ),
                      ),
                    ),
                    // SizedBox(width: 15),

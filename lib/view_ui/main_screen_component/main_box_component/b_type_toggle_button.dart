@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 
 import '../../../core/export_package.dart';
@@ -22,14 +23,14 @@ class SwitchExample extends HookConsumerWidget {
           onChanged: (bool val) => ref.read(bTypeSwitchProviderProvider.notifier).setValue(val),
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
-                ? Colors.blue.shade300
-                : Colors.teal.shade300;
+                ? context.toggleOffColor
+                : context.toggleOnColor;
           }),
           trackColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
-              return Colors.blue.shade100; // ON 상태
+              return context.toggleTrackOffColor; // ON 상태
             }
-            return Colors.teal.shade100; // OFF 상태
+            return context.toggleTrackOnColor; // OFF 상태
           }),
           // ✅ 트랙 외곽선 색상
           trackOutlineColor: WidgetStateProperty.all(Colors.black26),

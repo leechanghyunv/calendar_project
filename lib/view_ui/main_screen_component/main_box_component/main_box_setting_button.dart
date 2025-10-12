@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +10,6 @@ import '../../../core/utils/view_type.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'setting_component/number_picker_modal.dart';
-
 part 'main_box_setting_button.g.dart';
 
 @riverpod
@@ -114,7 +112,7 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
                 ),
                 clipBehavior: Clip.antiAlias,
               ) : SizedBox.shrink(),
-              Text(Platform.isAndroid ? '️ 설정' : context.isDark ?  '️ 설정' : '️⚙️설정',
+              Text(Platform.isAndroid ? '️ 등록' : context.isDark ?  '️ 등록' : '️⚙️등록',
                 textScaler: TextScaler.noScaling,
                 style: TextStyle(
                   color: context.textColor,

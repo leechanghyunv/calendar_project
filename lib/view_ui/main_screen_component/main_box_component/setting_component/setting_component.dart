@@ -6,8 +6,10 @@ import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_number_animation.dart';
 
 import '../../../../core/export_package.dart';
+import '../../../../core/utils/converter.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../core/widget/text_widget.dart';
+import '../../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 
@@ -254,8 +256,28 @@ class MemoStateComponent extends HookConsumerWidget {
     return Row(
       children: [
         SizedBox(width: 5),
-        TextWidget('빠른선택', 16, context.width,
-            color: context.textColor),
+
+        Consumer(builder: (context, ref, child){
+          final contract = ref.watch(viewContractProvider);
+          return contract.maybeWhen(
+            data: (val) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextWidget(
+                    '일당 ${formatAmount(val.last.normal)}', 16,
+                    context.width,
+                    color: context.textColor),
+                // TextWidget(
+                //     '일비 ${formatAmount(val.last.subsidy)}', 11,
+                //     context.width,
+                //     color: context.textColor,
+                // ),
+              ],
+            ),
+            orElse: () => SizedBox.shrink(),
+          );
+        }),
+
         Spacer(),
         InkWell(
           onTap: () => ref.read(showMemoStateProvider.notifier).memoState(),
