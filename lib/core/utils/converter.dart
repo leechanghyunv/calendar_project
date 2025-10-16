@@ -9,7 +9,7 @@ String formatAmount(int amount) {
   final int intValue = value.toInt();
   final int length = intValue.toString().length;
 
-  if (length >= 5) { // 1억원 이상인 경우 (5자리 이상의 만원 = 억원)
+  if (length >= 5) {
     final billion = (value / 10000).toStringAsFixed(2); // 소수점 2자리
     return '$billion억원';
   } else {

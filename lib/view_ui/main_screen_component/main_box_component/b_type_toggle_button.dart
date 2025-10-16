@@ -23,12 +23,12 @@ class SwitchExample extends HookConsumerWidget {
           onChanged: (bool val) => ref.read(bTypeSwitchProviderProvider.notifier).setValue(val),
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
-                ? context.toggleOffColor
+                ? context.toggleOnColor
                 : context.toggleOnColor;
           }),
           trackColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
-              return context.toggleTrackOffColor; // ON 상태
+              return context.toggleTrackOnColor; // ON 상태
             }
             return context.toggleTrackOnColor; // OFF 상태
           }),

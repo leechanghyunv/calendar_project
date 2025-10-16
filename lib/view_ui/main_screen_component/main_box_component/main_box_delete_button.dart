@@ -54,7 +54,7 @@ class DeleteChip extends HookConsumerWidget {
           > 450 => 26,
           > 420 => 25,
           > 400 => 24,
-          _ => 22.5,
+          _ => Platform.isAndroid ?  21.5 : 22.5,
         },
 
         width: switch (appWidth) {
@@ -95,7 +95,7 @@ class DeleteChip extends HookConsumerWidget {
                   _ => 11,
                 },
                 colorFilter: ColorFilter.mode(
-                  Colors.black,
+                  context.textColor,
                   BlendMode.srcIn,
                 ),
                 clipBehavior: Clip.antiAlias,
@@ -119,10 +119,10 @@ class DeleteChip extends HookConsumerWidget {
                   color: context.textColor,
                   fontSize: Platform.isAndroid
                       ? switch (appWidth) {
-                    > 450 => 14.5,
-                    > 420 => 12.5,
-                    > 400 => 12,
-                    _ => 11.5,
+                    > 450 => 13.5,
+                    > 420 => 11.5,
+                    > 400 => 11,
+                    _ => 11,
                   } : context.isDark ? switch (appWidth) {
                     > 450 => 13.5,
                     > 420 => 11.5,

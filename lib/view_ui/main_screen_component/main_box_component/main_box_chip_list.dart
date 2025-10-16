@@ -37,7 +37,7 @@ class ChipList extends HookConsumerWidget {
       height: switch (appWidth) {
         > 420 => 24.5,
         > 400 => 23.5,
-        _ => 22,
+        _ => Platform.isAndroid ?  21.5 : 22,
       },
 
       width: switch (appWidth) {

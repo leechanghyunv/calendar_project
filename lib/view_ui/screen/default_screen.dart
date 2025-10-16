@@ -14,6 +14,18 @@ class DefaultScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    useEffect(() {
+      if (Platform.isAndroid) {
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: isDark ? Colors.black : Colors.grey.shade50,
+          statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
+        ));
+      }
+      return null;
+    }, [isDark]);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,

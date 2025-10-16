@@ -1,10 +1,12 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/quickSelectChip_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_memo_textfield.dart';
+import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/additional_pay_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../model/formz_decimal_model.dart';
@@ -13,6 +15,8 @@ import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../../view_model/sqlite_model/history_model.dart';
 import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
+import '../../../screen/setting_screen/component/additional_pay_component.dart';
+import '../../../screen/setting_screen/component/additional_textField.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
 import '../../../widgets/elevated_button.dart';
 import '../../../widgets/left_eleveted_button.dart';
@@ -35,18 +39,33 @@ class SettingScreen extends HookConsumerWidget {
     final dateRange = useState<List<DateTime>?>(null);
     final contract = ref.watch(viewContractProvider);
     final history = ref.watch(viewHistoryProvider);
+    final openBox = ref.watch(additionalPayProvider);
+
     ref.watch(formzDecimalValidatorProvider);
     ref.formzMemoWatch;
     ref.decimalWatch;
 
     final memoController = useTextEditingController();
     final decimalController = useTextEditingController();
+    final additionalController = useTextEditingController();
+
     final decimalFocus = useFocusNode();
     final rangeFocus = useFocusNode();
     final memoFocus = useFocusNode();
+    final additionalFocus = useFocusNode();
+
     useListenable(memoFocus);
 
     int initial = 20;
+
+    useEffect(() {
+      if (openBox) {
+        Future.delayed(const Duration(milliseconds: 200), () {
+          additionalFocus.requestFocus();
+        });
+      }
+      return null; // cleanup 불필요
+    }, [openBox]);
 
     if (contract.hasValue && contract.hasValue) {
       final contracts = contract.value!; // List<LabourCondition>
@@ -59,6 +78,7 @@ class SettingScreen extends HookConsumerWidget {
 
     final currentIndex = useState(initial);
     final customValue = useState<double?>(null); // 직접 입력값 저장
+    final customMemo = useState<String?>(null); // 직접 입력값 저장
     final currentValue = customValue.value ?? (currentIndex.value * _step);
 
 
@@ -76,7 +96,7 @@ class SettingScreen extends HookConsumerWidget {
 
     useEffect(() {
       void scrollToBottom() {
-        if ((memoFocus.hasFocus || decimalFocus.hasFocus) && nestedScrollController.hasClients) {
+        if ((memoFocus.hasFocus || decimalFocus.hasFocus || additionalFocus.hasFocus) && nestedScrollController.hasClients) {
           Future.delayed(const Duration(milliseconds: 100), () {
             if (nestedScrollController.hasClients) {
               nestedScrollController.animateTo(
@@ -91,12 +111,14 @@ class SettingScreen extends HookConsumerWidget {
       // 포커스 리스너 추가
       memoFocus.addListener(scrollToBottom);
       decimalFocus.addListener(scrollToBottom);
+      additionalFocus.addListener(scrollToBottom);
       // cleanup 함수
       return () {
         memoFocus.removeListener(scrollToBottom);
         decimalFocus.removeListener(scrollToBottom);
+        additionalFocus.removeListener(scrollToBottom);
       };
-    }, [memoFocus.hasFocus,decimalFocus.hasFocus]); // memoFocus.hasFocus가 변경될 때마다 실행
+    }, [memoFocus.hasFocus,decimalFocus.hasFocus,additionalFocus.hasFocus]); // memoFocus.hasFocus가 변경될 때마다 실행
 
 
 
@@ -205,8 +227,6 @@ class SettingScreen extends HookConsumerWidget {
                       ),
 
 
-
-
                     ],
                   ),
                 ),
@@ -219,20 +239,24 @@ class SettingScreen extends HookConsumerWidget {
                   SettingDisplay(
                     currentValue: currentValue,
                   ),
-                  context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
-                  MemoStateComponent(),
-                  context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
+                  ///
+                  MemoStateComponent(
+                    showRange: showRange,
+                    onTap: (){},
+                  ),
+                  ///
                   Divider(
                     color: Colors.grey.shade300,
                     thickness: 2.5,
                   ),
                   SizedBox(height: 5),
+                  additionalFocus.hasFocus ? SizedBox.shrink() :
                   QuickSelectChipList(
                     values: quickSelectValues,
                     currentValue: currentValue,
                     onValueSelected: selectValue,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: additionalFocus.hasFocus ? 5 : 20),
                   SettingControllerComponent(
                     decimalController: decimalController,
                     decimalFocus: decimalFocus,
@@ -270,20 +294,25 @@ class SettingScreen extends HookConsumerWidget {
                           color: Colors.teal),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 5),
                     ],
-                  ) : SizedBox(height: 20),
+                  ) : SizedBox(height: 10),
+
+                  AdditionalPayComponent(
+                    AdditionalTextField(
+                      focusNode: additionalFocus,
+                      controller: additionalController,
+                      onTap: () => Navigator.pop(context),
+                    ),
+                  ),
 
                   SettingMemoTextField(
                     nodeMemo: memoFocus,
                     decimalMemo: decimalFocus,
                     memoController: memoController,
-                    onChanged: (val){
+                    onChanged: (val) {
+                      customMemo.value = val;
                       ref.formzMemoRead.onChangeMemo(val);
-                    },
-                    onFieldSubmitted: (val){
-                      ref.read(showMemoStateProvider.notifier).memoState();
-                      ref.formzMemoRead.onSubmit(ref);
                     },
                     onTap: () => Navigator.pop(context),
                   ),
@@ -294,6 +323,7 @@ class SettingScreen extends HookConsumerWidget {
       ),
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
         child: Row(
@@ -315,6 +345,12 @@ class SettingScreen extends HookConsumerWidget {
                 text: '설정완료',
                 onPressed: (){
                   ref.decimalRead.onChangeDecimal(currentValue.toDouble());
+
+                  /// /// /// /// ///
+                  if (customMemo.value != null) {
+                    ref.formzMemoRead.onSubmit(ref);
+                  } else {}
+
                   if (showRange) {
                     ref.decimalRead.onSubmitMonthAll(
                       dateRange.value![0],dateRange.value![1],
@@ -325,29 +361,6 @@ class SettingScreen extends HookConsumerWidget {
                 },
 
               ),
-              // child: ElevatedButton(
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
-              //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(12.5),
-              //       ),
-              //       elevation: 1,
-              //     ),
-              //     onPressed: ()  {
-              //       ref.decimalRead.onChangeDecimal(currentValue.toDouble());
-              //       if (showRange) {
-              //         ref.decimalRead.onSubmitMonthAll(
-              //           dateRange.value![0],dateRange.value![1],
-              //         );
-              //       } else {
-              //         ref.decimalRead.onSubmit(decimal: currentValue.toDouble());
-              //       }
-              //
-              //     },
-              //     child: TextWidget('설정완료', 16,
-              //         context.width,color: context.buttonColor),
-              // ),
             ),
 
           ],

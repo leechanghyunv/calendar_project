@@ -40,7 +40,7 @@ class BottomManagerChip extends HookConsumerWidget {
                 duration: const Duration(milliseconds: 200),
                 height: height > 750 ? (width > 400 ? 27 : 25) : 24, // 기존 높이 유지
                 padding: EdgeInsets.symmetric(
-                    horizontal: width > 375 ? 7 : 4,
+                  horizontal: width > 450 ? 16 : (width > 375 ? 8 : 2),
                 ),
                 decoration: BoxDecoration(
                   color: isSelected ? context.selectedChipColor : context.chipColor,

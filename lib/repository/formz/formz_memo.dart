@@ -43,7 +43,6 @@ class FormzMemoValidator extends _$FormzMemoValidator {
         if (val.length < 2) {
           state = state.copyWith(status: MemoFormzStatus.invalid);
         } else {
-          customMsg('메모가 저장되었습니다.\n근무유형을 선택해주세요');
           ref.read(firebaseAnalyticsClassProvider.notifier).
           memoEvent({
             'memoEvent': 'memoEvent',

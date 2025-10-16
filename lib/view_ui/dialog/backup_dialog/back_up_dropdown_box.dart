@@ -19,7 +19,7 @@ class BackUpBox extends ConsumerWidget {
         border: context.isLight ? null : Border.all(width: 0.25,color: Colors.white),
       ),
       child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        padding:  EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: AnimatedContainer(
           color: Theme.of(context).scaffoldBackgroundColor,
           duration: const Duration(milliseconds: 100),

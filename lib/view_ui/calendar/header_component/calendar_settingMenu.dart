@@ -80,10 +80,7 @@ class SettingPopupWidget extends ConsumerWidget {
               children: [
                 Text(textScaler: TextScaler.noScaling,
                     '근로조건 설정하기',
-                    style: getStyle.copyWith(
-                        fontWeight: FontWeight.w900,
-
-                    )),
+                    style: getStyle),
               ],
             ),
           ),

@@ -1,12 +1,14 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+
 import '../../../core/export_package.dart';
 
-Widget initialText(double height) {
+Widget initialText(BuildContext context,double height) {
   final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.6 : 1.20,
     fontWeight: FontWeight.w600,
     fontSize: fontSize,
-    color: Colors.grey.shade800,
+    color: context.chipTextColor,
   );
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,

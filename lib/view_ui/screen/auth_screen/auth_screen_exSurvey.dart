@@ -69,6 +69,16 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
       });
     }, []);
 
+    useEffect(() {
+      void listener() {
+        if (wageFocusNodeA.hasFocus) {
+          _scrollToBottom();;
+        }
+      }
+
+      wageFocusNodeA.addListener(listener);
+      return () => wageFocusNodeA.removeListener(listener);
+    }, [wageFocusNodeA]);
 
     final normalFieldValue = useState<String>('');
 
@@ -152,8 +162,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                      final formatter = NumberFormat('#,###');
                      return formatter.format(value);
                    }
-
-                   _scrollToBottom();
                    final extended = formatWithComma((normal * 1.5).round());
                    final night = formatWithComma((normal * 2).round());
 
@@ -170,6 +178,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    ref.read(firebaseAnalyticsClassProvider.notifier).autoCopyEvent();
                  },
                ),
+
                ValidationText(text: formzRefNot.pay1Error),
                PayNumberField(
                  name: 'extended',
@@ -233,17 +242,12 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  ],
                ),
                SizedBox(height: 5),
-               // ValidationText(text: formzRefNot.pay3Error),
                Row(
                  children: [
                    ErrorText(' ${formzRefNot.pay3Error}',appWidth,
                        color: context.subTextColor),
                  ],
                ),
-               // ValidationTextRow(
-               //   right: formzRefNot.pay3Error,
-               //   left: formzRefNot.subsidyError,
-               // ),
 
                TaxComponent(
                  taxRate: taxRate.value,

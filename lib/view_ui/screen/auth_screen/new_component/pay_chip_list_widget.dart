@@ -60,7 +60,7 @@ class PayChips extends HookWidget {
                       ? context.isDark ? Colors.teal.shade900 : Colors.teal
                       : isPopular
                       ? context.isDark ? Colors.teal.shade800 : Colors.teal.shade50
-                      : context.boxColor,
+                      : context.chipColor,
                   border: Border.all(
                     color: isSelected
                         ? Colors.teal

@@ -1,10 +1,7 @@
-
 import '../dark_light/dark_light.dart';
 import '../export_package.dart';
 
-
 double? get textHeight => Platform.isAndroid ? 1.2 : null;
-
 
 extension ThemeColorExtension on BuildContext {
 
@@ -19,17 +16,10 @@ extension ThemeColorExtension on BuildContext {
       ? Colors.black54
       : Colors.white;
 
-  Color get toggleOffColor => isDark
-      ? Colors.blueAccent.shade700
-      : Colors.blue.shade300;
-
   Color get toggleOnColor => isDark
       ? Colors.teal.shade700
       : Colors.teal.shade300;
 
-  Color get toggleTrackOffColor => isDark
-      ? Colors.blueAccent.shade100
-      : Colors.blue.shade100;
 
   Color get toggleTrackOnColor => isDark
       ? Colors.teal.shade300

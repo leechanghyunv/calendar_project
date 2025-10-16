@@ -43,6 +43,7 @@ InputDecoration customInputDecoration({
     hintText: hintText,
     hintStyle: TextStyle(
       color: Colors.grey.shade600,
+      fontWeight: FontWeight.bold,
       fontSize: 15,
     ),
     isDense: true,

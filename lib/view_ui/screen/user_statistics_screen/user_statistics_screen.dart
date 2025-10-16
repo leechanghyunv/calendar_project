@@ -63,7 +63,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 18.0),
+                                  padding: EdgeInsets.symmetric(vertical: 16.0),
                                   child: introText(height),
                                 ),
                                 Spacer(),

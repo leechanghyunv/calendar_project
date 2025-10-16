@@ -27,14 +27,14 @@ class CustomTrackSwitch extends HookConsumerWidget {
           // ✅ thumb 색상 (ON/OFF)
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
-                ? context.toggleOffColor
+                ? context.toggleOnColor
                 : context.toggleOnColor;
           }),
 
           // ✅ 트랙 색상 (ON/OFF)
           trackColor: WidgetStateProperty.resolveWith((states) {
             if (states.contains(WidgetState.selected)) {
-              return context.toggleTrackOffColor; // ON 상태
+              return context.toggleTrackOnColor; // ON 상태
             }
             return context.toggleTrackOnColor; // OFF 상태
           }),

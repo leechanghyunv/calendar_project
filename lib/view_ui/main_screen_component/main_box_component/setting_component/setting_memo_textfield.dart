@@ -10,7 +10,6 @@ class SettingMemoTextField extends HookConsumerWidget {
   final FocusNode decimalMemo;
   final TextEditingController memoController;
   final ValueChanged<String>? onChanged;
-  final ValueChanged<String>? onFieldSubmitted;
   final VoidCallback? onTap;
 
   const SettingMemoTextField(
@@ -18,7 +17,6 @@ class SettingMemoTextField extends HookConsumerWidget {
         required this.decimalMemo,
       required this.memoController,
       this.onChanged,
-      this.onFieldSubmitted,
         required this.onTap,
       super.key});
 
@@ -27,7 +25,7 @@ class SettingMemoTextField extends HookConsumerWidget {
     final borderColor = nodeMemo.hasFocus ? Colors.teal : Colors.grey.shade500;
 
     return Container(
-      height: 75,
+      height: 70,
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black54 : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),
@@ -43,9 +41,9 @@ class SettingMemoTextField extends HookConsumerWidget {
             focusNode: nodeMemo,
             controller: memoController,
             onChanged: onChanged,
-            onFieldSubmitted: onFieldSubmitted,
             maxLines: null, // 자동으로 여러 줄 입력 가능
             cursorColor: Colors.grey.shade500,
+
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 12.0,

@@ -16,12 +16,6 @@ import 'one_signal_notification.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (Platform.isAndroid) {
-    SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
-      statusBarColor: Colors.grey.shade50,
-      statusBarIconBrightness: Brightness.dark,
-    ));
-  }
 
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(
@@ -106,20 +100,17 @@ class MyApp extends HookConsumerWidget {
                         Locale('ko', 'KR'),
                       ],
                       debugShowCheckedModeBanner: false,
-                      // theme: ThemeData(
-                      //   useMaterial3: false,
-                      // ),
                       themeMode: themeMode,
                       theme: themeNotifier.lightMode,
                       darkTheme: themeNotifier.darkMode,
                       routerConfig: router,
                       builder: (context, child) {
                         return Scaffold(
-                          backgroundColor: Colors.grey.shade50,
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                           body: Center(
                             child: ConstrainedBox(
                               constraints: const BoxConstraints(
-                                maxWidth: 470,
+                                maxWidth: 475,
                               ),
                               child: child ?? const SizedBox(),
                             ),

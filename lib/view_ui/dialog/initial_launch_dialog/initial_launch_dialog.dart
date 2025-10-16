@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
@@ -17,8 +19,10 @@ class InitialLaunchDialog extends HookConsumerWidget {
 
 
     return AlertDialog(
+      backgroundColor: context.dialogColor,
+      shape: context.dialogShape,
       title: TextWidget(Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
-          16, width),
+          16, width,color: context.textColor),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -26,13 +30,13 @@ class InitialLaunchDialog extends HookConsumerWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(7.5),
-                color: Colors.grey.shade200
+                color: context.isDark ? Colors.grey.shade900 : Colors.grey.shade200
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: 16.0,horizontal: 12.0,
               ),
-              child: initialText(height),
+              child: initialText(context,height),
             ),
           ),
 
