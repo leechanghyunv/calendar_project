@@ -40,7 +40,7 @@ Widget introText(double height) {
           ),
         ),
         TextSpan(
-          text: ' 을 하실 수 있습니다. 근로조건 설정은 ',
+          text: ' 을 하실 수 있습니다. 근로조건 설정,수정은 ',
           style: baseStyle,
         ),
         TextSpan(

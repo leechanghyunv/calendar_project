@@ -1,7 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/quickSelectChip_component.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_component.dart';
@@ -13,7 +12,6 @@ import '../../../../model/formz_decimal_model.dart';
 import '../../../../repository/formz/formz_decimal.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../../view_model/sqlite_model/history_model.dart';
-import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/setting_screen/component/additional_pay_component.dart';
 import '../../../screen/setting_screen/component/additional_textField.dart';
@@ -250,12 +248,19 @@ class SettingScreen extends HookConsumerWidget {
                     thickness: 2.5,
                   ),
                   SizedBox(height: 5),
-                  additionalFocus.hasFocus ? SizedBox.shrink() :
-                  QuickSelectChipList(
-                    values: quickSelectValues,
-                    currentValue: currentValue,
-                    onValueSelected: selectValue,
+                  AnimatedSwitcher(
+                    duration: Duration(milliseconds: 500),
+                    child: additionalFocus.hasFocus
+                        ? SizedBox.shrink(key: ValueKey('hidden'))
+                        : QuickSelectChipList(
+                      key: ValueKey('visible'),
+                      values: quickSelectValues,
+                      currentValue: currentValue,
+                      onValueSelected: selectValue,
+                    ),
                   ),
+
+
                   SizedBox(height: additionalFocus.hasFocus ? 5 : 20),
                   SettingControllerComponent(
                     decimalController: decimalController,
@@ -280,6 +285,7 @@ class SettingScreen extends HookConsumerWidget {
                       }
                     },
                     onValueChanged: (val){
+                      if (val == null) return; // ✅ null이면 조기 종료
                       if (val >= _minValue && val <= _maxValue) {
                         customValue.value = val; // 커스텀 값 저장
                       }

@@ -2,8 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_screen.dart';
 import '../../../../core/export_package.dart';
-import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
-import 'memo_list_screen.dart';
+
 
 
 void NumberPickerModal(BuildContext context){
@@ -48,13 +47,7 @@ void NumberPickerModal(BuildContext context){
                 ),
               ),
               Expanded(
-                child: Consumer(
-                    builder: (context, ref, child){
-                      final memoState = ref.watch(showMemoStateProvider);
-                      return memoState
-                          ? MemoListScreen()
-                          : SettingScreen();
-                    }),
+                child: SettingScreen(),
               ),
             ],
           ),

@@ -1,4 +1,3 @@
-
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
@@ -8,10 +7,10 @@ import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_c
 import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/additional_pay_provider.dart';
 
 import '../../../../core/export_package.dart';
-import '../../../../core/utils/converter.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
+import 'chip_button_in_setting.dart';
 
 class SettingDisplay extends HookConsumerWidget {
 
@@ -93,8 +92,7 @@ class SettingControllerComponent extends HookConsumerWidget {
   final VoidCallback plus;
   final TextEditingController decimalController;
   final FocusNode decimalFocus;
-  final ValueChanged<double> onValueChanged;
-
+  final ValueChanged<double?> onValueChanged;
 
   const SettingControllerComponent(
       {required this.currentValue,
@@ -110,13 +108,6 @@ class SettingControllerComponent extends HookConsumerWidget {
 
     final boxColor =context.isDark ?Colors.grey.shade100 : Colors.grey.shade900;
     final buttonColor =context.isDark ? Colors.white : Colors.black;
-
-    useEffect(() {
-      // currentValue가 변경될 때마다 컨트롤러 자동 업데이트
-      decimalController.text = currentValue.toStringAsFixed(2);
-      return null;
-    }, [currentValue]);
-
 
     Decoration infoBoxDeco = BoxDecoration(
       color: context.isDark ? Colors.black54 : Colors.grey.shade100,
@@ -141,19 +132,23 @@ class SettingControllerComponent extends HookConsumerWidget {
             child: Row(
               children: [
                 // - 버튼
-                decimalFocus.hasFocus ? SizedBox.shrink() :
-                IconButton(
-                  onPressed: (){
-                    decimalFocus.unfocus();
-                    minus();
-                  },
-                  icon: Icon(Icons.remove,
-                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
+                Visibility(
+                  visible: !decimalFocus.hasFocus,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: IconButton(
+                    onPressed: () {
+                      decimalFocus.unfocus();
+                      minus();
+                    },
+                    icon: Icon(Icons.remove,
+                        color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.white,
+                    ),
                   ),
-                ) ,
-
+                ),
                 Expanded(
                     child: Container(
                       alignment: Alignment.center,
@@ -174,7 +169,9 @@ class SettingControllerComponent extends HookConsumerWidget {
                           hintStyle: TextStyle(
                             fontSize: 16.5,
                             fontWeight: FontWeight.w500,
-                            color: decimalFocus.hasFocus ? Colors.grey.shade100 : Colors.grey.shade700,
+                            color: decimalFocus.hasFocus
+                                ? context.isDark ? Colors.black : Colors.grey.shade100
+                                : Colors.grey.shade700,
                           ),
                         ),
                         inputFormatters: [
@@ -190,51 +187,47 @@ class SettingControllerComponent extends HookConsumerWidget {
                     ),
                 ),
                 decimalFocus.hasFocus ?  SizedBox.shrink() :
-                IconButton(
-                  onPressed: (){
-                    decimalFocus.unfocus();
-                    plus();
-                  },
-                  icon: Icon(Icons.add,
-                      color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.white,
+
+
+                Visibility(
+                  visible: !decimalFocus.hasFocus,
+                  maintainSize: true,
+                  maintainAnimation: true,
+                  maintainState: true,
+                  child: IconButton(
+                    onPressed: () {
+                      decimalFocus.unfocus();
+                      plus();
+                    },
+                    icon: Icon(Icons.add,
+                        color: decimalFocus.hasFocus ?  Colors.teal.shade700 : buttonColor),
+                    style: IconButton.styleFrom(
+                      backgroundColor: Colors.white,
+                    ),
                   ),
                 ),
+
               ],
             ),
           ),
         ),
-
         SizedBox(width: 12),
-
         // 직접 입력 버튼
         OutlinedButton(
           onPressed: () {
-
             if (decimalFocus.hasFocus) {
-              customMsg('초기설정1');
-              decimalFocus.unfocus();
-              // decimalFocus.requestFocus();
-              // final parsed =  double.tryParse(decimalController.text);
-              // if (parsed != null) {
-              //   onValueChanged(parsed);
-              //   decimalController.text = parsed.toStringAsFixed(2);
-              // }
+              customMsg('다시 돌아가기');
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                decimalFocus.unfocus();
+              });
             } else {
-              customMsg('초기설정2'); /// 직접 입력을 처음 열었을대
-              decimalFocus.requestFocus();
-              /// decimalController.text 대신 0으로 만듬
-              final parsed =  double.tryParse('0');
-              if (parsed != null) {
-                onValueChanged(parsed);
-                // decimalController.text = parsed.toStringAsFixed(2);
-              }
+              decimalController.clear(); // ✅ 완전히 비우기
+              onValueChanged(null); // null 상태로 초기화
+              customMsg('직접입력하기'); /// 직접 입력을 처음 열었을대
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                decimalFocus.requestFocus();
+              });
             }
-
-            decimalController.clear();
-            decimalFocus.requestFocus();
-            // customMsg('공수를 직접 입력합니다.');
           },
           style: OutlinedButton.styleFrom(
             minimumSize: Size(50, 50),
@@ -274,50 +267,21 @@ class MemoStateComponent extends HookConsumerWidget {
         context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
         Row(
           children: [
-            SizedBox(width: 5),
+            ChipButton(
+              text: '근로조건 변경',
+              onTap: () {
 
-            Consumer(builder: (context, ref, child){
-              final contract = ref.watch(viewContractProvider);
-              return contract.maybeWhen(
-                data: (val) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextWidget(
-                        '일당 ${formatAmount(val.last.normal)}', 16,
-                        context.width,
-                        color: context.textColor),
-                  ],
-                ),
-                orElse: () => SizedBox.shrink(),
-              );
-            }),
-
-            Spacer(),
-            InkWell(
-              onTap: (){
-                ref.read(additionalPayProvider.notifier).openBox();
-                onTap?.call();
-                // ref.read(showMemoStateProvider.notifier).memoState();
               },
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: context.chipColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: context.isLight ? null : Border.all(width: 0.25,color: Colors.white),
-                ),
-                width: 120,
-                height: 30,
-                child: TextWidget(
-                  showRange ? '${ref.monthString}월 추가 수입' : '${ref.dayString}일 추가 수입',
-                  15,
-                  context.width,
-                  color: context.chipTextColor,
-                ),
-              ),
+              fontSize: 16,
             ),
-
+            Spacer(),
+            ChipButton(
+              text: showRange ? '${ref.monthString}월 추가 수입' : '${ref.dayString}일 추가 수입',
+              onTap: () {
+                ref.read(additionalPayProvider.notifier).openBox();
+                onTap.call();
+              },
+            ),
           ],
         ),
         context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
@@ -326,6 +290,7 @@ class MemoStateComponent extends HookConsumerWidget {
     );
   }
 }
+
 
 
 

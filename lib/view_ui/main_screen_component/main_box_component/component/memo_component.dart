@@ -1,7 +1,5 @@
-
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/show_memo_provider.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
@@ -26,7 +24,6 @@ class MemoComponent extends HookConsumerWidget {
 
     final appWidth = context.width;
     final appHeight = context.height;
-    final  memoState = ref.watch(showMemoStateProvider);
 
     final selectedDate = ref.selected;
     final historyAsync = ref.history;
@@ -72,7 +69,6 @@ class MemoComponent extends HookConsumerWidget {
             Spacer(),
             GestureDetector(
                 onTap: (){
-                  ref.read(showMemoStateProvider.notifier).memoState();
                   Future.microtask(() => nodeMemo.requestFocus());
                 },
                 /// 메모추가를 누르면 memofocus가 집중되도록

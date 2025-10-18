@@ -23,10 +23,9 @@ class AdditionalTextField extends StatelessWidget {
       controller: controller,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.numberWithOptions(signed: true),
-      cursorColor: Colors.grey.shade100,
-      cursorWidth: 4.0,
+      cursorColor: Colors.grey.shade500,
       decoration: customInputDecoration(
-        hintText: '10,000',
+        hintText: ' 10,000',
 
         suffixIcon: GestureDetector(
             onTap: onTap,

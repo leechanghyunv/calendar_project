@@ -78,9 +78,14 @@ class SettingPopupWidget extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(textScaler: TextScaler.noScaling,
-                    '근로조건 설정하기',
-                    style: getStyle),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(textScaler: TextScaler.noScaling,
+                        '근로조건 설정하기',
+                        style: getStyle),
+                  ],
+                ),
               ],
             ),
           ),

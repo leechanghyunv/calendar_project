@@ -8,7 +8,6 @@ import '../../../../model/formz_decimal_model.dart';
 import '../../../../repository/formz/formz_decimal.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../../view_model/sqlite_model/history_model.dart';
-import '../../../screen/calendar_screen/provider/show_memo_provider.dart';
 import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
 import '../component/displayNumber_textfield.dart';
@@ -294,7 +293,6 @@ class RecordPickerModalSheet extends HookConsumerWidget {
                         memoController,
                         ref.formzMemoRead.onChangeMemo,
                             (_){
-                          ref.read(showMemoStateProvider.notifier).memoState();
                           ref.formzMemoRead.onSubmit(ref);
                         },
                       ),

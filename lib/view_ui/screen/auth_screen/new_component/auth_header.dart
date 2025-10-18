@@ -21,8 +21,8 @@ class AuthHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InfoRow(
-          title: '일당을 입력해주세요 ',
-          subtitle: '일당 버튼 탭만으로 간편하게 일당 설정하기',
+          title: '일당입력 & 일당수정 ',
+          subtitle: '일당을 입력하면 자동으로 일당을 수정합니다',
         ),
         Spacer(),
         CircleAvatar(
