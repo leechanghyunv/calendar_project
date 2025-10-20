@@ -124,6 +124,7 @@ class MarkerCell extends ConsumerWidget {
                 ),
                 child: Text(
                   maxLines: 1,
+                  textScaler: TextScaler.noScaling,
                   calendarText,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

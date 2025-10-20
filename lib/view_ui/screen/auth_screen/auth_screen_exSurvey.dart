@@ -34,7 +34,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     final wageFocusNodeA = useFocusNode();
     final wageFocusNodeB = useFocusNode();
     final wageFocusNodeC = useFocusNode();
-    final dayPayFocusNode = useFocusNode();
 
     final _scrollController = useScrollController();
 
@@ -50,7 +49,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     }, []);
 
     final _scrollToBottom = useCallback(() {
-      // 이미 스크롤했다면 실행하지 않음
       if (_hasScrolled.value) return;
 
       WidgetsBinding.instance.addPostFrameCallback((_) {

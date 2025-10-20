@@ -6,7 +6,7 @@ part of 'additional_pay_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$additionalPayHash() => r'2b4e500b7b161799871284866c936d2c82ceff61';
+String _$additionalPayHash() => r'efedcf784496db4f0fbb2ca2710d5bf76b4b1d73';
 
 /// See also [AdditionalPay].
 @ProviderFor(AdditionalPay)

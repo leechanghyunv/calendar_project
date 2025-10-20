@@ -12,6 +12,14 @@ extension ThemeColorExtension on BuildContext {
       ? Colors.tealAccent
       : Colors.grey.shade100;
 
+  Color get disPlayColor => isDark
+      ? Colors.tealAccent
+      : Colors.grey.shade700;
+
+  Color get disPlayBigColor => isDark
+      ? Colors.tealAccent
+      : Colors.grey.shade900;
+
   Color get boxColor => isDark
       ? Colors.black54
       : Colors.white;

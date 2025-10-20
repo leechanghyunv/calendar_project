@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
+import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/animation_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
@@ -25,6 +26,10 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
   @override
   Widget build(BuildContext context) {
     final animateText = ref.watch(animationTextProviderProvider);
+
+    /// animationSetting의 타입은 AsyncValue<bool>
+    final animationSetting = ref.watch(openingAnimationProvider).valueOrNull ?? false;
+
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
     final commonShadow = Platform.isAndroid
@@ -41,8 +46,21 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
       afterTax = val.afterTax;
       taxValue = val.tax;
       percent = val.percent;
-
     });
+
+    final BigTextStyle = TextStyle(
+        shadows: commonShadow,
+        fontWeight: FontWeight.w800,
+        letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.5 : null,
+        height: textHeight,
+        fontSize: switch (appWidth) {
+          > 450 => isFoldValue ? 37 : 40.5,
+          > 420 => 40,
+          > 400 => 37,
+          < 376 => 31.5,
+          _ => 32
+        }
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,26 +68,19 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
         SelectedTime(),
         Row(
           children: [
-            animateText
+            animationSetting ? animateText
                 ? PayNumberCounter(end: totalPay.toDouble())
                 : Text(
               textScaler: TextScaler.noScaling,
               '${payString}',
-                style: TextStyle(
-                    shadows: commonShadow,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.5 : null,
-                    height: textHeight,
-                    fontSize : switch (appWidth) {
-                      > 450 => isFoldValue ? 37 : 40.5,
-                      > 420 => 40,
-                      > 400 => 37,
-                      < 376 => 31.5,
-                      _ => 32
-                    }
-
-                ),
+                style: BigTextStyle,
+            ) : Text(
+              textScaler: TextScaler.noScaling,
+              '${payString}',
+              style: BigTextStyle,
             ),
+
+
             SizedBox(width: 10),
             Container(
               decoration: BoxDecoration(

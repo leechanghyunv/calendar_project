@@ -16,6 +16,7 @@ import '../../../screen/calendar_screen/provider/show_range_provider.dart';
 import '../../../screen/setting_screen/component/additional_pay_component.dart';
 import '../../../screen/setting_screen/component/additional_textField.dart';
 import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
+import '../../../screen/user_statistics_screen/component/auth_modal_component.dart';
 import '../../../widgets/elevated_button.dart';
 import '../../../widgets/left_eleveted_button.dart';
 
@@ -207,7 +208,7 @@ class SettingScreen extends HookConsumerWidget {
                                   : context.bTypeChipColor,
                               borderColor: showRange
                                   ? Colors.teal.shade600
-                                  : Colors.teal.shade400,
+                                  : context.isDark ? Colors.teal.shade400 : Colors.grey.shade400,
                               onTap: (){
                                 if (!showRange) {
                                   Future.microtask(() => rangeFocus.requestFocus());
@@ -217,7 +218,10 @@ class SettingScreen extends HookConsumerWidget {
                               icon: TextWidget(
                                   showRange ? '단일 날짜': '범위 설정', 16,
                                   context.width,
-                                  color: context.idChipTextColor),
+                                  color: context.isDark
+                                      ? Colors.tealAccent
+                                      : showRange ? Colors.teal.shade700 : Colors.grey.shade900,
+                              ),
                               width: 300,
                             ),
                           ),
@@ -240,7 +244,12 @@ class SettingScreen extends HookConsumerWidget {
                   ///
                   MemoStateComponent(
                     showRange: showRange,
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.pop(context);
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        showBasicModal(context,false);
+                      });
+                    },
                   ),
                   ///
                   Divider(

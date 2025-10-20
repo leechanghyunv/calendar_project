@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../screen/calendar_screen/provider/popup_menu_provider.dart';
 import '../../screen/range_history_screen/component/range_history_modal_component.dart';
@@ -50,7 +51,8 @@ class SettingPopupWidget extends ConsumerWidget {
             showRangeModal(context,ref);
             break;
           case 'enroll':
-            showBasicModal(context,false);
+            customMsg('[등록] - [근로조건 변경] 으로 위치 변경');
+            // showBasicModal(context,false);
             break;
           case 'settings':
             showSettingModal(context);

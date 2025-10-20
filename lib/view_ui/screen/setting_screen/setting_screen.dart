@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/animation_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../core/dark_light/dark_light.dart';
 import '../../../view_model/sqlite_model/contract_model.dart';
@@ -22,11 +23,17 @@ class AppSettingScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final nestedScrollController = useScrollController();
-    final calendarValue = useState(false);
-    final isKorean = useState(true);
-    final isAnimated = useState(false);
 
-    // 🔹 riverpod에서 현재 테마 모드 가져오기
+    final calendarSwitcher = ref.watch(calendarSwitcherProvider);
+
+    final calendarValue = useState(calendarSwitcher.valueOrNull ?? false);
+
+    final isKorean = useState(true);
+
+    final openingAnimation = ref.watch(openingAnimationProvider);
+
+    final isAnimated = useState(openingAnimation.valueOrNull ?? false);
+
     final themeMode = ref.watch(lightDarkModeProvider);
     final themeNotifier = ref.read(lightDarkModeProvider.notifier);
 
@@ -50,6 +57,7 @@ class AppSettingScreen extends HookConsumerWidget {
 
     final formzRefNot = ref.formzWatch;
     final formzRefRead = ref.formzRead;
+
     ref.watch(viewContractProvider);
 
     Widget dib() =>  Padding(
@@ -147,7 +155,10 @@ class AppSettingScreen extends HookConsumerWidget {
                     title: '오프닝 애니메이션',
                     subtitle: isAnimated.value ? '오프닝 애니메이션 유지' : '오프닝 애니메이션 중단',
                     value: isAnimated.value,
-                    onChanged: (val) => isAnimated.value = val,
+                    onChanged: (val){
+                      ref.read(openingAnimationProvider.notifier).AnimationToggle();
+                      isAnimated.value = val;
+                    }
                   ),
 
                   dib(),

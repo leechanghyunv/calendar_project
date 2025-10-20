@@ -7,6 +7,7 @@ import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_c
 import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/additional_pay_provider.dart';
 
 import '../../../../core/export_package.dart';
+import '../../../../core/utils/converter.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
@@ -267,21 +268,37 @@ class MemoStateComponent extends HookConsumerWidget {
         context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
         Row(
           children: [
-            ChipButton(
-              text: '근로조건 변경',
-              onTap: () {
-
-              },
-              fontSize: 16,
-            ),
+            Consumer(builder: (context, ref, child){
+              final contract = ref.watch(viewContractProvider);
+              return contract.maybeWhen(
+                data: (val) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                          '일당 ${formatAmount(val.last.normal)}', 16,
+                          context.width,
+                          color: context.textColor),
+                    ],
+                  ),
+                ),
+                orElse: () => SizedBox.shrink(),
+              );
+            }),
             Spacer(),
             ChipButton(
-              text: showRange ? '${ref.monthString}월 추가 수입' : '${ref.dayString}일 추가 수입',
-              onTap: () {
-                ref.read(additionalPayProvider.notifier).openBox();
-                onTap.call();
-              },
+              text: '근로조건 변경',
+              onTap: onTap,
+              fontSize: 16,
             ),
+            // ChipButton(
+            //   text: showRange ? '${ref.monthString}월 추가 수입' : '${ref.dayString}일 추가 수입',
+            //   onTap: () {
+            //     ref.read(additionalPayProvider.notifier).openBox();
+            //     onTap.call();
+            //   },
+            // ),
           ],
         ),
         context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),

@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'formz_memo.dart';
+part of 'animation_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$formzMemoValidatorHash() =>
-    r'c5850c61fb2f6b89012991bafcb4c75a4e4610a6';
+String _$openingAnimationHash() => r'286550c2f553b533dec153e39b7259aadbe50734';
 
-/// See also [FormzMemoValidator].
-@ProviderFor(FormzMemoValidator)
-final formzMemoValidatorProvider =
-    AutoDisposeNotifierProvider<FormzMemoValidator, MemoForm>.internal(
-  FormzMemoValidator.new,
-  name: r'formzMemoValidatorProvider',
+/// See also [OpeningAnimation].
+@ProviderFor(OpeningAnimation)
+final openingAnimationProvider =
+    AutoDisposeAsyncNotifierProvider<OpeningAnimation, bool>.internal(
+  OpeningAnimation.new,
+  name: r'openingAnimationProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$formzMemoValidatorHash,
+      : _$openingAnimationHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FormzMemoValidator = AutoDisposeNotifier<MemoForm>;
+typedef _$OpeningAnimation = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

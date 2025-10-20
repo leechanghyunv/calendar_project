@@ -6,10 +6,11 @@ import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.da
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
-import 'cell_component//default_cell.dart';
-import 'cell_component/holiday_cell.dart';
-import 'cell_component/marker_cell.dart';
-import 'cell_component/outside_cell.dart';
+import 'calendar_cell_component//default_cell.dart';
+import 'calendar_cell_component/holiday_cell.dart';
+import 'calendar_cell_component/marker_cell.dart';
+import 'calendar_cell_component/outside_cell.dart';
+import 'calendar_cell_dialog/day_info_dialog.dart';
 
 final calendarMemoProvider = StateProvider<String>((ref) => '');
 
@@ -39,7 +40,6 @@ class WorkCalendar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-
     final appWidth = context.width;
 
     ref.history;
@@ -47,6 +47,12 @@ class WorkCalendar extends ConsumerWidget {
     final filted = ref.watch(filtedEventsProvider);
 
     _initHolidayCache();
+
+    List<WorkHistory> getEvents(DateTime day) {
+      DateTime utcDay = day.toUtc();
+      return filted[utcDay] ?? [];
+    }
+
     return Padding(
       padding: EdgeInsets.fromLTRB(
           appWidth > 550 ? 7.5.w : (appWidth < 376 ? 7.5.w : 15.w),
@@ -57,22 +63,29 @@ class WorkCalendar extends ConsumerWidget {
         width: appWidth,
         child: TableCalendarFrame(
             selectedDay: ref.selected,
-            onDayLongPressed:
-                (DateTime? selected, DateTime? focused) {
+            onDayLongPressed: (DateTime? selected, DateTime? focused) {
                  if (ref.contract.value!.isEmpty) {
                    customMsg('근로조건을 우선 입력해주세요');
                    showBasicModal(context,false);
                  } else {
-                   NumberPickerModal(context);
+                   /// /// ////// /// ////// /// ////// /// ////// /// ///
+                   final events = getEvents(selected!);
+                   if (events.isNotEmpty) {
+                     showDialog(
+                       context: context,
+                       builder: (context) => DayInfoDialog(events),
+                     );
+                   } else {
+                     NumberPickerModal(context);
+                   }
+                   /// /// /// /// /// /// /// /// /// /// /// ///
                  }
             },
+
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);
             },
-            eventLoader: (DateTime day) {
-              DateTime UtcDay = day.toUtc();
-              return filted[UtcDay] ?? [];
-            },
+            eventLoader: getEvents,
             selectedDayPredicate: (DateTime date) {
               return date.year == ref.year &&
                   date.month == ref.month &&

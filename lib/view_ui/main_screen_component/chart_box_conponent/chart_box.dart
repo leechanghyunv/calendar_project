@@ -6,6 +6,7 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
+import '../../screen/setting_screen/provider/animation_provider.dart';
 import 'animated_record_number.dart';
 import 'chart_in_dialog.dart';
 
@@ -55,6 +56,21 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
 
     final appWidth = MediaQuery.of(context).size.width;
 
+    final animationSetting = ref.watch(openingAnimationProvider).valueOrNull ?? false;
+
+    final RecordTextStyle = TextStyle(
+        letterSpacing: Platform.isAndroid ? 1.5 : null,
+        shadows: Platform.isAndroid ? [
+          Shadow(
+            blurRadius: 0.25,
+            color: Colors.grey,
+            offset: Offset(0.25, 0.25),
+          ),
+        ] : null,
+        height: textHeight,
+        fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
+        fontWeight: FontWeight.w800);
+
     return Container(
       decoration: context.boxDecoration,
       width: appWidth * 0.4,
@@ -66,23 +82,17 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                animateText
+                animationSetting ? animateText
                     ? NumberCounter(end: monthRecord)
                     : Text('${month}',
                   textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                      letterSpacing: Platform.isAndroid ? 1.5 : null,
-                      shadows: Platform.isAndroid ? [
-                        Shadow(
-                          blurRadius: 0.25,
-                          color: Colors.grey,
-                          offset: Offset(0.25, 0.25),
-                        ),
-                      ] : null,
-                      height: textHeight,
-                      fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
-                      fontWeight: FontWeight.w800),
+                  style: RecordTextStyle,
+                ) : Text('${month}',
+                  textScaler: TextScaler.noScaling,
+                  style: RecordTextStyle,
                 ),
+
+
                 Spacer(),
                 ChartInDialog(),
 
