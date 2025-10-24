@@ -12,6 +12,7 @@ import '../../widgets/left_eleveted_button.dart';
 import '../auth_screen/const_widget.dart';
 import '../auth_screen/provider/condition_list_provider.dart';
 import '../event_select_screen/event_list_screen.dart';
+import '../event_select_screen/event_screen_modal.dart';
 import '../range_history_screen/component/range_history_modal_component.dart';
 import 'component/basic_record_button.dart';
 import 'component/dark_light_button.dart';
@@ -356,13 +357,10 @@ class AppSettingScreen extends HookConsumerWidget {
               child:  LeftElevatedButton(
                 text: '주요일정 등록',
                 onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => EventListScreen(),
-                    ),
-                  );
-                  /// EventListScreen
+                  Navigator.pop(context);
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    eventListModal(context);
+                  });
 
                 },
 
