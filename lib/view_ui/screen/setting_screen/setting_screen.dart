@@ -328,7 +328,9 @@ class AppSettingScreen extends HookConsumerWidget {
                         flex: 2,
                         child: LeftElevatedButton(
                           text: '초기화',
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: (){
+
+                          },
                         ),
                       ),
                       SizedBox(width: 10),
@@ -337,15 +339,7 @@ class AppSettingScreen extends HookConsumerWidget {
                         child: CustomElevatedButton(
                           text: '입력했습니다!',
                           onPressed: () {
-                            final cleanedValue = dayPayController.text.replaceAll(',', '');
-                            final value = int.tryParse(cleanedValue);
-                            if (value != null) {
-                              ref.read(updateSubsidyProvider(value));
-                              ref.refreshState(context);
-                            }
-                            customMsg('목표금액이 변경되었습니다.');
-                            Navigator.pop(context);
-                          },
+                            },
 
                         ),
                       ),
