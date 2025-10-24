@@ -6,7 +6,7 @@ part of 'animation_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$openingAnimationHash() => r'286550c2f553b533dec153e39b7259aadbe50734';
+String _$openingAnimationHash() => r'65251a7528449f0ac92ecc3f34c5b1347f0b6df7';
 
 /// See also [OpeningAnimation].
 @ProviderFor(OpeningAnimation)

@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'today_info_provider.dart';
+part of 'workload_search_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dynamicHolidaysHash() => r'67da6e86151a1aa80e5624beb9b801a2e8ba4844';
+String _$workloadSearchHash() => r'63852f5f92c0d492cccdd0a1c7b35f7b04e4330e';
 
-/// See also [DynamicHolidays].
-@ProviderFor(DynamicHolidays)
-final dynamicHolidaysProvider =
-    NotifierProvider<DynamicHolidays, Map<DateTime, String>>.internal(
-  DynamicHolidays.new,
-  name: r'dynamicHolidaysProvider',
+/// See also [WorkloadSearch].
+@ProviderFor(WorkloadSearch)
+final workloadSearchProvider =
+    AutoDisposeNotifierProvider<WorkloadSearch, bool>.internal(
+  WorkloadSearch.new,
+  name: r'workloadSearchProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$dynamicHolidaysHash,
+      : _$workloadSearchHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DynamicHolidays = Notifier<Map<DateTime, String>>;
+typedef _$WorkloadSearch = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
