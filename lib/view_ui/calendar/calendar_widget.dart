@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
+import '../screen/calendar_screen/provider/today_info_provider.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'calendar_cell_component//default_cell.dart';
 import 'calendar_cell_component/holiday_cell.dart';
@@ -118,10 +119,16 @@ class WorkCalendar extends ConsumerWidget {
 
             markerBuilder: (context, date, events) {
 
-              final boolSelector = isHoliday(date);
+              final dynamicHolidays = ref.read(dynamicHolidaysProvider);
+              // ✅ 로컬 타임존으로 통일된 키
+              final localDate = DateTime(date.year, date.month, date.day);
+              /// final boolSelector = isHoliday(date); 대신에
+              final boolSelector = dynamicHolidays.containsKey(localDate);
+              /// date
               if (boolSelector) {
                 if (events.isEmpty) {
-                  return HolidayCell(date, holidays);
+                  return HolidayCell(date, dynamicHolidays,
+                  );
                 } else {
                   return MarkerCell(date, events);
                 }

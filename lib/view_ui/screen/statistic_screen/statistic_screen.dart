@@ -6,6 +6,7 @@ import '../../dialog/backup_dialog/back_up_dialog.dart';
 import '../../dialog/delete_goal_dialog/all_delete_dialog.dart';
 import '../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
 import '../auth_screen/const_widget.dart';
+import '../range_history_screen/component/range_history_modal_component.dart';
 import 'component/filter_chip.dart';
 import 'component/function_chip.dart';
 import 'component/goal_record_box.dart';
@@ -47,11 +48,25 @@ class StatisticScreen extends HookConsumerWidget {
                         SingleChildScrollView(
                           child: Column(
                             children: [
-                              height > 750 ?
+
+                              // height > 750 ?
+                              // InfoRow(
+                              //   title: '누적기록관리',
+                              //   subtitle: '등록된 공수를 기반으로 통계를 보여드립니다.',
+                              //   trailing: GestureDetector(
+                              //     onTap: () => showRangeModal(context,ref),
+                              //       child: Icon(Icons.search),
+                              //   ),
+                              // ) : SizedBox.shrink(),
+
                               InfoRow(
                                 title: '누적기록관리',
                                 subtitle: '등록된 공수를 기반으로 통계를 보여드립니다.',
-                              ) : SizedBox.shrink(),
+                                trailing: GestureDetector(
+                                  onTap: () => showRangeModal(context,ref),
+                                  child: Icon(Icons.search),
+                                ),
+                              ),
 
                               SizedBox(height: height > 750 ? 10.0 : 15),
                               Row(
@@ -98,6 +113,8 @@ class StatisticScreen extends HookConsumerWidget {
                                           builder: (context) => BackUpDialog());
                                     },
                                   ),
+
+
                                 ],
                               ),
 

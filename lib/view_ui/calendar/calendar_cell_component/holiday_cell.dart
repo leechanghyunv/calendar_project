@@ -10,7 +10,10 @@ class HolidayCell extends ConsumerWidget {
   final DateTime date;
   final Map<DateTime,String> holidays;
   
-  const HolidayCell(this.date,this.holidays,{super.key});
+  const HolidayCell(
+      this.date,
+      this.holidays,
+      {super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -32,7 +35,9 @@ class HolidayCell extends ConsumerWidget {
 
         : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 33.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
 
-    final hoildayName = holidays.entries.firstWhere(
+
+
+    final holidayName = holidays.entries.firstWhere(
           (entry) =>
       entry.key.year == date.year &&
           entry.key.month == date.month &&
@@ -40,7 +45,7 @@ class HolidayCell extends ConsumerWidget {
       orElse: () => MapEntry(date, ''),
     ).value;
 
-    final holidayText = hoildayName.replaceAll('\n', '');
+    final holidayText = holidayName.replaceAll('\n', '');
 
     Color cellColor = date.month == ref.month
         ? isLight ? Colors.teal : Colors.tealAccent
@@ -66,8 +71,9 @@ class HolidayCell extends ConsumerWidget {
 
           Text(
             holidayText,
-            maxLines: 2,
+            maxLines: 1,
             textScaler: TextScaler.noScaling,
+            overflow: TextOverflow.clip,
             style: TextStyle(
                 fontWeight: FontWeight.w800,
               height: Platform.isAndroid ? 1.2 : null,

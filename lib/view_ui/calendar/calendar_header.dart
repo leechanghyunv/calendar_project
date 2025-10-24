@@ -2,7 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../core/export_package.dart';
-
+import '../screen/default_screen.dart';
 import 'header_component/month_move_popup.dart';
 import 'header_component/calendar_popupMenu.dart';
 import 'header_component/calendar_settingMenu.dart';
@@ -15,7 +15,7 @@ class CalendarHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-
+    final scaffoldKey = ref.watch(scaffoldKeyProvider);
     final appWidth =  context.width;
 
     return Padding(
@@ -28,8 +28,6 @@ class CalendarHeader extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
-
 
           ArrowDialogRow(day),
 
@@ -67,7 +65,6 @@ class CalendarHeader extends ConsumerWidget {
           PopupWidget(),
 
           SizedBox(width: appWidth > 450 ? 10 : null),
-
 
           SettingPopupWidget(),
 

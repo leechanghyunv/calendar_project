@@ -1,5 +1,10 @@
 import 'package:calendar_project_240727/core/export_package.dart';
 
+import '../widgets/settings_drawer.dart';
+
+final scaffoldKeyProvider = Provider<GlobalKey<ScaffoldState>>((ref) {
+  return GlobalKey<ScaffoldState>();
+});
 
 class DefaultScreen extends HookConsumerWidget {
   final Widget body;
@@ -15,6 +20,7 @@ class DefaultScreen extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final scaffoldKey = ref.watch(scaffoldKeyProvider);
 
     useEffect(() {
       if (Platform.isAndroid) {
@@ -27,6 +33,8 @@ class DefaultScreen extends HookConsumerWidget {
     }, [isDark]);
 
     return Scaffold(
+      // key: scaffoldKey,
+      // endDrawer: SettingsDrawer(),
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Center(
