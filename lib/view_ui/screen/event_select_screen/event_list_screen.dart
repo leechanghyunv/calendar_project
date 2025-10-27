@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/view_ui/screen/event_select_screen/provider/event_screen_provider.dart';
 import '../../../../core/export_package.dart';
 import '../auth_screen/const_widget.dart';
 
@@ -7,15 +9,14 @@ class EventListScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final nestedScrollController = useScrollController();
-    
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(
+              vertical: 8.0,
+              horizontal: 12.0),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InfoRow(
                 title: '주요일정 등록',
@@ -24,8 +25,20 @@ class EventListScreen extends HookConsumerWidget {
                   onTap: () => Navigator.pop(context),
                   child: Icon(Icons.arrow_forward_rounded),
                 ),
-              )
+              ),
+
             ],
+          ),
+        ),
+        floatingActionButton: Container(
+          child: FloatingActionButton(
+            backgroundColor: context.bTypeChipColor,
+              child: Icon(Icons.add,
+                color: context.textColor),
+              onPressed: (){
+              ref.read(eventScreenProvider.notifier).switchScreen(false);
+              }
+
           ),
         ),
       ),

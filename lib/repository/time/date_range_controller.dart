@@ -73,6 +73,8 @@ class TimeRangeManager extends _$TimeRangeManager {
   }
 }
 
+
+
 @riverpod
 class RangeSelectManager extends _$RangeSelectManager {
 

@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/core/export_package.dart';
 
-import '../widgets/settings_drawer.dart';
 
 final scaffoldKeyProvider = Provider<GlobalKey<ScaffoldState>>((ref) {
   return GlobalKey<ScaffoldState>();

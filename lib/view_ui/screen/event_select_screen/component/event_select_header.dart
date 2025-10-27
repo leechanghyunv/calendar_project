@@ -1,12 +1,10 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/export_package.dart';
+import '../../../../core/widget/text_widget.dart';
+import '/../core/export_package.dart';
 
-class CalendarRangeHeader extends ConsumerWidget {
+class CalendarEventHeader extends StatelessWidget {
   final DateTime day;
   final DateTime? startDay;
   final DateTime? endDay;
@@ -14,15 +12,15 @@ class CalendarRangeHeader extends ConsumerWidget {
   final VoidCallback? onPreviousMonth;
   final VoidCallback? onNextMonth;
 
-  const CalendarRangeHeader(
+  const CalendarEventHeader(
       {super.key,
-      required this.day,
-      this.onPreviousMonth,
-      this.onNextMonth,
-      this.onPreviousYear, this.startDay, this.endDay});
+        required this.day,
+        this.onPreviousMonth,
+        this.onNextMonth,
+        this.onPreviousYear, this.startDay, this.endDay});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context) {
 
     String _formatDate(DateTime? date) {
       if (date == null) return '날짜를 선택 해주세요';
@@ -31,12 +29,10 @@ class CalendarRangeHeader extends ConsumerWidget {
       return formatter.format(date);
     }
 
+
+
+
     final appWidth = MediaQuery.of(context).size.width;
-
-    final dateRangeValue = ref.watch(rangeSelectManagerProvider);
-
-    final dateRangeState = dateRangeValue.startSelected && dateRangeValue.endSelected;
-
 
     return Padding(
       padding: EdgeInsets.only(left: 10, bottom: 20.0),
@@ -57,7 +53,7 @@ class CalendarRangeHeader extends ConsumerWidget {
                     color: Theme.of(context).scaffoldBackgroundColor,
                   ),
                   child: Text(
-                     '${_formatDate(startDay)}',
+                    '${_formatDate(startDay)}',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -80,6 +76,8 @@ class CalendarRangeHeader extends ConsumerWidget {
                   ),
                 ),
               ),
+
+
             ],
           ),
           SizedBox(height: 20),
@@ -89,28 +87,15 @@ class CalendarRangeHeader extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 Container(
                   width: 5,
                   height: 20,
-                  color: dateRangeState
-                      ? context.isDark ? Colors.tealAccent : Colors.teal
-                      : context.isDark ? Colors.tealAccent : Colors.teal,
+                  color: context.isDark ? Colors.tealAccent : Colors.teal,
                 ),
                 SizedBox(width: 10),
-                dateRangeState ? GestureDetector(
-                  onTap: (){
-                    customMsg('선택기간 삭제');
-                  },
-                  child: TextWidget(
-                      '선택기간 삭제',
-                      20, appWidth,color: context.textColor),
-                )
-                    : TextWidget(
+                TextWidget(
                     '${DateFormat.yMMMM('ko_KR').format(day)}',
                     20, appWidth,color: context.textColor),
-
-
                 Spacer(),
                 InkWell(
                   onTap: onPreviousMonth,

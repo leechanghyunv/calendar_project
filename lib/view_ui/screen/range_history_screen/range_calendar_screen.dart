@@ -67,7 +67,6 @@ class RangeCalendarScreen extends HookConsumerWidget {
       isCalendarScreen: true,
       children: [
         Container(
-
           child: TableCalendar(
             locale: 'ko_KR',
             headerStyle: header,
@@ -90,9 +89,20 @@ class RangeCalendarScreen extends HookConsumerWidget {
               focusedDay.value = focused;
             },
             onRangeSelected: (start, end, focused) {
+
+              if (start != null && end == null) {
+                ref.rangeSelectNot.updateStartSelected(false);
+                ref.rangeSelectNot.updateEndSelected(false);
+              }
+
+
               rangeStart.value = start;
               rangeEnd.value = end;
               focusedDay.value = focused;
+              /// range를 선택할때 finishRangeSelect
+              /// 다만 range를 다시 선택할때 초기화가 되었으면
+              finishRangeSelect();
+
             },
 
             calendarBuilders: CalendarBuilders(
