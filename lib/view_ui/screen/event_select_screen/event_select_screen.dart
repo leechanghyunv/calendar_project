@@ -7,6 +7,7 @@ import '../../../../core/export_package.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/left_eleveted_button.dart';
 import '../auth_screen/component/auth_textField/auth_field_decoration.dart';
+import 'component/event_memo_dialog.dart';
 import 'component/event_picker_calendar.dart';
 import 'component/event_textfield.dart';
 import 'component/guide_text.dart';
@@ -24,6 +25,13 @@ class EventSelectScreen extends HookConsumerWidget {
     final eventType = ref.watch(eventTypeProvider.notifier);
     final eventTypeState = ref.watch(eventTypeProvider);
 
+    void callEventMemoDialog(){
+      showDialog(
+        context: context,
+        builder: (context) => EventMemoDialog(),
+      );
+    }
+
     return SafeArea(
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -35,31 +43,38 @@ class EventSelectScreen extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 EventPickerCalendar(
+                  onDaySelected: (_) {
+                    focusNode.requestFocus();
+                    callEventMemoDialog();
+                  },
+                  onRangeSelected: (start, end) {
+                    focusNode.requestFocus();
+                    Future.delayed(Duration(microseconds: 10000));
+                    callEventMemoDialog();
+
+                  },
 
                 ),
-                SizedBox(height: 25),
+                SizedBox(height: 10),
                 Expanded(
                     child: Container(
                       child: Column(
                         children: [
                           Expanded(
                               child: Container(
-                                child: Column(
-                                  children: [
-                                    EventTextField(
-                                      focusNode: focusNode,
-                                      controller: controller,
-
-                                    ),
-                                    Spacer(),
-
-                                  ],
-                                ),
+                                // child: Column(
+                                //   children: [
+                                //     EventTextField(
+                                //       focusNode: focusNode,
+                                //       controller: controller,
+                                //
+                                //     ),
+                                //     Spacer(),
+                                //
+                                //   ],
+                                // ),
                               ),
                           ),
-
-                          SizedBox(height: 10),
-
                           Row(
                             children: [
                               Expanded(
@@ -74,7 +89,9 @@ class EventSelectScreen extends HookConsumerWidget {
                                 flex: 2,
                                 child: CustomElevatedButton(
                                   text: '27일 등록하기',
-                                  onPressed: () => Navigator.pop(context),
+                                  onPressed: () {
+
+                                  },
                                 ),
                               ),
                             ],

@@ -1,4 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
@@ -17,7 +16,11 @@ import 'event_select_header.dart';
 
 class EventPickerCalendar extends HookConsumerWidget {
 
-  const EventPickerCalendar( {super.key});
+  final ValueChanged<DateTime>? onDaySelected; // 👈 추가
+  final void Function(DateTime? start, DateTime? end)? onRangeSelected; // 👈 추가
+
+
+  const EventPickerCalendar({super.key, required this.onDaySelected, required this.onRangeSelected});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -92,7 +95,9 @@ class EventPickerCalendar extends HookConsumerWidget {
           ? (selected, focused) {
         selectedDay.value = selected;
         focusedDay.value = focused;
-        customMsg('${selected.year}년 ${selected.month}월 ${selected.day}일');
+        // customMsg('${selected.year}년 ${selected.month}월 ${selected.day}일');
+        onDaySelected?.call(selected); // 👈 외부 콜백 호출
+
       }
       : null,
 
@@ -106,6 +111,7 @@ class EventPickerCalendar extends HookConsumerWidget {
         rangeEnd.value = end;
         focusedDay.value = focused;
         finishRangeSelect();
+        onRangeSelected?.call(start, end);
         if (start != null && end != null) {
           print('범위: $start ~ $end');
         }
@@ -120,15 +126,15 @@ class EventPickerCalendar extends HookConsumerWidget {
               color: context.isDark ? null : Colors.teal.withOpacity(0.2),
               shape: BoxShape.circle,
               border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
-              gradient: eventRangeState ? null : LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.teal.withOpacity(1.0),  // 왼쪽
-                  Colors.tealAccent.withOpacity(0.3),  // 오른쪽
-                ],
-                stops: [0.5, 0.5],  // 정확히 중앙에서 나눔
-              ),
+              // gradient: eventRangeState ? null : LinearGradient(
+              //   begin: Alignment.centerLeft,
+              //   end: Alignment.centerRight,
+              //   colors: [
+              //     Colors.teal.withOpacity(1.0),  // 왼쪽
+              //     Colors.tealAccent.withOpacity(0.3),  // 오른쪽
+              //   ],
+              //   stops: [0.5, 0.5],  // 정확히 중앙에서 나눔
+              // ),
 
 
             ),

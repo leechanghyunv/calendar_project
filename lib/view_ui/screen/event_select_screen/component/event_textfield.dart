@@ -12,6 +12,8 @@ class EventTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: focusNode,
+      controller: controller,
       cursorColor: context.isDark ? Colors.teal.shade900 : Colors.grey,
       cursorWidth: 2.5,
       decoration: InputDecoration(
