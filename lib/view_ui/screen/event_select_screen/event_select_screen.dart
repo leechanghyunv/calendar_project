@@ -3,15 +3,14 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/event_select_screen/provider/event_type_provider.dart';
-import 'package:time_picker_spinner_pop_up/time_picker_spinner_pop_up.dart';
 import '../../../../core/export_package.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/left_eleveted_button.dart';
 import '../auth_screen/component/auth_textField/auth_field_decoration.dart';
-import 'component/event_memo_dialog.dart';
 import 'component/event_picker_calendar.dart';
 import 'component/event_textfield.dart';
 import 'component/guide_text.dart';
+import 'package:flutter/cupertino.dart';
 
 class EventSelectScreen extends HookConsumerWidget {
   const EventSelectScreen({super.key});
@@ -26,14 +25,10 @@ class EventSelectScreen extends HookConsumerWidget {
     final eventType = ref.watch(eventTypeProvider.notifier);
     final eventTypeState = ref.watch(eventTypeProvider);
 
-    void callEventMemoDialog(){
-      showDialog(
-        context: context,
-        builder: (context) => EventMemoDialog(),
-      );
-    }
+
 
     final isKorean = useState(true);
+    final showPicker = useState(false);
 
     return SafeArea(
         child: Scaffold(
@@ -45,19 +40,7 @@ class EventSelectScreen extends HookConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // EventPickerCalendar(
-                //   onDaySelected: (_) {
-                //     focusNode.requestFocus();
-                //     callEventMemoDialog();
-                //   },
-                //   onRangeSelected: (start, end) {
-                //     focusNode.requestFocus();
-                //     Future.delayed(Duration(microseconds: 10000));
-                //     callEventMemoDialog();
-                //
-                //   },
-                //
-                // ),
+
                 SizedBox(height: 15),
                 Expanded(
                     child: Container(
@@ -96,31 +79,35 @@ class EventSelectScreen extends HookConsumerWidget {
                                               Spacer(),
                                               Switch(
                                                 value: isKorean.value,
-                                                onChanged: (bool val){},
+                                                onChanged: (bool val){
+
+                                                },
                                                 activeColor: Colors.teal,
                                               ),
 
                                             ],
                                           ),
-                                          // SizedBox(height: 10),
-
-
-                                          GestureDetector(
-                                            onTap: (){
-                                              TimePickerSpinnerPopUp(
-                                                // mode: CupertinoDatePickerMode.time,
-                                                initTime: DateTime.now(),
-                                                onChange: (dateTime) {
-                                                  // Implement your logic with select dateTime
-                                                },
-                                              );
-                                            },
-                                            child: Row(
+                                            Row(
                                               children: [
-                                                TextWidget('25.10.10(월)', 25, context.width),
+                                                GestureDetector(
+                                                    onTap: () {
+                                                      focusNode.unfocus();
+                                                      showPicker.value = !showPicker.value;
+                                                    },
+                                                    child: TextWidget('25.10.10(월)', 25, context.width)),
                                               ],
                                             ),
-                                          ),
+                                          if (showPicker.value && !focusNode.hasFocus)
+                                            Container(
+                                              height: 200,
+                                              child: CupertinoDatePicker(
+                                                mode: CupertinoDatePickerMode.date,
+                                                initialDateTime: DateTime.now(),
+                                                onDateTimeChanged: (dateTime) {
+                                                  print(dateTime);
+                                                },
+                                              ),
+                                            ),
 
 
                                           SizedBox(height: 10),
@@ -153,8 +140,9 @@ class EventSelectScreen extends HookConsumerWidget {
                                           SizedBox(height: 10),
                                           TextWidget('5개월간 매월 15일 메모된 날짜가 달력에 등록됩니다', 13.5, context.width,
                                               color: context.subTextColor),
-                                          // TextWidget('5개월간 매월 15일 메모된 날짜가 달력에 등록됩니다', 13.5, context.width,
-                                          //     color: context.subTextColor),
+
+
+
 
                                         ],
                                       ),
@@ -170,14 +158,14 @@ class EventSelectScreen extends HookConsumerWidget {
                           ),
                           Row(
                             children: [
-                              Expanded(
-                                flex: 1,
-                                child: LeftElevatedButton(
-                                  text: eventType.label,
-                                  onPressed: () => eventType.toggle(),
-                                ),
-                              ),
-                              SizedBox(width: 10),
+                              // Expanded(
+                              //   flex: 1,
+                              //   child: LeftElevatedButton(
+                              //     text: eventType.label,
+                              //     onPressed: () => eventType.toggle(),
+                              //   ),
+                              // ),
+                              // SizedBox(width: 10),
                               Expanded(
                                 flex: 2,
                                 child: CustomElevatedButton(
