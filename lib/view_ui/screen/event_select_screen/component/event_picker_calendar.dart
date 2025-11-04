@@ -126,15 +126,6 @@ class EventPickerCalendar extends HookConsumerWidget {
               color: context.isDark ? null : Colors.teal.withOpacity(0.2),
               shape: BoxShape.circle,
               border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
-              // gradient: eventRangeState ? null : LinearGradient(
-              //   begin: Alignment.centerLeft,
-              //   end: Alignment.centerRight,
-              //   colors: [
-              //     Colors.teal.withOpacity(1.0),  // 왼쪽
-              //     Colors.tealAccent.withOpacity(0.3),  // 오른쪽
-              //   ],
-              //   stops: [0.5, 0.5],  // 정확히 중앙에서 나눔
-              // ),
 
 
             ),

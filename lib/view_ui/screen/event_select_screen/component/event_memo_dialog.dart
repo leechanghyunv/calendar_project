@@ -7,6 +7,7 @@ import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
+import '../../auth_screen/component/auth_textField/auth_field_decoration.dart';
 import '../provider/event_screen_provider.dart';
 
 class EventMemoDialog extends HookConsumerWidget {
@@ -57,6 +58,12 @@ class EventMemoDialog extends HookConsumerWidget {
               ),
               child: Column(
                 children: [
+                  TextField(
+                    decoration: customInputDecoration(
+                      hintText: '',
+
+                    ),
+                  )
 
                 ],
               ),

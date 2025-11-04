@@ -18,11 +18,11 @@ class EventTextField extends StatelessWidget {
       cursorWidth: 2.5,
       decoration: InputDecoration(
         errorMaxLines: 1,
-        hintText: ' 저장할 메모 내용을 입력해주세요 ...',
+        hintText: ' 저장할 메모 내용 입력',
         hintStyle: TextStyle(
           color: Colors.grey.shade600,
           fontWeight: FontWeight.bold,
-          fontSize: 15,
+          fontSize: 16.5,
         ),
         isDense: true,
         errorBorder: InputBorder.none,
