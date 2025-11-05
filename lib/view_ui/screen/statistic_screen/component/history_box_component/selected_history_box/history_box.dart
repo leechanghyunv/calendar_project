@@ -5,7 +5,7 @@ import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
 import '../../../../../../core/utils/converter.dart';
-import '../../../../../../model/selected_history_model.dart';
+import '../../../../../../model/statistics/selected_history_model.dart';
 import 'history_info_menuButton.dart';
 
 

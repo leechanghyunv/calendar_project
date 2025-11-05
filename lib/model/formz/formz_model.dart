@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../view_model/formz_model/formz_manager_model.dart';
+import '../../view_model/formz_model/formz_manager_model.dart';
 
 
 part 'formz_model.freezed.dart';

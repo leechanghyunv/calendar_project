@@ -26,6 +26,7 @@ class DeleteChip extends HookConsumerWidget {
     }, []);
 
     final handleTap = useCallback(() async {
+      HapticFeedback.selectionClick();
       borderWidth.value = 1.25;
       await ref.read(deleteTapCountProvider.notifier).increment();
       switch (data) {

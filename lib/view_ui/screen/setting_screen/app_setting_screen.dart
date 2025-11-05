@@ -355,7 +355,7 @@ class AppSettingScreen extends HookConsumerWidget {
             Expanded(
               flex: 3,
               child:  LeftElevatedButton(
-                text: '주요일정 등록',
+                text: '주요일정 관리',
                 onPressed: (){
                   Navigator.pop(context);
                   WidgetsBinding.instance.addPostFrameCallback((_) {

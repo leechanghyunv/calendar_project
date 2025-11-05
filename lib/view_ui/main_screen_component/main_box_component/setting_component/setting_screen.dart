@@ -8,7 +8,7 @@ import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_c
 import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/additional_pay_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
-import '../../../../model/formz_decimal_model.dart';
+import '../../../../model/formz/formz_decimal_model.dart';
 import '../../../../repository/formz/formz_decimal.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../../view_model/sqlite_model/history_model.dart';

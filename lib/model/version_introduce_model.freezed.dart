@@ -245,7 +245,7 @@ extension VersionInfoPatterns on VersionInfo {
 @JsonSerializable()
 class _VersionInfo implements VersionInfo {
   const _VersionInfo(
-      {this.version = '1.4.6', final List<ChangeItem> changes = const []})
+      {this.version = '1.4.8', final List<ChangeItem> changes = const []})
       : _changes = changes;
   factory _VersionInfo.fromJson(Map<String, dynamic> json) =>
       _$VersionInfoFromJson(json);

@@ -39,6 +39,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
     double rightIconSize = appWidth > 450 ? 37 : 32;
 
     void _animateIcon(bool isLeft) {
+      HapticFeedback.selectionClick();
       setState(() {
         if (isLeft) {
           leftIconSize = appWidth > 450 ? 42 : 37;

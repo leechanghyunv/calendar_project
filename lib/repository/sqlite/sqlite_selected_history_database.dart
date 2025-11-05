@@ -1,4 +1,4 @@
-import 'package:calendar_project_240727/model/selected_history_model.dart';
+import 'package:calendar_project_240727/model/statistics/selected_history_model.dart';
 
 import '../repository_import.dart';
 

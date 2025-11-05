@@ -7,7 +7,7 @@ part of 'version_introduce_model.dart';
 // **************************************************************************
 
 _VersionInfo _$VersionInfoFromJson(Map<String, dynamic> json) => _VersionInfo(
-      version: json['version'] as String? ?? '1.4.6',
+      version: json['version'] as String? ?? '1.4.8',
       changes: (json['changes'] as List<dynamic>?)
               ?.map((e) => ChangeItem.fromJson(e as Map<String, dynamic>))
               .toList() ??

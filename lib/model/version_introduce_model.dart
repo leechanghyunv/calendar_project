@@ -6,7 +6,7 @@ part 'version_introduce_model.g.dart';
 @freezed
 abstract class VersionInfo with _$VersionInfo {
   const factory VersionInfo({
-    @Default('1.4.6') String version,
+    @Default('1.4.8') String version,
     @Default([]) List<ChangeItem> changes,
   }) = _VersionInfo;
 

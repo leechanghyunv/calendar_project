@@ -41,6 +41,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                     padding: EdgeInsets.only(right: index == options.length - 1 ? 0 : 8.0),
                     child: GestureDetector(
                       onTap: () {
+                        HapticFeedback.selectionClick();
                         selectedValue.value = option;
                         ref.read(selectedSiteProvider.notifier).setSite(option);
                         if (option == '전체') {

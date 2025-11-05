@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/export_package.dart';
 import '../../../firebase_analytics.dart';
-import '../../../model/formz_model.dart';
+import '../../../model/formz/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
 import 'auth_default_screen.dart';

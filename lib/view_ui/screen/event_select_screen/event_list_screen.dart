@@ -15,17 +15,22 @@ class EventListScreen extends HookConsumerWidget {
         body: Padding(
           padding: const EdgeInsets.symmetric(
               vertical: 8.0,
-              horizontal: 12.0),
+              horizontal: 16.0),
           child: Column(
             children: [
               InfoRow(
-                title: '주요일정 등록',
-                subtitle: '월급날,입사일 등 중요한 일정을 등록해보세요',
+                title: ' 주요일정',
+                // subtitle: '월급날,입사일 등 중요한 일정을 등록해보세요',
                 trailing: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Icon(Icons.arrow_forward_rounded),
                 ),
               ),
+              /// 주요 일정 리스트, 삭제가능
+
+
+
+              /// /// /// /// /// ///
 
             ],
           ),

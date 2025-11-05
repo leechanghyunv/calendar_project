@@ -79,6 +79,7 @@ class TimeManager extends _$TimeManager {
   }
 
   void moveToToday() {
+    HapticFeedback.selectionClick();
     final now = DateTime.now();
     final today = DateTime.utc(
       now.year,

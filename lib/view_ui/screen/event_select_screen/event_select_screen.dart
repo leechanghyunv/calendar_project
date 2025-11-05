@@ -1,16 +1,12 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:calendar_project_240727/view_ui/screen/event_select_screen/provider/event_type_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../widgets/elevated_button.dart';
-import '../../widgets/left_eleveted_button.dart';
-import '../auth_screen/component/auth_textField/auth_field_decoration.dart';
-import 'component/event_picker_calendar.dart';
+import 'component/day_select_textfield.dart';
 import 'component/event_textfield.dart';
-import 'component/guide_text.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class EventSelectScreen extends HookConsumerWidget {
   const EventSelectScreen({super.key});
@@ -21,14 +17,45 @@ class EventSelectScreen extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final controller = useTextEditingController();
 
+    final DayFocusNode = useFocusNode();
+    final DayController = useTextEditingController();
 
-    final eventType = ref.watch(eventTypeProvider.notifier);
-    final eventTypeState = ref.watch(eventTypeProvider);
+    // final eventType = ref.watch(eventTypeProvider.notifier);
+    // final eventTypeState = ref.watch(eventTypeProvider);
 
-
-
-    final isKorean = useState(true);
+    final isDuration = useState(false);
     final showPicker = useState(false);
+    final isSelectingEndDate = useState(false);
+    final selectedDate = useState(DateTime.now());
+    final endDate = useState(DateTime.now());
+
+    String formatDate(DateTime date) {
+      final weekdays = ['월', '화', '수', '목', '금', '토', '일'];
+      final weekday = weekdays[date.weekday - 1];
+      return '${date.year.toString().substring(2)}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}($weekday)';
+    }
+
+    String getGuideText() {
+      final text = controller.text.trim();
+
+      if (isDuration.value) {
+        if (text.isEmpty) {
+          return '일정을 입력해주세요';
+        }
+        return '"$text"의 내용으로 저장합니다';
+      } else {
+        final dateStr = DateFormat('yyyy년 MM월 dd일').format(selectedDate.value);
+        if (text.isEmpty) {
+          return '$dateStr에 일정을 입력해주세요';
+        }
+        return '$dateStr을 "$text"의 내용으로 저장합니다';
+      }
+    }
+
+    useEffect(() {
+      focusNode.requestFocus();
+      return null;
+    }, []);
 
     return SafeArea(
         child: Scaffold(
@@ -67,22 +94,21 @@ class EventSelectScreen extends HookConsumerWidget {
                                             color: Theme.of(context).dividerColor,
                                             thickness: 1,
                                           ),
-                                          // SizedBox(height: 10),
                                           Row(
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
 
                                               Icon(Icons.access_time,color: context.subTextColor),
                                               SizedBox(width: 15),
-                                              TextWidget('날짜 선택', 15, context.width,
+                                              TextWidget(isDuration.value ? '기간 선택' : '날짜 선택', 15, context.width,
                                               color: context.subTextColor),
                                               Spacer(),
                                               Switch(
-                                                value: isKorean.value,
+                                                value: isDuration.value,
                                                 onChanged: (bool val){
-
+                                                  isDuration.value = !isDuration.value;
                                                 },
-                                                activeColor: Colors.teal,
+                                                activeThumbColor: Colors.teal,
                                               ),
 
                                             ],
@@ -91,20 +117,51 @@ class EventSelectScreen extends HookConsumerWidget {
                                               children: [
                                                 GestureDetector(
                                                     onTap: () {
+                                                      HapticFeedback.selectionClick();
                                                       focusNode.unfocus();
                                                       showPicker.value = !showPicker.value;
                                                     },
-                                                    child: TextWidget('25.10.10(월)', 25, context.width)),
+                                                    child: TextWidget(formatDate(selectedDate.value),
+                                                        22.5, context.width),
+                                                ),
+
+                                                if (isDuration.value) ...[
+                                                  Spacer(),
+                                                  Icon(Icons.arrow_right),
+                                                  Spacer(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      HapticFeedback.selectionClick();
+                                                      focusNode.unfocus();
+                                                      isSelectingEndDate.value = true;
+                                                      showPicker.value = !showPicker.value;
+                                                    },
+                                                    child: TextWidget(
+                                                        formatDate(endDate.value),
+                                                        22.5,
+                                                        context.width
+                                                    ),
+                                                  ),
+                                                ],
+
                                               ],
                                             ),
+
                                           if (showPicker.value && !focusNode.hasFocus)
                                             Container(
                                               height: 200,
                                               child: CupertinoDatePicker(
                                                 mode: CupertinoDatePickerMode.date,
-                                                initialDateTime: DateTime.now(),
+                                                initialDateTime: isSelectingEndDate.value
+                                                    ? endDate.value
+                                                    : selectedDate.value,
                                                 onDateTimeChanged: (dateTime) {
-                                                  print(dateTime);
+                                                  if (isSelectingEndDate.value) {
+                                                    endDate.value = dateTime;
+                                                    // DayFocusNode.requestFocus();
+                                                  } else {
+                                                    selectedDate.value = dateTime;
+                                                  }
                                                 },
                                               ),
                                             ),
@@ -117,38 +174,48 @@ class EventSelectScreen extends HookConsumerWidget {
                                           ),
 
 
-                                          // Row(
-                                          //   crossAxisAlignment: CrossAxisAlignment.center,
-                                          //   children: [
-                                          //     Icon(Icons.check,color: context.subTextColor),
-                                          //     SizedBox(width: 15),
-                                          //     TextWidget('기념일 지정', 15, context.width,
-                                          //         color: context.subTextColor),
-                                          //     Spacer(),
-                                          //     Switch(
-                                          //       value: isKorean.value,
-                                          //       onChanged: (bool val){},
-                                          //       activeColor: Colors.teal,
-                                          //     ),
-                                          //
-                                          //   ],
-                                          // ),
-                                          // Divider(
-                                          //   color: Theme.of(context).dividerColor,
-                                          //   thickness: 1,
-                                          // ),
                                           SizedBox(height: 10),
-                                          TextWidget('5개월간 매월 15일 메모된 날짜가 달력에 등록됩니다', 13.5, context.width,
-                                              color: context.subTextColor),
+                                          if (isDuration.value)
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                TextWidget(
+                                                    '매월',
+                                                    13.5,
+                                                    context.width,
+                                                    color: context.subTextColor
+                                                ),
+                                                SizedBox(width: 5),
+                                                Container(
+                                                  width: 40,
+                                                  height: 20,
+                                                  child: DaySelectTextField(
+                                                    DayFocusNode: DayFocusNode,
+                                                    DayController: DayController,
 
-
+                                                  ),
+                                                ),
+                                                SizedBox(width: 5),
+                                                TextWidget(
+                                                    getGuideText(),
+                                                    13.5,
+                                                    context.width,
+                                                    color: context.subTextColor
+                                                ),
+                                              ],
+                                            )
+                                          else
+                                            TextWidget(
+                                                getGuideText(),
+                                                13.5,
+                                                context.width,
+                                                color: context.subTextColor
+                                            ),
 
 
                                         ],
                                       ),
                                     ),
-
-
 
                                     Spacer(),
 
@@ -158,16 +225,7 @@ class EventSelectScreen extends HookConsumerWidget {
                           ),
                           Row(
                             children: [
-                              // Expanded(
-                              //   flex: 1,
-                              //   child: LeftElevatedButton(
-                              //     text: eventType.label,
-                              //     onPressed: () => eventType.toggle(),
-                              //   ),
-                              // ),
-                              // SizedBox(width: 10),
                               Expanded(
-                                flex: 2,
                                 child: CustomElevatedButton(
                                   text: '등록하기',
                                   onPressed: () {

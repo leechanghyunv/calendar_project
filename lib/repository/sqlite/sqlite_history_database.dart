@@ -3,7 +3,7 @@ import '../repository_import.dart';
 part 'sqlite_history_database.g.dart';
 
 @riverpod
-Future<HistoryDatabase> workHistoryManager( ref) async {
+Future<HistoryDatabase> workHistoryManager(ref) async {
   final db = await ref.watch(initWorkHistoryProvider.future);
   return HistoryDatabase(db);
 }
@@ -57,7 +57,6 @@ class HistoryDatabase {
       print('deleteWorkHistory error: ${e.toString()}');
       throw Exception('데이터 삭제 중 오류 발생');
     }
-    // print('object');
   }
 
   Future<void> deleteWorkHistoryByMonth(DateTime start,DateTime end) async {

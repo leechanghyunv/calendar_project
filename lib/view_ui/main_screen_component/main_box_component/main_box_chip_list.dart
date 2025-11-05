@@ -60,6 +60,7 @@ class ChipList extends HookConsumerWidget {
               ),
               child: GestureDetector(
                   onTap: () async {
+                    HapticFeedback.selectionClick();
               switch (ref.contract) {
                 case AsyncData(value: final conditions) when conditions.isNotEmpty:
                   final condition = conditions.last;

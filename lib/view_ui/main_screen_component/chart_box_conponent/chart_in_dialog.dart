@@ -64,6 +64,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
 
     return GestureDetector(
       onTap: (){
+        HapticFeedback.selectionClick();
         setState(() {
           selected = !selected;
         });

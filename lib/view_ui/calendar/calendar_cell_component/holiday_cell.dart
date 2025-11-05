@@ -36,14 +36,8 @@ class HolidayCell extends ConsumerWidget {
         : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 33.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
 
 
-
-    final holidayName = holidays.entries.firstWhere(
-          (entry) =>
-      entry.key.year == date.year &&
-          entry.key.month == date.month &&
-          entry.key.day == date.day,
-      orElse: () => MapEntry(date, ''),
-    ).value;
+    final localDate = DateTime(date.year, date.month, date.day);
+    final holidayName = holidays[localDate] ?? '';
 
     final holidayText = holidayName.replaceAll('\n', '');
 

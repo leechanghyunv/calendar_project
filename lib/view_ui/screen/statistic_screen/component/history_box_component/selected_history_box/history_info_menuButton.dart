@@ -1,5 +1,5 @@
 import '../../../../../../core/export_package.dart';
-import '../../../../../../model/selected_history_model.dart';
+import '../../../../../../model/statistics/selected_history_model.dart';
 import '../../../../../../core/extentions/theme_color.dart';
 import '../../../../calendar_screen/provider/popup_menu_provider.dart';
 

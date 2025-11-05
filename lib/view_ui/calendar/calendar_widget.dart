@@ -17,29 +17,32 @@ final calendarMemoProvider = StateProvider<String>((ref) => '');
 
 class WorkCalendar extends ConsumerWidget {
 
-  final Map<DateTime, bool> _holidayCache = {};
-  final Map<DateTime, bool> _substituteHolidayCache = {};
-
-  // 한 번만 계산하도록 초기화
-  void _initHolidayCache() {
-    if (_holidayCache.isEmpty) {
-      for (final holiday in holidays.keys) {
-        final utcHoliday = DateTime.utc(holiday.year, holiday.month, holiday.day);
-        _holidayCache[utcHoliday] = true;
-
-        // 공휴일이 일요일인 경우 대체 휴일 계산
-        if (holiday.weekday == DateTime.sunday) {
-          final substituteDay = holiday.add(const Duration(days: 1));
-          final utcSubstituteDay = DateTime.utc(
-              substituteDay.year, substituteDay.month, substituteDay.day);
-          _substituteHolidayCache[utcSubstituteDay] = true;
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final Map<DateTime, bool> _holidayCache = {};
+    final Map<DateTime, bool> _substituteHolidayCache = {};
+
+    final dynamicHolidays = ref.read(dynamicHolidaysProvider);
+
+    // 한 번만 계산하도록 초기화
+    void _initHolidayCache() {
+      if (_holidayCache.isEmpty) {
+        for (final dynamicHolidays in dynamicHolidays.keys) {
+          final utcHoliday = DateTime.utc(dynamicHolidays.year, dynamicHolidays.month, dynamicHolidays.day);
+          _holidayCache[utcHoliday] = true;
+
+          // 공휴일이 일요일인 경우 대체 휴일 계산
+          if (dynamicHolidays.weekday == DateTime.sunday) {
+            final substituteDay = dynamicHolidays.add(const Duration(days: 1));
+            final utcSubstituteDay = DateTime.utc(
+                substituteDay.year, substituteDay.month, substituteDay.day);
+            _substituteHolidayCache[utcSubstituteDay] = true;
+          }
+        }
+      }
+    }
 
     final appWidth = context.width;
 
@@ -119,7 +122,6 @@ class WorkCalendar extends ConsumerWidget {
 
             markerBuilder: (context, date, events) {
 
-              final dynamicHolidays = ref.read(dynamicHolidaysProvider);
               // ✅ 로컬 타임존으로 통일된 키
               final localDate = DateTime(date.year, date.month, date.day);
               /// final boolSelector = isHoliday(date); 대신에

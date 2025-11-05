@@ -2,7 +2,7 @@ import 'package:calendar_project_240727/repository/time/calculate_ranged_day.dar
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 
 import '../../model/combined_data_model.dart';
-import '../../model/search_history_model.dart';
+import '../../model/statistics/search_history_model.dart';
 import '../../repository/repository_import.dart';
 
 part 'search_source_model.g.dart';
