@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../../core/export_package.dart';
 import '../../../core/utils/view_type.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
@@ -39,6 +40,7 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
 
     return GestureDetector(
       onTap: (){
+        HapticFeedback.selectionClick();
         setState(() => borderWidth = 1.25);
         if (ref.contract.value!.isEmpty) {
           customMsg('근로조건을 우선 입력해주세요');

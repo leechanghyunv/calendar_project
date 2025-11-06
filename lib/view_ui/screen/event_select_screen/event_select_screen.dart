@@ -29,6 +29,8 @@ class EventSelectScreen extends HookConsumerWidget {
     final selectedDate = useState(DateTime.now());
     final endDate = useState(DateTime.now());
 
+    useListenable(controller);
+
     String formatDate(DateTime date) {
       final weekdays = ['월', '화', '수', '목', '금', '토', '일'];
       final weekday = weekdays[date.weekday - 1];
@@ -52,6 +54,16 @@ class EventSelectScreen extends HookConsumerWidget {
       }
     }
 
+    final monthDifference = useMemoized(
+          () {
+        final start = selectedDate.value;
+        final end = endDate.value;
+
+        return (end.year - start.year) * 12 + (end.month - start.month);
+      },
+      [selectedDate.value, endDate.value],
+    );
+
     useEffect(() {
       focusNode.requestFocus();
       return null;
@@ -67,7 +79,6 @@ class EventSelectScreen extends HookConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-
                 SizedBox(height: 15),
                 Expanded(
                     child: Container(
@@ -79,10 +90,26 @@ class EventSelectScreen extends HookConsumerWidget {
                                   children: [
                                     SizedBox(height: 10),
 
-                                    EventTextField(
-                                      focusNode: focusNode,
-                                      controller: controller,
-
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 4,
+                                          child: EventTextField(
+                                            focusNode: focusNode,
+                                            controller: controller,
+                                          
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: GestureDetector(
+                                              onTap: () => controller.clear(),
+                                              child: Icon(Icons.close,
+                                                  color: context.subTextColor,
+                                              ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     
                                     Padding(
@@ -100,13 +127,15 @@ class EventSelectScreen extends HookConsumerWidget {
 
                                               Icon(Icons.access_time,color: context.subTextColor),
                                               SizedBox(width: 15),
-                                              TextWidget(isDuration.value ? '기간 선택' : '날짜 선택', 15, context.width,
+                                              TextWidget(
+                                                  isDuration.value ? '기간 선택' : '날짜 선택', 15, context.width,
                                               color: context.subTextColor),
                                               Spacer(),
                                               Switch(
                                                 value: isDuration.value,
                                                 onChanged: (bool val){
                                                   isDuration.value = !isDuration.value;
+                                                  HapticFeedback.selectionClick();
                                                 },
                                                 activeThumbColor: Colors.teal,
                                               ),
@@ -180,27 +209,25 @@ class EventSelectScreen extends HookConsumerWidget {
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               children: [
                                                 TextWidget(
-                                                    '매월',
+                                                    '${monthDifference}개월 간 매월',
                                                     13.5,
                                                     context.width,
                                                     color: context.subTextColor
                                                 ),
                                                 SizedBox(width: 5),
-                                                Container(
-                                                  width: 40,
-                                                  height: 20,
-                                                  child: DaySelectTextField(
-                                                    DayFocusNode: DayFocusNode,
-                                                    DayController: DayController,
+                                                DaySelectTextField(
+                                                  DayFocusNode: DayFocusNode,
+                                                  DayController: DayController,
 
-                                                  ),
                                                 ),
                                                 SizedBox(width: 5),
-                                                TextWidget(
-                                                    getGuideText(),
-                                                    13.5,
-                                                    context.width,
-                                                    color: context.subTextColor
+                                                Expanded(
+                                                  child: TextWidget(
+                                                      getGuideText(),
+                                                      13.5,
+                                                      context.width,
+                                                      color: context.subTextColor
+                                                  ),
                                                 ),
                                               ],
                                             )
@@ -229,7 +256,8 @@ class EventSelectScreen extends HookConsumerWidget {
                                 child: CustomElevatedButton(
                                   text: '등록하기',
                                   onPressed: () {
-
+                                    Navigator.pop(context);
+                                    HapticFeedback.selectionClick();
                                   },
                                 ),
                               ),

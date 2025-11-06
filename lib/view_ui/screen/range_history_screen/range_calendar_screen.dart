@@ -211,6 +211,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
                       offset: const Offset(0,  200),
                       initialValue: 1,
                       onSelected: (months) {
+
+
                         final now = DateTime.now();
                         final start = rangeStart.value ?? now;
                         final end = DateTime(start.year, start.month - months, start.day);
@@ -218,6 +220,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
                         rangeStart.value = end;
                         rangeEnd.value = start;
                         focusedDay.value = end;
+                        finishRangeSelect();
+
                       },
                       itemBuilder: (context) => [
                         PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth,color: context.textColor)),
@@ -267,6 +271,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                             if (rangeStart.value != null && rangeEnd.value != null) {
                               finishRangeSelect();
                               onNavigateToHistory?.call();
+                              HapticFeedback.selectionClick();
                             }
                           },
                           child: TextWidget('선택완료', 16,

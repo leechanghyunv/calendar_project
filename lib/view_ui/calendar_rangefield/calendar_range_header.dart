@@ -1,12 +1,17 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import 'package:intl/intl.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../core/export_package.dart';
+import '../../view_model/sqlite_model/history_model.dart';
 
-class CalendarRangeHeader extends ConsumerWidget {
+class CalendarRangeHeader extends HookConsumerWidget {
   final DateTime day;
   final DateTime? startDay;
   final DateTime? endDay;
@@ -34,9 +39,15 @@ class CalendarRangeHeader extends ConsumerWidget {
     final appWidth = MediaQuery.of(context).size.width;
 
     final dateRangeValue = ref.watch(rangeSelectManagerProvider);
+    final dateRange = ref.watch(timeRangeManagerProvider);
 
     final dateRangeState = dateRangeValue.startSelected && dateRangeValue.endSelected;
 
+    final controller = useAnimationController(
+      duration: const Duration(milliseconds: 800),
+    )..repeat(reverse: true);
+
+    final animation = Tween<double>(begin: 0.1, end: 1.0).animate(controller);
 
     return Padding(
       padding: EdgeInsets.only(left: 10, bottom: 20.0),
@@ -98,13 +109,51 @@ class CalendarRangeHeader extends ConsumerWidget {
                       : context.isDark ? Colors.tealAccent : Colors.teal,
                 ),
                 SizedBox(width: 10),
-                dateRangeState ? GestureDetector(
-                  onTap: (){
-                    customMsg('선택기간 삭제');
-                  },
-                  child: TextWidget(
-                      '선택기간 삭제',
-                      20, appWidth,color: context.textColor),
+                dateRangeState ? Row(
+                  children: [
+                    TextWidget(
+                        '${DateFormat.yMMMM('ko_KR').format(day)}',
+                        20, appWidth,color: context.textColor),
+                    SizedBox(width: 15),
+
+                    FadeTransition(
+                      opacity: animation,
+                      child: GestureDetector(
+                          onTap: (){
+
+                            showDialog(context: context, builder: (context) =>
+                                AlertDialog(
+                                  backgroundColor:  context.dialogColor,
+                                  shape: context.dialogShape,
+                                  content: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    child: TextWidget('공수기록을 모두 삭제하시겠습니까?',
+                                        15,appWidth,color: context.textColor),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context).pop(),
+                                      child: TextWidget('취소', 15,
+                                          appWidth,color: context.textColor),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        deleteMonthHistoryProvider(dateRange.startDate,dateRange.endDate);
+                                        ref.refreshState(context);
+                                        Navigator.of(context, rootNavigator: true).pop();
+                                        customMsg('선택하신 기간이 삭제되었습니다.');
+                                      },
+                                      child: TextWidget('삭제', 15,appWidth,
+                                          color: context.textColor),
+                                    ),
+                                  ],
+                                ),
+                            );
+
+                          },
+                          child: Icon(MdiIcons.trashCanOutline)),
+                    )
+                  ],
                 )
                     : TextWidget(
                     '${DateFormat.yMMMM('ko_KR').format(day)}',

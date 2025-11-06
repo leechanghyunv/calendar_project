@@ -68,6 +68,7 @@ class WorkCalendar extends ConsumerWidget {
         child: TableCalendarFrame(
             selectedDay: ref.selected,
             onDayLongPressed: (DateTime? selected, DateTime? focused) {
+              HapticFeedback.selectionClick();
                  if (ref.contract.value!.isEmpty) {
                    customMsg('근로조건을 우선 입력해주세요');
                    showBasicModal(context,false);

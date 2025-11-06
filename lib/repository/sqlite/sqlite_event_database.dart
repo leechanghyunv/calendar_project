@@ -50,6 +50,44 @@ class EventDataBase {
     }
   }
 
+
+  Future<void> insertMonthlyEvents({
+    required DateTime startDate,
+    required DateTime endDate,
+    required int day,
+    required String name,
+  }) async {
+    try {
+      final db = await database;
+
+      await db.transaction((txn) async {
+        DateTime current = DateTime(startDate.year, startDate.month, day);
+        final end = DateTime(endDate.year, endDate.month, day);
+
+        while (current.isBefore(end) || current.isAtSameMomentAs(end)) {
+          await txn.insert('event_database', {
+            'date': current.toIso8601String(),
+            'name': name,
+          });
+
+          // 다음 달로 이동
+          current = DateTime(
+            current.month == 12 ? current.year + 1 : current.year,
+            current.month == 12 ? 1 : current.month + 1,
+            day,
+          );
+        }
+      });
+
+      print('월별 이벤트 추가 성공');
+    } catch (e) {
+      print('insertMonthlyEvents error: ${e.toString()}');
+      throw Exception('데이터 저장 중 오류 발생');
+    }
+  }
+
+
+
   Future<List<CustomEvent>> getAll() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('event_database');

@@ -54,32 +54,35 @@ class DaySelectTextField extends HookConsumerWidget {
     }, [DayController]);
 
 
-    return TextField(
-      focusNode: DayFocusNode,
-      controller: DayController,
-      textAlign: TextAlign.center,  // 텍스트 중앙 정렬
+    return Container(
+      width: 40,
+      height: 20,
+      child: TextField(
+        focusNode: DayFocusNode,
+        controller: DayController,
+        textAlign: TextAlign.center,  // 텍스트 중앙 정렬
 
-      keyboardType: TextInputType.number,
-      textInputAction: TextInputAction.done,
-      style: TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
-      cursorColor: context.isDark ? Colors.teal.shade900 : Colors.grey,
-      cursorHeight: 12.5,
-      decoration: InputDecoration(
-        isDense: true,
-        // errorBorder: InputBorder.none,
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-              color: context.isDark ? Colors.teal.shade900 : Colors.grey,
-              width: 2),
+        keyboardType: TextInputType.number,
+        textInputAction: TextInputAction.done,
+        style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.bold,
         ),
-        // focusedErrorBorder: InputBorder.none,
-        // border: InputBorder.none,
-        // enabledBorder: InputBorder.none,
+        cursorColor: context.isDark ? Colors.teal.shade900 : Colors.grey,
+        cursorHeight: 12.5,
+        decoration: InputDecoration(
+          isDense: true,
+          // errorBorder: InputBorder.none,
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+                color: context.isDark ? Colors.teal.shade900 : Colors.grey,
+                width: 2),
+          ),
+          // focusedErrorBorder: InputBorder.none,
+          // border: InputBorder.none,
+          // enabledBorder: InputBorder.none,
 
+        ),
       ),
     );
   }

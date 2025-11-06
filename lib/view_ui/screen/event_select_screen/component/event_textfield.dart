@@ -16,6 +16,10 @@ class EventTextField extends StatelessWidget {
       controller: controller,
       cursorColor: context.isDark ? Colors.teal.shade900 : Colors.grey,
       cursorWidth: 2.5,
+      style: TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
       decoration: InputDecoration(
         errorMaxLines: 1,
         hintText: ' 저장할 메모 내용 입력',
@@ -31,7 +35,6 @@ class EventTextField extends StatelessWidget {
         border: InputBorder.none,
         enabledBorder: InputBorder.none,
         contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        // suffixIcon: suffixIcon,
       ),
     );
   }

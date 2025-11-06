@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'today_info_provider.dart';
+part of 'event_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dynamicHolidaysHash() => r'4033ad8bdd55de06e28adc288332698157c993ae';
+String _$eventViewModelHash() => r'2b60f71c30dfbb2ea2e46711771c4e7bb8c95b2d';
 
-/// See also [DynamicHolidays].
-@ProviderFor(DynamicHolidays)
-final dynamicHolidaysProvider =
-    NotifierProvider<DynamicHolidays, Map<DateTime, String>>.internal(
-  DynamicHolidays.new,
-  name: r'dynamicHolidaysProvider',
+/// See also [EventViewModel].
+@ProviderFor(EventViewModel)
+final eventViewModelProvider = AutoDisposeAsyncNotifierProvider<EventViewModel,
+    List<CustomEvent>>.internal(
+  EventViewModel.new,
+  name: r'eventViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$dynamicHolidaysHash,
+      : _$eventViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$DynamicHolidays = Notifier<Map<DateTime, String>>;
+typedef _$EventViewModel = AutoDisposeAsyncNotifier<List<CustomEvent>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
