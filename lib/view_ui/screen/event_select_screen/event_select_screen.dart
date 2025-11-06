@@ -1,7 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import '../../../../core/export_package.dart';
+import '../../../model/event/custom_event.dart';
+import '../../../view_model/sqlite_model/event_model.dart';
 import '../../widgets/elevated_button.dart';
 import 'component/day_select_textfield.dart';
 import 'component/event_textfield.dart';
@@ -255,7 +258,36 @@ class EventSelectScreen extends HookConsumerWidget {
                               Expanded(
                                 child: CustomElevatedButton(
                                   text: '등록하기',
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    final text = controller.text.trim();
+                                    if (text.isEmpty) return;
+                                    if (isDuration.value){
+
+                                      if (selectedDate.value.isAfter(endDate.value) ||
+                                          selectedDate.value.isAtSameMomentAs(endDate.value)) {
+                                        customMsg('종료 날짜는 시작 날짜보다 이후여야 합니다');
+                                        return;
+                                      }
+
+                                      final day = int.parse(DayController.text);
+                                      await ref.read(eventViewModelProvider.notifier).addMonthlyEvents(
+                                        startDate: selectedDate.value,
+                                        endDate: endDate.value,
+                                        day: day,
+                                        name: text,
+                                      );
+
+                                    } else {
+                                      customMsg('${selectedDate.value} ${text}');
+                                      await ref.read(eventViewModelProvider.notifier).addEvent(
+                                        CustomEvent(
+                                          date: selectedDate.value,
+                                          name: text,
+                                        ),
+                                      );
+
+                                    }
+
                                     Navigator.pop(context);
                                     HapticFeedback.selectionClick();
                                   },

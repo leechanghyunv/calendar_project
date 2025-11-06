@@ -94,6 +94,28 @@ class EventDataBase {
     return maps.map((map) => CustomEvent.fromJson(map)).toList();
   }
 
+  Future<List<CustomEvent>> getEventsByMonth(DateTime date) async {
+    final db = await database;
+
+    final startOfMonth = DateTime(date.year, date.month, 1);
+    final endOfMonth = DateTime(date.year, date.month + 1, 0);
+
+    final List<Map<String, dynamic>> maps = await db.query(
+      'event_database',
+      where: 'date >= ? AND date <= ?',
+      whereArgs: [
+        startOfMonth.toIso8601String(),
+        endOfMonth.toIso8601String(),
+      ],
+    );
+
+    return maps.map((map) => CustomEvent.fromJson(map)).toList();
+  }
+
+
+
+
+
   Future<void> delete(DateTime date) async {
     try {
       final db = await database;

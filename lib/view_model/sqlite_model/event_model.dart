@@ -1,6 +1,7 @@
 import '../../model/event/custom_event.dart';
 import '../../repository/repository_import.dart';
 import '../../repository/sqlite/sqlite_event_database.dart';
+import '../../repository/time/calendar_time_controll.dart';
 
 part 'event_model.g.dart';
 
@@ -9,8 +10,12 @@ class EventViewModel extends _$EventViewModel {
   @override
   FutureOr<List<CustomEvent>> build() async {
     final manager = await ref.watch(customEventManagerProvider.future);
-    return await manager.getAll();
+    final time = ref.watch(timeManagerProvider).selected;
+
+    return await manager.getEventsByMonth(time);
   }
+
+
 
   Future<void> addEvent(CustomEvent event) async {
     state = const AsyncValue.loading();

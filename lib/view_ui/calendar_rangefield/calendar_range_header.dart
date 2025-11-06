@@ -4,7 +4,6 @@ import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -91,6 +90,22 @@ class CalendarRangeHeader extends HookConsumerWidget {
                   ),
                 ),
               ),
+
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.circular(12),
+              //       side: BorderSide(color: Colors.grey.shade200),
+              //     ),
+              //     padding: EdgeInsets.all(5),
+              //     backgroundColor: context.boxColor,
+              //   ),
+              //   onPressed: (){
+              //
+              //   },
+              //   child: Icon(MdiIcons.trashCanOutline,
+              //       color: context.subTextColor),
+              // ),
             ],
           ),
           SizedBox(height: 20),
@@ -100,7 +115,6 @@ class CalendarRangeHeader extends HookConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 Container(
                   width: 5,
                   height: 20,
@@ -120,7 +134,6 @@ class CalendarRangeHeader extends HookConsumerWidget {
                       opacity: animation,
                       child: GestureDetector(
                           onTap: (){
-
                             showDialog(context: context, builder: (context) =>
                                 AlertDialog(
                                   backgroundColor:  context.dialogColor,
@@ -158,8 +171,6 @@ class CalendarRangeHeader extends HookConsumerWidget {
                     : TextWidget(
                     '${DateFormat.yMMMM('ko_KR').format(day)}',
                     20, appWidth,color: context.textColor),
-
-
                 Spacer(),
                 InkWell(
                   onTap: onPreviousMonth,
@@ -176,7 +187,6 @@ class CalendarRangeHeader extends HookConsumerWidget {
                       color: context.isDark ? Colors.white : Colors.grey.shade700,
                       size: 30),
                 ),
-                SizedBox(width: 10),
               ],
             ),
           ),
