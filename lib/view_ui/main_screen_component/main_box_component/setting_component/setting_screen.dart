@@ -151,9 +151,13 @@ class SettingScreen extends HookConsumerWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+
                           TextWidget(
                               showRange ? '공수 범위 등록' : '${ref.monthString}월 ${ref.dayString}일 등록',
-                              18, context.width,color: context.textColor),
+                              18, context.width,
+                              color: context.textColor,
+                          ),
+
                           Spacer(),
                           CircleAvatar(
                             radius: 17.5,

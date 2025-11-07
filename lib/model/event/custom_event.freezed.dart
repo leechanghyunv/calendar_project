@@ -15,6 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CustomEvent {
   int get id;
+  @DateTimeConverter()
   DateTime get date;
   String get name;
 
@@ -54,7 +55,7 @@ abstract mixin class $CustomEventCopyWith<$Res> {
           CustomEvent value, $Res Function(CustomEvent) _then) =
       _$CustomEventCopyWithImpl;
   @useResult
-  $Res call({int id, DateTime date, String name});
+  $Res call({int id, @DateTimeConverter() DateTime date, String name});
 }
 
 /// @nodoc
@@ -183,7 +184,8 @@ extension CustomEventPatterns on CustomEvent {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(int id, DateTime date, String name)? $default, {
+    TResult Function(int id, @DateTimeConverter() DateTime date, String name)?
+        $default, {
     required TResult orElse(),
   }) {
     final _that = this;
@@ -210,7 +212,8 @@ extension CustomEventPatterns on CustomEvent {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(int id, DateTime date, String name) $default,
+    TResult Function(int id, @DateTimeConverter() DateTime date, String name)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
@@ -235,7 +238,8 @@ extension CustomEventPatterns on CustomEvent {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(int id, DateTime date, String name)? $default,
+    TResult? Function(int id, @DateTimeConverter() DateTime date, String name)?
+        $default,
   ) {
     final _that = this;
     switch (_that) {
@@ -250,7 +254,8 @@ extension CustomEventPatterns on CustomEvent {
 /// @nodoc
 @JsonSerializable()
 class _CustomEvent implements CustomEvent {
-  const _CustomEvent({this.id = 0, required this.date, this.name = ''});
+  const _CustomEvent(
+      {this.id = 0, @DateTimeConverter() required this.date, this.name = ''});
   factory _CustomEvent.fromJson(Map<String, dynamic> json) =>
       _$CustomEventFromJson(json);
 
@@ -258,6 +263,7 @@ class _CustomEvent implements CustomEvent {
   @JsonKey()
   final int id;
   @override
+  @DateTimeConverter()
   final DateTime date;
   @override
   @JsonKey()
@@ -306,7 +312,7 @@ abstract mixin class _$CustomEventCopyWith<$Res>
       __$CustomEventCopyWithImpl;
   @override
   @useResult
-  $Res call({int id, DateTime date, String name});
+  $Res call({int id, @DateTimeConverter() DateTime date, String name});
 }
 
 /// @nodoc

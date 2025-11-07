@@ -5,19 +5,15 @@ import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 
 class ChipButton extends StatelessWidget {
-  final String text;
   final VoidCallback onTap;
   final double? width;
   final double? height;
-  final double? fontSize;
 
   const ChipButton({
     super.key,
-    required this.text,
     required this.onTap,
     this.width = 120,
     this.height = 30,
-    this.fontSize = 15,
   });
 
   @override
@@ -35,8 +31,8 @@ class ChipButton extends StatelessWidget {
         width: width,
         height: height,
         child: TextWidget(
-          text,
-          fontSize!,
+          '근로조건 변경',
+          16!,
           context.width,
           color: context.chipTextColor,
         ),

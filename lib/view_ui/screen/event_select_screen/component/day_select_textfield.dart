@@ -15,8 +15,7 @@ class DaySelectTextField extends HookConsumerWidget {
     useEffect(() {
       void listener() {
 
-        // '일' 제거 - 순수 숫자만 추출
-        String text = DayController.text.replaceAll('일', '');
+        String text = DayController.text;
 
         if (text.isNotEmpty) {
           // 숫자가 아닌 문자 모두 제거
@@ -26,7 +25,6 @@ class DaySelectTextField extends HookConsumerWidget {
           if (text.length > 2) {
             text = text.substring(0, 2);
           }
-
           // 날짜 유효성 검사 (1-31일)
           int? day = int.tryParse(text);
           if (day != null && day > 31) {
@@ -34,23 +32,13 @@ class DaySelectTextField extends HookConsumerWidget {
           } else if (day != null && day < 1 && text.length == 2) {
             text = '1';   // 00 입력 시 1로 변경
           }
-
-          // 마지막에 '일' 자동 추가
-          final newText = text.isEmpty ? '' : text + '일';
-
-          // 변경사항이 있을 때만 업데이트 (무한루프 방지)
-          if (DayController.text != newText) {
-            DayController.value = TextEditingValue(
-              text: newText,
-              selection: TextSelection.collapsed(offset: newText.length - 1), // 커서를 '일' 앞에 위치
-            );
-          }
         }
       }
 
 
       DayController.addListener(listener);
       return () => DayController.removeListener(listener);
+
     }, [DayController]);
 
 
@@ -71,16 +59,16 @@ class DaySelectTextField extends HookConsumerWidget {
         cursorColor: context.isDark ? Colors.teal.shade900 : Colors.grey,
         cursorHeight: 12.5,
         decoration: InputDecoration(
+          suffixText: '일',
+          contentPadding: const EdgeInsets.only(right: 8),
           isDense: true,
-          // errorBorder: InputBorder.none,
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(
                 color: context.isDark ? Colors.teal.shade900 : Colors.grey,
-                width: 2),
+                width: 2,
+            ),
           ),
-          // focusedErrorBorder: InputBorder.none,
-          // border: InputBorder.none,
-          // enabledBorder: InputBorder.none,
+
 
         ),
       ),

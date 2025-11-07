@@ -23,10 +23,5 @@ abstract class CustomEvent with _$CustomEvent {
   }) = _CustomEvent;
 
   factory CustomEvent.fromJson(Map<String, dynamic> json) =>
-      _$CustomEventFromJson({
-        ...json,
-        'date': json['date'] is String
-            ? DateTime.parse(json['date'])
-            : json['date'],
-      });
+      _$CustomEventFromJson(json);
 }

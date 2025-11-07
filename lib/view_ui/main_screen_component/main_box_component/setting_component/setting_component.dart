@@ -276,10 +276,12 @@ class MemoStateComponent extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       TextWidget(
-                          '일당 ${formatAmount(val.last.normal)}', 16,
-                          context.width,
+                          '일당 ${formatAmount(val.last.normal)}',
+                          16, context.width,
                           color: context.textColor),
+
                     ],
                   ),
                 ),
@@ -288,17 +290,9 @@ class MemoStateComponent extends HookConsumerWidget {
             }),
             Spacer(),
             ChipButton(
-              text: '근로조건 변경',
               onTap: onTap,
-              fontSize: 16,
             ),
-            // ChipButton(
-            //   text: showRange ? '${ref.monthString}월 추가 수입' : '${ref.dayString}일 추가 수입',
-            //   onTap: () {
-            //     ref.read(additionalPayProvider.notifier).openBox();
-            //     onTap.call();
-            //   },
-            // ),
+
           ],
         ),
         context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),

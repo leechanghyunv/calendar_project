@@ -15,27 +15,77 @@ class EventListWidget extends HookConsumerWidget {
 
     return switch (eventState) {
       AsyncData(:final value) => value.isEmpty
-          ? Center(
-        child: TextWidget(
-          '등록된 일정이 없습니다',
-          14,
-          context.width,
-          color: context.subTextColor,
-        ),
-      )
+          ? SizedBox.shrink()
           : Expanded(
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: value.length,
+          separatorBuilder: (context, index) => SizedBox(height: 8),
           itemBuilder: (context, index) {
             final event = value[index];
-            return ListTile(
-              title: TextWidget(event.name, 16, context.width),
-              subtitle: TextWidget(
-                event.date.toString(),
-                12,
-                context.width,
-                color: context.subTextColor,
+            return Container(
+              margin: EdgeInsets.only(top: index == 0 ? 24 : 0),
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: context.boxColor,
+                borderRadius: BorderRadius.circular(12),
+                border: context.isLight ? null : Border.all(
+                  width: 0.75,
+                  color: Colors.white,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 60,
+                    child: Column(
+                      children: [
+                        TextWidget(
+                          event.date.day.toString(),
+                          22,
+                          context.width,
+                          color: Colors.teal,
+                        ),
+                        TextWidget(
+                          '${event.date.month}월',
+                          12,
+                          context.width,
+                          color: Colors.teal[200],
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Expanded(
+                    child: TextWidget(
+                      event.name,
+                      14,
+                      context.width,
+                      color: context.isDark ? Colors.grey[100] : Colors.grey[800],
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
+                  Spacer(),
+                  InkWell(
+                    onTap: (){
+                      print('remove');
+                    },
+                    child: Icon(Icons.remove,
+                      color: context.subTextColor,
+                    ),
+                  )
+                ],
+              ),
+
+
             );
           },
         ),

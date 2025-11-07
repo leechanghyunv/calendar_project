@@ -8,14 +8,13 @@ class DynamicHolidays extends _$DynamicHolidays {
   @override
   Map<DateTime, String> build() {
 
-    // final customEvents = await ref.watch(customEventViewModelProvider.future);
+    // final customEvents = await ref.watch(eventViewModelProvider);
 
     final today = DateTime.now();
     final todayKey = DateTime(today.year, today.month, today.day);
     final result = Map<DateTime, String>.from(holidays);
 
     result[todayKey] = '오늘';
-
 
     /// holidays - result
     return holidays;

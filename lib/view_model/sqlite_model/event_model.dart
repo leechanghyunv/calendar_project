@@ -18,31 +18,53 @@ class EventViewModel extends _$EventViewModel {
 
 
   Future<void> addEvent(CustomEvent event) async {
+
+    if (event.name.trim().isEmpty) {
+      customMsg('일정을 입력해주세요');
+    }
+
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final manager = await ref.read(customEventManagerProvider.future);
       await manager.insert(event);
       return await manager.getAll();
     });
+    customMsg('일정이 등록되었습니다');
   }
 
   Future<void> addMonthlyEvents({
     required DateTime startDate,
     required DateTime endDate,
-    required int day,
+    required String day,
     required String name,
   }) async {
+
+    if (name.trim().isEmpty) {
+      customMsg('일정을 입력해주세요');
+      return;
+    }
+    if (startDate.isAfter(endDate) || startDate.isAtSameMomentAs(endDate)) {
+      customMsg('종료 날짜는 시작 날짜보다 이후여야 합니다');
+      return;
+    }
+    final parsedDay = int.tryParse(day);
+    if (parsedDay == null || parsedDay < 1 || parsedDay > 31) {
+      customMsg('올바른 날짜를 입력해주세요');
+      return;
+    }
+
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final manager = await ref.read(customEventManagerProvider.future);
       await manager.insertMonthlyEvents(
         startDate: startDate,
         endDate: endDate,
-        day: day,
+        day: parsedDay,
         name: name,
       );
       return await manager.getAll();
     });
+    customMsg('일정이 등록되었습니다');
   }
 
   Future<void> deleteEvent(DateTime date) async {
