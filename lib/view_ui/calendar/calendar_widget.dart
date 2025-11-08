@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
+import '../screen/calendar_screen/provider/marker_event_provider.dart';
 import '../screen/calendar_screen/provider/today_info_provider.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'calendar_cell_component//default_cell.dart';
@@ -24,9 +25,9 @@ class WorkCalendar extends ConsumerWidget {
     final Map<DateTime, bool> _holidayCache = {};
     final Map<DateTime, bool> _substituteHolidayCache = {};
 
-    final dynamicHolidays = ref.read(dynamicHolidaysProvider);
+    final dynamicHolidays = ref.watch(dynamicHolidaysProvider);
+    final customEventMarkers = ref.watch(markerEventProvider);
 
-    // 한 번만 계산하도록 초기화
     void _initHolidayCache() {
       if (_holidayCache.isEmpty) {
         for (final dynamicHolidays in dynamicHolidays.keys) {
@@ -44,9 +45,9 @@ class WorkCalendar extends ConsumerWidget {
       }
     }
 
-    final appWidth = context.width;
 
     ref.history;
+    final appWidth = context.width;
     final timeManagerNot = ref.timeNot;
     final filted = ref.watch(filtedEventsProvider);
 
@@ -89,6 +90,12 @@ class WorkCalendar extends ConsumerWidget {
 
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);
+
+              final localDate = DateTime(selected.year, selected.month, selected.day);
+              final hasCustomEvent = customEventMarkers.containsKey(localDate);
+
+              // hasCustomEvent ? customMsg('${localDate.toString()}') : null;
+
             },
             eventLoader: getEvents,
             selectedDayPredicate: (DateTime date) {
@@ -122,7 +129,7 @@ class WorkCalendar extends ConsumerWidget {
             outsideBuilder: (context, day, focusedDay) => OutSideCell(day: day),
 
             markerBuilder: (context, date, events) {
-
+              /// 세보 월급날
               // ✅ 로컬 타임존으로 통일된 키
               final localDate = DateTime(date.year, date.month, date.day);
               /// final boolSelector = isHoliday(date); 대신에

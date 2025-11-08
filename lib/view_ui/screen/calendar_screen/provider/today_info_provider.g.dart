@@ -6,7 +6,7 @@ part of 'today_info_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$dynamicHolidaysHash() => r'4033ad8bdd55de06e28adc288332698157c993ae';
+String _$dynamicHolidaysHash() => r'b3d1c6c921b900b498beb9f7720791f2351a1945';
 
 /// See also [DynamicHolidays].
 @ProviderFor(DynamicHolidays)

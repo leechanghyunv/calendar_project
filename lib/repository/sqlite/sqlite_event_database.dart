@@ -38,11 +38,21 @@ class EventDataBase {
     try {
       final db = await database;
       await db.transaction((txn) async {
+
+        await txn.delete(
+          'event_database',
+          where: 'date = ?',
+          whereArgs: [event.date.toIso8601String()],
+        );
+
+
         await txn.insert('event_database', {
           'date': event.date.toIso8601String(),
           'name': event.name,
         });
       });
+
+
       print('CustomEvent 추가 성공');
     } catch (e) {
       print('insert error: ${e.toString()}');

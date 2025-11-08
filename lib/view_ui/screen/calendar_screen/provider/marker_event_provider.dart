@@ -2,26 +2,25 @@ import '../../../../model/event/custom_event.dart';
 import '../../../../repository/repository_import.dart';
 import '../../../../view_model/sqlite_model/event_model.dart';
 
-part 'today_info_provider.g.dart';
+part 'marker_event_provider.g.dart';
 
-@Riverpod(keepAlive: true)
-class DynamicHolidays extends _$DynamicHolidays {
+@riverpod
+class MarkerEvent extends _$MarkerEvent {
 
   List<CustomEvent>? _cachedEvents;
 
   @override
-   Map<DateTime, String> build()  {
+  Map<DateTime, String> build()  {
 
-    final result = Map<DateTime, String>.from(holidays);
+    final result = <DateTime, String>{};
 
     final customEventsAsync =  ref.watch(eventViewModelProvider);
 
-    // ✅ 데이터가 있으면 캐시 업데이트
     if (customEventsAsync is AsyncData<List<CustomEvent>>) {
       _cachedEvents = customEventsAsync.value;
     }
 
-    // ✅ 캐시된 데이터 사용 (로딩 중에도 이전 데이터 유지)
+    // 캐시된 데이터 사용
     if (_cachedEvents != null) {
       for (final event in _cachedEvents!) {
         final key = DateTime(event.date.year, event.date.month, event.date.day);
@@ -31,5 +30,4 @@ class DynamicHolidays extends _$DynamicHolidays {
 
     return result;
   }
-
 }

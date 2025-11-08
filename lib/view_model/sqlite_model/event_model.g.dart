@@ -6,7 +6,7 @@ part of 'event_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventViewModelHash() => r'99063f461162a4a56fe25a7189fbfc13bbe38c6a';
+String _$eventViewModelHash() => r'3550a287d819ddd2480b752e39957a107a2fa23f';
 
 /// See also [EventViewModel].
 @ProviderFor(EventViewModel)

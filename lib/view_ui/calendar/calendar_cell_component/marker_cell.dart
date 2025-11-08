@@ -8,6 +8,7 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/view_type_model.dart';
+import '../../screen/calendar_screen/provider/marker_event_provider.dart';
 
 
 
@@ -34,6 +35,14 @@ class MarkerCell extends ConsumerWidget {
       data: (value) => value,
       orElse: () => false,
     );
+
+    final customEventMarkers = ref.watch(markerEventProvider);
+
+    // ✅ bool 값으로 포함 여부 체크
+    final localDate = DateTime(date.year, date.month, date.day);
+    final hasCustomEvent = customEventMarkers.containsKey(localDate);
+
+
 
      /// top side margin
     final double marginValue = appHeight < 700
@@ -107,7 +116,7 @@ class MarkerCell extends ConsumerWidget {
         width: isExpanded
             ? appHeight < 700 ?  42.5.w : appWidth > 500 ? 22.5.w : 45.w
             : appHeight < 700 ?  37.5.w : appWidth > 500 ? 22.5.w : 40.w,
-        decoration: isExpanded ? null : markerDeco(context.isLight,selectedMonth,month),
+        decoration: isExpanded ? null : markerDeco(context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
         child: isExpanded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,7 +125,9 @@ class MarkerCell extends ConsumerWidget {
             Container(
               width: 50.w,
               alignment: Alignment.center,
-              decoration: markerDeco(context.isLight,selectedMonth,month),
+              decoration: markerDeco(
+                  context.isLight,selectedMonth,month,
+              ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 5.0,
@@ -208,7 +219,11 @@ class MarkerCell extends ConsumerWidget {
 
 
 
-BoxDecoration  markerDeco(bool isLight,int selectedMonth,int month){
+BoxDecoration  markerDeco(
+    bool isLight,
+    int selectedMonth,
+    int month,
+    {bool hasEvent = false}){
   return BoxDecoration(
     boxShadow: selectedMonth == month
         ? [

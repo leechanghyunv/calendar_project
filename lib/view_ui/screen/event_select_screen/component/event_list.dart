@@ -76,7 +76,7 @@ class EventListWidget extends HookConsumerWidget {
                   Spacer(),
                   InkWell(
                     onTap: (){
-                      print('remove');
+                      ref.read(eventViewModelProvider.notifier).deleteEvent(event.date);
                     },
                     child: Icon(Icons.remove,
                       color: context.subTextColor,
