@@ -164,7 +164,9 @@ Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {
 @riverpod
 Future<void> deleteMonthHistory(
     DeleteMonthHistoryRef ref, DateTime start, DateTime end) async {
+  print('start $start $end');
   final db = await ref.watch(workHistoryManagerProvider.future);
+  print('deleteMonthHistory $start $end');
   db.deleteWorkHistoryByMonth(start, end);
   invalidateProviders(ref);
 }

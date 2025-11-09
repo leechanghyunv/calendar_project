@@ -5,7 +5,8 @@ import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../../../core/export_package.dart';
 import '../../../model/work_history_model.dart';
-import '../../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
+import '../../screen/calendar_screen/provider/marker_event_provider.dart';
+import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 
 
 class DayInfoDialog extends ConsumerWidget {
@@ -17,11 +18,16 @@ class DayInfoDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    final customEventMarkers = ref.watch(markerEventProvider);
+
     final WorkHistory event = events[0];
 
     final String calendarText =  event.record == 0.0 ? '휴일' : '${event.record.toString()}공수';
     final String calendarPayText = '${(event.pay/10000).toStringAsFixed(1)}만원';
     final String calendarMemoText = event.memo.length > 1 ?  event.memo.toString() : '없습니다';
+
+    final localDate = DateTime(ref.selected.year, ref.selected.month, ref.selected.day);
+    final hasCustomEvent = customEventMarkers.containsKey(localDate);
 
     return AlertDialog(
       backgroundColor: context.dialogColor,
@@ -61,6 +67,19 @@ class DayInfoDialog extends ConsumerWidget {
               TextWidget('메모: ${calendarMemoText}', 14.5,
                   context.width,
                   color: context.textColor),
+
+              /// /// ///
+
+              if (hasCustomEvent) ...[
+                SizedBox(height: 7.5),
+                TextWidget('주요일정: ${customEventMarkers[localDate]}', 14.5,
+                    context.width,
+                    color: context.textColor),
+              ] else
+                SizedBox(),
+
+
+              /// /// ///
 
 
 

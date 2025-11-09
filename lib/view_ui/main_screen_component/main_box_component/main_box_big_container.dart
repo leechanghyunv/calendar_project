@@ -1,10 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
-import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/animation_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 import 'component/animated_pay_number.dart';
 

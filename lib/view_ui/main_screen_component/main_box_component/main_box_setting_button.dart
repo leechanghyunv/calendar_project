@@ -10,7 +10,7 @@ import '../../../core/export_package.dart';
 import '../../../core/utils/view_type.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
-import 'setting_component/number_picker_modal.dart';
+import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 part 'main_box_setting_button.g.dart';
 
 @riverpod

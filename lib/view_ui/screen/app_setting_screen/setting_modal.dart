@@ -1,7 +1,6 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/view_ui/screen/setting_screen/app_setting_screen.dart';
-
 import '../../../../core/export_package.dart';
+import 'app_setting_screen.dart';
 
 void showSettingModal(BuildContext context){
   showModalBottomSheet(

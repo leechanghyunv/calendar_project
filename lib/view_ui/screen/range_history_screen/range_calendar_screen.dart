@@ -1,15 +1,18 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/holidays.dart';
 import '../../../core/widget/text_widget.dart';
+import '../../../repository/time/date_range_controller.dart';
 import '../../calendar/calendar_cell_component/default_cell.dart';
 import '../../calendar/calendar_cell_component/outside_cell.dart';
 import '../../calendar/table_calendar_frame.dart';
 import '../../calendar_rangefield/calendar_range_header.dart';
 import '../../calendar_rangefield/range_today_cell.dart';
+import 'component/month_popup_button.dart';
+import 'component/range_delete_dialog.dart';
 
 
 class RangeCalendarScreen extends HookConsumerWidget {
@@ -30,6 +33,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
 
     final Map<DateTime, bool> _holidayCache = {};
     final Map<DateTime, bool> _substituteHolidayCache = {};
+    final dateRangeValue = ref.watch(rangeSelectManagerProvider);
+    final dateRangeState = dateRangeValue.startSelected && dateRangeValue.endSelected;
 
     // 👇 캐시를 채우는 메서드
     void initHolidayCache() {
@@ -96,18 +101,20 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 ref.rangeSelectNot.updateEndSelected(false);
               }
 
-
               rangeStart.value = start;
               rangeEnd.value = end;
               focusedDay.value = focused;
-              /// range를 선택할때 finishRangeSelect
-              /// 다만 range를 다시 선택할때 초기화가 되었으면
-              finishRangeSelect();
+
+              if (start != null && end != null) {
+                finishRangeSelect();
+              }
 
             },
 
             calendarBuilders: CalendarBuilders(
               rangeStartBuilder: (context, day, focusedDay) {
+
+
                 return Container(
                   margin: EdgeInsets.all(6),
                   decoration: BoxDecoration(
@@ -123,6 +130,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
                     ),
                   ),
                 );
+
+
               },
               rangeEndBuilder: (context, day, focusedDay) {
                 return Container(
@@ -140,6 +149,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                   ),
                 );
               },
+
               headerTitleBuilder: (context, day) =>
                   CalendarRangeHeader(
                     day: day,
@@ -156,6 +166,18 @@ class RangeCalendarScreen extends HookConsumerWidget {
                         focusedDay.value.year,
                         focusedDay.value.month + 1,
                       );
+                    },
+
+                    remove: (){
+                      if (rangeStart.value != null && rangeEnd.value != null){
+                        finishRangeSelect();
+                        showDialog(
+                            context: context,
+                            builder: (context) => RangeDeleteDialog()
+                        );
+                      } else {
+                        customMsg('근로기간을 선택해주세요');
+                      }
                     },
 
                   ),
@@ -203,17 +225,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: PopupMenuButton<int>(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: Colors.grey.shade200),
-                      ),
-                      offset: const Offset(0,  200),
-                      initialValue: 1,
-                      onSelected: (months) {
-
-
+                    child: MonthPopupButton(
+                      onSelected: (months){
                         final now = DateTime.now();
                         final start = rangeStart.value ?? now;
                         final end = DateTime(start.year, start.month - months, start.day);
@@ -222,38 +235,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                         rangeEnd.value = start;
                         focusedDay.value = end;
                         finishRangeSelect();
-
                       },
-                      itemBuilder: (context) => [
-                        PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth,color: context.textColor)),
-                        PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth,color: context.textColor)),
-                        PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14, appWidth,color: context.textColor)),
-                        PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14, appWidth,color: context.textColor)),
-                        PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth,color: context.textColor)),
-                      ],
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                        decoration: BoxDecoration(
-                          color: context.boxColor,
-                          border: context.isLight ? null : Border.all(width: 0.35,color: Colors.white),
-                          borderRadius: BorderRadius.circular(12.5),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 1,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextWidget('기간 선택', 15, appWidth, color: context.textColor),
-                            SizedBox(width: 5),
-                            Icon(Icons.arrow_drop_down, size: 20),
-                          ],
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(width: 10),

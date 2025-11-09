@@ -1,17 +1,16 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_number_animation.dart';
-import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/additional_pay_provider.dart';
-
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/component/setting_number_animation.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/utils/converter.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
+import '../provider/memoState_count_provider.dart';
 import 'chip_button_in_setting.dart';
+import 'memoState_count_widget.dart';
 
 class SettingDisplay extends HookConsumerWidget {
 
@@ -263,6 +262,8 @@ class MemoStateComponent extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     return Column(
       children: [
         context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 15),
@@ -276,6 +277,8 @@ class MemoStateComponent extends HookConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
+                      // MemoStateCountWidget(normal: val.last.normal),
 
                       TextWidget(
                           '일당 ${formatAmount(val.last.normal)}',

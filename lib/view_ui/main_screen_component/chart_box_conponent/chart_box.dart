@@ -6,7 +6,7 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
-import '../../screen/setting_screen/provider/animation_provider.dart';
+import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import 'animated_record_number.dart';
 import 'chart_in_dialog.dart';
 

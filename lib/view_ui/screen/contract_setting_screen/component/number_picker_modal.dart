@@ -1,9 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/setting_screen.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/setting_screen.dart';
 import '../../../../core/export_package.dart';
-
-
 
 void NumberPickerModal(BuildContext context){
   showModalBottomSheet(

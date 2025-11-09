@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/animation_provider.dart';
-import 'package:calendar_project_240727/view_ui/screen/setting_screen/provider/workload_search_provider.dart';
+import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
+import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/workload_search_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../core/dark_light/dark_light.dart';
 import '../../../view_model/sqlite_model/contract_model.dart';

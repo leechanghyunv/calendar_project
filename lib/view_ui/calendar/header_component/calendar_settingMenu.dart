@@ -1,5 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import '../../screen/setting_screen/setting_modal.dart';
+import '../../screen/app_setting_screen/setting_modal.dart';
 import '/core/export_package.dart';
 
 class SettingPopupWidget extends ConsumerWidget {

@@ -1,18 +1,18 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/view_ui/main_screen_component/main_box_component/setting_component/record_inkwell_button.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/component/quickSelectChip_component.dart';
+import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/component/record_inkwell_button.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../model/formz/formz_decimal_model.dart';
 import '../../../../repository/formz/formz_decimal.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../../view_model/sqlite_model/history_model.dart';
-import '../../../screen/calendar_screen/provider/show_range_provider.dart';
-import '../../../screen/statistic_screen/component/data_range_dialog/data_range_input_field.dart';
-import '../component/displayNumber_textfield.dart';
-import '../component/memo_component.dart';
-import 'quickSelectChip_component.dart';
+import '../../calendar_screen/provider/show_range_provider.dart';
+import '../../statistic_screen/component/data_range_dialog/data_range_input_field.dart';
+import '../../../main_screen_component/main_box_component/component/displayNumber_textfield.dart';
+import '../../../main_screen_component/main_box_component/component/memo_component.dart';
 
 class RecordPickerModalSheet extends HookConsumerWidget {
   const RecordPickerModalSheet({super.key});

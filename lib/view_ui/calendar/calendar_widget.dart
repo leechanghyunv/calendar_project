@@ -4,7 +4,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
-import '../main_screen_component/main_box_component/setting_component/number_picker_modal.dart';
+import '../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../screen/calendar_screen/provider/marker_event_provider.dart';
 import '../screen/calendar_screen/provider/today_info_provider.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
@@ -91,11 +91,6 @@ class WorkCalendar extends ConsumerWidget {
             onDaySelected: (DateTime? selected, DateTime? focused) {
               timeManagerNot.onDaySelected(selected!, focused!);
 
-              final localDate = DateTime(selected.year, selected.month, selected.day);
-              final hasCustomEvent = customEventMarkers.containsKey(localDate);
-
-              // hasCustomEvent ? customMsg('${localDate.toString()}') : null;
-
             },
             eventLoader: getEvents,
             selectedDayPredicate: (DateTime date) {
@@ -137,8 +132,7 @@ class WorkCalendar extends ConsumerWidget {
               /// date
               if (boolSelector) {
                 if (events.isEmpty) {
-                  return HolidayCell(date, dynamicHolidays,
-                  );
+                  return HolidayCell(date, dynamicHolidays);
                 } else {
                   return MarkerCell(date, events);
                 }

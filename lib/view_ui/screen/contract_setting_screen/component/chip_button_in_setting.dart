@@ -31,8 +31,8 @@ class ChipButton extends StatelessWidget {
         width: width,
         height: height,
         child: TextWidget(
-          '근로조건 변경',
-          16!,
+          '공수조건 변경',
+          16,
           context.width,
           color: context.chipTextColor,
         ),
