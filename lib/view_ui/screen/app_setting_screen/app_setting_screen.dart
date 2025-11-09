@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/workload_search_provider.dart';
@@ -138,8 +140,8 @@ class AppSettingScreen extends HookConsumerWidget {
                     ],
                   ),
                 ),
-
                 const SizedBox(height: 12),
+
                 SettingItem(
                   title: '언어 설정',
                   subtitle: isKorean.value ? '한국어 사용' : 'English',
@@ -167,16 +169,6 @@ class AppSettingScreen extends HookConsumerWidget {
                       isAnimated.value = val;
                     }
                 ),
-                // workloadButton ? WorkloadSearchButton(
-                //   text: '근로기간 검색하기',
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //     WidgetsBinding.instance.addPostFrameCallback((_) {
-                //       showRangeModal(context,ref);
-                //     });
-                //   },
-                // ) : SizedBox.shrink(),
-
                 dib(),
                 CustomExpansionTile(
                   title: '기본공수변경',
@@ -337,6 +329,7 @@ class AppSettingScreen extends HookConsumerWidget {
                   ),
                 ),
                 dib(),
+
 
 
 

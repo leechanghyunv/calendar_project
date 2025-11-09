@@ -77,7 +77,9 @@ class ChipList extends HookConsumerWidget {
                   } else {
                     final workTypes = ['정상근무', '연장근무', '야간근무'];
                     final conditionValues = [condition.normal, condition.extend, condition.night];
+
                     enrollMsg(ref.selected, workTypes[index]);
+
                     ref.read(addHistoryProvider(conditionValues[index], ref.selected));
 
                   }

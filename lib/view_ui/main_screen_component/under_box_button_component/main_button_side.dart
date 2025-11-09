@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../app_review.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
+import '../../screen/question_screen/question_screen_modal.dart';
 import '../../version_introduce/new_version_dialog.dart';
 
 class MainButtonSide extends ConsumerStatefulWidget {
@@ -39,6 +40,9 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
               );
               break;
             case 'option2':
+              questionModal(context);
+              break;
+            case 'option3':
               showDialog(
                 context: context,
                 builder: (context) => CustomReviewDialog(),
@@ -73,6 +77,17 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
           ),
           PopupMenuItem<String>(
             value: 'option2',
+            height: 30,
+            child: sideButton(
+                context.isDark,
+                ' 자주 묻는 질문'),
+
+          ),
+          PopupMenuDivider(
+            color: context.isDark ? Colors.white : null,
+          ),
+          PopupMenuItem<String>(
+            value: 'option3',
             height: 30,
             child: sideButton(
                 context.isDark,

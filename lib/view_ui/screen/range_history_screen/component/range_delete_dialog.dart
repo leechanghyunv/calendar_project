@@ -31,13 +31,15 @@ class RangeDeleteDialog extends HookConsumerWidget {
           child: TextWidget('취소', 15, context.width, color: context.textColor),
         ),
         TextButton(
-          onPressed: () {
-            print('deleteMonthHistoryProvider ${dateRange.startDate} ${dateRange.endDate}');
+          onPressed: () async {
+            await ref.read(deleteMonthHistoryProvider(dateRange.startDate, dateRange.endDate));
+            if (context.mounted) {
+              ref.refreshState(context);
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context, rootNavigator: true).pop();
+              customMsg('선택하신 기간이 삭제되었습니다.');
+            }
 
-            deleteMonthHistoryProvider(dateRange.startDate, dateRange.endDate);
-            ref.refreshState(context);
-            Navigator.of(context, rootNavigator: true).pop();
-            customMsg('선택하신 기간이 삭제되었습니다.');
           },
           child: TextWidget('삭제', 15, context.width, color: context.textColor),
         ),

@@ -39,11 +39,14 @@ class ChipActionValue extends _$ChipActionValue {
                     appWidth,color: context.textColor),
               ),
               TextButton(
-                onPressed: () {
-                  deleteMonthHistoryProvider(dateRange.startDate,dateRange.endDate);
-                  ref.refreshState(context);
-                  Navigator.of(context, rootNavigator: true).pop();
-                  customMsg('선택하신 기간이 삭제되었습니다.');
+                onPressed: () async {
+                  await ref.read(deleteMonthHistoryProvider(dateRange.startDate,dateRange.endDate));
+                  if (context.mounted) {
+                    ref.refreshState(context);
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context, rootNavigator: true).pop();
+                    customMsg('선택하신 기간이 삭제되었습니다.');
+                  }
                 },
                 child: TextWidget('삭제', 15,appWidth,
                     color: context.textColor),

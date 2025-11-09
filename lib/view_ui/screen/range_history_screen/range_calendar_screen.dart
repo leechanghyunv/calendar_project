@@ -33,8 +33,6 @@ class RangeCalendarScreen extends HookConsumerWidget {
 
     final Map<DateTime, bool> _holidayCache = {};
     final Map<DateTime, bool> _substituteHolidayCache = {};
-    final dateRangeValue = ref.watch(rangeSelectManagerProvider);
-    final dateRangeState = dateRangeValue.startSelected && dateRangeValue.endSelected;
 
     // 👇 캐시를 채우는 메서드
     void initHolidayCache() {

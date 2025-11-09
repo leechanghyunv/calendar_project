@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
 import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
@@ -48,6 +49,8 @@ Future<void> addHistory(AddHistoryRef ref,
 
   final Map<String, dynamic> event = {};
   late WorkHistory history;
+
+
 
   contract.when(
       data: (val) {
@@ -164,7 +167,6 @@ Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {
 @riverpod
 Future<void> deleteMonthHistory(
     DeleteMonthHistoryRef ref, DateTime start, DateTime end) async {
-  print('start $start $end');
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteMonthHistory $start $end');
   db.deleteWorkHistoryByMonth(start, end);

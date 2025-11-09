@@ -64,11 +64,16 @@ class MyApp extends HookConsumerWidget {
         final count = prefs.getInt('app_count') ?? 0;
         final hasShownReview = prefs.getBool('review_shown') ?? false;
 
+        // if (count == 3) {
+        //   OneSignalNotification.init();
+        //
+        // }
+
         if (count == 3) {
           OneSignalNotification.init();
           /// 유저 이탈율을 막고 oneSignal의 참여수를 증가시키고자 변경함
         }
-        if (count == 6 && !hasShownReview) {
+        if (count == 5 && !hasShownReview) {
           /// 리뷰 독려 다이얼로그, 5번 이상 앱을 켰을때 진행
           await prefs.setBool('review_shown', true);
           final context = navigatorKey.currentContext;
