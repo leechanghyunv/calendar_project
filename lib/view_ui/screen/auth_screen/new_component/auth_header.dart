@@ -1,6 +1,9 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/model/column_box_value_model.dart';
 
 import '../../../../core/export_package.dart';
+import '../../../../core/utils/converter.dart';
 import '../const_widget.dart';
 
 class AuthHeader extends StatelessWidget {
@@ -28,7 +31,11 @@ class AuthHeader extends StatelessWidget {
         CircleAvatar(
           backgroundColor: bgColor,
           child: IconButton(
-              onPressed: () => onChanged(value - 5000),
+              onPressed: () {
+                final val = value - 5000;
+                customMsg(formatAmount(val));
+                onChanged(val);
+              },
               icon: Icon(
                   Icons.remove, color: color)),
         ),
@@ -37,7 +44,11 @@ class AuthHeader extends StatelessWidget {
           backgroundColor: bgColor,
 
           child: IconButton(
-            onPressed: () => onChanged(value + 5000),
+            onPressed: () {
+              final val = value + 5000;
+              customMsg(formatAmount(val));
+              onChanged(val);
+            },
             icon: Icon(
                 Icons.add, color: color),
           ),

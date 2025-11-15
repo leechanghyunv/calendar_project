@@ -63,12 +63,6 @@ class MyApp extends HookConsumerWidget {
         final prefs = await SharedPreferences.getInstance();
         final count = prefs.getInt('app_count') ?? 0;
         final hasShownReview = prefs.getBool('review_shown') ?? false;
-
-        // if (count == 3) {
-        //   OneSignalNotification.init();
-        //
-        // }
-
         if (count == 3) {
           OneSignalNotification.init();
           /// 유저 이탈율을 막고 oneSignal의 참여수를 증가시키고자 변경함

@@ -40,6 +40,11 @@ class QuestionScreen extends StatelessWidget {
             '메인화면에 1.0,1.5,2.0 변경 방법은?',
             '캘린더 우측 상단 [메뉴 아이콘] - [기본공수 변경하기]에서 원하시는 공수로 변경해주세요',
           ),
+          _buildQuestion(
+            context,
+            '특정 날에 메모,공수를 한번에 확인하는 방법은?',
+            '캘린더에서 해당 날짜를 길게 눌러주세요 해당 날짜에 기록된 정보들이 모두 공개됩니다.',
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

@@ -140,6 +140,7 @@ class SettingControllerComponent extends HookConsumerWidget {
                   child: IconButton(
                     onPressed: () {
                       decimalFocus.unfocus();
+                      HapticFeedback.selectionClick();
                       minus();
                     },
                     icon: Icon(Icons.remove,
@@ -197,6 +198,7 @@ class SettingControllerComponent extends HookConsumerWidget {
                   child: IconButton(
                     onPressed: () {
                       decimalFocus.unfocus();
+                      HapticFeedback.selectionClick();
                       plus();
                     },
                     icon: Icon(Icons.add,
@@ -215,6 +217,7 @@ class SettingControllerComponent extends HookConsumerWidget {
         // 직접 입력 버튼
         OutlinedButton(
           onPressed: () {
+            HapticFeedback.selectionClick();
             if (decimalFocus.hasFocus) {
               customMsg('다시 돌아가기');
               WidgetsBinding.instance.addPostFrameCallback((_) {

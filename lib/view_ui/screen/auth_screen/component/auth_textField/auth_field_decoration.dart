@@ -42,7 +42,7 @@ InputDecoration customInputDecoration({
     errorMaxLines: 1,
     hintText: hintText,
     hintStyle: TextStyle(
-      color: Colors.grey.shade600,
+      color: Colors.grey.shade500,
       fontWeight: FontWeight.bold,
       fontSize: 15,
     ),

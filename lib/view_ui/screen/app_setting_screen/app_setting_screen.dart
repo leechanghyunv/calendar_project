@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
@@ -13,8 +14,8 @@ import '../../widgets/elevated_button.dart';
 import '../../widgets/left_eleveted_button.dart';
 import '../auth_screen/const_widget.dart';
 import '../auth_screen/provider/condition_list_provider.dart';
-import '../event_select_screen/event_list_screen.dart';
 import '../event_select_screen/event_screen_modal.dart';
+import '../question_screen/question_screen_modal.dart';
 import '../range_history_screen/component/range_history_modal_component.dart';
 import 'component/basic_record_button.dart';
 import 'component/dark_light_button.dart';
@@ -169,6 +170,8 @@ class AppSettingScreen extends HookConsumerWidget {
                       isAnimated.value = val;
                     }
                 ),
+                /// /// /// ///
+
                 dib(),
                 CustomExpansionTile(
                   title: '기본공수변경',
@@ -329,6 +332,29 @@ class AppSettingScreen extends HookConsumerWidget {
                   ),
                 ),
                 dib(),
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      questionModal(context);
+                    });
+                  },
+                  borderRadius: BorderRadius.circular(12),
+                  child: Ink(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        TextWidget('자주 묻는 질문들', 15, context.width, color: context.textColor),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 15),
+                        SizedBox(width: 5),
+                      ],
+                    ),
+                  ),
+                )
 
 
 

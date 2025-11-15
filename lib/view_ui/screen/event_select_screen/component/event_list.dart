@@ -1,6 +1,7 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/widget/text_widget.dart';
@@ -77,6 +78,8 @@ class EventListWidget extends HookConsumerWidget {
                   InkWell(
                     onTap: (){
                       ref.read(eventViewModelProvider.notifier).deleteEvent(event.date);
+                      customMsg('${event.date.day.toString()}일 기록이 삭제되었습니다');
+                      
                     },
                     child: Icon(Icons.remove,
                       color: context.subTextColor,

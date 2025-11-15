@@ -2,10 +2,12 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/pay_list_provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/export_package.dart';
+import '../../../core/utils/converter.dart';
 import '../../../firebase_analytics.dart';
 import '../../../model/formz/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
@@ -67,16 +69,16 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
       });
     }, []);
 
-    useEffect(() {
-      void listener() {
-        if (wageFocusNodeA.hasFocus) {
-          _scrollToBottom();;
-        }
-      }
-
-      wageFocusNodeA.addListener(listener);
-      return () => wageFocusNodeA.removeListener(listener);
-    }, [wageFocusNodeA]);
+    // useEffect(() {
+    //   void listener() {
+    //     if (wageFocusNodeA.hasFocus) {
+    //       _scrollToBottom();;
+    //     }
+    //   }
+    //
+    //   wageFocusNodeA.addListener(listener);
+    //   return () => wageFocusNodeA.removeListener(listener);
+    // }, [wageFocusNodeA]);
 
     final normalFieldValue = useState<String>('');
 
@@ -119,6 +121,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
              final formatter = NumberFormat('#,###');
              final formatted = formatter.format(val);
              _formKey.currentState?.fields['normal']?.didChange(formatted);
+             HapticFeedback.selectionClick();
            },
          ) : SizedBox.shrink(),
          appHeight > 750 ? SizedBox(height: 20) : SizedBox.shrink(),
@@ -131,6 +134,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
              final formatter = NumberFormat('#,###');
              final formatted = formatter.format(value);
              _formKey.currentState?.fields['normal']?.didChange(formatted);
+             HapticFeedback.selectionClick();
+             customMsg('${formatAmount(value)}');
            },
          ),
          appHeight > 750 ? SizedBox(height: 20) : SizedBox(height: 15),
@@ -152,6 +157,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  onSubmitted: (val) {
                    wageFocusNodeB.requestFocus(); // ✅ 다음 텍스트필드로 포커스 이동
                    ref.read(payListProvider.notifier).update(0, val);
+                   HapticFeedback.selectionClick();
                  },
                  onActionTap: (){
                    final normalStr = _formKey.currentState?.fields['normal']?.value ?? '0';
@@ -198,7 +204,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                Row(
                  children: [
                    Expanded(
-                     flex: 3,
+                     // flex: 3,
                      child: PayNumberField(
                        name: 'night',
                        hintText: '300,000',
@@ -268,8 +274,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    if (rate >= 7 && rate <= 15) {
                      sliderValue.value = rate;
                    }
-     
                    _formKey.currentState?.fields['tax']?.didChange(rate);
+                   HapticFeedback.selectionClick();
                  },
                ),
      
@@ -278,6 +284,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  onPressedReset: (){
                    _formKey.currentState?.reset();
                    wageFocusNodeA.requestFocus();
+                   HapticFeedback.selectionClick();
                    _scrollToTop();
                  },
                  onPressed: (){

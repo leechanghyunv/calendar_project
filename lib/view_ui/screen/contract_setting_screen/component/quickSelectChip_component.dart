@@ -38,7 +38,10 @@ class QuickSelectChipList extends HookConsumerWidget {
                     child: QuickSelectChip(
                       value: value,
                       currentValue: currentValue,
-                      onTap: () => onValueSelected(value),
+                      onTap: (){
+                        HapticFeedback.selectionClick();
+                        onValueSelected(value);
+                      },
                     ),
                   );
                 },

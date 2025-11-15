@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import '../../../../core/export_package.dart';
 import '../../../model/event/custom_event.dart';
 import '../../../view_model/sqlite_model/event_model.dart';
@@ -255,6 +256,12 @@ class EventSelectScreen extends HookConsumerWidget {
                                   text: '등록하기',
                                   onPressed: () async {
                                     final text = controller.text.trim();
+
+                                    if (text.isEmpty) {
+                                      customMsg('일정 내용을 입력해주세요');
+                                      return;
+                                    }
+
                                     if (isDuration.value){
                                       await ref.read(eventViewModelProvider.notifier).addMonthlyEvents(
                                         startDate: selectedDate.value,
@@ -269,7 +276,6 @@ class EventSelectScreen extends HookConsumerWidget {
                                           name: text,
                                         ),
                                       );
-
                                     }
 
                                     Navigator.pop(context);

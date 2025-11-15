@@ -249,6 +249,7 @@ class SettingScreen extends HookConsumerWidget {
                   MemoStateComponent(
                     showRange: showRange,
                     onTap: (){
+                      HapticFeedback.selectionClick();
                       Navigator.pop(context);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
                         showBasicModal(context,false);
