@@ -57,7 +57,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
         if (!_scrollController.hasClients) return;
 
         final currentOffset = _scrollController.offset;
-        final targetOffset = currentOffset + 100;
+        final targetOffset = currentOffset + 65;
 
         _scrollController.animateTo(
           targetOffset,
@@ -69,16 +69,16 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
       });
     }, []);
 
-    // useEffect(() {
-    //   void listener() {
-    //     if (wageFocusNodeA.hasFocus) {
-    //       _scrollToBottom();;
-    //     }
-    //   }
-    //
-    //   wageFocusNodeA.addListener(listener);
-    //   return () => wageFocusNodeA.removeListener(listener);
-    // }, [wageFocusNodeA]);
+    useEffect(() {
+      void listener() {
+        if (wageFocusNodeA.hasFocus) {
+          _scrollToBottom();;
+        }
+      }
+
+      wageFocusNodeA.addListener(listener);
+      return () => wageFocusNodeA.removeListener(listener);
+    }, [wageFocusNodeA]);
 
     final normalFieldValue = useState<String>('');
 
@@ -89,7 +89,9 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
 
     ref.listen(formzValidatorProvider, (pre, cur) {
       if (cur.status == FormzStatus.submissionSuccess) {
+        HapticFeedback.selectionClick();
         WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context, rootNavigator: true).pop();
           if (context.mounted) {
             ref.read(selectedIndexProvider.notifier).setIndex(1);
             context.go('/calendar');
@@ -221,28 +223,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                        },
                      ),
                    ),
-                   // SizedBox(width: 15),
-                   // Expanded(
-                   //   flex: 2,
-                   //   child: PayNumberField(
-                   //     name: 'day_pay',
-                   //     hintText: '10,000',
-                   //     focusNode: dayPayFocusNode,
-                   //     inputFormatters: [
-                   //       CommaInputFormatter5Digits(),
-                   //     ],
-                   //     onChanged: (val) {
-                   //       if (val == null || val.isEmpty) {
-                   //         return;
-                   //       }
-                   //       formzRefRead.onChangeSubsidy(val);
-                   //     },
-                   //     onSubmitted: (val) {
-                   //       ref.read(conditionListProvider.notifier).updateCondition(3, val);
-                   //       FocusScope.of(context).unfocus();
-                   //     },
-                   //   ),
-                   // ),
                  ],
                ),
                SizedBox(height: 5),
@@ -298,7 +278,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    formzRefRead.onSubmit(
                        context, wageFocusNodeA, site,
                        workType, dateNow, true);
-                   Navigator.of(context, rootNavigator: true).pop();
+
                  },
                ),
      

@@ -1,7 +1,5 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-import 'package:calendar_project_240727/model/column_box_value_model.dart';
-
 import '../../../../core/export_package.dart';
 import '../../../../core/utils/converter.dart';
 import '../const_widget.dart';

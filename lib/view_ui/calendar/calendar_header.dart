@@ -32,6 +32,7 @@ class CalendarHeader extends ConsumerWidget {
           ArrowDialogRow(day),
 
           Spacer(),
+
           GestureDetector(
             onTap: () => ref.timeNot.moveToToday(),
             child: Container(

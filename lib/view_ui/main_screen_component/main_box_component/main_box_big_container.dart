@@ -144,11 +144,10 @@ class SelectedTime extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    final data = ref.history.value;
+    final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day);
+
     String hintValue() {
-      final data = ref.history.value;
-
-      final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day);
-
       try{
         final existingMemo = data
             ?.where((e) =>
@@ -170,22 +169,29 @@ class SelectedTime extends ConsumerWidget {
 
     return Row(
       children: [
-        Text(
-            textScaler: TextScaler.noScaling,
-            hintValue(),
-            style: TextStyle(
-              letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : null,
-              height: textHeight,
-              color: Colors.grey.shade600,
-              fontWeight: FontWeight.bold,
-              overflow: TextOverflow.ellipsis,
-              fontSize: switch (appWidth) {
-                > 450 => 14,
-                > 400 => 13,
-                _ => 12,
-              },
+        Container(
 
-            )),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Text(
+              textScaler: TextScaler.noScaling,
+              hintValue(),
+              style: TextStyle(
+                letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : null,
+                height: textHeight,
+
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+                fontSize: switch (appWidth) {
+                  > 450 => 14,
+                  > 400 => 13,
+                  _ => 12,
+                },
+
+              )),
+        ),
         SizedBox(width: 10),
       ],
     );

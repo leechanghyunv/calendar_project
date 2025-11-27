@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/component/setting_component.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSiteRegistration.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../model/formz/formz_decimal_model.dart';
@@ -148,32 +149,11 @@ class SettingScreen extends HookConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
 
-                          TextWidget(
-                              showRange ? '공수 범위 등록' : '${ref.monthString}월 ${ref.dayString}일 등록',
-                              18, context.width,
-                              color: context.textColor,
-                          ),
+                      WorkSiteRegistration(),
 
-                          Spacer(),
-                          CircleAvatar(
-                            radius: 17.5,
-                            backgroundColor: context.chipColor,
-                            child: GestureDetector(
-                              onTap: () => Navigator.pop(context),
-                              child: Icon(
-                                size: context.isDark ? 22.5 : 17.5,
-                                Icons.close_outlined,
-                                color: context.chipTextColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       context.height > 750 ?  SizedBox(height: 20) : SizedBox(height: 10),
+
                       Row(
                         children: [
                           Flexible(

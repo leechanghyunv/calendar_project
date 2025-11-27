@@ -1,8 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-
-import '../../../../core/dark_light/dark_light.dart';
 import '../../../../core/export_package.dart';
 
 class ModeButton extends ConsumerWidget {

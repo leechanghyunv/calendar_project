@@ -18,7 +18,6 @@ class StatisticsTotalRatio extends ConsumerWidget {
     final jobRatiosAsync = ref.watch(jobRatioNotifierProvider);
 
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
     ratiosAsync.whenData((d) {
       siteName = d.siteName;
       site_ratio = d.percentage.toStringAsFixed(1);

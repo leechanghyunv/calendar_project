@@ -12,7 +12,7 @@ enum PayFieldAction {
   none,         // suffixIcon 없음
 }
 
-class PayNumberField extends StatelessWidget {
+class PayNumberField extends HookWidget {
   final String name;
   final FocusNode? focusNode;
   final TextEditingController? textController;
@@ -36,6 +36,12 @@ class PayNumberField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final hasText = useState(false);
+    final controller = textController ?? useTextEditingController();
+
+
+
     return authContainer(
       child: FormBuilderTextField(
         name: name,
@@ -49,25 +55,32 @@ class PayNumberField extends StatelessWidget {
         cursorWidth: 4.0,
         decoration: customInputDecoration(
           hintText: hintText,
-          suffixIcon: _buildSuffixIcon(context),
+          suffixIcon: _buildSuffixIcon(context,hasText.value),
         ),
         inputFormatters: [
           CommaInputFormatter6Digits(),
         ],
         onSubmitted: onSubmitted,
-        onChanged: onChanged,
+        onChanged: (val){
+          hasText.value = val != null && val.isNotEmpty;
+          onChanged?.call(val);
+        },
       ),
     );
   }
 
-  Widget? _buildSuffixIcon(BuildContext context) {
+  Widget? _buildSuffixIcon(BuildContext context, bool hasText) {
     if (action == PayFieldAction.none) return null;
 
     final actionText = {
-      PayFieldAction.autoComplete: '# 자동완성',
-      PayFieldAction.hideKeyboard: '# 키보드 숨기기',
-      PayFieldAction.closeInput:   '# 나가기',
+      PayFieldAction.autoComplete: '자동완성',
+      PayFieldAction.hideKeyboard: '키보드 숨기기',
+      PayFieldAction.closeInput:   '나가기',
     }[action]!;
+
+    final buttonColor = context.isDark ? Colors.grey.shade900 : Colors.grey.shade200;
+
+    final isAutoCompleteWithText = action == PayFieldAction.autoComplete && hasText;
 
     return GestureDetector(
       onTap: () {
@@ -91,32 +104,28 @@ class PayNumberField extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: context.isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+            color: isAutoCompleteWithText
+                ? (context.isDark ? Colors.teal.shade900 : Colors.grey.shade200)
+                : buttonColor,
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-                vertical: 1.0,
+                vertical: 2.0,
                 horizontal: 8.0),
             child: TextWidget(
               actionText, 14,
                 context.width,
-                color: context.subTextColor
+              color: isAutoCompleteWithText
+                  ? (context.isDark ? Colors.teal.shade100 : Colors.teal.shade700)
+                  : context.subTextColor,
+
+
+
             ),
           ),
         ),
       ),
     );
   }
-
-
-
-
-
-
-
-
-
-
-
 
 }

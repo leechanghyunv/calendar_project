@@ -8,9 +8,7 @@ import '../../../../core/utils/converter.dart';
 import '../../../../core/utils/formatter.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
-import '../provider/memoState_count_provider.dart';
 import 'chip_button_in_setting.dart';
-import 'memoState_count_widget.dart';
 
 class SettingDisplay extends HookConsumerWidget {
 

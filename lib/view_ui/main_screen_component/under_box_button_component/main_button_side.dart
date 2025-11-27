@@ -23,8 +23,6 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
     final version = ref.watch(versionProvider.notifier).version;
-
-
     return Padding(
       /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
       padding: EdgeInsets.only(bottom: appWidth < 380 ? 1.5 : 0),

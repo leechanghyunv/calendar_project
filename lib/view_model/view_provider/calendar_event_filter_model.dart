@@ -5,12 +5,9 @@ part 'calendar_event_filter_model.g.dart';
 
 @riverpod
 Map<DateTime, List<WorkHistory>> filtedEvents(FiltedEventsRef ref) {
-
   final event = ref.watch(calendarEventProvider);
 
-  ref.listen(calendarTotalEventProvider, (
-      previous, next) {
-
+  ref.listen(calendarTotalEventProvider, (previous, next) {
     if (previous != next) {
       if (next.hasValue) {
         final value = next.requireValue; // 안전하게 값을 추출
@@ -23,5 +20,4 @@ Map<DateTime, List<WorkHistory>> filtedEvents(FiltedEventsRef ref) {
     data: (data) => data,
     orElse: () => <DateTime, List<WorkHistory>>{},
   );
-
 }
