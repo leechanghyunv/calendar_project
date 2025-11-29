@@ -1,8 +1,9 @@
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_modal_component.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSiteListView.dart';
+
 import '../../../../base_app_size.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
-import '../../../../core/widget/toast_msg.dart';
-import '../../../dialog/delete_goal_dialog/all_delete_dialog.dart';
 import '/../../core/export_package.dart';
 
 class WorkSiteRegistration extends StatelessWidget {
@@ -11,13 +12,20 @@ class WorkSiteRegistration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.max,
       children: [
 
-      
-        Spacer(),
+        Expanded(
+            child: WorkSiteListView(),
+        ),
+        SizedBox(width: 18),
         InkWell(
           onTap: () {
-
+            HapticFeedback.selectionClick();
+            Navigator.pop(context);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              siteRegistrationModal(context);
+            });
           },
           child: Container(
             decoration: BoxDecoration(
@@ -32,14 +40,14 @@ class WorkSiteRegistration extends StatelessWidget {
                   TextWidget(
                     '현장등록',
                     14.5, context.width,
-                    color: context.subTextColor,
+                    color: context.textColor,
                   ),
                   SizedBox(width: 5),
                   Icon(
                     fontWeight: FontWeight.bold,
                     size: context.isDark ? 22.5 : 17.5,
                     Icons.add,
-                    color: context.subTextColor,
+                    color: context.textColor,
                   ),
                 ],
               ),

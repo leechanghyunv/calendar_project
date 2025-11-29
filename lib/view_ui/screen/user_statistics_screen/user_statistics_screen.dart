@@ -72,7 +72,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     /// 근로조건 설정하기
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: () => showBasicModal(context,false),
+                                        onTap: () => showBasicModal(context),
                                         child: Container(
                                           height: height > 750 ? 32.5 : 30.5,
                                           alignment: Alignment.center,

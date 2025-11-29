@@ -62,7 +62,7 @@ class InitialLaunchDialog extends HookConsumerWidget {
                   ),
                   onPressed: () {
                     Navigator.pop(context);
-                    showBasicModal(context,false);
+                    showBasicModal(context);
                   },
                   child: ButtonTextWidget('시작하기',
                       15, color: Colors.grey.shade100),

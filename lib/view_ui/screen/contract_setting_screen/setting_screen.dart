@@ -232,7 +232,7 @@ class SettingScreen extends HookConsumerWidget {
                       HapticFeedback.selectionClick();
                       Navigator.pop(context);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        showBasicModal(context,false);
+                        showBasicModal(context);
                       });
                     },
                   ),

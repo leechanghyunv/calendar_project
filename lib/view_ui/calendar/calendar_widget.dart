@@ -72,7 +72,7 @@ class WorkCalendar extends ConsumerWidget {
               HapticFeedback.selectionClick();
                  if (ref.contract.value!.isEmpty) {
                    customMsg('근로조건을 우선 입력해주세요');
-                   showBasicModal(context,false);
+                   showBasicModal(context);
                  } else {
                    /// /// ////// /// ////// /// ////// /// ////// /// ///
                    final events = getEvents(selected!);

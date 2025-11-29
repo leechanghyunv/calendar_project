@@ -49,15 +49,6 @@ class StatisticScreen extends HookConsumerWidget {
                           child: Column(
                             children: [
 
-                              // height > 750 ?
-                              // InfoRow(
-                              //   title: '누적기록관리',
-                              //   subtitle: '등록된 공수를 기반으로 통계를 보여드립니다.',
-                              //   trailing: GestureDetector(
-                              //     onTap: () => showRangeModal(context,ref),
-                              //       child: Icon(Icons.search),
-                              //   ),
-                              // ) : SizedBox.shrink(),
 
                               InfoRow(
                                 title: '누적기록관리',

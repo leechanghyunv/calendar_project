@@ -1,10 +1,10 @@
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/siteRegistration_Screen.dart';
 
-import '../../../../core/export_package.dart';
-import '../../auth_screen/auth_screen_exSurvey.dart';
+import '../../../../core/extentions/theme_color.dart';
+import '/../../core/export_package.dart';
 
 
-void showBasicModal(BuildContext context) {
+void siteRegistrationModal(BuildContext context) {
   showModalBottomSheet(
     useRootNavigator: true,
     isScrollControlled: true,
@@ -24,9 +24,11 @@ void showBasicModal(BuildContext context) {
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-      final modalHeight = Platform.isAndroid ? screenHeight * 0.625 : screenHeight * 0.725;
       return Container(
-        height: modalHeight,
+        height: screenHeight > 750
+            ? screenHeight * 0.8
+            : screenHeight * 0.85,
+        /// 안드로이드의 키보드가 더 높기때문에 overflow 에러가 발생 해답은 이렇게 해결
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.only(
@@ -47,7 +49,7 @@ void showBasicModal(BuildContext context) {
             ),
             Expanded(
 
-              child: ExSurveyAuthScreen(),
+              child: SiteRegistrationScreen(),
             ),
           ],
         ),
@@ -55,6 +57,3 @@ void showBasicModal(BuildContext context) {
     },
   );
 }
-
-
-

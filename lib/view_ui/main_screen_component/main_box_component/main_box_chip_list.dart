@@ -99,7 +99,7 @@ class ChipList extends HookConsumerWidget {
                       });
                       break;
                     case AsyncData(value: final conditions) when conditions.isEmpty:
-                      showBasicModal(context,false);
+                      showBasicModal(context);
                       break;
                   }
 
