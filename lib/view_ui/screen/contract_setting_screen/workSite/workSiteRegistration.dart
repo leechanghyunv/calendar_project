@@ -38,16 +38,16 @@ class WorkSiteRegistration extends StatelessWidget {
               child: Row(
                 children: [
                   TextWidget(
-                    '현장등록',
+                    '업체등록',
                     14.5, context.width,
-                    color: context.textColor,
+                    color: context.subTextColor,
                   ),
                   SizedBox(width: 5),
                   Icon(
                     fontWeight: FontWeight.bold,
                     size: context.isDark ? 22.5 : 17.5,
                     Icons.add,
-                    color: context.textColor,
+                    color: context.subTextColor,
                   ),
                 ],
               ),
