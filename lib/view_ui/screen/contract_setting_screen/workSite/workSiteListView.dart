@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/registration_index_provider.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../base_app_size.dart';
@@ -10,44 +11,67 @@ class WorkSiteListView extends HookConsumerWidget {
   const WorkSiteListView({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    final sites = ['세보MEC', '유창', '파라텍','세안'];
-    final selectedIndex = useState<int?>(null);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final sites = ['세보MEC', '유창', '파라텍', '세안'];
+    final scrollController = useScrollController();
+    final registrationIndex = ref.watch(registrationIndexProvider);
 
+    const chipWidth = 120.0;
+
+    final scrollToSelected = useCallback((int index, double screenWidth) {
+      if (!scrollController.hasClients) return;
+
+      if (index == 0) {
+        scrollController.animateTo(
+          0.0,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+        return;
+      }
+
+      final scrollPosition = (index * chipWidth) - (screenWidth / 2) + (chipWidth / 2);
+
+      scrollController.animateTo(
+        scrollPosition.clamp(0.0, scrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }, [scrollController]);
 
     return SizedBox(
       height: 30,
       child: ListView.separated(
+        controller: scrollController,
         itemCount: sites.length,
-        separatorBuilder: (_, __) => SizedBox(width: 6),
+        separatorBuilder: (_, __) => const SizedBox(width: 6),
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          final isSelected = selectedIndex.value == index;
-          final opacity = 1.0 - (index * 0.25); // 인덱스마다 15%씩 투명도 감소
+          final isSelected = registrationIndex == index;
+          final opacity = 1.0 - (index * 0.25);
+
           return Opacity(
             opacity: isSelected ? 1.0 : opacity,
-            child: InkWell(
-              onTap: () {
-                selectedIndex.value = index;
+            child: ChoiceChip(
+              label: TextWidget(
+                '#${sites[index]}',
+                14.5,
+                context.width,
+                color: isSelected ? Colors.white : context.subTextColor,
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                scrollToSelected(index, context.width * 0.7);
+                ref.read(registrationIndexProvider.notifier).setIndex(selected ? index : null);
                 customMsg('${sites[index]} 선택');
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: isSelected
-                      ? context.isDark ? Colors.teal.shade900 : Colors.teal
-                      : Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
-                  child: TextWidget(
-                    '#${sites[index]}',
-                    14.5,
-                    context.width,
-                    color: isSelected ? Colors.white : context.subTextColor,
-                  ),
-                ),
+              selectedColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
+              backgroundColor: Colors.grey.shade200,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
               ),
+              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 4.0),
+              showCheckmark: false,
             ),
           );
         },

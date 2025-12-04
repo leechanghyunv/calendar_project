@@ -68,8 +68,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                             vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color:
-                          option == '전체' ?  context.idChipColor :
+                          color: option == '전체' ?  context.idChipColor :
                           isSelected ? context.selectedChipColor : context.chipColor,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.all(

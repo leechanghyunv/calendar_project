@@ -1,4 +1,3 @@
-
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
@@ -56,10 +55,6 @@ class MainBox extends ConsumerWidget {
                         Divider(thickness: 1.0),
                         Container(
                           alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          width: width * 0.9,
                           height: width > 400 ? isFoldValue ? 25 : 35 : 25,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,

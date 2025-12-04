@@ -798,7 +798,7 @@ class _DeleteHistoryProviderElement
 }
 
 String _$deleteMonthHistoryHash() =>
-    r'25a41ec0924e4944662274bf8f765144b8c81d77';
+    r'e75381c1dc38aeada6c8e271d6e221f6cb6733b8';
 
 /// See also [deleteMonthHistory].
 @ProviderFor(deleteMonthHistory)

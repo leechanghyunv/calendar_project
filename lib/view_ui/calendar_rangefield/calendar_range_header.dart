@@ -124,9 +124,9 @@ class CalendarRangeHeader extends HookConsumerWidget {
                 InkWell(
                   onTap: remove,
                   borderRadius: BorderRadius.circular(20),
-                  child: Icon(Icons.remove,
+                  child: Icon(Icons.clear,
                       color: context.isDark ? Colors.white : Colors.grey.shade700,
-                      size: 30),
+                      size: 25),
                 ),
                 SizedBox(width: 10),
 

@@ -1,6 +1,9 @@
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../dialog/month_move_dialog/month_move_dialog.dart';
 import 'package:intl/intl.dart';
+
+import 'filter_popupMenu.dart';
 
 class ArrowDialogRow extends HookConsumerWidget {
 
@@ -25,52 +28,55 @@ class ArrowDialogRow extends HookConsumerWidget {
       isDialogOpen.value = false;
     }
 
-    return Container(
-      decoration: BoxDecoration(
-
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: GestureDetector(
-          onTap: showMyDialog,
-          child: Row(
-            children: [
-              Text(
-                '${DateFormat.yMMMM('ko_KR').format(day)}',
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(
-                  shadows: Platform.isAndroid
-                      ? [
-                    const Shadow(
-                      blurRadius: 0.75,
-                      color: Colors.grey,
-                      offset: Offset(0.25, 0.25),
-                    ),
-                  ]
-                      : null,
-                  fontSize: switch (appWidth) {
-                    > 450 => 25,
-                    > 420 => 22,
-                    > 400 => 21.5,
-                    _ => 20,
-                  },
-                  fontWeight: FontWeight.w800,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          FilterPopupMenu(),
+          SizedBox(width: 10),
+          GestureDetector(
+            onTap: showMyDialog,
+            child: Row(
+              children: [
+                Text(
+                  // '${DateFormat.yMMM('ko_KR').format(day)}', /// 2025년 12월
+                  // '${DateFormat.M('ko_KR').format(day)}', /// 12월
+                  DateFormat('yyyy.MM').format(day), /// 2025.12
+                  // '${day.month}', /// 12
+                  textScaler: TextScaler.noScaling,
+                  style: TextStyle(
+                    shadows: Platform.isAndroid
+                        ? [
+                      const Shadow(
+                        blurRadius: 0.75,
+                        color: Colors.grey,
+                        offset: Offset(0.25, 0.25),
+                      ),
+                    ]
+                        : null,
+                    fontSize: switch (appWidth) {
+                      > 450 => 25,
+                      > 420 => 22,
+                      > 400 => 21.5,
+                      _ => 20,
+                    },
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
-              ),
-              const SizedBox(width: 2.5),
-              AnimatedRotation(
-                turns: isDialogOpen.value ? 0.5 : 0, // 0.5 = 180도
-                duration: const Duration(milliseconds: 200),
-                child: Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  size: 25.5,
-                  color: isLight ? Colors.grey.shade800 : Colors.grey.shade100,
+                // const SizedBox(width: 2.5),
+                AnimatedRotation(
+                  turns: isDialogOpen.value ? 0.5 : 0, // 0.5 = 180도
+                  duration: const Duration(milliseconds: 200),
+                  child: Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 25.5,
+                    color: isLight ? Colors.grey.shade800 : Colors.grey.shade100,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
 
@@ -38,69 +39,62 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
     double leftIconSize = appWidth > 450 ? 37 : 32;
     double rightIconSize = appWidth > 450 ? 37 : 32;
 
-    void _animateIcon(bool isLeft) {
-      HapticFeedback.selectionClick();
-      setState(() {
-        if (isLeft) {
-          leftIconSize = appWidth > 450 ? 42 : 37;
-        } else {
-          rightIconSize = appWidth > 450 ? 42 : 37;
-        }
-      });
-
-      Future.delayed(const Duration(milliseconds: 150), () {
-        setState(() {
-          if (isLeft) {
-            leftIconSize = appWidth > 450 ? 37 : 32;
-          } else {
-            rightIconSize = appWidth > 450 ? 37 : 32;
-          }
-        });
-      });
-    }
-
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        IconButton(
-          icon: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            child: Icon(
-              Icons.chevron_left,
-              color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
-              size: leftIconSize,
+    return Container(
+      decoration: BoxDecoration(
+        // color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                child: Icon(
+                  // Icons.add,
+                  Icons.chevron_left,
+                  color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
+                  size: leftIconSize,
+                  // size: 25,
+                ),
+              ),
+              constraints: const BoxConstraints(maxHeight: 32),
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                ref.timeNot.movePreviousMonth();
+              },
             ),
-          ),
-          constraints: const BoxConstraints(maxHeight: 32),
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            _animateIcon(true);
-            ref.timeNot.movePreviousMonth();
-          },
-        ),
 
-        SizedBox(
-            width: isFoldValue
-                ? 32.5
-                : buttonBetween(appHeight,appWidth)),
-
-        IconButton(
-          icon: AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            child: Icon(
-              Icons.chevron_right,
-              color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
-              size: rightIconSize,
+            SizedBox(
+                width: isFoldValue
+                    ? 32.5
+                    : buttonBetween(appHeight,appWidth),
             ),
-          ),
-          constraints: const BoxConstraints(maxHeight: 32),
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            _animateIcon(false);
-            ref.timeNot.moveNextMonth();
-          },
+            // SizedBox(width: 12.5),
+            IconButton(
+              icon: AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                child: Icon(
+                  // MdiIcons.tuneVariant,
+                  Icons.chevron_right,
+                  color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
+                  size: rightIconSize,
+                  // size: 20,
+                ),
+              ),
+              constraints: const BoxConstraints(maxHeight: 32),
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                HapticFeedback.selectionClick();
+                ref.timeNot.moveNextMonth();
+              },
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

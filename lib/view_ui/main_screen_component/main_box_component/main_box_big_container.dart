@@ -1,11 +1,13 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
+import 'chip_component/site_registration_chip.dart';
 import 'component/animated_pay_number.dart';
 
 class MainBoxBigContainer extends ConsumerStatefulWidget {
@@ -65,8 +67,11 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SelectedTime(),
+
+        CompactDashboard(),
+
         Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             animationSetting ? animateText
                 ? PayNumberCounter(end: totalPay.toDouble())
@@ -82,29 +87,34 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 
 
             SizedBox(width: 10),
-            Container(
-              decoration: BoxDecoration(
-                color: context.isLight ? Colors.teal.shade100 : Colors.teal.shade900,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Text(
-                  textScaler: TextScaler.noScaling,
-                  '${percent}',
-                  style: TextStyle(
-                      shadows: commonShadow,
-                      fontSize: switch (appWidth) {
-                        > 450 => isFoldValue ? 12 : 15,
-                        > 400 => 12,
-                        _ => 11,
-                      },
-                      fontWeight: FontWeight.w700,
-                      color: context.isLight ? Colors.teal.shade700 : Colors.tealAccent),
-                ),
-              ),
+            
+            // if (totalPay > 0.0)
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 4.0),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //       color: context.isLight ? Colors.teal.shade50 : Colors.teal.shade900,
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(4.0),
+            //       child: Text(
+            //         textScaler: TextScaler.noScaling,
+            //         '기흥 유창 메모입력',
+            //         style: TextStyle(
+            //             shadows: commonShadow,
+            //             fontSize: switch (appWidth) {
+            //               > 450 => isFoldValue ? 11.5 : 14.5,
+            //               > 400 => 11.5,
+            //               _ => 11,
+            //             },
+            //             fontWeight: FontWeight.w700,
+            //             color: context.isLight ? Colors.teal.shade700 : Colors.tealAccent),
+            //       ),
+            //     ),
+            //   ),
+            // ),
 
-            ),
 
           ],
         ),
@@ -138,62 +148,3 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 }
 
 
-class SelectedTime extends ConsumerWidget {
-  const SelectedTime({super.key});
-
-  @override
-  Widget build(BuildContext context,WidgetRef ref) {
-
-    final data = ref.history.value;
-    final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day);
-
-    String hintValue() {
-      try{
-        final existingMemo = data
-            ?.where((e) =>
-        e.date.year == selectedDate.year &&
-            e.date.month == selectedDate.month &&
-            e.date.day == selectedDate.day)
-            .firstOrNull
-            ?.memo;
-
-        return existingMemo?.isNotEmpty ?? false
-            ? ' ${existingMemo}'
-            : ' ${ref.selected.year}년 ${ref.selected.month}월 급여';
-      }catch(e){
-        return ' ${ref.selected.year}년 ${ref.selected.month}월 급여';
-      }
-    }
-
-    final appWidth = MediaQuery.of(context).size.width;
-
-    return Row(
-      children: [
-        Container(
-
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-              textScaler: TextScaler.noScaling,
-              hintValue(),
-              style: TextStyle(
-                letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : null,
-                height: textHeight,
-
-                color: Colors.grey.shade600,
-                fontWeight: FontWeight.bold,
-                overflow: TextOverflow.ellipsis,
-                fontSize: switch (appWidth) {
-                  > 450 => 14,
-                  > 400 => 13,
-                  _ => 12,
-                },
-
-              )),
-        ),
-        SizedBox(width: 10),
-      ],
-    );
-  }
-}
