@@ -46,8 +46,10 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 ],
               ),
               SizedBox(height: 20),
-              authContainer(child: SizedBox()),
-              SizedBox(height: 30),
+              authContainer(
+                  child: SizedBox()
+              ),
+              SizedBox(height: 20),
               Expanded(
                 child: ListView.separated(
                   itemCount: sites.length,

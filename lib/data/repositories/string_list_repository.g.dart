@@ -1,27 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'selected_companise_model.dart';
+part of 'string_list_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedCompaniesModelHash() =>
-    r'231b65b19742384cdeeb8368c1051739c0a0aa3f';
+String _$stringListRepositoryHash() =>
+    r'64950d9e6520f44cb22e0ba3e4e2f893cc021050';
 
-/// See also [SelectedCompaniesModel].
-@ProviderFor(SelectedCompaniesModel)
-final selectedCompaniesModelProvider =
-    AutoDisposeNotifierProvider<SelectedCompaniesModel, List<String>>.internal(
-  SelectedCompaniesModel.new,
-  name: r'selectedCompaniesModelProvider',
+/// See also [stringListRepository].
+@ProviderFor(stringListRepository)
+final stringListRepositoryProvider =
+    AutoDisposeProvider<StringListRepository>.internal(
+  stringListRepository,
+  name: r'stringListRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$selectedCompaniesModelHash,
+      : _$stringListRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SelectedCompaniesModel = AutoDisposeNotifier<List<String>>;
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef StringListRepositoryRef = AutoDisposeProviderRef<StringListRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

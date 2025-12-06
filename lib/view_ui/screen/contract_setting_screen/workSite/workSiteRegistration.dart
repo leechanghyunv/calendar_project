@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_modal_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSiteListView.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSite_textfield.dart';
 
 import '../../../../base_app_size.dart';
 import '../../../../core/extentions/theme_color.dart';
@@ -22,11 +23,11 @@ class WorkSiteRegistration extends StatelessWidget {
         SizedBox(width: 18),
         InkWell(
           onTap: () {
-            customMsg('현장등록 기능 준비중');
             HapticFeedback.selectionClick();
             Navigator.pop(context);
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              siteRegistrationModal(context);
+              // siteRegistrationModal(context);
+              textFieldModal(context);
             });
           },
           child: Container(
