@@ -1,4 +1,5 @@
 
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../core/export_package.dart';
@@ -24,7 +25,7 @@ class TodayCell extends ConsumerWidget {
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
         color: context.isDark ? null : Colors.grey.shade500,
-        border: context.isDark ? Border.all(width: 1, color: Colors.white) : null,
+        border: ref.selected == day ? context.isDark ? Border.all(width: 1, color: Colors.white) : null : null,
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,

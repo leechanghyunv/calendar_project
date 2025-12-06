@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../core/export_package.dart';
 import '../screen/default_screen.dart';
+import 'header_component/filter_popupMenu.dart';
 import 'header_component/month_move_popup.dart';
 import 'header_component/calendar_popupMenu.dart';
 import 'header_component/calendar_settingMenu.dart';
@@ -67,7 +68,10 @@ class CalendarHeader extends ConsumerWidget {
 
           SizedBox(width: appWidth > 450 ? 10 : null),
 
-          SettingPopupWidget(),
+          SizedBox(width: 10),
+          FilterPopupMenu(),
+          SizedBox(width: 10),
+          // SettingPopupWidget(),
 
         ],
       ),

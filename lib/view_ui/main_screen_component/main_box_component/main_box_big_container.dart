@@ -9,6 +9,7 @@ import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 import 'chip_component/site_registration_chip.dart';
 import 'component/animated_pay_number.dart';
+import 'component/company_list_provider_text.dart';
 
 class MainBoxBigContainer extends ConsumerStatefulWidget {
   const MainBoxBigContainer({super.key});
@@ -68,7 +69,8 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        CompactDashboard(),
+        // CompactDashboard(),
+        CompanyListProviderText(),
 
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -93,14 +95,14 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
             //   padding: const EdgeInsets.only(bottom: 4.0),
             //   child: Container(
             //     decoration: BoxDecoration(
-            //       color: context.isLight ? Colors.teal.shade50 : Colors.teal.shade900,
+            //       color: context.isLight ? Colors.teal.shade100 : Colors.teal.shade900,
             //       borderRadius: BorderRadius.circular(8.0),
             //     ),
             //     child: Padding(
             //       padding: const EdgeInsets.all(4.0),
             //       child: Text(
             //         textScaler: TextScaler.noScaling,
-            //         '기흥 유창 메모입력',
+            //         '${percent}',
             //         style: TextStyle(
             //             shadows: commonShadow,
             //             fontSize: switch (appWidth) {

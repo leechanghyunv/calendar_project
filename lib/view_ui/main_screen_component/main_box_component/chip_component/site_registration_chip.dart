@@ -16,11 +16,6 @@ class CompactDashboard extends ConsumerWidget {
     final data = ref.history.value;
     final selectedDate = DateTime.utc(DateTime.now().year, ref.month, ref.day);
 
-    final isFold = ref.watch(isGalaxyFoldProvider);
-    final isFoldValue = isFold.asData?.value ?? false;
-    final commonShadow = Platform.isAndroid
-        ? [Shadow(blurRadius: 0.25, color: Colors.grey, offset: Offset(0.25, 0.25))]
-        : null;
 
     String hintValue() {
       try{
@@ -62,33 +57,6 @@ class CompactDashboard extends ConsumerWidget {
               ],
             ),
           ),
-          SizedBox(width: 5),
-
-          // if (totalPay > 0.0)
-          // Container(
-          //   decoration: BoxDecoration(
-          //     color: context.bTypeChipColor,
-          //     borderRadius: BorderRadius.circular(8.0),
-          //   ),
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(4.0),
-          //     child: Text(
-          //       textScaler: TextScaler.noScaling,
-          //       '기흥 유창 메모입력',
-          //       style: TextStyle(
-          //           shadows: commonShadow,
-          //           fontSize: switch (context.width) {
-          //             > 450 => isFoldValue ? 11.5 : 13.5,
-          //             > 400 => 11.5,
-          //             _ => 11,
-          //           },
-          //           fontWeight: FontWeight.w700,
-          //           color: context.textColor),
-          //     ),
-          //   ),
-          // ),
-
-
         ],
       ),
     );

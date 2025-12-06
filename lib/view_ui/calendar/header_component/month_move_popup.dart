@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../../dialog/month_move_dialog/month_move_dialog.dart';
 import 'package:intl/intl.dart';
 
+import 'calendar_settingMenu.dart';
 import 'filter_popupMenu.dart';
 
 class ArrowDialogRow extends HookConsumerWidget {
@@ -32,7 +33,7 @@ class ArrowDialogRow extends HookConsumerWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         children: [
-          FilterPopupMenu(),
+          SettingPopupWidget(),
           SizedBox(width: 10),
           GestureDetector(
             onTap: showMyDialog,

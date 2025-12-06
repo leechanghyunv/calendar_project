@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../screen/app_setting_screen/setting_modal.dart';
 import '/core/export_package.dart';
 
@@ -11,9 +12,11 @@ class SettingPopupWidget extends ConsumerWidget {
     final appWidth = context.width;
 
     return IconButton(
+      padding: EdgeInsets.zero,
+      constraints: BoxConstraints(),
       onPressed: () => showSettingModal(context),
       icon: Icon(
-        Icons.menu,
+        MdiIcons.sortVariant,
         size: appWidth >= 450
             ? 30
             : appWidth > 400
