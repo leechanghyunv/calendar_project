@@ -10,25 +10,33 @@ part 'string_list_provider.g.dart';
 class StringListNotifier extends _$StringListNotifier {
   @override
   Future<List<StringItem>> build() async {
-    final repo = ref.read(stringListRepositoryProvider);
+    final repo = await ref.read(stringListRepositoryProvider.future);
     return repo.getAll();
   }
 
   Future<void> add(String value) async {
-    final repo = ref.read(stringListRepositoryProvider);
+    final repo = await ref.watch(stringListRepositoryProvider.future);
     await repo.add(value);
     ref.invalidateSelf();
   }
 
-  Future<void> delete(int id) async {
-    final repo = ref.read(stringListRepositoryProvider);
-    await repo.delete(id);
+  Future<void> delete(String value) async {
+    final repo = await ref.watch(stringListRepositoryProvider.future);
+    await repo.delete(value);
     ref.invalidateSelf();
   }
 
   Future<void> reorder(List<StringItem> items) async {
-    final repo = ref.read(stringListRepositoryProvider);
+    final repo = await ref.watch(stringListRepositoryProvider.future);
     await repo.updateOrder(items);
     ref.invalidateSelf();
   }
+
+  Future<void> clear() async {
+    final repo = await ref.watch(stringListRepositoryProvider.future);
+    await repo.clear();
+    ref.invalidateSelf();
+
+  }
+
 }

@@ -234,7 +234,7 @@ packages:
     source: hosted
     version: "4.11.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: "2f5709ae4d3d59dd8f7cd309b4e023046b57d8a6c82130785d2b0e5868084e76"
@@ -305,6 +305,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  dart_time:
+    dependency: "direct main"
+    description:
+      name: dart_time
+      sha256: b8b04c2dddd060e9406965a6a48cde86fa5cafe55e8a371f283b6d0bc5c67b19
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
+  dartx:
+    dependency: "direct main"
+    description:
+      name: dartx
+      sha256: "8b25435617027257d43e6508b5fe061012880ddfdaa75a71d607c3de2a13d244"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   date_format:
     dependency: "direct main"
     description:
@@ -1442,6 +1458,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.7"
+  time:
+    dependency: transitive
+    description:
+      name: time
+      sha256: "46187cf30bffdab28c56be9a63861b36e4ab7347bf403297595d6a97e10c789f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.6"
   timer_builder:
     dependency: "direct main"
     description:

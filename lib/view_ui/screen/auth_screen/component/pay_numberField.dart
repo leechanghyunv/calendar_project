@@ -38,9 +38,6 @@ class PayNumberField extends HookWidget {
   Widget build(BuildContext context) {
 
     final hasText = useState(false);
-    final controller = textController ?? useTextEditingController();
-
-
 
     return authContainer(
       child: FormBuilderTextField(

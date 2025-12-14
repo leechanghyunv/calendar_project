@@ -22,32 +22,39 @@ void NumberPickerModal(BuildContext context){
       ),
       builder: (BuildContext context) {
         final screenHeight = context.height;
-        return Container(
+        return SizedBox(
           height: screenHeight > 750
               ? screenHeight * 0.8
               : screenHeight * 0.85,
-          decoration: BoxDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            children: [
-              Container(
-                width: 30,
-                height: 4,
-                margin: EdgeInsets.symmetric(vertical: 12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2),
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,  // 🎯 키보드 리사이징 방지
+            backgroundColor: Colors.transparent,
+            body: Container(
+
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
               ),
-              Expanded(
-                child: SettingScreen(),
+              child: Column(
+                children: [
+                  Container(
+                    width: 30,
+                    height: 4,
+                    margin: EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  Expanded(
+                    child: SettingScreen(),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         );
       }

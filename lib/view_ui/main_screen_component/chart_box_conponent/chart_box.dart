@@ -27,7 +27,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
   @override
   void initState() {
     super.initState();
-    // 🚀 위젯이 처음 빌드된 후 애니메이션 종료 시점에 상태 변경
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 1700), () {
         if (mounted) {
@@ -117,7 +116,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                       color: context.isDark ? Colors.tealAccent : Colors.teal,
                       fontWeight: FontWeight.bold),
                 ),
-                Spacer(),
+
 
               ],
             ),

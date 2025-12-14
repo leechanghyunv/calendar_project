@@ -1,34 +1,38 @@
-// repositories/string_list_repository.dart
 import '../../repository/repository_import.dart';
 import '../entities/string_item.dart';
 
 part 'string_list_repository.g.dart';
 
 @riverpod
-StringListRepository stringListRepository(ref) {
-  return StringListRepository();
+Future<StringListRepository> stringListRepository(ref) async {
+  final db = await ref.watch(initStringListProvider.future);
+  return StringListRepository(db);
+}
+
+
+@riverpod
+Future<Database> initStringList(InitStringListRef ref) async {
+  final dbPath = await getDatabasesPath();
+  final path = join(dbPath, 'siteList.db');
+
+  return await openDatabase(
+    path,
+    version: 1,
+    onCreate: (db, version) async {
+      await db.execute(
+        'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, order INTEGER)',
+      );
+    },
+  );
 }
 
 class StringListRepository {
-  Database? _db;
-
-  Future<Database> get database async {
-    if (_db != null) return _db!;
-    _db = await openDatabase(
-      'mylist.db',
-      version: 1,
-      onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, order INTEGER)',
-        );
-      },
-    );
-    return _db!;
-  }
+  Database database;
+  StringListRepository(this.database);
 
   Future<List<StringItem>> getAll() async {
     final db = await database;
-    final maps = await db.query('items', orderBy: 'order ASC');
+    final maps = await db.query('items',orderBy: 'sort_order ASC');
     return maps.map((m) => StringItem.fromJson(m)).toList();
   }
 
@@ -41,9 +45,9 @@ class StringListRepository {
     });
   }
 
-  Future<void> delete(int id) async {
+  Future<void> delete(String value) async {
     final db = await database;
-    await db.delete('items', where: 'id = ?', whereArgs: [id]);
+    await db.delete('items', where: 'value = ?', whereArgs: [value]);
   }
 
   Future<void> updateOrder(List<StringItem> items) async {
@@ -51,10 +55,16 @@ class StringListRepository {
     for (int i = 0; i < items.length; i++) {
       await db.update(
         'items',
-        {'order': i},
+        {'sort_order': i},
         where: 'id = ?',
         whereArgs: [items[i].id],
       );
     }
   }
+
+  Future<void> clear() async {
+    final db = await database;
+    await db.delete('items');
+  }
+
 }

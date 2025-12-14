@@ -17,7 +17,7 @@ class QuickSelectChipList extends HookConsumerWidget {
       children: [
         Flexible(
           child: Container(
-            height: context.height > 900 ? 30 : 30, // 칩 높이에 맞춰 조정
+            height: 25, // 칩 높이에 맞춰 조정
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,

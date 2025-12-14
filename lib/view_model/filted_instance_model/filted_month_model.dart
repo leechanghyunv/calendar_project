@@ -1,4 +1,9 @@
 
+import 'package:collection/collection.dart';
+import 'package:dartx/dartx.dart';
+// import 'package:dart_time/dart_time.dart.dart';
+
+
 import '../../core/utils/converter.dart';
 import '../../model/combined_data_model.dart';
 import '../../model/contract_model.dart';
@@ -41,6 +46,9 @@ class MonthRecord extends _$MonthRecord {
 
     final prevStartDate = DateTime.utc(time.year, time.month - 1, 1);
     final prevEndDate = DateTime.utc(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+
+
+
 
     final timeManagerDay = ref.read(timeManagerProvider.notifier).DaySelected;
 
@@ -96,26 +104,35 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
   final filteredHistory = _filterHistoryByDateRange(history, startDate, endDate);
       final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate);
 
+  // final recordGroups = filteredHistory.groupBy((e) => e.date);
 
-  final subsidyDay = filteredHistory.where((e) => e.record >= 1.0).length;
-  final workDay = filteredHistory.where((e) => e.record != 0.0).length;
+
+  final subsidyDay = filteredHistory.count((e) => e.record >= 1.0);
+  final workDay = filteredHistory.count((e) => e.record != 0.0);
   // 정상/연장/야간 근무 계산
   final normalDay = filteredHistory.where((e) => e.record == 1.0).length;
   final extendDay = filteredHistory.where((e) => e.record == 1.5).length;
   final nightDay = filteredHistory.where((e) => e.record == 2.0).length;
+  // final normalDay = recordGroups[1.0]?.length ?? 0;
+  // final extendDay = recordGroups[1.5]?.length ?? 0;
+  // final nightDay = recordGroups[2.0]?.length ?? 0;
   // 기타근무 계산
-  final extraDay = filteredHistory.where(
-          (e) => e.record != 0.0 && e.record != 1.0 && e.record != 1.5 && e.record != 2.0).length;
+
+  final extraDay = filteredHistory.count(
+          (e) => e.record != 0.0 && ![1.0, 1.5, 2.0].contains(e.record)
+  );
+
   // 휴일 계산
   final offDay = filteredHistory.where((e) => e.record == 0.0).length;
   // 금액 계산
-  final totalPay = filteredHistory.fold(0, (p, e) => p + e.pay);
 
-  final double afterTax =
-  totalPay <= 0 ? 0.0 :
-  double.parse((totalPay * (1 - (tax ?? 0))).toStringAsFixed(1));
+  final totalPay = filteredHistory.sumBy((e) => e.pay);
 
-  final prevPay = prevHistory.fold(0, (p, e) => p + e.pay);
+
+  // final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (tax ?? 0))).toStringAsFixed(1));
+  final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble();
+
+  final prevPay = prevHistory.sumBy((e) => e.pay);
 
   final totalSubsidy = currentContract.subsidy * subsidyDay;
 

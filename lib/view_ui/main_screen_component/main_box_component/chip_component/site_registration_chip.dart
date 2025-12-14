@@ -2,7 +2,6 @@ import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';
-import '../../../../view_model/view_provider/is_galaxy_fold.dart';
 import '/../../core/export_package.dart';
 
 class CompactDashboard extends ConsumerWidget {

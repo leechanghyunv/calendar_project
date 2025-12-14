@@ -48,7 +48,6 @@ void siteRegistrationModal(BuildContext context) {
               ),
             ),
             Expanded(
-
               child: SiteRegistrationScreen(),
             ),
           ],

@@ -12,7 +12,7 @@ class QuestionScreen extends StatelessWidget {
         children: [
           _buildQuestion(
             context,
-            ' 공수 조건 수정은 어떻게 하나요?',
+            ' 단가 수정은 어떻게 하나요?',
             '[등록] - [공수조건 변경] 에서 변경합니다',
           ),
           _buildQuestion(

@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/component/setting_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSiteRegistration.dart';
+import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../model/formz/formz_decimal_model.dart';
@@ -242,20 +243,27 @@ class SettingScreen extends HookConsumerWidget {
                     thickness: 2.5,
                   ),
                   SizedBox(height: 5),
-                  AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
-                    child: additionalFocus.hasFocus
-                        ? SizedBox.shrink(key: ValueKey('hidden'))
-                        : QuickSelectChipList(
-                      key: ValueKey('visible'),
-                      values: quickSelectValues,
-                      currentValue: currentValue,
-                      onValueSelected: selectValue,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AnimatedSwitcher(
+                          duration: Duration(milliseconds: 500),
+                          child: additionalFocus.hasFocus
+                              ? SizedBox.shrink(key: ValueKey('hidden'))
+                              : QuickSelectChipList(
+                            key: ValueKey('visible'),
+                            values: quickSelectValues,
+                            currentValue: currentValue,
+                            onValueSelected: selectValue,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
 
                   SizedBox(height: additionalFocus.hasFocus ? 5 : 20),
+
                   SettingControllerComponent(
                     decimalController: decimalController,
                     decimalFocus: decimalFocus,
@@ -294,17 +302,17 @@ class SettingScreen extends HookConsumerWidget {
                           color: Colors.teal),
                         ],
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(height: 15),
                     ],
-                  ) : SizedBox(height: 10),
+                  ) : SizedBox(height: 20),
 
-                  AdditionalPayComponent(
-                    AdditionalTextField(
-                      focusNode: additionalFocus,
-                      controller: additionalController,
-                      onTap: () => Navigator.pop(context),
-                    ),
-                  ),
+                  // AdditionalPayComponent(
+                  //   AdditionalTextField(
+                  //     focusNode: additionalFocus,
+                  //     controller: additionalController,
+                  //     onTap: () => Navigator.pop(context),
+                  //   ),
+                  // ),
 
                   SettingMemoTextField(
                     nodeMemo: memoFocus,

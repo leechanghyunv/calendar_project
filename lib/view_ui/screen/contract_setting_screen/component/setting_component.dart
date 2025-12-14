@@ -296,7 +296,6 @@ class MemoStateComponent extends HookConsumerWidget {
             ChipButton(
               onTap: onTap,
             ),
-
           ],
         ),
         context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
