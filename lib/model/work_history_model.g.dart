@@ -14,6 +14,7 @@ _WorkHistory _$WorkHistoryFromJson(Map<String, dynamic> json) => _WorkHistory(
       colorCode: json['colorCode'] as String? ?? '2196F3',
       comment: json['comment'] as String? ?? '정상근무',
       memo: json['memo'] as String? ?? '',
+      workSite: json['workSite'] as String? ?? '',
     );
 
 Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
       'colorCode': instance.colorCode,
       'comment': instance.comment,
       'memo': instance.memo,
+      'workSite': instance.workSite,
     };

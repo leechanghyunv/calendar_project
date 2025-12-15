@@ -17,6 +17,7 @@ class WorksiteTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: textController,
       style: TextStyle(
         fontWeight: FontWeight.bold,
       ),

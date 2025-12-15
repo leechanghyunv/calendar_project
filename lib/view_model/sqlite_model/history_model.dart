@@ -9,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/export_package.dart';
 import '../../model/work_history_model.dart';
 import '../../view_ui/main_screen_component/main_box_component/main_box_chip_list.dart';
+import '../../view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'calendar_event_model.dart';
 import 'contract_model.dart';
 part 'history_model.g.dart';
@@ -46,59 +47,30 @@ Future<void> addHistory(AddHistoryRef ref,
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
-
+  final workSite = ref.watch(selectedWorksiteProvider);
+  print('workSite: $workSite');
   final Map<String, dynamic> event = {};
   late WorkHistory history;
 
-
-
   contract.when(
       data: (val) {
-        if (pay == contract.value!.last.normal) {
-          history = WorkHistory(
-            date: date,
-            comment: '정상근무',
-            pay: val.last.normal,
-            colorCode: '2196F3',
-            record: 1.0,
-            memo: memoNote,
-          );
-        } else if (pay == contract.value!.last.extend) {
-          history = WorkHistory(
-              date: date,
-              comment: '연장근무',
-              pay: val.last.extend,
-              colorCode: 'FCAF50',
-              record: 1.5,
-              memo: memoNote);
-        } else if (pay == contract.value!.last.night) {
-          history = WorkHistory(
-              date: date,
-              comment: '야간근무',
-              pay: val.last.night,
-              colorCode: 'F44336',
-              record: 2.0,
-              memo: memoNote);
-        } else if (pay == 0) {
-          history = WorkHistory(
-            date: date,
-            comment: '휴무',
-            pay: pay, // 기본값 혹은 예외 처리
-            colorCode: '4CAF50',
-            record: 0.0,
-            memo: memoNote,
-          );
-        } else if (decimal != null && decimal != 0.0){
-          history = WorkHistory(
-            date: date,
-            comment: '기타근무',
-            pay: pay, // 기본값 혹은 예외 처리
-            colorCode: 'AB47BC',
-            record: decimal,
-            memo: memoNote,
-          );
+        final (comment, colorCode, record) = switch (pay) {
+          _ when pay == val.last.normal => ('정상근무', '2196F3', 1.0),
+          _ when pay == val.last.extend => ('연장근무', 'FCAF50', 1.5),
+          _ when pay == val.last.night => ('야간근무', 'F44336', 2.0),
+          0 => ('휴무', '4CAF50', 0.0),
+          _ => ('기타근무', 'AB47BC', decimal ?? 1.0),
+        };
 
-        }
+        history = WorkHistory(
+          date: date,
+          comment: comment,
+          pay: pay,
+          colorCode: colorCode,
+          record: record,
+          memo: memoNote,
+          workSite: workSite,
+        );
       },
       error: (err, trace) => print(err.toString()),
       loading: () => print('loading....'));
@@ -108,6 +80,7 @@ Future<void> addHistory(AddHistoryRef ref,
     'comment': history.comment,
     'date': DateFormat('yyyy-MM-dd').format(history.date),
     'memo': history.memo,
+    'workSite': history.workSite,
   });
 
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
@@ -144,7 +117,8 @@ Future<void> latestHistory(LatestHistoryRef ref) async {
                   colorCode: val.last.colorCode,
                   /// record * 20이 currentValue
                   record: val.last.record,
-                  memo: val.last.memo);
+                  memo: val.last.memo,
+              );
             },
             error: (err, trace) => print(err.toString()),
             loading: () => print('loading....'));

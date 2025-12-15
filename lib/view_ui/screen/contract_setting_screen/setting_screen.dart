@@ -48,7 +48,6 @@ class SettingScreen extends HookConsumerWidget {
 
     final memoController = useTextEditingController();
     final decimalController = useTextEditingController();
-    final additionalController = useTextEditingController();
 
     final decimalFocus = useFocusNode();
     final rangeFocus = useFocusNode();

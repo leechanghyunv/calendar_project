@@ -20,7 +20,6 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     final siteNode = useFocusNode();
     final siteEditingController = useTextEditingController();
     final sitesAsync = ref.watch(stringListNotifierProvider);
-    final sites = ['세보MEC', '유창', '파라텍', '세안'];
 
     return SafeArea(
       child: Scaffold(
@@ -58,6 +57,9 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                     textController: siteEditingController,
                     onSubmitted: (val){
                       siteNode.requestFocus();
+                    },
+                    onChanged: (val){
+                      print(siteEditingController.text);
                     },
                   )
               ),
@@ -127,6 +129,10 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 child: CustomElevatedButton(
                   text: '등록완료',
                   onPressed: () {
+                    if (siteEditingController.text.isEmpty) {
+                      customMsg('현장을 입력해주세요');
+                      return;
+                    }
                     HapticFeedback.selectionClick();
                     ref.read(stringListNotifierProvider.notifier).add(siteEditingController.text);
                     Navigator.pop(context);

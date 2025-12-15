@@ -1,6 +1,9 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_model/view_provider/selected_companise_model.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../../../data/provider/string_list_provider.dart';
 import '/core/export_package.dart';
 
 class FilterPopupMenu extends HookConsumerWidget {
@@ -8,6 +11,9 @@ class FilterPopupMenu extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final sitesAsync = ref.watch(stringListNotifierProvider);
+
     final companies = ['세보MEC', '유창전기', '파라텍(직발)','벽산이엔지'];
 
     return PopupMenuButton<void>(
@@ -27,43 +33,50 @@ class FilterPopupMenu extends HookConsumerWidget {
           child: StatefulBuilder(
             builder: (context, setState) {
               final selectedCompanies = ref.watch(selectedCompaniesModelProvider);
-              return Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: companies.map((company) {
-                  final isSelected = selectedCompanies.contains(company);
-                  return GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {
-                      HapticFeedback.selectionClick();
-                      ref.read(selectedCompaniesModelProvider.notifier).toggle(company);
-                      setState(() {}); // UI만 리빌드
-                    },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          isSelected ? Icons.check_box : Icons.check_box_outline_blank,
-                          size: 18,
-                          color: isSelected
-                              ? Colors.teal
-                              : (context.isDark ? Colors.white54 : Colors.black54),
-                        ),
-                        SizedBox(width: 4),
-                        Text(
-                          company,
-                          textScaler: TextScaler.noScaling,
-                          style: TextStyle(
-                            fontSize: 13.5,
-                            fontWeight: FontWeight.bold,
-                            color: context.isDark ? Colors.white : Colors.black,
+
+              return switch (sitesAsync) {
+                AsyncData(:final value) when value.isNotEmpty => Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: value.map((item) {
+                    final company = item.value;
+                    final isSelected = selectedCompanies.contains(company);
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        HapticFeedback.selectionClick();
+                        ref.read(selectedCompaniesModelProvider.notifier).toggle(company);
+                        setState(() {});
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                            size: 18,
+                            color: isSelected
+                                ? Colors.teal
+                                : (context.isDark ? Colors.white54 : Colors.black54),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              );
+                          SizedBox(width: 4),
+                          Text(
+                            company,
+                            textScaler: TextScaler.noScaling,
+                            style: TextStyle(
+                              fontSize: 13.5,
+                              fontWeight: FontWeight.bold,
+                              color: context.isDark ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                ),
+                AsyncData() => TextWidget(' 등록된 현장이 없습니다', 13, context.width,
+                color: context.subTextColor),
+                _ => SizedBox.shrink(),
+              };
             },
           ),
         ),

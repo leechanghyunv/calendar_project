@@ -22,6 +22,7 @@ mixin _$WorkHistory {
   String get colorCode;
   String get comment;
   String get memo;
+  String get workSite;
 
   /// Create a copy of WorkHistory
   /// with the given fields replaced by the non-null parameter values.
@@ -45,17 +46,19 @@ mixin _$WorkHistory {
             (identical(other.colorCode, colorCode) ||
                 other.colorCode == colorCode) &&
             (identical(other.comment, comment) || other.comment == comment) &&
-            (identical(other.memo, memo) || other.memo == memo));
+            (identical(other.memo, memo) || other.memo == memo) &&
+            (identical(other.workSite, workSite) ||
+                other.workSite == workSite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, date, pay, record, colorCode, comment, memo);
+  int get hashCode => Object.hash(
+      runtimeType, id, date, pay, record, colorCode, comment, memo, workSite);
 
   @override
   String toString() {
-    return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo)';
+    return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite)';
   }
 }
 
@@ -72,7 +75,8 @@ abstract mixin class $WorkHistoryCopyWith<$Res> {
       double record,
       String colorCode,
       String comment,
-      String memo});
+      String memo,
+      String workSite});
 }
 
 /// @nodoc
@@ -94,6 +98,7 @@ class _$WorkHistoryCopyWithImpl<$Res> implements $WorkHistoryCopyWith<$Res> {
     Object? colorCode = null,
     Object? comment = null,
     Object? memo = null,
+    Object? workSite = null,
   }) {
     return _then(_self.copyWith(
       id: freezed == id
@@ -123,6 +128,10 @@ class _$WorkHistoryCopyWithImpl<$Res> implements $WorkHistoryCopyWith<$Res> {
       memo: null == memo
           ? _self.memo
           : memo // ignore: cast_nullable_to_non_nullable
+              as String,
+      workSite: null == workSite
+          ? _self.workSite
+          : workSite // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -221,8 +230,15 @@ extension WorkHistoryPatterns on WorkHistory {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(int? id, @DateTimeConverter() DateTime date, int pay,
-            double record, String colorCode, String comment, String memo)?
+    TResult Function(
+            int? id,
+            @DateTimeConverter() DateTime date,
+            int pay,
+            double record,
+            String colorCode,
+            String comment,
+            String memo,
+            String workSite)?
         $default, {
     required TResult orElse(),
   }) {
@@ -230,7 +246,7 @@ extension WorkHistoryPatterns on WorkHistory {
     switch (_that) {
       case _WorkHistory() when $default != null:
         return $default(_that.id, _that.date, _that.pay, _that.record,
-            _that.colorCode, _that.comment, _that.memo);
+            _that.colorCode, _that.comment, _that.memo, _that.workSite);
       case _:
         return orElse();
     }
@@ -251,15 +267,22 @@ extension WorkHistoryPatterns on WorkHistory {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(int? id, @DateTimeConverter() DateTime date, int pay,
-            double record, String colorCode, String comment, String memo)
+    TResult Function(
+            int? id,
+            @DateTimeConverter() DateTime date,
+            int pay,
+            double record,
+            String colorCode,
+            String comment,
+            String memo,
+            String workSite)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _WorkHistory():
         return $default(_that.id, _that.date, _that.pay, _that.record,
-            _that.colorCode, _that.comment, _that.memo);
+            _that.colorCode, _that.comment, _that.memo, _that.workSite);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -279,15 +302,22 @@ extension WorkHistoryPatterns on WorkHistory {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(int? id, @DateTimeConverter() DateTime date, int pay,
-            double record, String colorCode, String comment, String memo)?
+    TResult? Function(
+            int? id,
+            @DateTimeConverter() DateTime date,
+            int pay,
+            double record,
+            String colorCode,
+            String comment,
+            String memo,
+            String workSite)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _WorkHistory() when $default != null:
         return $default(_that.id, _that.date, _that.pay, _that.record,
-            _that.colorCode, _that.comment, _that.memo);
+            _that.colorCode, _that.comment, _that.memo, _that.workSite);
       case _:
         return null;
     }
@@ -304,7 +334,8 @@ class _WorkHistory extends WorkHistory {
       this.record = 1.0,
       this.colorCode = '2196F3',
       this.comment = '정상근무',
-      this.memo = ''})
+      this.memo = '',
+      this.workSite = ''})
       : super._();
   factory _WorkHistory.fromJson(Map<String, dynamic> json) =>
       _$WorkHistoryFromJson(json);
@@ -329,6 +360,9 @@ class _WorkHistory extends WorkHistory {
   @override
   @JsonKey()
   final String memo;
+  @override
+  @JsonKey()
+  final String workSite;
 
   /// Create a copy of WorkHistory
   /// with the given fields replaced by the non-null parameter values.
@@ -357,17 +391,19 @@ class _WorkHistory extends WorkHistory {
             (identical(other.colorCode, colorCode) ||
                 other.colorCode == colorCode) &&
             (identical(other.comment, comment) || other.comment == comment) &&
-            (identical(other.memo, memo) || other.memo == memo));
+            (identical(other.memo, memo) || other.memo == memo) &&
+            (identical(other.workSite, workSite) ||
+                other.workSite == workSite));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, date, pay, record, colorCode, comment, memo);
+  int get hashCode => Object.hash(
+      runtimeType, id, date, pay, record, colorCode, comment, memo, workSite);
 
   @override
   String toString() {
-    return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo)';
+    return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite)';
   }
 }
 
@@ -386,7 +422,8 @@ abstract mixin class _$WorkHistoryCopyWith<$Res>
       double record,
       String colorCode,
       String comment,
-      String memo});
+      String memo,
+      String workSite});
 }
 
 /// @nodoc
@@ -408,6 +445,7 @@ class __$WorkHistoryCopyWithImpl<$Res> implements _$WorkHistoryCopyWith<$Res> {
     Object? colorCode = null,
     Object? comment = null,
     Object? memo = null,
+    Object? workSite = null,
   }) {
     return _then(_WorkHistory(
       id: freezed == id
@@ -437,6 +475,10 @@ class __$WorkHistoryCopyWithImpl<$Res> implements _$WorkHistoryCopyWith<$Res> {
       memo: null == memo
           ? _self.memo
           : memo // ignore: cast_nullable_to_non_nullable
+              as String,
+      workSite: null == workSite
+          ? _self.workSite
+          : workSite // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

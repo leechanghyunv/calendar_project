@@ -1,5 +1,3 @@
-
-import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_modal_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSiteListView.dart';
 import '../../../../core/extentions/theme_color.dart';
@@ -20,16 +18,11 @@ class WorkSiteRegistration extends HookConsumerWidget {
         SizedBox(width: 18),
         InkWell(
           onTap: () {
-
             HapticFeedback.selectionClick();
             Navigator.pop(context);
             WidgetsBinding.instance.addPostFrameCallback((_) {
               siteRegistrationModal(context);
-              // textFieldModal(context);
             });
-
-
-
           },
           child: Container(
             decoration: BoxDecoration(

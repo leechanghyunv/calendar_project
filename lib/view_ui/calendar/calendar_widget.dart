@@ -26,6 +26,7 @@ class WorkCalendar extends ConsumerWidget {
     final Map<DateTime, bool> _substituteHolidayCache = {};
 
     final dynamicHolidays = ref.watch(dynamicHolidaysProvider);
+
     final customEventMarkers = ref.watch(markerEventProvider);
 
     void _initHolidayCache() {

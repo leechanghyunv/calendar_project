@@ -6,6 +6,7 @@ import '../../../../base_app_size.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../data/provider/string_list_provider.dart';
+import '../provider/work_site_provider.dart';
 
 
 class WorkSiteListView extends HookConsumerWidget {
@@ -14,8 +15,6 @@ class WorkSiteListView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final sitesAsync = ref.watch(stringListNotifierProvider);
-
-    final sites = ['세보MEC', '유창', '파라텍', '세안'];
     final scrollController = useScrollController();
     final registrationIndex = ref.watch(registrationIndexProvider);
 
@@ -48,7 +47,7 @@ class WorkSiteListView extends HookConsumerWidget {
         AsyncData(:final value) when value.isEmpty => Row(
           children: [
             TextWidget(
-              '등록된 현장이 없습니다',
+              ' 작업현장,업체 등록 가능',
               14,
               context.width,
               color: context.subTextColor,
@@ -68,7 +67,7 @@ class WorkSiteListView extends HookConsumerWidget {
               opacity: isSelected ? 1.0 : opacity,
               child: ChoiceChip(
                 label: TextWidget(
-                  '#${sites[index]}',
+                  '#${value[index].value}',
                   14,
                   context.width,
                   color: isSelected ? Colors.white : context.subTextColor,
@@ -77,7 +76,10 @@ class WorkSiteListView extends HookConsumerWidget {
                 onSelected: (selected) {
                   scrollToSelected(index, context.width * 0.7);
                   ref.read(registrationIndexProvider.notifier).setIndex(selected ? index : null);
-                  customMsg('${sites[index]} 선택');
+                  if (selected) {
+                    ref.read(selectedWorksiteProvider.notifier).setWorksite(value[index].value);
+                  }
+                  customMsg('${value[index].value} 선택');
                 },
                 selectedColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
                 backgroundColor: Colors.grey.shade100,

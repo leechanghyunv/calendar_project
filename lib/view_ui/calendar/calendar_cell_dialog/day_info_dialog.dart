@@ -25,6 +25,7 @@ class DayInfoDialog extends ConsumerWidget {
     final String calendarText =  event.record == 0.0 ? '휴일' : '${event.record.toString()}공수';
     final String calendarPayText = '${(event.pay/10000).toStringAsFixed(1)}만원';
     final String calendarMemoText = event.memo.length > 1 ?  event.memo.toString() : '없습니다';
+    final String calendarSite = event.workSite;
 
     final localDate = DateTime(ref.selected.year, ref.selected.month, ref.selected.day);
     final hasCustomEvent = customEventMarkers.containsKey(localDate);
@@ -67,6 +68,13 @@ class DayInfoDialog extends ConsumerWidget {
               TextWidget('메모: ${calendarMemoText}', 14.5,
                   context.width,
                   color: context.textColor),
+              if (event.workSite.isNotEmpty)
+              SizedBox(height: 7.5),
+              if (event.workSite.isNotEmpty)
+              TextWidget('현장: ${calendarSite}', 14.5,
+                  context.width,
+                  color: context.textColor),
+
 
               /// /// ///
 

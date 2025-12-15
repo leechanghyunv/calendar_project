@@ -7,7 +7,7 @@ part of 'string_list_repository.dart';
 // **************************************************************************
 
 String _$stringListRepositoryHash() =>
-    r'f4bbf5dd1a853bfaae06f1422018af5672220f50';
+    r'becba86be02e92f9aa1d324cb44c76148ff48495';
 
 /// See also [stringListRepository].
 @ProviderFor(stringListRepository)
@@ -26,7 +26,7 @@ final stringListRepositoryProvider =
 // ignore: unused_element
 typedef StringListRepositoryRef
     = AutoDisposeFutureProviderRef<StringListRepository>;
-String _$initStringListHash() => r'a6199e1d80b39b983b34708925a60617de5b9f83';
+String _$initStringListHash() => r'e77829ca5c4214d324ca132d864b6f515e5dc523';
 
 /// See also [initStringList].
 @ProviderFor(initStringList)

@@ -15,7 +15,7 @@ Future<Database> initWorkHistory(ref) async {
 
   return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (Database db, int version) async {
         await db.execute('''
       CREATE TABLE workhistory(
@@ -25,10 +25,20 @@ Future<Database> initWorkHistory(ref) async {
         record REAL NOT NULL DEFAULT 1.0,
         colorCode TEXT NOT NULL DEFAULT '2196F3',
         memo TEXT NOT NULL DEFAULT '',
-        comment TEXT NOT NULL DEFAULT '정상근무'
+        comment TEXT NOT NULL DEFAULT '정상근무',
+        workSite TEXT NOT NULL DEFAULT '',
+        
+        
+        
       )
     ''');
       },
+    onUpgrade: (Database db, int oldVersion, int newVersion) async {
+      if (oldVersion < 2) {
+        await db.execute('ALTER TABLE workhistory ADD COLUMN workSite TEXT NOT NULL DEFAULT ""');
+
+      }
+    },
     
   );
 

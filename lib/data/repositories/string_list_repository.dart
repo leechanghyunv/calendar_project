@@ -20,7 +20,7 @@ Future<Database> initStringList(InitStringListRef ref) async {
     version: 1,
     onCreate: (db, version) async {
       await db.execute(
-        'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, order INTEGER)',
+        'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, sort_order INTEGER)',
       );
     },
   );
@@ -37,29 +37,45 @@ class StringListRepository {
   }
 
   Future<void> add(String value) async {
-    final db = await database;
-    final items = await getAll();
-    await db.insert('items', {
-      'value': value,
-      'order': items.length,
+    customMsg(value);
+    await database.transaction((txn) async {
+      final maps = await txn.query('items', orderBy: 'sort_order ASC');
+      final maxOrder = maps.isEmpty ? 0 : maps.length;
+
+      await txn.insert('items', {
+        'value': value,
+        'sort_order': maxOrder,
+      });
     });
   }
 
   Future<void> delete(String value) async {
-    final db = await database;
-    await db.delete('items', where: 'value = ?', whereArgs: [value]);
+    await database.transaction((txn) async {
+      await txn.delete('items', where: 'value = ?', whereArgs: [value]);
+
+      final maps = await txn.query('items', orderBy: 'sort_order ASC');
+      for (int i = 0; i < maps.length; i++) {
+        await txn.update(
+          'items',
+          {'sort_order': i},
+          where: 'id = ?',
+          whereArgs: [maps[i]['id']],
+        );
+      }
+    });
   }
 
   Future<void> updateOrder(List<StringItem> items) async {
-    final db = await database;
-    for (int i = 0; i < items.length; i++) {
-      await db.update(
-        'items',
-        {'sort_order': i},
-        where: 'id = ?',
-        whereArgs: [items[i].id],
-      );
-    }
+    await database.transaction((txn) async {
+      for (int i = 0; i < items.length; i++) {
+        await txn.update(
+          'items',
+          {'sort_order': i},
+          where: 'id = ?',
+          whereArgs: [items[i].id],
+        );
+      }
+    });
   }
 
   Future<void> clear() async {
