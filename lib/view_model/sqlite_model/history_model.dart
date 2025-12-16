@@ -48,7 +48,6 @@ Future<void> addHistory(AddHistoryRef ref,
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
   final workSite = ref.watch(selectedWorksiteProvider);
-  print('workSite: $workSite');
   final Map<String, dynamic> event = {};
   late WorkHistory history;
 
@@ -118,6 +117,7 @@ Future<void> latestHistory(LatestHistoryRef ref) async {
                   /// record * 20이 currentValue
                   record: val.last.record,
                   memo: val.last.memo,
+                workSite: val.last.workSite,
               );
             },
             error: (err, trace) => print(err.toString()),

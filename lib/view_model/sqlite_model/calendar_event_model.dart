@@ -3,6 +3,7 @@ import '../../core/export_package.dart';
 import '../../model/work_history_model.dart';
 import '../../repository/sqlite/sqlite_history_database.dart';
 import '../../repository/time/calendar_time_controll.dart';
+import '../view_provider/selected_companise_model.dart';
 
 part 'calendar_event_model.g.dart';
 
@@ -31,6 +32,9 @@ Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
   final cache = ref.watch(_calendarCacheProvider);
   if (cache != null && cache.start == start && cache.end == end) {
     final asyncValue = ref.watch(workHistoryManagerProvider);
+
+    final workSiteList = ref.watch(selectedCompaniesModelProvider);
+
     return asyncValue.maybeWhen(
       data: (db) => db.calendarHistory(start, end), // 기존 데이터 사용
       orElse: () async => await ref.watch(workHistoryManagerProvider.future).then(

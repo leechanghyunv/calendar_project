@@ -77,7 +77,7 @@ class WorkSiteListView extends HookConsumerWidget {
                   scrollToSelected(index, context.width * 0.7);
                   ref.read(registrationIndexProvider.notifier).setIndex(selected ? index : null);
                   if (selected) {
-                    ref.read(selectedWorksiteProvider.notifier).setWorksite(value[index].value);
+                    ref.read(selectedWorksiteProvider.notifier).state = value[index].value;
                   }
                   customMsg('${value[index].value} 선택');
                 },

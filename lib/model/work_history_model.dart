@@ -25,7 +25,6 @@ abstract class WorkHistory with _$WorkHistory {
     @Default('정상근무') String comment,
     @Default('') String memo,
     @Default('') String workSite,        // 🆕 작업현장
-    // @Default(false) bool isSettled,      // 🆕 정산여부
   }) = _WorkHistory;
 
   factory WorkHistory.fromJson(Map<String, dynamic> json) =>

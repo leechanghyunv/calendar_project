@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../core/export_package.dart';
@@ -20,7 +21,6 @@ class MainBox extends ConsumerWidget {
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
     final width = context.width; // ✅ 한 번만 가져오기
-
 
     return Container(
       decoration: BoxDecoration(

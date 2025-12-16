@@ -28,8 +28,6 @@ Future<Database> initWorkHistory(ref) async {
         comment TEXT NOT NULL DEFAULT '정상근무',
         workSite TEXT NOT NULL DEFAULT '',
         
-        
-        
       )
     ''');
       },
@@ -212,7 +210,8 @@ class HistoryDatabase {
                 record: history.record,
                 colorCode: history.colorCode,
                 comment: history.comment,
-                memo: history.memo
+                memo: history.memo,
+                workSite: history.workSite
             );
             await txn.insert('workhistory', dayHistory.toMap());
           }
@@ -249,6 +248,7 @@ class HistoryDatabase {
     }
   }
 
+  /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
   Future<Map<DateTime, List<WorkHistory>>> calendarHistory(
       DateTime start, DateTime end
@@ -287,6 +287,7 @@ class HistoryDatabase {
           colorCode: history.colorCode,
           comment: history.comment,
           memo: history.memo,
+          workSite: history.workSite,
         );
         filteredData[dateKey]!.add(newHistory);
       }
@@ -297,6 +298,7 @@ class HistoryDatabase {
     }
   }
 
+/// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
   Future<Map<DateTime, List<WorkHistory>>> calendarTotalHistory(
       ) async {
@@ -327,6 +329,7 @@ class HistoryDatabase {
           colorCode: history.colorCode,
           comment: history.comment,
           memo: history.memo,
+          workSite: history.workSite
         );
         filteredData[dateKey]!.add(newHistory);
       }

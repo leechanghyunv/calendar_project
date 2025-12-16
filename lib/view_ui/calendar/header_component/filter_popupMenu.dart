@@ -14,8 +14,6 @@ class FilterPopupMenu extends HookConsumerWidget {
 
     final sitesAsync = ref.watch(stringListNotifierProvider);
 
-    final companies = ['세보MEC', '유창전기', '파라텍(직발)','벽산이엔지'];
-
     return PopupMenuButton<void>(
       offset: Offset(20, 30),
       color: context.isDark ? Colors.black87 : null,
@@ -52,11 +50,10 @@ class FilterPopupMenu extends HookConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            isSelected ? Icons.check_box : Icons.check_box_outline_blank,
+                            isSelected ? Icons.check_box_outline_blank : Icons.check_box,
                             size: 18,
                             color: isSelected
-                                ? Colors.teal
-                                : (context.isDark ? Colors.white54 : Colors.black54),
+                                ? (context.isDark ? Colors.white54 : Colors.black54) : Colors.teal,
                           ),
                           SizedBox(width: 4),
                           Text(
