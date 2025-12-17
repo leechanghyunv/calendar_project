@@ -66,6 +66,7 @@ abstract class LaborFiltedModel with _$LaborFiltedModel {
     @Default('0만원') String nightPay,
     @Default(0) int extraDay,
     @Default(0) int offDay,
+    @Default([]) List<String> workSites,
 
   }) = _LaborFiltedModel;
 

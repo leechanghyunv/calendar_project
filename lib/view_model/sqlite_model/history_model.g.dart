@@ -323,7 +323,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'aa8ed68655a740844ce27dd6b965638802f3ba4e';
+String _$addHistoryHash() => r'541dd0f09806f3fe44d5eb6e6df7dbd0bd6e03b0';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -650,7 +650,7 @@ class _RangeExcludHolidayProviderElement
   DateTime get end => (origin as RangeExcludHolidayProvider).end;
 }
 
-String _$latestHistoryHash() => r'd86934ea7a1739db7b9423d01819b095818e4e72';
+String _$latestHistoryHash() => r'440368af7ed49cbd0ed10eb1c88315c37fc455e7';
 
 /// See also [latestHistory].
 @ProviderFor(latestHistory)

@@ -251,19 +251,33 @@ class HistoryDatabase {
   /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
   Future<Map<DateTime, List<WorkHistory>>> calendarHistory(
-      DateTime start, DateTime end
+      DateTime start, DateTime end, {List<String> workSites = const []}
       ) async {
     Map<DateTime, List<WorkHistory>> filteredData = {};
     try {
       final db = await database;
+
+      String whereClause = "date >= ? AND date <= ?";
+      List<dynamic> whereArgs = [
+        start.toUtc().toIso8601String(),
+        end.toUtc().toIso8601String(),
+      ];
+
+      if (workSites.isNotEmpty) {
+        final placeholders = List.filled(workSites.length, '?').join(',');
+        whereClause += " AND workSite NOT IN ($placeholders)";
+        whereArgs.addAll(workSites);
+      }
+
+
+
       final List<Map<String, dynamic>> maps = await db.query(
         'workhistory',
-        where: "date >= ? AND date <= ?",
-        whereArgs: [
-          start.toUtc().toIso8601String(),
-          end.toUtc().toIso8601String(),
-        ],
+        where: whereClause,
+        whereArgs: whereArgs,
       );
+
+
       // SQLite 결과를 WorkHistory 객체 리스트로 변환
       final List<WorkHistory> histories = List.generate(
         maps.length,

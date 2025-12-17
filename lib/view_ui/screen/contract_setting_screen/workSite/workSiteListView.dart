@@ -60,26 +60,27 @@ class WorkSiteListView extends HookConsumerWidget {
           separatorBuilder: (_, __) => const SizedBox(width: 5),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            final isSelected = registrationIndex == index;
+            final reversedIndex = value.length - 1 - index;
+            final isSelected = registrationIndex == reversedIndex;
             final opacity = 1.0 - (index * 0.25);
 
             return Opacity(
               opacity: isSelected ? 1.0 : opacity,
               child: ChoiceChip(
                 label: TextWidget(
-                  '#${value[index].value}',
+                  '#${value[reversedIndex].value}',
                   14,
                   context.width,
                   color: isSelected ? Colors.white : context.subTextColor,
                 ),
                 selected: isSelected,
                 onSelected: (selected) {
-                  scrollToSelected(index, context.width * 0.7);
-                  ref.read(registrationIndexProvider.notifier).setIndex(selected ? index : null);
+                  scrollToSelected(reversedIndex, context.width * 0.7);
+                  ref.read(registrationIndexProvider.notifier).setIndex(selected ? reversedIndex : null);
                   if (selected) {
-                    ref.read(selectedWorksiteProvider.notifier).state = value[index].value;
+                    ref.read(selectedWorksiteProvider.notifier).state = value[reversedIndex].value;
                   }
-                  customMsg('${value[index].value} 선택');
+                  customMsg('${value[reversedIndex].value} 선택');
                 },
                 selectedColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
                 backgroundColor: Colors.grey.shade100,

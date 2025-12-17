@@ -40,7 +40,7 @@ abstract class WorkHistory with _$WorkHistory {
     'colorCode': colorCode,
     'memo': memo,
     'comment': comment,
-    'workSite': workSite,           // 🆕
+    'workSite': workSite,           
 
 
   };

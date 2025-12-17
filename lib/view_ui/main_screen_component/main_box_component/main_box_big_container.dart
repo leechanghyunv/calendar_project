@@ -89,37 +89,10 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 
 
             SizedBox(width: 10),
-            
-            // if (totalPay > 0.0)
-            // Padding(
-            //   padding: const EdgeInsets.only(bottom: 4.0),
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       color: context.isLight ? Colors.teal.shade100 : Colors.teal.shade900,
-            //       borderRadius: BorderRadius.circular(8.0),
-            //     ),
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(4.0),
-            //       child: Text(
-            //         textScaler: TextScaler.noScaling,
-            //         '${percent}',
-            //         style: TextStyle(
-            //             shadows: commonShadow,
-            //             fontSize: switch (appWidth) {
-            //               > 450 => isFoldValue ? 11.5 : 14.5,
-            //               > 400 => 11.5,
-            //               _ => 11,
-            //             },
-            //             fontWeight: FontWeight.w700,
-            //             color: context.isLight ? Colors.teal.shade700 : Colors.tealAccent),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-
 
           ],
         ),
+
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -142,7 +115,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
             ),
           ],
         ),
-        appWidth > 400 ? isFoldValue ? SizedBox(height: 0) : SizedBox(height: 10) : SizedBox(height: 0),
+        appWidth > 400 ? isFoldValue ? SizedBox(height: 0) : SizedBox(height: 5) : SizedBox(height: 0),
 
       ],
     );

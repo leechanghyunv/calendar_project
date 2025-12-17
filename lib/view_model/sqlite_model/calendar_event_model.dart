@@ -10,8 +10,9 @@ part 'calendar_event_model.g.dart';
 class CalendarCache {
   final DateTime start;
   final DateTime end;
+  final List<String> workSites;
 
-  CalendarCache(this.start, this.end);
+  CalendarCache(this.start, this.end,this.workSites);
 }
 
 final _calendarCacheProvider = StateProvider<CalendarCache?>((ref) => null);
@@ -30,22 +31,23 @@ Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
 
   // 이전 start, end 값이 변경되지 않았다면 캐싱된 값 반환
   final cache = ref.watch(_calendarCacheProvider);
+  final workSiteList = ref.watch(selectedCompaniesModelProvider);
   if (cache != null && cache.start == start && cache.end == end) {
     final asyncValue = ref.watch(workHistoryManagerProvider);
 
-    final workSiteList = ref.watch(selectedCompaniesModelProvider);
+
 
     return asyncValue.maybeWhen(
-      data: (db) => db.calendarHistory(start, end), // 기존 데이터 사용
+      data: (db) => db.calendarHistory(start, end,workSites: workSiteList), // 기존 데이터 사용
       orElse: () async => await ref.watch(workHistoryManagerProvider.future).then(
-            (db) => db.calendarHistory(start, end),
+            (db) => db.calendarHistory(start, end,workSites: workSiteList),
       ),
     );
   }
 
   final db = await ref.watch(workHistoryManagerProvider.future);
-  final result = await db.calendarHistory(start, end);
-  ref.read(_calendarCacheProvider.notifier).state = CalendarCache(start, end);
+  final result = await db.calendarHistory(start, end,workSites: workSiteList);
+  ref.read(_calendarCacheProvider.notifier).state = CalendarCache(start, end, workSiteList);
 
   return result;
 }

@@ -1,14 +1,10 @@
-
-import 'package:collection/collection.dart';
 import 'package:dartx/dartx.dart';
-// import 'package:dart_time/dart_time.dart.dart';
-
-
 import '../../core/utils/converter.dart';
 import '../../model/combined_data_model.dart';
 import '../../model/contract_model.dart';
 import '../../repository/repository_import.dart';
 import '../../repository/time/calendar_time_controll.dart';
+import '../view_provider/selected_companise_model.dart';
 
 part 'filted_month_model.g.dart';
 
@@ -47,7 +43,7 @@ class MonthRecord extends _$MonthRecord {
     final prevStartDate = DateTime.utc(time.year, time.month - 1, 1);
     final prevEndDate = DateTime.utc(time.year, time.month, 1).subtract(const Duration(seconds: 1));
 
-
+    final workSiteList = ref.watch(selectedCompaniesModelProvider);
 
 
     final timeManagerDay = ref.read(timeManagerProvider.notifier).DaySelected;
@@ -71,6 +67,7 @@ class MonthRecord extends _$MonthRecord {
             prevEndDate: prevEndDate,
             timeManagerDay: timeManagerDay,
           )
+          ,workSiteList
       );
 
       return result;
@@ -83,7 +80,7 @@ class MonthRecord extends _$MonthRecord {
   }
 }
 
-LaborFiltedModel _calculateStats(CombinedDataModel data){
+LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   final contract = data.contract;
   final history = data.history;
@@ -101,26 +98,24 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
   final tax = (data.contract.last.tax) / 100;
 
 // 날짜 범위로 히스토리 필터링
-  final filteredHistory = _filterHistoryByDateRange(history, startDate, endDate);
-      final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate);
-
-  // final recordGroups = filteredHistory.groupBy((e) => e.date);
+  final filteredHistory = _filterHistoryByDateRange(history, startDate, endDate, workSites: siteList);
+      final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate,workSites: siteList);
 
 
   final subsidyDay = filteredHistory.count((e) => e.record >= 1.0);
   final workDay = filteredHistory.count((e) => e.record != 0.0);
-  // 정상/연장/야간 근무 계산
   final normalDay = filteredHistory.where((e) => e.record == 1.0).length;
   final extendDay = filteredHistory.where((e) => e.record == 1.5).length;
   final nightDay = filteredHistory.where((e) => e.record == 2.0).length;
-  // final normalDay = recordGroups[1.0]?.length ?? 0;
-  // final extendDay = recordGroups[1.5]?.length ?? 0;
-  // final nightDay = recordGroups[2.0]?.length ?? 0;
-  // 기타근무 계산
 
   final extraDay = filteredHistory.count(
           (e) => e.record != 0.0 && ![1.0, 1.5, 2.0].contains(e.record)
   );
+
+  final workSites = filteredHistory.map((e) => e.workSite.trim())
+      .where((site) => site.isNotEmpty).toSet().toList();
+
+  print(workSites);
 
   // 휴일 계산
   final offDay = filteredHistory.where((e) => e.record == 0.0).length;
@@ -129,7 +124,6 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
   final totalPay = filteredHistory.sumBy((e) => e.pay);
 
 
-  // final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (tax ?? 0))).toStringAsFixed(1));
   final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble();
 
   final prevPay = prevHistory.sumBy((e) => e.pay);
@@ -177,7 +171,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data){
     nightPay: formatAmount(nightPay),
     extraDay: extraDay,
     offDay: offDay,
-
+    workSites: workSites,
   );
 }
 
@@ -185,12 +179,21 @@ List<WorkHistory> _filterHistoryByDateRange(
     List<WorkHistory> history,
     DateTime start,
     DateTime end,
+    {List<String> workSites = const []}
     ) {
   try {
-    final filteredList = history.where((item) =>
-    (item.date.isAtSameMomentAs(start) || item.date.isAfter(start)) &&
-        (item.date.isAtSameMomentAs(end) || item.date.isBefore(end))
-    ).toList();
+
+    final filteredList = history.where((item) {
+      final isInDateRange =
+          (item.date.isAtSameMomentAs(start) || item.date.isAfter(start)) &&
+              (item.date.isAtSameMomentAs(end) || item.date.isBefore(end));
+
+      // 🆕 작업현장 제외 조건
+      final isNotExcluded = workSites.isEmpty ||
+          !workSites.contains(item.workSite);
+
+      return isInDateRange && isNotExcluded;
+    }).toList();
 
 
     return filteredList;

@@ -970,6 +970,7 @@ mixin _$LaborFiltedModel {
   String get nightPay;
   int get extraDay;
   int get offDay;
+  List<String> get workSites;
 
   /// Create a copy of LaborFiltedModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1022,7 +1023,8 @@ mixin _$LaborFiltedModel {
                 other.nightPay == nightPay) &&
             (identical(other.extraDay, extraDay) ||
                 other.extraDay == extraDay) &&
-            (identical(other.offDay, offDay) || other.offDay == offDay));
+            (identical(other.offDay, offDay) || other.offDay == offDay) &&
+            const DeepCollectionEquality().equals(other.workSites, workSites));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1049,12 +1051,13 @@ mixin _$LaborFiltedModel {
         nightDay,
         nightPay,
         extraDay,
-        offDay
+        offDay,
+        const DeepCollectionEquality().hash(workSites)
       ]);
 
   @override
   String toString() {
-    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
+    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
   }
 }
 
@@ -1085,7 +1088,8 @@ abstract mixin class $LaborFiltedModelCopyWith<$Res> {
       int nightDay,
       String nightPay,
       int extraDay,
-      int offDay});
+      int offDay,
+      List<String> workSites});
 }
 
 /// @nodoc
@@ -1122,6 +1126,7 @@ class _$LaborFiltedModelCopyWithImpl<$Res>
     Object? nightPay = null,
     Object? extraDay = null,
     Object? offDay = null,
+    Object? workSites = null,
   }) {
     return _then(_self.copyWith(
       subsidyDay: null == subsidyDay
@@ -1208,6 +1213,10 @@ class _$LaborFiltedModelCopyWithImpl<$Res>
           ? _self.offDay
           : offDay // ignore: cast_nullable_to_non_nullable
               as int,
+      workSites: null == workSites
+          ? _self.workSites
+          : workSites // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -1326,7 +1335,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             int nightDay,
             String nightPay,
             int extraDay,
-            int offDay)?
+            int offDay,
+            List<String> workSites)?
         $default, {
     required TResult orElse(),
   }) {
@@ -1354,7 +1364,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             _that.nightDay,
             _that.nightPay,
             _that.extraDay,
-            _that.offDay);
+            _that.offDay,
+            _that.workSites);
       case _:
         return orElse();
     }
@@ -1396,7 +1407,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             int nightDay,
             String nightPay,
             int extraDay,
-            int offDay)
+            int offDay,
+            List<String> workSites)
         $default,
   ) {
     final _that = this;
@@ -1423,7 +1435,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             _that.nightDay,
             _that.nightPay,
             _that.extraDay,
-            _that.offDay);
+            _that.offDay,
+            _that.workSites);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -1464,7 +1477,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             int nightDay,
             String nightPay,
             int extraDay,
-            int offDay)?
+            int offDay,
+            List<String> workSites)?
         $default,
   ) {
     final _that = this;
@@ -1491,7 +1505,8 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
             _that.nightDay,
             _that.nightPay,
             _that.extraDay,
-            _that.offDay);
+            _that.offDay,
+            _that.workSites);
       case _:
         return null;
     }
@@ -1522,7 +1537,9 @@ class _LaborFiltedModel implements LaborFiltedModel {
       this.nightDay = 0,
       this.nightPay = '0만원',
       this.extraDay = 0,
-      this.offDay = 0});
+      this.offDay = 0,
+      final List<String> workSites = const []})
+      : _workSites = workSites;
   factory _LaborFiltedModel.fromJson(Map<String, dynamic> json) =>
       _$LaborFiltedModelFromJson(json);
 
@@ -1589,6 +1606,14 @@ class _LaborFiltedModel implements LaborFiltedModel {
   @override
   @JsonKey()
   final int offDay;
+  final List<String> _workSites;
+  @override
+  @JsonKey()
+  List<String> get workSites {
+    if (_workSites is EqualUnmodifiableListView) return _workSites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_workSites);
+  }
 
   /// Create a copy of LaborFiltedModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1645,7 +1670,9 @@ class _LaborFiltedModel implements LaborFiltedModel {
                 other.nightPay == nightPay) &&
             (identical(other.extraDay, extraDay) ||
                 other.extraDay == extraDay) &&
-            (identical(other.offDay, offDay) || other.offDay == offDay));
+            (identical(other.offDay, offDay) || other.offDay == offDay) &&
+            const DeepCollectionEquality()
+                .equals(other._workSites, _workSites));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1672,12 +1699,13 @@ class _LaborFiltedModel implements LaborFiltedModel {
         nightDay,
         nightPay,
         extraDay,
-        offDay
+        offDay,
+        const DeepCollectionEquality().hash(_workSites)
       ]);
 
   @override
   String toString() {
-    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay)';
+    return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
   }
 }
 
@@ -1710,7 +1738,8 @@ abstract mixin class _$LaborFiltedModelCopyWith<$Res>
       int nightDay,
       String nightPay,
       int extraDay,
-      int offDay});
+      int offDay,
+      List<String> workSites});
 }
 
 /// @nodoc
@@ -1747,6 +1776,7 @@ class __$LaborFiltedModelCopyWithImpl<$Res>
     Object? nightPay = null,
     Object? extraDay = null,
     Object? offDay = null,
+    Object? workSites = null,
   }) {
     return _then(_LaborFiltedModel(
       subsidyDay: null == subsidyDay
@@ -1833,6 +1863,10 @@ class __$LaborFiltedModelCopyWithImpl<$Res>
           ? _self.offDay
           : offDay // ignore: cast_nullable_to_non_nullable
               as int,
+      workSites: null == workSites
+          ? _self._workSites
+          : workSites // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }

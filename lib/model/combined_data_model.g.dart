@@ -81,6 +81,10 @@ _LaborFiltedModel _$LaborFiltedModelFromJson(Map<String, dynamic> json) =>
       nightPay: json['nightPay'] as String? ?? '0만원',
       extraDay: (json['extraDay'] as num?)?.toInt() ?? 0,
       offDay: (json['offDay'] as num?)?.toInt() ?? 0,
+      workSites: (json['workSites'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$LaborFiltedModelToJson(_LaborFiltedModel instance) =>
@@ -106,4 +110,5 @@ Map<String, dynamic> _$LaborFiltedModelToJson(_LaborFiltedModel instance) =>
       'nightPay': instance.nightPay,
       'extraDay': instance.extraDay,
       'offDay': instance.offDay,
+      'workSites': instance.workSites,
     };

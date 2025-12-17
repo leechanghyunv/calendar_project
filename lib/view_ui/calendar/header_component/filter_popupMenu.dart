@@ -1,9 +1,11 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/repository/repository_import.dart';
+import 'package:calendar_project_240727/view_model/filted_instance_model/filted_month_model.dart';
 import 'package:calendar_project_240727/view_model/view_provider/selected_companise_model.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../../data/provider/string_list_provider.dart';
+import '../../../base_consumer.dart';
 import '/core/export_package.dart';
 
 class FilterPopupMenu extends HookConsumerWidget {
@@ -12,7 +14,7 @@ class FilterPopupMenu extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final sitesAsync = ref.watch(stringListNotifierProvider);
+    final workSites = ref.watch(monthRecordProvider(ref.selected));
 
     return PopupMenuButton<void>(
       offset: Offset(20, 30),
@@ -31,13 +33,12 @@ class FilterPopupMenu extends HookConsumerWidget {
           child: StatefulBuilder(
             builder: (context, setState) {
               final selectedCompanies = ref.watch(selectedCompaniesModelProvider);
-
-              return switch (sitesAsync) {
-                AsyncData(:final value) when value.isNotEmpty => Wrap(
+              return switch (workSites) {
+                AsyncData(:final value) when value.workSites.isNotEmpty => Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  children: value.map((item) {
-                    final company = item.value;
+                  children: value.workSites.map((item) {
+                    final company = item;
                     final isSelected = selectedCompanies.contains(company);
                     return GestureDetector(
                       behavior: HitTestBehavior.opaque,
