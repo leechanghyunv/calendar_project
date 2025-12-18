@@ -18,6 +18,21 @@ class WorkSiteListView extends HookConsumerWidget {
     final scrollController = useScrollController();
     final registrationIndex = ref.watch(registrationIndexProvider);
 
+    useEffect(() {
+      final data = sitesAsync.valueOrNull;
+      if (data != null && data.isNotEmpty) {
+        final reversedIndex = data.length - 1;
+
+        if (registrationIndex == null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ref.read(registrationIndexProvider.notifier).setIndex(reversedIndex);
+            ref.read(selectedWorksiteProvider.notifier).state = data[reversedIndex].value;
+          });
+        }
+      }
+      return null;
+    }, [sitesAsync]);
+
     const chipWidth = 120.0;
 
     final scrollToSelected = useCallback((int index, double screenWidth) {
@@ -79,8 +94,9 @@ class WorkSiteListView extends HookConsumerWidget {
                   ref.read(registrationIndexProvider.notifier).setIndex(selected ? reversedIndex : null);
                   if (selected) {
                     ref.read(selectedWorksiteProvider.notifier).state = value[reversedIndex].value;
+                    customMsg('${value[reversedIndex].value} 선택');
                   }
-                  customMsg('${value[reversedIndex].value} 선택');
+                  ref.read(selectedWorksiteProvider.notifier).state = '';
                 },
                 selectedColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
                 backgroundColor: Colors.grey.shade100,

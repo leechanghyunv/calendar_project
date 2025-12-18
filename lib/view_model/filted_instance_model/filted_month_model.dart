@@ -100,7 +100,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
 // 날짜 범위로 히스토리 필터링
   final filteredHistory = _filterHistoryByDateRange(history, startDate, endDate, workSites: siteList);
       final prevHistory = _filterHistoryByDateRange(history, prevStartDate, prevEndDate,workSites: siteList);
-
+      final filterWorkSites = _filterHistoryByDateOnly(history, startDate, endDate);
 
   final subsidyDay = filteredHistory.count((e) => e.record >= 1.0);
   final workDay = filteredHistory.count((e) => e.record != 0.0);
@@ -112,10 +112,8 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
           (e) => e.record != 0.0 && ![1.0, 1.5, 2.0].contains(e.record)
   );
 
-  final workSites = filteredHistory.map((e) => e.workSite.trim())
+  final workSites = filterWorkSites.map((e) => e.workSite.trim())
       .where((site) => site.isNotEmpty).toSet().toList();
-
-  print(workSites);
 
   // 휴일 계산
   final offDay = filteredHistory.where((e) => e.record == 0.0).length;
@@ -200,5 +198,21 @@ List<WorkHistory> _filterHistoryByDateRange(
   } catch (e) {
     print('날짜 필터링 중 오류 발생: $e');
     return []; // 오류 발생 시 빈 리스트 반환
+  }
+}
+
+List<WorkHistory> _filterHistoryByDateOnly(
+    List<WorkHistory> history,
+    DateTime start,
+    DateTime end,
+    ) {
+  try {
+    return history.where((item) {
+      return (item.date.isAtSameMomentAs(start) || item.date.isAfter(start)) &&
+          (item.date.isAtSameMomentAs(end) || item.date.isBefore(end));
+    }).toList();
+  } catch (e) {
+    print('날짜 필터링 중 오류 발생: $e');
+    return [];
   }
 }

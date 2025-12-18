@@ -16,7 +16,6 @@ class SelectedCompaniesModel extends _$SelectedCompaniesModel {
     } else {
       state = [...state, company];
     }
-    print(state);
   }
 
 }

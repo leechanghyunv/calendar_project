@@ -14,7 +14,7 @@ class FilterPopupMenu extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final workSites = ref.watch(monthRecordProvider(ref.selected));
+    final monthHistory = ref.watch(monthRecordProvider(ref.selected));
 
     return PopupMenuButton<void>(
       offset: Offset(20, 30),
@@ -33,7 +33,7 @@ class FilterPopupMenu extends HookConsumerWidget {
           child: StatefulBuilder(
             builder: (context, setState) {
               final selectedCompanies = ref.watch(selectedCompaniesModelProvider);
-              return switch (workSites) {
+              return switch (monthHistory) {
                 AsyncData(:final value) when value.workSites.isNotEmpty => Wrap(
                   spacing: 8,
                   runSpacing: 8,

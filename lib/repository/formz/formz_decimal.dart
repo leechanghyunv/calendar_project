@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
+
 import '../../view_model/decimal_value_provider.dart';
 import '../repository_import.dart';
 
@@ -49,7 +51,8 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     var calculated = (value.pay * value.decimal).toInt();
     try{
       await ref.read(
-          addHistoryProvider(calculated, date, decimal: decimal));
+          addHistoryProvider(calculated, date, decimal: decimal),
+      );
 
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
@@ -90,6 +93,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
         _=> 'AB47BC',
       },
       memo: memoString,
+      workSite: ref.watch(selectedWorksiteProvider.notifier).state,
     );
     try{
       ref.read(
