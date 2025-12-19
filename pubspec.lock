@@ -490,10 +490,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_hooks
-      sha256: "8ae1f090e5f4ef5cfa6670ce1ab5dddadd33f3533a7f9ba19d9f958aa2a89f42"
+      sha256: cde36b12f7188c85286fba9b38cc5a902e7279f36dd676967106c041dc9dde70
       url: "https://pub.dev"
     source: hosted
-    version: "0.21.3+1"
+    version: "0.20.5"
   flutter_keyboard_visibility:
     dependency: "direct main"
     description:
@@ -1437,10 +1437,9 @@ packages:
   table_calendar:
     dependency: "direct main"
     description:
-      name: table_calendar
-      sha256: "0c0c6219878b363a2d5f40c7afb159d845f253d061dc3c822aa0d5fe0f721982"
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/table_calendar"
+      relative: true
+    source: path
     version: "3.2.0"
   term_glyph:
     dependency: transitive

@@ -1,4 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/additional_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/selected_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/today_cell.dart';
 
@@ -26,6 +28,9 @@ class TableCalendarFrame extends ConsumerWidget {
   final FocusedDayBuilder? outsideBuilder;
   final MarkerBuilder<WorkHistory>? markerBuilder;
   final SingleMarkerBuilder<WorkHistory>? singleMarkerBuilder;
+  final Widget? Function(BuildContext context, DateTime focusedDay, List<DateTime> weekDays)?
+  additionalSpaceBuilder;
+
 
   const TableCalendarFrame(
       {super.key,
@@ -39,6 +44,7 @@ class TableCalendarFrame extends ConsumerWidget {
         this.outsideBuilder,
         this.markerBuilder,
         this.singleMarkerBuilder,
+        this.additionalSpaceBuilder,
       });
 
   @override
@@ -71,10 +77,15 @@ class TableCalendarFrame extends ConsumerWidget {
 
       headerStyle: header,
       weekendDays: const [DateTime.sunday],
+      additionalSpaceEnabled: true,
+      additionalSpaceHeight: null,
+      additionalSpaceAnimationDuration: const Duration(milliseconds: 500),
+      additionalSpaceAnimationCurve: Curves.easeOut,
       calendarStyle: CalendarStyle(
         isTodayHighlighted: true,
       ),
       calendarBuilders: CalendarBuilders(
+          additionalSpaceBuilder: additionalSpaceBuilder,
         selectedBuilder: (context, date, events) => SelectedCell(date),
         todayBuilder: (context, date, events) => TodayCell(date),
         headerTitleBuilder: (context, day) => CalendarHeader(day),
