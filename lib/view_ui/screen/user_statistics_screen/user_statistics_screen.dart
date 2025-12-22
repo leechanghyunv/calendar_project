@@ -74,12 +74,11 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                       child: GestureDetector(
                                         onTap: () => showBasicModal(context),
                                         child: Container(
-                                          height: height > 750 ? 32.5 : 30.5,
+                                          height:  30.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             color: context.isDark ? Colors.teal.shade900 : Colors.teal,
                                             borderRadius: BorderRadius.circular(8),
-                                            // border: context.defaultBorder,
                                             boxShadow: context.isDark ? null : [
                                               BoxShadow(
                                                 color: Colors.grey.shade300,
@@ -89,7 +88,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                             ],
                                           ),
                                           child: TextWidget(
-                                              '근로조건 설정하기', 15, width,
+                                              '근로조건 설정하기', 14.5, width,
                                               color: context.buttonColor),
                                         ),
                                       ),

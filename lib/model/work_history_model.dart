@@ -24,7 +24,8 @@ abstract class WorkHistory with _$WorkHistory {
     @Default('2196F3') String colorCode,
     @Default('정상근무') String comment,
     @Default('') String memo,
-    @Default('') String workSite,        // 🆕 작업현장
+    @Default('') String workSite,
+    // @Default(0) int subsidy,
   }) = _WorkHistory;
 
   factory WorkHistory.fromJson(Map<String, dynamic> json) =>
@@ -40,8 +41,8 @@ abstract class WorkHistory with _$WorkHistory {
     'colorCode': colorCode,
     'memo': memo,
     'comment': comment,
-    'workSite': workSite,           
-
+    'workSite': workSite,
+    // 'subsidy': subsidy,
 
   };
 
@@ -54,7 +55,8 @@ abstract class WorkHistory with _$WorkHistory {
       colorCode: map['colorCode'] as String,
       memo: map['memo'] as String,
       comment: map['comment'] as String,
-      workSite: map['workSite'] as String,              // 🆕
+      workSite: map['workSite'] as String,
+      // subsidy: map['subsidy'] as int,
 
 
     );

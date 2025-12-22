@@ -26,7 +26,7 @@ class WorkSiteRegistration extends HookConsumerWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: context.isDark ? Colors.black54 : Colors.grey.shade200,
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Padding(
@@ -50,8 +50,9 @@ class WorkSiteRegistration extends HookConsumerWidget {
           onTap: () => Navigator.pop(context),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.grey.shade200,
+              color: context.isDark ? Colors.black54 : Colors.grey.shade200,
               borderRadius: BorderRadius.circular(8.0),
+
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(

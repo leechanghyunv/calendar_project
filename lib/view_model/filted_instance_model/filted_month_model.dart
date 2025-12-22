@@ -104,9 +104,9 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   final subsidyDay = filteredHistory.count((e) => e.record >= 1.0);
   final workDay = filteredHistory.count((e) => e.record != 0.0);
-  final normalDay = filteredHistory.where((e) => e.record == 1.0).length;
-  final extendDay = filteredHistory.where((e) => e.record == 1.5).length;
-  final nightDay = filteredHistory.where((e) => e.record == 2.0).length;
+  final normalDay = filteredHistory.count((e) => e.record == 1.0);
+  final extendDay = filteredHistory.count((e) => e.record == 1.5);
+  final nightDay = filteredHistory.count((e) => e.record == 2.0);
 
   final extraDay = filteredHistory.count(
           (e) => e.record != 0.0 && ![1.0, 1.5, 2.0].contains(e.record)
@@ -116,10 +116,12 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
       .where((site) => site.isNotEmpty).toSet().toList();
 
   // 휴일 계산
-  final offDay = filteredHistory.where((e) => e.record == 0.0).length;
+  final offDay = filteredHistory.count((e) => e.record == 0.0);
   // 금액 계산
-
   final totalPay = filteredHistory.sumBy((e) => e.pay);
+
+
+  // final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
 
 
   final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble();
@@ -134,18 +136,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
   final extendPay = extendDay * currentContract.extend;
   final nightPay = nightDay * currentContract.night;
 
-  final workRecord = filteredHistory.fold(0.0, (p, e) => p + e.record);
-
-  String calculateDisplayValue(int current, int previous) {
-    if (previous == 0 || current == 0) return '0.0%';
-
-    final percentage = ((current - previous) / previous) * 100;
-
-    if (percentage.isInfinite) return '100.0%';
-    if (percentage.isNaN) return '0.0%';
-
-    return '${percentage.toStringAsFixed(1)}%';
-  }
+  final workRecord = filteredHistory.sumBy((e) => e.record);
 
   return LaborFiltedModel(
     subsidyDay: subsidyDay,
@@ -155,7 +146,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
     tax: taxString,
     afterTax: formatAmount(afterTax.toInt()),
     prevPay: prevPay,
-    percent: calculateDisplayValue(totalPay, prevPay),
+    // percent: calculateDisplayValue(totalPay, prevPay),
     totalPayString: formatAmount(totalPay),
     prevPayString: formatAmount(prevPay),
     totalPayAnd: formatAmount(totalPayAnd),

@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
+import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_history_textWidget.dart';
 
 // 🎯 검색 결과 위젯 분리
 class SearchResultWidget extends StatelessWidget {
@@ -103,7 +104,7 @@ class _HistoryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 60,
+            width: 40,
             child: Column(
               children: [
                 TextWidget(
@@ -124,15 +125,15 @@ class _HistoryCard extends StatelessWidget {
           ),
           SizedBox(width: 16),
           Expanded(
-            child: TextWidget(
-              history.memo,
+            child: HistoryTextWidget(
+              '${history.memo}',
               14,
               context.width,
               color: context.isDark ? Colors.grey[100] : Colors.grey[800],
               fontWeight: FontWeight.normal,
             ),
           ),
-          Spacer(),
+          SizedBox(width: 16),
           SearchMoreContent(history: history),
 
         ],

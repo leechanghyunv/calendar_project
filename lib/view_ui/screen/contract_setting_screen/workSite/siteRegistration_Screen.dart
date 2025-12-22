@@ -1,7 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/component/auth_textField/auth_field_decoration.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSite_textfield.dart';
 
 import '../../../../core/extentions/theme_color.dart';
@@ -24,7 +23,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(
             children: [
               SizedBox(height: 5),
@@ -32,7 +31,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 children: [
                   InfoRow(
                     title: '작업 현장을 등록해주세요',
-                    subtitle: '일당을 입력하면 자동으로 일당을 수정합니다',
+                    subtitle: '등록란에서 업체명 선택후 공수설정',
                   ),
                   Spacer(),
                   Padding(
@@ -51,17 +50,21 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 ],
               ),
               SizedBox(height: 20),
-              authContainer(
+              Container(
+                decoration: BoxDecoration(
+                  border: context.isLight ? null : Border.all(width: 0.75,
+                      color: Colors.white),
+                  borderRadius: BorderRadius.circular(12),
+                  color: context.isDark ? Colors.black54 : Colors.grey.shade200,
+                ),
                   child: WorksiteTextField(
                     focusNode: siteNode,
                     textController: siteEditingController,
                     onSubmitted: (val){
+                      HapticFeedback.selectionClick();
                       siteNode.requestFocus();
                     },
-                    onChanged: (val){
-                      print(siteEditingController.text);
-                    },
-                  )
+                  ),
               ),
               SizedBox(height: 20),
               Expanded(
@@ -76,9 +79,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       final site = value[index];
                       return InkWell(
-                        onTap: () {
-                          customMsg('${site.value} 선택');
-                        },
+                        onTap: () => customMsg('${site.value} 선택'),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 6.0,
@@ -96,6 +97,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                               IconButton(
                                 onPressed: () {
                                   ref.read(stringListNotifierProvider.notifier).delete(site.value);
+                                  HapticFeedback.selectionClick();
                                 },
                                 icon: Icon(
                                   Icons.remove,

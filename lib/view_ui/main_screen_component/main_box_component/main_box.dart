@@ -45,7 +45,7 @@ class MainBox extends ConsumerWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0,
-                        vertical: isFoldValue && width > 500 ? 8.0 : 12.0),
+                        vertical: isFoldValue && width > 500 ? 8.0 : 10.0),
 
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

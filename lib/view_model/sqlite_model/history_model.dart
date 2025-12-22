@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/firebase_analytics.dart';
+import 'package:calendar_project_240727/model/formz/formz_model.dart';
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
 import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
 import 'package:calendar_project_240727/repository/time/calendar_time_controll.dart';
@@ -69,6 +70,7 @@ Future<void> addHistory(AddHistoryRef ref,
           record: record,
           memo: memoNote,
           workSite: workSite,
+          // subsidy: val.last.subsidy,
         );
       },
       error: (err, trace) => print(err.toString()),
@@ -80,6 +82,7 @@ Future<void> addHistory(AddHistoryRef ref,
     'date': DateFormat('yyyy-MM-dd').format(history.date),
     'memo': history.memo,
     'workSite': history.workSite,
+    // 'subsidy': history.subsidy,
   });
 
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
@@ -118,6 +121,7 @@ Future<void> latestHistory(LatestHistoryRef ref) async {
                   record: val.last.record,
                   memo: val.last.memo,
                 workSite: val.last.workSite,
+                // subsidy: val.last.subsidy,
               );
             },
             error: (err, trace) => print(err.toString()),

@@ -258,29 +258,8 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                    HapticFeedback.selectionClick();
                  },
                ),
-     
-     
-               AuthButton(
-                 onPressedReset: (){
-                   _formKey.currentState?.reset();
-                   wageFocusNodeA.requestFocus();
-                   HapticFeedback.selectionClick();
-                   _scrollToTop();
-                 },
-                 onPressed: (){
-                   final site = _formKey.currentState?.fields['site']?.value ?? '';
-                   final workType = _formKey.currentState?.fields['work_type']?.value ?? '';
-                   // 🔥 세금값이 설정되지 않은 경우 기본값 적용
-                   final currentTaxValue = _formKey.currentState?.fields['tax']?.value;
-                   if (currentTaxValue == null) {
-                     formzRefRead.onChangeTax(taxRate.value); // 기본값 3.3 적용
-                   }
-                   formzRefRead.onSubmit(
-                       context, wageFocusNodeA, site,
-                       workType, dateNow, true);
+               
 
-                 },
-               ),
      
              ],
            ),
@@ -288,6 +267,30 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
        ],
      ),
    ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24.0),
+        child: AuthButton(
+          onPressedReset: (){
+            _formKey.currentState?.reset();
+            wageFocusNodeA.requestFocus();
+            HapticFeedback.selectionClick();
+            _scrollToTop();
+          },
+          onPressed: (){
+            final site = _formKey.currentState?.fields['site']?.value ?? '';
+            final workType = _formKey.currentState?.fields['work_type']?.value ?? '';
+            // 🔥 세금값이 설정되지 않은 경우 기본값 적용
+            final currentTaxValue = _formKey.currentState?.fields['tax']?.value;
+            if (currentTaxValue == null) {
+              formzRefRead.onChangeTax(taxRate.value); // 기본값 3.3 적용
+            }
+            formzRefRead.onSubmit(
+                context, wageFocusNodeA, site,
+                workType, dateNow, true);
+
+          },
+        ),
+      ),
     );
   }
 }

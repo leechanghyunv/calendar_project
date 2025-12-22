@@ -1,6 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/additional_cell.dart';
+import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/additional/additional_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/selected_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/today_cell.dart';
 

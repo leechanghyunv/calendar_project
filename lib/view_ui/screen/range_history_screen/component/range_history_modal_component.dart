@@ -40,7 +40,7 @@ void showRangeModal(BuildContext context,WidgetRef ref){
         final  selected = ref.watch(rangeSelectManagerProvider);
         return Container(
           height: height > 750
-              ? screenHeight * 0.7
+              ? screenHeight * 0.825
               : screenHeight * 0.85,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,

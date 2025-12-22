@@ -25,7 +25,9 @@ class SettingMemoTextField extends HookConsumerWidget {
     final borderColor = nodeMemo.hasFocus ? Colors.teal : Colors.grey.shade500;
 
     return Container(
-      height: 70,
+      constraints: BoxConstraints(
+        minHeight: 70,
+      ),
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black54 : Colors.grey.shade100,
         borderRadius: BorderRadius.circular(10.0),
@@ -43,15 +45,20 @@ class SettingMemoTextField extends HookConsumerWidget {
             onChanged: onChanged,
             maxLines: null, // 자동으로 여러 줄 입력 가능
             cursorColor: Colors.grey.shade500,
-
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+            ),
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(
                 vertical: 12.0,
                 horizontal: 6.0,
               ),
+
               hintText: ' 메모내용을 입력해주세요',
               hintStyle: TextStyle(
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   overflow: TextOverflow.ellipsis),

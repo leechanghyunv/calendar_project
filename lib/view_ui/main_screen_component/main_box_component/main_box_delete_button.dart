@@ -10,7 +10,7 @@ import '../../screen/calendar_screen/provider/delete_count_provider.dart';
 class DeleteChip extends HookConsumerWidget {
   const DeleteChip({super.key});
 
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final borderWidth = useState(0.75);
     final isLight = Theme.of(context).brightness == Brightness.light;
 
@@ -19,9 +19,8 @@ class DeleteChip extends HookConsumerWidget {
     final tapCount = ref.watch(deleteTapCountProvider);
 
     useEffect(() {
-      Future.microtask(() =>
-          ref.read(deleteTapCountProvider.notifier).loadCount()
-      );
+      Future.microtask(
+          () => ref.read(deleteTapCountProvider.notifier).loadCount());
       return null;
     }, []);
 
@@ -31,13 +30,15 @@ class DeleteChip extends HookConsumerWidget {
       await ref.read(deleteTapCountProvider.notifier).increment();
       switch (data) {
         case AsyncData(:final value):
-          final selectedOne = value.where((e) => e.date.toUtc() == ref.selected);
+          final selectedOne =
+              value.where((e) => e.date.toUtc() == ref.selected);
           if (selectedOne.isEmpty) {
             customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.');
           } else {
             await ref.read(deleteHistoryProvider(ref.selected).future);
             await Future.delayed(const Duration(milliseconds: 50));
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
+            customMsg(
+                '${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
             ref.refreshState(context);
           }
         case AsyncError():
@@ -47,26 +48,22 @@ class DeleteChip extends HookConsumerWidget {
       }
     }, [data, tapCount]);
     return GestureDetector(
-
       onTap: handleTap,
       child: Container(
-
         height: switch (appWidth) {
           > 450 => 26,
           > 420 => 25,
           > 400 => 24,
-          _ => Platform.isAndroid ?  21.5 : 22.5,
+          _ => Platform.isAndroid ? 21.5 : 22.5,
         },
-
         width: switch (appWidth) {
           > 450 => 53,
-          > 420 =>  51.5,
-          > 400 =>  50,
+          > 420 => 51.5,
+          > 400 => 50,
           _ => 48,
         },
-
         decoration: BoxDecoration(
-          color: isLight ? Colors.grey.shade200 :  Colors.black54, // 드래그 중 색상 변경
+          color: isLight ? Colors.grey.shade200 : Colors.black54, // 드래그 중 색상 변경
           borderRadius: BorderRadius.circular(10.0),
           boxShadow: [
             BoxShadow(
@@ -75,71 +72,49 @@ class DeleteChip extends HookConsumerWidget {
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
-          ] ,
+          ],
           border: Border.all(
-              color: Colors.grey.shade800,
-              width: borderWidth.value,
+            color: Colors.grey.shade800,
+            width: borderWidth.value,
           ),
         ),
-        padding: EdgeInsets.zero,
-        child: Center(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Platform.isAndroid ? SvgPicture.asset(
-                'assets/trash.svg',
-                width: switch (appWidth) {
-                  > 450 => 13,
-                  > 420 => 12,
-                  > 400 => 11.5,
-                  _ => 11,
-                },
-                colorFilter: ColorFilter.mode(
-                  context.textColor,
-                  BlendMode.srcIn,
-                ),
-                clipBehavior: Clip.antiAlias,
-              ) : context.isDark ? SvgPicture.asset(
-                'assets/trash.svg',
-                width: switch (appWidth) {
-                  > 450 => 13.5,
-                  > 420 => 12.5,
-                  > 400 => 12,
-                  _ => 11.5,
-                },
-                colorFilter: ColorFilter.mode(
-                  context.textColor,
-                  BlendMode.srcIn,
-                ),
-                clipBehavior: Clip.antiAlias,
-              ) : SizedBox.shrink(),
-              Text(Platform.isAndroid ? ' 삭제' : context.isDark ?  ' 삭제' : '🗑️삭제',
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(
-                  color: context.textColor,
-                  fontSize: Platform.isAndroid
-                      ? switch (appWidth) {
-                    > 450 => 13.5,
-                    > 420 => 11.5,
-                    > 400 => 11,
-                    _ => 11,
-                  } : context.isDark ? switch (appWidth) {
-                    > 450 => 13.5,
-                    > 420 => 11.5,
-                    > 400 => 11,
-                    _ => 10.5,
-                  } : switch (appWidth) {
-                    > 450 => 14,
+        child: Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Center(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                SvgPicture.asset(
+                  context.isDark ? 'assets/trash.svg' : 'assets/Delete.svg',
+                  width: switch (appWidth) {
+                    > 450 => 12.5,
                     > 420 => 12,
                     > 400 => 11.5,
                     _ => 11,
                   },
-
-                  fontWeight: Platform.isAndroid ? FontWeight.w700 :  FontWeight.w900,
+                  colorFilter: context.isDark ? ColorFilter.mode(
+                    context.textColor,
+                    BlendMode.srcIn,
+                  ) : null,
                 ),
-              ),
-            ],
+                Text(' 삭제',
+                  textScaler: TextScaler.noScaling,
+                  style: TextStyle(
+                    color: context.textColor,
+                    fontSize: switch (appWidth) {
+                      > 450 => 12,
+                      > 420 => 11.5,
+                      > 400 => 11,
+                      _ => 10.5,
+                    },
+                    fontWeight:
+                        Platform.isAndroid ? FontWeight.w800 : FontWeight.w900,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

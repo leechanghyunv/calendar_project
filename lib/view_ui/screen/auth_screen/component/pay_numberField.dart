@@ -106,11 +106,11 @@ class PayNumberField extends HookWidget {
                 : buttonColor,
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 2.0,
+            padding: EdgeInsets.symmetric(
+                vertical: Platform.isAndroid ? 0.5 : 2.0,
                 horizontal: 8.0),
             child: TextWidget(
-              actionText, 14,
+              actionText, 13,
                 context.width,
               color: isAutoCompleteWithText
                   ? (context.isDark ? Colors.teal.shade100 : Colors.teal.shade700)

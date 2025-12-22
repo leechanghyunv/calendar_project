@@ -10,26 +10,16 @@ class WorkRecord extends _$WorkRecord {
 
   @override
   Future<LaborStatsModel> build() async {
-    final contractAsync = ref.watch(viewContractProvider);
-    final historyAsync = ref.watch(viewHistoryProvider);
+    final contract = ref.watch(viewContractProvider).valueOrNull ?? [];
+    final history = ref.watch(viewHistoryProvider).valueOrNull ?? [];
 
-    // 데이터가 아직 로드되지 않았다면 기본값 반환
-    if (!contractAsync.hasValue || !historyAsync.hasValue) {
+    if (contract.isEmpty || history.isEmpty) {
       return const LaborStatsModel();
     }
 
-    final contract = contractAsync.value!;
-    final history = historyAsync.value!;
-
-    if (history.isEmpty || contract.isEmpty) {
-      return  LaborStatsModel();
-    }
-
-    // compute 결과도 기다리지 않고 기본값 반환
     return await _calculateStats(
-        CombinedDataModel(contract: contract, history: history,
-        ));
-
+      CombinedDataModel(contract: contract, history: history),
+    );
   }
 }
 
@@ -57,10 +47,8 @@ class WorkRecord extends _$WorkRecord {
      final nightValue = nightRecords.fold(0.0, (p, e) => p + e.record);
      final nightDay = nightRecords.length;
 
-     // 추가 근무
      final extraRecords = data.history.where(
-             (e) => e.record != 1.0 && e.record != 1.5 && e.record != 2.0 && e.record != 0.0
-     );
+             (e) => ![1.0, 1.5, 2.0, 0.0].contains(e.record));
 
      final extraValue = extraRecords.fold(0.0, (p, e) => p + e.record);
      final extraDay = extraRecords.length;
@@ -69,7 +57,7 @@ class WorkRecord extends _$WorkRecord {
      final offDay = data.history.where((e) => e.record == 0.0).length;
 
      // contract 관련 계산
-     final totalSubsidy = subsidyWorkDay * (data.contract.last.subsidy ?? 0);
+     final totalSubsidy = subsidyWorkDay * (data.contract.last.subsidy);
      final totalPayAnd = totalPay + totalSubsidy;
 
      // 목표 달성률 계산
@@ -88,12 +76,12 @@ class WorkRecord extends _$WorkRecord {
 
      final double afterTaxTotal =
      totalPay <= 0 ? 0.0 :
-     double.parse((totalPay * (1 - (tax ?? 0))).toStringAsFixed(1));
+     double.parse((totalPay * (1 - (tax))).toStringAsFixed(1));
 
      final int remainingAfterTax = goal - afterTaxTotal.toInt();
 
      final String remainingGoalAfterTax = (() {
-       final normalPay = data.contract.last.normal ?? 1;
+       final normalPay = data.contract.last.normal;
        return (remainingAfterTax / (normalPay * (1 - tax)))
            .toStringAsFixed(0);
      })();

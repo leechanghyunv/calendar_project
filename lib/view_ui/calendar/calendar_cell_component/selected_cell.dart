@@ -26,7 +26,6 @@ class SelectedCell extends ConsumerWidget {
       decoration: BoxDecoration(
         color:  context.isDark ? null : Colors.grey.shade600,
         border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
-        // border: Border.all(width: 1, color: context.isDark ? Colors.tealAccent : Colors.grey.shade600),
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,

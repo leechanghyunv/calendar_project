@@ -1,13 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
-import 'package:calendar_project_240727/core/dark_light/dark_light.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
-import 'chip_component/site_registration_chip.dart';
 import 'component/animated_pay_number.dart';
 import 'component/company_list_provider_text.dart';
 
@@ -60,7 +57,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
           > 450 => isFoldValue ? 37 : 40.5,
           > 420 => 40,
           > 400 => 37,
-          < 376 => 31.5,
+          < 376 => 31,
           _ => 32
         }
     );
@@ -69,7 +66,6 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        // CompactDashboard(),
         CompanyListProviderText(),
 
         Row(
@@ -86,10 +82,6 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
               '${payString}',
               style: BigTextStyle,
             ),
-
-
-            SizedBox(width: 10),
-
           ],
         ),
 

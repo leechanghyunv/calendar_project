@@ -11,6 +11,9 @@ void _showCustomToast(Widget child) {
 
   showToastWidget(
     Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width * 0.8,
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.7),

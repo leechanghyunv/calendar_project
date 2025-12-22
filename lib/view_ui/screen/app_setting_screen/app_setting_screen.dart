@@ -145,12 +145,6 @@ class AppSettingScreen extends HookConsumerWidget {
                 const SizedBox(height: 12),
 
                 SettingLanguageSwitch(),
-                // SettingItem(
-                //   title: '언어 설정',
-                //   subtitle: isKorean.value ? '한국어 사용' : 'English',
-                //   value: isKorean.value,
-                //   onChanged: (val) => isKorean.value = val,
-                // ),
                 const SizedBox(height: 4),
                 SettingItem(
                   title: '캘린더 설정',

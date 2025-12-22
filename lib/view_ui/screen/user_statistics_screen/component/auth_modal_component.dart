@@ -24,7 +24,7 @@ void showBasicModal(BuildContext context) {
     ),
     builder: (context) {
       final screenHeight = MediaQuery.of(context).size.height;
-      final modalHeight = Platform.isAndroid ? screenHeight * 0.625 : screenHeight * 0.725;
+      final modalHeight = screenHeight * 0.825;
       return Container(
         height: modalHeight,
         decoration: BoxDecoration(

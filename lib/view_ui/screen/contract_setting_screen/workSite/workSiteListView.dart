@@ -60,10 +60,11 @@ class WorkSiteListView extends HookConsumerWidget {
       height: 30,
       child: switch (sitesAsync){
         AsyncData(:final value) when value.isEmpty => Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextWidget(
-              ' 작업현장,업체 등록 가능',
-              14,
+              ' 업체 등록 가능',
+              15,
               context.width,
               color: context.subTextColor,
             ),

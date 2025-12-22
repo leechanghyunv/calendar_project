@@ -4,17 +4,18 @@ class AuthDefaultScreen extends StatelessWidget {
   final ScrollController scrollController;
   final GlobalKey<FormBuilderState> authKey;
   final Widget widget;
+  final Widget floatingActionButton;
   const AuthDefaultScreen(
       {super.key,
       required this.scrollController,
       required this.widget,
-      required this.authKey});
+      required this.authKey,
+        required this.floatingActionButton});
 
 @override
 Widget build(BuildContext context) {
   return Scaffold(
     resizeToAvoidBottomInset: true,
-
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     body: Center(
       child: Scrollbar(
@@ -48,6 +49,8 @@ Widget build(BuildContext context) {
 
       ),
     ),
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    floatingActionButton: floatingActionButton,
   );
 }
 }

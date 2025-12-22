@@ -26,14 +26,19 @@ Future<Database> initWorkHistory(ref) async {
         colorCode TEXT NOT NULL DEFAULT '2196F3',
         memo TEXT NOT NULL DEFAULT '',
         comment TEXT NOT NULL DEFAULT '정상근무',
-        workSite TEXT NOT NULL DEFAULT '',
+        workSite TEXT NOT NULL DEFAULT ''
+        
         
       )
     ''');
       },
+
+    /// subsidy INTEGER NOT NULL DEFAULT 0
+
     onUpgrade: (Database db, int oldVersion, int newVersion) async {
       if (oldVersion < 2) {
         await db.execute('ALTER TABLE workhistory ADD COLUMN workSite TEXT NOT NULL DEFAULT ""');
+        // await db.execute('ALTER TABLE workhistory ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
 
       }
     },
@@ -211,7 +216,8 @@ class HistoryDatabase {
                 colorCode: history.colorCode,
                 comment: history.comment,
                 memo: history.memo,
-                workSite: history.workSite
+                workSite: history.workSite,
+                // subsidy: history.subsidy,
             );
             await txn.insert('workhistory', dayHistory.toMap());
           }
@@ -302,6 +308,7 @@ class HistoryDatabase {
           comment: history.comment,
           memo: history.memo,
           workSite: history.workSite,
+          // subsidy: history.subsidy,
         );
         filteredData[dateKey]!.add(newHistory);
       }
@@ -343,7 +350,8 @@ class HistoryDatabase {
           colorCode: history.colorCode,
           comment: history.comment,
           memo: history.memo,
-          workSite: history.workSite
+          workSite: history.workSite,
+          // subsidy: history.subsidy,
         );
         filteredData[dateKey]!.add(newHistory);
       }

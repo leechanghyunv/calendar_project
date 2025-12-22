@@ -23,6 +23,7 @@ class WorksiteTextField extends StatelessWidget {
       ),
       cursorColor: Colors.grey.shade700,
       decoration: InputDecoration(
+        hintText: '여기에 입력해주세요',
         hintStyle: TextStyle(
           color: Colors.grey.shade500,
           fontWeight: FontWeight.bold,
@@ -30,7 +31,7 @@ class WorksiteTextField extends StatelessWidget {
         ),
         isDense: true,
         errorBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
+        // focusedBorder: InputBorder.none,
         focusedErrorBorder: InputBorder.none,
         border: InputBorder.none,
         enabledBorder: InputBorder.none,

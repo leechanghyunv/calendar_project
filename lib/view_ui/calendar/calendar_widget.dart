@@ -9,7 +9,7 @@ import '../screen/calendar_screen/provider/marker_event_provider.dart';
 import '../screen/calendar_screen/provider/today_info_provider.dart';
 import '../screen/user_statistics_screen/component/auth_modal_component.dart';
 import 'calendar_cell_component//default_cell.dart';
-import 'calendar_cell_component/additional_cell.dart';
+import 'calendar_cell_component/additional/additional_cell.dart';
 import 'calendar_cell_component/holiday_cell.dart';
 import 'calendar_cell_component/marker_cell.dart';
 import 'calendar_cell_component/outside_cell.dart';

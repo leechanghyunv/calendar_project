@@ -25,7 +25,7 @@ final workHistoryManagerProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef WorkHistoryManagerRef = AutoDisposeFutureProviderRef<HistoryDatabase>;
-String _$initWorkHistoryHash() => r'7555079c0e2c2d2b555309c70740bb6adda9712e';
+String _$initWorkHistoryHash() => r'2094c2d2a50dfacfd92bba14868689f5a2bb3936';
 
 /// See also [initWorkHistory].
 @ProviderFor(initWorkHistory)

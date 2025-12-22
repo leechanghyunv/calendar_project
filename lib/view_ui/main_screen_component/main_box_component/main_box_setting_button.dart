@@ -1,9 +1,6 @@
-import 'dart:io';
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../core/export_package.dart';
@@ -82,64 +79,44 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
               color: Colors.grey.shade800,
               width: borderWidth,
           ),
+
         ),
-        child: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Platform.isAndroid ? SvgPicture.asset(
-                'assets/settings.svg',
-                width: switch (appWidth) {
-                  > 450 => 13,
-                  > 420 => 12,
-                  > 400 => 11.5,
-                  _ => 11,
-                },
-                colorFilter: ColorFilter.mode(
-                  context.textColor,
-                  BlendMode.srcIn,
+
+        child: Padding(
+          padding: const EdgeInsets.all(1.0),
+          child: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+            SvgPicture.asset(
+            context.isDark ? 'assets/settings.svg' : 'assets/Setting.svg',
+              width: switch (appWidth) {
+                > 450 => 12.5,
+                > 420 => 12,
+                > 400 => 11.5,
+                _ => 11,
+              },
+              colorFilter: context.isDark ? ColorFilter.mode(
+                context.textColor,
+                BlendMode.srcIn,
+              ) : null,
+            ),
+                Text('️ 등록',
+                  textScaler: TextScaler.noScaling,
+                  style: TextStyle(
+                    color: context.textColor,
+                    fontSize: switch (appWidth) {
+                      > 450 => 12,
+                      > 420 => 11.5,
+                      > 400 => 11,
+                      _ => 10.5,
+                    },
+                    fontWeight: Platform.isAndroid ? FontWeight.w800 :  FontWeight.w900,
+                  ),
                 ),
-                clipBehavior: Clip.antiAlias,
-              ) : context.isDark ? SvgPicture.asset(
-                'assets/settings.svg',
-                width: switch (appWidth) {
-                  > 450 => 13.5,
-                  > 420 => 12.5,
-                  > 400 => 12,
-                  _ => 11.5,
-                },
-                colorFilter: ColorFilter.mode(
-                  context.textColor,
-                  BlendMode.srcIn,
-                ),
-                clipBehavior: Clip.antiAlias,
-              ) : SizedBox.shrink(),
-              Text(Platform.isAndroid ? '️ 등록' : context.isDark ?  '️ 등록' : '️⚙️등록',
-                textScaler: TextScaler.noScaling,
-                style: TextStyle(
-                  color: context.textColor,
-                  fontSize: Platform.isAndroid
-                      ? switch (appWidth) {
-                    > 450 => 13.5,
-                    > 420 => 11.5,
-                    > 400 => 11,
-                    _ => 11,
-                  } : context.isDark ? switch (appWidth) {
-                    > 450 => 13.5,
-                    > 420 => 11.5,
-                    > 400 => 11,
-                    _ => 10.5,
-                  } :
-                  switch (appWidth) {
-                    > 450 => 14,
-                    > 420 => 12,
-                    > 400 => 11.5,
-                    _ => 11,
-                  },
-                  fontWeight: Platform.isAndroid ? FontWeight.w700 :  FontWeight.w900,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

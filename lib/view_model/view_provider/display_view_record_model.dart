@@ -23,18 +23,18 @@ extension DisplayViewRecordModelExt on DisplayViewRecordModel {
 
   List<Map<String, dynamic>> chipList(BuildContext context) => [
     {
-      'value': Platform.isAndroid ? '$normal' : context.isDark ? '$normal' : '🚀$normal',
-      'icon': 'rocket',
+      'value': '$normal',
+      'icon': context.isDark ? 'rocket' : 'Rocket_new',
       'color': context.textColor, // 🎯 context 사용
     },
     {
-      'value': Platform.isAndroid ? '$extended' : context.isDark ? '$extended' : '🔥$extended',
-      'icon': 'cuboid',
+      'value': '$extended',
+      'icon': context.isDark ? 'cuboid' : 'Fire',
       'color': context.textColor,
     },
     {
-      'value': Platform.isAndroid ? '$night' : context.isDark ? '$night' : '🎉$night',
-      'icon': 'zap',
+      'value': '$night',
+      'icon': context.isDark ? 'zap' : 'Party',
       'color': context.textColor,
     },
   ];

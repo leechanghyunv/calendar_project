@@ -50,7 +50,7 @@ class MarkerCell extends ConsumerWidget {
         : (appWidth <= 370 ? isFoldValue ? 41.25.w : 35.w /// 갤럭시 폴드에서 40.w, 37.5가 적당함
 
         : appWidth > 500 ? isFoldValue ? 18.5.w : 25.w /// 원래값 47.5 갤럭시 폴드에서 32, 18.5.w가 적당함
-        : Platform.isAndroid ? 37.5.w : 35.w); /// 값이 클수록 밑으로
+        : Platform.isAndroid ? 37.w : 35.w); /// 값이 클수록 밑으로
           /// 안드 테스트폰으론 38.w 가 적당한 384
 
 

@@ -77,9 +77,7 @@ class ChipList extends HookConsumerWidget {
                   } else {
                     final workTypes = ['정상근무', '연장근무', '야간근무'];
                     final conditionValues = [condition.normal, condition.extend, condition.night];
-
                     enrollMsg(ref.selected, workTypes[index]);
-
                     ref.read(addHistoryProvider(conditionValues[index], ref.selected));
 
                   }
@@ -119,8 +117,6 @@ class ChipList extends HookConsumerWidget {
       {bool isSelected = false,
       }) {
 
-   final isLight = Theme.of(context).brightness == Brightness.light;
-
     return Container(
       height: switch (context.width) {
         > 450 => 26,
@@ -130,11 +126,11 @@ class ChipList extends HookConsumerWidget {
       },
 
       decoration: BoxDecoration(
-        color: isLight ? Colors.grey.shade200 : Colors.black54, // 드래그 중 색상 변경
+        color: context.isLight ? Colors.grey.shade200 : Colors.black54, // 드래그 중 색상 변경
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(isLight ? 0.2 : 0.1),
+            color: Colors.grey.withOpacity(context.isLight ? 0.2 : 0.1),
             spreadRadius: 1.5,
             blurRadius: 4,
             offset: const Offset(0, 2),
@@ -151,51 +147,32 @@ class ChipList extends HookConsumerWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Platform.isAndroid ? SvgPicture.asset(
+              /// svg는 안드로이드에서 0,5작고, text는 0,5크다
+              SizedBox(width: 3),
+              SvgPicture.asset(
                 'assets/${chipData['icon']!}.svg',
                 width: switch (context.width) {
-                  > 450 => 13,
-                  > 420 => 12,
-                  > 400 => 11.5,
-                  _ => 11,
+                  > 450 => Platform.isAndroid ? 13 : 13.5,
+                  > 420 => Platform.isAndroid ? 12 : 12.5,
+                  > 400 => Platform.isAndroid ? 11.5 : 12,
+                  _ => Platform.isAndroid ? 11.0 : 11.5,
                 },
-                colorFilter: ColorFilter.mode(
+                colorFilter: context.isDark ? ColorFilter.mode(
                   chipData['color'],
                   BlendMode.srcIn,
-                ),
-                clipBehavior: Clip.antiAlias,
-
-              ) :  context.isDark ? SvgPicture.asset(
-                'assets/${chipData['icon']!}.svg',
-                width: switch (context.width) {
-                  > 450 => 13.5,
-                  > 420 => 12.5,
-                  > 400 => 12,
-                  _ => 11.5,
-                },
-                colorFilter: ColorFilter.mode(
-                  chipData['color'],
-                  BlendMode.srcIn,
-                ),
-                clipBehavior: Clip.antiAlias,
-
-              ) : SizedBox.shrink(),
+                ) : null,
+              ) ,
 
               Text(
                 textScaler: TextScaler.noScaling,
                 ' ${chipData['value']!} ',
                 style:  TextStyle(
-                  fontSize: Platform.isAndroid
-                      ? switch (context.width) {
-                    > 450 => 15,
-                    > 420 => 13,
-                    > 400 => 12.5,
-                    _ => 12,
-                  } : switch (context.width) {
-                    > 450 => 14.5,
-                    > 420 => 12.5,
-                    > 400 => 12,
-                    _ => 11.5,
+                  color: context.textColor,
+                  fontSize: switch (context.width) {
+                    > 450 => Platform.isAndroid ? 14.0 : 14.5,
+                    > 420 => Platform.isAndroid ? 13.0 : 12.5,
+                    > 400 => Platform.isAndroid ? 12.5 : 12,
+                    _ => Platform.isAndroid ? 12.0 : 11.5,
                   },
                     fontWeight: FontWeight.w800,
                 ),

@@ -7,7 +7,7 @@ part of 'selected_companise_model.dart';
 // **************************************************************************
 
 String _$selectedCompaniesModelHash() =>
-    r'231b65b19742384cdeeb8368c1051739c0a0aa3f';
+    r'dcdb5c330bc5dc50367b77778a8be40067f90a02';
 
 /// See also [SelectedCompaniesModel].
 @ProviderFor(SelectedCompaniesModel)
