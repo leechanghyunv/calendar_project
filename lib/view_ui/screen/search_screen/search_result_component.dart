@@ -86,7 +86,7 @@ class _HistoryCard extends StatelessWidget {
 
     return Container(
       margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(vertical: 14,horizontal: 16),
       decoration: BoxDecoration(
         color: context.boxColor,
         borderRadius: BorderRadius.circular(12),

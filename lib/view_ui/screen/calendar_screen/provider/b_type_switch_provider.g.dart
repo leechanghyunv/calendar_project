@@ -13,14 +13,14 @@ String _$bTypeSwitchProviderHash() =>
 @ProviderFor(BTypeSwitchProvider)
 final bTypeSwitchProviderProvider =
     AutoDisposeAsyncNotifierProvider<BTypeSwitchProvider, bool>.internal(
-  BTypeSwitchProvider.new,
-  name: r'bTypeSwitchProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$bTypeSwitchProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      BTypeSwitchProvider.new,
+      name: r'bTypeSwitchProviderProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$bTypeSwitchProviderHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$BTypeSwitchProvider = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint

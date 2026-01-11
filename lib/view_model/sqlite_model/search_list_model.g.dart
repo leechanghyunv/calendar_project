@@ -11,16 +11,19 @@ String _$searchHistoryNotifierHash() =>
 
 /// See also [SearchHistoryNotifier].
 @ProviderFor(SearchHistoryNotifier)
-final searchHistoryNotifierProvider = AutoDisposeAsyncNotifierProvider<
-    SearchHistoryNotifier, List<String>>.internal(
-  SearchHistoryNotifier.new,
-  name: r'searchHistoryNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$searchHistoryNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final searchHistoryNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<
+      SearchHistoryNotifier,
+      List<String>
+    >.internal(
+      SearchHistoryNotifier.new,
+      name: r'searchHistoryNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$searchHistoryNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SearchHistoryNotifier = AutoDisposeAsyncNotifier<List<String>>;
 // ignore_for_file: type=lint

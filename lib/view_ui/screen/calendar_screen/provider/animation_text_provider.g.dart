@@ -13,14 +13,14 @@ String _$animationTextProviderHash() =>
 @ProviderFor(AnimationTextProvider)
 final animationTextProviderProvider =
     NotifierProvider<AnimationTextProvider, bool>.internal(
-  AnimationTextProvider.new,
-  name: r'animationTextProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$animationTextProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AnimationTextProvider.new,
+      name: r'animationTextProviderProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$animationTextProviderHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AnimationTextProvider = Notifier<bool>;
 // ignore_for_file: type=lint

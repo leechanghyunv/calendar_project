@@ -12,14 +12,14 @@ String _$lightDarkModeHash() => r'092f052d5fd58354f129528e9c47268361af9d8b';
 @ProviderFor(LightDarkMode)
 final lightDarkModeProvider =
     AutoDisposeNotifierProvider<LightDarkMode, ThemeMode>.internal(
-  LightDarkMode.new,
-  name: r'lightDarkModeProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$lightDarkModeHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      LightDarkMode.new,
+      name: r'lightDarkModeProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$lightDarkModeHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$LightDarkMode = AutoDisposeNotifier<ThemeMode>;
 // ignore_for_file: type=lint

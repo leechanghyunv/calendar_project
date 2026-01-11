@@ -25,14 +25,7 @@ class NumberCounter extends StatelessWidget {
           textScaler: TextScaler.noScaling,
           '${value.toStringAsFixed(1)}공수', // 정수 형태
           style: TextStyle(
-              letterSpacing: Platform.isAndroid ? 1.5 : null,
-              shadows: Platform.isAndroid ? [
-                Shadow(
-                  blurRadius: 0.25,
-                  color: Colors.grey,
-                  offset: Offset(0.25, 0.25),
-                ),
-              ] : null,
+
               height: textHeight,
               fontSize: appWidth > 400 ? 30 : (appWidth < 376 ? 26 : 28),
               fontWeight: FontWeight.w800),

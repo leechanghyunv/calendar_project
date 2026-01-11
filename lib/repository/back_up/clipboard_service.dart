@@ -1,7 +1,5 @@
 
 import 'package:share_plus/share_plus.dart';
-import 'package:super_clipboard/super_clipboard.dart';
-
 import '../repository_import.dart';
 import 'archive_zlib_base64.dart';
 
@@ -26,7 +24,6 @@ class BackUpClipboardService extends _$BackUpClipboardService {
       if(histories.isEmpty){
         customMsg('공수 기록이 없습니다.');
       } else {
-        copyJsonToClipboard(output);
         customMsg('클립보드에 복사되었습니다.');
         SharePlus.instance.share(
             ShareParams(text: output)
@@ -38,17 +35,4 @@ class BackUpClipboardService extends _$BackUpClipboardService {
         loading: () => customMsg('loading....'));
   }
 
-}
-
-Future<void> copyJsonToClipboard(String jsonString) async {
-
-  try {
-    final item = DataWriterItem();
-    item.add(Formats.plainText(jsonString));
-    await SystemClipboard.instance?.write([item]);
-
-  } catch (e) {
-    print('클립보드 복사 실패: $e');
-    rethrow;
-  }
 }

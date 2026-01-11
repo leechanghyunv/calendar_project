@@ -34,10 +34,7 @@ abstract class _$RangeSource
   late final DateTime start;
   late final DateTime end;
 
-  FutureOr<CombinedDataModel> build(
-    DateTime start,
-    DateTime end,
-  );
+  FutureOr<CombinedDataModel> build(DateTime start, DateTime end);
 }
 
 /// See also [RangeSource].
@@ -50,24 +47,15 @@ class RangeSourceFamily extends Family<AsyncValue<CombinedDataModel>> {
   const RangeSourceFamily();
 
   /// See also [RangeSource].
-  RangeSourceProvider call(
-    DateTime start,
-    DateTime end,
-  ) {
-    return RangeSourceProvider(
-      start,
-      end,
-    );
+  RangeSourceProvider call(DateTime start, DateTime end) {
+    return RangeSourceProvider(start, end);
   }
 
   @override
   RangeSourceProvider getProviderOverride(
     covariant RangeSourceProvider provider,
   ) {
-    return call(
-      provider.start,
-      provider.end,
-    );
+    return call(provider.start, provider.end);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -86,28 +74,25 @@ class RangeSourceFamily extends Family<AsyncValue<CombinedDataModel>> {
 }
 
 /// See also [RangeSource].
-class RangeSourceProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    RangeSource, CombinedDataModel> {
+class RangeSourceProvider
+    extends
+        AutoDisposeAsyncNotifierProviderImpl<RangeSource, CombinedDataModel> {
   /// See also [RangeSource].
-  RangeSourceProvider(
-    DateTime start,
-    DateTime end,
-  ) : this._internal(
-          () => RangeSource()
-            ..start = start
-            ..end = end,
-          from: rangeSourceProvider,
-          name: r'rangeSourceProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$rangeSourceHash,
-          dependencies: RangeSourceFamily._dependencies,
-          allTransitiveDependencies:
-              RangeSourceFamily._allTransitiveDependencies,
-          start: start,
-          end: end,
-        );
+  RangeSourceProvider(DateTime start, DateTime end)
+    : this._internal(
+        () => RangeSource()
+          ..start = start
+          ..end = end,
+        from: rangeSourceProvider,
+        name: r'rangeSourceProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$rangeSourceHash,
+        dependencies: RangeSourceFamily._dependencies,
+        allTransitiveDependencies: RangeSourceFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+      );
 
   RangeSourceProvider._internal(
     super._createNotifier, {
@@ -124,13 +109,8 @@ class RangeSourceProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final DateTime end;
 
   @override
-  FutureOr<CombinedDataModel> runNotifierBuild(
-    covariant RangeSource notifier,
-  ) {
-    return notifier.build(
-      start,
-      end,
-    );
+  FutureOr<CombinedDataModel> runNotifierBuild(covariant RangeSource notifier) {
+    return notifier.build(start, end);
   }
 
   @override
@@ -154,7 +134,7 @@ class RangeSourceProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   AutoDisposeAsyncNotifierProviderElement<RangeSource, CombinedDataModel>
-      createElement() {
+  createElement() {
     return _RangeSourceProviderElement(this);
   }
 
@@ -186,8 +166,9 @@ mixin RangeSourceRef on AutoDisposeAsyncNotifierProviderRef<CombinedDataModel> {
 }
 
 class _RangeSourceProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<RangeSource,
-        CombinedDataModel> with RangeSourceRef {
+    extends
+        AutoDisposeAsyncNotifierProviderElement<RangeSource, CombinedDataModel>
+    with RangeSourceRef {
   _RangeSourceProviderElement(super.provider);
 
   @override
@@ -195,5 +176,6 @@ class _RangeSourceProviderElement
   @override
   DateTime get end => (origin as RangeSourceProvider).end;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

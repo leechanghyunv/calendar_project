@@ -12,14 +12,14 @@ String _$versionManagerHash() => r'1a6609d12d2686eb18900b4ac13a77ed7ff30017';
 @ProviderFor(VersionManager)
 final versionManagerProvider =
     AutoDisposeAsyncNotifierProvider<VersionManager, String?>.internal(
-  VersionManager.new,
-  name: r'versionManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$versionManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      VersionManager.new,
+      name: r'versionManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$versionManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$VersionManager = AutoDisposeAsyncNotifier<String?>;
 // ignore_for_file: type=lint

@@ -12,14 +12,14 @@ String _$additionalPayHash() => r'efedcf784496db4f0fbb2ca2710d5bf76b4b1d73';
 @ProviderFor(AdditionalPay)
 final additionalPayProvider =
     AutoDisposeNotifierProvider<AdditionalPay, bool>.internal(
-  AdditionalPay.new,
-  name: r'additionalPayProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$additionalPayHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AdditionalPay.new,
+      name: r'additionalPayProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$additionalPayHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AdditionalPay = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint

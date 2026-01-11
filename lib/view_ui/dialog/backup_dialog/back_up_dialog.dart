@@ -126,6 +126,7 @@ class BackUpDialog extends HookConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                   ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
+                  // customMsg('버전충돌문제로 잠시 서비스 지원을 중단합니다');
                   },
                 child: ButtonTextWidget('공수기록 백업',14, color: context.textColor)
             ),

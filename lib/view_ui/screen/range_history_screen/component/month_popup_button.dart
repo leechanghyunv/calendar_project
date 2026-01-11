@@ -22,10 +22,10 @@ class _MonthPopupButtonState extends State<MonthPopupButton> {
     return PopupMenuButton<int>(
       color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(10),
         side: BorderSide(color: Colors.grey.shade200),
       ),
-      offset: const Offset(0,  200),
+      offset: const Offset(0,  40),
       initialValue: 1,
         onSelected: widget.onSelected,
         itemBuilder: (context) => [
@@ -36,11 +36,14 @@ class _MonthPopupButtonState extends State<MonthPopupButton> {
           PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth,color: context.textColor)),
         ],
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: context.boxColor,
-          border: context.isLight ? null : Border.all(width: 0.35,color: Colors.white),
-          borderRadius: BorderRadius.circular(12.5),
+          border: context.isLight
+              ? Border.all(width: 0.75,color: Colors.black)
+              : Border.all(width: 0.75,color: Colors.white),
+          borderRadius: BorderRadius.circular(8.5),
           boxShadow: [
             BoxShadow(
               color: Colors.black12,
@@ -49,13 +52,16 @@ class _MonthPopupButtonState extends State<MonthPopupButton> {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextWidget('기간 선택', 15, appWidth, color: context.textColor),
-            SizedBox(width: 5),
-            Icon(Icons.arrow_drop_down, size: 20),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextWidget('기간 선택', 14, appWidth, color: context.textColor),
+              SizedBox(width: 5),
+              Icon(Icons.arrow_drop_down, size: 20),
+            ],
+          ),
         ),
       ),
     );

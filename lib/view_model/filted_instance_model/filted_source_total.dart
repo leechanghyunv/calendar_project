@@ -1,4 +1,6 @@
 
+import 'package:dartx/dartx.dart';
+
 import '../../core/utils/converter.dart';
 import '../../model/combined_data_model.dart';
 import '../../repository/repository_import.dart';
@@ -25,36 +27,36 @@ class WorkRecord extends _$WorkRecord {
 
    LaborStatsModel _calculateStats(CombinedDataModel data){
 
-     final subsidyWorkDay = data.history.where((e) => e.record >= 1.0).length;
-     final workDay = data.history.where((e) => e.record != 0.0).length;
+     final subsidyWorkDay = data.history.count((e) => e.record >= 1.0);
+     final workDay = data.history.count((e) => e.record != 0.0);
 
-     final totalPay = data.history.fold(0, (p, e) => p + e.pay);
+     final totalPay = data.history.sumBy((e) => e.pay);
 
-     final workRecord = data.history.fold(0.0, (p, e) => p + e.record);
+     final workRecord = data.history.sumBy( ( e) => e.record);
 
      // 정상 근무
      final normalRecords = data.history.where((e) => e.record == 1.0);
-     final normalValue = normalRecords.fold(0.0, (p, e) => p + e.record);
+     final normalValue = normalRecords.sumBy( (e) => e.record);
      final normalDay = normalRecords.length;
 
      // 연장 근무
      final extendRecords = data.history.where((e) => e.record == 1.5);
-     final extendValue = extendRecords.fold(0.0, (p, e) => p + e.record);
+     final extendValue = extendRecords.sumBy( (e) => e.record);
      final extendDay = extendRecords.length;
 
      // 야간 근무
      final nightRecords = data.history.where((e) => e.record == 2.0);
-     final nightValue = nightRecords.fold(0.0, (p, e) => p + e.record);
+     final nightValue = nightRecords.sumBy(( e) => e.record);
      final nightDay = nightRecords.length;
 
      final extraRecords = data.history.where(
              (e) => ![1.0, 1.5, 2.0, 0.0].contains(e.record));
 
-     final extraValue = extraRecords.fold(0.0, (p, e) => p + e.record);
+     final extraValue = extraRecords.sumBy( (e) => e.record);
      final extraDay = extraRecords.length;
 
      // 휴무일
-     final offDay = data.history.where((e) => e.record == 0.0).length;
+     final offDay = data.history.count((e) => e.record == 0.0);
 
      // contract 관련 계산
      final totalSubsidy = subsidyWorkDay * (data.contract.last.subsidy);

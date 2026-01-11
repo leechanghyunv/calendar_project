@@ -13,8 +13,9 @@ String _$viewTypeHash() => r'b33ee4dd6630d453e9c8529fc3c191a35edd5887';
 final viewTypeProvider = AutoDisposeFutureProvider<ViewTypeController>.internal(
   viewType,
   name: r'viewTypeProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$viewTypeHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$viewTypeHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

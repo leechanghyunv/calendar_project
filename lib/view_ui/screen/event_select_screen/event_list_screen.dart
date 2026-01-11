@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/view_ui/screen/event_select_screen/provider/event_screen_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../widgets/elevated_button.dart';
@@ -48,12 +49,7 @@ class EventListScreen extends HookConsumerWidget {
                 flex: 1,
                 child: LeftElevatedButton(
                   text: '전체 삭제',
-                  onPressed: (){
-                    showDialog(
-                      context: context,
-                      builder: (context) => EventDeleteDialog(),
-                    );
-                  }
+                  onPressed: () => context.dialog(EventDeleteDialog()),
                 ),
               ),
               SizedBox(width: 10),

@@ -25,7 +25,7 @@ abstract class WorkHistory with _$WorkHistory {
     @Default('정상근무') String comment,
     @Default('') String memo,
     @Default('') String workSite,
-    // @Default(0) int subsidy,
+    @Default(0) int subsidy,
   }) = _WorkHistory;
 
   factory WorkHistory.fromJson(Map<String, dynamic> json) =>
@@ -42,7 +42,7 @@ abstract class WorkHistory with _$WorkHistory {
     'memo': memo,
     'comment': comment,
     'workSite': workSite,
-    // 'subsidy': subsidy,
+    'subsidy': subsidy,
 
   };
 
@@ -56,7 +56,7 @@ abstract class WorkHistory with _$WorkHistory {
       memo: map['memo'] as String,
       comment: map['comment'] as String,
       workSite: map['workSite'] as String,
-      // subsidy: map['subsidy'] as int,
+      subsidy: map['subsidy'] as int,
 
 
     );

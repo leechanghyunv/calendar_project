@@ -13,14 +13,12 @@ String formatDateInfoBoxMonth(DateTime date) {
   return '${month}월';
 }
 
-
 class CommaInputFormatter6Digits extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(TextEditingValue oldValue, TextEditingValue newValue) {
     final digitsOnly = newValue.text.replaceAll(RegExp(r'\D'), '');
 
     if (digitsOnly.length > 6) return oldValue;
-
     // 빈 문자열 처리
     if (digitsOnly.isEmpty) {
       return newValue.copyWith(

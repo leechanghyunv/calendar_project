@@ -12,14 +12,14 @@ String _$payStatsNotifierHash() => r'd946e696a444752674798fb9d44fd4dd87ee65b3';
 @ProviderFor(PayStatsNotifier)
 final payStatsNotifierProvider =
     AutoDisposeAsyncNotifierProvider<PayStatsNotifier, PayStatistics>.internal(
-  PayStatsNotifier.new,
-  name: r'payStatsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$payStatsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      PayStatsNotifier.new,
+      name: r'payStatsNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$payStatsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$PayStatsNotifier = AutoDisposeAsyncNotifier<PayStatistics>;
 String _$siteRatioNotifierHash() => r'0e2a4869d477c4bed46c4298994cbf339a36e6cf';
@@ -28,14 +28,14 @@ String _$siteRatioNotifierHash() => r'0e2a4869d477c4bed46c4298994cbf339a36e6cf';
 @ProviderFor(SiteRatioNotifier)
 final siteRatioNotifierProvider =
     AutoDisposeAsyncNotifierProvider<SiteRatioNotifier, SiteRatio>.internal(
-  SiteRatioNotifier.new,
-  name: r'siteRatioNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$siteRatioNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SiteRatioNotifier.new,
+      name: r'siteRatioNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$siteRatioNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SiteRatioNotifier = AutoDisposeAsyncNotifier<SiteRatio>;
 String _$jobRatioNotifierHash() => r'fd981b9b6c1aaa8d467a2e5b8084aa55170e64ee';
@@ -44,14 +44,14 @@ String _$jobRatioNotifierHash() => r'fd981b9b6c1aaa8d467a2e5b8084aa55170e64ee';
 @ProviderFor(JobRatioNotifier)
 final jobRatioNotifierProvider =
     AutoDisposeAsyncNotifierProvider<JobRatioNotifier, JobRatio>.internal(
-  JobRatioNotifier.new,
-  name: r'jobRatioNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$jobRatioNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      JobRatioNotifier.new,
+      name: r'jobRatioNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$jobRatioNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$JobRatioNotifier = AutoDisposeAsyncNotifier<JobRatio>;
 String _$electricJobStatsNotifierHash() =>
@@ -59,16 +59,19 @@ String _$electricJobStatsNotifierHash() =>
 
 /// See also [ElectricJobStatsNotifier].
 @ProviderFor(ElectricJobStatsNotifier)
-final electricJobStatsNotifierProvider = AutoDisposeAsyncNotifierProvider<
-    ElectricJobStatsNotifier, ElectricJobStats>.internal(
-  ElectricJobStatsNotifier.new,
-  name: r'electricJobStatsNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$electricJobStatsNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final electricJobStatsNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<
+      ElectricJobStatsNotifier,
+      ElectricJobStats
+    >.internal(
+      ElectricJobStatsNotifier.new,
+      name: r'electricJobStatsNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$electricJobStatsNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ElectricJobStatsNotifier = AutoDisposeAsyncNotifier<ElectricJobStats>;
 // ignore_for_file: type=lint

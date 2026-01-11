@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../../../core/export_package.dart';
@@ -27,7 +28,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
         Expanded(
           child: Center(
             child: SizedBox(
-              height: height > 750 ? (width > 400 ? 27 : 25) : 24,
+              height: height > 750 ? (width > 400 ? 30 : 25) : 24,
               child: ListView.builder(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
@@ -58,13 +59,12 @@ class StatisticsFilterChip extends HookConsumerWidget {
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeInOut,
                         );
-                        // _scrollToSelected(index, width);
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
                         height: height > 750 ? (width > 400 ? 27 : 25) : 24,
                         padding: EdgeInsets.symmetric(
-                          horizontal: width > 450 ? 14 : (width > 375 ? 8 : 6),
+                          horizontal: width > 450 ? 12 : (width > 375 ? 8 : 6),
                             vertical: 4,
                         ),
                         decoration: BoxDecoration(
@@ -78,20 +78,9 @@ class StatisticsFilterChip extends HookConsumerWidget {
                           ),
                           boxShadow: context.defaultShadow,
                         ),
-                        child: Text(
-                          option == '전체' ? '@${option}' : '#$option',
-                          textScaler: TextScaler.noScaling,
-                          style: TextStyle(
-                            height: textHeight,
-                            letterSpacing: null,
-                            fontSize: height > 750
-                                ? (width > 400 ? 14 : width < 370 ? 11.5 : 12.5)
-                                : 11.5,
-                            fontWeight: FontWeight.bold,
-                            color: option == '전체' ? context.idChipTextColor :
-                            isSelected ? context.textColor : context.chipTextColor,
-                          ),
-                        ),
+                        child: TextWidget(option == '전체' ? '@${option}' : '#$option', 12.75,
+                            context.width, color: option == '전체' ? context.idChipTextColor : isSelected ? context.textColor : context.chipTextColor,),
+
                       ),
                     ),
                   );

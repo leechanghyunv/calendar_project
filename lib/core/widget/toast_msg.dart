@@ -1,6 +1,5 @@
 
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-
 import '../export_package.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -60,6 +59,24 @@ void enrollMsg(DateTime day, String value) {
       '${day.month}월 ${day.day}일 $value',
       textScaler: TextScaler.noScaling,
       style: _defaultToastTextStyle,
+    ),
+  );
+}
+
+void enrollMsg2(DateTime day, String value) {
+
+  _showCustomToast(
+    Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '${day.day}일 $value(일비포함)',
+          textScaler: TextScaler.noScaling,
+          style: _defaultToastTextStyle,
+        ),
+
+      ],
     ),
   );
 }

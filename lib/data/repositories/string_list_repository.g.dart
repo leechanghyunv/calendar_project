@@ -13,19 +13,19 @@ String _$stringListRepositoryHash() =>
 @ProviderFor(stringListRepository)
 final stringListRepositoryProvider =
     AutoDisposeFutureProvider<StringListRepository>.internal(
-  stringListRepository,
-  name: r'stringListRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stringListRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      stringListRepository,
+      name: r'stringListRepositoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stringListRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef StringListRepositoryRef
-    = AutoDisposeFutureProviderRef<StringListRepository>;
+typedef StringListRepositoryRef =
+    AutoDisposeFutureProviderRef<StringListRepository>;
 String _$initStringListHash() => r'e77829ca5c4214d324ca132d864b6f515e5dc523';
 
 /// See also [initStringList].

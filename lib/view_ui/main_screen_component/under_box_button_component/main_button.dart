@@ -88,7 +88,12 @@ class MainButton extends HookConsumerWidget {
                         ),
                         avatar: Icon(
                           options[index]['icon'],
-                          size: appWidth > 450 ? 20 :  appWidth < 376 ? 17 :  18,
+                          size: switch (appWidth) {
+                            >= 450 => 22,
+                            >= 400 => 20,
+                            < 376 => 17,
+                            _ => 18,
+                          },
                           color: selectedIndex == index
                               ? context.isDark ? Colors.grey.shade200 : Colors.grey.shade700
                               : context.isDark ? Colors.grey.shade200 : Colors.grey.shade700,
@@ -97,7 +102,12 @@ class MainButton extends HookConsumerWidget {
                           options[index]['label'],
                           textScaler: TextScaler.noScaling,
                           style: TextStyle(
-                            fontSize: appWidth > 450 ? 16 : appWidth < 376 ? 13 : 14,
+                            fontSize: switch (appWidth) {
+                              >= 450 => 17,
+                              >= 400 => 15.5,
+                              < 376 => 13,
+                              _ => 14,
+                            },
                             letterSpacing: appWidth > 450 ? 1.0 : null,
                             fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
                             color: selectedIndex == index

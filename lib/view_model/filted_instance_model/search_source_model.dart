@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/repository/time/calculate_ranged_day.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
+import 'package:dartx/dartx.dart';
 
 import '../../model/combined_data_model.dart';
 import '../../model/statistics/search_history_model.dart';
@@ -43,9 +44,9 @@ SearchHistoryModel _SearchModelState(
 
   final filteredHistory = _filterHistoryByDateRange(history, start, end);
 
-  final workDay = filteredHistory.where((e) => e.record != 0.0).length;
-  final totalPay = filteredHistory.fold(0, (p, e) => p + e.pay);
-  final workRecord = filteredHistory.fold(0.0, (p, e) => p + e.record);
+  final workDay = filteredHistory.count((e) => e.record != 0.0);
+  final totalPay = filteredHistory.sumBy( ( e) =>  e.pay);
+  final workRecord = filteredHistory.sumBy( ( e) => e.record);
 
   final wrd = workDay + extraDay;
   final severancePay = (wrd * 6200) / 10000;

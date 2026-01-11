@@ -13,19 +13,19 @@ String _$workHistoryManagerHash() =>
 @ProviderFor(workHistoryManager)
 final workHistoryManagerProvider =
     AutoDisposeFutureProvider<HistoryDatabase>.internal(
-  workHistoryManager,
-  name: r'workHistoryManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$workHistoryManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      workHistoryManager,
+      name: r'workHistoryManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$workHistoryManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef WorkHistoryManagerRef = AutoDisposeFutureProviderRef<HistoryDatabase>;
-String _$initWorkHistoryHash() => r'2094c2d2a50dfacfd92bba14868689f5a2bb3936';
+String _$initWorkHistoryHash() => r'1d6f0778b80e475e2bc6a65a4c2f85f324b9dc48';
 
 /// See also [initWorkHistory].
 @ProviderFor(initWorkHistory)

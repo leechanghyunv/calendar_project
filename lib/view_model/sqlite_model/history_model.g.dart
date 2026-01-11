@@ -12,13 +12,14 @@ String _$viewHistoryHash() => r'3131c0673bdccc6e63d3eb3f68147be77f097713';
 @ProviderFor(viewHistory)
 final viewHistoryProvider =
     AutoDisposeFutureProvider<List<WorkHistory>>.internal(
-  viewHistory,
-  name: r'viewHistoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$viewHistoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      viewHistory,
+      name: r'viewHistoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$viewHistoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
@@ -56,24 +57,15 @@ class ViewRangeHistoryFamily extends Family<AsyncValue<List<WorkHistory>>> {
   const ViewRangeHistoryFamily();
 
   /// See also [viewRangeHistory].
-  ViewRangeHistoryProvider call(
-    DateTime start,
-    DateTime end,
-  ) {
-    return ViewRangeHistoryProvider(
-      start,
-      end,
-    );
+  ViewRangeHistoryProvider call(DateTime start, DateTime end) {
+    return ViewRangeHistoryProvider(start, end);
   }
 
   @override
   ViewRangeHistoryProvider getProviderOverride(
     covariant ViewRangeHistoryProvider provider,
   ) {
-    return call(
-      provider.start,
-      provider.end,
-    );
+    return call(provider.start, provider.end);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -95,27 +87,20 @@ class ViewRangeHistoryFamily extends Family<AsyncValue<List<WorkHistory>>> {
 class ViewRangeHistoryProvider
     extends AutoDisposeFutureProvider<List<WorkHistory>> {
   /// See also [viewRangeHistory].
-  ViewRangeHistoryProvider(
-    DateTime start,
-    DateTime end,
-  ) : this._internal(
-          (ref) => viewRangeHistory(
-            ref as ViewRangeHistoryRef,
-            start,
-            end,
-          ),
-          from: viewRangeHistoryProvider,
-          name: r'viewRangeHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$viewRangeHistoryHash,
-          dependencies: ViewRangeHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              ViewRangeHistoryFamily._allTransitiveDependencies,
-          start: start,
-          end: end,
-        );
+  ViewRangeHistoryProvider(DateTime start, DateTime end)
+    : this._internal(
+        (ref) => viewRangeHistory(ref as ViewRangeHistoryRef, start, end),
+        from: viewRangeHistoryProvider,
+        name: r'viewRangeHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$viewRangeHistoryHash,
+        dependencies: ViewRangeHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            ViewRangeHistoryFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+      );
 
   ViewRangeHistoryProvider._internal(
     super._createNotifier, {
@@ -205,21 +190,15 @@ class AddAllHistoryFamily extends Family<AsyncValue<void>> {
   const AddAllHistoryFamily();
 
   /// See also [addAllHistory].
-  AddAllHistoryProvider call(
-    List<WorkHistory> list,
-  ) {
-    return AddAllHistoryProvider(
-      list,
-    );
+  AddAllHistoryProvider call(List<WorkHistory> list) {
+    return AddAllHistoryProvider(list);
   }
 
   @override
   AddAllHistoryProvider getProviderOverride(
     covariant AddAllHistoryProvider provider,
   ) {
-    return call(
-      provider.list,
-    );
+    return call(provider.list);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -240,24 +219,19 @@ class AddAllHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [addAllHistory].
 class AddAllHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [addAllHistory].
-  AddAllHistoryProvider(
-    List<WorkHistory> list,
-  ) : this._internal(
-          (ref) => addAllHistory(
-            ref as AddAllHistoryRef,
-            list,
-          ),
-          from: addAllHistoryProvider,
-          name: r'addAllHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$addAllHistoryHash,
-          dependencies: AddAllHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              AddAllHistoryFamily._allTransitiveDependencies,
-          list: list,
-        );
+  AddAllHistoryProvider(List<WorkHistory> list)
+    : this._internal(
+        (ref) => addAllHistory(ref as AddAllHistoryRef, list),
+        from: addAllHistoryProvider,
+        name: r'addAllHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$addAllHistoryHash,
+        dependencies: AddAllHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            AddAllHistoryFamily._allTransitiveDependencies,
+        list: list,
+      );
 
   AddAllHistoryProvider._internal(
     super._createNotifier, {
@@ -316,14 +290,15 @@ mixin AddAllHistoryRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _AddAllHistoryProviderElement
-    extends AutoDisposeFutureProviderElement<void> with AddAllHistoryRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with AddAllHistoryRef {
   _AddAllHistoryProviderElement(super.provider);
 
   @override
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'541dd0f09806f3fe44d5eb6e6df7dbd0bd6e03b0';
+String _$addHistoryHash() => r'3f6b1469618ee7a07d36d0a0de9b465fa263702d';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -335,27 +310,15 @@ class AddHistoryFamily extends Family<AsyncValue<void>> {
   const AddHistoryFamily();
 
   /// See also [addHistory].
-  AddHistoryProvider call(
-    int pay,
-    DateTime date, {
-    double? decimal,
-  }) {
-    return AddHistoryProvider(
-      pay,
-      date,
-      decimal: decimal,
-    );
+  AddHistoryProvider call(int pay, DateTime date, {double? decimal}) {
+    return AddHistoryProvider(pay, date, decimal: decimal);
   }
 
   @override
   AddHistoryProvider getProviderOverride(
     covariant AddHistoryProvider provider,
   ) {
-    return call(
-      provider.pay,
-      provider.date,
-      decimal: provider.decimal,
-    );
+    return call(provider.pay, provider.date, decimal: provider.decimal);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -376,30 +339,20 @@ class AddHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [addHistory].
 class AddHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [addHistory].
-  AddHistoryProvider(
-    int pay,
-    DateTime date, {
-    double? decimal,
-  }) : this._internal(
-          (ref) => addHistory(
-            ref as AddHistoryRef,
-            pay,
-            date,
-            decimal: decimal,
-          ),
-          from: addHistoryProvider,
-          name: r'addHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$addHistoryHash,
-          dependencies: AddHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              AddHistoryFamily._allTransitiveDependencies,
-          pay: pay,
-          date: date,
-          decimal: decimal,
-        );
+  AddHistoryProvider(int pay, DateTime date, {double? decimal})
+    : this._internal(
+        (ref) => addHistory(ref as AddHistoryRef, pay, date, decimal: decimal),
+        from: addHistoryProvider,
+        name: r'addHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$addHistoryHash,
+        dependencies: AddHistoryFamily._dependencies,
+        allTransitiveDependencies: AddHistoryFamily._allTransitiveDependencies,
+        pay: pay,
+        date: date,
+        decimal: decimal,
+      );
 
   AddHistoryProvider._internal(
     super._createNotifier, {
@@ -504,22 +457,14 @@ class RangeExcludHolidayFamily extends Family<AsyncValue<void>> {
     DateTime start,
     DateTime end,
   ) {
-    return RangeExcludHolidayProvider(
-      history,
-      start,
-      end,
-    );
+    return RangeExcludHolidayProvider(history, start, end);
   }
 
   @override
   RangeExcludHolidayProvider getProviderOverride(
     covariant RangeExcludHolidayProvider provider,
   ) {
-    return call(
-      provider.history,
-      provider.start,
-      provider.end,
-    );
+    return call(provider.history, provider.start, provider.end);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -540,30 +485,26 @@ class RangeExcludHolidayFamily extends Family<AsyncValue<void>> {
 /// See also [rangeExcludHoliday].
 class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
   /// See also [rangeExcludHoliday].
-  RangeExcludHolidayProvider(
-    WorkHistory history,
-    DateTime start,
-    DateTime end,
-  ) : this._internal(
-          (ref) => rangeExcludHoliday(
-            ref as RangeExcludHolidayRef,
-            history,
-            start,
-            end,
-          ),
-          from: rangeExcludHolidayProvider,
-          name: r'rangeExcludHolidayProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$rangeExcludHolidayHash,
-          dependencies: RangeExcludHolidayFamily._dependencies,
-          allTransitiveDependencies:
-              RangeExcludHolidayFamily._allTransitiveDependencies,
-          history: history,
-          start: start,
-          end: end,
-        );
+  RangeExcludHolidayProvider(WorkHistory history, DateTime start, DateTime end)
+    : this._internal(
+        (ref) => rangeExcludHoliday(
+          ref as RangeExcludHolidayRef,
+          history,
+          start,
+          end,
+        ),
+        from: rangeExcludHolidayProvider,
+        name: r'rangeExcludHolidayProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$rangeExcludHolidayHash,
+        dependencies: RangeExcludHolidayFamily._dependencies,
+        allTransitiveDependencies:
+            RangeExcludHolidayFamily._allTransitiveDependencies,
+        history: history,
+        start: start,
+        end: end,
+      );
 
   RangeExcludHolidayProvider._internal(
     super._createNotifier, {
@@ -639,7 +580,8 @@ mixin RangeExcludHolidayRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _RangeExcludHolidayProviderElement
-    extends AutoDisposeFutureProviderElement<void> with RangeExcludHolidayRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with RangeExcludHolidayRef {
   _RangeExcludHolidayProviderElement(super.provider);
 
   @override
@@ -650,7 +592,7 @@ class _RangeExcludHolidayProviderElement
   DateTime get end => (origin as RangeExcludHolidayProvider).end;
 }
 
-String _$latestHistoryHash() => r'440368af7ed49cbd0ed10eb1c88315c37fc455e7';
+String _$latestHistoryHash() => r'c71ac11c7b957eaca8d71af922584d8991cbb77a';
 
 /// See also [latestHistory].
 @ProviderFor(latestHistory)
@@ -679,21 +621,15 @@ class DeleteHistoryFamily extends Family<AsyncValue<void>> {
   const DeleteHistoryFamily();
 
   /// See also [deleteHistory].
-  DeleteHistoryProvider call(
-    DateTime time,
-  ) {
-    return DeleteHistoryProvider(
-      time,
-    );
+  DeleteHistoryProvider call(DateTime time) {
+    return DeleteHistoryProvider(time);
   }
 
   @override
   DeleteHistoryProvider getProviderOverride(
     covariant DeleteHistoryProvider provider,
   ) {
-    return call(
-      provider.time,
-    );
+    return call(provider.time);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -714,24 +650,19 @@ class DeleteHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [deleteHistory].
 class DeleteHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [deleteHistory].
-  DeleteHistoryProvider(
-    DateTime time,
-  ) : this._internal(
-          (ref) => deleteHistory(
-            ref as DeleteHistoryRef,
-            time,
-          ),
-          from: deleteHistoryProvider,
-          name: r'deleteHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteHistoryHash,
-          dependencies: DeleteHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteHistoryFamily._allTransitiveDependencies,
-          time: time,
-        );
+  DeleteHistoryProvider(DateTime time)
+    : this._internal(
+        (ref) => deleteHistory(ref as DeleteHistoryRef, time),
+        from: deleteHistoryProvider,
+        name: r'deleteHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$deleteHistoryHash,
+        dependencies: DeleteHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            DeleteHistoryFamily._allTransitiveDependencies,
+        time: time,
+      );
 
   DeleteHistoryProvider._internal(
     super._createNotifier, {
@@ -790,7 +721,8 @@ mixin DeleteHistoryRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _DeleteHistoryProviderElement
-    extends AutoDisposeFutureProviderElement<void> with DeleteHistoryRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with DeleteHistoryRef {
   _DeleteHistoryProviderElement(super.provider);
 
   @override
@@ -810,24 +742,15 @@ class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
   const DeleteMonthHistoryFamily();
 
   /// See also [deleteMonthHistory].
-  DeleteMonthHistoryProvider call(
-    DateTime start,
-    DateTime end,
-  ) {
-    return DeleteMonthHistoryProvider(
-      start,
-      end,
-    );
+  DeleteMonthHistoryProvider call(DateTime start, DateTime end) {
+    return DeleteMonthHistoryProvider(start, end);
   }
 
   @override
   DeleteMonthHistoryProvider getProviderOverride(
     covariant DeleteMonthHistoryProvider provider,
   ) {
-    return call(
-      provider.start,
-      provider.end,
-    );
+    return call(provider.start, provider.end);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -848,27 +771,20 @@ class DeleteMonthHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [deleteMonthHistory].
 class DeleteMonthHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [deleteMonthHistory].
-  DeleteMonthHistoryProvider(
-    DateTime start,
-    DateTime end,
-  ) : this._internal(
-          (ref) => deleteMonthHistory(
-            ref as DeleteMonthHistoryRef,
-            start,
-            end,
-          ),
-          from: deleteMonthHistoryProvider,
-          name: r'deleteMonthHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteMonthHistoryHash,
-          dependencies: DeleteMonthHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteMonthHistoryFamily._allTransitiveDependencies,
-          start: start,
-          end: end,
-        );
+  DeleteMonthHistoryProvider(DateTime start, DateTime end)
+    : this._internal(
+        (ref) => deleteMonthHistory(ref as DeleteMonthHistoryRef, start, end),
+        from: deleteMonthHistoryProvider,
+        name: r'deleteMonthHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$deleteMonthHistoryHash,
+        dependencies: DeleteMonthHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            DeleteMonthHistoryFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+      );
 
   DeleteMonthHistoryProvider._internal(
     super._createNotifier, {
@@ -936,7 +852,8 @@ mixin DeleteMonthHistoryRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _DeleteMonthHistoryProviderElement
-    extends AutoDisposeFutureProviderElement<void> with DeleteMonthHistoryRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with DeleteMonthHistoryRef {
   _DeleteMonthHistoryProviderElement(super.provider);
 
   @override
@@ -952,8 +869,9 @@ String _$clearHistoryHash() => r'92d2356e5388d774f4c105cbb7bfd9fd703a6525';
 final clearHistoryProvider = AutoDisposeFutureProvider<void>.internal(
   clearHistory,
   name: r'clearHistoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$clearHistoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$clearHistoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -973,24 +891,15 @@ class UpdateMemoHistoryFamily extends Family<AsyncValue<void>> {
   const UpdateMemoHistoryFamily();
 
   /// See also [updateMemoHistory].
-  UpdateMemoHistoryProvider call(
-    DateTime date,
-    String memo,
-  ) {
-    return UpdateMemoHistoryProvider(
-      date,
-      memo,
-    );
+  UpdateMemoHistoryProvider call(DateTime date, String memo) {
+    return UpdateMemoHistoryProvider(date, memo);
   }
 
   @override
   UpdateMemoHistoryProvider getProviderOverride(
     covariant UpdateMemoHistoryProvider provider,
   ) {
-    return call(
-      provider.date,
-      provider.memo,
-    );
+    return call(provider.date, provider.memo);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -1011,27 +920,20 @@ class UpdateMemoHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [updateMemoHistory].
 class UpdateMemoHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [updateMemoHistory].
-  UpdateMemoHistoryProvider(
-    DateTime date,
-    String memo,
-  ) : this._internal(
-          (ref) => updateMemoHistory(
-            ref as UpdateMemoHistoryRef,
-            date,
-            memo,
-          ),
-          from: updateMemoHistoryProvider,
-          name: r'updateMemoHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$updateMemoHistoryHash,
-          dependencies: UpdateMemoHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              UpdateMemoHistoryFamily._allTransitiveDependencies,
-          date: date,
-          memo: memo,
-        );
+  UpdateMemoHistoryProvider(DateTime date, String memo)
+    : this._internal(
+        (ref) => updateMemoHistory(ref as UpdateMemoHistoryRef, date, memo),
+        from: updateMemoHistoryProvider,
+        name: r'updateMemoHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$updateMemoHistoryHash,
+        dependencies: UpdateMemoHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            UpdateMemoHistoryFamily._allTransitiveDependencies,
+        date: date,
+        memo: memo,
+      );
 
   UpdateMemoHistoryProvider._internal(
     super._createNotifier, {
@@ -1099,7 +1001,8 @@ mixin UpdateMemoHistoryRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _UpdateMemoHistoryProviderElement
-    extends AutoDisposeFutureProviderElement<void> with UpdateMemoHistoryRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with UpdateMemoHistoryRef {
   _UpdateMemoHistoryProviderElement(super.provider);
 
   @override
@@ -1107,5 +1010,6 @@ class _UpdateMemoHistoryProviderElement
   @override
   String get memo => (origin as UpdateMemoHistoryProvider).memo;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

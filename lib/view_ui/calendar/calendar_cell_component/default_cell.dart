@@ -33,7 +33,6 @@ class DefaultCell extends ConsumerWidget {
     return Container(
       margin: EdgeInsets.all(4.0.r),
       decoration: BoxDecoration(
-        // color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(8.0.r),
       ),
       // AsyncValue 상태에 따라 위젯 처리

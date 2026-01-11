@@ -10,16 +10,19 @@ String _$customEventModelHash() => r'6f3b805261a632b280e47bd6eeeea1e9cf15f24b';
 
 /// See also [CustomEventModel].
 @ProviderFor(CustomEventModel)
-final customEventModelProvider = AutoDisposeAsyncNotifierProvider<
-    CustomEventModel, Map<DateTime, String>>.internal(
-  CustomEventModel.new,
-  name: r'customEventModelProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$customEventModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final customEventModelProvider =
+    AutoDisposeAsyncNotifierProvider<
+      CustomEventModel,
+      Map<DateTime, String>
+    >.internal(
+      CustomEventModel.new,
+      name: r'customEventModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$customEventModelHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CustomEventModel = AutoDisposeAsyncNotifier<Map<DateTime, String>>;
 // ignore_for_file: type=lint

@@ -11,16 +11,19 @@ String _$backUpServiceProviderHash() =>
 
 /// See also [BackUpServiceProvider].
 @ProviderFor(BackUpServiceProvider)
-final backUpServiceProviderProvider = AutoDisposeNotifierProvider<
-    BackUpServiceProvider, AsyncValue<void>>.internal(
-  BackUpServiceProvider.new,
-  name: r'backUpServiceProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$backUpServiceProviderHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final backUpServiceProviderProvider =
+    AutoDisposeNotifierProvider<
+      BackUpServiceProvider,
+      AsyncValue<void>
+    >.internal(
+      BackUpServiceProvider.new,
+      name: r'backUpServiceProviderProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$backUpServiceProviderHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$BackUpServiceProvider = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint

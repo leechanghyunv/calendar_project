@@ -12,14 +12,14 @@ String _$decimalRawInputHash() => r'858cb571fdd78997f74df3a850dacc1747e963d8';
 @ProviderFor(DecimalRawInput)
 final decimalRawInputProvider =
     AutoDisposeNotifierProvider<DecimalRawInput, double>.internal(
-  DecimalRawInput.new,
-  name: r'decimalRawInputProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$decimalRawInputHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      DecimalRawInput.new,
+      name: r'decimalRawInputProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$decimalRawInputHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$DecimalRawInput = AutoDisposeNotifier<double>;
 // ignore_for_file: type=lint

@@ -13,14 +13,14 @@ String _$formzMemoValidatorHash() =>
 @ProviderFor(FormzMemoValidator)
 final formzMemoValidatorProvider =
     AutoDisposeNotifierProvider<FormzMemoValidator, MemoForm>.internal(
-  FormzMemoValidator.new,
-  name: r'formzMemoValidatorProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$formzMemoValidatorHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FormzMemoValidator.new,
+      name: r'formzMemoValidatorProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$formzMemoValidatorHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FormzMemoValidator = AutoDisposeNotifier<MemoForm>;
 // ignore_for_file: type=lint

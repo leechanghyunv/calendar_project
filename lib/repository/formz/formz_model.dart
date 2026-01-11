@@ -16,7 +16,7 @@ class FormzValidator extends _$FormzValidator {
   String get pay3Error => state.pay3.displayError?.toString() ?? '야간근무 수당을 입력해주세요';
   String get taxError => state.tax.displayError?.toString() ?? '세율을 입력해주세요';
 
-  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비 없으면 넘어가기';
+  String get subsidyError => state.subsidy.displayError?.toString() ?? '일비를 입력해주세요';
   String get subsidyError2 => state.subsidy.displayError?.toString() ?? '';
   String get errorState => state.status.toString();
 

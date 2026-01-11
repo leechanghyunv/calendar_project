@@ -8,6 +8,7 @@ import '../../../core/utils/view_type.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../screen/user_statistics_screen/component/auth_modal_component.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
+import '../../widgets/svg_imoji.dart';
 part 'main_box_setting_button.g.dart';
 
 @riverpod
@@ -28,12 +29,23 @@ class SettingButton extends ConsumerStatefulWidget {
 
 class _SettingButtonState extends ConsumerState<SettingButton> {
 
+  double _getSize(double appWidth, {required List<double> sizes}) {
+    if (appWidth > 450) return sizes[0];
+    if (appWidth > 420) return sizes[1];
+    if (appWidth > 400) return sizes[2];
+    return sizes[3];
+  }
+
   double borderWidth = 0.75;
 
   @override
   Widget build(BuildContext context) {
 
     final appWidth = context.width;
+
+    final height = _getSize(appWidth, sizes: [26, 25, 25, Platform.isAndroid ? 21.5 : 22.5]);
+    final iconSize = _getSize(appWidth, sizes: [14, 12.5, 12.5, 11]);
+    final fontSize = _getSize(appWidth, sizes: [14, 12.5, 12, 10.5]);
 
     return GestureDetector(
       onTap: (){
@@ -49,20 +61,7 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
 
       child: Container(
 
-        height: switch (appWidth) {
-          > 450 => 26,
-          > 420 => 25,
-          > 400 => 24,
-          _ => Platform.isAndroid ?  21.5 : 22.5,
-        },
-
-        width: switch (appWidth) {
-          > 450 => 53,
-          > 420 =>  51.5,
-          > 400 =>  50,
-          _ => 48,
-        },
-
+        height: height,
 
         decoration: BoxDecoration(
           color: context.isLight ? Colors.grey.shade200 :  Colors.black54, // 드래그 중 색상 변경,
@@ -83,35 +82,22 @@ class _SettingButtonState extends ConsumerState<SettingButton> {
         ),
 
         child: Padding(
-          padding: const EdgeInsets.all(1.0),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 1.0),
           child: Center(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-            SvgPicture.asset(
-            context.isDark ? 'assets/settings.svg' : 'assets/Setting.svg',
-              width: switch (appWidth) {
-                > 450 => 12.5,
-                > 420 => 12,
-                > 400 => 11.5,
-                _ => 11,
-              },
-              colorFilter: context.isDark ? ColorFilter.mode(
-                context.textColor,
-                BlendMode.srcIn,
-              ) : null,
-            ),
+                SvgImoJi(
+                  nameLight: 'Setting',
+                  nameDark: 'settings',
+                  width: iconSize,
+                ),
                 Text('️ 등록',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     color: context.textColor,
-                    fontSize: switch (appWidth) {
-                      > 450 => 12,
-                      > 420 => 11.5,
-                      > 400 => 11,
-                      _ => 10.5,
-                    },
+                    fontSize: fontSize,
                     fontWeight: Platform.isAndroid ? FontWeight.w800 :  FontWeight.w900,
                   ),
                 ),

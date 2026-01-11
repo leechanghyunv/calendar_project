@@ -13,19 +13,19 @@ String _$searchHistoryRepositoryHash() =>
 @ProviderFor(searchHistoryRepository)
 final searchHistoryRepositoryProvider =
     AutoDisposeFutureProvider<SearchHistoryRepository>.internal(
-  searchHistoryRepository,
-  name: r'searchHistoryRepositoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$searchHistoryRepositoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      searchHistoryRepository,
+      name: r'searchHistoryRepositoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$searchHistoryRepositoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef SearchHistoryRepositoryRef
-    = AutoDisposeFutureProviderRef<SearchHistoryRepository>;
+typedef SearchHistoryRepositoryRef =
+    AutoDisposeFutureProviderRef<SearchHistoryRepository>;
 String _$searchHistoryDatabaseHash() =>
     r'2a53c888efe70086997a1adc1e23be6f0a01ba5e';
 
@@ -33,14 +33,14 @@ String _$searchHistoryDatabaseHash() =>
 @ProviderFor(searchHistoryDatabase)
 final searchHistoryDatabaseProvider =
     AutoDisposeFutureProvider<Database>.internal(
-  searchHistoryDatabase,
-  name: r'searchHistoryDatabaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$searchHistoryDatabaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      searchHistoryDatabase,
+      name: r'searchHistoryDatabaseProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$searchHistoryDatabaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

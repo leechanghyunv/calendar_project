@@ -12,14 +12,14 @@ String _$deleteTapCountHash() => r'e536a220edab91fe0124e76b87828fb04edfac31';
 @ProviderFor(DeleteTapCount)
 final deleteTapCountProvider =
     AutoDisposeNotifierProvider<DeleteTapCount, int>.internal(
-  DeleteTapCount.new,
-  name: r'deleteTapCountProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$deleteTapCountHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      DeleteTapCount.new,
+      name: r'deleteTapCountProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$deleteTapCountHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$DeleteTapCount = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint

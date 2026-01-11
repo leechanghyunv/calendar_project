@@ -13,14 +13,14 @@ String _$customEventManagerHash() =>
 @ProviderFor(customEventManager)
 final customEventManagerProvider =
     AutoDisposeFutureProvider<EventDataBase>.internal(
-  customEventManager,
-  name: r'customEventManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$customEventManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      customEventManager,
+      name: r'customEventManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$customEventManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

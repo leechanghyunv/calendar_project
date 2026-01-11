@@ -13,19 +13,19 @@ String _$labourConditionManagerHash() =>
 @ProviderFor(labourConditionManager)
 final labourConditionManagerProvider =
     AutoDisposeFutureProvider<ContractDatabase>.internal(
-  labourConditionManager,
-  name: r'labourConditionManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$labourConditionManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      labourConditionManager,
+      name: r'labourConditionManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$labourConditionManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef LabourConditionManagerRef
-    = AutoDisposeFutureProviderRef<ContractDatabase>;
+typedef LabourConditionManagerRef =
+    AutoDisposeFutureProviderRef<ContractDatabase>;
 String _$initConditionHash() => r'c8e2475e21a3cae81ccea02f1383bf56301ae4fc';
 
 /// See also [initCondition].

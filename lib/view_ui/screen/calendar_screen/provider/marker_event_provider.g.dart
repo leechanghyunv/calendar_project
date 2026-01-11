@@ -12,13 +12,14 @@ String _$markerEventHash() => r'1f6972cfad90902a7daa049af1205ed3e35b7af0';
 @ProviderFor(MarkerEvent)
 final markerEventProvider =
     AutoDisposeNotifierProvider<MarkerEvent, Map<DateTime, String>>.internal(
-  MarkerEvent.new,
-  name: r'markerEventProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$markerEventHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      MarkerEvent.new,
+      name: r'markerEventProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$markerEventHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$MarkerEvent = AutoDisposeNotifier<Map<DateTime, String>>;
 // ignore_for_file: type=lint

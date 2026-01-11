@@ -1,8 +1,6 @@
 
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../../core/extentions/theme_color.dart';
 import '/../../core/export_package.dart';
 import '../../../../base_consumer.dart';
@@ -40,11 +38,11 @@ class CompanyListProviderText extends HookConsumerWidget {
           //     color: context.bTypeChipColor,
           //     borderRadius: BorderRadius.circular(10),
           //   ),
-          //   padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 4.0),
+          //   padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
           //   child: Row(
           //     children: [
           //       TextWidget(
-          //           '@일비포함',
+          //           ' 일비 ',
           //           11, context.width,color: context.subTextColor),
           //     ],
           //   ),

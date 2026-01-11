@@ -39,21 +39,13 @@ class LineValueFamily extends Family<AsyncValue<double>> {
   const LineValueFamily();
 
   /// See also [lineValue].
-  LineValueProvider call(
-    DateTime month,
-  ) {
-    return LineValueProvider(
-      month,
-    );
+  LineValueProvider call(DateTime month) {
+    return LineValueProvider(month);
   }
 
   @override
-  LineValueProvider getProviderOverride(
-    covariant LineValueProvider provider,
-  ) {
-    return call(
-      provider.month,
-    );
+  LineValueProvider getProviderOverride(covariant LineValueProvider provider) {
+    return call(provider.month);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -74,23 +66,18 @@ class LineValueFamily extends Family<AsyncValue<double>> {
 /// See also [lineValue].
 class LineValueProvider extends AutoDisposeFutureProvider<double> {
   /// See also [lineValue].
-  LineValueProvider(
-    DateTime month,
-  ) : this._internal(
-          (ref) => lineValue(
-            ref as LineValueRef,
-            month,
-          ),
-          from: lineValueProvider,
-          name: r'lineValueProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$lineValueHash,
-          dependencies: LineValueFamily._dependencies,
-          allTransitiveDependencies: LineValueFamily._allTransitiveDependencies,
-          month: month,
-        );
+  LineValueProvider(DateTime month)
+    : this._internal(
+        (ref) => lineValue(ref as LineValueRef, month),
+        from: lineValueProvider,
+        name: r'lineValueProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$lineValueHash,
+        dependencies: LineValueFamily._dependencies,
+        allTransitiveDependencies: LineValueFamily._allTransitiveDependencies,
+        month: month,
+      );
 
   LineValueProvider._internal(
     super._createNotifier, {
@@ -155,5 +142,6 @@ class _LineValueProviderElement extends AutoDisposeFutureProviderElement<double>
   @override
   DateTime get month => (origin as LineValueProvider).month;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

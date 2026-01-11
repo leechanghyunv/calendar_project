@@ -13,14 +13,14 @@ String _$selectedCompaniesModelHash() =>
 @ProviderFor(SelectedCompaniesModel)
 final selectedCompaniesModelProvider =
     AutoDisposeNotifierProvider<SelectedCompaniesModel, List<String>>.internal(
-  SelectedCompaniesModel.new,
-  name: r'selectedCompaniesModelProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedCompaniesModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SelectedCompaniesModel.new,
+      name: r'selectedCompaniesModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$selectedCompaniesModelHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SelectedCompaniesModel = AutoDisposeNotifier<List<String>>;
 // ignore_for_file: type=lint

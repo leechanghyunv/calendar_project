@@ -19,14 +19,14 @@ _ColumnBoxValueModel _$ColumnBoxValueModelFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ColumnBoxValueModelToJson(
-        _ColumnBoxValueModel instance) =>
-    <String, dynamic>{
-      'workDayValue': instance.workDayValue,
-      'extraDay': instance.extraDay,
-      'wrd': instance.wrd,
-      'text1': instance.text1,
-      'text2': instance.text2,
-      'percentage': instance.percentage,
-      'wrdProgress': instance.wrdProgress,
-      'workDayProgress': instance.workDayProgress,
-    };
+  _ColumnBoxValueModel instance,
+) => <String, dynamic>{
+  'workDayValue': instance.workDayValue,
+  'extraDay': instance.extraDay,
+  'wrd': instance.wrd,
+  'text1': instance.text1,
+  'text2': instance.text2,
+  'percentage': instance.percentage,
+  'wrdProgress': instance.wrdProgress,
+  'workDayProgress': instance.workDayProgress,
+};

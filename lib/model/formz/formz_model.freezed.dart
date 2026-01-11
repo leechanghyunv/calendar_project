@@ -11,379 +11,255 @@ part of 'formz_model.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$ContractForm {
-  GoalInput get goal;
-  PayFirstInput get pay1;
-  PayInput get pay2;
-  PayInput get pay3;
-  TaxInput get tax;
-  SubsidyInput get subsidy;
-  FormzStatus get status;
 
-  /// Create a copy of ContractForm
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $ContractFormCopyWith<ContractForm> get copyWith =>
-      _$ContractFormCopyWithImpl<ContractForm>(
-          this as ContractForm, _$identity);
+ GoalInput get goal; PayFirstInput get pay1; PayInput get pay2; PayInput get pay3; TaxInput get tax; SubsidyInput get subsidy; FormzStatus get status;
+/// Create a copy of ContractForm
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ContractFormCopyWith<ContractForm> get copyWith => _$ContractFormCopyWithImpl<ContractForm>(this as ContractForm, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ContractForm &&
-            (identical(other.goal, goal) || other.goal == goal) &&
-            (identical(other.pay1, pay1) || other.pay1 == pay1) &&
-            (identical(other.pay2, pay2) || other.pay2 == pay2) &&
-            (identical(other.pay3, pay3) || other.pay3 == pay3) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
-            (identical(other.status, status) || other.status == status));
-  }
 
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, subsidy, status);
 
-  @override
-  String toString() {
-    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ContractForm&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.pay1, pay1) || other.pay1 == pay1)&&(identical(other.pay2, pay2) || other.pay2 == pay2)&&(identical(other.pay3, pay3) || other.pay3 == pay3)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.status, status) || other.status == status));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,goal,pay1,pay2,pay3,tax,subsidy,status);
+
+@override
+String toString() {
+  return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $ContractFormCopyWith<$Res> {
-  factory $ContractFormCopyWith(
-          ContractForm value, $Res Function(ContractForm) _then) =
-      _$ContractFormCopyWithImpl;
-  @useResult
-  $Res call(
-      {GoalInput goal,
-      PayFirstInput pay1,
-      PayInput pay2,
-      PayInput pay3,
-      TaxInput tax,
-      SubsidyInput subsidy,
-      FormzStatus status});
-}
+abstract mixin class $ContractFormCopyWith<$Res>  {
+  factory $ContractFormCopyWith(ContractForm value, $Res Function(ContractForm) _then) = _$ContractFormCopyWithImpl;
+@useResult
+$Res call({
+ GoalInput goal, PayFirstInput pay1, PayInput pay2, PayInput pay3, TaxInput tax, SubsidyInput subsidy, FormzStatus status
+});
 
+
+
+
+}
 /// @nodoc
-class _$ContractFormCopyWithImpl<$Res> implements $ContractFormCopyWith<$Res> {
+class _$ContractFormCopyWithImpl<$Res>
+    implements $ContractFormCopyWith<$Res> {
   _$ContractFormCopyWithImpl(this._self, this._then);
 
   final ContractForm _self;
   final $Res Function(ContractForm) _then;
 
-  /// Create a copy of ContractForm
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? goal = null,
-    Object? pay1 = null,
-    Object? pay2 = null,
-    Object? pay3 = null,
-    Object? tax = null,
-    Object? subsidy = null,
-    Object? status = null,
-  }) {
-    return _then(_self.copyWith(
-      goal: null == goal
-          ? _self.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as GoalInput,
-      pay1: null == pay1
-          ? _self.pay1
-          : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayFirstInput,
-      pay2: null == pay2
-          ? _self.pay2
-          : pay2 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      pay3: null == pay3
-          ? _self.pay3
-          : pay3 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      tax: null == tax
-          ? _self.tax
-          : tax // ignore: cast_nullable_to_non_nullable
-              as TaxInput,
-      subsidy: null == subsidy
-          ? _self.subsidy
-          : subsidy // ignore: cast_nullable_to_non_nullable
-              as SubsidyInput,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
-    ));
-  }
+/// Create a copy of ContractForm
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? goal = null,Object? pay1 = null,Object? pay2 = null,Object? pay3 = null,Object? tax = null,Object? subsidy = null,Object? status = null,}) {
+  return _then(_self.copyWith(
+goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as GoalInput,pay1: null == pay1 ? _self.pay1 : pay1 // ignore: cast_nullable_to_non_nullable
+as PayFirstInput,pay2: null == pay2 ? _self.pay2 : pay2 // ignore: cast_nullable_to_non_nullable
+as PayInput,pay3: null == pay3 ? _self.pay3 : pay3 // ignore: cast_nullable_to_non_nullable
+as PayInput,tax: null == tax ? _self.tax : tax // ignore: cast_nullable_to_non_nullable
+as TaxInput,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
+as SubsidyInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as FormzStatus,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [ContractForm].
 extension ContractFormPatterns on ContractForm {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_ContractForm value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ContractForm value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ContractForm() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_ContractForm value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ContractForm value)  $default,){
+final _that = this;
+switch (_that) {
+case _ContractForm():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_ContractForm value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ContractForm value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ContractForm() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            GoalInput goal,
-            PayFirstInput pay1,
-            PayInput pay2,
-            PayInput pay3,
-            TaxInput tax,
-            SubsidyInput subsidy,
-            FormzStatus status)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm() when $default != null:
-        return $default(_that.goal, _that.pay1, _that.pay2, _that.pay3,
-            _that.tax, _that.subsidy, _that.status);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( GoalInput goal,  PayFirstInput pay1,  PayInput pay2,  PayInput pay3,  TaxInput tax,  SubsidyInput subsidy,  FormzStatus status)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ContractForm() when $default != null:
+return $default(_that.goal,_that.pay1,_that.pay2,_that.pay3,_that.tax,_that.subsidy,_that.status);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            GoalInput goal,
-            PayFirstInput pay1,
-            PayInput pay2,
-            PayInput pay3,
-            TaxInput tax,
-            SubsidyInput subsidy,
-            FormzStatus status)
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm():
-        return $default(_that.goal, _that.pay1, _that.pay2, _that.pay3,
-            _that.tax, _that.subsidy, _that.status);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( GoalInput goal,  PayFirstInput pay1,  PayInput pay2,  PayInput pay3,  TaxInput tax,  SubsidyInput subsidy,  FormzStatus status)  $default,) {final _that = this;
+switch (_that) {
+case _ContractForm():
+return $default(_that.goal,_that.pay1,_that.pay2,_that.pay3,_that.tax,_that.subsidy,_that.status);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            GoalInput goal,
-            PayFirstInput pay1,
-            PayInput pay2,
-            PayInput pay3,
-            TaxInput tax,
-            SubsidyInput subsidy,
-            FormzStatus status)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _ContractForm() when $default != null:
-        return $default(_that.goal, _that.pay1, _that.pay2, _that.pay3,
-            _that.tax, _that.subsidy, _that.status);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( GoalInput goal,  PayFirstInput pay1,  PayInput pay2,  PayInput pay3,  TaxInput tax,  SubsidyInput subsidy,  FormzStatus status)?  $default,) {final _that = this;
+switch (_that) {
+case _ContractForm() when $default != null:
+return $default(_that.goal,_that.pay1,_that.pay2,_that.pay3,_that.tax,_that.subsidy,_that.status);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
+
 
 class _ContractForm implements ContractForm {
-  const _ContractForm(
-      {required this.goal,
-      required this.pay1,
-      required this.pay2,
-      required this.pay3,
-      required this.tax,
-      required this.subsidy,
-      required this.status});
+  const _ContractForm({required this.goal, required this.pay1, required this.pay2, required this.pay3, required this.tax, required this.subsidy, required this.status});
+  
 
-  @override
-  final GoalInput goal;
-  @override
-  final PayFirstInput pay1;
-  @override
-  final PayInput pay2;
-  @override
-  final PayInput pay3;
-  @override
-  final TaxInput tax;
-  @override
-  final SubsidyInput subsidy;
-  @override
-  final FormzStatus status;
+@override final  GoalInput goal;
+@override final  PayFirstInput pay1;
+@override final  PayInput pay2;
+@override final  PayInput pay3;
+@override final  TaxInput tax;
+@override final  SubsidyInput subsidy;
+@override final  FormzStatus status;
 
-  /// Create a copy of ContractForm
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$ContractFormCopyWith<_ContractForm> get copyWith =>
-      __$ContractFormCopyWithImpl<_ContractForm>(this, _$identity);
+/// Create a copy of ContractForm
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ContractFormCopyWith<_ContractForm> get copyWith => __$ContractFormCopyWithImpl<_ContractForm>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _ContractForm &&
-            (identical(other.goal, goal) || other.goal == goal) &&
-            (identical(other.pay1, pay1) || other.pay1 == pay1) &&
-            (identical(other.pay2, pay2) || other.pay2 == pay2) &&
-            (identical(other.pay3, pay3) || other.pay3 == pay3) &&
-            (identical(other.tax, tax) || other.tax == tax) &&
-            (identical(other.subsidy, subsidy) || other.subsidy == subsidy) &&
-            (identical(other.status, status) || other.status == status));
-  }
 
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, goal, pay1, pay2, pay3, tax, subsidy, status);
 
-  @override
-  String toString() {
-    return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ContractForm&&(identical(other.goal, goal) || other.goal == goal)&&(identical(other.pay1, pay1) || other.pay1 == pay1)&&(identical(other.pay2, pay2) || other.pay2 == pay2)&&(identical(other.pay3, pay3) || other.pay3 == pay3)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.status, status) || other.status == status));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,goal,pay1,pay2,pay3,tax,subsidy,status);
+
+@override
+String toString() {
+  return 'ContractForm(goal: $goal, pay1: $pay1, pay2: $pay2, pay3: $pay3, tax: $tax, subsidy: $subsidy, status: $status)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$ContractFormCopyWith<$Res>
-    implements $ContractFormCopyWith<$Res> {
-  factory _$ContractFormCopyWith(
-          _ContractForm value, $Res Function(_ContractForm) _then) =
-      __$ContractFormCopyWithImpl;
-  @override
-  @useResult
-  $Res call(
-      {GoalInput goal,
-      PayFirstInput pay1,
-      PayInput pay2,
-      PayInput pay3,
-      TaxInput tax,
-      SubsidyInput subsidy,
-      FormzStatus status});
-}
+abstract mixin class _$ContractFormCopyWith<$Res> implements $ContractFormCopyWith<$Res> {
+  factory _$ContractFormCopyWith(_ContractForm value, $Res Function(_ContractForm) _then) = __$ContractFormCopyWithImpl;
+@override @useResult
+$Res call({
+ GoalInput goal, PayFirstInput pay1, PayInput pay2, PayInput pay3, TaxInput tax, SubsidyInput subsidy, FormzStatus status
+});
 
+
+
+
+}
 /// @nodoc
 class __$ContractFormCopyWithImpl<$Res>
     implements _$ContractFormCopyWith<$Res> {
@@ -392,50 +268,22 @@ class __$ContractFormCopyWithImpl<$Res>
   final _ContractForm _self;
   final $Res Function(_ContractForm) _then;
 
-  /// Create a copy of ContractForm
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? goal = null,
-    Object? pay1 = null,
-    Object? pay2 = null,
-    Object? pay3 = null,
-    Object? tax = null,
-    Object? subsidy = null,
-    Object? status = null,
-  }) {
-    return _then(_ContractForm(
-      goal: null == goal
-          ? _self.goal
-          : goal // ignore: cast_nullable_to_non_nullable
-              as GoalInput,
-      pay1: null == pay1
-          ? _self.pay1
-          : pay1 // ignore: cast_nullable_to_non_nullable
-              as PayFirstInput,
-      pay2: null == pay2
-          ? _self.pay2
-          : pay2 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      pay3: null == pay3
-          ? _self.pay3
-          : pay3 // ignore: cast_nullable_to_non_nullable
-              as PayInput,
-      tax: null == tax
-          ? _self.tax
-          : tax // ignore: cast_nullable_to_non_nullable
-              as TaxInput,
-      subsidy: null == subsidy
-          ? _self.subsidy
-          : subsidy // ignore: cast_nullable_to_non_nullable
-              as SubsidyInput,
-      status: null == status
-          ? _self.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as FormzStatus,
-    ));
-  }
+/// Create a copy of ContractForm
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? goal = null,Object? pay1 = null,Object? pay2 = null,Object? pay3 = null,Object? tax = null,Object? subsidy = null,Object? status = null,}) {
+  return _then(_ContractForm(
+goal: null == goal ? _self.goal : goal // ignore: cast_nullable_to_non_nullable
+as GoalInput,pay1: null == pay1 ? _self.pay1 : pay1 // ignore: cast_nullable_to_non_nullable
+as PayFirstInput,pay2: null == pay2 ? _self.pay2 : pay2 // ignore: cast_nullable_to_non_nullable
+as PayInput,pay3: null == pay3 ? _self.pay3 : pay3 // ignore: cast_nullable_to_non_nullable
+as PayInput,tax: null == tax ? _self.tax : tax // ignore: cast_nullable_to_non_nullable
+as TaxInput,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
+as SubsidyInput,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as FormzStatus,
+  ));
+}
+
+
 }
 
 // dart format on

@@ -7,15 +7,16 @@ part of 'work_history_model.dart';
 // **************************************************************************
 
 _WorkHistory _$WorkHistoryFromJson(Map<String, dynamic> json) => _WorkHistory(
-      id: (json['id'] as num?)?.toInt(),
-      date: const DateTimeConverter().fromJson(json['date'] as String),
-      pay: (json['pay'] as num?)?.toInt() ?? 0,
-      record: (json['record'] as num?)?.toDouble() ?? 1.0,
-      colorCode: json['colorCode'] as String? ?? '2196F3',
-      comment: json['comment'] as String? ?? '정상근무',
-      memo: json['memo'] as String? ?? '',
-      workSite: json['workSite'] as String? ?? '',
-    );
+  id: (json['id'] as num?)?.toInt(),
+  date: const DateTimeConverter().fromJson(json['date'] as String),
+  pay: (json['pay'] as num?)?.toInt() ?? 0,
+  record: (json['record'] as num?)?.toDouble() ?? 1.0,
+  colorCode: json['colorCode'] as String? ?? '2196F3',
+  comment: json['comment'] as String? ?? '정상근무',
+  memo: json['memo'] as String? ?? '',
+  workSite: json['workSite'] as String? ?? '',
+  subsidy: (json['subsidy'] as num?)?.toInt() ?? 0,
+);
 
 Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
     <String, dynamic>{
@@ -27,4 +28,5 @@ Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
       'comment': instance.comment,
       'memo': instance.memo,
       'workSite': instance.workSite,
+      'subsidy': instance.subsidy,
     };

@@ -13,8 +13,9 @@ String _$viewContractHash() => r'd978fe961e3e0f050dfa3cfe5776805ecdbaabc3';
 final viewContractProvider = FutureProvider<List<LabourCondition>>.internal(
   viewContract,
   name: r'viewContractProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$viewContractHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$viewContractHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -55,21 +56,15 @@ class AddContractFamily extends Family<AsyncValue<void>> {
   const AddContractFamily();
 
   /// See also [addContract].
-  AddContractProvider call(
-    LabourCondition condition,
-  ) {
-    return AddContractProvider(
-      condition,
-    );
+  AddContractProvider call(LabourCondition condition) {
+    return AddContractProvider(condition);
   }
 
   @override
   AddContractProvider getProviderOverride(
     covariant AddContractProvider provider,
   ) {
-    return call(
-      provider.condition,
-    );
+    return call(provider.condition);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -90,24 +85,18 @@ class AddContractFamily extends Family<AsyncValue<void>> {
 /// See also [addContract].
 class AddContractProvider extends AutoDisposeFutureProvider<void> {
   /// See also [addContract].
-  AddContractProvider(
-    LabourCondition condition,
-  ) : this._internal(
-          (ref) => addContract(
-            ref as AddContractRef,
-            condition,
-          ),
-          from: addContractProvider,
-          name: r'addContractProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$addContractHash,
-          dependencies: AddContractFamily._dependencies,
-          allTransitiveDependencies:
-              AddContractFamily._allTransitiveDependencies,
-          condition: condition,
-        );
+  AddContractProvider(LabourCondition condition)
+    : this._internal(
+        (ref) => addContract(ref as AddContractRef, condition),
+        from: addContractProvider,
+        name: r'addContractProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$addContractHash,
+        dependencies: AddContractFamily._dependencies,
+        allTransitiveDependencies: AddContractFamily._allTransitiveDependencies,
+        condition: condition,
+      );
 
   AddContractProvider._internal(
     super._createNotifier, {
@@ -185,21 +174,15 @@ class UpdateContractFamily extends Family<AsyncValue<void>> {
   const UpdateContractFamily();
 
   /// See also [updateContract].
-  UpdateContractProvider call(
-    int goal,
-  ) {
-    return UpdateContractProvider(
-      goal,
-    );
+  UpdateContractProvider call(int goal) {
+    return UpdateContractProvider(goal);
   }
 
   @override
   UpdateContractProvider getProviderOverride(
     covariant UpdateContractProvider provider,
   ) {
-    return call(
-      provider.goal,
-    );
+    return call(provider.goal);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -220,24 +203,19 @@ class UpdateContractFamily extends Family<AsyncValue<void>> {
 /// See also [updateContract].
 class UpdateContractProvider extends AutoDisposeFutureProvider<void> {
   /// See also [updateContract].
-  UpdateContractProvider(
-    int goal,
-  ) : this._internal(
-          (ref) => updateContract(
-            ref as UpdateContractRef,
-            goal,
-          ),
-          from: updateContractProvider,
-          name: r'updateContractProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$updateContractHash,
-          dependencies: UpdateContractFamily._dependencies,
-          allTransitiveDependencies:
-              UpdateContractFamily._allTransitiveDependencies,
-          goal: goal,
-        );
+  UpdateContractProvider(int goal)
+    : this._internal(
+        (ref) => updateContract(ref as UpdateContractRef, goal),
+        from: updateContractProvider,
+        name: r'updateContractProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$updateContractHash,
+        dependencies: UpdateContractFamily._dependencies,
+        allTransitiveDependencies:
+            UpdateContractFamily._allTransitiveDependencies,
+        goal: goal,
+      );
 
   UpdateContractProvider._internal(
     super._createNotifier, {
@@ -296,7 +274,8 @@ mixin UpdateContractRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _UpdateContractProviderElement
-    extends AutoDisposeFutureProviderElement<void> with UpdateContractRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with UpdateContractRef {
   _UpdateContractProviderElement(super.provider);
 
   @override
@@ -315,21 +294,15 @@ class UpdateSubsidyFamily extends Family<AsyncValue<void>> {
   const UpdateSubsidyFamily();
 
   /// See also [updateSubsidy].
-  UpdateSubsidyProvider call(
-    int newSubsidy,
-  ) {
-    return UpdateSubsidyProvider(
-      newSubsidy,
-    );
+  UpdateSubsidyProvider call(int newSubsidy) {
+    return UpdateSubsidyProvider(newSubsidy);
   }
 
   @override
   UpdateSubsidyProvider getProviderOverride(
     covariant UpdateSubsidyProvider provider,
   ) {
-    return call(
-      provider.newSubsidy,
-    );
+    return call(provider.newSubsidy);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -350,24 +323,19 @@ class UpdateSubsidyFamily extends Family<AsyncValue<void>> {
 /// See also [updateSubsidy].
 class UpdateSubsidyProvider extends AutoDisposeFutureProvider<void> {
   /// See also [updateSubsidy].
-  UpdateSubsidyProvider(
-    int newSubsidy,
-  ) : this._internal(
-          (ref) => updateSubsidy(
-            ref as UpdateSubsidyRef,
-            newSubsidy,
-          ),
-          from: updateSubsidyProvider,
-          name: r'updateSubsidyProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$updateSubsidyHash,
-          dependencies: UpdateSubsidyFamily._dependencies,
-          allTransitiveDependencies:
-              UpdateSubsidyFamily._allTransitiveDependencies,
-          newSubsidy: newSubsidy,
-        );
+  UpdateSubsidyProvider(int newSubsidy)
+    : this._internal(
+        (ref) => updateSubsidy(ref as UpdateSubsidyRef, newSubsidy),
+        from: updateSubsidyProvider,
+        name: r'updateSubsidyProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$updateSubsidyHash,
+        dependencies: UpdateSubsidyFamily._dependencies,
+        allTransitiveDependencies:
+            UpdateSubsidyFamily._allTransitiveDependencies,
+        newSubsidy: newSubsidy,
+      );
 
   UpdateSubsidyProvider._internal(
     super._createNotifier, {
@@ -426,7 +394,8 @@ mixin UpdateSubsidyRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _UpdateSubsidyProviderElement
-    extends AutoDisposeFutureProviderElement<void> with UpdateSubsidyRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with UpdateSubsidyRef {
   _UpdateSubsidyProviderElement(super.provider);
 
   @override
@@ -445,21 +414,15 @@ class ClearContractFamily extends Family<AsyncValue<void>> {
   const ClearContractFamily();
 
   /// See also [clearContract].
-  ClearContractProvider call(
-    LabourCondition condition,
-  ) {
-    return ClearContractProvider(
-      condition,
-    );
+  ClearContractProvider call(LabourCondition condition) {
+    return ClearContractProvider(condition);
   }
 
   @override
   ClearContractProvider getProviderOverride(
     covariant ClearContractProvider provider,
   ) {
-    return call(
-      provider.condition,
-    );
+    return call(provider.condition);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -480,24 +443,19 @@ class ClearContractFamily extends Family<AsyncValue<void>> {
 /// See also [clearContract].
 class ClearContractProvider extends AutoDisposeFutureProvider<void> {
   /// See also [clearContract].
-  ClearContractProvider(
-    LabourCondition condition,
-  ) : this._internal(
-          (ref) => clearContract(
-            ref as ClearContractRef,
-            condition,
-          ),
-          from: clearContractProvider,
-          name: r'clearContractProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$clearContractHash,
-          dependencies: ClearContractFamily._dependencies,
-          allTransitiveDependencies:
-              ClearContractFamily._allTransitiveDependencies,
-          condition: condition,
-        );
+  ClearContractProvider(LabourCondition condition)
+    : this._internal(
+        (ref) => clearContract(ref as ClearContractRef, condition),
+        from: clearContractProvider,
+        name: r'clearContractProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$clearContractHash,
+        dependencies: ClearContractFamily._dependencies,
+        allTransitiveDependencies:
+            ClearContractFamily._allTransitiveDependencies,
+        condition: condition,
+      );
 
   ClearContractProvider._internal(
     super._createNotifier, {
@@ -556,11 +514,13 @@ mixin ClearContractRef on AutoDisposeFutureProviderRef<void> {
 }
 
 class _ClearContractProviderElement
-    extends AutoDisposeFutureProviderElement<void> with ClearContractRef {
+    extends AutoDisposeFutureProviderElement<void>
+    with ClearContractRef {
   _ClearContractProviderElement(super.provider);
 
   @override
   LabourCondition get condition => (origin as ClearContractProvider).condition;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

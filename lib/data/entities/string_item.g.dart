@@ -7,10 +7,10 @@ part of 'string_item.dart';
 // **************************************************************************
 
 _StringItem _$StringItemFromJson(Map<String, dynamic> json) => _StringItem(
-      id: (json['id'] as num?)?.toInt(),
-      value: json['value'] as String? ?? '',
-      order: (json['order'] as num?)?.toInt() ?? 0,
-    );
+  id: (json['id'] as num?)?.toInt(),
+  value: json['value'] as String? ?? '',
+  order: (json['order'] as num?)?.toInt() ?? 0,
+);
 
 Map<String, dynamic> _$StringItemToJson(_StringItem instance) =>
     <String, dynamic>{

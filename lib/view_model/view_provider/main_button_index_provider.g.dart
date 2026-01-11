@@ -12,14 +12,14 @@ String _$selectedIndexHash() => r'bd85b9bb8519d69d5c97e7e835be64e04d87fa1d';
 @ProviderFor(SelectedIndex)
 final selectedIndexProvider =
     AutoDisposeNotifierProvider<SelectedIndex, int?>.internal(
-  SelectedIndex.new,
-  name: r'selectedIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SelectedIndex.new,
+      name: r'selectedIndexProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$selectedIndexHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SelectedIndex = AutoDisposeNotifier<int?>;
 // ignore_for_file: type=lint

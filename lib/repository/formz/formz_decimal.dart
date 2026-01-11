@@ -47,6 +47,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
 
   void onSubmit({double? decimal}) async {
     final date = ref.watch(timeManagerProvider).selected;
+    final contract = ref.watch(viewContractProvider).valueOrNull;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
     try{
@@ -57,7 +58,16 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
 
-        customMsg('근로조건이 등록되었습니다.');
+        if(contract!.last.subsidy > 0){
+          customMsg('${date.day}일 ${value.decimal}공수 (일비포함)');
+        } else {
+          customMsg('${date.day}일 ${value}공수');
+        }
+
+
+
+
+
       });
     }catch(e){
       state = state.copyWith(status: DecimalFormzStatus.submissionFailure);

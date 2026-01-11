@@ -9,8 +9,9 @@ part of 'selected_history_model.dart';
 _SelectedHistory _$SelectedHistoryFromJson(Map<String, dynamic> json) =>
     _SelectedHistory(
       id: (json['id'] as num?)?.toInt(),
-      startDate:
-          const DateTimeConverter().fromJson(json['startDate'] as String),
+      startDate: const DateTimeConverter().fromJson(
+        json['startDate'] as String,
+      ),
       endDate: const DateTimeConverter().fromJson(json['endDate'] as String),
       duration: (json['duration'] as num?)?.toInt() ?? 0,
       memo: json['memo'] as String? ?? '',

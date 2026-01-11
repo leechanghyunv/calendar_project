@@ -173,8 +173,7 @@ class StatisticScreen extends HookConsumerWidget {
                           color: Colors.grey.shade300, thickness: 1.0),
                     ),
                     Container(
-                      constraints: BoxConstraints(
-                      ),
+
                       child: SelectedListview(),
                     ),
                   ],

@@ -11,5 +11,9 @@ extension ThemeExtension on BuildContext {
         : BorderSide.none,
   );
 
+  Future<T?> dialog<T>(Widget dialog) => showDialog<T>(
+    context: this,
+    builder: (_) => dialog,
+  );
 
 }

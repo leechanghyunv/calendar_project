@@ -10,31 +10,33 @@ class RangeDefaultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      /// Colors.grey.shade50,
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height
-                  - MediaQuery.of(context).padding.top
-                  - MediaQuery.of(context).padding.bottom, // SafeArea 높이
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: isCalendarScreen ? 12.0 : 24.0,
-                  vertical: isCalendarScreen ? 0.0 : 12.0),
-              child: Column(
-                children: children,
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        /// Colors.grey.shade50,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height
+                    - MediaQuery.of(context).padding.top
+                    - MediaQuery.of(context).padding.bottom, // SafeArea 높이
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: isCalendarScreen ? 12.0 : 24.0,
+                    vertical: isCalendarScreen ? 12.0 : 12.0),
+                child: Column(
+                  children: children,
+                ),
               ),
             ),
           ),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: floatingActionButton,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: floatingActionButton,
     );
   }
 }

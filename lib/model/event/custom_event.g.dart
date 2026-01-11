@@ -7,10 +7,10 @@ part of 'custom_event.dart';
 // **************************************************************************
 
 _CustomEvent _$CustomEventFromJson(Map<String, dynamic> json) => _CustomEvent(
-      id: (json['id'] as num?)?.toInt() ?? 0,
-      date: const DateTimeConverter().fromJson(json['date'] as String),
-      name: json['name'] as String? ?? '',
-    );
+  id: (json['id'] as num?)?.toInt() ?? 0,
+  date: const DateTimeConverter().fromJson(json['date'] as String),
+  name: json['name'] as String? ?? '',
+);
 
 Map<String, dynamic> _$CustomEventToJson(_CustomEvent instance) =>
     <String, dynamic>{

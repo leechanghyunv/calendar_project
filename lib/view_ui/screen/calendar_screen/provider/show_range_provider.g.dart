@@ -12,14 +12,14 @@ String _$showRangeStateHash() => r'f0fc9c55d0486be087a85e362e07b44bf31d7c01';
 @ProviderFor(ShowRangeState)
 final showRangeStateProvider =
     AutoDisposeNotifierProvider<ShowRangeState, bool>.internal(
-  ShowRangeState.new,
-  name: r'showRangeStateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$showRangeStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ShowRangeState.new,
+      name: r'showRangeStateProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$showRangeStateHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ShowRangeState = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint

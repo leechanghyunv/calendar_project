@@ -13,19 +13,19 @@ String _$selectedHistoryManagerHash() =>
 @ProviderFor(selectedHistoryManager)
 final selectedHistoryManagerProvider =
     AutoDisposeFutureProvider<SelectedHistoryDatabase>.internal(
-  selectedHistoryManager,
-  name: r'selectedHistoryManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedHistoryManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      selectedHistoryManager,
+      name: r'selectedHistoryManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$selectedHistoryManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef SelectedHistoryManagerRef
-    = AutoDisposeFutureProviderRef<SelectedHistoryDatabase>;
+typedef SelectedHistoryManagerRef =
+    AutoDisposeFutureProviderRef<SelectedHistoryDatabase>;
 String _$initSelectedHistoryHash() =>
     r'93ab89aeebd0a4b87f255dfeba9afe02b92ec754';
 
@@ -33,14 +33,14 @@ String _$initSelectedHistoryHash() =>
 @ProviderFor(initSelectedHistory)
 final initSelectedHistoryProvider =
     AutoDisposeFutureProvider<Database>.internal(
-  initSelectedHistory,
-  name: r'initSelectedHistoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$initSelectedHistoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      initSelectedHistory,
+      name: r'initSelectedHistoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$initSelectedHistoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

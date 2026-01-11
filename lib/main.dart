@@ -88,10 +88,7 @@ class MyApp extends HookConsumerWidget {
         builder: (_, child) =>
             ShowCaseWidget(
               builder: (context) =>
-                  StyledToast(
-                    locale: const Locale('ko', 'KR'),
-                    child: MaterialApp.router(
-
+                     MaterialApp.router(
                       localizationsDelegates: const [
                         GlobalMaterialLocalizations.delegate,
                         GlobalWidgetsLocalizations.delegate,
@@ -106,32 +103,52 @@ class MyApp extends HookConsumerWidget {
                       darkTheme: themeNotifier.darkMode,
                       routerConfig: router,
                       builder: (context, child) {
-                        return Scaffold(
-                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                          body: Center(
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                maxWidth: 475,
+                        return StyledToast(
+                          child: Scaffold(
+                            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                            body: Center(
+                              child: ConstrainedBox(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 475,
+                                ),
+                                child: child ?? const SizedBox(),
                               ),
-                              child: child ?? const SizedBox(),
                             ),
                           ),
                         );
                       },
                     ),
-                  ),
+                  
             ),
 
       );
     },
       loading: () =>
        MaterialApp(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('ko', 'KR'),
+          Locale('en', 'US'),
+        ],
         home: Scaffold(
           body: Center(child: Text('Loading.....')),
         ),
       ),
       error: (err, stack) =>
           MaterialApp(
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            supportedLocales: const [
+              Locale('ko', 'KR'),
+              Locale('en', 'US'),
+            ],
             home: Scaffold(
               body: Center(
                 child: Text('라우터 로딩 중 오류 발생'),

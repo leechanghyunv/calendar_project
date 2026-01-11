@@ -2,13 +2,20 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
+import '../../widgets/svg_imoji.dart';
 
 class DeleteChip extends HookConsumerWidget {
   const DeleteChip({super.key});
+
+  double _getSize(double appWidth, {required List<double> sizes}) {
+    if (appWidth > 450) return sizes[0];
+    if (appWidth > 420) return sizes[1];
+    if (appWidth > 400) return sizes[2];
+    return sizes[3];
+  }
 
   Widget build(BuildContext context, WidgetRef ref) {
     final borderWidth = useState(0.75);
@@ -33,12 +40,12 @@ class DeleteChip extends HookConsumerWidget {
           final selectedOne =
               value.where((e) => e.date.toUtc() == ref.selected);
           if (selectedOne.isEmpty) {
-            customMsg('${ref.selected.month}월 ${ref.selected.day}일 공수가 없습니다.');
+            customMsg('${ref.selected.day}일 공수가 없습니다.');
           } else {
             await ref.read(deleteHistoryProvider(ref.selected).future);
             await Future.delayed(const Duration(milliseconds: 50));
             customMsg(
-                '${ref.selected.month}월 ${ref.selected.day}일 공수가 삭제되었습니다.');
+                '${ref.selected.day}일 공수가 삭제되었습니다.');
             ref.refreshState(context);
           }
         case AsyncError():
@@ -47,21 +54,16 @@ class DeleteChip extends HookConsumerWidget {
           break;
       }
     }, [data, tapCount]);
+
+    final height = _getSize(appWidth, sizes: [26, 25, 25, Platform.isAndroid ? 21.5 : 22.5]);
+    final iconSize = _getSize(appWidth, sizes: [14, 12.5, 12.5, 11]);
+    final fontSize = _getSize(appWidth, sizes: [14, 12.5, 12, 10.5]);
+
     return GestureDetector(
       onTap: handleTap,
       child: Container(
-        height: switch (appWidth) {
-          > 450 => 26,
-          > 420 => 25,
-          > 400 => 24,
-          _ => Platform.isAndroid ? 21.5 : 22.5,
-        },
-        width: switch (appWidth) {
-          > 450 => 53,
-          > 420 => 51.5,
-          > 400 => 50,
-          _ => 48,
-        },
+        height: height,
+        // width: width,
         decoration: BoxDecoration(
           color: isLight ? Colors.grey.shade200 : Colors.black54, // 드래그 중 색상 변경
           borderRadius: BorderRadius.circular(10.0),
@@ -79,36 +81,23 @@ class DeleteChip extends HookConsumerWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(1.0),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0,vertical: 1.0),
           child: Center(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-
-                SvgPicture.asset(
-                  context.isDark ? 'assets/trash.svg' : 'assets/Delete.svg',
-                  width: switch (appWidth) {
-                    > 450 => 12.5,
-                    > 420 => 12,
-                    > 400 => 11.5,
-                    _ => 11,
-                  },
-                  colorFilter: context.isDark ? ColorFilter.mode(
-                    context.textColor,
-                    BlendMode.srcIn,
-                  ) : null,
+                SvgImoJi(
+                  nameLight: 'Delete',
+                  nameDark: 'trash',
+                  width: iconSize,
                 ),
+
                 Text(' 삭제',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     color: context.textColor,
-                    fontSize: switch (appWidth) {
-                      > 450 => 12,
-                      > 420 => 11.5,
-                      > 400 => 11,
-                      _ => 10.5,
-                    },
+                    fontSize: fontSize,
                     fontWeight:
                         Platform.isAndroid ? FontWeight.w800 : FontWeight.w900,
                   ),

@@ -101,7 +101,8 @@ class MarkerCell extends ConsumerWidget {
       final double fontSizeNonMemo = switch ((appWidth, event.record)) {
         (< 376, _) => 11,
         (_, 0.0) => 11.5,
-        (> 450, _) => 15.5,
+        (>= 400, _) => 14.5,
+        (>= 420, _) => 16.5,
         (_, _) => 13.0
       };
 
@@ -196,13 +197,7 @@ class MarkerCell extends ConsumerWidget {
                       fontWeight: FontWeight.bold,
                       color: context.textColor,
                       height: textHeight,
-                      shadows: Platform.isAndroid ? [
-                        Shadow(
-                          blurRadius: 1.0,
-                          color: Colors.grey,
-                          offset: Offset(0.5, 0.5),
-                        ),
-                      ] : null,
+
                     ),
                 ),
               ]
@@ -237,7 +232,7 @@ BoxDecoration  markerDeco(
     borderRadius: BorderRadius.circular(10.0),
     border: selectedMonth == month ? Border.all(
         color: Colors.grey.shade800,
-        width: Platform.isAndroid ? 0.6 : 0.2) : null,
+        width: 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
         ? isLight ? Colors.grey.shade200 : Colors.grey.shade900

@@ -11,626 +11,527 @@ part of 'site_ratio.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$SiteRatio {
-  String get siteName;
-  int get count;
-  double get percentage;
 
-  /// Create a copy of SiteRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $SiteRatioCopyWith<SiteRatio> get copyWith =>
-      _$SiteRatioCopyWithImpl<SiteRatio>(this as SiteRatio, _$identity);
+ String get siteName; int get count; double get percentage;
+/// Create a copy of SiteRatio
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SiteRatioCopyWith<SiteRatio> get copyWith => _$SiteRatioCopyWithImpl<SiteRatio>(this as SiteRatio, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is SiteRatio &&
-            (identical(other.siteName, siteName) ||
-                other.siteName == siteName) &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, siteName, count, percentage);
 
-  @override
-  String toString() {
-    return 'SiteRatio(siteName: $siteName, count: $count, percentage: $percentage)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SiteRatio&&(identical(other.siteName, siteName) || other.siteName == siteName)&&(identical(other.count, count) || other.count == count)&&(identical(other.percentage, percentage) || other.percentage == percentage));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,siteName,count,percentage);
+
+@override
+String toString() {
+  return 'SiteRatio(siteName: $siteName, count: $count, percentage: $percentage)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $SiteRatioCopyWith<$Res> {
-  factory $SiteRatioCopyWith(SiteRatio value, $Res Function(SiteRatio) _then) =
-      _$SiteRatioCopyWithImpl;
-  @useResult
-  $Res call({String siteName, int count, double percentage});
-}
+abstract mixin class $SiteRatioCopyWith<$Res>  {
+  factory $SiteRatioCopyWith(SiteRatio value, $Res Function(SiteRatio) _then) = _$SiteRatioCopyWithImpl;
+@useResult
+$Res call({
+ String siteName, int count, double percentage
+});
 
+
+
+
+}
 /// @nodoc
-class _$SiteRatioCopyWithImpl<$Res> implements $SiteRatioCopyWith<$Res> {
+class _$SiteRatioCopyWithImpl<$Res>
+    implements $SiteRatioCopyWith<$Res> {
   _$SiteRatioCopyWithImpl(this._self, this._then);
 
   final SiteRatio _self;
   final $Res Function(SiteRatio) _then;
 
-  /// Create a copy of SiteRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? siteName = null,
-    Object? count = null,
-    Object? percentage = null,
-  }) {
-    return _then(_self.copyWith(
-      siteName: null == siteName
-          ? _self.siteName
-          : siteName // ignore: cast_nullable_to_non_nullable
-              as String,
-      count: null == count
-          ? _self.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      percentage: null == percentage
-          ? _self.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
+/// Create a copy of SiteRatio
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? siteName = null,Object? count = null,Object? percentage = null,}) {
+  return _then(_self.copyWith(
+siteName: null == siteName ? _self.siteName : siteName // ignore: cast_nullable_to_non_nullable
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,percentage: null == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [SiteRatio].
 extension SiteRatioPatterns on SiteRatio {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_SiteRatio value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SiteRatio value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SiteRatio() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_SiteRatio value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SiteRatio value)  $default,){
+final _that = this;
+switch (_that) {
+case _SiteRatio():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_SiteRatio value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SiteRatio value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SiteRatio() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String siteName, int count, double percentage)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio() when $default != null:
-        return $default(_that.siteName, _that.count, _that.percentage);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String siteName,  int count,  double percentage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SiteRatio() when $default != null:
+return $default(_that.siteName,_that.count,_that.percentage);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String siteName, int count, double percentage) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio():
-        return $default(_that.siteName, _that.count, _that.percentage);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String siteName,  int count,  double percentage)  $default,) {final _that = this;
+switch (_that) {
+case _SiteRatio():
+return $default(_that.siteName,_that.count,_that.percentage);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String siteName, int count, double percentage)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _SiteRatio() when $default != null:
-        return $default(_that.siteName, _that.count, _that.percentage);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String siteName,  int count,  double percentage)?  $default,) {final _that = this;
+switch (_that) {
+case _SiteRatio() when $default != null:
+return $default(_that.siteName,_that.count,_that.percentage);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
+
 
 class _SiteRatio implements SiteRatio {
   const _SiteRatio({this.siteName = '', this.count = 0, this.percentage = 0.0});
+  
 
-  @override
-  @JsonKey()
-  final String siteName;
-  @override
-  @JsonKey()
-  final int count;
-  @override
-  @JsonKey()
-  final double percentage;
+@override@JsonKey() final  String siteName;
+@override@JsonKey() final  int count;
+@override@JsonKey() final  double percentage;
 
-  /// Create a copy of SiteRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$SiteRatioCopyWith<_SiteRatio> get copyWith =>
-      __$SiteRatioCopyWithImpl<_SiteRatio>(this, _$identity);
+/// Create a copy of SiteRatio
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SiteRatioCopyWith<_SiteRatio> get copyWith => __$SiteRatioCopyWithImpl<_SiteRatio>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _SiteRatio &&
-            (identical(other.siteName, siteName) ||
-                other.siteName == siteName) &&
-            (identical(other.count, count) || other.count == count) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, siteName, count, percentage);
 
-  @override
-  String toString() {
-    return 'SiteRatio(siteName: $siteName, count: $count, percentage: $percentage)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SiteRatio&&(identical(other.siteName, siteName) || other.siteName == siteName)&&(identical(other.count, count) || other.count == count)&&(identical(other.percentage, percentage) || other.percentage == percentage));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,siteName,count,percentage);
+
+@override
+String toString() {
+  return 'SiteRatio(siteName: $siteName, count: $count, percentage: $percentage)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$SiteRatioCopyWith<$Res>
-    implements $SiteRatioCopyWith<$Res> {
-  factory _$SiteRatioCopyWith(
-          _SiteRatio value, $Res Function(_SiteRatio) _then) =
-      __$SiteRatioCopyWithImpl;
-  @override
-  @useResult
-  $Res call({String siteName, int count, double percentage});
-}
+abstract mixin class _$SiteRatioCopyWith<$Res> implements $SiteRatioCopyWith<$Res> {
+  factory _$SiteRatioCopyWith(_SiteRatio value, $Res Function(_SiteRatio) _then) = __$SiteRatioCopyWithImpl;
+@override @useResult
+$Res call({
+ String siteName, int count, double percentage
+});
 
+
+
+
+}
 /// @nodoc
-class __$SiteRatioCopyWithImpl<$Res> implements _$SiteRatioCopyWith<$Res> {
+class __$SiteRatioCopyWithImpl<$Res>
+    implements _$SiteRatioCopyWith<$Res> {
   __$SiteRatioCopyWithImpl(this._self, this._then);
 
   final _SiteRatio _self;
   final $Res Function(_SiteRatio) _then;
 
-  /// Create a copy of SiteRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? siteName = null,
-    Object? count = null,
-    Object? percentage = null,
-  }) {
-    return _then(_SiteRatio(
-      siteName: null == siteName
-          ? _self.siteName
-          : siteName // ignore: cast_nullable_to_non_nullable
-              as String,
-      count: null == count
-          ? _self.count
-          : count // ignore: cast_nullable_to_non_nullable
-              as int,
-      percentage: null == percentage
-          ? _self.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
+/// Create a copy of SiteRatio
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? siteName = null,Object? count = null,Object? percentage = null,}) {
+  return _then(_SiteRatio(
+siteName: null == siteName ? _self.siteName : siteName // ignore: cast_nullable_to_non_nullable
+as String,count: null == count ? _self.count : count // ignore: cast_nullable_to_non_nullable
+as int,percentage: null == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
 }
 
 /// @nodoc
 mixin _$JobRatio {
-  String get jobName;
-  double get percentage;
 
-  /// Create a copy of JobRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $JobRatioCopyWith<JobRatio> get copyWith =>
-      _$JobRatioCopyWithImpl<JobRatio>(this as JobRatio, _$identity);
+ String get jobName; double get percentage;
+/// Create a copy of JobRatio
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$JobRatioCopyWith<JobRatio> get copyWith => _$JobRatioCopyWithImpl<JobRatio>(this as JobRatio, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is JobRatio &&
-            (identical(other.jobName, jobName) || other.jobName == jobName) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, jobName, percentage);
 
-  @override
-  String toString() {
-    return 'JobRatio(jobName: $jobName, percentage: $percentage)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is JobRatio&&(identical(other.jobName, jobName) || other.jobName == jobName)&&(identical(other.percentage, percentage) || other.percentage == percentage));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,jobName,percentage);
+
+@override
+String toString() {
+  return 'JobRatio(jobName: $jobName, percentage: $percentage)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $JobRatioCopyWith<$Res> {
-  factory $JobRatioCopyWith(JobRatio value, $Res Function(JobRatio) _then) =
-      _$JobRatioCopyWithImpl;
-  @useResult
-  $Res call({String jobName, double percentage});
-}
+abstract mixin class $JobRatioCopyWith<$Res>  {
+  factory $JobRatioCopyWith(JobRatio value, $Res Function(JobRatio) _then) = _$JobRatioCopyWithImpl;
+@useResult
+$Res call({
+ String jobName, double percentage
+});
 
+
+
+
+}
 /// @nodoc
-class _$JobRatioCopyWithImpl<$Res> implements $JobRatioCopyWith<$Res> {
+class _$JobRatioCopyWithImpl<$Res>
+    implements $JobRatioCopyWith<$Res> {
   _$JobRatioCopyWithImpl(this._self, this._then);
 
   final JobRatio _self;
   final $Res Function(JobRatio) _then;
 
-  /// Create a copy of JobRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? jobName = null,
-    Object? percentage = null,
-  }) {
-    return _then(_self.copyWith(
-      jobName: null == jobName
-          ? _self.jobName
-          : jobName // ignore: cast_nullable_to_non_nullable
-              as String,
-      percentage: null == percentage
-          ? _self.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
+/// Create a copy of JobRatio
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? jobName = null,Object? percentage = null,}) {
+  return _then(_self.copyWith(
+jobName: null == jobName ? _self.jobName : jobName // ignore: cast_nullable_to_non_nullable
+as String,percentage: null == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [JobRatio].
 extension JobRatioPatterns on JobRatio {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_JobRatio value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _JobRatio value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _JobRatio() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_JobRatio value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _JobRatio value)  $default,){
+final _that = this;
+switch (_that) {
+case _JobRatio():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_JobRatio value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _JobRatio value)?  $default,){
+final _that = this;
+switch (_that) {
+case _JobRatio() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String jobName, double percentage)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio() when $default != null:
-        return $default(_that.jobName, _that.percentage);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String jobName,  double percentage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _JobRatio() when $default != null:
+return $default(_that.jobName,_that.percentage);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(String jobName, double percentage) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio():
-        return $default(_that.jobName, _that.percentage);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String jobName,  double percentage)  $default,) {final _that = this;
+switch (_that) {
+case _JobRatio():
+return $default(_that.jobName,_that.percentage);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String jobName, double percentage)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _JobRatio() when $default != null:
-        return $default(_that.jobName, _that.percentage);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String jobName,  double percentage)?  $default,) {final _that = this;
+switch (_that) {
+case _JobRatio() when $default != null:
+return $default(_that.jobName,_that.percentage);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
+
 
 class _JobRatio implements JobRatio {
   const _JobRatio({this.jobName = '', this.percentage = 0.0});
+  
 
-  @override
-  @JsonKey()
-  final String jobName;
-  @override
-  @JsonKey()
-  final double percentage;
+@override@JsonKey() final  String jobName;
+@override@JsonKey() final  double percentage;
 
-  /// Create a copy of JobRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$JobRatioCopyWith<_JobRatio> get copyWith =>
-      __$JobRatioCopyWithImpl<_JobRatio>(this, _$identity);
+/// Create a copy of JobRatio
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$JobRatioCopyWith<_JobRatio> get copyWith => __$JobRatioCopyWithImpl<_JobRatio>(this, _$identity);
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _JobRatio &&
-            (identical(other.jobName, jobName) || other.jobName == jobName) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage));
-  }
 
-  @override
-  int get hashCode => Object.hash(runtimeType, jobName, percentage);
 
-  @override
-  String toString() {
-    return 'JobRatio(jobName: $jobName, percentage: $percentage)';
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _JobRatio&&(identical(other.jobName, jobName) || other.jobName == jobName)&&(identical(other.percentage, percentage) || other.percentage == percentage));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,jobName,percentage);
+
+@override
+String toString() {
+  return 'JobRatio(jobName: $jobName, percentage: $percentage)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$JobRatioCopyWith<$Res>
-    implements $JobRatioCopyWith<$Res> {
-  factory _$JobRatioCopyWith(_JobRatio value, $Res Function(_JobRatio) _then) =
-      __$JobRatioCopyWithImpl;
-  @override
-  @useResult
-  $Res call({String jobName, double percentage});
-}
+abstract mixin class _$JobRatioCopyWith<$Res> implements $JobRatioCopyWith<$Res> {
+  factory _$JobRatioCopyWith(_JobRatio value, $Res Function(_JobRatio) _then) = __$JobRatioCopyWithImpl;
+@override @useResult
+$Res call({
+ String jobName, double percentage
+});
 
+
+
+
+}
 /// @nodoc
-class __$JobRatioCopyWithImpl<$Res> implements _$JobRatioCopyWith<$Res> {
+class __$JobRatioCopyWithImpl<$Res>
+    implements _$JobRatioCopyWith<$Res> {
   __$JobRatioCopyWithImpl(this._self, this._then);
 
   final _JobRatio _self;
   final $Res Function(_JobRatio) _then;
 
-  /// Create a copy of JobRatio
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? jobName = null,
-    Object? percentage = null,
-  }) {
-    return _then(_JobRatio(
-      jobName: null == jobName
-          ? _self.jobName
-          : jobName // ignore: cast_nullable_to_non_nullable
-              as String,
-      percentage: null == percentage
-          ? _self.percentage
-          : percentage // ignore: cast_nullable_to_non_nullable
-              as double,
-    ));
-  }
+/// Create a copy of JobRatio
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? jobName = null,Object? percentage = null,}) {
+  return _then(_JobRatio(
+jobName: null == jobName ? _self.jobName : jobName // ignore: cast_nullable_to_non_nullable
+as String,percentage: null == percentage ? _self.percentage : percentage // ignore: cast_nullable_to_non_nullable
+as double,
+  ));
+}
+
+
 }
 
 // dart format on

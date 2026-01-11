@@ -12,14 +12,14 @@ String _$sortTypeNotifierHash() => r'e68e0b63eda26e878298f69f3c90184918400988';
 @ProviderFor(SortTypeNotifier)
 final sortTypeNotifierProvider =
     AutoDisposeNotifierProvider<SortTypeNotifier, SortBy>.internal(
-  SortTypeNotifier.new,
-  name: r'sortTypeNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$sortTypeNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SortTypeNotifier.new,
+      name: r'sortTypeNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$sortTypeNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SortTypeNotifier = AutoDisposeNotifier<SortBy>;
 // ignore_for_file: type=lint

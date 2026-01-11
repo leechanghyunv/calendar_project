@@ -22,6 +22,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
   String afterTax = '세후 0.0만원';
   String percent = '0.0%';
   double totalPay = 0.0;
+  String totalPayAnd = '0.0만원';
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
       afterTax = val.afterTax;
       taxValue = val.tax;
       percent = val.percent;
+      totalPayAnd = val.totalPayAnd;
     });
 
     final BigTextStyle = TextStyle(
@@ -56,7 +58,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
         fontSize: switch (appWidth) {
           > 450 => isFoldValue ? 37 : 40.5,
           > 420 => 40,
-          > 400 => 37,
+          > 400 => 38,
           < 376 => 31,
           _ => 32
         }
@@ -68,21 +70,47 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 
         CompanyListProviderText(),
 
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            animationSetting ? animateText
-                ? PayNumberCounter(end: totalPay.toDouble())
-                : Text(
-              textScaler: TextScaler.noScaling,
-              '${payString}',
+        Tooltip(
+          message: '일비포함: ${totalPayAnd}',
+          textStyle: TextStyle(fontWeight: FontWeight.bold),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              animationSetting ? animateText
+                  ? PayNumberCounter(end: totalPay.toDouble())
+                  : Text(
+                textScaler: TextScaler.noScaling,
+                '${payString}',
+                  style: BigTextStyle,
+              ) : Text(
+                textScaler: TextScaler.noScaling,
+                '${payString}',
                 style: BigTextStyle,
-            ) : Text(
-              textScaler: TextScaler.noScaling,
-              '${payString}',
-              style: BigTextStyle,
-            ),
-          ],
+              ),
+
+
+              // SizedBox(width: 5),
+              //
+              // Padding(
+              //   padding: const EdgeInsets.only(bottom: 8.0),
+              //   child: Container(
+              //     decoration: BoxDecoration(
+              //       color: Colors.teal.shade50,
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
+              //     child: Row(
+              //       children: [
+              //         TextWidget(
+              //             '일비포함',
+              //             11, context.width,color: Colors.teal.shade500),
+              //       ],
+              //     ),
+              //   ),
+              // ),
+
+            ],
+          ),
         ),
 
         Row(

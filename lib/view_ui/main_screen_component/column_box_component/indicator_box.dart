@@ -29,7 +29,7 @@ Widget buildStatsBox({
             final heightValue = appWidth < 376 ? 3.0 : 4.0;
 
             final double font = switch (appWidth) {
-              > 400 => 10.5,
+              > 420 => 11,
               > 400 => 10.5,
               < 376 => 8.0,
               _ => 9.0
@@ -46,7 +46,7 @@ Widget buildStatsBox({
                         style:  TextStyle(
                         height: textHeight,
                         fontWeight: FontWeight.bold,
-                        fontSize: appWidth > 450 ? 13 : 12)),
+                        fontSize: appWidth > 420 ? 13 : 12)),
                     const Spacer(),
                     AnimatedNumber(
                       end: value,

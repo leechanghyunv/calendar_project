@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_model/view_provider/display_view_record_model.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 import 'package:path/path.dart' as go;
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
@@ -35,8 +35,9 @@ class ChipList extends HookConsumerWidget {
 
       return Container(
       height: switch (appWidth) {
-        > 420 => 24.5,
-        > 400 => 23.5,
+        > 450 => 26,
+        > 420 => 25,
+        > 400 => 25,
         _ => Platform.isAndroid ?  21.5 : 22,
       },
 
@@ -45,8 +46,6 @@ class ChipList extends HookConsumerWidget {
         > 400 => appWidth * 0.45,
         _ => appWidth * 0.454,
       },
-
-
 
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -77,7 +76,13 @@ class ChipList extends HookConsumerWidget {
                   } else {
                     final workTypes = ['정상근무', '연장근무', '야간근무'];
                     final conditionValues = [condition.normal, condition.extend, condition.night];
-                    enrollMsg(ref.selected, workTypes[index]);
+
+                    if (condition.subsidy != 0) {
+                      enrollMsg2(ref.selected, workTypes[index]);
+                    } else {
+                      enrollMsg(ref.selected, workTypes[index]);
+                    }
+
                     ref.read(addHistoryProvider(conditionValues[index], ref.selected));
 
                   }
@@ -149,20 +154,15 @@ class ChipList extends HookConsumerWidget {
             children: [
               /// svg는 안드로이드에서 0,5작고, text는 0,5크다
               SizedBox(width: 3),
-              SvgPicture.asset(
-                'assets/${chipData['icon']!}.svg',
+              ChipImoJi(
+                name: '${chipData['icon']!}',
                 width: switch (context.width) {
                   > 450 => Platform.isAndroid ? 13 : 13.5,
-                  > 420 => Platform.isAndroid ? 12 : 12.5,
-                  > 400 => Platform.isAndroid ? 11.5 : 12,
+                  > 420 => Platform.isAndroid ? 13 : 13.5,
+                  > 400 => Platform.isAndroid ? 11.5 : 12.5,
                   _ => Platform.isAndroid ? 11.0 : 11.5,
                 },
-                colorFilter: context.isDark ? ColorFilter.mode(
-                  chipData['color'],
-                  BlendMode.srcIn,
-                ) : null,
-              ) ,
-
+              ),
               Text(
                 textScaler: TextScaler.noScaling,
                 ' ${chipData['value']!} ',
@@ -170,8 +170,8 @@ class ChipList extends HookConsumerWidget {
                   color: context.textColor,
                   fontSize: switch (context.width) {
                     > 450 => Platform.isAndroid ? 14.0 : 14.5,
-                    > 420 => Platform.isAndroid ? 13.0 : 12.5,
-                    > 400 => Platform.isAndroid ? 12.5 : 12,
+                    > 420 => Platform.isAndroid ? 12.5 : 13,
+                    > 400 => Platform.isAndroid ? 12.5 : 13,
                     _ => Platform.isAndroid ? 12.0 : 11.5,
                   },
                     fontWeight: FontWeight.w800,

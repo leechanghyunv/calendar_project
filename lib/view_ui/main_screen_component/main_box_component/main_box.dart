@@ -53,6 +53,7 @@ class MainBox extends ConsumerWidget {
                       children: [
                         MainBoxBigContainer(),
                         Divider(thickness: 1.0),
+                        /// controll_chip_component
                         Container(
                           alignment: Alignment.center,
                           height: width > 400 ? isFoldValue ? 25 : 35 : 25,

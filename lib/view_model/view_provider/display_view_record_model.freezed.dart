@@ -14,55 +14,47 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$DisplayViewRecordModel {
-  double get normal;
-  double get extended;
-  double get night;
-  bool get valueChange;
 
-  /// Create a copy of DisplayViewRecordModel
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $DisplayViewRecordModelCopyWith<DisplayViewRecordModel> get copyWith =>
-      _$DisplayViewRecordModelCopyWithImpl<DisplayViewRecordModel>(
-          this as DisplayViewRecordModel, _$identity);
+ double get normal; double get extended; double get night; bool get valueChange;
+/// Create a copy of DisplayViewRecordModel
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DisplayViewRecordModelCopyWith<DisplayViewRecordModel> get copyWith => _$DisplayViewRecordModelCopyWithImpl<DisplayViewRecordModel>(this as DisplayViewRecordModel, _$identity);
 
   /// Serializes this DisplayViewRecordModel to a JSON map.
   Map<String, dynamic> toJson();
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is DisplayViewRecordModel &&
-            (identical(other.normal, normal) || other.normal == normal) &&
-            (identical(other.extended, extended) ||
-                other.extended == extended) &&
-            (identical(other.night, night) || other.night == night) &&
-            (identical(other.valueChange, valueChange) ||
-                other.valueChange == valueChange));
-  }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, normal, extended, night, valueChange);
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DisplayViewRecordModel&&(identical(other.normal, normal) || other.normal == normal)&&(identical(other.extended, extended) || other.extended == extended)&&(identical(other.night, night) || other.night == night)&&(identical(other.valueChange, valueChange) || other.valueChange == valueChange));
+}
 
-  @override
-  String toString() {
-    return 'DisplayViewRecordModel(normal: $normal, extended: $extended, night: $night, valueChange: $valueChange)';
-  }
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,normal,extended,night,valueChange);
+
+@override
+String toString() {
+  return 'DisplayViewRecordModel(normal: $normal, extended: $extended, night: $night, valueChange: $valueChange)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class $DisplayViewRecordModelCopyWith<$Res> {
-  factory $DisplayViewRecordModelCopyWith(DisplayViewRecordModel value,
-          $Res Function(DisplayViewRecordModel) _then) =
-      _$DisplayViewRecordModelCopyWithImpl;
-  @useResult
-  $Res call({double normal, double extended, double night, bool valueChange});
-}
+abstract mixin class $DisplayViewRecordModelCopyWith<$Res>  {
+  factory $DisplayViewRecordModelCopyWith(DisplayViewRecordModel value, $Res Function(DisplayViewRecordModel) _then) = _$DisplayViewRecordModelCopyWithImpl;
+@useResult
+$Res call({
+ double normal, double extended, double night, bool valueChange
+});
 
+
+
+
+}
 /// @nodoc
 class _$DisplayViewRecordModelCopyWithImpl<$Res>
     implements $DisplayViewRecordModelCopyWith<$Res> {
@@ -71,278 +63,203 @@ class _$DisplayViewRecordModelCopyWithImpl<$Res>
   final DisplayViewRecordModel _self;
   final $Res Function(DisplayViewRecordModel) _then;
 
-  /// Create a copy of DisplayViewRecordModel
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? normal = null,
-    Object? extended = null,
-    Object? night = null,
-    Object? valueChange = null,
-  }) {
-    return _then(_self.copyWith(
-      normal: null == normal
-          ? _self.normal
-          : normal // ignore: cast_nullable_to_non_nullable
-              as double,
-      extended: null == extended
-          ? _self.extended
-          : extended // ignore: cast_nullable_to_non_nullable
-              as double,
-      night: null == night
-          ? _self.night
-          : night // ignore: cast_nullable_to_non_nullable
-              as double,
-      valueChange: null == valueChange
-          ? _self.valueChange
-          : valueChange // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Create a copy of DisplayViewRecordModel
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? normal = null,Object? extended = null,Object? night = null,Object? valueChange = null,}) {
+  return _then(_self.copyWith(
+normal: null == normal ? _self.normal : normal // ignore: cast_nullable_to_non_nullable
+as double,extended: null == extended ? _self.extended : extended // ignore: cast_nullable_to_non_nullable
+as double,night: null == night ? _self.night : night // ignore: cast_nullable_to_non_nullable
+as double,valueChange: null == valueChange ? _self.valueChange : valueChange // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
 }
+
+}
+
 
 /// Adds pattern-matching-related methods to [DisplayViewRecordModel].
 extension DisplayViewRecordModelPatterns on DisplayViewRecordModel {
-  /// A variant of `map` that fallback to returning `orElse`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_DisplayViewRecordModel value)? $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel() when $default != null:
-        return $default(_that);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DisplayViewRecordModel value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel() when $default != null:
+return $default(_that);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// Callbacks receives the raw object, upcasted.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case final Subclass2 value:
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_DisplayViewRecordModel value) $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel():
-        return $default(_that);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DisplayViewRecordModel value)  $default,){
+final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `map` that fallback to returning `null`.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case final Subclass value:
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_DisplayViewRecordModel value)? $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel() when $default != null:
-        return $default(_that);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DisplayViewRecordModel value)?  $default,){
+final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel() when $default != null:
+return $default(_that);case _:
+  return null;
 
-  /// A variant of `when` that fallback to an `orElse` callback.
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return orElse();
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            double normal, double extended, double night, bool valueChange)?
-        $default, {
-    required TResult orElse(),
-  }) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel() when $default != null:
-        return $default(
-            _that.normal, _that.extended, _that.night, _that.valueChange);
-      case _:
-        return orElse();
-    }
-  }
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( double normal,  double extended,  double night,  bool valueChange)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel() when $default != null:
+return $default(_that.normal,_that.extended,_that.night,_that.valueChange);case _:
+  return orElse();
 
-  /// A `switch`-like method, using callbacks.
-  ///
-  /// As opposed to `map`, this offers destructuring.
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case Subclass2(:final field2):
-  ///     return ...;
-  /// }
-  /// ```
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
-            double normal, double extended, double night, bool valueChange)
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel():
-        return $default(
-            _that.normal, _that.extended, _that.night, _that.valueChange);
-      case _:
-        throw StateError('Unexpected subclass');
-    }
-  }
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( double normal,  double extended,  double night,  bool valueChange)  $default,) {final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel():
+return $default(_that.normal,_that.extended,_that.night,_that.valueChange);case _:
+  throw StateError('Unexpected subclass');
 
-  /// A variant of `when` that fallback to returning `null`
-  ///
-  /// It is equivalent to doing:
-  /// ```dart
-  /// switch (sealedClass) {
-  ///   case Subclass(:final field):
-  ///     return ...;
-  ///   case _:
-  ///     return null;
-  /// }
-  /// ```
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
 
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            double normal, double extended, double night, bool valueChange)?
-        $default,
-  ) {
-    final _that = this;
-    switch (_that) {
-      case _DisplayViewRecordModel() when $default != null:
-        return $default(
-            _that.normal, _that.extended, _that.night, _that.valueChange);
-      case _:
-        return null;
-    }
-  }
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( double normal,  double extended,  double night,  bool valueChange)?  $default,) {final _that = this;
+switch (_that) {
+case _DisplayViewRecordModel() when $default != null:
+return $default(_that.normal,_that.extended,_that.night,_that.valueChange);case _:
+  return null;
+
+}
+}
+
 }
 
 /// @nodoc
 @JsonSerializable()
+
 class _DisplayViewRecordModel implements DisplayViewRecordModel {
-  const _DisplayViewRecordModel(
-      {this.normal = 1.0,
-      this.extended = 1.5,
-      this.night = 2.0,
-      this.valueChange = false});
-  factory _DisplayViewRecordModel.fromJson(Map<String, dynamic> json) =>
-      _$DisplayViewRecordModelFromJson(json);
+  const _DisplayViewRecordModel({this.normal = 1.0, this.extended = 1.5, this.night = 2.0, this.valueChange = false});
+  factory _DisplayViewRecordModel.fromJson(Map<String, dynamic> json) => _$DisplayViewRecordModelFromJson(json);
 
-  @override
-  @JsonKey()
-  final double normal;
-  @override
-  @JsonKey()
-  final double extended;
-  @override
-  @JsonKey()
-  final double night;
-  @override
-  @JsonKey()
-  final bool valueChange;
+@override@JsonKey() final  double normal;
+@override@JsonKey() final  double extended;
+@override@JsonKey() final  double night;
+@override@JsonKey() final  bool valueChange;
 
-  /// Create a copy of DisplayViewRecordModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  _$DisplayViewRecordModelCopyWith<_DisplayViewRecordModel> get copyWith =>
-      __$DisplayViewRecordModelCopyWithImpl<_DisplayViewRecordModel>(
-          this, _$identity);
+/// Create a copy of DisplayViewRecordModel
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$DisplayViewRecordModelCopyWith<_DisplayViewRecordModel> get copyWith => __$DisplayViewRecordModelCopyWithImpl<_DisplayViewRecordModel>(this, _$identity);
 
-  @override
-  Map<String, dynamic> toJson() {
-    return _$DisplayViewRecordModelToJson(
-      this,
-    );
-  }
+@override
+Map<String, dynamic> toJson() {
+  return _$DisplayViewRecordModelToJson(this, );
+}
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _DisplayViewRecordModel &&
-            (identical(other.normal, normal) || other.normal == normal) &&
-            (identical(other.extended, extended) ||
-                other.extended == extended) &&
-            (identical(other.night, night) || other.night == night) &&
-            (identical(other.valueChange, valueChange) ||
-                other.valueChange == valueChange));
-  }
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DisplayViewRecordModel&&(identical(other.normal, normal) || other.normal == normal)&&(identical(other.extended, extended) || other.extended == extended)&&(identical(other.night, night) || other.night == night)&&(identical(other.valueChange, valueChange) || other.valueChange == valueChange));
+}
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, normal, extended, night, valueChange);
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,normal,extended,night,valueChange);
 
-  @override
-  String toString() {
-    return 'DisplayViewRecordModel(normal: $normal, extended: $extended, night: $night, valueChange: $valueChange)';
-  }
+@override
+String toString() {
+  return 'DisplayViewRecordModel(normal: $normal, extended: $extended, night: $night, valueChange: $valueChange)';
+}
+
+
 }
 
 /// @nodoc
-abstract mixin class _$DisplayViewRecordModelCopyWith<$Res>
-    implements $DisplayViewRecordModelCopyWith<$Res> {
-  factory _$DisplayViewRecordModelCopyWith(_DisplayViewRecordModel value,
-          $Res Function(_DisplayViewRecordModel) _then) =
-      __$DisplayViewRecordModelCopyWithImpl;
-  @override
-  @useResult
-  $Res call({double normal, double extended, double night, bool valueChange});
-}
+abstract mixin class _$DisplayViewRecordModelCopyWith<$Res> implements $DisplayViewRecordModelCopyWith<$Res> {
+  factory _$DisplayViewRecordModelCopyWith(_DisplayViewRecordModel value, $Res Function(_DisplayViewRecordModel) _then) = __$DisplayViewRecordModelCopyWithImpl;
+@override @useResult
+$Res call({
+ double normal, double extended, double night, bool valueChange
+});
 
+
+
+
+}
 /// @nodoc
 class __$DisplayViewRecordModelCopyWithImpl<$Res>
     implements _$DisplayViewRecordModelCopyWith<$Res> {
@@ -351,35 +268,19 @@ class __$DisplayViewRecordModelCopyWithImpl<$Res>
   final _DisplayViewRecordModel _self;
   final $Res Function(_DisplayViewRecordModel) _then;
 
-  /// Create a copy of DisplayViewRecordModel
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $Res call({
-    Object? normal = null,
-    Object? extended = null,
-    Object? night = null,
-    Object? valueChange = null,
-  }) {
-    return _then(_DisplayViewRecordModel(
-      normal: null == normal
-          ? _self.normal
-          : normal // ignore: cast_nullable_to_non_nullable
-              as double,
-      extended: null == extended
-          ? _self.extended
-          : extended // ignore: cast_nullable_to_non_nullable
-              as double,
-      night: null == night
-          ? _self.night
-          : night // ignore: cast_nullable_to_non_nullable
-              as double,
-      valueChange: null == valueChange
-          ? _self.valueChange
-          : valueChange // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
+/// Create a copy of DisplayViewRecordModel
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? normal = null,Object? extended = null,Object? night = null,Object? valueChange = null,}) {
+  return _then(_DisplayViewRecordModel(
+normal: null == normal ? _self.normal : normal // ignore: cast_nullable_to_non_nullable
+as double,extended: null == extended ? _self.extended : extended // ignore: cast_nullable_to_non_nullable
+as double,night: null == night ? _self.night : night // ignore: cast_nullable_to_non_nullable
+as double,valueChange: null == valueChange ? _self.valueChange : valueChange // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
 }
 
 // dart format on

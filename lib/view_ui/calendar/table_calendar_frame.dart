@@ -1,6 +1,4 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/additional/additional_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/selected_cell.dart';
 import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component/today_cell.dart';
 
@@ -11,6 +9,7 @@ import 'calendar_header.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
 
 HeaderStyle get header => const HeaderStyle(
+  headerPadding: EdgeInsets.only(bottom: 8.0),
   leftChevronVisible: false,  // 왼쪽 화살표 숨김
   rightChevronVisible: false, // 오른쪽 화살표 숨김
   titleCentered: false,       // 타이틀 왼쪽 정렬

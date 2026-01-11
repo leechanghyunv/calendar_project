@@ -1,19 +1,18 @@
-
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/repository/time/date_range_controller.dart';
 import 'package:calendar_project_240727/view_model/filted_instance_model/search_source_model.dart';
-import 'package:calendar_project_240727/view_ui/screen/range_history_screen/provider/show_memo_history_provider.dart';
-import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/info_box.dart';
-import 'component/buttom_chip_list.dart';
-import 'component/history_memo_component.dart';
-import 'component/range_info_box.dart';
+import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_history_board.dart';
+import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
+import 'package:calendar_project_240727/view_ui/widgets/text_field_bar.dart';
+import '../../../base_app_size.dart';
+import '../../../core/utils/converter.dart';
+import '../../../view_model/sqlite_model/selected_model.dart';
+import 'component/range_date_box.dart';
 
 class RangeHistoryScreen extends HookConsumerWidget {
-
-  const RangeHistoryScreen( {super.key});
+  const RangeHistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,39 +21,54 @@ class RangeHistoryScreen extends HookConsumerWidget {
 
     final dateRange = ref.watch(timeRangeManagerProvider);
     final state = ref.watch(searchSourceModelProvider);
-    final showMemo = ref.watch(showMemoHistoryStateProvider);
+
     final historyMemoController = useTextEditingController();
     final historyMemoFocus = useFocusNode();
 
-    final startMonth = '${dateRange.startDate.year}년 '
-        '${dateRange.startDate.month.toString().padLeft(2, '0')}월 '
-        '${dateRange.startDate.day.toString().padLeft(2, '0')}일';
-    final endMonth = '${dateRange.endDate.year}년 '
-        '${dateRange.endDate.month.toString().padLeft(2, '0')}월 '
-        '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
+    Widget _InfoRow(String label, String value, [double fontSize = 15]) {
+      return Row(
+        children: [
+          TextWidget(label, fontSize, context.width, color: context.subTextColor),
+          Spacer(),
+          TextWidget(value, fontSize, context.width, color: context.textColor),
+        ],
+      );
+    }
 
-    final month = '${dateRange.endDate.month.toString().padLeft(2, '0')}월';
-    final day = '${dateRange.endDate.day.toString().padLeft(2, '0')}일';
+    Widget _StateContainer(String msg) => Container(
+      height: height / 1.7,
+      alignment: Alignment.center,
+      child: TextWidget(msg, 15, width),
+    );
 
-    final subTextColor = context.isDark ? Colors.grey.shade400 : Colors.grey.shade700;
+    void handleSave() {
+      final value = state.value;
+      if (value == null) return;
 
-    String _format(double amount) {
-      return amount >= 1000
-          ? amount.toStringAsFixed(0)
-          : amount.toStringAsFixed(1);
+      ref.read(
+        addSelectedProvider(
+          dateRange.startDate,
+          dateRange.endDate,
+          value.tax / 100,
+          historyMemoController.text,
+          '',
+        ).future,
+      );
+      Navigator.pop(context);
+      customMsg('기록이 저장되었습니다');
+      HapticFeedback.selectionClick();
     }
 
     return switch (state) {
-      AsyncData(:final value) => RangeDefaultScreen(
-        isCalendarScreen: false,
+      AsyncData(:final value) => RangeHistoryBoard(
+        header: RangeDateRow(
+          startDate: '${formatSelectedDate(dateRange.startDate)}',
+          endDate: '${formatSelectedDate(dateRange.endDate)}',
+        ),
         children: [
-          BottomManagerChip(),
-          height > 750 ? SizedBox(height: 7.5) : SizedBox(height: 2.5),
-          Divider(
-            color: Colors.grey.shade300,
-            thickness: 0.8,
-          ),
-          height > 750 ? SizedBox(height: 7.5) : SizedBox(height: 2.5),
+          height > 750
+              ? SizedBox(height: context.width > 400 ? 20 : 15)
+              : SizedBox(height: 2.5),
           Container(
             alignment: Alignment.topCenter,
             decoration: BoxDecoration(
@@ -64,131 +78,80 @@ class RangeHistoryScreen extends HookConsumerWidget {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: InfoBox(
-                            name: '누적금액',
-                            unit: '만원',
-                            value: _format(value.total / 10000),
-                            text: '마지막 근로일은 ${endMonth}입니다. ${month} 금액은 223.3만원 입니다'),
-                      ),
-                      SizedBox(width: 10),
-                      Flexible(
-                        flex: 1,
-                        child: InfoBox(
-                            name: '누적공수',
-                            unit: '공수',
-                            value: '${(value.record).toStringAsFixed(1)}',
-                            text: '반장님의 마지막 근로일은 ${endMonth} 입니다. 수고하셨습니다'),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  RangeInfoBox(
-                    children: [
-                      Row(
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Flexible(
-                            child: Container(
-                              child: Padding(
-                                padding:  EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0,
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        TextWidget('세후(${value.tax}%)',
-                                            13.5,width,color: subTextColor),
-                                        Spacer(),
-                                        TextWidget(
-                                            '${(value.afterTax/10000).toStringAsFixed(1)}만원',
-                                            13.5,width, color: context.textColor),
-                                      ],
-                                    ),
-                                    SizedBox(height: 15),
-                                    Row(
-                                      children: [
-                                        TextWidget('퇴직공제금액',13.5,
-                                            width,color: subTextColor),
-                                        Spacer(),
-                                        TextWidget('${(value.severancePay).toStringAsFixed(1)}만원',
-                                            13.5,width,color: context.textColor),
-                                      ],
-                                    ),
-              
-                                    SizedBox(height: 15),
-                                    Row(
-                                      children: [
-                                        TextWidget('근로신고일수',13.5,
-                                            width,color: subTextColor),
-                                        Spacer(),
-                                        TextWidget('233일',13.5,width
-                                            ,color: context.textColor),
-                                      ],
-                                    ),
-                                    SizedBox(height: 15),
-                                    Row(
-                                      children: [
-                                        TextWidget('총 출력일수',13.5,
-                                            width,color: subTextColor),
-                                        Spacer(),
-                                        TextWidget('${value.workDay}일',13.5,width,
-                                            color: context.textColor),
-                                      ],
-                                    ),
-                                    SizedBox(height: 15),
-                                    Row(
-                                      children: [
-                                        TextWidget('근로공제일수',13.5,
-                                            width,color: subTextColor),
-                                        Spacer(),
-                                        TextWidget('${value.wrd}일',13.5,width,color: context.textColor),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
+                          _InfoRow('누적금액', '${formatAmount(value.total.toInt())}'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('누적공수', '${value.record.toStringAsFixed(1)}공수'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('세후(${value.tax}%)','${formatAmount(value.afterTax.toInt())}'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('퇴직공제금액', '${value.severancePay.toStringAsFixed(1)}만원'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('근로신고일수', '233일'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('총 출력일수', '${value.workDay}일'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
+                          _InfoRow('근로공제일수', '${value.wrd}일'),
+                          SizedBox(height: width > 400 ? 22.5 : width > 376 ? 17 : 20),
                         ],
                       ),
-              
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.grey.shade300,
+                    thickness: 1.0,
+                  ),
+                  SizedBox(height: context.width > 400 ? 20 : 15),
+                  Row(
+                    children: [
+                      ChipImoJi(
+                        name: 'check',
+                        width: 14,
+                      ),
+                      SizedBox(width: 5),
+                      TextWidget('저장된 이력은 누적기록에서 확인하세요', 14,
+                          context.width,
+                          color: context.subTextColor,
+                      ),
                     ],
                   ),
-                  SizedBox(height: 15),
-                  HistoryMemoComponent(
-                    startMonth,
-                    endMonth,
-                    historyMemoFocus,
-                    historyMemoController,
-                    (value) {
-                    },
-                  ),
-              
+                  
+
+
                 ],
               ),
             ),
           ),
         ],
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFieldBar(
+                  controller: historyMemoController,
+                  focusNode: historyMemoFocus,
+                  hintText: ' 업체,현장 등록 후 저장',
+                  onPressed: () => handleSave(),
+                  onSubmitted: (val) => handleSave(),
+                  icon: Icons.check,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
 
-      AsyncLoading() => Container(
-        height: height / 1.7,
-        alignment: Alignment.center,
-        child: TextWidget('loading...', 15, width),
-      ),
+      AsyncLoading() => _StateContainer('loading...'),
+      _ => _StateContainer('데이터를 불러올 수 없습니다'),
 
-    // 🔥 로딩이 아니고 데이터도 없으면 모두 에러로 처리
-      _ => Container(
-        height: height / 1.7,
-        alignment: Alignment.center,
-        child: TextWidget('데이터를 불러올 수 없습니다', 15, width),
-      ),
-  };
+    };
   }
 }

@@ -121,16 +121,14 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
   final totalPay = filteredHistory.sumBy((e) => e.pay);
 
 
-  // final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
+  final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
 
 
   final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble();
 
   final prevPay = prevHistory.sumBy((e) => e.pay);
 
-  final totalSubsidy = currentContract.subsidy * subsidyDay;
-
-  final totalPayAnd = totalPay + totalSubsidy;
+  final totalPayAnd = totalPay + newSubsidy;
 
   final normalPay = normalDay * currentContract.normal;
   final extendPay = extendDay * currentContract.extend;
@@ -140,14 +138,13 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   return LaborFiltedModel(
     subsidyDay: subsidyDay,
-    totalSubsidy: formatAmount(totalSubsidy),
+    totalSubsidy: formatAmount(newSubsidy),
     workDay: workDay,
-    totalPay: totalPay,
+    totalPay: totalPayAnd,
     tax: taxString,
     afterTax: formatAmount(afterTax.toInt()),
     prevPay: prevPay,
-    // percent: calculateDisplayValue(totalPay, prevPay),
-    totalPayString: formatAmount(totalPay),
+    totalPayString: formatAmount(totalPayAnd),
     prevPayString: formatAmount(prevPay),
     totalPayAnd: formatAmount(totalPayAnd),
     record: workRecord,

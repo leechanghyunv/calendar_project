@@ -32,13 +32,14 @@ String _$infoBoxHash() => r'a810a5f28c9344fc9a4d40537b82b00bf8de241d';
 @ProviderFor(InfoBox)
 final infoBoxProvider =
     AutoDisposeAsyncNotifierProvider<InfoBox, InfoBoxModel>.internal(
-  InfoBox.new,
-  name: r'infoBoxProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$infoBoxHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      InfoBox.new,
+      name: r'infoBoxProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$infoBoxHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$InfoBox = AutoDisposeAsyncNotifier<InfoBoxModel>;
 // ignore_for_file: type=lint

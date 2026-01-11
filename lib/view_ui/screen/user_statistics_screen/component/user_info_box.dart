@@ -83,7 +83,7 @@ class UserInfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 9.0 : 9.5),
+                fontSize: (width >= 450 ? 12.0 : width > 400 ? 11.0 : width < 376 ? 9.0 : 9.5),
                 color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
               ),
             ),

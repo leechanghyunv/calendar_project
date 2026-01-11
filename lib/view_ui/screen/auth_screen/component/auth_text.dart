@@ -8,7 +8,7 @@ Widget bigText(String text, double height) => Text(
   style: TextStyle(
     height: textHeight,
     fontSize: height >= 850
-        ? 19.5
+        ? 20
         : height > 750
         ? 17.5
         : 15.5,
@@ -20,7 +20,7 @@ Widget bigText(String text, double height) => Text(
 
 
 Widget introText(double height) {
-  final fontSize = height >= 850 ? 15.5 : height > 750 ? 15.0 : 13.5;
+  final fontSize = height >= 850 ? 16.5 : height > 750 ? 15.0 : 13.5;
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.5 : null,
     fontSize: fontSize,

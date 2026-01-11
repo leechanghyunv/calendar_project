@@ -81,7 +81,8 @@ _LaborFiltedModel _$LaborFiltedModelFromJson(Map<String, dynamic> json) =>
       nightPay: json['nightPay'] as String? ?? '0만원',
       extraDay: (json['extraDay'] as num?)?.toInt() ?? 0,
       offDay: (json['offDay'] as num?)?.toInt() ?? 0,
-      workSites: (json['workSites'] as List<dynamic>?)
+      workSites:
+          (json['workSites'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],

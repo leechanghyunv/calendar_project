@@ -11,11 +11,20 @@ Widget TextWidget(
     fontWeight: fontWeight ?? FontWeight.bold,
     height: textHeight,
     color: color ?? Colors.black, // 기본값은 검정색
-    fontSize: appWidth <= 376 ? (size - 1.0) : (appWidth > 400 ? (size + 1.5) : size),
+    fontSize: _getFontSize(size, appWidth),
     letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
   ),
 );
 
+double _getFontSize(double baseSize, double appWidth) {
+  return switch (appWidth) {
+    > 450 => baseSize + 2.5, // 매우 큰 화면 (초대형 안드로이드 등)
+    > 420 => baseSize + 2.0, // 아이폰 Pro Max 등 대화면
+    > 400 => baseSize + 1.5, // 일반적인 대형 화면
+    <= 376 => baseSize - 1.0, // 작은 화면 (디스플레이 확대 모드 활성화 포함)
+    _ => baseSize,            // 기본값
+  };
+}
 
 Widget ErrorText(String msg, double appWidth, {Color? color}) {
   FontWeight fontWeight = msg.contains('목표금액은') ? FontWeight.w900 : FontWeight.bold;

@@ -47,7 +47,7 @@ class MonthMoveDialog extends HookConsumerWidget {
                 const SizedBox(width: 2.5),
                 Padding(
                   padding: EdgeInsets.only(bottom: 4.0),
-                  child: Icon(Icons.keyboard_arrow_down_rounded, size: 25.5,
+                  child: Icon(Icons.keyboard_arrow_down_rounded, size: 23.5,
                       color: context.textColor),
                 ),
               ],

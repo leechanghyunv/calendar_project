@@ -12,14 +12,14 @@ String _$modalPageNotifierHash() => r'dc25771a085b958d90c72e6c487032b05cf98d4c';
 @ProviderFor(ModalPageNotifier)
 final modalPageNotifierProvider =
     AutoDisposeNotifierProvider<ModalPageNotifier, int>.internal(
-  ModalPageNotifier.new,
-  name: r'modalPageNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$modalPageNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ModalPageNotifier.new,
+      name: r'modalPageNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$modalPageNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ModalPageNotifier = AutoDisposeNotifier<int>;
 // ignore_for_file: type=lint

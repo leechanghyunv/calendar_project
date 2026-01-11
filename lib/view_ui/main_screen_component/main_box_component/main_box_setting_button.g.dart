@@ -12,13 +12,14 @@ String _$settingValueHash() => r'cb138e564fe68a4514bbf36ba27995b89579f96a';
 @ProviderFor(SettingValue)
 final settingValueProvider =
     AutoDisposeNotifierProvider<SettingValue, ViewType>.internal(
-  SettingValue.new,
-  name: r'settingValueProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$settingValueHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SettingValue.new,
+      name: r'settingValueProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$settingValueHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SettingValue = AutoDisposeNotifier<ViewType>;
 // ignore_for_file: type=lint

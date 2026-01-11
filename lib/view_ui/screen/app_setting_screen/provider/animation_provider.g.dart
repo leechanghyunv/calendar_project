@@ -12,14 +12,14 @@ String _$openingAnimationHash() => r'65251a7528449f0ac92ecc3f34c5b1347f0b6df7';
 @ProviderFor(OpeningAnimation)
 final openingAnimationProvider =
     AutoDisposeAsyncNotifierProvider<OpeningAnimation, bool>.internal(
-  OpeningAnimation.new,
-  name: r'openingAnimationProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$openingAnimationHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      OpeningAnimation.new,
+      name: r'openingAnimationProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$openingAnimationHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$OpeningAnimation = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint

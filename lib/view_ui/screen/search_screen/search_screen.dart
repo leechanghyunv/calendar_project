@@ -1,13 +1,15 @@
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_duration_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_list_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_component.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
+import '../../../core/extentions/theme_color.dart';
 import '../../../model/work_history_model.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../../view_model/sqlite_model/search_list_model.dart';
+import '../../widgets/text_field_bar.dart';
+import '../auth_screen/const_widget.dart';
 
 
 class SearchScreen extends HookConsumerWidget {
@@ -74,6 +76,13 @@ class SearchScreen extends HookConsumerWidget {
     final periods = ['최근 1개월', '3개월', '6개월', '12개월', '18개월'];
 
 
+    void searchMethod(){
+      searchQuery.value = searchController.text;
+      if (searchController.text.isNotEmpty){
+        ref.read(searchHistoryNotifierProvider.notifier).addKeyword(searchQuery.value);
+      }
+    }
+
     return KeyboardVisibilityBuilder(
       builder: (context, isKeyboardVisible) {
         return Scaffold(
@@ -83,79 +92,36 @@ class SearchScreen extends HookConsumerWidget {
             bottom: false,
             child: Column(
               children: [
-                SizedBox(height: 5),
-                // 🔝 검색 바
+                SizedBox(height: 30),
+
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Row(
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back_ios, size: 20,),
-                        onPressed: () => Navigator.pop(context),
+                      InfoRow(
+                        title: '메모 검색 리스트',
+                        subtitle: '등록란에서 업체명 선택후 공수설정',
                       ),
-                      Expanded(
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: context.isDark ? Colors.black87 : Colors.grey[200],
-                            border: Border.all(
-                              color: context.isDark ? Colors.white : Colors.white,
-                              width: context.isDark ? 0.75 : 0.35,
-                            ),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: TextField(
-                            focusNode: searchNode,
-                            controller: searchController,
-                            cursorColor: Colors.grey.shade700,
-                            decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  searchQuery.value = searchController.text;
-                                  if (searchController.text.isNotEmpty) {
-
-
-                                    ref.read(searchHistoryNotifierProvider.notifier).addKeyword(searchQuery.value);
-
-                                  }
-                                },
-                                icon: Icon(
-                                    Icons.search,
-                                    color: context.isDark ? Colors.white : Colors.teal,
-                                    size: 20),
-                              ),
-                              isDense: true,
-                              hintText: ' 메모 검색...',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[700],
-                                fontSize: 14,
-                              ),
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                            ),
-                            onSubmitted: (value) {
-                              searchQuery.value = value;
-                              if (value.isNotEmpty) {
-                                ref.read(searchHistoryNotifierProvider.notifier).addKeyword(searchQuery.value);
-
-                              }
-                            },
-                          ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 12.0),
+                        child: InkWell(
+                          onTap: (){
+                            HapticFeedback.selectionClick();
+                            Navigator.pop(context);
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Icon(Icons.keyboard_arrow_down,
+                              color: context.isDark ? Colors.white : Colors.grey.shade700,
+                              size: 25),
                         ),
                       ),
                     ],
                   ),
                 ),
 
-                // 📊 기간 선택 칩
-                PeriodSelectorWidget(
-                  selectedPeriod: selectedPeriod,
-                  periods: periods,
-                ),
                 SizedBox(height: 20),
+
                 // 🕐 검색 히스토리
                 SearchListWidget(
                   searchHistory: searchHistory,
@@ -178,6 +144,37 @@ class SearchScreen extends HookConsumerWidget {
                     filteredResults: filteredResults,
                     selectedPeriod: selectedPeriod.value,
                   ),
+                ),
+              ],
+            ),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                PeriodSelectorWidget(
+                  selectedPeriod: selectedPeriod,
+                  periods: periods,
+                ),
+                SizedBox(height: 15),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFieldBar(
+                        focusNode: searchNode,
+                        controller: searchController,
+                        hintText: ' 메모 검색...',
+                        onPressed: () => searchMethod(),
+                        onChanged: (value) => searchMethod(),
+                        onSubmitted: (value) => searchMethod(),
+                        icon: Icons.search,
+                      ),
+
+                    ),
+
+                  ],
                 ),
               ],
             ),

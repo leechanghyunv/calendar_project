@@ -38,8 +38,9 @@ class TwoDigitInputFormatter extends TextInputFormatter {
   }
 }
 
-String formatSelectedDate(DateTime date) {
-  final year = (date.year % 100).toString().padLeft(2, '0'); // 2025 → 25
+String formatSelectedDate(DateTime? date) {
+  if (date == null) return '날짜를 선택 해주세요';
+  final year = (date.year).toString(); // 2025 → 25
   final month = date.month.toString().padLeft(2, '0');
   final day = date.day.toString().padLeft(2, '0');
   return '$year년 $month월 $day일';

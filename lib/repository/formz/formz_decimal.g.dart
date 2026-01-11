@@ -13,14 +13,14 @@ String _$formzDecimalValidatorHash() =>
 @ProviderFor(FormzDecimalValidator)
 final formzDecimalValidatorProvider =
     AutoDisposeNotifierProvider<FormzDecimalValidator, DecimalForm>.internal(
-  FormzDecimalValidator.new,
-  name: r'formzDecimalValidatorProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$formzDecimalValidatorHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FormzDecimalValidator.new,
+      name: r'formzDecimalValidatorProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$formzDecimalValidatorHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FormzDecimalValidator = AutoDisposeNotifier<DecimalForm>;
 // ignore_for_file: type=lint

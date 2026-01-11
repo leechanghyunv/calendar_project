@@ -12,14 +12,14 @@ String _$dynamicHolidaysHash() => r'b3d1c6c921b900b498beb9f7720791f2351a1945';
 @ProviderFor(DynamicHolidays)
 final dynamicHolidaysProvider =
     NotifierProvider<DynamicHolidays, Map<DateTime, String>>.internal(
-  DynamicHolidays.new,
-  name: r'dynamicHolidaysProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$dynamicHolidaysHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      DynamicHolidays.new,
+      name: r'dynamicHolidaysProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$dynamicHolidaysHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$DynamicHolidays = Notifier<Map<DateTime, String>>;
 // ignore_for_file: type=lint

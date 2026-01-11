@@ -11,16 +11,19 @@ String _$backUpClipboardServiceHash() =>
 
 /// See also [BackUpClipboardService].
 @ProviderFor(BackUpClipboardService)
-final backUpClipboardServiceProvider = AutoDisposeNotifierProvider<
-    BackUpClipboardService, AsyncValue<void>>.internal(
-  BackUpClipboardService.new,
-  name: r'backUpClipboardServiceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$backUpClipboardServiceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final backUpClipboardServiceProvider =
+    AutoDisposeNotifierProvider<
+      BackUpClipboardService,
+      AsyncValue<void>
+    >.internal(
+      BackUpClipboardService.new,
+      name: r'backUpClipboardServiceProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$backUpClipboardServiceHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$BackUpClipboardService = AutoDisposeNotifier<AsyncValue<void>>;
 // ignore_for_file: type=lint

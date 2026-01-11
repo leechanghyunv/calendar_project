@@ -1,3 +1,4 @@
+import 'package:dartx/dartx.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../model/combined_data_model.dart';
@@ -16,11 +17,11 @@ class RangeSource extends _$RangeSource {
   double get tax => state.value?.contract.last.tax ?? 0.0; /// %를 제외한 숫자로 나오기때문에 필터링
   double get filtedTax => tax/100; /// ex 0.2 -> 20%
   ///
-  int get workDayRange => historyRange.where((e) => e.record != 0.0).length;
+  int get workDayRange => historyRange.count((e) => e.record != 0.0);
   /// 출력일수
-  int get totalPayRange => historyRange.fold(0,(p,e) => p + e.pay);
+  int get totalPayRange => historyRange.sumBy((e) => e.pay);
   /// 총 급여
-  double get workRecodeRange => historyRange.fold(0.0,(p,e) => p + e.record);
+  double get workRecodeRange => historyRange.sumBy((e) => e.record);
   /// 총 공수
 
   double get afterTaxTotal {
@@ -29,7 +30,7 @@ class RangeSource extends _$RangeSource {
       return 0.0; // totalPay가 유효하지 않으면 0 반환
     }
     // filtedTax가 null일 경우 0으로 처리
-    double taxRate = filtedTax ?? 0;
+    double taxRate = filtedTax;
     // 세후 총액 계산
     double afterTaxAmount = totalPayRange - (totalPayRange * taxRate);
     // 계산 결과가 유효한지 확인

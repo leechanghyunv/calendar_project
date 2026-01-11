@@ -12,14 +12,14 @@ String _$columnStatisticsHash() => r'72a096d93503c8b043ce6b46b1187e8c51298b34';
 @ProviderFor(columnStatistics)
 final columnStatisticsProvider =
     AutoDisposeProvider<ColumnBoxValueModel>.internal(
-  columnStatistics,
-  name: r'columnStatisticsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$columnStatisticsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      columnStatistics,
+      name: r'columnStatisticsProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$columnStatisticsHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element

@@ -12,14 +12,14 @@ String _$authSettingViewHash() => r'a731b336d8f8ff3c803459ab881fd4a57beb189f';
 @ProviderFor(AuthSettingView)
 final authSettingViewProvider =
     AutoDisposeNotifierProvider<AuthSettingView, void>.internal(
-  AuthSettingView.new,
-  name: r'authSettingViewProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$authSettingViewHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      AuthSettingView.new,
+      name: r'authSettingViewProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$authSettingViewHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$AuthSettingView = AutoDisposeNotifier<void>;
 // ignore_for_file: type=lint

@@ -1,8 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
-
 import '../../../../core/export_package.dart';
 
 class SettingMemoTextField extends HookConsumerWidget {
@@ -26,7 +24,7 @@ class SettingMemoTextField extends HookConsumerWidget {
 
     return Container(
       constraints: BoxConstraints(
-        minHeight: 70,
+        minHeight: context.width > 400 ? 150 : 100,
       ),
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black54 : Colors.grey.shade100,
@@ -38,15 +36,17 @@ class SettingMemoTextField extends HookConsumerWidget {
         boxShadow: context.defaultShadow,
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextFormField(
             focusNode: nodeMemo,
             controller: memoController,
             onChanged: onChanged,
             maxLines: null, // 자동으로 여러 줄 입력 가능
+
             cursorColor: Colors.grey.shade500,
             style: TextStyle(
-              fontSize: 14,
+              fontSize: context.width > 400 ? 15.5 : 14,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),
@@ -58,27 +58,13 @@ class SettingMemoTextField extends HookConsumerWidget {
 
               hintText: ' 메모내용을 입력해주세요',
               hintStyle: TextStyle(
-                  fontSize: 14,
+                  fontSize: context.width > 400 ? 15.5 : 14,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   overflow: TextOverflow.ellipsis),
               border: InputBorder.none,
               isDense: true,
             ),
-          ),
-          Row(
-            children: [
-              Spacer(),
-              nodeMemo.hasFocus || decimalMemo.hasFocus
-                  ? GestureDetector(
-                onTap: onTap,
-                    child: TextWidget('# 나가기', 15,
-                    context.width, color: Colors.teal.shade700),
-                  )
-                  : SizedBox.shrink(),
-              SizedBox(width: 10),
-
-            ],
           ),
         ],
       ),

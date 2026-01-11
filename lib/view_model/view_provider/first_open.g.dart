@@ -13,14 +13,14 @@ String _$firstInstallNotifierHash() =>
 @ProviderFor(FirstInstallNotifier)
 final firstInstallNotifierProvider =
     AutoDisposeAsyncNotifierProvider<FirstInstallNotifier, bool>.internal(
-  FirstInstallNotifier.new,
-  name: r'firstInstallNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$firstInstallNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      FirstInstallNotifier.new,
+      name: r'firstInstallNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$firstInstallNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FirstInstallNotifier = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint

@@ -12,13 +12,14 @@ String _$payListHash() => r'598c22a4c36e666b15340ae2a3fe9ac99ad7e58c';
 @ProviderFor(PayList)
 final payListProvider =
     AutoDisposeNotifierProvider<PayList, List<String>>.internal(
-  PayList.new,
-  name: r'payListProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$payListHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      PayList.new,
+      name: r'payListProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$payListHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$PayList = AutoDisposeNotifier<List<String>>;
 // ignore_for_file: type=lint

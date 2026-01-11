@@ -11,16 +11,19 @@ String _$stringListNotifierHash() =>
 
 /// See also [StringListNotifier].
 @ProviderFor(StringListNotifier)
-final stringListNotifierProvider = AutoDisposeAsyncNotifierProvider<
-    StringListNotifier, List<StringItem>>.internal(
-  StringListNotifier.new,
-  name: r'stringListNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$stringListNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final stringListNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<
+      StringListNotifier,
+      List<StringItem>
+    >.internal(
+      StringListNotifier.new,
+      name: r'stringListNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$stringListNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$StringListNotifier = AutoDisposeAsyncNotifier<List<StringItem>>;
 // ignore_for_file: type=lint

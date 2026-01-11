@@ -1,11 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
-import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/workSite_textfield.dart';
+import 'package:calendar_project_240727/view_ui/widgets/text_field_bar.dart';
 
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
-import '../../../widgets/elevated_button.dart';
 import '../../auth_screen/const_widget.dart';
 import '../component/number_picker_modal.dart';
 import '/../../core/export_package.dart';
@@ -19,6 +18,20 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     final siteNode = useFocusNode();
     final siteEditingController = useTextEditingController();
     final sitesAsync = ref.watch(stringListNotifierProvider);
+
+    void siteRegistration(){
+      if (siteEditingController.text.isEmpty){
+        customMsg('현장을 입력해주세요');
+        return;
+      }
+      HapticFeedback.selectionClick();
+      ref.read(stringListNotifierProvider.notifier).add(siteEditingController.text);
+      Navigator.pop(context);
+      WidgetsBinding.instance.addPostFrameCallback((_){
+        NumberPickerModal(context);
+      });
+    }
+
 
     return SafeArea(
       child: Scaffold(
@@ -50,26 +63,17 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 ],
               ),
               SizedBox(height: 20),
-              Container(
-                decoration: BoxDecoration(
-                  border: context.isLight ? null : Border.all(width: 0.75,
-                      color: Colors.white),
-                  borderRadius: BorderRadius.circular(12),
-                  color: context.isDark ? Colors.black54 : Colors.grey.shade200,
-                ),
-                  child: WorksiteTextField(
-                    focusNode: siteNode,
-                    textController: siteEditingController,
-                    onSubmitted: (val){
-                      HapticFeedback.selectionClick();
-                      siteNode.requestFocus();
-                    },
-                  ),
-              ),
-              SizedBox(height: 20),
               Expanded(
                 child: switch (sitesAsync) {
-                  AsyncData(:final value) => ListView.separated(
+                  AsyncData(:final value) => value.isEmpty
+                      ? Center(
+                    child: TextWidget(
+                      '등록된 현장이 없습니다',
+                      14.0,
+                      context.width,
+                      color: context.subTextColor,
+                    ),
+                  ) : ListView.separated(
                     itemCount: value.length,
                     separatorBuilder: (context, index) => Divider(
                       height: 1,
@@ -124,27 +128,14 @@ class SiteRegistrationScreen extends HookConsumerWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: CustomElevatedButton(
-                  text: '등록완료',
-                  onPressed: () {
-                    if (siteEditingController.text.isEmpty) {
-                      customMsg('현장을 입력해주세요');
-                      return;
-                    }
-                    HapticFeedback.selectionClick();
-                    ref.read(stringListNotifierProvider.notifier).add(siteEditingController.text);
-                    Navigator.pop(context);
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      NumberPickerModal(context);
-                    });
-                  },
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
+          child: TextFieldBar(
+              controller: siteEditingController,
+              focusNode: siteNode,
+              icon: Icons.check,
+              onSubmitted: (val) => siteRegistration(),
+              onPressed: () => siteRegistration(),
+              hintText: '현장 등록 후 저장하기'
           ),
         ),
       ),

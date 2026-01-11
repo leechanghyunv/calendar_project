@@ -12,13 +12,14 @@ String _$selectedSiteHash() => r'87114530b354def4e54b49fb27c5537852d9a96b';
 @ProviderFor(SelectedSite)
 final selectedSiteProvider =
     AutoDisposeNotifierProvider<SelectedSite, String>.internal(
-  SelectedSite.new,
-  name: r'selectedSiteProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$selectedSiteHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SelectedSite.new,
+      name: r'selectedSiteProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$selectedSiteHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SelectedSite = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint

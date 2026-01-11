@@ -65,6 +65,7 @@ class AdditionalCell extends HookConsumerWidget {
             children: [
 
                 Row(
+
                 children: [
                   TextWidget(
                     '${ref.selected.month}월 ${ref.selected.day}일 $displayText',

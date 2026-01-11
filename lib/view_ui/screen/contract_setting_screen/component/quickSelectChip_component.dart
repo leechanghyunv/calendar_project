@@ -17,7 +17,7 @@ class QuickSelectChipList extends HookConsumerWidget {
       children: [
         Flexible(
           child: Container(
-            height: 25, // 칩 높이에 맞춰 조정
+            height: context.width > 400 ? 32 : 25, // 칩 높이에 맞춰 조정
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
@@ -33,7 +33,7 @@ class QuickSelectChipList extends HookConsumerWidget {
                   final value = values[index];
                   return Padding(
                     padding: EdgeInsets.only(
-                      right: index < values.length - 1 ? 8.0 : 0,
+                      right: index < values.length - 1 ? context.width > 450 ? 12.0 : 8.0 : 0,
                     ),
                     child: QuickSelectChip(
                       value: value,
@@ -90,7 +90,9 @@ class QuickSelectChip extends StatelessWidget {
         ),
         height: 30,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2.0,horizontal: 12),
+          padding:  EdgeInsets.symmetric(vertical: 2.0,
+              horizontal: context.width >= 450 ? 16.5 : context.width >= 400 ? 14.5 : 12,
+          ),
           child: Text(value.toStringAsFixed(2),
             textScaler: TextScaler.noScaling,
             style: TextStyle(

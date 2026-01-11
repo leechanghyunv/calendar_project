@@ -20,21 +20,19 @@ class SettingDisplay extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final contract = ref.watch(viewContractProvider);
-
-
     final currentContract = (contract.hasValue && contract.value!.isNotEmpty)
         ? contract.value!.last
         : null;
 
     final calculatedPay = currentContract != null
-        ? (currentContract.normal * currentValue).toInt()
+        ? ((currentContract.normal + currentContract.subsidy) * currentValue).toInt()
         : 0;
 
     final formattedPay = '${(calculatedPay/10000).toStringAsFixed(1)}만원';
 
+    final String totalValue = currentContract?.subsidy != 0 ?  '예상 일당 (+일비)' : '예상 일당';
 
     return AnimatedContainer(
-      height: context.height > 750 ? 100 : 95,
       alignment: Alignment.center,
       duration: Duration(milliseconds: 300),
       decoration: BoxDecoration(
@@ -62,7 +60,7 @@ class SettingDisplay extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(height: 2.5),
-                TextWidget('예상 일당', 15, context.width,
+                TextWidget(totalValue, 15, context.width,
                     color: context.buttonColor),
                 context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
                 Text(

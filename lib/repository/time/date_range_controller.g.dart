@@ -12,14 +12,14 @@ String _$timeRangeManagerHash() => r'e35664d5e40b5737432059054fdeae85ad0f3382';
 @ProviderFor(TimeRangeManager)
 final timeRangeManagerProvider =
     NotifierProvider<TimeRangeManager, DateRangeModel>.internal(
-  TimeRangeManager.new,
-  name: r'timeRangeManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$timeRangeManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      TimeRangeManager.new,
+      name: r'timeRangeManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$timeRangeManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$TimeRangeManager = Notifier<DateRangeModel>;
 String _$rangeSelectManagerHash() =>
@@ -27,16 +27,19 @@ String _$rangeSelectManagerHash() =>
 
 /// See also [RangeSelectManager].
 @ProviderFor(RangeSelectManager)
-final rangeSelectManagerProvider = AutoDisposeNotifierProvider<
-    RangeSelectManager, RangeSelectedModel>.internal(
-  RangeSelectManager.new,
-  name: r'rangeSelectManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$rangeSelectManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final rangeSelectManagerProvider =
+    AutoDisposeNotifierProvider<
+      RangeSelectManager,
+      RangeSelectedModel
+    >.internal(
+      RangeSelectManager.new,
+      name: r'rangeSelectManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$rangeSelectManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$RangeSelectManager = AutoDisposeNotifier<RangeSelectedModel>;
 // ignore_for_file: type=lint

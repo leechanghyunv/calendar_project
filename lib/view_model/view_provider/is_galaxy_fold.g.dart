@@ -13,8 +13,9 @@ String _$isGalaxyFoldHash() => r'0e9b097fc61e33d33406f270f1fa68a94d892f0a';
 final isGalaxyFoldProvider = AutoDisposeFutureProvider<bool>.internal(
   isGalaxyFold,
   name: r'isGalaxyFoldProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isGalaxyFoldHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isGalaxyFoldHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../app_review.dart';
+import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
 import '../../screen/question_screen/question_screen_modal.dart';
 import '../../version_introduce/new_version_dialog.dart';
@@ -29,24 +30,11 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
       /// 0
       child: PopupMenuButton<String>(
         color: context.isDark ? Colors.black87 : null,
-        onSelected: (String value) async {
-          switch (value) {
-            case 'option1':
-              showDialog(
-                  context: context,
-                  builder: (context) => NewVersionDialog(),
-              );
-              break;
-            case 'option2':
-              questionModal(context);
-              break;
-            case 'option3':
-              showDialog(
-                context: context,
-                builder: (context) => CustomReviewDialog(),
-              );
-              break;
-          }
+        onSelected: (value) => switch (value) {
+          'option1' => context.dialog(NewVersionDialog()),
+          'option2' => questionModal(context),
+          'option3' => context.dialog(CustomReviewDialog()),
+          _ => null,
         },
         padding: EdgeInsets.zero,
 

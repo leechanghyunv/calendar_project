@@ -114,6 +114,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
      child: Column(
        mainAxisAlignment: MainAxisAlignment.start,
        children: [
+         SizedBox(height: 20),
          appHeight > 750 ? SizedBox(height: 5) : SizedBox.shrink(),
          appHeight > 750 ? AuthHeader(
            value: normalPay.value,
@@ -279,7 +280,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
           onPressed: (){
             final site = _formKey.currentState?.fields['site']?.value ?? '';
             final workType = _formKey.currentState?.fields['work_type']?.value ?? '';
-            // 🔥 세금값이 설정되지 않은 경우 기본값 적용
+            // // 🔥 세금값이 설정되지 않은 경우 기본값 적용
             final currentTaxValue = _formKey.currentState?.fields['tax']?.value;
             if (currentTaxValue == null) {
               formzRefRead.onChangeTax(taxRate.value); // 기본값 3.3 적용

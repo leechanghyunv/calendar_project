@@ -12,14 +12,14 @@ String _$calendarSwitcherHash() => r'f942302ff71a31a65e2b9ddb24483cba7cbcacf7';
 @ProviderFor(CalendarSwitcher)
 final calendarSwitcherProvider =
     AsyncNotifierProvider<CalendarSwitcher, bool>.internal(
-  CalendarSwitcher.new,
-  name: r'calendarSwitcherProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$calendarSwitcherHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      CalendarSwitcher.new,
+      name: r'calendarSwitcherProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$calendarSwitcherHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CalendarSwitcher = AsyncNotifier<bool>;
 // ignore_for_file: type=lint

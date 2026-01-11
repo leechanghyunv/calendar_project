@@ -44,7 +44,7 @@ class AnimatedNumber extends ConsumerWidget {
               height: textHeight,
               fontWeight: FontWeight.bold,
               color: fillColor,
-              fontSize: ref.context.width > 450 ? 12.5 : 11,
+              fontSize: ref.context.width > 420 ? 12.5 : 11,
               fontFamily: 'monospace',
             ),
             maxLines: 1,
@@ -57,7 +57,7 @@ class AnimatedNumber extends ConsumerWidget {
         style: TextStyle(
         height: textHeight,
         fontWeight: FontWeight.bold, color: fillColor,
-        fontSize: context.width > 450 ? 12.5 : 11),
+        fontSize: context.width > 420 ? 12.5 : 11),
     );
   }
 }

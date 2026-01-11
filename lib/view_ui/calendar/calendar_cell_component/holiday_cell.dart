@@ -33,7 +33,7 @@ class HolidayCell extends ConsumerWidget {
 
         ? appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? 50.0 : 35.w)
 
-        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 33.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
+        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 36.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
 
 
     final localDate = DateTime(date.year, date.month, date.day);
@@ -71,7 +71,7 @@ class HolidayCell extends ConsumerWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w800,
               height: Platform.isAndroid ? 1.2 : null,
-                fontSize: appWidth > 450 ? 10.5 : 8.5,
+                fontSize: appWidth > 420 ? 10.5 : 8.5,
                 color: cellColor,
             ),
           ),

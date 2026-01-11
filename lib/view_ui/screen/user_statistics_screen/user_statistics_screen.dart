@@ -39,7 +39,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                       children: [
                         SizedBox(height: 10),
                         Container(
-                          height: height > 800 ? 190 : height > 750 ? 180 : 165,
+                          height: height > 800 ? 200 : height > 750 ? 180 : 165,
                           width: context.width,
                           decoration: context.OpeningBoxDeco,
                           child: Padding(
@@ -74,7 +74,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                       child: GestureDetector(
                                         onTap: () => showBasicModal(context),
                                         child: Container(
-                                          height:  30.5,
+                                          height:  context.width > 400 ? 30 : 30.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             color: context.isDark ? Colors.teal.shade900 : Colors.teal,

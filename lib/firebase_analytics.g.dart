@@ -11,16 +11,19 @@ String _$firebaseAnalyticsClassHash() =>
 
 /// See also [FirebaseAnalyticsClass].
 @ProviderFor(FirebaseAnalyticsClass)
-final firebaseAnalyticsClassProvider = AutoDisposeNotifierProvider<
-    FirebaseAnalyticsClass, FirebaseAnalytics>.internal(
-  FirebaseAnalyticsClass.new,
-  name: r'firebaseAnalyticsClassProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$firebaseAnalyticsClassHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final firebaseAnalyticsClassProvider =
+    AutoDisposeNotifierProvider<
+      FirebaseAnalyticsClass,
+      FirebaseAnalytics
+    >.internal(
+      FirebaseAnalyticsClass.new,
+      name: r'firebaseAnalyticsClassProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$firebaseAnalyticsClassHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$FirebaseAnalyticsClass = AutoDisposeNotifier<FirebaseAnalytics>;
 // ignore_for_file: type=lint

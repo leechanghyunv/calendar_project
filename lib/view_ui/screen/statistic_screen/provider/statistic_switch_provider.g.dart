@@ -12,14 +12,14 @@ String _$switchNotifierHash() => r'1dbc93912895735cb53037c745dea77b00380e40';
 @ProviderFor(SwitchNotifier)
 final switchNotifierProvider =
     AutoDisposeAsyncNotifierProvider<SwitchNotifier, bool>.internal(
-  SwitchNotifier.new,
-  name: r'switchNotifierProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$switchNotifierHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      SwitchNotifier.new,
+      name: r'switchNotifierProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$switchNotifierHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$SwitchNotifier = AutoDisposeAsyncNotifier<bool>;
 // ignore_for_file: type=lint

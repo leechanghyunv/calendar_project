@@ -33,9 +33,7 @@ abstract class _$MonthRecord
     extends BuildlessAutoDisposeAsyncNotifier<LaborFiltedModel> {
   late final DateTime time;
 
-  FutureOr<LaborFiltedModel> build(
-    DateTime time,
-  );
+  FutureOr<LaborFiltedModel> build(DateTime time);
 }
 
 /// See also [MonthRecord].
@@ -48,21 +46,15 @@ class MonthRecordFamily extends Family<AsyncValue<LaborFiltedModel>> {
   const MonthRecordFamily();
 
   /// See also [MonthRecord].
-  MonthRecordProvider call(
-    DateTime time,
-  ) {
-    return MonthRecordProvider(
-      time,
-    );
+  MonthRecordProvider call(DateTime time) {
+    return MonthRecordProvider(time);
   }
 
   @override
   MonthRecordProvider getProviderOverride(
     covariant MonthRecordProvider provider,
   ) {
-    return call(
-      provider.time,
-    );
+    return call(provider.time);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -81,24 +73,22 @@ class MonthRecordFamily extends Family<AsyncValue<LaborFiltedModel>> {
 }
 
 /// See also [MonthRecord].
-class MonthRecordProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    MonthRecord, LaborFiltedModel> {
+class MonthRecordProvider
+    extends
+        AutoDisposeAsyncNotifierProviderImpl<MonthRecord, LaborFiltedModel> {
   /// See also [MonthRecord].
-  MonthRecordProvider(
-    DateTime time,
-  ) : this._internal(
-          () => MonthRecord()..time = time,
-          from: monthRecordProvider,
-          name: r'monthRecordProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$monthRecordHash,
-          dependencies: MonthRecordFamily._dependencies,
-          allTransitiveDependencies:
-              MonthRecordFamily._allTransitiveDependencies,
-          time: time,
-        );
+  MonthRecordProvider(DateTime time)
+    : this._internal(
+        () => MonthRecord()..time = time,
+        from: monthRecordProvider,
+        name: r'monthRecordProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$monthRecordHash,
+        dependencies: MonthRecordFamily._dependencies,
+        allTransitiveDependencies: MonthRecordFamily._allTransitiveDependencies,
+        time: time,
+      );
 
   MonthRecordProvider._internal(
     super._createNotifier, {
@@ -113,12 +103,8 @@ class MonthRecordProvider extends AutoDisposeAsyncNotifierProviderImpl<
   final DateTime time;
 
   @override
-  FutureOr<LaborFiltedModel> runNotifierBuild(
-    covariant MonthRecord notifier,
-  ) {
-    return notifier.build(
-      time,
-    );
+  FutureOr<LaborFiltedModel> runNotifierBuild(covariant MonthRecord notifier) {
+    return notifier.build(time);
   }
 
   @override
@@ -139,7 +125,7 @@ class MonthRecordProvider extends AutoDisposeAsyncNotifierProviderImpl<
 
   @override
   AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborFiltedModel>
-      createElement() {
+  createElement() {
     return _MonthRecordProviderElement(this);
   }
 
@@ -165,12 +151,14 @@ mixin MonthRecordRef on AutoDisposeAsyncNotifierProviderRef<LaborFiltedModel> {
 }
 
 class _MonthRecordProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<MonthRecord,
-        LaborFiltedModel> with MonthRecordRef {
+    extends
+        AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborFiltedModel>
+    with MonthRecordRef {
   _MonthRecordProviderElement(super.provider);
 
   @override
   DateTime get time => (origin as MonthRecordProvider).time;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

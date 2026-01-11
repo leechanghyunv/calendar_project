@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/animation_text_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
@@ -58,14 +59,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
     final animationSetting = ref.watch(openingAnimationProvider).valueOrNull ?? false;
 
     final RecordTextStyle = TextStyle(
-        letterSpacing: Platform.isAndroid ? 1.5 : null,
-        shadows: Platform.isAndroid ? [
-          Shadow(
-            blurRadius: 0.25,
-            color: Colors.grey,
-            offset: Offset(0.25, 0.25),
-          ),
-        ] : null,
         height: textHeight,
         fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
         fontWeight: FontWeight.w800);
@@ -77,6 +70,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -99,25 +93,9 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
             ),
             Row(
               children: [
-                Text(
-                  ' 출력일수: ${workDay}일',
-                  textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                      letterSpacing: Platform.isAndroid ? 0.5 : null,
-                      fontSize: appWidth > 400 ? 13 : 12,
-                      fontWeight: FontWeight.w900),
-                ),
+                TextWidget(' 출력일수: ${workDay}일', 12, appWidth,color: context.textColor),
                 SizedBox(width: 5),
-                Text('${offDay}일 휴일',
-                  textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                      letterSpacing: Platform.isAndroid ? 0.5 : null,
-                      fontSize: 10,
-                      color: context.isDark ? Colors.tealAccent : Colors.teal,
-                      fontWeight: FontWeight.bold),
-                ),
-
-
+                TextWidget('${offDay}일 휴일', 10, appWidth,color: context.isDark ? Colors.tealAccent : Colors.teal),
               ],
             ),
             Divider(

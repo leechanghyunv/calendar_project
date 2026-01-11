@@ -39,24 +39,15 @@ class CalculatedRangeFamily extends Family<int> {
   const CalculatedRangeFamily();
 
   /// See also [calculatedRange].
-  CalculatedRangeProvider call(
-    DateTime start,
-    DateTime end,
-  ) {
-    return CalculatedRangeProvider(
-      start,
-      end,
-    );
+  CalculatedRangeProvider call(DateTime start, DateTime end) {
+    return CalculatedRangeProvider(start, end);
   }
 
   @override
   CalculatedRangeProvider getProviderOverride(
     covariant CalculatedRangeProvider provider,
   ) {
-    return call(
-      provider.start,
-      provider.end,
-    );
+    return call(provider.start, provider.end);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -77,27 +68,20 @@ class CalculatedRangeFamily extends Family<int> {
 /// See also [calculatedRange].
 class CalculatedRangeProvider extends AutoDisposeProvider<int> {
   /// See also [calculatedRange].
-  CalculatedRangeProvider(
-    DateTime start,
-    DateTime end,
-  ) : this._internal(
-          (ref) => calculatedRange(
-            ref as CalculatedRangeRef,
-            start,
-            end,
-          ),
-          from: calculatedRangeProvider,
-          name: r'calculatedRangeProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$calculatedRangeHash,
-          dependencies: CalculatedRangeFamily._dependencies,
-          allTransitiveDependencies:
-              CalculatedRangeFamily._allTransitiveDependencies,
-          start: start,
-          end: end,
-        );
+  CalculatedRangeProvider(DateTime start, DateTime end)
+    : this._internal(
+        (ref) => calculatedRange(ref as CalculatedRangeRef, start, end),
+        from: calculatedRangeProvider,
+        name: r'calculatedRangeProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$calculatedRangeHash,
+        dependencies: CalculatedRangeFamily._dependencies,
+        allTransitiveDependencies:
+            CalculatedRangeFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+      );
 
   CalculatedRangeProvider._internal(
     super._createNotifier, {
@@ -114,9 +98,7 @@ class CalculatedRangeProvider extends AutoDisposeProvider<int> {
   final DateTime end;
 
   @override
-  Override overrideWith(
-    int Function(CalculatedRangeRef provider) create,
-  ) {
+  Override overrideWith(int Function(CalculatedRangeRef provider) create) {
     return ProviderOverride(
       origin: this,
       override: CalculatedRangeProvider._internal(
@@ -173,5 +155,6 @@ class _CalculatedRangeProviderElement extends AutoDisposeProviderElement<int>
   @override
   DateTime get end => (origin as CalculatedRangeProvider).end;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

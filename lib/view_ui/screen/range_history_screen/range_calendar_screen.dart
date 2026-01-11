@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
 import '../../../core/export_package.dart';
@@ -10,6 +11,8 @@ import '../../calendar/calendar_cell_component/outside_cell.dart';
 import '../../calendar/table_calendar_frame.dart';
 import '../../calendar_rangefield/calendar_range_header.dart';
 import '../../calendar_rangefield/range_today_cell.dart';
+import '../../widgets/elevated_button.dart';
+import '../../widgets/left_eleveted_button.dart';
 import 'component/month_popup_button.dart';
 import 'component/range_delete_dialog.dart';
 
@@ -76,8 +79,10 @@ class RangeCalendarScreen extends HookConsumerWidget {
             focusedDay: focusedDay.value,
             firstDay: DateTime.utc(2010, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
+            daysOfWeekHeight: 20.h,
             calendarFormat: CalendarFormat.month,
             weekendDays: const [DateTime.sunday],
+            additionalSpaceEnabled: true,
             calendarStyle: CalendarStyle(
               rangeHighlightColor: Colors.teal.withOpacity(0.2), // 범위 배경색
               rangeHighlightScale: 1.0, // 배경 크기 조절
@@ -152,29 +157,15 @@ class RangeCalendarScreen extends HookConsumerWidget {
                     day: day,
                     startDay: rangeStart.value,
                     endDay: rangeEnd.value,
-                    onPreviousMonth: () {
-                      focusedDay.value = DateTime(
-                        focusedDay.value.year,
-                        focusedDay.value.month - 1,
-                      );
-                    },
-                    onNextMonth: () {
-                      focusedDay.value = DateTime(
-                        focusedDay.value.year,
-                        focusedDay.value.month + 1,
-                      );
-                    },
+                    onMonthsSelected: (int months){
+                      final now = DateTime.now();
+                      final start = rangeStart.value ?? now;
+                      final end = DateTime(start.year, start.month - months, start.day);
 
-                    remove: (){
-                      if (rangeStart.value != null && rangeEnd.value != null){
-                        finishRangeSelect();
-                        showDialog(
-                            context: context,
-                            builder: (context) => RangeDeleteDialog()
-                        );
-                      } else {
-                        customMsg('근로기간을 선택해주세요');
-                      }
+                      rangeStart.value = end;
+                      rangeEnd.value = start;
+                      focusedDay.value = end;
+                      finishRangeSelect();
                     },
 
                   ),
@@ -222,40 +213,26 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 children: [
                   Expanded(
                     flex: 1,
-                    child: MonthPopupButton(
-                      onSelected: (months){
-                        final now = DateTime.now();
-                        final start = rangeStart.value ?? now;
-                        final end = DateTime(start.year, start.month - months, start.day);
-
-                        rangeStart.value = end;
-                        rangeEnd.value = start;
-                        focusedDay.value = end;
-                        finishRangeSelect();
-                      },
+                    child: LeftElevatedButton(
+                      text: '삭제하기',
+                      onPressed: () => context.dialog(RangeDeleteDialog()),
                     ),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     flex: 2,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
-                          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.5),
-                          ),
-                          elevation: 1,
-                        ),
-                          onPressed: ()  async {
+                      child: CustomElevatedButton(
+                        text: '선택완료',
+                          onPressed: () async {
                             if (rangeStart.value != null && rangeEnd.value != null) {
                               finishRangeSelect();
                               onNavigateToHistory?.call();
                               HapticFeedback.selectionClick();
                             }
+                            else {
+                              customMsg('날짜를 선택해주세요');
+                            }
                           },
-                          child: TextWidget('선택완료', 16,
-                              appWidth,color: context.buttonColor),
                       ),
                   ),
 

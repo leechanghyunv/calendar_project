@@ -13,19 +13,19 @@ String _$viewSelectedHistoryHash() =>
 @ProviderFor(viewSelectedHistory)
 final viewSelectedHistoryProvider =
     AutoDisposeFutureProvider<List<SelectedHistory>>.internal(
-  viewSelectedHistory,
-  name: r'viewSelectedHistoryProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$viewSelectedHistoryHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      viewSelectedHistory,
+      name: r'viewSelectedHistoryProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$viewSelectedHistoryHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ViewSelectedHistoryRef
-    = AutoDisposeFutureProviderRef<List<SelectedHistory>>;
+typedef ViewSelectedHistoryRef =
+    AutoDisposeFutureProviderRef<List<SelectedHistory>>;
 String _$addSelectedHash() => r'8b517d83e31d2069dd5c5214a24b6adcffb5f240';
 
 /// Copied from Dart SDK
@@ -66,13 +66,7 @@ class AddSelectedFamily extends Family<AsyncValue<void>> {
     String memo,
     String job,
   ) {
-    return AddSelectedProvider(
-      start,
-      end,
-      tax,
-      memo,
-      job,
-    );
+    return AddSelectedProvider(start, end, tax, memo, job);
   }
 
   @override
@@ -113,29 +107,20 @@ class AddSelectedProvider extends AutoDisposeFutureProvider<void> {
     String memo,
     String job,
   ) : this._internal(
-          (ref) => addSelected(
-            ref as AddSelectedRef,
-            start,
-            end,
-            tax,
-            memo,
-            job,
-          ),
-          from: addSelectedProvider,
-          name: r'addSelectedProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$addSelectedHash,
-          dependencies: AddSelectedFamily._dependencies,
-          allTransitiveDependencies:
-              AddSelectedFamily._allTransitiveDependencies,
-          start: start,
-          end: end,
-          tax: tax,
-          memo: memo,
-          job: job,
-        );
+        (ref) => addSelected(ref as AddSelectedRef, start, end, tax, memo, job),
+        from: addSelectedProvider,
+        name: r'addSelectedProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$addSelectedHash,
+        dependencies: AddSelectedFamily._dependencies,
+        allTransitiveDependencies: AddSelectedFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+        tax: tax,
+        memo: memo,
+        job: job,
+      );
 
   AddSelectedProvider._internal(
     super._createNotifier, {
@@ -255,21 +240,15 @@ class DeleteSelectedHistoryFamily extends Family<AsyncValue<void>> {
   const DeleteSelectedHistoryFamily();
 
   /// See also [deleteSelectedHistory].
-  DeleteSelectedHistoryProvider call(
-    int index,
-  ) {
-    return DeleteSelectedHistoryProvider(
-      index,
-    );
+  DeleteSelectedHistoryProvider call(int index) {
+    return DeleteSelectedHistoryProvider(index);
   }
 
   @override
   DeleteSelectedHistoryProvider getProviderOverride(
     covariant DeleteSelectedHistoryProvider provider,
   ) {
-    return call(
-      provider.index,
-    );
+    return call(provider.index);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -290,24 +269,19 @@ class DeleteSelectedHistoryFamily extends Family<AsyncValue<void>> {
 /// See also [deleteSelectedHistory].
 class DeleteSelectedHistoryProvider extends AutoDisposeFutureProvider<void> {
   /// See also [deleteSelectedHistory].
-  DeleteSelectedHistoryProvider(
-    int index,
-  ) : this._internal(
-          (ref) => deleteSelectedHistory(
-            ref as DeleteSelectedHistoryRef,
-            index,
-          ),
-          from: deleteSelectedHistoryProvider,
-          name: r'deleteSelectedHistoryProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$deleteSelectedHistoryHash,
-          dependencies: DeleteSelectedHistoryFamily._dependencies,
-          allTransitiveDependencies:
-              DeleteSelectedHistoryFamily._allTransitiveDependencies,
-          index: index,
-        );
+  DeleteSelectedHistoryProvider(int index)
+    : this._internal(
+        (ref) => deleteSelectedHistory(ref as DeleteSelectedHistoryRef, index),
+        from: deleteSelectedHistoryProvider,
+        name: r'deleteSelectedHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$deleteSelectedHistoryHash,
+        dependencies: DeleteSelectedHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            DeleteSelectedHistoryFamily._allTransitiveDependencies,
+        index: index,
+      );
 
   DeleteSelectedHistoryProvider._internal(
     super._createNotifier, {
@@ -399,18 +373,18 @@ String _$deleteOldSelectedHistoryDatabaseHash() =>
 @ProviderFor(deleteOldSelectedHistoryDatabase)
 final deleteOldSelectedHistoryDatabaseProvider =
     AutoDisposeFutureProvider<void>.internal(
-  deleteOldSelectedHistoryDatabase,
-  name: r'deleteOldSelectedHistoryDatabaseProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$deleteOldSelectedHistoryDatabaseHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      deleteOldSelectedHistoryDatabase,
+      name: r'deleteOldSelectedHistoryDatabaseProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$deleteOldSelectedHistoryDatabaseHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef DeleteOldSelectedHistoryDatabaseRef
-    = AutoDisposeFutureProviderRef<void>;
+typedef DeleteOldSelectedHistoryDatabaseRef =
+    AutoDisposeFutureProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

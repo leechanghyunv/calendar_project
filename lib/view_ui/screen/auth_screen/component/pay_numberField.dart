@@ -47,6 +47,7 @@ class PayNumberField extends HookWidget {
         ),
         focusNode: focusNode,
         textInputAction: TextInputAction.next,
+        /// keyboardType: TextInputType.number,
         keyboardType: TextInputType.numberWithOptions(signed: true),
         cursorColor: Colors.grey.shade700,
         cursorWidth: 4.0,

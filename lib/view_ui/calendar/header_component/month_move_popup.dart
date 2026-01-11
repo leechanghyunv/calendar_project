@@ -1,10 +1,9 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import '../../dialog/month_move_dialog/month_move_dialog.dart';
 import 'package:intl/intl.dart';
-
 import 'calendar_settingMenu.dart';
-import 'filter_popupMenu.dart';
 
 class ArrowDialogRow extends HookConsumerWidget {
 
@@ -20,12 +19,7 @@ class ArrowDialogRow extends HookConsumerWidget {
 
     Future<void> showMyDialog() async {
       isDialogOpen.value = true;
-
-      await showDialog(
-        context: context,
-        builder: (context) => MonthMoveDialog(),
-      );
-
+      await context.dialog(MonthMoveDialog());
       isDialogOpen.value = false;
     }
 
@@ -34,16 +28,13 @@ class ArrowDialogRow extends HookConsumerWidget {
       child: Row(
         children: [
           SettingPopupWidget(),
-          SizedBox(width: 10),
+          SizedBox(width: context.width > 400 ? 15 : 10),
           GestureDetector(
             onTap: showMyDialog,
             child: Row(
               children: [
                 Text(
-                  // '${DateFormat.yMMM('ko_KR').format(day)}', /// 2025년 12월
-                  // '${DateFormat.M('ko_KR').format(day)}', /// 12월
                   DateFormat('yyyy.MM').format(day), /// 2025.12
-                  // '${day.month}', /// 12
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
                     shadows: Platform.isAndroid
@@ -64,7 +55,6 @@ class ArrowDialogRow extends HookConsumerWidget {
                     fontWeight: FontWeight.w800,
                   ),
                 ),
-                // const SizedBox(width: 2.5),
                 AnimatedRotation(
                   turns: isDialogOpen.value ? 0.5 : 0, // 0.5 = 180도
                   duration: const Duration(milliseconds: 200),

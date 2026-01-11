@@ -12,14 +12,14 @@ String _$viewTypeModelHash() => r'35b782715c30704737f205a06ebef0e467f4a2e3';
 @ProviderFor(ViewTypeModel)
 final viewTypeModelProvider =
     AutoDisposeAsyncNotifierProvider<ViewTypeModel, ViewType>.internal(
-  ViewTypeModel.new,
-  name: r'viewTypeModelProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$viewTypeModelHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ViewTypeModel.new,
+      name: r'viewTypeModelProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$viewTypeModelHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ViewTypeModel = AutoDisposeAsyncNotifier<ViewType>;
 // ignore_for_file: type=lint

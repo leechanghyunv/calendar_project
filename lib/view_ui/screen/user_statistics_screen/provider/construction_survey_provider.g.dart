@@ -11,16 +11,19 @@ String _$constructionSurveyHash() =>
 
 /// See also [ConstructionSurvey].
 @ProviderFor(ConstructionSurvey)
-final constructionSurveyProvider = AutoDisposeNotifierProvider<
-    ConstructionSurvey, ConstructionSurveyState>.internal(
-  ConstructionSurvey.new,
-  name: r'constructionSurveyProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$constructionSurveyHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final constructionSurveyProvider =
+    AutoDisposeNotifierProvider<
+      ConstructionSurvey,
+      ConstructionSurveyState
+    >.internal(
+      ConstructionSurvey.new,
+      name: r'constructionSurveyProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$constructionSurveyHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ConstructionSurvey = AutoDisposeNotifier<ConstructionSurveyState>;
 // ignore_for_file: type=lint

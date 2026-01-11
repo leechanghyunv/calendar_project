@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
+import '../../core/extentions/theme_dialog_extenstion.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../screen/calendar_screen/provider/marker_event_provider.dart';
@@ -61,92 +62,81 @@ class WorkCalendar extends ConsumerWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(
-          appWidth > 550 ? 7.5.w : (appWidth < 376 ? 7.5.w : 15.w),
-          appWidth < 376 ? 5.h : 10.h,
-          appWidth > 550 ? 7.5.w : appWidth < 376 ? 7.5.w : 15.w,
-          0),
-      child: Container(
-        width: appWidth,
-        child: TableCalendarFrame(
-            selectedDay: ref.selected,
-            onDayLongPressed: (DateTime? selected, DateTime? focused) {
-              HapticFeedback.selectionClick();
-                 if (ref.contract.value!.isEmpty) {
-                   customMsg('근로조건을 우선 입력해주세요');
-                   showBasicModal(context);
-                 } else {
-                   /// /// ////// /// ////// /// ////// /// ////// /// ///
-                   final events = getEvents(selected!);
-                   if (events.isNotEmpty) {
-                     showDialog(
-                       context: context,
-                       builder: (context) => DayInfoDialog(events),
-                     );
-                   } else {
-                     NumberPickerModal(context);
-                   }
-                   /// /// /// /// /// /// /// /// /// /// /// ///
-                 }
-            },
+      padding: EdgeInsets.symmetric(
+        horizontal: appWidth > 550 ? 7.5.w : appWidth < 376 ? 7.5.w : 15.w,
+          ),
+      child: TableCalendarFrame(
+        selectedDay: ref.selected,
+        onDayLongPressed: (DateTime? selected, DateTime? focused) {
+          HapticFeedback.selectionClick();
+          if (ref.contract.value!.isEmpty) {
+            customMsg('근로조건을 우선 입력해주세요');
+            showBasicModal(context);
+          } else {
+            final events = getEvents(selected!);
+            if (events.isNotEmpty) {
+              context.dialog(DayInfoDialog(events));
+            } else {
+              NumberPickerModal(context);
+            }
+          }
+        },
 
-            onDaySelected: (DateTime? selected, DateTime? focused) {
-              timeManagerNot.onDaySelected(selected!, focused!);
+        onDaySelected: (DateTime? selected, DateTime? focused) {
+          timeManagerNot.onDaySelected(selected!, focused!);
 
-            },
-            eventLoader: getEvents,
-            selectedDayPredicate: (DateTime date) {
-              return date.year == ref.year &&
-                  date.month == ref.month &&
-                  date.day == ref.day;
-            },
-            onPageChanged: (DateTime? focusedDay) =>
-                timeManagerNot.onPageChanged(focusedDay),
+        },
+        eventLoader: getEvents,
+        selectedDayPredicate: (DateTime date) {
+          return date.year == ref.year &&
+              date.month == ref.month &&
+              date.day == ref.day;
+        },
+        onPageChanged: (DateTime? focusedDay) =>
+            timeManagerNot.onPageChanged(focusedDay),
 
-            defaultBuilder: (context, date, events) {
-              Color textColor;
+        defaultBuilder: (context, date, events) {
+          Color textColor;
 
-              final utcDate = DateTime.utc(date.year, date.month, date.day);
-              // 캐시된 결과 활용
-              final isHoliday = _holidayCache[utcDate] ?? false;
-              final isSubstituteHoliday = _substituteHolidayCache[utcDate] ?? false;
+          final utcDate = DateTime.utc(date.year, date.month, date.day);
+          // 캐시된 결과 활용
+          final isHoliday = _holidayCache[utcDate] ?? false;
+          final isSubstituteHoliday = _substituteHolidayCache[utcDate] ?? false;
 
-              if (date.weekday == DateTime.saturday) {
-                textColor = context.saturdayColor;
-              } else if (date.weekday == DateTime.sunday ||
-                  isSubstituteHoliday ||
-                  isHoliday) {
-                textColor = context.sundayColor;
-              } else {
-                textColor = context.textColor;
-              }
+          if (date.weekday == DateTime.saturday) {
+            textColor = context.saturdayColor;
+          } else if (date.weekday == DateTime.sunday ||
+              isSubstituteHoliday ||
+              isHoliday) {
+            textColor = context.sundayColor;
+          } else {
+            textColor = context.textColor;
+          }
 
-              return DefaultCell(date: date, textColor: textColor);
-            },
-            outsideBuilder: (context, day, focusedDay) => OutSideCell(day: day),
+          return DefaultCell(date: date, textColor: textColor);
+        },
+        outsideBuilder: (context, day, focusedDay) => OutSideCell(day: day),
 
-            markerBuilder: (context, date, events) {
-              /// 세보 월급날
-              // ✅ 로컬 타임존으로 통일된 키
-              final localDate = DateTime(date.year, date.month, date.day);
-              /// final boolSelector = isHoliday(date); 대신에
-              final boolSelector = dynamicHolidays.containsKey(localDate);
-              /// date
-              if (boolSelector) {
-                if (events.isEmpty) {
-                  return HolidayCell(date, dynamicHolidays);
-                } else {
-                  return MarkerCell(date, events);
-                }
-              }
+        markerBuilder: (context, date, events) {
+          // ✅ 로컬 타임존으로 통일된 키
+          final localDate = DateTime(date.year, date.month, date.day);
+          /// final boolSelector = isHoliday(date); 대신에
+          final boolSelector = dynamicHolidays.containsKey(localDate);
+          /// date
+          if (boolSelector) {
+            if (events.isEmpty) {
+              return HolidayCell(date, dynamicHolidays);
+            } else {
               return MarkerCell(date, events);
-            },
-            additionalSpaceBuilder: (context, focusedDay, weekDays) {
-              return AdditionalCell(
-                  day: focusedDay, weekDays: weekDays, holidays: dynamicHolidays,
-              );
-            },
-            ),
+            }
+          }
+          return MarkerCell(date, events);
+        },
+        additionalSpaceBuilder: (context, focusedDay, weekDays) {
+          return AdditionalCell(
+            day: focusedDay, weekDays: weekDays, holidays: dynamicHolidays,
+          );
+        },
       ),
     );
   }

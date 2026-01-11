@@ -12,13 +12,14 @@ String _$timeManagerHash() => r'f895e68cb08ebfbdbbb7fb679821e452013f9bf7';
 @ProviderFor(TimeManager)
 final timeManagerProvider =
     AutoDisposeNotifierProvider<TimeManager, CalendarTimeModel>.internal(
-  TimeManager.new,
-  name: r'timeManagerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$timeManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      TimeManager.new,
+      name: r'timeManagerProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$timeManagerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$TimeManager = AutoDisposeNotifier<CalendarTimeModel>;
 // ignore_for_file: type=lint

@@ -12,14 +12,14 @@ String _$eventRangeSelectHash() => r'7f64d0be53db1b491aaebd9b143a87907586b981';
 @ProviderFor(EventRangeSelect)
 final eventRangeSelectProvider =
     AutoDisposeNotifierProvider<EventRangeSelect, RangeSelectedModel>.internal(
-  EventRangeSelect.new,
-  name: r'eventRangeSelectProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$eventRangeSelectHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      EventRangeSelect.new,
+      name: r'eventRangeSelectProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$eventRangeSelectHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EventRangeSelect = AutoDisposeNotifier<RangeSelectedModel>;
 // ignore_for_file: type=lint

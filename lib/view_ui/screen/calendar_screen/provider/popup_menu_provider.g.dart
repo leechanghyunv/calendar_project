@@ -12,14 +12,14 @@ String _$popupMenuOpenHash() => r'e23bd50be200c6e2bd2d2aed869392e1ab6d4424';
 @ProviderFor(PopupMenuOpen)
 final popupMenuOpenProvider =
     AutoDisposeNotifierProvider<PopupMenuOpen, bool>.internal(
-  PopupMenuOpen.new,
-  name: r'popupMenuOpenProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$popupMenuOpenHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      PopupMenuOpen.new,
+      name: r'popupMenuOpenProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$popupMenuOpenHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$PopupMenuOpen = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint

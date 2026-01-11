@@ -12,13 +12,14 @@ String _$eventScreenHash() => r'65d5836be7198a20696936378b3fbe572c12342a';
 @ProviderFor(EventScreen)
 final eventScreenProvider =
     AutoDisposeNotifierProvider<EventScreen, bool>.internal(
-  EventScreen.new,
-  name: r'eventScreenProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$eventScreenHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      EventScreen.new,
+      name: r'eventScreenProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$eventScreenHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$EventScreen = AutoDisposeNotifier<bool>;
 // ignore_for_file: type=lint

@@ -35,7 +35,7 @@ Future<void> updateSubsidy(UpdateSubsidyRef ref,int newSubsidy) async {
   final db = await ref.read(labourConditionManagerProvider.future);
   await db.updateLastLabourConditionSubsidy(newSubsidy);
   await Future.delayed(const Duration(milliseconds: 200));
-  ref.invalidateSelf();
+  ref.invalidate(viewContractProvider);
 }
 
 @riverpod

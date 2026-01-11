@@ -3,9 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  flutter_localization
   gtk
-  irondash_engine_context
-  super_native_extensions
   url_launcher_linux
 )
 

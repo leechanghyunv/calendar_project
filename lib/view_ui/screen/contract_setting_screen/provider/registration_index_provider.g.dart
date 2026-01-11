@@ -12,14 +12,14 @@ String _$registrationIndexHash() => r'73d2883e9f03842063e3351a54da0332c008a916';
 @ProviderFor(RegistrationIndex)
 final registrationIndexProvider =
     AutoDisposeNotifierProvider<RegistrationIndex, int?>.internal(
-  RegistrationIndex.new,
-  name: r'registrationIndexProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$registrationIndexHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      RegistrationIndex.new,
+      name: r'registrationIndexProvider',
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$registrationIndexHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$RegistrationIndex = AutoDisposeNotifier<int?>;
 // ignore_for_file: type=lint
