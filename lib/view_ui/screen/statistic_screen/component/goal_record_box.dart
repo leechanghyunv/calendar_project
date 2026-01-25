@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import '../provider/info_box_provider.dart';
 import '../provider/statistic_switch_provider.dart';
@@ -70,17 +72,10 @@ class GoalRecordBox extends ConsumerWidget {
                   padding: const EdgeInsets.all(0.0),
                   child: Column(
                     children: [
-                      Text(
-                        goalValue >= 10000
-                            ? '목표금액은 ${(goalValue / 10000).toStringAsFixed(1)}억원 입니다'
-                            : '목표금액은 ${goalValue}만원 입니다',
-                        textScaler: TextScaler.noScaling,
-                        style: TextStyle(
-                          fontSize: height > 750 ? (width > 400 ? 22 : 20) : 18.5,
-                          fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                          // color: Colors.black,
-                        ),
-                      ),
+                      TextWidget(goalValue >= 10000
+                          ? '목표금액은 ${(goalValue / 10000).toStringAsFixed(1)}억원 입니다'
+                          : '목표금액은 ${goalValue}만원 입니다', 18, context.width,fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900),
+
 
                       goalValue == 0 ? Padding(
                         padding: EdgeInsets.only(top: 2.0),
@@ -89,7 +84,7 @@ class GoalRecordBox extends ConsumerWidget {
                           text: TextSpan(
                             text: '목표금액은 ',
                             style: TextStyle(
-                              fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
+                              fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : width < 350 ? 9 : 11,
                               color: context.isDark ? null : Colors.grey.shade700,
                             ),
                             children: <TextSpan>[
@@ -118,7 +113,7 @@ class GoalRecordBox extends ConsumerWidget {
                                   text: '남은금액 ${left}만원, ',
                                   style: TextStyle(
                                     fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
-                                    fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : 11.5,
+                                    fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : width < 350 ? 9 : 11.5,
                                     color: context.isDark ? null : Colors.grey.shade700,
                                   ),
                                   children: <TextSpan>[

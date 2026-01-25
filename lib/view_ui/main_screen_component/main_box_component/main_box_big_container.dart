@@ -7,6 +7,7 @@ import '../../screen/app_setting_screen/provider/animation_provider.dart';
 import '../../screen/calendar_screen/provider/animation_text_provider.dart';
 import 'component/animated_pay_number.dart';
 import 'component/company_list_provider_text.dart';
+import 'main_box_sizes.dart';
 
 class MainBoxBigContainer extends ConsumerStatefulWidget {
   const MainBoxBigContainer({super.key});
@@ -41,6 +42,11 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
 
     final data = ref.watch(monthRecordProvider(ref.selected));
 
+    final boxSizes = MainBoxSizes(
+      width: appWidth,
+      isFold: isFoldValue,
+    );
+
     data.whenData((val) {
       totalPay = (val.totalPay/10000);
       payString = val.totalPayString;
@@ -55,13 +61,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
         fontWeight: FontWeight.w800,
         letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.5 : null,
         height: textHeight,
-        fontSize: switch (appWidth) {
-          > 450 => isFoldValue ? 37 : 40.5,
-          > 420 => 40,
-          > 400 => 38,
-          < 376 => 31,
-          _ => 32
-        }
+        fontSize: boxSizes.bigFontSize,
     );
 
     return Column(
@@ -89,26 +89,6 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
               ),
 
 
-              // SizedBox(width: 5),
-              //
-              // Padding(
-              //   padding: const EdgeInsets.only(bottom: 8.0),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       color: Colors.teal.shade50,
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 5),
-              //     child: Row(
-              //       children: [
-              //         TextWidget(
-              //             '일비포함',
-              //             11, context.width,color: Colors.teal.shade500),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-
             ],
           ),
         ),
@@ -124,12 +104,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
                   letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : 0.5,
                     shadows: commonShadow,
                     fontWeight: FontWeight.bold,
-                  fontSize : switch (appWidth) {
-                    > 450 => isFoldValue ? 12 : 12.5,
-                    > 400 => 12,
-                    < 376 => 9.25,
-                    _ => 10
-                  },
+                  fontSize : boxSizes.subFontSize,
 
                 ),
             ),

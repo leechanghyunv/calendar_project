@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../core/export_package.dart';
 import '../../model/work_history_model.dart';
-import '../../view_ui/main_screen_component/main_box_component/main_box_chip_list.dart';
+import '../../view_ui/main_screen_component/main_box_component/controll_chip_component.dart';
 import '../../view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'calendar_event_model.dart';
 import 'contract_model.dart';
@@ -46,6 +46,23 @@ Future<void> addHistory(AddHistoryRef ref,
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
+  final time = ref.watch(timeManagerProvider.notifier);
+
+  final historyData = ref.watch(viewHistoryProvider);
+  final initialMemo = historyData.maybeWhen(
+    data: (histories) {
+      final found = histories.firstWhere(
+            (h) => h.date.year == time.DaySelected.year &&
+            h.date.month == time.DaySelected.month &&
+            h.date.day == time.DaySelected.day,
+        orElse: () => WorkHistory(
+            date: time.DaySelected).copyWith(memo: memoNote), // 없으면 빈 값
+      );
+      return found.memo;
+    },
+    orElse: () => memoNote,
+  );
+
   final workSite = ref.watch(selectedWorksiteProvider);
   final Map<String, dynamic> event = {};
   late WorkHistory history;
@@ -66,7 +83,7 @@ Future<void> addHistory(AddHistoryRef ref,
           pay: pay,
           colorCode: colorCode,
           record: record,
-          memo: memoNote,
+          memo: initialMemo,
           workSite: workSite,
           subsidy: val.last.subsidy,
         );

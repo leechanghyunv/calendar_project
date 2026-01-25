@@ -71,7 +71,7 @@ TextStyle BackupFontStyle(
   }
   return TextStyle(
     letterSpacing: Platform.isAndroid ? 1.0 : 0.5,
-    fontSize: width < 376 ? (size -1) : size,
+    fontSize: size,
     height: height,  // height가 null이면 자동으로 무시됨
   );
 }

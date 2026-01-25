@@ -7,6 +7,7 @@ import 'package:calendar_project_240727/view_model/view_provider/selected_compan
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import '../../../base_consumer.dart';
 import '/core/export_package.dart';
+import 'header_size.dart';
 
 class FilterPopupMenu extends HookConsumerWidget {
   const FilterPopupMenu({super.key});
@@ -15,6 +16,7 @@ class FilterPopupMenu extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     final monthHistory = ref.watch(monthRecordProvider(ref.selected));
+    final sizes = HeaderSizes(context.width);
 
     return PopupMenuButton<void>(
       offset: Offset(20, 30),
@@ -81,7 +83,7 @@ class FilterPopupMenu extends HookConsumerWidget {
       ],
       child: Icon(
         MdiIcons.tuneVariant,
-        size: 20,
+        size: sizes.filterIcon,
       ),
     );
   }

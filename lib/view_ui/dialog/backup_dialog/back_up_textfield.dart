@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../core/export_package.dart';
 import '../dialog_text.dart';
@@ -34,6 +35,7 @@ class BackUpTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(4.0,0.0,2.0,0.0),
       child: Container(
+        alignment: Alignment.center,
         child: TextFormField(
           controller: controller,
           focusNode: backupNode,
@@ -41,10 +43,9 @@ class BackUpTextField extends StatelessWidget {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle: BackupFontStyle(13,width: appWidth).copyWith(
-              color: context.subTextColor,
-            ),
-            labelStyle: BackupFontStyle(15,height: 1.5,).copyWith(
+            hintStyle: BackupFontStyle(
+                appWidth.responsiveSize([13,12,12,12,11,10]),
+                width: appWidth).copyWith(
               color: context.subTextColor,
             ),
             suffixIcon: IconButton(

@@ -22,7 +22,7 @@ class RecordButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AnimatedContainer(
-      height: 42.5,
+
       width: width ?? 40,
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -35,12 +35,15 @@ class RecordButton extends HookConsumerWidget {
         boxShadow: context.defaultShadow,
       ),
       duration: const Duration(seconds: 1),
-      child: Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(10.0),
-        child: InkWell(
-          onTap: onTap,
-          child: icon,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 4.0),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(10.0),
+          child: InkWell(
+            onTap: onTap,
+            child: icon,
+          ),
         ),
       ),
     );

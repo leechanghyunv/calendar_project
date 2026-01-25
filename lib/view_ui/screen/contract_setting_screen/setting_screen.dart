@@ -6,6 +6,7 @@ import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/w
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../model/formz/formz_decimal_model.dart';
+import '../../../model/work_history_model.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../../view_model/sqlite_model/contract_model.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
@@ -43,7 +44,21 @@ class SettingScreen extends HookConsumerWidget {
     ref.formzMemoWatch;
     ref.decimalWatch;
 
-    final memoController = useTextEditingController();
+    final initialMemo = history.maybeWhen(
+      data: (histories) {
+        final found = histories.firstWhere(
+              (h) => h.date.year == ref.selected.year &&
+              h.date.month == ref.selected.month &&
+              h.date.day == ref.selected.day,
+          orElse: () => WorkHistory(date: ref.selected), // 없으면 빈 값
+        );
+        return found.memo;
+      },
+      orElse: () => '',
+    );
+
+
+    final memoController = useTextEditingController(text: initialMemo);
     final decimalController = useTextEditingController();
 
     final decimalFocus = useFocusNode();
@@ -134,7 +149,6 @@ class SettingScreen extends HookConsumerWidget {
 
 
     return Scaffold(
-
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: context.height > 750 ? 16.0 : 8.0, horizontal: 24.0),
@@ -170,17 +184,16 @@ class SettingScreen extends HookConsumerWidget {
                                 },
                               ) :
                               Container(
-                                height: 35,
                                 alignment: Alignment.center,
                                 child: TextWidget(
                                     '${ref.year}년 ${ref.monthString}월 ${ref.dayString}일 ${ref.weekdayKr}',
-                                    15.5, context.width,
+                                    15, context.width,
                                     color: context.chipTextColor),
 
                               ),
                             ),
                           ),
-                          SizedBox(width: 20),
+                          SizedBox(width: 15),
                           Flexible(
                             flex: 2,
                             child: RecordButton(
@@ -197,7 +210,7 @@ class SettingScreen extends HookConsumerWidget {
                                 ref.read(showRangeStateProvider.notifier).rangeState();
                               },
                               icon: TextWidget(
-                                  showRange ? '단일 날짜': '범위 설정', 16,
+                                  showRange ? '단일 날짜': '범위 설정', 15,
                                   context.width,
                                   color: context.isDark
                                       ? Colors.tealAccent
@@ -236,7 +249,7 @@ class SettingScreen extends HookConsumerWidget {
                   ///
                   Divider(
                     color: Colors.grey.shade300,
-                    thickness: 2.5,
+                    thickness: context.width > 390 ? 2.5 : 1.0,
                   ),
                   SizedBox(height: 5),
                   Row(
@@ -289,6 +302,7 @@ class SettingScreen extends HookConsumerWidget {
                       }
                       },
                   ),
+
                   decimalFocus.hasFocus ? Column(
                     children: [
                       SizedBox(height: 7.5),
@@ -315,8 +329,8 @@ class SettingScreen extends HookConsumerWidget {
                     decimalMemo: decimalFocus,
                     memoController: memoController,
                     onChanged: (val) {
-                      customMemo.value = val;
-                      ref.formzMemoRead.onChangeMemo(val);
+                      // customMemo.value = val;
+                      // ref.formzMemoRead.onChangeMemo(memoController.text);
                     },
                     onTap: () => Navigator.pop(context),
                   ),
@@ -351,9 +365,10 @@ class SettingScreen extends HookConsumerWidget {
                   ref.decimalRead.onChangeDecimal(currentValue.toDouble());
 
                   /// /// /// /// ///
-                  if (customMemo.value != null) {
-                    ref.formzMemoRead.onSubmit(ref);
-                  } else {}
+                  // if (customMemo.value != null) {
+                  //   ref.formzMemoRead.onSubmit(ref);
+                  // } else {}
+                  ref.formzMemoRead.onChangeMemo(memoController.text);
 
                   if (showRange) {
                     ref.decimalRead.onSubmitMonthAll(

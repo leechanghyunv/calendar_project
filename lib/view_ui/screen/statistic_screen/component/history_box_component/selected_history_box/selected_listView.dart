@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/statistics/selected_history_model.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/sort_type_provider.dart';
@@ -85,21 +87,10 @@ class IntroSelectedBox extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 35.0),
-                  Text('공수등록 상단에서 근로기간 설정하기',
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                      height: textHeight,
-                        fontSize: (width > 400 ? 17 : (width < 370 ? 14.0 : 15.0)),
-                        fontWeight: FontWeight.bold),
-                  ),
+                  TextWidget('공수등록 상단에서 근로기간 설정하기', 15, context.width),
                   SizedBox(height: 5.0),
-                  Text('근로기간 설정 후 저장 후 보관',
-                    textScaler: TextScaler.noScaling,
-                    style: TextStyle(
-                        height: textHeight,
-                        fontSize: (width > 400 ? 17 : (width < 370 ? 14.0 : 15.0)),
-                        fontWeight: FontWeight.bold),
-                  ),
+                  TextWidget('근로기간 설정 후 저장 후 보관', 15, context.width),
+
                 ],
               ),
             ),

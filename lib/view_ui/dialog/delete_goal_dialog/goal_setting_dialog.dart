@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
@@ -51,7 +52,6 @@ class GoalSettingDialog extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 60,
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
                 color: context.isDark ? Colors.grey[900] : Colors.grey[100],
@@ -168,10 +168,11 @@ class SettingBox extends ConsumerWidget {
         hintText: '100,000,000',
         hintStyle: TextStyle(
           color: Colors.grey,
-          fontSize: 14,
+          fontSize: context.width.responsiveSize([14,14,14,13,12,11]),
         ),
         prefixText: '₩ ',
-        prefixStyle: ContractFontStyle(),
+        prefixStyle: ContractFontStyle().
+        copyWith(fontSize: context.width.responsiveSize([14,14,14,13,12,11])),
       ),
       onChanged: onChanged,
 

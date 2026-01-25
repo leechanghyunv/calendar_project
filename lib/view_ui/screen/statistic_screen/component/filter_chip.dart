@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,7 +44,7 @@ class FilterHistoryChip extends HookConsumerWidget {
             },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            height: height > 750 ? (width > 400 ? 27 : 25) : 24,
+            height: height > 750 ? (width > 400 ? 27 : 25) : width < 350 ? 21.5 : 24,
             padding: EdgeInsets.symmetric(horizontal: width > 370 ? 8 : 4, vertical: 4),
             decoration: BoxDecoration(
               color: isSelected ? context.selectedChipColor : context.chipColor,
@@ -53,18 +55,7 @@ class FilterHistoryChip extends HookConsumerWidget {
               ),
               boxShadow: context.defaultShadow,
             ),
-            child: Text(
-              '#$option', // option 변수 사용
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                height: textHeight,
-                fontSize: height > 750
-                    ? (width > 400 ? 14.5 : width < 370 ? 11.4 : 13)
-                    : 11.5,
-                fontWeight: FontWeight.bold,
-                color: isSelected ? context.textColor : context.chipTextColor,
-              ),
-            ),
+            child: TextWidget('#$option', 13, context.width,color: isSelected ? context.textColor : context.chipTextColor),
           ),
         );
       }).toList(),

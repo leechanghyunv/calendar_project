@@ -4,6 +4,7 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import 'cell_size.dart';
 
 
 
@@ -16,24 +17,24 @@ class OutSideCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = context.width;
+    final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
-
     bool hasMarker = day.weekday == DateTime.saturday;
     bool hasMarker2 = day.weekday == DateTime.sunday;
+
+    final sizes = CellSizes(
+        appHeight: appHeight,
+        appWidth: appWidth);
 
     final textWidget = Text(
       '${day.day}',
       textScaler: TextScaler.noScaling,
       style: TextStyle(
-        fontSize: switch (appWidth) {
-          > 450 => 18.5,
-          > 400 => 17,
-          _ => 15,
-        },
+        fontSize: sizes.defaultSize,
         fontWeight: FontWeight.w700,
         color: hasMarker ? context.isDark ? Colors.teal.shade100 : Colors.blue.shade100
              : hasMarker2 ? Colors.teal.shade100
-             : Colors.grey.shade400,
+             : Colors.grey.shade300,
       ),
     );
 

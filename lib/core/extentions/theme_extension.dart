@@ -85,3 +85,16 @@ extension ThemeExtension on BuildContext {
   ) : null;
 
 }
+
+extension sizeExt on double {
+  double responsiveSize(List<double> sizes) {
+    assert(sizes.length == 6, 'sizes must have exactly 4 elements');
+
+    if (this >= 450) return sizes[0];  // 14
+    if (this >= 420) return sizes[1];  // 12.5
+    if (this >= 400) return sizes[2];  // 12
+    if (this >= 390) return sizes[3];  // 10.5
+    if (this >= 350) return sizes[4];  // 10
+    return sizes[5];  // 9 ← 320은 여기!
+  }
+}

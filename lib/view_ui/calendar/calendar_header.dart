@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../core/export_package.dart';
 import '../screen/default_screen.dart';
 import 'header_component/filter_popupMenu.dart';
+import 'header_component/header_size.dart';
 import 'header_component/month_move_popup.dart';
 import 'header_component/calendar_popupMenu.dart';
 
@@ -17,6 +18,7 @@ class CalendarHeader extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scaffoldKey = ref.watch(scaffoldKeyProvider);
     final appWidth = context.width;
+    final sizes = HeaderSizes(context.width);
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -48,7 +50,7 @@ class CalendarHeader extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(width: 10),
+          SizedBox(width: sizes.mainSpacing),
           SizedBox(width: appWidth > 400 ? 5 : null),
           SizedBox(width: appWidth > 450 ? 5 : null),
 
@@ -57,7 +59,7 @@ class CalendarHeader extends ConsumerWidget {
           SizedBox(width: appWidth > 400 ? 5 : null),
           SizedBox(width: appWidth > 450 ? 5 : null),
 
-          SizedBox(width: 10),
+          SizedBox(width: sizes.mainSpacing),
           FilterPopupMenu(),
           SizedBox(width: 10),
           SizedBox(width: appWidth > 400 ? 5 : null),

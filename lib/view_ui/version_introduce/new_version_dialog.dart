@@ -16,6 +16,7 @@ class NewVersionDialog extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final version = ref.watch(versionProvider.notifier).version;
+    final width = context.width;
 
     return AlertDialog(
       backgroundColor:  context.dialogColor,
@@ -23,9 +24,8 @@ class NewVersionDialog extends ConsumerWidget {
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('버전 업데이트',
-              textScaler: TextScaler.noScaling,
-              style: titleText),
+          TextWidget('버전 업데이트', 16, width,fontWeight: FontWeight.w900),
+
           Spacer(),
           Container(
             decoration: BoxDecoration(
@@ -36,13 +36,7 @@ class NewVersionDialog extends ConsumerWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8.5,2.5,8.5,2.5),
-              child: Text('${version}',
-                  textScaler: TextScaler.noScaling,
-                  style: titleText.copyWith(
-                      color: context.textColor,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold),
-              ),
+              child: TextWidget('${version}', 15, width),
             ),
           ),
         ],
@@ -58,7 +52,7 @@ class NewVersionDialog extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ...value.changes.map((e) => introBox(e.title, e.description)),
+                  ...value.changes.map((e) => introBox(e.title, e.description,context)),
                 ],
               ),
               AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
@@ -90,10 +84,6 @@ class NewVersionDialog extends ConsumerWidget {
 
 
 
-TextStyle get titleText => TextStyle(
-  fontSize: 16,
-  fontWeight: FontWeight.w900,
-);
 
 TextStyle get contentText => TextStyle(
   fontSize: 15,
@@ -107,24 +97,17 @@ TextStyle get buttonText => TextStyle(
   color: Colors.black,
 );
 
-Widget introBox(String title, String description) => Column(
+Widget introBox(String title, String description,BuildContext context) => Column(
   mainAxisSize: MainAxisSize.min,
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
     SizedBox(height: 7.5),
     FittedBox(
       fit: BoxFit.scaleDown,
-      child: Text(title,
-          textScaler: TextScaler.noScaling,
-          style: contentText),
+      child: TextWidget(title, 15, context.width),
     ),
     SizedBox(height: 2.5),
-    Text(description,
-      textScaler: TextScaler.noScaling,
-      style: contentText.copyWith(
-          color: Colors.teal,
-          fontSize: 11),
-    ),
+    TextWidget(description, 11, context.width,color: Colors.teal),
     SizedBox(height: 7.5),
   ],
 );

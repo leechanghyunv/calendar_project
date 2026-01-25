@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../../core/export_package.dart';
+import '../../../../core/extentions/size_extension.dart';
 
 class ModeButton extends ConsumerWidget {
   final String label;
@@ -19,6 +20,8 @@ class ModeButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
+
+    final sizes = DefaultSizes(context.width);
 
     return GestureDetector(
       onTap: onTap,
@@ -40,7 +43,7 @@ class ModeButton extends ConsumerWidget {
               color: isSelected
                   ? context.isLight ? Colors.grey.shade800 : Colors.grey.shade400
                   : context.isLight ? Colors.grey.shade600 : Colors.grey.shade200,
-              size: 25,
+              size: sizes.Icon,
             ),
             const SizedBox(height: 5),
             TextWidget(

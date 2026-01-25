@@ -24,21 +24,6 @@ class DecimalInput extends FormzInput<DecimalPayModel, String> {
       _ => '${value.decimal}공수 ${formatAmount(val)}로 저장합니다',
     };
 
-    // if (value.decimal == 0.0) {
-    //   return ' 휴무로 저장합니다';
-    // } else if (value.decimal == 0.5) {
-    //   return ' ${value.decimal} 공수 조퇴';
-    // } else if (value.decimal == 1.0) {
-    //   return ' ${value.decimal} 공수 정상근무로 저장합니다';
-    // } else if (value.decimal == 1.5) {
-    //   return ' ${value.decimal} 공수 연장근무로 저장합니다';
-    // } else if (value.decimal == 2.0) {
-    //   return ' ${value.decimal} 공수 야간근무로 저장합니다';
-    // } else if (value.decimal >= 3.0) {
-    //   return ' ${value.decimal}공수 ${formatAmount(val)}로 저장합니다';
-    // } else {
-    //   return ' ${value.decimal} 공수 ${formatAmount(val)}로 저장합니다';
-    // }
   }
 
 }

@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/column_box_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../main_box_component/main_box_sizes.dart';
 import 'indicator_box.dart';
 
 class ColumnReactiveBox extends ConsumerStatefulWidget {
@@ -17,10 +18,14 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
   @override
   Widget build(BuildContext context) {
     final appWidth = MediaQuery.of(context).size.width;
+
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
 
-    final boxHeight = appWidth > 400 ? isFoldValue ? 72.5 : 80.0 : appWidth < 376 ? 65.0 : 72.5;
+    final boxSizes = MainBoxSizes(
+      width: appWidth,
+      isFold: isFoldValue,
+    );
 
     final state = ref.watch(columnStatisticsProvider);
 
@@ -28,7 +33,7 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
       children: [
         buildStatsBox(
           width: appWidth,
-          height: boxHeight,
+          height: boxSizes.boxHeight,
           title: '근로신고일수',
           value: state.wrd.toDouble(),
           type: true,
@@ -40,7 +45,7 @@ class _ColumnReactiveBoxState extends ConsumerState<ColumnReactiveBox> {
         appWidth < 380 ? SizedBox(height: 5) : SizedBox(height: 10),
         buildStatsBox(
           width: appWidth,
-          height: boxHeight,
+          height: boxSizes.boxHeight,
           title: '누적근로일수',
           value: state.workDayValue.toDouble(),
           type: false,

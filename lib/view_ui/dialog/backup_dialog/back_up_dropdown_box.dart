@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
 import '../../../../core/export_package.dart';
 import '../dialog_text.dart';
@@ -11,6 +12,8 @@ class BackUpBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = context.width;
+    final textSize = appWidth.responsiveSize([14,13.5,12.5,10.5,10,10]);
+    final subTextSize = appWidth.responsiveSize([11,11,10,9,8,8]);
 
     return Container(
       decoration: BoxDecoration(
@@ -33,7 +36,7 @@ class BackUpBox extends ConsumerWidget {
                   children: [
                     DialogTextWidget(
                       '1, 공수기록 백업을 눌러 기록 복사',
-                      appWidth > 410 ? 14 : 12.5,
+                      textSize,
                       color: context.textColor,
                     ),
                   ],
@@ -43,7 +46,7 @@ class BackUpBox extends ConsumerWidget {
                   children: [
                     DialogTextWidget(
                       '2, 카카오톡, 메일, SMS에 복사하기',
-                      appWidth > 410 ? 14 : 12.5,
+                      textSize,
                       color: context.textColor,
 
                     ),
@@ -54,7 +57,7 @@ class BackUpBox extends ConsumerWidget {
                   children: [
                     DialogTextWidget(
                       '3, 새 기기에 공수 기록 코드 붙어넣기',
-                      appWidth > 410 ? 14 : 12.5,
+                      textSize,
                       color: context.textColor,
 
                     ),
@@ -65,14 +68,14 @@ class BackUpBox extends ConsumerWidget {
                   children: [
                     DialogTextWidget(
                       '3, ',
-                      appWidth > 410 ? 14 : 12.5,
+                      textSize,
                       color: context.textColor,
 
                     ),
                     Icon(Icons.fingerprint,size: 17.5,),
                     DialogTextWidget(
                       '지문 아이콘 누르면 백업완료',
-                      appWidth > 410 ? 14 : 12.5,
+                      textSize,
                       color: context.textColor,
 
                     ),
@@ -83,7 +86,7 @@ class BackUpBox extends ConsumerWidget {
                   children: [
                     DialogTextWidget(
                       '     붙여넣기하면 지문 아이콘은',
-                      appWidth > 410 ? 10 : 9,
+                      subTextSize,
                       color: context.textColor,
 
                     ),
@@ -91,7 +94,7 @@ class BackUpBox extends ConsumerWidget {
                         size: 15,color: Colors.blue.shade600),
                     DialogTextWidget(
                       '색으로 변경',
-                      appWidth > 410 ? 10 : 9,
+                      subTextSize,
                       color: context.textColor,
 
                     ),

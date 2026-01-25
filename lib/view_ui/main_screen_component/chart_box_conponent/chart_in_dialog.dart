@@ -1,9 +1,12 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
 import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../main_box_component/main_box_sizes.dart';
 
 class ChartInDialog extends ConsumerStatefulWidget {
   const ChartInDialog({super.key});
@@ -59,8 +62,15 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
 
     final switcher = ref.watch(calendarSwitcherProvider
         .select((value) => value.valueOrNull ?? false));
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
 
     final boxColor = context.isDark ? Colors.black54 : Colors.grey.shade100;
+
+    final boxSizes = MainBoxSizes(
+      width: context.width,
+      isFold: isFoldValue,
+    );
 
     return GestureDetector(
       onTap: (){
@@ -176,7 +186,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
               ),
             )
                 : Icon(
-              size: selected ? 22.5 : 25.5,
+              size: boxSizes.moreVertIcon,
               Icons.more_horiz,
               color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
             ),

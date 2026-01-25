@@ -40,17 +40,20 @@ class MonthMoveDialog extends HookConsumerWidget {
                   color: context.textColor),
             ))
                 .toList(),
-            child: Row(
-              children: [
-                TextWidget('${selectedYear.value}년', 18, context.width,
-                    color: context.textColor),
-                const SizedBox(width: 2.5),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 4.0),
-                  child: Icon(Icons.keyboard_arrow_down_rounded, size: 23.5,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  TextWidget('${selectedYear.value}년', 18, context.width,
                       color: context.textColor),
-                ),
-              ],
+                  const SizedBox(width: 2.5),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 4.0),
+                    child: Icon(Icons.keyboard_arrow_down_rounded, size: 23.5,
+                        color: context.textColor),
+                  ),
+                ],
+              ),
             ),
             onSelected: (year) {
               selectedYear.value = year;
@@ -110,22 +113,31 @@ class MonthMoveDialog extends HookConsumerWidget {
         ],
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('나가기', 15, context.width,
-              color: context.textColor),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Spacer(),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: TextWidget('나가기', 15, context.width,
+                    color: context.textColor),
+              ),
+              TextButton(
+                onPressed: selectedMonth.value != null
+                    ? () {
+                  customMsg('${selectedYear.value}년 ${selectedMonth.value}월');
+                  ref.timeNot.moveToMonth(selectedYear.value, selectedMonth.value!);
+                  Navigator.of(context).pop();
+                }
+                    : null,
+                child: TextWidget('확인', 15, context.width,
+                    color: context.textColor),
+              ),
+            ],
+          ),
         ),
-        TextButton(
-          onPressed: selectedMonth.value != null
-              ? () {
-            customMsg('${selectedYear.value}년 ${selectedMonth.value}월');
-            ref.timeNot.moveToMonth(selectedYear.value, selectedMonth.value!);
-            Navigator.of(context).pop();
-          }
-          : null,
-          child: TextWidget('확인', 15, context.width,
-              color: context.textColor),
-        ),
+
       ],
     );
   }

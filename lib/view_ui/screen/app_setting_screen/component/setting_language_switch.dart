@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
 import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
+import '../../../../core/extentions/size_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 
@@ -54,6 +55,8 @@ class SettingLanguageSwitch extends HookWidget {
     };
 
     final selectedLanguage = useState('한국어');
+
+    final sizes = DefaultSizes(context.width);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -114,7 +117,7 @@ class SettingLanguageSwitch extends HookWidget {
               ),
             )
                 .toList(),
-            child: Icon(Icons.text_fields, color: Colors.grey),
+            child: Icon(Icons.text_fields, color: Colors.grey,size: sizes.Icon),
           ),
           const SizedBox(width: 12),
         ],

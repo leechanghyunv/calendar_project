@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import 'cell_size.dart';
 
 
 class HolidayCell extends ConsumerWidget {
@@ -29,12 +30,12 @@ class HolidayCell extends ConsumerWidget {
       orElse: () => false,
     );
 
-    final marginSize = isExpanded
-
-        ? appHeight < 700 ?  29.w :  (appWidth <= 370 ? 33.5.w : appWidth > 500 ? 50.0 : 35.w)
-
-        : appHeight < 700 ?  29.w :  (appWidth <= 370 ? (appWidth > 360 ? 36.5.w : 37.w) : appWidth > 500 ? isFoldValue ? 35.0 : 50.0 : 35.0.w);
-
+    final cellSizes = CellSizes(
+      appHeight: appHeight,
+      appWidth: appWidth,
+      isFold: isFoldValue,
+      isExpanded: isExpanded,
+    );
 
     final localDate = DateTime(date.year, date.month, date.day);
     final holidayName = holidays[localDate] ?? '';
@@ -52,7 +53,7 @@ class HolidayCell extends ConsumerWidget {
     return Container(
       alignment: Alignment.center,
       margin: EdgeInsets.only(
-        top: marginSize,
+        top: cellSizes.holidayMargin,
       ),
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
@@ -71,7 +72,7 @@ class HolidayCell extends ConsumerWidget {
             style: TextStyle(
                 fontWeight: FontWeight.w800,
               height: Platform.isAndroid ? 1.2 : null,
-                fontSize: appWidth > 420 ? 10.5 : 8.5,
+                fontSize: appWidth >= 420 ? 9.5 : 8.5,
                 color: cellColor,
             ),
           ),

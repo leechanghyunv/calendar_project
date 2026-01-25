@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/repository/back_up/clipboard_service.dart';
@@ -62,6 +63,7 @@ class BackUpDialog extends HookConsumerWidget {
         child: Container(
           width: double.maxFinite,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
 
@@ -72,10 +74,8 @@ class BackUpDialog extends HookConsumerWidget {
                 padding: EdgeInsets.symmetric(vertical: 12.0),
                 child: Container(
                   height: 50,
-                  alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: context.bTypeChipColor,
-
                     border: Border.all(
                         color: Colors.grey.shade700,
                         width: 0.85),
@@ -109,9 +109,14 @@ class BackUpDialog extends HookConsumerWidget {
                         : context.isDark ? Colors.blue.shade700 : Colors.blue.shade200,
                   ),
                 ),
+
+
               ),
-              ErrorText(' 근로조건을 저장한 후에 공수 기록이 달력에 반영됩니다.', appWidth,
-              color: context.subTextColor),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                child: TextWidget(' 근로조건을 저장한 후에 공수 기록이 달력에 반영됩니다.',
+                    11, appWidth),
+              ),
               SizedBox(height: 20),
               BackUpBox(),
             ],
@@ -128,7 +133,7 @@ class BackUpDialog extends HookConsumerWidget {
                   ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
                   // customMsg('버전충돌문제로 잠시 서비스 지원을 중단합니다');
                   },
-                child: ButtonTextWidget('공수기록 백업',14, color: context.textColor)
+                child: TextWidget('공수기록 백업', 14, context.width)
             ),
             TextButton(
               onPressed: () {
@@ -136,7 +141,7 @@ class BackUpDialog extends HookConsumerWidget {
                 Navigator.of(context).pop();
                 context.go('/calendar');
               },
-              child: ButtonTextWidget('확인',15,color: context.textColor),
+              child: TextWidget('확인', 14, context.width),
             ),
           ],
         ),

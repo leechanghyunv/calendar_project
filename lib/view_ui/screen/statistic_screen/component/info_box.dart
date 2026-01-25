@@ -118,7 +118,7 @@ class InfoBox extends StatelessWidget {
                   name,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: (width > 400 ? 15.0 : (width < 376 ? 12.0 : 14.0)),
+                    fontSize: context.width.responsiveSize([13,12,12,12,11,10.8]),
                     color: context.isDark ? Colors.grey.shade400 : Colors.grey.shade600,
                     fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                   ),
@@ -134,7 +134,7 @@ class InfoBox extends StatelessWidget {
                   value,
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
-                    fontSize: (width >= 450 ? 36 : width > 400 ? 35.0 : 32.0),
+                    fontSize: context.width.responsiveSize([38,36,34,33,28,26]),
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -146,7 +146,7 @@ class InfoBox extends StatelessWidget {
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: (width >= 450 ? 15 : width > 400 ? 14.5 : 14.0),
+                        fontSize: context.width.responsiveSize([15,14,13,12,10,9]),
                       )),
                 ),
 
@@ -157,7 +157,7 @@ class InfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: (width >= 450 ? 11.0 : width > 400 ? 10.5 : width < 376 ? 9.0 : 9.5),
+                fontSize: context.width.responsiveSize([12,11,11,9.5,9,8.25]),
                 color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade700,
               ),
             ),

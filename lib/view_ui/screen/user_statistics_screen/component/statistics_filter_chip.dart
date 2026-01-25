@@ -28,7 +28,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
         Expanded(
           child: Center(
             child: SizedBox(
-              height: height > 750 ? (width > 400 ? 30 : 25) : 24,
+              height: height > 750 ? (width > 400 ? 30 : 25) : width < 350 ? 21.5 : 24,
               child: ListView.builder(
                 controller: _scrollController,
                 scrollDirection: Axis.horizontal,
@@ -64,7 +64,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                         duration: const Duration(milliseconds: 200),
                         height: height > 750 ? (width > 400 ? 27 : 25) : 24,
                         padding: EdgeInsets.symmetric(
-                          horizontal: width > 450 ? 12 : (width > 375 ? 8 : 6),
+                          horizontal: width > 450 ? 12 : (width > 375 ? 7 : 6),
                             vertical: 4,
                         ),
                         decoration: BoxDecoration(
@@ -78,7 +78,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                           ),
                           boxShadow: context.defaultShadow,
                         ),
-                        child: TextWidget(option == '전체' ? '@${option}' : '#$option', 12.75,
+                        child: TextWidget(option == '전체' ? '@${option}' : '#$option', 13.25,
                             context.width, color: option == '전체' ? context.idChipTextColor : isSelected ? context.textColor : context.chipTextColor,),
 
                       ),

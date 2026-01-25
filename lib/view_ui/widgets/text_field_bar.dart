@@ -1,5 +1,7 @@
+import '../../base_app_size.dart';
 import '../../core/export_package.dart';
 import '../../core/extentions/theme_color.dart';
+import '../../core/extentions/theme_extension.dart';
 
 class TextFieldBar extends HookConsumerWidget {
   final TextEditingController controller;
@@ -23,8 +25,11 @@ class TextFieldBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
+    final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
+
     return Container(
-      height: 40,
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black87 : Colors.grey[100],
         border: Border.all(
@@ -33,38 +38,45 @@ class TextFieldBar extends HookConsumerWidget {
         ),
         borderRadius: BorderRadius.circular(25),
       ),
-      child: TextField(
-        focusNode: focusNode,
-        controller: controller,
-        maxLines: null,
-        cursorColor: Colors.grey.shade700,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              focusNode: focusNode,
+              controller: controller,
+              maxLines: null,
+              cursorColor: Colors.grey.shade700,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize,
+              ),
+              onChanged: onChanged,
+              decoration: InputDecoration(
+
+                isDense: true,
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: fontSize,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+              ),
+              onSubmitted: onSubmitted,
+            ),
+          ),
+          IconButton(
             onPressed: onPressed,
             icon: Icon(
               icon,
               color: context.isDark ? Colors.white : Colors.teal.shade700,
-              size: 20,
+              size: iconSize,
             ),
           ),
-          isDense: true,
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.grey[500],
-            fontSize: 14,
-          ),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 12,
-          ),
-        ),
-        onSubmitted: onSubmitted,
+        ],
       ),
     );
   }

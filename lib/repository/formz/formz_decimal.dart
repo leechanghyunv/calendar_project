@@ -61,7 +61,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
         if(contract!.last.subsidy > 0){
           customMsg('${date.day}일 ${value.decimal}공수 (일비포함)');
         } else {
-          customMsg('${date.day}일 ${value}공수');
+          customMsg('${date.day}일 ${value.decimal}공수');
         }
 
 

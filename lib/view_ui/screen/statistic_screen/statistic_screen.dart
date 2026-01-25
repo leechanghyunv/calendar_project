@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
+import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../dialog/backup_dialog/back_up_dialog.dart';
@@ -19,7 +20,8 @@ class StatisticScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final double height = MediaQuery.of(context).size.height;
+    final double height = context.height;
+    final double width = context.width;
     final switchAsync = ref.watch(switchNotifierProvider);
     final isOn = switchAsync.valueOrNull ?? false;
     final isFocused = ref.watch(focusStateProvider);
@@ -109,7 +111,7 @@ class StatisticScreen extends HookConsumerWidget {
                                 ],
                               ),
 
-                              SizedBox(height: height > 750 ? 15.0 : 20.0),
+                              SizedBox(height: height > 750 ? 15.0 : width < 350 ? 10.0 : 20.0),
                               InfoBoxProviderWidget(),
                               SizedBox(height: height > 750 ? 20.0 : 15.0),
 

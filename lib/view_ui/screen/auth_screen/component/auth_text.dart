@@ -12,7 +12,7 @@ Widget bigText(String text, double height) => Text(
         : height > 750
         ? 17.5
         : 15.5,
-    fontWeight: Platform.isAndroid ? FontWeight.w500 : FontWeight.bold,
+    fontWeight: Platform.isAndroid ? FontWeight.w700 : FontWeight.bold,
     // color: Colors.black,
   ),
 );

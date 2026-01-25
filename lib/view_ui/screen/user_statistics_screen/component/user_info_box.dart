@@ -31,7 +31,7 @@ class UserInfoBox extends StatelessWidget {
       width: width,
       decoration: context.cardDecoration,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
+        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,8 @@ class UserInfoBox extends StatelessWidget {
                   name,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: (width > 400 ? 15.0 : (width < 376 ? 12.0 : 14.0)),
+
+                    fontSize: context.width.responsiveSize([15,12,12,12,11,10.8]),
                     color: Colors.grey.shade600,
                     fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                   ),
@@ -57,10 +58,11 @@ class UserInfoBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  value,
+                  '${value}',
                   textScaler: TextScaler.noScaling,
                   style: TextStyle(
-                    fontSize: (width >= 450 ? 40 : width > 400 ? 38.0 : 33.0),
+
+                    fontSize: context.width.responsiveSize([38,36,34,33,28,26]),
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -71,8 +73,9 @@ class UserInfoBox extends StatelessWidget {
                   child: Text(unit,
                       textScaler: TextScaler.noScaling,
                       style: TextStyle(
+
                         color: Colors.grey,
-                        fontSize: (width >= 450 ? 15 : width > 400 ? 14.5 : 14.0),
+                        fontSize: context.width.responsiveSize([15,14,13,12,10,9]),
                       )),
                 ),
 
@@ -83,7 +86,7 @@ class UserInfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: (width >= 450 ? 12.0 : width > 400 ? 11.0 : width < 376 ? 9.0 : 9.5),
+                fontSize: context.width.responsiveSize([12,11,11,9.5,9,8.25]),
                 color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
               ),
             ),

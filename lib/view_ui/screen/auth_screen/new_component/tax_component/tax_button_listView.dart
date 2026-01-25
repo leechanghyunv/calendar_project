@@ -1,6 +1,8 @@
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/new_component/tax_component/tax_button.dart';
 
+import '../../../../../base_app_size.dart';
 import '../../../../../core/export_package.dart';
+import '../../../../../core/extentions/size_extension.dart';
 
 class TaxButtonList extends HookWidget {
   final double? selectedTaxRate;
@@ -23,10 +25,12 @@ class TaxButtonList extends HookWidget {
 
     ];
 
+    final sizes = DefaultSizes(context.width);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: SizedBox(
-        height: 30,
+        height: sizes.payChipSize,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: taxRates.length,

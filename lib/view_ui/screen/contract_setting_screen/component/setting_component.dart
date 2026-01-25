@@ -52,7 +52,7 @@ class SettingDisplay extends HookConsumerWidget {
                     color: context.buttonColor),
                 context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
                 SettingNumberAnimation(
-                    end: currentValue,textSize: 33,pay: false),
+                    end: currentValue,textSize: 30,pay: false),
               ],
             ),
 
@@ -63,14 +63,9 @@ class SettingDisplay extends HookConsumerWidget {
                 TextWidget(totalValue, 15, context.width,
                     color: context.buttonColor),
                 context.height > 750 ? SizedBox(height: 2.5) : SizedBox.shrink(),
-                Text(
-                  formattedPay,
-                  style: TextStyle(
-                    color: context.buttonColor,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                TextWidget(formattedPay,
+                    30, context.width,color: context.buttonColor,fontWeight: FontWeight.w800),
+
               ],
             ),
           ],

@@ -9,6 +9,7 @@ import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/view_type_model.dart';
 import '../../screen/calendar_screen/provider/marker_event_provider.dart';
+import 'cell_size.dart';
 
 
 
@@ -38,20 +39,10 @@ class MarkerCell extends ConsumerWidget {
 
     final customEventMarkers = ref.watch(markerEventProvider);
 
+
     // ✅ bool 값으로 포함 여부 체크
     final localDate = DateTime(date.year, date.month, date.day);
     final hasCustomEvent = customEventMarkers.containsKey(localDate);
-
-
-
-     /// top side margin
-    final double marginValue = appHeight < 700
-        ? 28.w
-        : (appWidth <= 370 ? isFoldValue ? 41.25.w : 35.w /// 갤럭시 폴드에서 40.w, 37.5가 적당함
-
-        : appWidth > 500 ? isFoldValue ? 18.5.w : 25.w /// 원래값 47.5 갤럭시 폴드에서 32, 18.5.w가 적당함
-        : Platform.isAndroid ? 37.w : 35.w); /// 값이 클수록 밑으로
-          /// 안드 테스트폰으론 38.w 가 적당한 384
 
 
     ViewType? isViewType = ViewType.gongsu;
@@ -89,7 +80,11 @@ class MarkerCell extends ConsumerWidget {
 
       final WorkHistory event = events[0];
 
-
+      final sizes = CellSizes(
+          appHeight: appHeight,
+          appWidth: appWidth,
+          isFold: isFoldValue,
+          recordAmount: event.record);
 
       final calendarMemo = event.memo;
       final String memoEmptyText = selectedMonth == month ? calendarMemo.length > 1 ? '*' : '' : '';
@@ -97,26 +92,15 @@ class MarkerCell extends ConsumerWidget {
       final String calendarMemoText = selectedMonth == month ? event.memo.toString() : '';
       final String calendarPayText = selectedMonth == month ? (event.pay/10000).toStringAsFixed(1) : '';
 
-
-      final double fontSizeNonMemo = switch ((appWidth, event.record)) {
-        (< 376, _) => 11,
-        (_, 0.0) => 11.5,
-        (>= 400, _) => 14.5,
-        (>= 420, _) => 16.5,
-        (_, _) => 13.0
-      };
-
       final double fontSizeMemo = appWidth > 450 ? 11.5 : 10.5;
 
       return Container(
         margin: EdgeInsets.only(
-          top: marginValue,
+          top: sizes.calendarMargin,
         ),
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
-        width: isExpanded
-            ? appHeight < 700 ?  42.5.w : appWidth > 500 ? 22.5.w : 45.w
-            : appHeight < 700 ?  37.5.w : appWidth > 500 ? 22.5.w : 40.w,
+        width: sizes.markerWidth,
         decoration: isExpanded ? null : markerDeco(context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
         child: isExpanded
             ? Column(
@@ -177,7 +161,7 @@ class MarkerCell extends ConsumerWidget {
               },
                 style: TextStyle(
                   height: textHeight,
-                    color: context.textColor,
+                    color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
                     fontSize: 8),
               ),
                 TextSpan(
@@ -189,13 +173,13 @@ class MarkerCell extends ConsumerWidget {
                     },
                     style: TextStyle(
                       fontSize: switch(isViewType){
-                      ViewType.gongsu => fontSizeNonMemo,
-                      ViewType.amount => fontSizeNonMemo,
+                      ViewType.gongsu => sizes.fontSizeNonMemo,
+                      ViewType.amount => sizes.fontSizeNonMemo,
                       ViewType.memo => fontSizeMemo,
-                      _ => fontSizeNonMemo,
+                      _ => sizes.fontSizeNonMemo,
                       },
                       fontWeight: FontWeight.bold,
-                      color: context.textColor,
+                      color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
                       height: textHeight,
 
                     ),

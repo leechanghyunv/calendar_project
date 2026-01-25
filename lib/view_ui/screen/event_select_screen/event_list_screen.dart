@@ -24,6 +24,7 @@ class EventListScreen extends HookConsumerWidget {
           child: Center(
             child: Column(
               children: [
+                SizedBox(height: 15),
                 InfoRow(
                   title: '${ref.month}월 주요일정',
                   subtitle: '일정 등록시 메인 캘린더에서 확인 가능',

@@ -1,9 +1,11 @@
 
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../minor_issue/widget/indicator_widget.dart';
+import '../main_box_component/main_box_sizes.dart';
 import 'animated_number.dart';
 
 Widget buildStatsBox({
@@ -17,6 +19,8 @@ Widget buildStatsBox({
   required String description,
   required BuildContext context,
 }) {
+
+
   return Container(
     decoration: context.boxDecoration,
     width: width,
@@ -28,32 +32,23 @@ Widget buildStatsBox({
             final appWidth = MediaQuery.of(context).size.width;
             final heightValue = appWidth < 376 ? 3.0 : 4.0;
 
-            final double font = switch (appWidth) {
-              > 420 => 11,
-              > 400 => 10.5,
-              < 376 => 8.0,
-              _ => 9.0
-            };
+            final boxSizes = MainBoxSizes(
+              width: appWidth,
+            );
 
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(title,
-                        textScaler: TextScaler.noScaling,
-                        style:  TextStyle(
-                        height: textHeight,
-                        fontWeight: FontWeight.bold,
-                        fontSize: appWidth > 420 ? 13 : 12)),
+                    TextWidget(title, 12, appWidth,color: context.textColor,),
                     const Spacer(),
                     AnimatedNumber(
                       end: value,
                       type: type,
                     ),
-
-
                   ],
                 ),
                 const SizedBox(height: 5),
@@ -66,7 +61,7 @@ Widget buildStatsBox({
                         color: context.textColor,
                         height: textHeight,
                         fontWeight: context.isDark ? FontWeight.w600 : FontWeight.w500,
-                        fontSize: font,
+                        fontSize: boxSizes.indicatorFont,
                     ),
                 ),
               ],

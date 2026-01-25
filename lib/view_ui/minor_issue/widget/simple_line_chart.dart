@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
@@ -15,6 +16,7 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
   Widget build(BuildContext context) {
 
     final thisMonth = ref.selected;
+    final width = context.width;
 
     return Expanded(
       child: Padding(
@@ -79,13 +81,13 @@ class _SimpleLineChartState extends ConsumerState<SimpleLineChart> {
                 }),
                 isCurved: true,
                 color: context.isDark ? Colors.teal : Colors.blue.shade400,
-                barWidth: 3,
+                barWidth: width < 350 ? 2.5 : 3,
                 isStrokeCapRound: true,
                 dotData: FlDotData(
                   show: true,
                   getDotPainter: (spot, percent, barData, index) {
                     return FlDotCirclePainter(
-                      radius: 3.5,
+                      radius: width < 350 ? 2.5 : 3.5,
                       color: Colors.white,
                       strokeWidth: 1.5,
                       strokeColor: context.isDark ? Colors.teal : Colors.blue.shade400,

@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/popup_menu_provider.dart';
 
@@ -55,8 +56,9 @@ class MainButton extends HookConsumerWidget {
     }
 
     return isFocused ? SizedBox.shrink() :  Padding(
-      padding: EdgeInsets.only(right: 8.0),
+      padding: EdgeInsets.only(right: context.width < 350 ? 0.0 : 8.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Expanded(
             child: Container(
@@ -89,10 +91,12 @@ class MainButton extends HookConsumerWidget {
                         avatar: Icon(
                           options[index]['icon'],
                           size: switch (appWidth) {
-                            >= 450 => 22,
-                            >= 400 => 20,
-                            < 376 => 17,
-                            _ => 18,
+                            >= 450 => 21,
+                            >= 400 => 19,
+                            >= 390 => 18,
+                            >= 375 => 17,
+                            >= 350 => 15,
+                            _ => 15,
                           },
                           color: selectedIndex == index
                               ? context.isDark ? Colors.grey.shade200 : Colors.grey.shade700
@@ -103,10 +107,12 @@ class MainButton extends HookConsumerWidget {
                           textScaler: TextScaler.noScaling,
                           style: TextStyle(
                             fontSize: switch (appWidth) {
-                              >= 450 => 17,
-                              >= 400 => 15.5,
-                              < 376 => 13,
-                              _ => 14,
+                              >= 450 => 16,
+                              >= 400 => 15,
+                              >= 390 => 14,
+                              >= 375  => 13,
+                              >= 350  => 11.5,
+                              _ => 11.5,
                             },
                             letterSpacing: appWidth > 450 ? 1.0 : null,
                             fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
@@ -127,7 +133,7 @@ class MainButton extends HookConsumerWidget {
                         },
                         selectedColor: context.isDark ? Colors.grey.shade900 : options[index]['selectedColor'],
                         backgroundColor: context.underBoxColor,
-                        padding: EdgeInsets.symmetric(horizontal: appWidth < 376 ? 1.0 : 4.0),
+                        padding: appWidth < 350 ? null : EdgeInsets.symmetric(horizontal: appWidth < 376 ? 1.0 : 4.0),
                         elevation: 4, // 그림자 추가
                         shadowColor: Colors.grey.withOpacity(0.2),
 

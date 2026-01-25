@@ -1,3 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+
 import '../../core/export_package.dart';
 import '../../core/extentions/theme_color.dart';
 
@@ -23,8 +26,11 @@ class NumberFieldBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+    final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
+    final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
+
     return Container(
-      height: 50,
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black87 : Colors.grey[100],
         border: Border.all(
@@ -33,43 +39,49 @@ class NumberFieldBar extends HookConsumerWidget {
         ),
         borderRadius: BorderRadius.circular(25),
       ),
-      child: TextField(
-        focusNode: focusNode,
-        controller: controller,
-        maxLines: null,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          LengthLimitingTextInputFormatter(5),
-        ],
-        cursorColor: Colors.grey.shade700,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 15,
-        ),
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          suffixIcon: IconButton(
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              focusNode: focusNode,
+              controller: controller,
+              maxLines: null,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(5),
+              ],
+              cursorColor: Colors.grey.shade700,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: fontSize,
+              ),
+              onChanged: onChanged,
+              decoration: InputDecoration(
+                isDense: true,
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: fontSize,
+                ),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+              ),
+              onSubmitted: onSubmitted,
+            ),
+          ),
+          IconButton(
             onPressed: onPressed,
             icon: Icon(
               icon,
               color: context.isDark ? Colors.white : Colors.teal.shade700,
-              size: 25,
+              size: iconSize,
             ),
           ),
-          isDense: true,
-          hintText: hintText,
-          hintStyle: TextStyle(
-            color: Colors.grey[500],
-            fontSize: 15,
-          ),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 12,
-          ),
-        ),
-        onSubmitted: onSubmitted,
+        ],
       ),
     );
   }

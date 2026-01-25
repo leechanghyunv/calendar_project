@@ -28,7 +28,7 @@ class TextStyles {
       fontWeight: weight,
       color: isDark ? Colors.white : Colors.black,
       backgroundColor: backgroundColor,
-      fontSize: appWidth < 376 ? 11.5 :  (appWidth > 400 ? 13.5 : 12.5),
+      fontSize: appWidth < 376 ? 10.5 :  (appWidth > 400 ? 13.5 : 12.5),
       letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
     );
   }

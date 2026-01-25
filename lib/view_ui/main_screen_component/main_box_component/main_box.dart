@@ -1,16 +1,14 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
-
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/month_move_button.dart';
 import '../chart_box_conponent/chart_box.dart';
 import '../column_box_component/column_box.dart';
+import 'controll_chip_component.dart';
 import 'main_box_big_container.dart';
-import 'main_box_chip_list.dart';
-import 'main_box_delete_button.dart';
-import 'main_box_setting_button.dart';
+import 'main_box_sizes.dart';
+
 
 class MainBox extends ConsumerWidget {
   const MainBox({super.key});
@@ -22,14 +20,17 @@ class MainBox extends ConsumerWidget {
     final isFoldValue = isFold.asData?.value ?? false;
     final width = context.width; // ✅ 한 번만 가져오기
 
+    final boxSizes = MainBoxSizes(
+      width: width,
+      isFold: isFoldValue,
+    );
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
       ),
       width:  width * 0.95,
-      height: width > 400 ? isFoldValue ? 325 : 370 : (width < 376 ? 290 : 330),
       child: Padding(
-
         padding: EdgeInsets.symmetric(
           /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
             vertical: width > 380 ? 10.0 : 6.0,
@@ -40,41 +41,24 @@ class MainBox extends ConsumerWidget {
           children: [
             Container(
               decoration: context.boxDecoration,
-              height: width > 400 ? isFoldValue ? 140 : 170 : (width < 376 ? 135 : 140),
               child: Stack(
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.0,
-                        vertical: isFoldValue && width > 500 ? 8.0 : 10.0),
-
+                        vertical: isFoldValue && width > 500 ? 12.0 : boxSizes.verticalPadding),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MainBoxBigContainer(),
                         Divider(thickness: 1.0),
-                        /// controll_chip_component
-                        Container(
-                          alignment: Alignment.center,
-                          height: width > 400 ? isFoldValue ? 25 : 35 : 25,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ChipList(),
-                              Spacer(),
-                              SizedBox(width: width > 400 ? 7.5 : 5),
-                              DeleteChip(),
-                              SizedBox(width: width > 400 ? 7.5 : 5),
-                              SettingButton(),
-                            ],
-                          ),
-                        ),
+                        UnifiedChipBar(),
                       ],
                     ),
                   ),
                   Positioned(
                     top: 16,
-                    right: width > 450 ? isFoldValue ? 16 : 22.5 : 16,
+                    right: boxSizes.contentPadding,
                     child: Row(
                       children: [
                         MonthMoveButton(),

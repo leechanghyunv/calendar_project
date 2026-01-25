@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../../../core/export_package.dart';
+import '../../../../core/extentions/size_extension.dart';
 
 class SettingMemoTextField extends HookConsumerWidget {
   final FocusNode nodeMemo;
@@ -22,9 +23,14 @@ class SettingMemoTextField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final borderColor = nodeMemo.hasFocus ? Colors.teal : Colors.grey.shade500;
 
+    final sizes = DefaultSizes(context.width);
+
+    final defaultSize = context.width.responsiveSize([15.5,14,14,14,13.5,12.5]);
+    final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
+
     return Container(
       constraints: BoxConstraints(
-        minHeight: context.width > 400 ? 150 : 100,
+        minHeight: sizes.containerSize,
       ),
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black54 : Colors.grey.shade100,
@@ -43,10 +49,9 @@ class SettingMemoTextField extends HookConsumerWidget {
             controller: memoController,
             onChanged: onChanged,
             maxLines: null, // 자동으로 여러 줄 입력 가능
-
             cursorColor: Colors.grey.shade500,
             style: TextStyle(
-              fontSize: context.width > 400 ? 15.5 : 14,
+              fontSize: defaultSize,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),
@@ -58,7 +63,7 @@ class SettingMemoTextField extends HookConsumerWidget {
 
               hintText: ' 메모내용을 입력해주세요',
               hintStyle: TextStyle(
-                  fontSize: context.width > 400 ? 15.5 : 14,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                   overflow: TextOverflow.ellipsis),

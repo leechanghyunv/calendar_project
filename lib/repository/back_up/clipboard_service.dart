@@ -24,10 +24,11 @@ class BackUpClipboardService extends _$BackUpClipboardService {
       if(histories.isEmpty){
         customMsg('공수 기록이 없습니다.');
       } else {
+        await Clipboard.setData(ClipboardData(text: output));
         customMsg('클립보드에 복사되었습니다.');
-        SharePlus.instance.share(
-            ShareParams(text: output)
-        );
+        // SharePlus.instance.share(
+        //     ShareParams(text: output)
+        // );
       }
 
     },

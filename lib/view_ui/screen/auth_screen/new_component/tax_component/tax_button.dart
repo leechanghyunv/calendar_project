@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../../core/export_package.dart';
 
@@ -36,14 +38,8 @@ class TaxButton extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Center(
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                color: context.subTextColor,
-              ),
-            ),
+            child: TextWidget(label, 13, context.width,fontWeight: FontWeight.w800,color: context.subTextColor),
+
           ),
         ),
       ),

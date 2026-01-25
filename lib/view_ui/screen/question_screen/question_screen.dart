@@ -1,4 +1,8 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../../../core/export_package.dart';
+import '../../../core/extentions/theme_extension.dart';
+import '../../../core/widget/text_widget.dart';
 import '../../widgets/elevated_button.dart';
 
 class QuestionScreen extends StatelessWidget {
@@ -66,17 +70,25 @@ class QuestionScreen extends StatelessWidget {
   }
 
   Widget _buildQuestion(BuildContext context,String question, String answer) {
+
+    final value = context.width > 360 ? 16.0 : 8.0;
+
     return ExpansionTile(
-      title: Text(question, style: const TextStyle(fontWeight: FontWeight.bold)),
+      title: TextWidget(question, 14,context.width),
       textColor: Colors.teal,
       collapsedIconColor: Colors.grey,
       iconColor: Colors.teal,
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.all(value),
           child: Row(
             children: [
-              Expanded(child: Text(answer)),
+              Expanded(child: Text(
+                answer,
+                style: TextStyle(
+                    fontSize: context.width.responsiveSize([14,13,13,13,12,11])),
+              ),
+              ),
             ],
           ),
         ),

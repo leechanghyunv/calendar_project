@@ -1,4 +1,6 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/extentions/theme_color.dart';
@@ -34,7 +36,7 @@ class _FunctionChipState extends State<FunctionChip> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
     return Container(
-      height: height > 750 ? (width > 400 ? 27 : 25) : 24,
+      height: height > 750 ? (width > 400 ? 27 : 25) : width < 350 ? 21.5 : 24,
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: widget.color,
@@ -59,17 +61,7 @@ class _FunctionChipState extends State<FunctionChip> {
             isSelected = false;
           });
         },
-        child: Text(
-          widget.label,
-          textScaler: TextScaler.noScaling,
-          style: TextStyle(
-            height: textHeight,
-
-            fontSize: height > 750 ? (width > 400 ? 14.5 : (width < 370 ? 11.4 : 13)) : 12.5,
-            fontWeight: FontWeight.bold,
-            color: widget.textColor,
-          ),
-        ),
+        child: TextWidget(widget.label, 13, context.width,color: widget.textColor),
       ),
     );
   }

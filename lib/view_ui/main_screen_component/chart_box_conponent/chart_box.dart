@@ -8,6 +8,7 @@ import '../../../view_model/filted_instance_model/filted_month_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
 import '../../screen/app_setting_screen/provider/animation_provider.dart';
+import '../main_box_component/main_box_sizes.dart';
 import 'animated_record_number.dart';
 import 'chart_in_dialog.dart';
 
@@ -58,18 +59,19 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
 
     final animationSetting = ref.watch(openingAnimationProvider).valueOrNull ?? false;
 
-    final RecordTextStyle = TextStyle(
-        height: textHeight,
-        fontSize: appWidth > 400 ? 35 : (appWidth < 376 ? 26 : 28),
-        fontWeight: FontWeight.w800);
+    final boxSizes = MainBoxSizes(
+      width: appWidth,
+      isFold: isFoldValue,
+    );
 
     return Container(
       decoration: context.boxDecoration,
       width: appWidth * 0.4,
-      height: appWidth > 400 ? isFoldValue ? 155 : 170 : (appWidth < 376 ? 133 : 155),
+      height: boxSizes.chartBoxHeight,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
@@ -77,13 +79,8 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
               children: [
                 animationSetting ? animateText
                     ? NumberCounter(end: monthRecord)
-                    : Text('${month}',
-                  textScaler: TextScaler.noScaling,
-                  style: RecordTextStyle,
-                ) : Text('${month}',
-                  textScaler: TextScaler.noScaling,
-                  style: RecordTextStyle,
-                ),
+                    : TextWidget('${month}', 27, appWidth,fontWeight: FontWeight.w800,color: context.textColor,)
+                    : TextWidget('${month}', 27, appWidth,fontWeight: FontWeight.w800,color: context.textColor,),
 
 
                 Spacer(),

@@ -69,34 +69,5 @@ class ValidationText extends StatelessWidget {
   }
 }
 
-class ValidationTextRow extends StatelessWidget {
-
-  final String right;
-  final String left;
-
-  const ValidationTextRow({super.key, required this.right, required this.left});
-
-  @override
-  Widget build(BuildContext context) {
-    final  appWidth = context.width;
-
-    return  Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: ErrorText(' ${right}',appWidth,
-              color: context.subTextColor),
-        ),
-        SizedBox(width: 20),
-        Expanded(
-          flex: 2,
-          child: ErrorText(' ${left}',appWidth,
-              color: context.subTextColor),
-        ),
-
-      ],
-    );
-  }
-}
 
 

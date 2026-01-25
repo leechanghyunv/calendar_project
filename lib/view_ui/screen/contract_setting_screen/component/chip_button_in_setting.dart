@@ -6,13 +6,11 @@ import '../../../../core/widget/text_widget.dart';
 
 class ChipButton extends StatelessWidget {
   final VoidCallback onTap;
-  final double? width;
   final double? height;
 
   const ChipButton({
     super.key,
     required this.onTap,
-    this.width = 120,
     this.height = 30,
   });
 
@@ -28,13 +26,15 @@ class ChipButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           border: context.isLight ? null : Border.all(width: 0.25, color: Colors.white),
         ),
-        width: width,
         height: height,
-        child: TextWidget(
-          '공수조건 변경',
-          16,
-          context.width,
-          color: context.chipTextColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          child: TextWidget(
+            '공수조건 변경',
+            16,
+            context.width,
+            color: context.chipTextColor,
+          ),
         ),
       ),
     );

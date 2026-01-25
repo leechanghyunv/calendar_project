@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
@@ -15,49 +16,43 @@ class AnimatedNumber extends ConsumerWidget {
     this.start = 0,
     required this.end,
     this.duration = const Duration(milliseconds: 2000),
-    this.type = true
+    this.type = true,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final animateText = ref.watch(animationTextProviderProvider);
-    final fillColor = context.isDark ? Colors.grey.shade200 : Colors.grey.shade700;
+    final fillColor = context.isDark
+        ? Colors.grey.shade200
+        : Colors.grey.shade700;
 
-    return animateText ? TweenAnimationBuilder<double>(
-        tween: Tween(begin: start, end: end),
-        duration: duration,
-        builder: (context, value, child) {
-          final maxDigits = type ? 3 : 3; // 최대 자릿수
-          final currentValue = value.toInt().toString();
-          final paddedValue = currentValue.padLeft(maxDigits, ' '); // 🔢 공백으로 패딩
+    return animateText
+        ? TweenAnimationBuilder<double>(
+            tween: Tween(begin: start, end: end),
+            duration: duration,
+            builder: (context, value, child) {
+              final maxDigits = type ? 3 : 3; // 최대 자릿수
+              final currentValue = value.toInt().toString();
+              final paddedValue = currentValue.padLeft(
+                maxDigits,
+                ' ',
+              ); // 🔢 공백으로 패딩
 
-          final displayText = type
-              ? '$paddedValue/252'
-              : '$paddedValue/180';
+              final displayText = type
+                  ? '$paddedValue/252'
+                  : '$paddedValue/180';
 
-
-          return Text(
-            displayText,
-            textAlign: TextAlign.end,
-            textScaler: TextScaler.noScaling,
-            style: TextStyle(
-              height: textHeight,
-              fontWeight: FontWeight.bold,
-              color: fillColor,
-              fontSize: ref.context.width > 420 ? 12.5 : 11,
-              fontFamily: 'monospace',
-            ),
-            maxLines: 1,
+              return TextWidget(displayText, 11, context.width);
+            },
+          )
+        : TextWidget(
+            type == true
+                ? '${end.toStringAsFixed(0)}/252'
+                : '${end.toStringAsFixed(0)}/180',
+            11,
+            context.width,
+            color: fillColor,
           );
-        }
-    ) : Text(type == true
-        ? '${end.toStringAsFixed(0)}/252'
-        : '${end.toStringAsFixed(0)}/180',
-        textScaler: TextScaler.noScaling,
-        style: TextStyle(
-        height: textHeight,
-        fontWeight: FontWeight.bold, color: fillColor,
-        fontSize: context.width > 420 ? 12.5 : 11),
-    );
+
   }
 }

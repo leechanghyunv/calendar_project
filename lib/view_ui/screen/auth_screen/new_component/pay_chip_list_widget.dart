@@ -1,16 +1,15 @@
-
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
+import '../../../../core/extentions/size_extension.dart';
 
 class PayChips extends HookWidget {
   final int selectedValue;
   final ValueChanged<int> onSelected;
 
-  const PayChips({
-    required this.selectedValue,
-    required this.onSelected,
-  });
+  const PayChips({required this.selectedValue, required this.onSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +30,10 @@ class PayChips extends HookWidget {
       return null;
     }, [selectedValue]);
 
+    final sizes = DefaultSizes(context.width);
+
     return SizedBox(
-      height: 30,
+      height: sizes.payChipSize,
       child: ListView.builder(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
@@ -52,14 +53,16 @@ class PayChips extends HookWidget {
               onTap: () => onSelected(amount),
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 200),
-                padding: EdgeInsets.symmetric(
-                  horizontal: isSelected ? 18 : 16,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: isSelected ? 18 : 16),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? context.isDark ? Colors.teal.shade900 : Colors.teal
+                      ? context.isDark
+                            ? Colors.teal.shade900
+                            : Colors.teal
                       : isPopular
-                      ? context.isDark ? Colors.teal.shade800 : Colors.teal.shade50
+                      ? context.isDark
+                            ? Colors.teal.shade800
+                            : Colors.teal.shade50
                       : context.chipColor,
                   border: Border.all(
                     color: isSelected
@@ -71,23 +74,28 @@ class PayChips extends HookWidget {
                   ),
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: isSelected
-                      ? [BoxShadow(
-                    color: Colors.teal.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: Offset(0, 2),
-                  )]
+                      ? [
+                          BoxShadow(
+                            color: Colors.teal.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: Offset(0, 2),
+                          ),
+                        ]
                       : null,
                 ),
                 child: Center(
-                  child: Text(
+                  child: TextWidget(
                     '${amount ~/ 10000}만',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: isSelected
-                          ? context.isDark ? Colors.tealAccent : Colors.white
-                          : context.isDark ? Colors.white : Color(0xFF495057),
-                    ),
+                    14,
+                    context.width,
+                    fontWeight: FontWeight.w700,
+                    color: isSelected
+                        ? context.isDark
+                              ? Colors.tealAccent
+                              : Colors.white
+                        : context.isDark
+                        ? Colors.white
+                        : Color(0xFF495057),
                   ),
                 ),
               ),

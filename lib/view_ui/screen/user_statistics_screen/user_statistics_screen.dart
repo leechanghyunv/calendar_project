@@ -62,11 +62,13 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     color: context.textColor),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16.0),
-                                  child: introText(height),
+                                Expanded(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                                    child: introText(height),
+                                  ),
                                 ),
-                                Spacer(),
+                                // Spacer(),
                                 Row(
                                   children: [
                                     /// 근로조건 설정하기

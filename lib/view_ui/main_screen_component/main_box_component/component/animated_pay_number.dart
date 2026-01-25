@@ -2,6 +2,7 @@
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../main_box_sizes.dart';
 
 class PayNumberCounter extends ConsumerWidget {
   final double start;
@@ -27,6 +28,11 @@ class PayNumberCounter extends ConsumerWidget {
         ? [Shadow(blurRadius: 0.25, color: Colors.grey, offset: Offset(0.25, 0.25))]
         : null;
 
+    final boxSizes = MainBoxSizes(
+      width: appWidth,
+      isFold: isFoldValue,
+    );
+
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: start, end: end),
       duration: duration,
@@ -39,14 +45,7 @@ class PayNumberCounter extends ConsumerWidget {
               fontWeight: FontWeight.w800,
               letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.5 : null,
               height: textHeight,
-              fontSize : switch (appWidth) {
-                > 450 => isFoldValue ? 37 : 40.5,
-                > 420 => 40,
-                > 400 => 37,
-                < 376 => 31.5,
-                _ => 32
-              }
-
+              fontSize : boxSizes.bigFontSize,
           ),
         );
       },

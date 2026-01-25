@@ -5,10 +5,10 @@ import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import '../../../../core/export_package.dart';
 import '../../../model/event/custom_event.dart';
 import '../../../view_model/sqlite_model/event_model.dart';
+import '../../widgets/duration_select_module.dart';
 import '../../widgets/elevated_button.dart';
 import 'component/day_select_textfield.dart';
 import 'component/event_textfield.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 class EventSelectScreen extends HookConsumerWidget {
@@ -23,20 +23,11 @@ class EventSelectScreen extends HookConsumerWidget {
     final DayFocusNode = useFocusNode();
     final DayController = useTextEditingController();
 
-
     final isDuration = useState(false);
-    final showPicker = useState(false);
-    final isSelectingEndDate = useState(false);
     final selectedDate = useState(DateTime.now());
     final endDate = useState(DateTime.now());
 
     useListenable(controller);
-
-    String formatDate(DateTime date) {
-      final weekdays = ['월', '화', '수', '목', '금', '토', '일'];
-      final weekday = weekdays[date.weekday - 1];
-      return '${date.year.toString().substring(2)}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}($weekday)';
-    }
 
     String getGuideText() {
       final text = controller.text.trim();
@@ -112,98 +103,17 @@ class EventSelectScreen extends HookConsumerWidget {
                                         ),
                                       ],
                                     ),
-                                    
                                     Padding(
                                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Divider(
-                                            color: Theme.of(context).dividerColor,
-                                            thickness: 1,
+                                          DurationSelectModule(
+                                            focusNode: focusNode,
+                                            isDuration: isDuration,
+                                            selectedDate: selectedDate,
+                                            endDate: endDate,
                                           ),
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-
-                                              Icon(Icons.access_time,color: context.subTextColor),
-                                              SizedBox(width: 15),
-                                              TextWidget(
-                                                  isDuration.value ? '기간 선택' : '날짜 선택', 15, context.width,
-                                              color: context.subTextColor),
-                                              Spacer(),
-                                              Switch(
-                                                value: isDuration.value,
-                                                onChanged: (bool val){
-                                                  isDuration.value = !isDuration.value;
-                                                  HapticFeedback.selectionClick();
-                                                },
-                                                activeThumbColor: Colors.teal,
-                                              ),
-
-                                            ],
-                                          ),
-                                            Row(
-                                              children: [
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      HapticFeedback.selectionClick();
-                                                      focusNode.unfocus();
-                                                      showPicker.value = !showPicker.value;
-                                                    },
-                                                    child: TextWidget(formatDate(selectedDate.value),
-                                                        22.5, context.width),
-                                                ),
-
-                                                if (isDuration.value) ...[
-                                                  Spacer(),
-                                                  Icon(Icons.arrow_right),
-                                                  Spacer(),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      HapticFeedback.selectionClick();
-                                                      focusNode.unfocus();
-                                                      isSelectingEndDate.value = true;
-                                                      showPicker.value = !showPicker.value;
-                                                    },
-                                                    child: TextWidget(
-                                                        formatDate(endDate.value),
-                                                        22.5,
-                                                        context.width
-                                                    ),
-                                                  ),
-                                                ],
-
-                                              ],
-                                            ),
-
-                                          if (showPicker.value && !focusNode.hasFocus)
-                                            Container(
-                                              height: 200,
-                                              child: CupertinoDatePicker(
-                                                mode: CupertinoDatePickerMode.date,
-                                                initialDateTime: isSelectingEndDate.value
-                                                    ? endDate.value
-                                                    : selectedDate.value,
-                                                onDateTimeChanged: (dateTime) {
-                                                  if (isSelectingEndDate.value) {
-                                                    endDate.value = dateTime;
-                                                    // DayFocusNode.requestFocus();
-                                                  } else {
-                                                    selectedDate.value = dateTime;
-                                                  }
-                                                },
-                                              ),
-                                            ),
-
-
-                                          SizedBox(height: 10),
-                                          Divider(
-                                            color: Theme.of(context).dividerColor,
-                                            thickness: 1,
-                                          ),
-
-
                                           SizedBox(height: 10),
                                           if (isDuration.value)
                                             Row(
@@ -290,8 +200,6 @@ class EventSelectScreen extends HookConsumerWidget {
 
                     ),
                 ),
-
-
               ],
             ),
           ),

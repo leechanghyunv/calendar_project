@@ -41,6 +41,15 @@ class AppSettingScreen extends HookConsumerWidget {
     };
 
 
+
+    Widget dib() =>  Padding(
+      padding: EdgeInsets.symmetric(vertical: context.width <= 375 ? 0.0 : 4.0),
+      child: Divider(
+        color: Colors.grey.shade300,
+        thickness: 1.0,
+      ),
+    );
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -112,6 +121,7 @@ class AppSettingScreen extends HookConsumerWidget {
                     SizedBox(height: 12),
       
                   SizedBox(height: 12),
+
       
                   SettingLanguageSwitch(),
       
@@ -267,12 +277,6 @@ class AppSettingScreen extends HookConsumerWidget {
     );
 
   }
+
 }
 
-Widget dib() =>  Padding(
-  padding: const EdgeInsets.symmetric(vertical: 4.0),
-  child: Divider(
-    color: Colors.grey.shade300,
-    thickness: 1.0,
-  ),
-);

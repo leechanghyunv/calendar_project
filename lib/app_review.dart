@@ -4,8 +4,10 @@ import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import 'core/export_package.dart';
+import 'core/extentions/theme_extension.dart';
 
 class CustomReviewDialog extends StatelessWidget {
   const CustomReviewDialog({super.key});
@@ -14,14 +16,6 @@ class CustomReviewDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = context.width;
     final height = context.height;
-
-    final baseStyle = TextStyle(
-      height: Platform.isAndroid ? 1.75 : 1.30,
-      fontSize: 15,
-      fontWeight: FontWeight.bold,
-      color: context.textColor,
-    );
-
 
     return AlertDialog(
       backgroundColor:  context.dialogColor,
@@ -35,13 +29,7 @@ class CustomReviewDialog extends StatelessWidget {
             size: width > 400 ? 18 : 17,
           ),
           SizedBox(width: 5),
-          Text('안녕하세요 워크캘린더입니다',
-            textScaler: TextScaler.noScaling,
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          TextWidget('안녕하세요 워크캘린더입니다', 15, width)
         ],
       ),
       content: Column(
@@ -70,7 +58,7 @@ class CustomReviewDialog extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.symmetric(
+          padding:  EdgeInsets.symmetric(
               horizontal: 8.0,vertical: 8.0),
           child: Row(
             children: [
@@ -78,7 +66,8 @@ class CustomReviewDialog extends StatelessWidget {
               TextButton(onPressed: () async {
                 Navigator.pop(context);
                 await InAppReview.instance.requestReview();
-              }, child: Text('평점만',style: baseStyle)),
+              }, child: TextWidget('평점만',14,width)
+              ),
 
 
               TextButton(onPressed: () async {
@@ -86,7 +75,8 @@ class CustomReviewDialog extends StatelessWidget {
                     appStoreId: 'id6596813027'); // 스토어 페이지 이동
 
                 Navigator.pop(context);
-              }, child: Text('의견남기기',style: baseStyle)),
+              }, child: TextWidget('의견남기기',14,width),
+              ),
             ],
           ),
         ),
@@ -97,7 +87,7 @@ class CustomReviewDialog extends StatelessWidget {
 
 
 Widget reviewText(double height,BuildContext context) {
-  final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
+  final fontSize = context.width.responsiveSize([14,14,14,13,12,11]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.75 : 1.30,
     fontSize: fontSize,
@@ -109,7 +99,7 @@ Widget reviewText(double height,BuildContext context) {
           text: '워크캘린더는 쓸만한 앱인가요?',
           style: baseStyle.copyWith(
               backgroundColor: context.isDark ? null : Colors.green.shade100,
-              fontWeight: FontWeight.bold,fontSize: 16),
+              fontWeight: FontWeight.bold),
         ),
         TextSpan(
           text: ' 반장님들의 의견을 듣고싶습니다. ',

@@ -33,15 +33,9 @@ class SettingItem extends StatelessWidget {
                 TextWidget(
                     title, 15, context.width,
                 color: context.textColor),
-
-                Text(
-                  subtitle,
-                  textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: context.subTextColor,
-                  ),
-                ),
+                TextWidget(
+                    subtitle, 11, context.width,
+                    color: context.subTextColor),
               ],
             ),
           ),

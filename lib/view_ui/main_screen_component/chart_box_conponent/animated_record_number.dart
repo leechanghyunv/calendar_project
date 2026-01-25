@@ -1,5 +1,6 @@
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
+
 import '../../../core/export_package.dart';
-import '../../../core/extentions/theme_color.dart';
 
 class NumberCounter extends StatelessWidget {
   final double start;
@@ -21,14 +22,11 @@ class NumberCounter extends StatelessWidget {
       tween: Tween(begin: start, end: end),
       duration: duration,
       builder: (context, value, child) {
-        return Text(
-          textScaler: TextScaler.noScaling,
-          '${value.toStringAsFixed(1)}공수', // 정수 형태
-          style: TextStyle(
-
-              height: textHeight,
-              fontSize: appWidth > 400 ? 30 : (appWidth < 376 ? 26 : 28),
-              fontWeight: FontWeight.w800),
+        return TextWidget(
+          '${value.toStringAsFixed(1)}공수',
+          27,
+          appWidth,
+          fontWeight: FontWeight.w800,
         );
       },
     );

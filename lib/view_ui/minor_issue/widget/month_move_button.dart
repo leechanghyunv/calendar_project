@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../base_app_size.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
+import '../../main_screen_component/main_box_component/main_box_sizes.dart';
 
 /// 달력 이동 버튼에 대한 간격을 설정하는 함수
 double buttonBetween(double height, double width) {
@@ -34,12 +35,15 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
 
-    double IconSize = appWidth > 400 ? 37 : 32;
-
     void _onMonthChange(VoidCallback moveMonth) {
       HapticFeedback.selectionClick();
       moveMonth();
     }
+
+    final boxSizes = MainBoxSizes(
+      width: appWidth,
+
+    );
 
     return Container(
       decoration: BoxDecoration(
@@ -59,7 +63,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
                 child: Icon(
                   Icons.chevron_left,
                   color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
-                  size: IconSize,
+                  size: boxSizes.arrowIcon,
                 ),
               ),
               constraints: const BoxConstraints(maxHeight: 32),
@@ -78,7 +82,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
                 child: Icon(
                   Icons.chevron_right,
                   color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,
-                  size: IconSize,
+                  size: boxSizes.arrowIcon,
                 ),
               ),
               constraints: const BoxConstraints(maxHeight: 32),

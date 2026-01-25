@@ -5,10 +5,10 @@ import '../../core/extentions/theme_color.dart';
 
 class SvgImoJi extends StatelessWidget {
   final String nameLight;
-  final String? nameDark;
+  final String nameDark;
   final double? width;
 
-  const SvgImoJi({super.key, required this.nameLight,this.nameDark, this.width});
+  const SvgImoJi({super.key, required this.nameLight,required this.nameDark, this.width});
 
   @override
   Widget build(BuildContext context) {
