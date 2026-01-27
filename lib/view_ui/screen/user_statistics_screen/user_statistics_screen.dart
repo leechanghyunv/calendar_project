@@ -6,7 +6,7 @@ import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../auth_screen/component/auth_text.dart';
-import 'component/auth_modal_component.dart';
+import '../auth_screen/component/auth_modal_component.dart';
 import 'component/statistics_filter_chip.dart';
 import 'component/statistics_box.dart';
 

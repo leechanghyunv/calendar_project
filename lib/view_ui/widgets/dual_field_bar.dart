@@ -2,16 +2,20 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 
 import '../../base_app_size.dart';
+import '../../base_consumer.dart';
 import '../../core/extentions/theme_color.dart';
 import '../../core/extentions/theme_extension.dart';
 import '../../core/utils/converter.dart';
 import '../../core/widget/text_widget.dart';
+import '../../repository/formz/formz_decimal.dart';
+import 'blink_text.dart';
 
 final memoActiveProvider = StateProvider<bool>((ref) => false);
 
 class DualFieldBar extends HookConsumerWidget {
-  // final DateTime selectedDate;
-  // final DateTime endDate;
+  final ValueNotifier<DateTime> selectedDate;
+  final ValueNotifier<DateTime> endDate;
+  final ValueNotifier<bool> isDuration;
   final TextEditingController textController;
   final TextEditingController decimalController;
   final FocusNode textFocusNode;
@@ -19,8 +23,9 @@ class DualFieldBar extends HookConsumerWidget {
 
   const DualFieldBar({
     super.key,
-    // required this.selectedDate,
-    // required this.endDate,
+    required this.selectedDate,
+    required this.endDate,
+    required this.isDuration,
     required this.textController,
     required this.decimalController,
     required this.textFocusNode,
@@ -39,6 +44,10 @@ class DualFieldBar extends HookConsumerWidget {
     final contractPay = contract.valueOrNull?.lastOrNull?.normal ?? 0.0;
     final contractSubsidy = contract.valueOrNull?.lastOrNull?.subsidy ?? 0.0;
 
+    ref.watch(formzDecimalValidatorProvider);
+    ref.formzMemoWatch;
+    ref.decimalWatch;
+
     useEffect(() {
       decimalFocusNode.requestFocus();
       return null;
@@ -46,24 +55,39 @@ class DualFieldBar extends HookConsumerWidget {
 
     ref.listen(memoActiveProvider, (previous, next) {
       if (next) {
-        customMsg('메모입력 으로 전환');
+        customMsg('메모입력창 전환');
         textFocusNode.requestFocus();
       } else {
+        customMsg('공수입력창 전환');
         decimalFocusNode.requestFocus();
       }
     });
 
+    useEffect(() {
+      final sub = ref.listenManual(
+        formzDecimalValidatorProvider,
+            (prev, next) {
+          if (next.status == DecimalFormzStatus.submissionSuccess) {
+            ref.refreshState(context);
+            Navigator.pop(context);
+          }
+        },
+      );
+      return sub.close;
+    }, []);
+
+
     final decimalText = useListenable(decimalController).text;
+    final decimal = double.tryParse(decimalText) ?? 0.0;
 
     final calculatedPay = useMemoized(() {
       if (decimalText.isEmpty) return 0.0;
-      final decimal = double.tryParse(decimalText) ?? 0.0;
       return (contractPay + contractSubsidy) * decimal;
     }, [decimalText, contractPay,contractSubsidy]);
 
     final String totalString = contractSubsidy != 0
-        ?  ' 일비포함 ${formatAmount(calculatedPay.toInt())} 입니다.'
-        : ' ${formatAmount(calculatedPay.toInt())} 입니다.';
+        ?  calculatedPay == 0 ? '휴일로 등록 하시겠습니까?' : ' 일비포함 ${formatAmount(calculatedPay.toInt())} 입니다.'
+        : calculatedPay == 0 ? '휴일로 등록 하시겠습니까?' : ' ${formatAmount(calculatedPay.toInt())} 입니다.';
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -90,7 +114,21 @@ class DualFieldBar extends HookConsumerWidget {
                       color: context.subTextColor
                   ),
                   Spacer(),
+                  Icon(Icons.more_horiz,color: context.subTextColor,size: 17.5),
 
+                ],
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 0.0),
+              child: Row(
+                children: [
+                  BlinkTwiceText(
+                    "휴일처리는 숫자 '0' 입력 후 확인",
+                    13.5,
+                    color: context.subTextColor,
+                  ),
                 ],
               ),
             ),
@@ -134,7 +172,7 @@ class DualFieldBar extends HookConsumerWidget {
                     ),
                     decoration: InputDecoration(
                       isDense: true,
-                      hintText: isActive ? ' 메모를 입력해주세요' : ' 예) 1.25',
+                      hintText: isActive ? ' 메모를 입력해주세요' : ' 예) 1.25 ',
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
@@ -151,10 +189,18 @@ class DualFieldBar extends HookConsumerWidget {
                 IconButton(
                   onPressed: () {
                     if (isActive) {
+                      ref.formzMemoRead.onChangeMemo(textController.text);
                       ref.read(memoActiveProvider.notifier).state = !isActive;
                       HapticFeedback.selectionClick();
                     } else {
-                      // false일 때 동작 (필요시 추가)
+                      ref.decimalRead.onChangeDecimal(decimal);
+                      if (isDuration.value) {
+                        ref.decimalRead.onSubmitMonthAll(
+                          selectedDate.value,endDate.value,
+                        );
+                      }
+                      ref.decimalRead.onSubmit(decimal: decimal);
+                      HapticFeedback.selectionClick();
                     }
                   },
                   icon: Icon(

@@ -16,7 +16,7 @@ import 'component/setting_memo_textfield.dart';
 import '../app_setting_screen/provider/additional_pay_provider.dart';
 import '../calendar_screen/provider/show_range_provider.dart';
 import '../statistic_screen/component/data_range_dialog/data_range_input_field.dart';
-import '../user_statistics_screen/component/auth_modal_component.dart';
+import '../auth_screen/component/auth_modal_component.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/left_eleveted_button.dart';
 
