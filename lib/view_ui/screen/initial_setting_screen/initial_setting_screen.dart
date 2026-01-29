@@ -1,12 +1,19 @@
+import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
+import '../../../core/widget/text_widget.dart';
+import '../../widgets/svg_imoji.dart';
 import '../auth_screen/const_widget.dart';
+import 'component/Index0Content.dart';
+import 'component/Index1Content.dart';
+import 'component/Index2Content.dart';
+import 'component/Index3Content.dart';
 import 'component/dailyWage_field_bar.dart';
 
 void initialModal(BuildContext context) {
   context.showModal(
-    heightRatio: 0.825,
+    heightRatio: 0.5,
     child: InitialSettingScreen(),
   );
 }
@@ -14,6 +21,13 @@ void initialModal(BuildContext context) {
 
 class InitialSettingScreen extends HookConsumerWidget {
   const InitialSettingScreen({super.key});
+
+  double _getSize(double appWidth, {required List<double> sizes}) {
+    if (appWidth > 450) return sizes[0];
+    if (appWidth > 420) return sizes[1];
+    if (appWidth > 400) return sizes[2];
+    return sizes[3];
+  }
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -23,12 +37,35 @@ class InitialSettingScreen extends HookConsumerWidget {
     final thirdController = useTextEditingController();
     final fourthController = useTextEditingController();
 
+    final firstNode = useFocusNode();
+    final secondNode = useFocusNode();
+    final thirdNode = useFocusNode();
+    final fourthNode = useFocusNode();
+
     final firstText = useListenable(firstController).text;
     final secondText = useListenable(secondController).text;
     final thirdText = useListenable(thirdController).text;
     final fourthText = useListenable(fourthController).text;
 
     final currentIndex = useState(0);
+
+    final currentController = [
+      firstController,
+      secondController,
+      thirdController,
+      fourthController,
+    ][currentIndex.value];
+
+    final currentText = useListenable(currentController).text;
+
+    final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
+
+    final contents = [
+      Index0content(text: currentText,iconSize: iconSize),
+      Index1content(text: currentText,iconSize: iconSize),
+      Index2content(text: currentText,iconSize: iconSize),
+      Index3content(text: currentText,iconSize: iconSize),
+    ];
 
     return SafeArea(
         child: Scaffold(
@@ -69,11 +106,22 @@ class InitialSettingScreen extends HookConsumerWidget {
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DailyWageFieldBar(
-              controllers: [firstController, secondController, thirdController,fourthController],
-              hintTexts: ['예) 150,000','연장근무','야간근무','세율'],
-              FieldBarIndex: currentIndex,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
 
+
+                contents[currentIndex.value],
+                SizedBox(height: 15),
+
+                DailyWageFieldBar(
+                  controllers: [firstController, secondController, thirdController,fourthController],
+                  nodes: [firstNode, secondNode, thirdNode,fourthNode],
+                  hintTexts: ['예) 150,000','연장근무','야간근무','3.3%'],
+                  FieldBarIndex: currentIndex,
+                ),
+              ],
             ),
           ),
 

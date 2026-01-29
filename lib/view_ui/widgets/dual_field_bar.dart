@@ -69,7 +69,9 @@ class DualFieldBar extends HookConsumerWidget {
             (prev, next) {
           if (next.status == DecimalFormzStatus.submissionSuccess) {
             ref.refreshState(context);
-            Navigator.pop(context);
+            if (context.mounted && Navigator.canPop(context)) {
+              Navigator.pop(context);
+            }
           }
         },
       );

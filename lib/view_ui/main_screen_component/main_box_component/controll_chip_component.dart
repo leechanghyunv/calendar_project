@@ -36,9 +36,9 @@ class UnifiedChipBar extends HookConsumerWidget {
       child: Row(
         children: [
           Expanded(child: _WorkTypeChipList()),
-          SizedBox(width: appWidth > 400 ? 7.5 : 5),
+          SizedBox(width: appWidth > 410 ? 7.5 : 5),
           _DeleteChipButton(),
-          SizedBox(width: appWidth > 400 ? 7.5 : 5),
+          SizedBox(width: appWidth > 410 ? 7.5 : 5),
           _SettingChipButton(),
         ],
       ),

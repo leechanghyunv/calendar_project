@@ -85,6 +85,7 @@ class NewSettingScreen extends HookConsumerWidget {
                 thickness: 1,
               ),
               DurationSelectModule(
+                focusNode: isActive ? memoFocus : decimalFocus,
                 isDuration: isDuration,
                 selectedDate: selectedDate,
                 endDate: endDate,
@@ -162,13 +163,12 @@ class NewSettingScreen extends HookConsumerWidget {
                     color: context.subTextColor,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: (){
                       HapticFeedback.selectionClick();
                       Navigator.pop(context);
-                      Future.microtask(() {
-                        if (context.mounted) {
-                          showBasicModal(context);
-                        }
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        /// initialModal
+                        initialModal(context);
                       });
                     },
                     child: TextWidget(

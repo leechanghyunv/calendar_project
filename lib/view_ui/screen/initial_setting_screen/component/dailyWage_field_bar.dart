@@ -7,12 +7,14 @@ import '../../../../core/widget/toast_msg.dart';
 
 class DailyWageFieldBar extends HookConsumerWidget {
   final List<TextEditingController> controllers;
+  final List<FocusNode> nodes;
   final List<String> hintTexts;
   final ValueNotifier<int> FieldBarIndex;
 
   const DailyWageFieldBar({
     super.key,
     required this.controllers,
+    required this.nodes,
     required this.hintTexts,
     required this.FieldBarIndex,
   });
@@ -21,16 +23,24 @@ class DailyWageFieldBar extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final currentIndex = useValueListenable(FieldBarIndex);
-    final focusNode = useFocusNode();
 
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
 
     final currentController = controllers[currentIndex];
+    final currentNode = nodes[currentIndex];
     final isLast = currentIndex == controllers.length - 1;
 
+    // 🔥 Index 변경 시마다 해당 Node로 자동 포커스
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        currentNode.requestFocus();
+      });
+      return null;
+    }, [currentIndex]);
+
     void handleNext() {
-      focusNode.requestFocus();
+      currentNode.requestFocus();
       if (isLast) {
         FocusScope.of(context).unfocus();
 
@@ -45,9 +55,32 @@ class DailyWageFieldBar extends HookConsumerWidget {
 
     void jumpToThird() {
       FieldBarIndex.value = 3;
-      focusNode.requestFocus();
+      currentNode.requestFocus();
       customMsg(hintTexts[3]);
     }
+
+
+    // useEffect(() {
+    //   final action = switch (currentIndex) {
+    //     0 => () {
+    //       // 정상근무 진입 시 로직
+    //     },
+    //     1 => () {
+    //       // 연장근무 진입 시 로직
+    //     },
+    //     2 => () {
+    //       // 야간근무 진입 시 로직
+    //     },
+    //     3 => () {
+    //       // 세율 진입 시 로직
+    //     },
+    //     _ => () {},
+    //   };
+    //
+    //   action();
+    //   return null;
+    // }, [currentIndex]);
+    //
 
     return Container(
       decoration: BoxDecoration(
@@ -62,7 +95,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
         children: [
           Expanded(
               child: TextField(
-                focusNode: focusNode,
+                focusNode: currentNode,
                 controller: currentController,
                 maxLines: null,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -104,7 +137,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
               ),
           ),
           IconButton(
-            onPressed: jumpToThird,
+            onPressed: handleNext,
             icon: Icon(
               isLast ? Icons.check : Icons.arrow_forward,
               color: context.isDark ? Colors.white : Colors.teal.shade700,

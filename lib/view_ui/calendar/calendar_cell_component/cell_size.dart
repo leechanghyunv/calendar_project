@@ -32,13 +32,13 @@ class CellSizes {
   double get fontSizeNonMemo {
     if (appWidth < 376) return 11;
     if (recordAmount == 0.0) return 11.5;
-    if (appWidth >= 400) return 14.5;
+    if (appWidth >= 410) return 14.5;
     return 13.0;
   }
 
   double get defaultSize {
     if (appWidth >= 450) return 20;
-    if (appWidth >= 400) return 17;
+    if (appWidth >= 410) return 17;
     if (appWidth >= 390) return 15;
     if (appWidth >= 375) return 14;
     if (appWidth >= 350) return 12.5;
