@@ -118,7 +118,7 @@ class InitialSettingScreen extends HookConsumerWidget {
                 DailyWageFieldBar(
                   controllers: [firstController, secondController, thirdController,fourthController],
                   nodes: [firstNode, secondNode, thirdNode,fourthNode],
-                  hintTexts: ['예) 150,000','연장근무','야간근무','3.3%'],
+                  hintTexts: ['예) 150,000','연장근무','야간근무','3.3'],
                   FieldBarIndex: currentIndex,
                 ),
               ],

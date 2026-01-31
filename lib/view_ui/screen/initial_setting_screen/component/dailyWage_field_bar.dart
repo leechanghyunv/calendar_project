@@ -121,6 +121,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
                   fontSize: fontSize,
                 ),
                 decoration: InputDecoration(
+                  prefixText: currentController.text.isNotEmpty ? (currentIndex == 3 ? '% ': '₩ ') : null,
                   isDense: true,
                   hintText: hintTexts[currentIndex],
                   hintStyle: TextStyle(

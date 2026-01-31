@@ -66,7 +66,7 @@ class CustomReviewDialog extends StatelessWidget {
               TextButton(onPressed: () async {
                 Navigator.pop(context);
                 await InAppReview.instance.requestReview();
-              }, child: TextWidget('평점만',14,width)
+              }, child: TextWidget('평점만',14,width,color: context.textColor)
               ),
 
 
@@ -75,7 +75,7 @@ class CustomReviewDialog extends StatelessWidget {
                     appStoreId: 'id6596813027'); // 스토어 페이지 이동
 
                 Navigator.pop(context);
-              }, child: TextWidget('의견남기기',14,width),
+              }, child: TextWidget('의견남기기',14,width,color: context.textColor),
               ),
             ],
           ),
@@ -87,7 +87,7 @@ class CustomReviewDialog extends StatelessWidget {
 
 
 Widget reviewText(double height,BuildContext context) {
-  final fontSize = context.width.responsiveSize([14,14,14,13,12,11]);
+  final fontSize = context.width.responsiveSize([14,14,14,13.5,12,11]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.75 : 1.30,
     fontSize: fontSize,
