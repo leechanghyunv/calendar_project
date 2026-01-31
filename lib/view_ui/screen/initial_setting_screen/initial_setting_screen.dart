@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
@@ -42,12 +44,10 @@ class InitialSettingScreen extends HookConsumerWidget {
     final thirdNode = useFocusNode();
     final fourthNode = useFocusNode();
 
-    final firstText = useListenable(firstController).text;
-    final secondText = useListenable(secondController).text;
-    final thirdText = useListenable(thirdController).text;
-    final fourthText = useListenable(fourthController).text;
 
     final currentIndex = useState(0);
+
+    final selectedAmount = useState(0);
 
     final currentController = [
       firstController,
@@ -61,7 +61,20 @@ class InitialSettingScreen extends HookConsumerWidget {
     final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
 
     final contents = [
-      Index0content(text: currentText,iconSize: iconSize),
+      Index0content(text: currentText,iconSize: iconSize,
+        selectedAmount: selectedAmount.value, // 👈 추가
+        onAmountSelected: (amount) {
+          selectedAmount.value = amount;
+          Future.delayed(Duration(milliseconds: 500), () {
+            final formatted = NumberFormat('#,###').format(amount);
+            firstController.text = formatted;
+          });
+      },
+        onTap: (){
+          HapticFeedback.selectionClick();
+
+        },
+      ),
       Index1content(text: currentText,iconSize: iconSize),
       Index2content(text: currentText,iconSize: iconSize),
       Index3content(text: currentText,iconSize: iconSize),
@@ -118,7 +131,7 @@ class InitialSettingScreen extends HookConsumerWidget {
                 DailyWageFieldBar(
                   controllers: [firstController, secondController, thirdController,fourthController],
                   nodes: [firstNode, secondNode, thirdNode,fourthNode],
-                  hintTexts: ['예) 150,000','연장근무','야간근무','3.3'],
+                  hintTexts: ['예) 150,000','연장근무','야간근무','세율 입력'],
                   FieldBarIndex: currentIndex,
                 ),
               ],

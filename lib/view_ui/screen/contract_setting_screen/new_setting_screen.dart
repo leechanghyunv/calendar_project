@@ -111,7 +111,7 @@ class NewSettingScreen extends HookConsumerWidget {
                         child: Icon(
                           fontWeight: FontWeight.bold,
                           size: 17.5,
-                          Icons.add,
+                          initialMemo!.isNotEmpty ? Icons.refresh : Icons.add,
                           color: context.subTextColor,
                         ),
                       ),

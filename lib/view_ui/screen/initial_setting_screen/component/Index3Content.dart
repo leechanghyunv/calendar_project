@@ -16,6 +16,7 @@ class Index3content extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final length = text.length;
+    final isEmpty = text.isEmpty;
 
     final displayText = switch (length) {
       0 => '미등록시 3.3%적용',

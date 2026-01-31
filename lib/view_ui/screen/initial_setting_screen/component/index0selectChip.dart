@@ -12,72 +12,57 @@ class PayChipsIndex0 extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final amounts = [140000, 150000, 160000, 170000];
+    final amounts = [140000, 150000, 160000, 170000,180000];
     final sizes = DefaultSizes(context.width);
 
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: amounts.length,
-      padding: EdgeInsets.symmetric(vertical: 4),
-      itemBuilder: (context, index) {
-        final amount = amounts[index];
-        final isSelected = selectedValue == amount;
+    return IntrinsicWidth(
+      // height: 40,
+      child: ListView.builder(
+        shrinkWrap: true,
+        // scrollDirection: Axis.horizontal,
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: amounts.length,
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        itemBuilder: (context, index) {
+          final amount = amounts[index];
+          final isSelected = selectedValue == amount;
 
-        return Padding(
-          padding: EdgeInsets.only(
-            top: index == 0 ? 0 : 4,
-            bottom: index == amounts.length - 1 ? 0 : 4,
-          ),
-          child: GestureDetector(
-            onTap: () => onSelected(amount),
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              height: sizes.payChipSize,
-              padding: EdgeInsets.symmetric(horizontal: isSelected ? 18 : 16),
-              decoration: BoxDecoration(
-                // color: isSelected
-                //     ? context.isDark
-                //     ? Colors.teal.shade900
-                //     : Colors.teal
-                //     : context.chipColor,
-                // border: Border.all(
-                //   color: isSelected ? Colors.teal : Color(0xFFE9ECEF),
-                //   width: isSelected ? 2.5 : 2,
-                // ),
-                // borderRadius: BorderRadius.circular(12),
-                // boxShadow: isSelected
-                //     ? [
-                //   BoxShadow(
-                //     color: Colors.teal.withOpacity(0.1),
-                //     blurRadius: 8,
-                //     offset: Offset(0, 2),
-                //   ),
-                // ]
-                //     : null,
-              ),
-              child: Row(
-                children: [
-                  Spacer(),
-                  TextWidget(
-                    '${amount ~/ 10000}만',
-                    14,
-                    context.width,
-                    fontWeight: FontWeight.w700,
-                    color: isSelected
-                        ? context.isDark
-                        ? Colors.tealAccent
-                        : Colors.white
-                        : context.isDark
-                        ? Colors.white
-                        : Color(0xFF495057),
-                  ),
-                ],
-              )
+          return Padding(
+            padding: EdgeInsets.only(
+              top: index == 0 ? 0 : 5,
+              bottom: index == amounts.length - 1 ? 0 : 4,
             ),
-          ),
-        );
-      },
+            child: GestureDetector(
+              onTap: () => onSelected(amount),
+              child: Container(
+                // color: Colors.teal,
+                height: sizes.payChipSize,
+                padding: EdgeInsets.symmetric(horizontal: isSelected ? 18 : 16),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Spacer(),
+                    if (isSelected)
+                      Container(
+                        width: 2.0,
+                        height: 12.5,
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        color: context.textColor,
+                      ),
+                    TextWidget(
+                      '${amount ~/ 10000}만',
+                      13,
+                      context.width,
+                      fontWeight: FontWeight.w600,
+                      // color: context.subTextColor
+                    ),
+                  ],
+                )
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

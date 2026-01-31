@@ -2,7 +2,6 @@ import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
-import '../../../widgets/blink_text.dart';
 import '../../../widgets/blink_threeTimes_text.dart';
 import '../../../widgets/svg_imoji.dart';
 import 'index0selectChip.dart';
@@ -11,8 +10,10 @@ class Index0content extends HookConsumerWidget {
   final String text;
   final double iconSize;
   final GestureTapCallback? onTap;
+  final int selectedAmount; // 👈 추가
+  final ValueChanged<int> onAmountSelected; // 👈 추가
 
-  const Index0content({super.key, required this.text, required this.iconSize, this.onTap});
+  const Index0content({super.key, required this.text, required this.iconSize, this.onTap, required this.selectedAmount, required this.onAmountSelected});
 
   List<Map<String, dynamic>> chipList(BuildContext context) {
     final numValue = int.tryParse(text.replaceAll(',', '')) ?? 0;
@@ -42,18 +43,23 @@ class Index0content extends HookConsumerWidget {
 
     final showFirst = useState(false);
     final showSecond = useState(false);
+    final showThird = useState(false);
 
     useEffect(() {
       if (length == 7) {
-        Future.delayed(Duration(milliseconds: 500), () {
+        Future.delayed(Duration(milliseconds: 400), () {
           if (context.mounted) showFirst.value = true;
         });
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(Duration(milliseconds: 800), () {
           if (context.mounted) showSecond.value = true;
+        });
+        Future.delayed(Duration(milliseconds: 1200), () {
+          if (context.mounted) showThird.value = true;
         });
       } else {
         showFirst.value = false;
         showSecond.value = false;
+        showThird.value = false;
       }
       return null;
     }, [length]);
@@ -72,18 +78,17 @@ class Index0content extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             _buildRow(context, displayText, isEmpty, iconSize, chips[0]['icon']),
-            Spacer(),
-            if(length == 0)
-              Expanded(
-                child: PayChipsIndex0(
-                  selectedValue: 150000,
-                  onSelected: (value) {
-                    print(value);
-                  },
-                ),
-              ),
+
+            // if(length == 0)
+            //   Expanded(
+            //     child: PayChipsIndex0(
+            //       selectedValue: selectedAmount,
+            //       onSelected: onAmountSelected,
+            //     ),
+            //   ),
           ],
         ),
+
         SizedBox(height: 2.5),
         AnimatedSize(
           duration: Duration(milliseconds: 300),
@@ -105,20 +110,49 @@ class Index0content extends HookConsumerWidget {
                 ? Column(
                   children: [
                     _buildRow(context, chips[2]['value'], isEmpty, iconSize, chips[2]['icon']),
-                    Row(
-                      children: [
-                        Spacer(),
-                        GestureDetector(
-                            onTap: onTap,
-                            child: BlinkThreeTimesText('연장야간 직접입력', 12,color: context.subTextColor)),
-                        SizedBox(width: 10),
-                      ],
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                      child: Row(
+                        crossAxisAlignment: .end,
+                        children: [
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 5.0),
                   ],
                 )
                 : SizedBox.shrink(),
           ),
+        ),
+        AnimatedSize(
+          duration: Duration(milliseconds: 300),
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 500),
+            opacity: showThird.value ? 1.0 : 0.0,
+            child: showThird.value
+                ? Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18.0),
+              child: Row(
+                crossAxisAlignment: .end,
+                children: [
+                  Spacer(),
+                  GestureDetector(
+                      onTap: onTap,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              BlinkThreeTimesText('수당 정보가 틀리다면?', 13.5,color: context.subTextColor),
+                            ],
+                          ),
+                        ],
+                      )),
+                ],
+              ),
+            )
+                : SizedBox.shrink(),
+          ),
+
         ),
 
       ],
