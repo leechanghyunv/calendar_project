@@ -26,6 +26,7 @@ class Index3content extends HookConsumerWidget {
 
     return Column(
       children: [
+
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 4.0),
           child: Row(
@@ -40,9 +41,14 @@ class Index3content extends HookConsumerWidget {
                   displayText,
                   13.5,
                   context.width,color: context.subTextColor),
+              Spacer(),
+
             ],
           ),
         ),
+
+
+
         SizedBox(height: 2.5),
       ],
     );

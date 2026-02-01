@@ -39,6 +39,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
       return null;
     }, [currentIndex]);
 
+
     void handleNext() {
       currentNode.requestFocus();
       if (isLast) {
@@ -58,29 +59,6 @@ class DailyWageFieldBar extends HookConsumerWidget {
       currentNode.requestFocus();
       customMsg(hintTexts[3]);
     }
-
-
-    // useEffect(() {
-    //   final action = switch (currentIndex) {
-    //     0 => () {
-    //       // 정상근무 진입 시 로직
-    //     },
-    //     1 => () {
-    //       // 연장근무 진입 시 로직
-    //     },
-    //     2 => () {
-    //       // 야간근무 진입 시 로직
-    //     },
-    //     3 => () {
-    //       // 세율 진입 시 로직
-    //     },
-    //     _ => () {},
-    //   };
-    //
-    //   action();
-    //   return null;
-    // }, [currentIndex]);
-    //
 
     return Container(
       decoration: BoxDecoration(
@@ -138,7 +116,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
               ),
           ),
           IconButton(
-            onPressed: jumpToThird,
+            onPressed: (currentIndex == 1 || currentIndex == 2) ? handleNext : jumpToThird,
             icon: Icon(
               isLast ? Icons.check : Icons.arrow_forward,
               color: context.isDark ? Colors.white : Colors.teal.shade700,

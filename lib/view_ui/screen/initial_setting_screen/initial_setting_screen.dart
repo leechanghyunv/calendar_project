@@ -5,6 +5,7 @@ import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
+import '../../../core/widget/toast_msg.dart';
 import '../../widgets/svg_imoji.dart';
 import '../auth_screen/const_widget.dart';
 import 'component/Index0Content.dart';
@@ -60,6 +61,20 @@ class InitialSettingScreen extends HookConsumerWidget {
 
     final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
 
+    void handleNext() {
+      final isLast = currentIndex.value == 3;
+
+      if (isLast) {
+        FocusScope.of(context).unfocus();
+        currentIndex.value = 0;
+      } else {
+        final labels = ['연장근무 자리 입력', '야간근무 자리 입력', '세율 입력'];
+        customMsg('${labels[currentIndex.value]}');
+        currentIndex.value++;
+      }
+    }
+
+
     final contents = [
       Index0content(text: currentText,iconSize: iconSize,
         selectedAmount: selectedAmount.value, // 👈 추가
@@ -72,6 +87,7 @@ class InitialSettingScreen extends HookConsumerWidget {
       },
         onTap: (){
           HapticFeedback.selectionClick();
+          handleNext();
 
         },
       ),
@@ -79,6 +95,7 @@ class InitialSettingScreen extends HookConsumerWidget {
       Index2content(text: currentText,iconSize: iconSize),
       Index3content(text: currentText,iconSize: iconSize),
     ];
+
 
     return SafeArea(
         child: Scaffold(
