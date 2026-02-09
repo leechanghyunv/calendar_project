@@ -27,7 +27,7 @@ class UserInfoBox extends StatelessWidget {
     final double width =  context.width;
 
     return Container(
-      height: height > 750 ? (width > 400 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
+      height: height > 750 ? (width > 410 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
       width: width,
       decoration: context.cardDecoration,
       child: Padding(
@@ -45,7 +45,7 @@ class UserInfoBox extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
 
-                    fontSize: context.width.responsiveSize([15,12,12,12,11,10.8]),
+                    fontSize: context.width.responsiveSize([15,14.5,14,14,12,11]),
                     color: Colors.grey.shade600,
                     fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
                   ),
@@ -75,7 +75,7 @@ class UserInfoBox extends StatelessWidget {
                       style: TextStyle(
 
                         color: Colors.grey,
-                        fontSize: context.width.responsiveSize([15,14,13,12,10,9]),
+                        fontSize: context.width.responsiveSize([15,14,13,12,11,10]),
                       )),
                 ),
 
@@ -86,7 +86,7 @@ class UserInfoBox extends StatelessWidget {
               maxLines: 2,
               textScaler: TextScaler.noScaling,
               style: TextStyle(
-                fontSize: context.width.responsiveSize([12,11,11,9.5,9,8.25]),
+                fontSize: context.width.responsiveSize([12,11,11,10.5,9,8.25]),
                 color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
               ),
             ),

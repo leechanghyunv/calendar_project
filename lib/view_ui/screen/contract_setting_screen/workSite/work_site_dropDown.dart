@@ -1,4 +1,3 @@
-
 import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';

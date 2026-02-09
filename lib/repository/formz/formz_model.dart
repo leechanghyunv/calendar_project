@@ -121,8 +121,7 @@ class FormzValidator extends _$FormzValidator {
       FocusNode payNode,
       String workSite,
       String workType,
-      DateTime selected,
-      bool shouldExecuteFinal) {
+      ) {
 
     state = state.copyWith(status: FormzStatus.submissionInProgress);
     bool isValid = true;
@@ -175,12 +174,10 @@ class FormzValidator extends _$FormzValidator {
     // 모든 검증이 통과된 경우
     state = state.copyWith(status: FormzStatus.validated);
 
-    if (shouldExecuteFinal) {
-      onSubmitFinal(selected,workSite,workType);
-    }
+    onSubmitFinal(workSite,workType);
   }
 
-  void onSubmitFinal (DateTime selected,String workSite,
+  void onSubmitFinal (String workSite,
       String workType){
 
     final subsidyLength = state.subsidy.value.toString().length;
@@ -192,7 +189,7 @@ class FormzValidator extends _$FormzValidator {
     } else {
       try {
         final contract = LabourCondition(
-          date: selected,
+          date: DateTime.now(),
           goal: state.goal.value,
           normal: state.pay1.value,
           extend: state.pay2.value,
@@ -202,6 +199,7 @@ class FormzValidator extends _$FormzValidator {
           site: workSite,
           job: workType,
         );
+
         ref.read(addContractProvider(contract));
 
         if (workSite.isNotEmpty && workType.isNotEmpty) {

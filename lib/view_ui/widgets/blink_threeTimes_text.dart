@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import '../../base_app_size.dart';
 import '../../core/export_package.dart';
+import '../../core/extentions/theme_color.dart';
 import '../../core/widget/text_widget.dart';
 
 class BlinkThreeTimesText extends HookConsumerWidget {
@@ -27,16 +30,31 @@ class BlinkThreeTimesText extends HookConsumerWidget {
     useEffect(() {
       controller.repeat(reverse: true);
 
-      Future.delayed(Duration(milliseconds: 4400), () {
-        controller.animateTo(1.0);
+      final timer = Timer(Duration(milliseconds: 4400), () {
+        if (context.mounted) { // ← 🔥 위젯이 살아있는지 확인
+          controller.animateTo(1.0);
+        }
       });
 
-      return null;
+      return () => timer.cancel();
     }, []);
 
-    return Opacity(
-      opacity: animation,
-      child: TextWidget(text, fontSize, context.width, color: color),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: context.isDark ? Colors.black87 : Colors.grey[100],
+        border: Border.all(
+          color: context.isDark ? Colors.white : Colors.white,
+          width: context.isDark ? 0.75 : 0.35,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
+        child: Opacity(
+          opacity: animation,
+          child: TextWidget(text, fontSize, context.width, color: color),
+        ),
+      ),
     );
   }
 }

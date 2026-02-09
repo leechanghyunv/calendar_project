@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/new_Site_registration.dart';
+import 'package:collection/collection.dart';
 import '../../../base_app_size.dart';
 import '../../../base_consumer.dart';
 import '../../../core/export_package.dart';
@@ -10,7 +11,6 @@ import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/dual_field_bar.dart';
 import '../../widgets/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
-import '../auth_screen/component/auth_modal_component.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';
 
 class NewSettingScreen extends HookConsumerWidget {
@@ -20,7 +20,7 @@ class NewSettingScreen extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final isDuration = useState(false);
-    final selectedDate = useState(DateTime.now());
+    final selectedDate = useState(ref.selected);
     final endDate = useState(DateTime.now());
 
     final isActive = ref.watch(memoActiveProvider);
@@ -39,18 +39,24 @@ class NewSettingScreen extends HookConsumerWidget {
       orElse: () => '',
     );
 
+
+    final initialRecord = history.maybeWhen(
+      data: (histories) {
+        final found = histories.firstWhereOrNull(
+              (h) => isSameDay(h.date, ref.selected),
+        );
+        return found?.record.toString() ?? '';
+      },
+      orElse: () => '',
+    );
+
     final memoController = useTextEditingController(text: initialMemo);
-    final decimalController = useTextEditingController();
+    final decimalController = useTextEditingController(text: initialRecord);
 
     final decimalFocus = useFocusNode();
     final memoFocus = useFocusNode();
 
     final memoText = useListenable(memoController).text;
-
-    // useEffect(() {
-    //   ref.read(memoActiveProvider.notifier).state = false;
-    //   return null;
-    // }, []);
 
     ref.watch(formzDecimalValidatorProvider);
     ref.formzMemoWatch;
@@ -111,7 +117,7 @@ class NewSettingScreen extends HookConsumerWidget {
                         child: Icon(
                           fontWeight: FontWeight.bold,
                           size: 17.5,
-                          initialMemo!.isNotEmpty ? Icons.refresh : Icons.add,
+                          initialMemo.isNotEmpty ? Icons.refresh : Icons.add,
                           color: context.subTextColor,
                         ),
                       ),
@@ -139,7 +145,9 @@ class NewSettingScreen extends HookConsumerWidget {
               ),
               SizedBox(height: 10),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // CheckboxWithLabel(),
                   Spacer(),
                   GestureDetector(
                     onTap: (){
@@ -167,7 +175,6 @@ class NewSettingScreen extends HookConsumerWidget {
                       HapticFeedback.selectionClick();
                       Navigator.pop(context);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        /// initialModal
                         initialModal(context);
                       });
                     },
@@ -206,9 +213,7 @@ class NewSettingScreen extends HookConsumerWidget {
             ],
           ),
         ),
-
       ),
     );
-
   }
 }

@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/widgets/text_field_bar.dart';
 
+import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../auth_screen/const_widget.dart';
@@ -27,6 +28,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
       HapticFeedback.selectionClick();
       ref.read(stringListNotifierProvider.notifier).add(siteEditingController.text);
       Navigator.pop(context);
+      ref.refreshState(context);
       WidgetsBinding.instance.addPostFrameCallback((_){
         NumberPickerModal(context);
       });

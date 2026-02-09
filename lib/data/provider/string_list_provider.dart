@@ -16,12 +16,28 @@ class StringListNotifier extends _$StringListNotifier {
 
   Future<void> add(String value) async {
     final repo = await ref.watch(stringListRepositoryProvider.future);
+
+    final currentList = state.value ?? [];
+    state = AsyncData([
+      ...currentList,
+      StringItem(
+        id: DateTime.now().millisecondsSinceEpoch, // 임시 ID
+        value: value,
+        order: currentList.length,
+      )
+    ]);
+
     await repo.add(value);
     ref.invalidateSelf();
   }
 
   Future<void> delete(String value) async {
     final repo = await ref.watch(stringListRepositoryProvider.future);
+
+    state = AsyncData(
+        state.value?.where((item) => item.value != value).toList() ?? []
+    );
+
     await repo.delete(value);
     ref.invalidateSelf();
   }

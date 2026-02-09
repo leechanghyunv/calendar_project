@@ -10,6 +10,7 @@ import '../../../view_model/sqlite_model/history_model.dart';
 import '../../screen/auth_screen/component/auth_modal_component.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
+import '../../screen/initial_setting_screen/initial_setting_screen.dart';
 import 'main_box_sizes.dart';
 
 final selectedChipIndexProvider = StateProvider.autoDispose<int?>((ref) => null);
@@ -140,7 +141,7 @@ class _WorkTypeChipList extends HookConsumerWidget {
         });
 
       case AsyncData(value: final conditions) when conditions.isEmpty:
-        showBasicModal(context);
+        initialModal(context);
     }
   }
 }
@@ -196,7 +197,7 @@ class _SettingChipButton extends ConsumerWidget {
         HapticFeedback.selectionClick();
         if (ref.contract.value!.isEmpty) {
           customMsg('근로조건을 우선 입력해주세요');
-          showBasicModal(context);
+          initialModal(context);
         } else {
           NumberPickerModal(context);
         }

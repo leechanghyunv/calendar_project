@@ -58,10 +58,6 @@ extension TimerExtension on WidgetRef {
 
   String get monthString => selected.month.toString().padLeft(2, '0');
   String get dayString => selected.day.toString().padLeft(2, '0');
-
-
-  DateTime get startDate => rangeNot.startDate;
-  DateTime get endDate => rangeNot.endDate;
 }
 
 

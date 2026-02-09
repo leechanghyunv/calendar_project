@@ -2,12 +2,10 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/pay_list_provider.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/export_package.dart';
-import '../../../core/utils/converter.dart';
 import '../../../firebase_analytics.dart';
 import '../../../model/formz/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
@@ -16,8 +14,6 @@ import 'auth_default_screen.dart';
 import 'component/auth_elevatedButton.dart';
 import 'component/pay_numberField.dart';
 import 'const_widget.dart';
-import 'new_component/auth_header.dart';
-import 'new_component/pay_chip_list_widget.dart';
 import 'new_component/tax_component/tax_component.dart';
 
 class ExSurveyAuthScreen extends HookConsumerWidget {
@@ -102,10 +98,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
     });
 
     final appWidth = context.width;
-    final  appHeight = context.height;
-
-    final dateNow = DateTime.utc(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
     return AuthDefaultScreen(
    scrollController: _scrollController,
@@ -114,34 +106,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
      child: Column(
        mainAxisAlignment: MainAxisAlignment.start,
        children: [
-         SizedBox(height: 20),
-         appHeight > 750 ? SizedBox(height: 5) : SizedBox.shrink(),
-         appHeight > 750 ? AuthHeader(
-           value: normalPay.value,
-           onChanged: (val){
-             normalPay.value = val;
-             formzRefRead.onChangePay1(val.toString());
-             final formatter = NumberFormat('#,###');
-             final formatted = formatter.format(val);
-             _formKey.currentState?.fields['normal']?.didChange(formatted);
-             HapticFeedback.selectionClick();
-           },
-         ) : SizedBox.shrink(),
-         appHeight > 750 ? SizedBox(height: 20) : SizedBox.shrink(),
-         PayChips(
-           selectedValue: normalPay.value,
-           onSelected: (value) {
-             normalFieldValue.value = value.toString();
-             normalPay.value = value;
-             formzRefRead.onChangePay1(value.toString());
-             final formatter = NumberFormat('#,###');
-             final formatted = formatter.format(value);
-             _formKey.currentState?.fields['normal']?.didChange(formatted);
-             HapticFeedback.selectionClick();
-             customMsg('${formatAmount(value)}');
-           },
-         ),
-         appHeight > 750 ? SizedBox(height: 20) : SizedBox(height: 15),
          Container(
            child: Column(
              children: [
@@ -207,7 +171,6 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                Row(
                  children: [
                    Expanded(
-                     // flex: 3,
                      child: PayNumberField(
                        name: 'night',
                        hintText: '300,000',
@@ -238,17 +201,14 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
                  taxRate: taxRate.value,
                  sliderValue: sliderValue.value,
                  onTaxChanged: (val) {
-                   _scrollToBottom();
                    taxRate.value = val;
                    formzRefRead.onChangeTax(val);
                  },
                  onSliderChanged: (val) {
-                   _scrollToBottom();
                    sliderValue.value = val;
                    formzRefRead.onChangeTax(val);
                  },
                  onTaxButtonSelected: (rate) {
-                   _scrollToBottom();
                    taxRate.value = rate;
                    formzRefRead.onChangeTax(rate);
                    // 3.3이 아닌 경우만 슬라이더 값 업데이트
@@ -286,8 +246,7 @@ class ExSurveyAuthScreen extends HookConsumerWidget {
               formzRefRead.onChangeTax(taxRate.value); // 기본값 3.3 적용
             }
             formzRefRead.onSubmit(
-                context, wageFocusNodeA, site,
-                workType, dateNow, true);
+                context, wageFocusNodeA, site, workType);
 
           },
         ),

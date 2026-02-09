@@ -133,7 +133,7 @@ class BackUpDialog extends HookConsumerWidget {
                   ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
                   // customMsg('버전충돌문제로 잠시 서비스 지원을 중단합니다');
                   },
-                child: TextWidget('공수기록 백업', 14, context.width)
+                child: TextWidget('공수기록 백업', 14, context.width,color: context.textColor)
             ),
             TextButton(
               onPressed: () {
@@ -141,7 +141,7 @@ class BackUpDialog extends HookConsumerWidget {
                 Navigator.of(context).pop();
                 context.go('/calendar');
               },
-              child: TextWidget('확인', 14, context.width),
+              child: TextWidget('확인', 14, context.width,color: context.textColor),
             ),
           ],
         ),

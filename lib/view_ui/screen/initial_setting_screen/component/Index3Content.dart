@@ -16,7 +16,6 @@ class Index3content extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final length = text.length;
-    final isEmpty = text.isEmpty;
 
     final displayText = switch (length) {
       0 => '미등록시 3.3%적용',
@@ -31,12 +30,11 @@ class Index3content extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 4.0),
           child: Row(
             children: [
-              // SvgImoJi(
-              //   nameLight: 'Rocket_new',
-              //   nameDark: 'rocket',
-              //   width: iconSize,
-              // ),
-              // SizedBox(width: 5),
+              ChipImoJi(
+                name: context.isDark ? 'sparkle' : 'check',
+                width: 14,
+              ),
+              SizedBox(width: 5),
               TextWidget(
                   displayText,
                   13.5,

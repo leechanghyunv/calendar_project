@@ -1,12 +1,9 @@
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:intl/intl.dart';
 
 import '../../../base_app_size.dart';
-import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
-import '../../../core/widget/text_widget.dart';
-import '../../../core/widget/toast_msg.dart';
-import '../../widgets/svg_imoji.dart';
 import '../auth_screen/const_widget.dart';
 import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
@@ -74,7 +71,6 @@ class InitialSettingScreen extends HookConsumerWidget {
       }
     }
 
-
     final contents = [
       Index0content(text: currentText,iconSize: iconSize,
         selectedAmount: selectedAmount.value, // 👈 추가
@@ -88,7 +84,6 @@ class InitialSettingScreen extends HookConsumerWidget {
         onTap: (){
           HapticFeedback.selectionClick();
           handleNext();
-
         },
       ),
       Index1content(text: currentText,iconSize: iconSize),
@@ -96,6 +91,12 @@ class InitialSettingScreen extends HookConsumerWidget {
       Index3content(text: currentText,iconSize: iconSize),
     ];
 
+    final contract = ref.watch(viewContractProvider);
+
+    String contractText(){
+      if (contract.hasValue) return '일당 수정하기';
+      return '일당 입력하기';
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -110,7 +111,7 @@ class InitialSettingScreen extends HookConsumerWidget {
                 Row(
                   children: [
                     InfoRow(
-                      title: '일당 입력하기',
+                      title: contractText(),
                       subtitle: '근로수당,세율을 설정합니다',
                     ),
                     Spacer(),
@@ -148,7 +149,7 @@ class InitialSettingScreen extends HookConsumerWidget {
                 DailyWageFieldBar(
                   controllers: [firstController, secondController, thirdController,fourthController],
                   nodes: [firstNode, secondNode, thirdNode,fourthNode],
-                  hintTexts: ['예) 150,000','연장근무','야간근무','세율 입력'],
+                  hintTexts: ['입력 후 우측 아이콘','연장근무','야간근무','세율 입력'],
                   FieldBarIndex: currentIndex,
                 ),
               ],

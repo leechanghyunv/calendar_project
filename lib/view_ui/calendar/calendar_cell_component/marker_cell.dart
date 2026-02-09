@@ -182,6 +182,9 @@ class MarkerCell extends ConsumerWidget {
                       color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
                       height: textHeight,
 
+                      // decoration: TextDecoration.lineThrough,
+                      // decorationThickness: 2.0,
+
                     ),
                 ),
               ]

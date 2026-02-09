@@ -30,7 +30,7 @@ class StatisticsBox extends HookConsumerWidget {
                 name: '평균 일당',
                 unit: '만원',
                 value: _formatPay(value.average.toInt()),
-                text: '평균에서 2만원 이상 차이 난다면 조공 이라도 평균이하의 근로조건입니다.',
+                text: '평균에서 2만원 이상 차이가 난다면 평균이하의 근로조건입니다.',
               ),
             ),
             SizedBox(width: 10,),

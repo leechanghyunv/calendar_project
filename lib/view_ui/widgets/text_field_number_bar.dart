@@ -76,7 +76,9 @@ class NumberFieldBar extends HookConsumerWidget {
             onPressed: onPressed,
             icon: Icon(
               icon,
-              color: context.isDark ? Colors.white : Colors.teal.shade700,
+              color: context.isDark
+                  ? controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
+                  : controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
               size: iconSize,
             ),
           ),

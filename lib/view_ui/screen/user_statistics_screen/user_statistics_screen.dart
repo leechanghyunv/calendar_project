@@ -7,8 +7,10 @@ import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
 import '../auth_screen/component/auth_text.dart';
 import '../auth_screen/component/auth_modal_component.dart';
+import '../initial_setting_screen/initial_setting_screen.dart';
 import 'component/statistics_filter_chip.dart';
 import 'component/statistics_box.dart';
+import 'component/statistics_filter_modal.dart';
 
 class UserStatisticsScreen extends HookConsumerWidget {
   const UserStatisticsScreen({super.key});
@@ -58,7 +60,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                       size: width > 400 ? 18 : 17,
                                     ),
                                     SizedBox(width: 5),
-                                    TextWidget('안녕하세요 워크캘린더입니다.',15,width,
+                                    TextWidget('안녕하세요 워크캘린더입니다.',15.5,width,
                                     color: context.textColor),
                                   ],
                                 ),
@@ -74,7 +76,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     /// 근로조건 설정하기
                                     Expanded(
                                       child: GestureDetector(
-                                        onTap: () => showBasicModal(context),
+                                        onTap: () => initialModal(context),
                                         child: Container(
                                           height:  context.width > 400 ? 30 : 30.5,
                                           alignment: Alignment.center,
@@ -115,6 +117,8 @@ class UserStatisticsScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: height > 750 ? 20 : 15),
+                    // StatisticsFilterModal(),
+
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: width < 370 ? 2.5 : 4.0),
@@ -128,7 +132,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                           vertical: height > 750 ? 3.0 : 0.0, horizontal: 8.0),
                       child: Divider(color: Colors.grey.shade300, thickness: 1.0),
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 15),
                     StatisticsBox(),
                 
                   ],

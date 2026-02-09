@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:calendar_project_240727/base_app_size.dart';
 
 import '../../core/export_package.dart';
@@ -32,12 +34,15 @@ class BlinkTwiceText extends HookConsumerWidget {
     useEffect(() {
       controller.repeat(reverse: true);
 
-      Future.delayed(Duration(milliseconds: 2900), () {
-        controller.stop();
-        isVisible.value = false;
+      final timer = Timer(Duration(milliseconds: 2900), () {
+        if (context.mounted) {
+          controller.stop();
+          isVisible.value = false;
+        }
       });
 
-      return null;
+      return () => timer.cancel();
+
     }, []);
 
     if (!isVisible.value) return SizedBox.shrink();

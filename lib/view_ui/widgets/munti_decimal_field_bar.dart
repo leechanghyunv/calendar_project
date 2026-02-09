@@ -114,7 +114,9 @@ class MultiDecimalFieldBar extends HookConsumerWidget {
             onPressed: handleNext,
             icon: Icon(
               isLast ? Icons.check : Icons.arrow_forward,
-              color: context.isDark ? Colors.white : Colors.teal.shade700,
+              color: context.isDark
+                  ? currentController.text.length >= 1 ? Colors.white : Colors.grey.shade700
+                  : currentController.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
               size: iconSize,
             ),
           ),

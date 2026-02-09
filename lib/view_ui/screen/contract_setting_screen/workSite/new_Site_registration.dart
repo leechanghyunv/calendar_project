@@ -1,12 +1,9 @@
-
-import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_modal_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/work_site_dropDown.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
-import '../../../../data/provider/string_list_provider.dart';
+
 
 class NewSiteRegistration extends HookConsumerWidget{
   const NewSiteRegistration({super.key});

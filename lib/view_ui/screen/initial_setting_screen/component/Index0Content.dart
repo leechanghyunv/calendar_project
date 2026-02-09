@@ -13,7 +13,14 @@ class Index0content extends HookConsumerWidget {
   final int selectedAmount; // 👈 추가
   final ValueChanged<int> onAmountSelected; // 👈 추가
 
-  const Index0content({super.key, required this.text, required this.iconSize, this.onTap, required this.selectedAmount, required this.onAmountSelected});
+  const Index0content({
+    super.key,
+    required this.text,
+    required this.iconSize,
+    this.onTap,
+    required this.selectedAmount,
+    required this.onAmountSelected,
+  });
 
   List<Map<String, dynamic>> chipList(BuildContext context) {
     final numValue = int.tryParse(text.replaceAll(',', '')) ?? 0;
@@ -26,11 +33,13 @@ class Index0content extends HookConsumerWidget {
         'icon': context.isDark ? 'rocket' : 'Rocket_new',
       },
       {
-        'value': '연장 수당 ${extended.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}원',
+        'value':
+            '연장 수당 ${extended.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}원',
         'icon': context.isDark ? 'cuboid' : 'Fire',
       },
       {
-        'value': '야간 수당 ${night.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}원',
+        'value':
+            '야간 수당 ${night.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+(?!\d))'), (m) => '${m[1]},')}원',
         'icon': context.isDark ? 'zap' : 'Party',
       },
     ];
@@ -47,13 +56,13 @@ class Index0content extends HookConsumerWidget {
 
     useEffect(() {
       if (length == 7) {
-        Future.delayed(Duration(milliseconds: 400), () {
+        Future.delayed(Duration(milliseconds: 200), () {
           if (context.mounted) showFirst.value = true;
         });
-        Future.delayed(Duration(milliseconds: 800), () {
+        Future.delayed(Duration(milliseconds: 400), () {
           if (context.mounted) showSecond.value = true;
         });
-        Future.delayed(Duration(milliseconds: 1200), () {
+        Future.delayed(Duration(milliseconds: 600), () {
           if (context.mounted) showThird.value = true;
         });
       } else {
@@ -74,20 +83,7 @@ class Index0content extends HookConsumerWidget {
 
     return Column(
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            _buildRow(context, displayText, isEmpty, iconSize, chips[0]['icon']),
-
-            // if(length == 0)
-            //   Expanded(
-            //     child: PayChipsIndex0(
-            //       selectedValue: selectedAmount,
-            //       onSelected: onAmountSelected,
-            //     ),
-            //   ),
-          ],
-        ),
+        _buildRow(context, displayText, isEmpty, iconSize, chips[0]['icon']),
 
         SizedBox(height: 2.5),
         AnimatedSize(
@@ -96,7 +92,13 @@ class Index0content extends HookConsumerWidget {
             duration: Duration(milliseconds: 500),
             opacity: showFirst.value ? 1.0 : 0.0,
             child: showFirst.value
-                ? _buildRow(context, chips[1]['value'], isEmpty, iconSize, chips[1]['icon'])
+                ? _buildRow(
+                    context,
+                    chips[1]['value'],
+                    isEmpty,
+                    iconSize,
+                    chips[1]['icon'],
+                  )
                 : SizedBox.shrink(),
           ),
         ),
@@ -107,19 +109,17 @@ class Index0content extends HookConsumerWidget {
             duration: Duration(milliseconds: 500),
             opacity: showSecond.value ? 1.0 : 0.0,
             child: showSecond.value
-                ? Column(
-                  children: [
-                    _buildRow(context, chips[2]['value'], isEmpty, iconSize, chips[2]['icon']),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
-                      child: Row(
-                        crossAxisAlignment: .end,
-                        children: [
-                        ],
+                ? Row(
+                    children: [
+                      _buildRow(
+                        context,
+                        chips[2]['value'],
+                        isEmpty,
+                        iconSize,
+                        chips[2]['icon'],
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  )
                 : SizedBox.shrink(),
           ),
         ),
@@ -129,46 +129,45 @@ class Index0content extends HookConsumerWidget {
             duration: Duration(milliseconds: 500),
             opacity: showThird.value ? 1.0 : 0.0,
             child: showThird.value
-                ? Padding(
-              padding: EdgeInsets.symmetric(horizontal: 18.0),
-              child: Row(
-                crossAxisAlignment: .end,
-                children: [
-                  Spacer(),
-                  GestureDetector(
-                      onTap: onTap,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            children: [
-                              BlinkThreeTimesText('수당 정보가 틀리다면?', 13.5,color: context.subTextColor),
-                            ],
-                          ),
-                        ],
-                      )),
-                ],
-              ),
-            )
+                ? GestureDetector(
+                    onTap: onTap,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Row(
+                          children: [
+                            Spacer(),
+                            BlinkThreeTimesText(
+                              '연장,야간 수동설정 가능',
+                              13.5,
+                              color: context.subTextColor,
+                            ),
+                            SizedBox(width: 5),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
                 : SizedBox.shrink(),
           ),
-
         ),
-
       ],
     );
   }
 
-  Widget _buildRow(BuildContext context, String text, bool isEmpty, double iconSize, String icon) {
+  Widget _buildRow(
+    BuildContext context,
+    String text,
+    bool isEmpty,
+    double iconSize,
+    String icon,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 4.0),
       child: Row(
         children: [
           if (!isEmpty) ...[
-            ChipImoJi(
-              name: icon,
-              width: iconSize,
-            ),
+            ChipImoJi(name: icon, width: iconSize),
             SizedBox(width: 5),
           ],
           TextWidget(text, 13.5, context.width, color: context.subTextColor),

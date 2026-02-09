@@ -1,23 +1,24 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-
 import '../../../../core/widget/text_widget.dart';
 import '/../../core/export_package.dart';
 
-class MonthPopupButton extends StatefulWidget {
+class MonthPopupButton extends HookConsumerWidget {
 
   final PopupMenuItemSelected<int>? onSelected;
 
   const MonthPopupButton({super.key, this.onSelected});
 
   @override
-  State<MonthPopupButton> createState() => _MonthPopupButtonState();
-}
-
-class _MonthPopupButtonState extends State<MonthPopupButton> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
 
     final appWidth = MediaQuery.of(context).size.width;
+    final selectedMonths = useState<int?>(null);
+
+    // 👇 텍스트 매핑
+    String getButtonText() {
+      if (selectedMonths.value == null) return '기간 선택';
+      return '지난 ${selectedMonths.value}개월';
+    }
 
     return PopupMenuButton<int>(
       color: Theme.of(context).scaffoldBackgroundColor,
@@ -27,7 +28,10 @@ class _MonthPopupButtonState extends State<MonthPopupButton> {
       ),
       offset: const Offset(0,  40),
       initialValue: 1,
-        onSelected: widget.onSelected,
+        onSelected: (value) {
+          selectedMonths.value = value; // 👈 상태 업데이트
+          onSelected?.call(value);
+        },
         itemBuilder: (context) => [
           PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth,color: context.textColor)),
           PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth,color: context.textColor)),
@@ -57,7 +61,7 @@ class _MonthPopupButtonState extends State<MonthPopupButton> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextWidget('기간 선택', 14, appWidth, color: context.textColor),
+              TextWidget(getButtonText(), 14, appWidth, color: context.textColor),
               SizedBox(width: 5),
               Icon(Icons.arrow_drop_down, size: 20),
             ],

@@ -207,7 +207,9 @@ class DualFieldBar extends HookConsumerWidget {
                   },
                   icon: Icon(
                     isActive ? Icons.arrow_forward : Icons.check,
-                    color: context.isDark ? Colors.white : Colors.teal.shade700,
+                    color: context.isDark
+                        ? (textController.text.length >= 1 || decimalController.text.length >= 1) ? Colors.white : Colors.grey.shade700
+                        : (textController.text.length >= 1 || decimalController.text.length >= 1) ? Colors.teal.shade700 : Colors.grey.shade400,
                     size: iconSize,
                   ),
                 ),

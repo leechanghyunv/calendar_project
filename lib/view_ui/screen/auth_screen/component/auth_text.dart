@@ -1,6 +1,7 @@
 
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
+import '../../../../core/extentions/theme_extension.dart';
 
 Widget bigText(String text, double height) => Text(
   text,
@@ -20,7 +21,7 @@ Widget bigText(String text, double height) => Text(
 
 
 Widget introText(double height) {
-  final fontSize = height >= 850 ? 16.5 : height > 750 ? 15.0 : 13.5;
+  final fontSize = height.responsiveSize([16,15,15,15,13.5,13]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.5 : null,
     fontSize: fontSize,
@@ -44,9 +45,8 @@ Widget introText(double height) {
           style: baseStyle,
         ),
         TextSpan(
-          text: '캘린더에서도 가능 합니다',
+          text: "'메인화면'에서도 가능 합니다",
           style: baseStyle.copyWith(
-            fontSize: height >= 850 ? 15 : height > 750 ? 13.5 : 13,
             fontWeight: FontWeight.bold,
           ),
         ),

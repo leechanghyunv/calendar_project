@@ -8,7 +8,7 @@ import '../../view_model/view_provider/calendar_event_filter_model.dart';
 import '../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../screen/calendar_screen/provider/marker_event_provider.dart';
 import '../screen/calendar_screen/provider/today_info_provider.dart';
-import '../screen/auth_screen/component/auth_modal_component.dart';
+import '../screen/initial_setting_screen/initial_setting_screen.dart';
 import 'calendar_cell_component//default_cell.dart';
 import 'calendar_cell_component/additional/additional_cell.dart';
 import 'calendar_cell_component/holiday_cell.dart';
@@ -71,7 +71,8 @@ class WorkCalendar extends ConsumerWidget {
           HapticFeedback.selectionClick();
           if (ref.contract.value!.isEmpty) {
             customMsg('근로조건을 우선 입력해주세요');
-            showBasicModal(context);
+            initialModal(context);
+
           } else {
             final events = getEvents(selected!);
             if (events.isNotEmpty) {

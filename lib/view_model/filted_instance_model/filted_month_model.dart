@@ -124,7 +124,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
   final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
 
 
-  final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble();
+  final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy;
 
   final prevPay = prevHistory.sumBy((e) => e.pay);
 
@@ -143,9 +143,11 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
     totalPay: totalPayAnd,
     tax: taxString,
     afterTax: formatAmount(afterTax.toInt()),
+
     prevPay: prevPay,
     totalPayString: formatAmount(totalPayAnd),
     prevPayString: formatAmount(prevPay),
+
     totalPayAnd: formatAmount(totalPayAnd),
     record: workRecord,
     workRecord: '${workRecord.toStringAsFixed(1)}공수',
