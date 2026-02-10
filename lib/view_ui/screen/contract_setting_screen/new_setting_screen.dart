@@ -12,6 +12,7 @@ import '../../widgets/dual_field_bar.dart';
 import '../../widgets/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';
+import 'component/settlementState_box.dart';
 
 class NewSettingScreen extends HookConsumerWidget {
   const NewSettingScreen({super.key});
@@ -147,7 +148,7 @@ class NewSettingScreen extends HookConsumerWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // CheckboxWithLabel(),
+                  CheckboxWithLabel(),
                   Spacer(),
                   GestureDetector(
                     onTap: (){

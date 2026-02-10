@@ -123,7 +123,7 @@ class DualFieldBar extends HookConsumerWidget {
             )
           else
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 0.0),
+              padding: const EdgeInsets.only(left: 12.0),
               child: Row(
                 children: [
                   BlinkTwiceText(
@@ -131,6 +131,18 @@ class DualFieldBar extends HookConsumerWidget {
                     13.5,
                     color: context.subTextColor,
                   ),
+                  Spacer(),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //     color: context.isDark ? Colors.black87 : Colors.grey[100],
+                  //     borderRadius: BorderRadius.circular(7.5),
+                  //   ),
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
+                  //       child: TextWidget('최근기록 가져오기', 12.5, context.width,color: context.subTextColor),
+                  //     ),
+                  // ),
+
                 ],
               ),
             ),

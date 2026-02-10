@@ -35,8 +35,11 @@ class DurationSelectModule extends HookConsumerWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.access_time, color: context.subTextColor,),
-            SizedBox(width: 15),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 2.0),
+              child: Icon(Icons.access_time, color: context.subTextColor,size: 17.5),
+            ),
+            SizedBox(width: 7.5),
             TextWidget(
               isDuration.value ? '기간 선택' : '날짜 선택',
               15,
@@ -107,6 +110,27 @@ class DurationSelectModule extends HookConsumerWidget {
               },
             ),
           ),
+
+        // SizedBox(height: 10),
+
+        // Row(
+        //   children: [
+        //     if (isDuration.value)
+        //     Spacer(),
+        //
+        //     Container(
+        //       decoration: BoxDecoration(
+        //         color: context.isDark ? Colors.black87 : Colors.grey[100],
+        //         borderRadius: BorderRadius.circular(7.5),
+        //       ),
+        //         child: Padding(
+        //           padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 5.0),
+        //           child: TextWidget('세보 월급정산일', 12.5, context.width,color: context.subTextColor),
+        //         ),
+        //     ),
+        //   ],
+        // ),
+
 
 
         SizedBox(height: 10),

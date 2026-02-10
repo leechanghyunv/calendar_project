@@ -55,8 +55,7 @@ class FilterPopupMenu extends HookConsumerWidget {
                           Icon(
                             isSelected ? Icons.check_box_outline_blank : Icons.check_box,
                             size: 18,
-                            color: isSelected
-                                ? (context.isDark ? Colors.white54 : Colors.black54) : Colors.teal,
+                            color: isSelected ? (context.isDark ? Colors.white54 : Colors.black54) : Colors.teal,
                           ),
                           SizedBox(width: 4),
                           Text(
