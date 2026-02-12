@@ -282,7 +282,7 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
-String _$updateSubsidyHash() => r'd5d63c423d0a0e108e8b4d7af0b61a793c482cd9';
+String _$updateSubsidyHash() => r'5977a88176e90d8ac9caabba4bd3bad13aa93069';
 
 /// See also [updateSubsidy].
 @ProviderFor(updateSubsidy)

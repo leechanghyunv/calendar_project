@@ -2,11 +2,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import 'cell_size.dart';
-
-
 
 class OutSideCell extends ConsumerWidget {
 
@@ -32,9 +29,9 @@ class OutSideCell extends ConsumerWidget {
       style: TextStyle(
         fontSize: sizes.defaultSize,
         fontWeight: FontWeight.w700,
-        color: hasMarker ? context.isDark ? Colors.teal.shade100 : Colors.blue.shade100
+        color: hasMarker ? context.isDark ? Colors.grey.shade700 : Colors.blue.shade100
              : hasMarker2 ? Colors.teal.shade100
-             : Colors.grey.shade300,
+             : context.isDark ? Colors.grey.shade700 : Colors.grey.shade300,
       ),
     );
 

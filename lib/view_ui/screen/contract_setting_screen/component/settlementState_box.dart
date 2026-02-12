@@ -2,38 +2,39 @@ import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
+import '../provider/settlement_state_provider.dart';
 
 class CheckboxWithLabel extends HookConsumerWidget {
+
   const CheckboxWithLabel({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isChecked = useState(false);
+    final isChecked = ref.watch(isSettlementProvider);
+
+    void checkState(){
+      HapticFeedback.selectionClick();
+      ref.read(isSettlementProvider.notifier).state = !isChecked;
+    }
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          onTap: () {
-            HapticFeedback.selectionClick();
-            isChecked.value = !isChecked.value;
-          },
+          onTap: () => checkState(),
           child: Icon(
-            isChecked.value ? Icons.check_box : Icons.check_box_outline_blank,
+            isChecked ? Icons.check_box : Icons.check_box_outline_blank,
             size: 18,
-            color: isChecked.value
+            color: isChecked
                 ? Colors.teal
                 : (context.isDark ? Colors.white54 : Colors.black54),
           ),
         ),
         SizedBox(width: 4),
         GestureDetector(
-          onTap: () {
-            HapticFeedback.selectionClick();
-            isChecked.value = !isChecked.value;
-          },
+          onTap: () => checkState(),
           child: TextWidget(
-            isChecked.value ? '수금완료' : '미수금',
+            isChecked ? '수금완료' : '미수금',
             13.5,
             context.width,
             color: context.subTextColor,

@@ -2,9 +2,9 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/statistics/selected_history_model.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/provider/sort_type_provider.dart';
 import '../../../../../../core/export_package.dart';
 import '../../../../../../core/extentions/theme_color.dart';
+import '../../../../../../view_model/sort_type_provider.dart';
 import 'history_box.dart';
 
 class SelectedListview extends ConsumerWidget {

@@ -7,7 +7,7 @@ part of 'clipboard_service.dart';
 // **************************************************************************
 
 String _$backUpClipboardServiceHash() =>
-    r'20c8d258ad68a72b918e348dd606b05d1d67f826';
+    r'ff55a9f6f20bd26e42eb06f6a3a08e285499a270';
 
 /// See also [BackUpClipboardService].
 @ProviderFor(BackUpClipboardService)

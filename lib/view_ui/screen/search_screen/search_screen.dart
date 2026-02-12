@@ -8,8 +8,8 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../model/work_history_model.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../../view_model/sqlite_model/search_list_model.dart';
+import '../../widgets/info_row.dart';
 import '../../widgets/text_field_bar.dart';
-import '../auth_screen/const_widget.dart';
 
 
 class SearchScreen extends HookConsumerWidget {

@@ -7,7 +7,7 @@ part of 'string_list_provider.dart';
 // **************************************************************************
 
 String _$stringListNotifierHash() =>
-    r'5701ca9a7a2ed2765da64c1b22b7edcb9313e55b';
+    r'c8c38f5b2b85024290525a1f1eb10c4f82a39c71';
 
 /// See also [StringListNotifier].
 @ProviderFor(StringListNotifier)

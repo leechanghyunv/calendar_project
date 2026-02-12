@@ -1,8 +1,10 @@
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:flutter/cupertino.dart';
 import '../../base_app_size.dart';
 import '../../core/export_package.dart';
 import '../../core/extentions/theme_color.dart';
 import '../../core/widget/text_widget.dart';
+import '../screen/calendar_screen/provider/today_info_provider.dart';
 
 class DurationSelectModule extends HookConsumerWidget {
   final FocusNode? focusNode;
@@ -22,12 +24,19 @@ class DurationSelectModule extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final showPicker = useState(false);
     final isSelectingEndDate = useState(false);
+    final holidays = ref.watch(dynamicHolidaysProvider);
 
     String formatDate(DateTime date) {
       final weekdays = ['월', '화', '수', '목', '금', '토', '일'];
       final weekday = weekdays[date.weekday - 1];
       return '${date.year.toString().substring(2)}.${date.month.toString().padLeft(2, '0')}.${date.day.toString().padLeft(2, '0')}($weekday)';
     }
+    String? getHolidayName(DateTime selected, Map<DateTime, String> holidays) {
+      final key = DateTime(selected.year, selected.month, selected.day);
+      return holidays[key];
+    }
+    final holidayName = getHolidayName(ref.selected, holidays);
+    final holidayText = holidayName?.replaceAll('\n', '');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,29 +120,34 @@ class DurationSelectModule extends HookConsumerWidget {
             ),
           ),
 
-        // SizedBox(height: 10),
+        SizedBox(height: 5),
 
-        // Row(
-        //   children: [
-        //     if (isDuration.value)
-        //     Spacer(),
-        //
-        //     Container(
-        //       decoration: BoxDecoration(
-        //         color: context.isDark ? Colors.black87 : Colors.grey[100],
-        //         borderRadius: BorderRadius.circular(7.5),
-        //       ),
-        //         child: Padding(
-        //           padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 5.0),
-        //           child: TextWidget('세보 월급정산일', 12.5, context.width,color: context.subTextColor),
-        //         ),
-        //     ),
-        //   ],
-        // ),
+        if(!isDuration.value && holidayName != null)
+        Row(
+          children: [
+            Spacer(),
+            Container(
+              decoration: BoxDecoration(
+                color: context.isDark ? Colors.black87 : Colors.grey[200],
+                border: Border.all(
+                  color: context.isDark ? Colors.white : Colors.white,
+                  width: context.isDark ? 0.75 : 0.35,
+                ),
+                borderRadius: BorderRadius.circular(7.5),
+
+              ),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 8.0),
+                  child: TextWidget('${holidayText.toString()}', 13.5, context.width,color: context.subTextColor),
+                ),
+            ),
+          ],
+        ),
 
 
 
-        SizedBox(height: 10),
+        SizedBox(height: 5),
+
         Divider(
           color: Theme.of(context).dividerColor,
           thickness: 1,

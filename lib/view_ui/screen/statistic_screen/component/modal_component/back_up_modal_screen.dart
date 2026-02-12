@@ -1,6 +1,3 @@
-
-import 'package:calendar_project_240727/view_ui/screen/auth_screen/component/auth_text.dart';
-
 import '../../../../../core/export_package.dart';
 import '../../../../../core/widget/text_widget.dart';
 import '../../../../../model/work_history_model.dart';
@@ -8,6 +5,7 @@ import '../../../../../repository/back_up/archive_zlib_base64.dart';
 import '../../../../../repository/back_up/back_up_service.dart';
 import '../../../../dialog/backup_dialog/back_up_dialog_textSpan.dart';
 import '../../../../dialog/backup_dialog/back_up_textfield.dart';
+import '../../../../widgets/info_row.dart';
 import '../function_chip.dart';
 
 class BackUpModalScreen extends HookConsumerWidget {

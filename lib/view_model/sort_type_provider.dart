@@ -1,5 +1,5 @@
 
-import '../../../../repository/repository_import.dart';
+import '../repository/repository_import.dart';
 
 part 'sort_type_provider.g.dart';
 

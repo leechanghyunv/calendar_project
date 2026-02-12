@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../core/extentions/theme_color.dart';
-import '../../auth_screen/provider/sort_type_provider.dart';
+import '../../../../view_model/sort_type_provider.dart';
 
 class FilterHistoryChip extends HookConsumerWidget {
   const FilterHistoryChip({super.key});

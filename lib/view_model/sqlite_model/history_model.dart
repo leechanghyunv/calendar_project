@@ -8,6 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/export_package.dart';
 import '../../model/work_history_model.dart';
 import '../../view_ui/main_screen_component/main_box_component/controll_chip_component.dart';
+import '../../view_ui/screen/contract_setting_screen/provider/settlement_state_provider.dart';
 import '../../view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'calendar_event_model.dart';
 import 'contract_model.dart';
@@ -47,7 +48,7 @@ Future<void> addHistory(AddHistoryRef ref,
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
   final time = ref.watch(timeManagerProvider.notifier);
-
+  final settlement = ref.watch(isSettlementProvider);
   final historyData = ref.watch(viewHistoryProvider);
   final initialMemo = historyData.maybeWhen(
     data: (histories) {
@@ -86,6 +87,8 @@ Future<void> addHistory(AddHistoryRef ref,
           memo: initialMemo,
           workSite: workSite,
           subsidy: val.last.subsidy,
+          settlement: settlement,
+
         );
       },
       error: (err, trace) => print(err.toString()),
@@ -98,6 +101,7 @@ Future<void> addHistory(AddHistoryRef ref,
     'memo': history.memo,
     'workSite': history.workSite,
     'subsidy': history.subsidy,
+    'settlement': history.settlement,
   });
   print(history);
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
@@ -131,11 +135,12 @@ Future<void> latestHistory(LatestHistoryRef ref) async {
                   comment: val.last.comment,
                   pay: val.last.pay,
                   colorCode: val.last.colorCode,
-                  /// record * 20이 currentValue
                   record: val.last.record,
                   memo: val.last.memo,
                 workSite: val.last.workSite,
                 subsidy: val.last.subsidy,
+                settlement: val.last.settlement,
+
               );
             },
             error: (err, trace) => print(err.toString()),

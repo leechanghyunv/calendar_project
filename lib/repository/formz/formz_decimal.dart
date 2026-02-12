@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 
 import '../../view_model/decimal_value_provider.dart';
+import '../../view_ui/screen/contract_setting_screen/provider/settlement_state_provider.dart';
 import '../repository_import.dart';
 
 import '../time/calendar_time_controll.dart';
@@ -83,6 +84,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     int pay = calculated.toInt();
     final date = ref.watch(timeManagerProvider).selected;
     final memoString = ref.watch(formzMemoValidatorProvider.notifier).value;
+    final settlement = ref.watch(isSettlementProvider);
 
     final history = WorkHistory(
       date: date,
@@ -104,6 +106,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
       },
       memo: memoString,
       workSite: ref.watch(selectedWorksiteProvider.notifier).state,
+      settlement: settlement,
     );
     try{
       ref.read(

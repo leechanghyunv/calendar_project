@@ -5,9 +5,8 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../auth_screen/component/auth_text.dart';
-import '../auth_screen/component/auth_modal_component.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';
+import 'component/intro_text.dart';
 import 'component/statistics_filter_chip.dart';
 import 'component/statistics_box.dart';
 import 'component/statistics_filter_modal.dart';
@@ -70,7 +69,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     child: introText(height),
                                   ),
                                 ),
-                                // Spacer(),
                                 Row(
                                   children: [
                                     /// 근로조건 설정하기
@@ -134,7 +132,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                     ),
                     SizedBox(height: 15),
                     StatisticsBox(),
-                
                   ],
                 ),
               ),

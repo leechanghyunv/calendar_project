@@ -6,7 +6,7 @@ import 'package:calendar_project_240727/view_ui/widgets/text_field_bar.dart';
 import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
-import '../../auth_screen/const_widget.dart';
+import '../../../widgets/info_row.dart';
 import '../component/number_picker_modal.dart';
 import '/../../core/export_package.dart';
 

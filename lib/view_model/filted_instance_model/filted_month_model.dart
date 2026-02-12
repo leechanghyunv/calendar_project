@@ -54,7 +54,9 @@ class MonthRecord extends _$MonthRecord {
 
       // 빈 데이터 체크
       if (history.isEmpty || contract.isEmpty) {
+
         return const LaborFiltedModel();
+
       }
 
       final result =  _calculateStats(

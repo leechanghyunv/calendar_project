@@ -6,9 +6,9 @@ import '../../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../view_model/view_provider/display_view_record_model.dart';
+import '../../../widgets/info_row.dart';
 import '../../../widgets/munti_decimal_field_bar.dart';
 import '../../../widgets/svg_imoji.dart';
-import '../../auth_screen/const_widget.dart';
 
 void ChipNumberModal(BuildContext context){
   context.showModal(

@@ -15,7 +15,7 @@ Future<Database> initWorkHistory(ref) async {
 
   return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: (Database db, int version) async {
         await db.execute('''
       CREATE TABLE workhistory(
@@ -27,20 +27,20 @@ Future<Database> initWorkHistory(ref) async {
         memo TEXT NOT NULL DEFAULT '',
         comment TEXT NOT NULL DEFAULT '정상근무',
         workSite TEXT NOT NULL DEFAULT '',
-        subsidy INTEGER NOT NULL DEFAULT 0
+        subsidy INTEGER NOT NULL DEFAULT 0,
+        settlement INTEGER NOT NULL DEFAULT 0
       )
     ''');
       },
-
-    /// subsidy INTEGER NOT NULL DEFAULT 0
-
     onUpgrade: (Database db, int oldVersion, int newVersion) async {
       if (oldVersion < 2) {
         await db.execute('ALTER TABLE workhistory ADD COLUMN workSite TEXT NOT NULL DEFAULT ""');
-        // await db.execute('ALTER TABLE workhistory ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
       }
       if (oldVersion < 3) {
         await db.execute('ALTER TABLE workhistory ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
+      }
+      if (oldVersion < 4) {  // ✨ 새 마이그레이션 추가
+        await db.execute('ALTER TABLE workhistory ADD COLUMN settlement INTEGER NOT NULL DEFAULT 0');
       }
     },
     
@@ -108,7 +108,7 @@ class HistoryDatabase {
   Future<List<WorkHistory>> getAllWorkHistories() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('workhistory');
-    return maps.map((map) => WorkHistory.fromJson(map)).toList();
+    return maps.map((map) => WorkHistory.fromMap(map)).toList();
   }
 
   Future<List<WorkHistory>> getFilteredHistory(DateTime start, DateTime end) async {
@@ -120,7 +120,7 @@ class HistoryDatabase {
         start.toUtc().toIso8601String(),
         end.toUtc().toIso8601String()],
     );
-    return maps.map((map) => WorkHistory.fromJson(map)).toList();
+    return maps.map((map) => WorkHistory.fromMap(map)).toList();
   }
 
 
@@ -218,7 +218,8 @@ class HistoryDatabase {
                 comment: history.comment,
                 memo: history.memo,
                 workSite: history.workSite,
-                // subsidy: history.subsidy,
+                subsidy: history.subsidy,
+                settlement: history.settlement
             );
             await txn.insert('workhistory', dayHistory.toMap());
           }
@@ -310,6 +311,7 @@ class HistoryDatabase {
           memo: history.memo,
           workSite: history.workSite,
           subsidy: history.subsidy,
+            settlement: history.settlement
         );
         filteredData[dateKey]!.add(newHistory);
       }
@@ -353,6 +355,7 @@ class HistoryDatabase {
           memo: history.memo,
           workSite: history.workSite,
           subsidy: history.subsidy,
+            settlement: history.settlement
         );
         filteredData[dateKey]!.add(newHistory);
       }

@@ -1,9 +1,6 @@
-import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-
-import '../../../core/export_package.dart';
-import '../../../core/widget/text_widget.dart';
-import 'component/auth_text.dart';
+import '../../core/export_package.dart';
+import '../../core/extentions/theme_color.dart';
+import '../screen/user_statistics_screen/component/intro_text.dart';
 
 class InfoRow extends StatelessWidget {
   final String title;
@@ -45,29 +42,16 @@ class InfoRow extends StatelessWidget {
   }
 }
 
-
-
-class ValidationText extends StatelessWidget {
-
-  final String text;
-
-  const ValidationText({super.key, required this.text});
-
-  @override
-  Widget build(BuildContext context) {
-    final  appWidth = MediaQuery.of(context).size.width;
-    final  appHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        SizedBox(height: 5),
-        /// Colors.grey[700]
-        ErrorText(' ${text}',appWidth,
-        color: context.subTextColor),
-        SizedBox(height: appHeight > 750 ? 15 : 12.5),
-      ],
-    );
-  }
-}
-
-
-
+Widget bigText(String text, double height) => Text(
+  text,
+  textScaler: TextScaler.noScaling,
+  style: TextStyle(
+    height: textHeight,
+    fontSize: height >= 850
+        ? 20
+        : height > 750
+        ? 17.5
+        : 15.5,
+    fontWeight: Platform.isAndroid ? FontWeight.w700 : FontWeight.bold,
+  ),
+);

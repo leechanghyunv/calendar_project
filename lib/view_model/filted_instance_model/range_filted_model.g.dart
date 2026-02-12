@@ -6,7 +6,7 @@ part of 'range_filted_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$rangeSourceHash() => r'ac81a421cd2f8c2a7e5d21c7683b658cda2178bf';
+String _$rangeSourceHash() => r'f4bf9bab993e5b9054809a2c98bf35ffedbc1ffa';
 
 /// Copied from Dart SDK
 class _SystemHash {

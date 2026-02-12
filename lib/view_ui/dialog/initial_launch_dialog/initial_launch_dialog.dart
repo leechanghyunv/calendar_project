@@ -4,7 +4,6 @@ import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.
 
 import '../../../core/export_package.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../screen/auth_screen/component/auth_modal_component.dart';
 import '../../screen/initial_setting_screen/initial_setting_screen.dart';
 import '../dialog_text.dart';
 import 'intro_text.dart';

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../../../base_app_size.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
-import '../auth_screen/const_widget.dart';
+import '../../widgets/info_row.dart';
 import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
 import 'component/Index2Content.dart';

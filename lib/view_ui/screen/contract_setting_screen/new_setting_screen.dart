@@ -24,6 +24,7 @@ class NewSettingScreen extends HookConsumerWidget {
     final selectedDate = useState(ref.selected);
     final endDate = useState(DateTime.now());
 
+
     final isActive = ref.watch(memoActiveProvider);
     final history = ref.watch(viewHistoryProvider);
 
@@ -80,118 +81,120 @@ class NewSettingScreen extends HookConsumerWidget {
           padding: EdgeInsets.symmetric(
               vertical: context.height > 750 ? 24.0 : 12.0, horizontal: 24.0
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 15),
-              NewSiteRegistration(),
-
-              SizedBox(height: 10),
-              Divider(
-                color: Theme.of(context).dividerColor,
-                thickness: 1,
-              ),
-              DurationSelectModule(
-                focusNode: isActive ? memoFocus : decimalFocus,
-                isDuration: isDuration,
-                selectedDate: selectedDate,
-                endDate: endDate,
-              ),
-
-              SizedBox(height: 10),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      TextWidget(
-                          '메모기록',
-                          14,
-                          context.width,
-                          color: context.subTextColor
-                      ),
-                      Spacer(),
-                      GestureDetector(
-                        onTap: (){
-                          ref.read(memoActiveProvider.notifier).state = !isActive;
-                          HapticFeedback.selectionClick();
-                        },
-                        child: Icon(
-                          fontWeight: FontWeight.bold,
-                          size: 17.5,
-                          initialMemo.isNotEmpty ? Icons.refresh : Icons.add,
-                          color: context.subTextColor,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 15),
+                NewSiteRegistration(),
+            
+                SizedBox(height: 10),
+                Divider(
+                  color: Theme.of(context).dividerColor,
+                  thickness: 1,
+                ),
+                DurationSelectModule(
+                  focusNode: isActive ? memoFocus : decimalFocus,
+                  isDuration: isDuration,
+                  selectedDate: selectedDate,
+                  endDate: endDate,
+                ),
+            
+                SizedBox(height: 10),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        TextWidget(
+                            '메모기록',
+                            14,
+                            context.width,
+                            color: context.subTextColor
                         ),
-                      ),
-                      SizedBox(width: 8),
-                    ],
-                  ),
-                  if (memoText.isNotEmpty)
-                    SizedBox(height: 15),
-                  Row(
-                    children: [
-                      TextWidget(
-                          memoText,
+                        Spacer(),
+                        GestureDetector(
+                          onTap: (){
+                            ref.read(memoActiveProvider.notifier).state = !isActive;
+                            HapticFeedback.selectionClick();
+                          },
+                          child: Icon(
+                            fontWeight: FontWeight.bold,
+                            size: 17.5,
+                            initialMemo.isNotEmpty ? Icons.refresh : Icons.add,
+                            color: context.subTextColor,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                      ],
+                    ),
+                    if (memoText.isNotEmpty)
+                      SizedBox(height: 15),
+                    Row(
+                      children: [
+                        TextWidget(
+                            memoText,
+                            13.5,
+                            context.width,
+                            color: context.subTextColor
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Divider(
+                  color: Theme.of(context).dividerColor,
+                  thickness: 1,
+                ),
+                SizedBox(height: 10),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CheckboxWithLabel(),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: (){
+                        HapticFeedback.selectionClick();
+                        Navigator.pop(context);
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          DailyPayModal(context);
+                        });
+                      },
+                      child: TextWidget(
+                          '일비설정',
                           13.5,
                           context.width,
                           color: context.subTextColor
                       ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              Divider(
-                color: Theme.of(context).dividerColor,
-                thickness: 1,
-              ),
-              SizedBox(height: 10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CheckboxWithLabel(),
-                  Spacer(),
-                  GestureDetector(
-                    onTap: (){
-                      HapticFeedback.selectionClick();
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        DailyPayModal(context);
-                      });
-                    },
-                    child: TextWidget(
-                        '일비설정',
-                        13.5,
-                        context.width,
-                        color: context.subTextColor
                     ),
-                  ),
-                  Container(
-                    width: 1,
-                    height: 12,
-                    margin: EdgeInsets.symmetric(horizontal: 8),
-                    color: context.subTextColor,
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      HapticFeedback.selectionClick();
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        initialModal(context);
-                      });
-                    },
-                    child: TextWidget(
-                         '공수조건변경',
-                        13.5,
-                        context.width,
-                        color: context.subTextColor
+                    Container(
+                      width: 1,
+                      height: 12,
+                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      color: context.subTextColor,
                     ),
-                  ),
-                  SizedBox(width: 8),
-                ],
-              ),
-              
-
-            ],
+                    GestureDetector(
+                      onTap: (){
+                        HapticFeedback.selectionClick();
+                        Navigator.pop(context);
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          initialModal(context);
+                        });
+                      },
+                      child: TextWidget(
+                           '공수조건변경',
+                          13.5,
+                          context.width,
+                          color: context.subTextColor
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                  ],
+                ),
+                
+            
+              ],
+            ),
           ),
         ),
 

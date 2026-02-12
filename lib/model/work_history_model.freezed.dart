@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$WorkHistory {
 
- int? get id;@DateTimeConverter() DateTime get date; int get pay; double get record; String get colorCode; String get comment; String get memo; String get workSite; int get subsidy;
+ int? get id;@DateTimeConverter() DateTime get date; int get pay; double get record; String get colorCode; String get comment; String get memo; String get workSite; int get subsidy; bool get settlement;
 /// Create a copy of WorkHistory
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $WorkHistoryCopyWith<WorkHistory> get copyWith => _$WorkHistoryCopyWithImpl<Work
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkHistory&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.record, record) || other.record == record)&&(identical(other.colorCode, colorCode) || other.colorCode == colorCode)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.workSite, workSite) || other.workSite == workSite)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkHistory&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.record, record) || other.record == record)&&(identical(other.colorCode, colorCode) || other.colorCode == colorCode)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.workSite, workSite) || other.workSite == workSite)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.settlement, settlement) || other.settlement == settlement));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,date,pay,record,colorCode,comment,memo,workSite,subsidy);
+int get hashCode => Object.hash(runtimeType,id,date,pay,record,colorCode,comment,memo,workSite,subsidy,settlement);
 
 @override
 String toString() {
-  return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite, subsidy: $subsidy)';
+  return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite, subsidy: $subsidy, settlement: $settlement)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $WorkHistoryCopyWith<$Res>  {
   factory $WorkHistoryCopyWith(WorkHistory value, $Res Function(WorkHistory) _then) = _$WorkHistoryCopyWithImpl;
 @useResult
 $Res call({
- int? id,@DateTimeConverter() DateTime date, int pay, double record, String colorCode, String comment, String memo, String workSite, int subsidy
+ int? id,@DateTimeConverter() DateTime date, int pay, double record, String colorCode, String comment, String memo, String workSite, int subsidy, bool settlement
 });
 
 
@@ -65,7 +65,7 @@ class _$WorkHistoryCopyWithImpl<$Res>
 
 /// Create a copy of WorkHistory
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? date = null,Object? pay = null,Object? record = null,Object? colorCode = null,Object? comment = null,Object? memo = null,Object? workSite = null,Object? subsidy = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? date = null,Object? pay = null,Object? record = null,Object? colorCode = null,Object? comment = null,Object? memo = null,Object? workSite = null,Object? subsidy = null,Object? settlement = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
@@ -76,7 +76,8 @@ as String,comment: null == comment ? _self.comment : comment // ignore: cast_nul
 as String,memo: null == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
 as String,workSite: null == workSite ? _self.workSite : workSite // ignore: cast_nullable_to_non_nullable
 as String,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
-as int,
+as int,settlement: null == settlement ? _self.settlement : settlement // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -161,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy,  bool settlement)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _WorkHistory() when $default != null:
-return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy);case _:
+return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy,_that.settlement);case _:
   return orElse();
 
 }
@@ -182,10 +183,10 @@ return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy,  bool settlement)  $default,) {final _that = this;
 switch (_that) {
 case _WorkHistory():
-return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy);case _:
+return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy,_that.settlement);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +203,10 @@ return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id, @DateTimeConverter()  DateTime date,  int pay,  double record,  String colorCode,  String comment,  String memo,  String workSite,  int subsidy,  bool settlement)?  $default,) {final _that = this;
 switch (_that) {
 case _WorkHistory() when $default != null:
-return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy);case _:
+return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that.comment,_that.memo,_that.workSite,_that.subsidy,_that.settlement);case _:
   return null;
 
 }
@@ -217,7 +218,7 @@ return $default(_that.id,_that.date,_that.pay,_that.record,_that.colorCode,_that
 @JsonSerializable()
 
 class _WorkHistory extends WorkHistory {
-  const _WorkHistory({this.id, @DateTimeConverter() required this.date, this.pay = 0, this.record = 1.0, this.colorCode = '2196F3', this.comment = '정상근무', this.memo = '', this.workSite = '', this.subsidy = 0}): super._();
+  const _WorkHistory({this.id, @DateTimeConverter() required this.date, this.pay = 0, this.record = 1.0, this.colorCode = '2196F3', this.comment = '정상근무', this.memo = '', this.workSite = '', this.subsidy = 0, this.settlement = false}): super._();
   factory _WorkHistory.fromJson(Map<String, dynamic> json) => _$WorkHistoryFromJson(json);
 
 @override final  int? id;
@@ -229,6 +230,7 @@ class _WorkHistory extends WorkHistory {
 @override@JsonKey() final  String memo;
 @override@JsonKey() final  String workSite;
 @override@JsonKey() final  int subsidy;
+@override@JsonKey() final  bool settlement;
 
 /// Create a copy of WorkHistory
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +245,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkHistory&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.record, record) || other.record == record)&&(identical(other.colorCode, colorCode) || other.colorCode == colorCode)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.workSite, workSite) || other.workSite == workSite)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WorkHistory&&(identical(other.id, id) || other.id == id)&&(identical(other.date, date) || other.date == date)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.record, record) || other.record == record)&&(identical(other.colorCode, colorCode) || other.colorCode == colorCode)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.memo, memo) || other.memo == memo)&&(identical(other.workSite, workSite) || other.workSite == workSite)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.settlement, settlement) || other.settlement == settlement));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,date,pay,record,colorCode,comment,memo,workSite,subsidy);
+int get hashCode => Object.hash(runtimeType,id,date,pay,record,colorCode,comment,memo,workSite,subsidy,settlement);
 
 @override
 String toString() {
-  return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite, subsidy: $subsidy)';
+  return 'WorkHistory(id: $id, date: $date, pay: $pay, record: $record, colorCode: $colorCode, comment: $comment, memo: $memo, workSite: $workSite, subsidy: $subsidy, settlement: $settlement)';
 }
 
 
@@ -263,7 +265,7 @@ abstract mixin class _$WorkHistoryCopyWith<$Res> implements $WorkHistoryCopyWith
   factory _$WorkHistoryCopyWith(_WorkHistory value, $Res Function(_WorkHistory) _then) = __$WorkHistoryCopyWithImpl;
 @override @useResult
 $Res call({
- int? id,@DateTimeConverter() DateTime date, int pay, double record, String colorCode, String comment, String memo, String workSite, int subsidy
+ int? id,@DateTimeConverter() DateTime date, int pay, double record, String colorCode, String comment, String memo, String workSite, int subsidy, bool settlement
 });
 
 
@@ -280,7 +282,7 @@ class __$WorkHistoryCopyWithImpl<$Res>
 
 /// Create a copy of WorkHistory
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? date = null,Object? pay = null,Object? record = null,Object? colorCode = null,Object? comment = null,Object? memo = null,Object? workSite = null,Object? subsidy = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? date = null,Object? pay = null,Object? record = null,Object? colorCode = null,Object? comment = null,Object? memo = null,Object? workSite = null,Object? subsidy = null,Object? settlement = null,}) {
   return _then(_WorkHistory(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
@@ -291,7 +293,8 @@ as String,comment: null == comment ? _self.comment : comment // ignore: cast_nul
 as String,memo: null == memo ? _self.memo : memo // ignore: cast_nullable_to_non_nullable
 as String,workSite: null == workSite ? _self.workSite : workSite // ignore: cast_nullable_to_non_nullable
 as String,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
-as int,
+as int,settlement: null == settlement ? _self.settlement : settlement // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

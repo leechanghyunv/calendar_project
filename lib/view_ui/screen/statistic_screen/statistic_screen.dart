@@ -6,7 +6,7 @@ import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../dialog/backup_dialog/back_up_dialog.dart';
 import '../../dialog/delete_goal_dialog/all_delete_dialog.dart';
 import '../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
-import '../auth_screen/const_widget.dart';
+import '../../widgets/info_row.dart';
 import '../range_history_screen/component/range_history_modal_component.dart';
 import 'component/filter_chip.dart';
 import 'component/function_chip.dart';

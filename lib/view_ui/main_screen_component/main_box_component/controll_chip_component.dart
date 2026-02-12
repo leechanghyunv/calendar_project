@@ -7,7 +7,6 @@ import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 import '../../../core/extentions/theme_extension.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
-import '../../screen/auth_screen/component/auth_modal_component.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
 import '../../screen/initial_setting_screen/initial_setting_screen.dart';

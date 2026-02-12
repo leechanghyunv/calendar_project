@@ -54,6 +54,7 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
       taxValue = val.tax;
       percent = val.percent;
       totalPayAnd = val.totalPayAnd;
+
     });
 
     final BigTextStyle = TextStyle(

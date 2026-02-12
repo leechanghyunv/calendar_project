@@ -3,23 +3,6 @@ import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/extentions/theme_extension.dart';
 
-Widget bigText(String text, double height) => Text(
-  text,
-  textScaler: TextScaler.noScaling,
-  style: TextStyle(
-    height: textHeight,
-    fontSize: height >= 850
-        ? 20
-        : height > 750
-        ? 17.5
-        : 15.5,
-    fontWeight: Platform.isAndroid ? FontWeight.w700 : FontWeight.bold,
-    // color: Colors.black,
-  ),
-);
-
-
-
 Widget introText(double height) {
   final fontSize = height.responsiveSize([16,15,15,15,13.5,13]);
   final baseStyle = TextStyle(
@@ -70,8 +53,6 @@ Widget smallText(BuildContext context,String text, double height) => Text(
     color: context.subTextColor,
   ),
 );
-
-
 
 
 

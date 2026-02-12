@@ -16,6 +16,7 @@ _WorkHistory _$WorkHistoryFromJson(Map<String, dynamic> json) => _WorkHistory(
   memo: json['memo'] as String? ?? '',
   workSite: json['workSite'] as String? ?? '',
   subsidy: (json['subsidy'] as num?)?.toInt() ?? 0,
+  settlement: json['settlement'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
@@ -29,4 +30,5 @@ Map<String, dynamic> _$WorkHistoryToJson(_WorkHistory instance) =>
       'memo': instance.memo,
       'workSite': instance.workSite,
       'subsidy': instance.subsidy,
+      'settlement': instance.settlement,
     };

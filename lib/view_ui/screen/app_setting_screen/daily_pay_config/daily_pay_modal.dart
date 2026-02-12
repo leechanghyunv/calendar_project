@@ -8,8 +8,8 @@ import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
+import '../../../widgets/info_row.dart';
 import '../../../widgets/text_field_number_bar.dart';
-import '../../auth_screen/const_widget.dart';
 
 
 void DailyPayModal(BuildContext context){
