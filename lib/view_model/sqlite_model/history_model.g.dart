@@ -592,11 +592,11 @@ class _RangeExcludHolidayProviderElement
   DateTime get end => (origin as RangeExcludHolidayProvider).end;
 }
 
-String _$latestHistoryHash() => r'f941b340ac64fb66a45a1b64710230196a3261b5';
+String _$latestHistoryHash() => r'dbd62b941feee78626bd00f1f09de8ce60771789';
 
 /// See also [latestHistory].
 @ProviderFor(latestHistory)
-final latestHistoryProvider = AutoDisposeFutureProvider<void>.internal(
+final latestHistoryProvider = AutoDisposeFutureProvider<WorkHistory>.internal(
   latestHistory,
   name: r'latestHistoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -608,7 +608,7 @@ final latestHistoryProvider = AutoDisposeFutureProvider<void>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef LatestHistoryRef = AutoDisposeFutureProviderRef<void>;
+typedef LatestHistoryRef = AutoDisposeFutureProviderRef<WorkHistory>;
 String _$deleteHistoryHash() => r'dd8d7daf59a2d0003a867877fffe36a19073745c';
 
 /// See also [deleteHistory].

@@ -6,7 +6,7 @@ part of 'version_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$versionManagerHash() => r'9e6df075fd9df31ef390b0f060c83db224ff0eea';
+String _$versionManagerHash() => r'2cf145096bd889a05cdc37fb03bda4ed6a004048';
 
 /// See also [VersionManager].
 @ProviderFor(VersionManager)

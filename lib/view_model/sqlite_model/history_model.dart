@@ -118,40 +118,61 @@ Future<void> rangeExcludHoliday(
 }
 
 @riverpod
-Future<void> latestHistory(LatestHistoryRef ref) async {
-  final db = await ref.watch(workHistoryManagerProvider.future);
-  final contract = ref.watch(viewContractProvider);
+Future<WorkHistory> latestHistory(LatestHistoryRef ref) async {
   final selected = ref.watch(timeManagerProvider.notifier);
   final history = ref.watch(viewHistoryProvider);
 
-  late WorkHistory latest;
-
-  contract.maybeWhen(
-      data: (val) {
-        history.when(
-            data: (val) {
-              latest = WorkHistory(
-                  date: selected.DaySelected,
-                  comment: val.last.comment,
-                  pay: val.last.pay,
-                  colorCode: val.last.colorCode,
-                  record: val.last.record,
-                  memo: val.last.memo,
-                workSite: val.last.workSite,
-                subsidy: val.last.subsidy,
-                settlement: val.last.settlement,
-
-              );
-            },
-            error: (err, trace) => print(err.toString()),
-            loading: () => print('loading....'));
-      },
-      orElse: () => print('근로설정데이터가 없습니다.'));
-
-
-  db.insertOrUpdateWorkHistory(latest);
-  invalidateProviders(ref);
+  return switch (history) {
+    AsyncData(:final value) when value.isNotEmpty => WorkHistory(
+      date: selected.DaySelected,
+      comment: value.last.comment,
+      pay: value.last.pay,
+      colorCode: value.last.colorCode,
+      record: value.last.record,
+      memo: value.last.memo,
+      workSite: value.last.workSite,
+      subsidy: value.last.subsidy,
+      settlement: value.last.settlement,
+    ),
+    _ => throw Exception('최근 기록을 찾을 수 없습니다'),
+  };
 }
+
+// @riverpod
+// Future<void> latestHistory(LatestHistoryRef ref) async {
+//   final db = await ref.watch(workHistoryManagerProvider.future);
+//   final contract = ref.watch(viewContractProvider);
+//   final selected = ref.watch(timeManagerProvider.notifier);
+//   final history = ref.watch(viewHistoryProvider);
+//
+//   late WorkHistory latest;
+//
+//   contract.maybeWhen(
+//       data: (val) {
+//         history.when(
+//             data: (val) {
+//               latest = WorkHistory(
+//                   date: selected.DaySelected,
+//                   comment: val.last.comment,
+//                   pay: val.last.pay,
+//                   colorCode: val.last.colorCode,
+//                   record: val.last.record,
+//                   memo: val.last.memo,
+//                 workSite: val.last.workSite,
+//                 subsidy: val.last.subsidy,
+//                 settlement: val.last.settlement,
+//
+//               );
+//             },
+//             error: (err, trace) => print(err.toString()),
+//             loading: () => print('loading....'));
+//       },
+//       orElse: () => print('근로설정데이터가 없습니다.'));
+//
+//
+//   db.insertOrUpdateWorkHistory(latest);
+//   invalidateProviders(ref);
+// }
 
 @riverpod
 Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {

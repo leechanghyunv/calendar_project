@@ -8,6 +8,7 @@ import '../../core/extentions/theme_extension.dart';
 import '../../core/utils/converter.dart';
 import '../../core/widget/text_widget.dart';
 import '../../repository/formz/formz_decimal.dart';
+import '../screen/contract_setting_screen/component/latest_record_button.dart';
 import 'blink_text.dart';
 
 final memoActiveProvider = StateProvider<bool>((ref) => false);
@@ -132,17 +133,11 @@ class DualFieldBar extends HookConsumerWidget {
                     color: context.subTextColor,
                   ),
                   Spacer(),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: context.isDark ? Colors.black87 : Colors.grey[100],
-                  //     borderRadius: BorderRadius.circular(7.5),
-                  //   ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
-                  //       child: TextWidget('최근기록 가져오기', 12.5, context.width,color: context.subTextColor),
-                  //     ),
-                  // ),
+                  LatestRecordButton(
+                    textController: textController,
+                    decimalController: decimalController,
 
+                  ),
                 ],
               ),
             ),
