@@ -37,7 +37,6 @@ class FormzMemoValidator extends _$FormzMemoValidator {
 
 
   void onSubmit(WidgetRef ref){
-
     try{
         final val = state.memoData.value;
         if (val.length < 2) {

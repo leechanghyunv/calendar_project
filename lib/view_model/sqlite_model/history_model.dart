@@ -47,22 +47,7 @@ Future<void> addHistory(AddHistoryRef ref,
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
-  final time = ref.watch(timeManagerProvider.notifier);
   final settlement = ref.watch(isSettlementProvider);
-  final historyData = ref.watch(viewHistoryProvider);
-  final initialMemo = historyData.maybeWhen(
-    data: (histories) {
-      final found = histories.firstWhere(
-            (h) => h.date.year == time.DaySelected.year &&
-            h.date.month == time.DaySelected.month &&
-            h.date.day == time.DaySelected.day,
-        orElse: () => WorkHistory(
-            date: time.DaySelected).copyWith(memo: memoNote), // 없으면 빈 값
-      );
-      return found.memo;
-    },
-    orElse: () => memoNote,
-  );
 
   final workSite = ref.watch(selectedWorksiteProvider);
   final Map<String, dynamic> event = {};
@@ -84,7 +69,7 @@ Future<void> addHistory(AddHistoryRef ref,
           pay: pay,
           colorCode: colorCode,
           record: record,
-          memo: initialMemo,
+          memo: memoNote,
           workSite: workSite,
           subsidy: val.last.subsidy,
           settlement: settlement,
@@ -103,7 +88,6 @@ Future<void> addHistory(AddHistoryRef ref,
     'subsidy': history.subsidy,
     'settlement': history.settlement,
   });
-  print(history);
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
   db.insertOrUpdateWorkHistory(history);
   invalidateProviders(ref);

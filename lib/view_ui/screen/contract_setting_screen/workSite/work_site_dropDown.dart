@@ -2,6 +2,7 @@ import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
+import '../../../../data/entities/string_item.dart';
 import '../../../../data/provider/string_list_provider.dart';
 import '../provider/registration_index_provider.dart';
 import '../provider/work_site_provider.dart';
@@ -61,10 +62,21 @@ class WorkSiteDropdown extends HookConsumerWidget {
                 child: TextWidget('${value[reversedIndex].value}', 14.5, context.width),
               );
             }),
-            onChanged: (selectedIndex) {
+            onChanged: (selectedIndex) async {
               if (selectedIndex != null) {
                 ref.read(registrationIndexProvider.notifier).setIndex(selectedIndex);
                 ref.read(selectedWorksiteProvider.notifier).state = value[selectedIndex].value;
+
+                final reorderedList = List<StringItem>.from(value);
+                final selected = reorderedList.removeAt(selectedIndex);
+                reorderedList.add(selected);
+
+                await ref.read(stringListNotifierProvider.notifier).reorder(reorderedList);
+
+                await Future.delayed(Duration(milliseconds: 100));
+
+                ref.read(registrationIndexProvider.notifier).setIndex(value.length - 1);
+                ref.read(selectedWorksiteProvider.notifier).state = selected.value;
                 customMsg('${value[selectedIndex].value} 선택');
               }
             },

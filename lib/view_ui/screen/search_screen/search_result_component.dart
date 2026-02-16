@@ -3,7 +3,6 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/work_history_model.dart';
-import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_history_textWidget.dart';
 
 // 🎯 검색 결과 위젯 분리
 class SearchResultWidget extends StatelessWidget {
@@ -125,7 +124,7 @@ class _HistoryCard extends StatelessWidget {
           ),
           SizedBox(width: 16),
           Expanded(
-            child: HistoryTextWidget(
+            child: TextWidget(
               '${history.memo}',
               14,
               context.width,
@@ -158,7 +157,7 @@ class SearchMoreContent extends StatelessWidget {
         child: Text(text,
             textScaler: TextScaler.noScaling,
             style: TextStyle(
-              fontSize: 12.5,
+              fontSize: 13,
               fontWeight: FontWeight.w600,
               color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
             ),
@@ -170,7 +169,7 @@ class SearchMoreContent extends StatelessWidget {
       color: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(color: Colors.grey.shade100),
       ),
       offset: const Offset(15, 30),
       itemBuilder: (context) => [
@@ -190,19 +189,19 @@ class SearchMoreContent extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      chartInText('- ${labels[0]}:'),
+                      chartInText('${labels[0]}:'),
                       chartInText('${(history.pay / 10000).toInt()}만원',),
                     ],
                   ),
                   Row(
                     children: [
-                      chartInText('- ${labels[1]}:'),
+                      chartInText('${labels[1]}:'),
                       chartInText('${(history.record).toInt()}공수',),
                     ],
                   ),
                   Row(
                     children: [
-                      chartInText('- ${labels[2]}:'),
+                      chartInText('${labels[2]}:'),
                       chartInText('${(history.comment)}',),
                     ],
                   ),
