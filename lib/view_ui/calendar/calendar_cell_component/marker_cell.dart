@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/
 import '../../../core/export_package.dart';
 import '../../../repository/time/calendar_time_controll.dart';
 import '../../../core/extentions/theme_color.dart';
+import '../../../view_model/selected_memo_filter.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/view_type_model.dart';
@@ -101,7 +102,7 @@ class MarkerCell extends ConsumerWidget {
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
         width: sizes.markerWidth,
-        decoration: isExpanded ? null : markerDeco(context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
+        decoration: isExpanded ? null : markerDeco(ref,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
         child: isExpanded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +112,8 @@ class MarkerCell extends ConsumerWidget {
               width: 50.w,
               alignment: Alignment.center,
               decoration: markerDeco(
-                  context.isLight,selectedMonth,month,
+                ref,date,context.isLight,selectedMonth,month,
+
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -203,10 +205,15 @@ class MarkerCell extends ConsumerWidget {
 
 
 BoxDecoration  markerDeco(
+    WidgetRef ref,
+    DateTime date,
     bool isLight,
     int selectedMonth,
     int month,
     {bool hasEvent = false}){
+
+  final isFiltered = ref.watch(isDateFilteredProvider(date));
+
   return BoxDecoration(
     boxShadow: selectedMonth == month
         ? [
@@ -223,7 +230,9 @@ BoxDecoration  markerDeco(
         width: 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
-        ? isLight ? Colors.grey.shade200 : Colors.grey.shade900
+        ? isLight
+        ? isFiltered ? Colors.grey.shade300 : Colors.grey.shade200
+        : isFiltered ? Colors.grey.shade800 : Colors.grey.shade900
         : Colors.transparent,
   );
 }

@@ -131,11 +131,13 @@ class NewSettingScreen extends HookConsumerWidget {
                       SizedBox(height: 15),
                     Row(
                       children: [
-                        TextWidget(
-                            memoText,
-                            13.5,
-                            context.width,
-                            color: context.subTextColor
+                        Expanded(
+                          child: TextWidget(
+                              memoText,
+                              13.5,
+                              context.width,
+                              color: context.subTextColor
+                          ),
                         ),
                       ],
                     ),

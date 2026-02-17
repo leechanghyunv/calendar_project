@@ -13,15 +13,20 @@ class CalendarSwitcher extends _$CalendarSwitcher {
   }
 
   Future<void> toggle() async {
-    try {
-      final prefs = await ref.prefsRead;
-      final currentValue = state.value ?? false;
-      final newValue = !currentValue;
+    await update((current) => !current);
 
-      await prefs.setBool(_key, newValue);
-      state = AsyncValue.data(newValue);
-    } catch (e, st) {
-      state = AsyncValue.error(e, st);
-    }
+    final prefs = await ref.prefsRead;
+    await prefs.setBool(_key, state.value!);
+
+    // try {
+    //   final prefs = await ref.prefsRead;
+    //   final currentValue = state.value ?? false;
+    //   final newValue = !currentValue;
+    //
+    //   await prefs.setBool(_key, newValue);
+    //   state = AsyncValue.data(newValue);
+    // } catch (e, st) {
+    //   state = AsyncValue.error(e, st);
+    // }
   }
 }
