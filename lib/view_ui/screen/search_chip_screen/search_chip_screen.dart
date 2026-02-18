@@ -1,9 +1,7 @@
-import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../../model/work_history_model.dart';
+import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/provider/calculate_textHeight.dart';
+import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/search_chip_use_cases.dart';
 import '../../../view_model/selected_memo_filter.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/info_row.dart';
@@ -22,71 +20,20 @@ class SearchChipScreen extends HookConsumerWidget {
 
     final selectedMemos = ref.watch(selectedMemoFilterProvider);
 
-    final filteredResults = useMemoized(() {
-      return switch (historyAsync) {
-        AsyncData(:final value) => () {
-          var results = value;
-          // 📅 기간 필터링 (UTC 시간 포함)
-          final now = DateTime.now().toUtc();
-          final periodMonths = switch (selectedPeriod.value) {
-            '1개월' || '최근 1개월' => 1,
-            '3개월' => 3,
-            '6개월' => 6,
-            '12개월' => 12,
-            '18개월' => 18,
-            _ => 1,
-          };
+    final dismissedMemo = useState<String?>(null);
 
-          final startDate = DateTime.utc(
-            now.year,
-            now.month - periodMonths,
-            now.day,
-          );
+    final filteredResults = useFilteredResults(
+      historyAsync: historyAsync,
+      selectedPeriod: selectedPeriod.value,
+    );
 
-          results = results.where((history) {
-            return history.date.toUtc().isAfter(startDate);
-          }).toList();
+    final memoCountMap = useMemoCountMap(filteredResults);
 
-          results = results.where((history) => history.memo.isNotEmpty).toList();
-          // 📆 날짜 내림차순 정렬
-          results.sort((a, b) => b.date.compareTo(a.date));
+    final selectedLongMemo = useSelectedLongMemo(
+      selectedMemos: selectedMemos,
+      dismissedMemo: dismissedMemo.value,
+    );
 
-          return results;
-        }(),
-        _ => <WorkHistory>[],
-      };
-    }, [historyAsync, selectedPeriod.value]);
-
-    // 메모별 카운트 Map
-    final memoCountMap = useMemoized(() {
-      final countMap = <String, int>{};
-      for (var history in filteredResults) {
-        countMap[history.memo] = (countMap[history.memo] ?? 0) + 1;
-      }
-      return countMap;
-    }, [filteredResults]);
-
-    // 선택된 메모 중 긴 텍스트 찾기
-    final selectedLongMemo = useMemoized(() {
-      for (var memo in selectedMemos) {
-        if (memo.length > 25) return memo;
-      }
-      return null;
-    }, [selectedMemos]);
-
-// 텍스트 높이 계산 함수
-    double _calculateTextHeight(String text, BuildContext context) {
-      final textPainter = TextPainter(
-        text: TextSpan(
-          text: text,
-          style: TextStyle(fontSize: 14),
-        ),
-        maxLines: null,
-        textDirection: TextDirection.ltr,
-      )..layout(maxWidth: MediaQuery.of(context).size.width - 64); // margin + padding
-
-      return textPainter.height + 32 + 32; // padding + margin
-    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -99,13 +46,15 @@ class SearchChipScreen extends HookConsumerWidget {
             children: [
               SizedBox(height: 20),
               InfoRow(
-                title: '02월 메모관리',
+                title: selectedPeriod.value == '1개월'
+                    ? '${ref.month}월 메모관리'
+                    : '${selectedPeriod.value} 메모관리',
                 subtitle: '칩을 선택하시면 해당 날짜에 해당되는 ',
                 trailing: Row(
                   children: [
-
-
-                    SearchDurationDropdown(),
+                    SearchDurationDropdown(
+                      controller: selectedPeriod,
+                    ),
                   ],
                 ),
               ),
@@ -113,29 +62,35 @@ class SearchChipScreen extends HookConsumerWidget {
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 height: selectedLongMemo != null
-                    ? _calculateTextHeight(
+                    ? calculateTextHeight(
                     selectedLongMemo, context)
                     .clamp(0, 300)
                     : 25,
                 curve: Curves.easeInOut,
                 child: selectedLongMemo != null
-                    ? Container(
-                  margin: EdgeInsets.symmetric(vertical: 15),
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                      vertical: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.blue[50],
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.blue, width: 1),
-                  ),
-                  child: Text(
-                    '${selectedLongMemo}',
-                    style: TextStyle(
-                      color: Colors.blue[900],
-                      // fontWeight: FontWeight.bold,
-                      fontSize: 13.5,
+                    ? GestureDetector(
+                  onTap: () {
+                    HapticFeedback.selectionClick();
+                    dismissedMemo.value = selectedLongMemo;
+                    ref.read(selectedMemoFilterProvider.notifier).toggle(selectedLongMemo);
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 15),
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.teal[50],
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.teal, width: 1),
+                    ),
+                    child: Text(
+                      '${selectedLongMemo}',
+                      style: TextStyle(
+                        color: Colors.teal[900],
+                        fontSize: 13.5,
+                      ),
                     ),
                   ),
                 )
@@ -146,7 +101,6 @@ class SearchChipScreen extends HookConsumerWidget {
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 2,
-                  // crossAxisAlignment: WrapCrossAlignment.start,
                   children: memoCountMap.entries.map((entry) {
                     final memo = entry.key;
                     final count = entry.value;
@@ -165,10 +119,12 @@ class SearchChipScreen extends HookConsumerWidget {
                       backgroundColor: Colors.grey[200],
                       side: BorderSide(
                         color: isSelected ? Colors.grey.shade800 : Colors.grey[200]!,
-                        width: isSelected ? 1.5 : 1,
+                        width: 1.0,
                       ),
 
                       onSelected: (selected) {
+                        dismissedMemo.value = null;
+                        HapticFeedback.selectionClick();
                         ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
                       },
                     );
@@ -182,6 +138,7 @@ class SearchChipScreen extends HookConsumerWidget {
           ),
         ),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingRowComponent(),
 
     );

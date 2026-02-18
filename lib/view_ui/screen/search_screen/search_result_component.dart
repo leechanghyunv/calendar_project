@@ -8,13 +8,11 @@ import 'package:calendar_project_240727/model/work_history_model.dart';
 class SearchResultWidget extends StatelessWidget {
   final AsyncValue<List<WorkHistory>> historyAsync;
   final List<WorkHistory> filteredResults;
-  final String selectedPeriod;
 
   const SearchResultWidget({
     super.key,
     required this.historyAsync,
     required this.filteredResults,
-    required this.selectedPeriod,
   });
 
   @override
@@ -54,9 +52,6 @@ class SearchResultWidget extends StatelessWidget {
         children: [
           TextWidget('검색 결과가 여기에 표시됩니다', 14, context.width,
               color: Colors.grey[500]),
-          SizedBox(height: 4),
-          TextWidget('선택된 기간: $selectedPeriod', 12, context.width,
-              color: Colors.grey[400]),
         ],
       ),
     );

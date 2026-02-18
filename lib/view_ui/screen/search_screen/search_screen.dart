@@ -1,5 +1,4 @@
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/view_ui/screen/search_screen/search_duration_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_list_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_component.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -22,7 +21,7 @@ class SearchScreen extends HookConsumerWidget {
 
     final searchController = useTextEditingController();
     final searchNode = useFocusNode();
-    final selectedPeriod = useState('1개월');
+
     final searchQuery = useState('');
 
     final searchHistory = searchHistoryAsync.maybeWhen(
@@ -35,28 +34,6 @@ class SearchScreen extends HookConsumerWidget {
       return switch (historyAsync) {
         AsyncData(:final value) => () {
           var results = value;
-
-          // 📅 기간 필터링 (UTC 시간 포함)
-          final now = DateTime.now().toUtc();
-          final periodMonths = switch (selectedPeriod.value) {
-            '1개월' || '최근 1개월' => 1,
-            '3개월' => 3,
-            '6개월' => 6,
-            '12개월' => 12,
-            '18개월' => 18,
-            _ => 1,
-          };
-
-          final startDate = DateTime.utc(
-            now.year,
-            now.month - periodMonths,
-            now.day,
-          );
-
-          results = results.where((history) {
-            return history.date.toUtc().isAfter(startDate);
-          }).toList();
-
           // 🔎 텍스트 검색 (memo contain)
           if (searchQuery.value.isNotEmpty) {
             results = results.where((history) {
@@ -71,10 +48,7 @@ class SearchScreen extends HookConsumerWidget {
         }(),
         _ => <WorkHistory>[],
       };
-    }, [historyAsync, selectedPeriod.value, searchQuery.value]);
-
-    final periods = ['최근 1개월', '3개월', '6개월', '12개월', '18개월'];
-
+    }, [historyAsync, searchQuery.value]);
 
     void searchMethod(){
       searchQuery.value = searchController.text;
@@ -93,7 +67,6 @@ class SearchScreen extends HookConsumerWidget {
             child: Column(
               children: [
                 SizedBox(height: 30),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: Row(
@@ -142,7 +115,6 @@ class SearchScreen extends HookConsumerWidget {
                   child: SearchResultWidget(
                     historyAsync: historyAsync,
                     filteredResults: filteredResults,
-                    selectedPeriod: selectedPeriod.value,
                   ),
                 ),
               ],
@@ -151,32 +123,28 @@ class SearchScreen extends HookConsumerWidget {
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                PeriodSelectorWidget(
-                  selectedPeriod: selectedPeriod,
-                  periods: periods,
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFieldBar(
-                        focusNode: searchNode,
-                        controller: searchController,
-                        hintText: ' 메모 검색...',
-                        onPressed: () => searchMethod(),
-                        onChanged: (value) => searchMethod(),
-                        onSubmitted: (value) => searchMethod(),
-                        icon: Icons.search,
-                      ),
-
+            child:  Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.25, color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFieldBar(
+                      focusNode: searchNode,
+                      controller: searchController,
+                      hintText: ' 메모 검색...',
+                      onPressed: () => searchMethod(),
+                      onChanged: (value) => searchMethod(),
+                      onSubmitted: (value) => searchMethod(),
+                      icon: Icons.search,
                     ),
 
-                  ],
-                ),
-              ],
+                  ),
+
+                ],
+              ),
             ),
           ),
         );

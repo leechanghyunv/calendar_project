@@ -14,7 +14,7 @@ class PopupWidget extends ConsumerWidget {
     final sizes = HeaderSizes(context.width);
 
     return IconButton(
-      onPressed: () => context.showModal(
+      onPressed: () => context.memoChipModal(
         heightRatio: 0.46,
         // child: SearchScreen(),
         child: SearchChipScreen(),

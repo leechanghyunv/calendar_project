@@ -39,7 +39,7 @@ class MarkerCell extends ConsumerWidget {
     );
 
     final customEventMarkers = ref.watch(markerEventProvider);
-
+    final isFiltered = ref.watch(isDateFilteredProvider(date));
 
     // ✅ bool 값으로 포함 여부 체크
     final localDate = DateTime(date.year, date.month, date.day);
@@ -102,7 +102,7 @@ class MarkerCell extends ConsumerWidget {
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
         width: sizes.markerWidth,
-        decoration: isExpanded ? null : markerDeco(ref,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
+        decoration: isExpanded ? null : markerDeco(isFiltered,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
         child: isExpanded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +112,7 @@ class MarkerCell extends ConsumerWidget {
               width: 50.w,
               alignment: Alignment.center,
               decoration: markerDeco(
-                ref,date,context.isLight,selectedMonth,month,
+                isFiltered,date,context.isLight,selectedMonth,month,
 
               ),
               child: Padding(
@@ -163,7 +163,9 @@ class MarkerCell extends ConsumerWidget {
               },
                 style: TextStyle(
                   height: textHeight,
-                    color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
+                    color: context.isDark
+                        ? isFiltered ? Colors.tealAccent : Colors.grey.shade100
+                        : isFiltered ? Colors.teal.shade800 :  Colors.grey.shade800,
                     fontSize: 8),
               ),
                 TextSpan(
@@ -181,7 +183,9 @@ class MarkerCell extends ConsumerWidget {
                       _ => sizes.fontSizeNonMemo,
                       },
                       fontWeight: FontWeight.bold,
-                      color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade800,
+                      color: context.isDark
+                          ? isFiltered ? Colors.tealAccent : Colors.grey.shade100
+                          : isFiltered ? Colors.teal.shade800 :  Colors.grey.shade800,
                       height: textHeight,
 
                       decoration: event.settlement ? TextDecoration.lineThrough : null,
@@ -205,14 +209,12 @@ class MarkerCell extends ConsumerWidget {
 
 
 BoxDecoration  markerDeco(
-    WidgetRef ref,
+    bool filtered,
     DateTime date,
     bool isLight,
     int selectedMonth,
     int month,
     {bool hasEvent = false}){
-
-  final isFiltered = ref.watch(isDateFilteredProvider(date));
 
   return BoxDecoration(
     boxShadow: selectedMonth == month
@@ -226,13 +228,15 @@ BoxDecoration  markerDeco(
     ] : null,
     borderRadius: BorderRadius.circular(10.0),
     border: selectedMonth == month ? Border.all(
-        color: Colors.grey.shade800,
+        color: isLight
+            ? filtered ? Colors.teal.shade500 : Colors.grey.shade500
+            : filtered ? Colors.teal.shade200 : Colors.grey.shade200,
         width: 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
         ? isLight
-        ? isFiltered ? Colors.grey.shade300 : Colors.grey.shade200
-        : isFiltered ? Colors.grey.shade800 : Colors.grey.shade900
+        ? filtered ? Colors.teal.shade50 : Colors.grey.shade200
+        : filtered ? Colors.black : Colors.black
         : Colors.transparent,
   );
 }
