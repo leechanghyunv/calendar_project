@@ -1,7 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/provider/calculate_textHeight.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/search_chip_use_cases.dart';
+import '../../../base_app_size.dart';
+import '../../../core/extentions/theme_extension.dart';
 import '../../../view_model/selected_memo_filter.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/info_row.dart';
@@ -34,6 +37,7 @@ class SearchChipScreen extends HookConsumerWidget {
       dismissedMemo: dismissedMemo.value,
     );
 
+    final fontSize = context.width.responsiveSize([14,13.5,13.5,13.5,13,12]);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -43,13 +47,14 @@ class SearchChipScreen extends HookConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
               InfoRow(
                 title: selectedPeriod.value == '1개월'
                     ? '${ref.month}월 메모관리'
                     : '${selectedPeriod.value} 메모관리',
-                subtitle: '칩을 선택하시면 해당 날짜에 해당되는 ',
+                subtitle: '칩을 선택하시면 해당 날짜가 달력상에 표시',
                 trailing: Row(
                   children: [
                     SearchDurationDropdown(
@@ -81,15 +86,21 @@ class SearchChipScreen extends HookConsumerWidget {
                         horizontal: 8,
                         vertical: 16),
                     decoration: BoxDecoration(
-                      color: Colors.teal[50],
+                      color: context.isDark ?  Colors.black54 :  Colors.teal[50],
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.teal, width: 1),
+                      border: Border.all(
+                          color: context.isDark ? Colors.tealAccent : Colors.teal,
+                          width: 1),
                     ),
+
+
+
                     child: Text(
                       '${selectedLongMemo}',
                       style: TextStyle(
-                        color: Colors.teal[900],
-                        fontSize: 13.5,
+                        color: context.isDark ? Colors.white : Colors.teal[800],
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSize,
                       ),
                     ),
                   ),
@@ -97,39 +108,46 @@ class SearchChipScreen extends HookConsumerWidget {
                     : SizedBox.shrink(),
               ),
 
-              Expanded(
-                child: Wrap(
-                  spacing: 8,
-                  runSpacing: 2,
-                  children: memoCountMap.entries.map((entry) {
-                    final memo = entry.key;
-                    final count = entry.value;
-                    final isSelected = selectedMemos.contains(memo);
-                    final displayText = count > 1 ? '$memo ($count)' : memo;
+              Wrap(
+                spacing: 8,
+                runSpacing: 2,
+                alignment: WrapAlignment.start,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: memoCountMap.entries.map((entry) {
+                  final memo = entry.key;
+                  final count = entry.value;
+                  final isSelected = selectedMemos.contains(memo);
+                  final displayText = count > 1 ? '$memo ($count)' : memo;
 
-                    return ChoiceChip(
-                      label: Text(displayText,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 13.0,fontWeight: FontWeight.bold,color: Colors.grey.shade800),
+                  return ChoiceChip(
+                    label: Text(displayText,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.bold,
+                        color: context.isDark
+                            ? Colors.white
+                            : Colors.grey.shade800,
                       ),
-                      selected: isSelected,
-                      selectedColor: Colors.grey[200],
-                      backgroundColor: Colors.grey[200],
-                      side: BorderSide(
-                        color: isSelected ? Colors.grey.shade800 : Colors.grey[200]!,
-                        width: 1.0,
-                      ),
+                    ),
+                    selected: isSelected,
+                    selectedColor: context.isDark ? Colors.black : Colors.grey[200],
+                    backgroundColor: context.isDark ? Colors.black : Colors.grey[200],
+                    side: BorderSide(
+                      color: isSelected
+                          ? context.isDark ? Colors.tealAccent : Colors.grey.shade800
+                          : context.isDark ? Colors.grey.shade200 : Colors.grey[200]!,
+                      width: 1.0,
+                    ),
 
-                      onSelected: (selected) {
-                        dismissedMemo.value = null;
-                        HapticFeedback.selectionClick();
-                        ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
-                      },
-                    );
-                  }).toList(),
-                ),
+                    onSelected: (selected) {
+                      dismissedMemo.value = null;
+                      HapticFeedback.selectionClick();
+                      ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
+                    },
+                  );
+                }).toList(),
               ),
 
 

@@ -10,7 +10,8 @@ List<WorkHistory> useFilteredResults({
     return switch (historyAsync) {
       AsyncData(:final value) => () {
         var results = value;
-        final now = DateTime.now().toUtc();
+        final now = DateTime.now(); // 로컬 기준으로 년/월/일 계산
+        final endOfMonth = DateTime(now.year, now.month + 1, 0, 23, 59, 59).toUtc();
         final periodMonths = switch (selectedPeriod) {
           '1개월' || '최근 1개월' => 1,
           '3개월' => 3,
@@ -20,7 +21,7 @@ List<WorkHistory> useFilteredResults({
           _ => 1,
         };
 
-        final startDate = DateTime.utc(now.year, now.month - periodMonths, now.day);
+        final startDate = DateTime.utc(endOfMonth.year, endOfMonth.month - periodMonths, endOfMonth.day);
 
         return results
             .where((h) => h.date.toUtc().isAfter(startDate))

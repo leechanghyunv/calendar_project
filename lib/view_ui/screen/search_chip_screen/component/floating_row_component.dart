@@ -11,6 +11,7 @@ import '../../../../core/extentions/theme_color.dart';
 import '../../search_screen/search_screen.dart';
 
 class FloatingRowComponent extends HookConsumerWidget {
+
   const FloatingRowComponent({super.key});
 
   @override
@@ -21,7 +22,7 @@ class FloatingRowComponent extends HookConsumerWidget {
         crossAxisAlignment: .center,
         children: [
           SizedBox(width: 5),
-          TextWidget('13/15', 13.5, context.width,color: context.subTextColor),
+          TextWidget('💬 infomation', 15, context.width,color: context.subTextColor),
           Spacer(),
           Container(
             decoration: BoxDecoration(

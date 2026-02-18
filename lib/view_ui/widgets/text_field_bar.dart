@@ -29,6 +29,9 @@ class TextFieldBar extends HookConsumerWidget {
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
 
+    // 🔥 화면 빌드 후 자동으로 포커스
+
+
     return Container(
       decoration: BoxDecoration(
         color: context.isDark ? Colors.black87 : Colors.grey[100],

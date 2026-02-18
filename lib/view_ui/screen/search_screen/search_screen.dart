@@ -1,5 +1,4 @@
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:calendar_project_240727/view_ui/screen/search_screen/search_list_component.dart';
 import 'package:calendar_project_240727/view_ui/screen/search_screen/search_result_component.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
@@ -24,10 +23,18 @@ class SearchScreen extends HookConsumerWidget {
 
     final searchQuery = useState('');
 
-    final searchHistory = searchHistoryAsync.maybeWhen(
-      data: (data) => data,
-      orElse: () => <String>[],
-    );
+    // final searchHistory = searchHistoryAsync.maybeWhen(
+    //   data: (data) => data,
+    //   orElse: () => <String>[],
+    // );
+
+    useEffect(() {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        searchNode.requestFocus();
+      });
+      return null;
+    }, []);
+
 
     // 🔍 필터링된 검색 결과
     final filteredResults = useMemoized(() {
@@ -96,19 +103,19 @@ class SearchScreen extends HookConsumerWidget {
                 SizedBox(height: 20),
 
                 // 🕐 검색 히스토리
-                SearchListWidget(
-                  searchHistory: searchHistory,
-                  searchController: searchController,
-                  searchQuery: searchQuery,
-                  searchNode: searchNode,
-                  isVisible: !isKeyboardVisible,
-                  onDeleteKeyword: (keyword) {
-                    ref.read(searchHistoryNotifierProvider.notifier).removeKeyword(keyword);
-                  },
-                  onClearAll: () {
-                    ref.read(searchHistoryNotifierProvider.notifier).clearAll();
-                  },
-                ),
+                // SearchListWidget(
+                //   searchHistory: searchHistory,
+                //   searchController: searchController,
+                //   searchQuery: searchQuery,
+                //   searchNode: searchNode,
+                //   isVisible: !isKeyboardVisible,
+                //   onDeleteKeyword: (keyword) {
+                //     ref.read(searchHistoryNotifierProvider.notifier).removeKeyword(keyword);
+                //   },
+                //   onClearAll: () {
+                //     ref.read(searchHistoryNotifierProvider.notifier).clearAll();
+                //   },
+                // ),
 
                 // 📋 검색 결과 영역
                 Expanded(
