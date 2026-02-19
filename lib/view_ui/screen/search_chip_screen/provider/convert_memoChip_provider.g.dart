@@ -6,7 +6,7 @@ part of 'convert_memoChip_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$convertMemoChipHash() => r'82d0d388b8c9b2557f70954635d6baef1517c1da';
+String _$convertMemoChipHash() => r'64bfc70622a2f29f64fea0e0e4c43d71469209af';
 
 /// See also [ConvertMemoChip].
 @ProviderFor(ConvertMemoChip)

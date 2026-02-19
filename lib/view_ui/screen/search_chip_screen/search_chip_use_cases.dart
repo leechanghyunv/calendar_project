@@ -1,37 +1,31 @@
+import 'package:dartx/dartx.dart';
+
 import '../../../../model/work_history_model.dart';
 import '../../../core/export_package.dart';
 
 // 기간 필터링된 결과
 List<WorkHistory> useFilteredResults({
   required AsyncValue<List<WorkHistory>> historyAsync,
-  required String selectedPeriod,
+  required DateTime selectedDate,
 }) {
   return useMemoized(() {
     return switch (historyAsync) {
       AsyncData(:final value) => () {
-        var results = value;
-        final now = DateTime.now(); // 로컬 기준으로 년/월/일 계산
-        final endOfMonth = DateTime(now.year, now.month + 1, 0, 23, 59, 59).toUtc();
-        final periodMonths = switch (selectedPeriod) {
-          '1개월' || '최근 1개월' => 1,
-          '3개월' => 3,
-          '6개월' => 6,
-          '12개월' => 12,
-          '18개월' => 18,
-          _ => 1,
-        };
+        final start = selectedDate.firstDayOfMonth;
+        final end = selectedDate.lastDayOfMonth;
 
-        final startDate = DateTime.utc(endOfMonth.year, endOfMonth.month - periodMonths, endOfMonth.day);
-
-        return results
-            .where((h) => h.date.toUtc().isAfter(startDate))
+        return value
+            .where((h) {
+          final d = h.date.toLocal();
+          return !d.isBefore(start) && !d.isAfter(end);
+        })
             .where((h) => h.memo.isNotEmpty)
             .toList()
           ..sort((a, b) => b.date.compareTo(a.date));
       }(),
       _ => <WorkHistory>[],
     };
-  }, [historyAsync, selectedPeriod]);
+  }, [historyAsync,selectedDate]);
 }
 
 // 메모별 카운트 Map

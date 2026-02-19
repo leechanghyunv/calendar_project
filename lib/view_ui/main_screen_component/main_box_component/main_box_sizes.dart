@@ -43,14 +43,6 @@ class MainBoxSizes {
     _ => 10,
   };
 
-  // double get chartBoxHeight => switch(width) {
-  //   >= 400 => isFold ? 155 : 170,
-  //   >= 390 => 155,
-  //   >= 375 => 135,
-  //   _ => 135,
-  // };
-
-
   double get boxHeight => switch(width) {
     > 410 => isFold ? 72.5 : 80.0,
     < 376 => 65.0,

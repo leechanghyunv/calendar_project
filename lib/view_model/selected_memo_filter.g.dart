@@ -6,7 +6,7 @@ part of 'selected_memo_filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filteredDatesHash() => r'bbaee0d04b43f349dcca3c2729ba669ce7816e02';
+String _$filteredDatesHash() => r'200dcfaed577a6acccdcc14abb97124cd926aa6f';
 
 /// See also [filteredDates].
 @ProviderFor(filteredDates)
@@ -23,7 +23,24 @@ final filteredDatesProvider = AutoDisposeProvider<Set<DateTime>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FilteredDatesRef = AutoDisposeProviderRef<Set<DateTime>>;
-String _$isDateFilteredHash() => r'f66f03c2266a6b2d2129e3fbbed83c6220bf1e31';
+String _$filteredTotalPayHash() => r'7b8bbef7d5cb116ce3bc26ae4b63ec9bbfc7dbb3';
+
+/// See also [filteredTotalPay].
+@ProviderFor(filteredTotalPay)
+final filteredTotalPayProvider = AutoDisposeProvider<int>.internal(
+  filteredTotalPay,
+  name: r'filteredTotalPayProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$filteredTotalPayHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef FilteredTotalPayRef = AutoDisposeProviderRef<int>;
+String _$isDateFilteredHash() => r'ad47354fe5dbe6007e29a5b2db3ce5b19f4c83bb';
 
 /// Copied from Dart SDK
 class _SystemHash {

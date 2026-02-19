@@ -1,3 +1,5 @@
+import 'package:animated_emoji/emoji.dart';
+import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
@@ -7,9 +9,9 @@ import '../../../base_app_size.dart';
 import '../../../core/extentions/theme_extension.dart';
 import '../../../view_model/selected_memo_filter.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
+import '../../minor_issue/widget/month_move_button.dart';
 import '../../widgets/info_row.dart';
 import 'component/floating_row_component.dart';
-import 'component/search_duration_dropDown.dart';
 
 class SearchChipScreen extends HookConsumerWidget {
   const SearchChipScreen({super.key});
@@ -19,15 +21,13 @@ class SearchChipScreen extends HookConsumerWidget {
 
     final historyAsync = ref.watch(viewHistoryProvider);
 
-    final selectedPeriod = useState('1개월');
-
     final selectedMemos = ref.watch(selectedMemoFilterProvider);
 
     final dismissedMemo = useState<String?>(null);
 
     final filteredResults = useFilteredResults(
       historyAsync: historyAsync,
-      selectedPeriod: selectedPeriod.value,
+      selectedDate: ref.selected,
     );
 
     final memoCountMap = useMemoCountMap(filteredResults);
@@ -51,17 +51,9 @@ class SearchChipScreen extends HookConsumerWidget {
             children: [
               SizedBox(height: 20),
               InfoRow(
-                title: selectedPeriod.value == '1개월'
-                    ? '${ref.month}월 메모관리'
-                    : '${selectedPeriod.value} 메모관리',
+                title: '${ref.monthString}월 메모관리',
                 subtitle: '칩을 선택하시면 해당 날짜가 달력상에 표시',
-                trailing: Row(
-                  children: [
-                    SearchDurationDropdown(
-                      controller: selectedPeriod,
-                    ),
-                  ],
-                ),
+                trailing: MonthMoveButton(),
               ),
 
               AnimatedContainer(
@@ -113,12 +105,51 @@ class SearchChipScreen extends HookConsumerWidget {
                 runSpacing: 2,
                 alignment: WrapAlignment.start,
                 crossAxisAlignment: WrapCrossAlignment.center,
-                children: memoCountMap.entries.map((entry) {
+                children: memoCountMap.isEmpty
+                    ? [
+
+                  ChoiceChip(
+                    label: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AnimatedEmoji(
+                          AnimatedEmojis.headShake,
+                          repeat: false,
+                          animate: true,
+                          size: 20,
+                        ),
+                        SizedBox(width: 5),
+                        Text('${ref.monthString}월 메모가 없습니다',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: fontSize,
+                            fontWeight: FontWeight.bold,
+                            color: context.isDark
+                                ? Colors.white
+                                : Colors.grey.shade800,
+                          ),
+                        ),
+                      ],
+                    ),
+                    selected: false,
+                    selectedColor: context.isDark ? Colors.black : Colors.grey[100],
+                    backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
+                    side: BorderSide(
+                      color: context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
+                      width: 1.0,
+                    ),
+                    onSelected: (selected) {
+                      dismissedMemo.value = null;
+                      HapticFeedback.selectionClick();
+                    },
+                  ),
+
+                ] : memoCountMap.entries.map((entry) {
                   final memo = entry.key;
                   final count = entry.value;
                   final isSelected = selectedMemos.contains(memo);
                   final displayText = count > 1 ? '$memo ($count)' : memo;
-
                   return ChoiceChip(
                     label: Text(displayText,
                       maxLines: 1,
@@ -132,15 +163,14 @@ class SearchChipScreen extends HookConsumerWidget {
                       ),
                     ),
                     selected: isSelected,
-                    selectedColor: context.isDark ? Colors.black : Colors.grey[200],
-                    backgroundColor: context.isDark ? Colors.black : Colors.grey[200],
+                    selectedColor: context.isDark ? Colors.black : Colors.grey[100],
+                    backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
                     side: BorderSide(
                       color: isSelected
-                          ? context.isDark ? Colors.tealAccent : Colors.grey.shade800
-                          : context.isDark ? Colors.grey.shade200 : Colors.grey[200]!,
-                      width: 1.0,
+                          ? context.isDark ? Colors.tealAccent : Colors.grey.shade400
+                          : context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
+                      width: 1.25,
                     ),
-
                     onSelected: (selected) {
                       dismissedMemo.value = null;
                       HapticFeedback.selectionClick();

@@ -229,8 +229,8 @@ BoxDecoration  markerDeco(
     borderRadius: BorderRadius.circular(10.0),
     border: selectedMonth == month ? Border.all(
         color: isLight
-            ? filtered ? Colors.teal.shade500 : Colors.grey.shade500
-            : filtered ? Colors.teal.shade200 : Colors.grey.shade200,
+            ? filtered ? Colors.teal.shade400 : Colors.grey.shade400
+            : filtered ? Colors.teal.shade500 : Colors.grey.shade500,
         width: 0.2) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month

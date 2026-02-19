@@ -1,5 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/provider/convert_memoChip_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/month_move_button.dart';
@@ -17,7 +18,11 @@ class MainBox extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final isFold = ref.watch(isGalaxyFoldProvider);
+    final memoChip = ref.watch(convertMemoChipProvider.future);
+
     final isFoldValue = isFold.asData?.value ?? false;
+
+
     final width = context.width; // ✅ 한 번만 가져오기
 
     final boxSizes = MainBoxSizes(
@@ -80,6 +85,7 @@ class MainBox extends ConsumerWidget {
                 SizedBox(
                     width: 10,
                 ),
+                /// SearchChipBox
                 Expanded(
                   flex: 10,
                     child: ColumnReactiveBox(),

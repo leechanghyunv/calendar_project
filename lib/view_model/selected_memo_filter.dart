@@ -1,5 +1,8 @@
 
+import 'package:dartx/dartx.dart';
+
 import '../repository/repository_import.dart';
+import '../repository/time/calendar_time_controll.dart';
 
 part 'selected_memo_filter.g.dart';
 
@@ -21,7 +24,7 @@ class SelectedMemoFilter extends _$SelectedMemoFilter {
 }
 
 @riverpod
-Set<DateTime> filteredDates(FilteredDatesRef ref) {
+Set<DateTime> filteredDates(Ref ref) {
   final selectedMemos = ref.watch(selectedMemoFilterProvider);
   final historyAsync = ref.watch(viewHistoryProvider);
 
@@ -39,7 +42,30 @@ Set<DateTime> filteredDates(FilteredDatesRef ref) {
 }
 
 @riverpod
-bool isDateFiltered(IsDateFilteredRef ref, DateTime date) {
+int filteredTotalPay(Ref ref) {
+  final selectedMemos = ref.watch(selectedMemoFilterProvider);
+  final historyAsync = ref.watch(viewHistoryProvider);
+
+  final date = ref.watch(timeManagerProvider);
+
+  final start = date.selected.firstDayOfMonth;
+  final end = date.selected.lastDayOfMonth;
+
+  return switch (historyAsync) {
+    AsyncData(:final value) => value
+        .where((h) {
+      final d = h.date.toLocal();
+      return !d.isBefore(start) && !d.isAfter(end);
+    })
+        .where((h) => selectedMemos.contains(h.memo))
+        .sumBy((e) => e.pay),
+    _ => 0,
+
+  };
+}
+
+@riverpod
+bool isDateFiltered(Ref ref, DateTime date) {
   final filteredDates = ref.watch(filteredDatesProvider);
   final normalizedDate = DateTime(date.year, date.month, date.day);
   return filteredDates.contains(normalizedDate);
