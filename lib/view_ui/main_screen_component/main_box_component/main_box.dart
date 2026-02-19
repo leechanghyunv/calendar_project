@@ -6,6 +6,7 @@ import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/month_move_button.dart';
 import '../chart_box_conponent/chart_box.dart';
 import '../column_box_component/column_box.dart';
+import '../search_chip_box_component/search_chip_box.dart';
 import 'controll_chip_component.dart';
 import 'main_box_big_container.dart';
 import 'main_box_sizes.dart';
@@ -18,7 +19,6 @@ class MainBox extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final isFold = ref.watch(isGalaxyFoldProvider);
-    final memoChip = ref.watch(convertMemoChipProvider.future);
 
     final isFoldValue = isFold.asData?.value ?? false;
 

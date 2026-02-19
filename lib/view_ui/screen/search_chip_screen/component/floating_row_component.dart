@@ -29,8 +29,17 @@ class FloatingRowComponent extends HookConsumerWidget {
         children: [
           SizedBox(width: 7.5),
           if (filteredPay > 0)
-            AnimatedTotal(
-              end: filteredPay,
+            Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: AnimatedTotal(
+                  end: filteredPay,
+                ),
+              ),
             ),
           Spacer(),
           Container(
@@ -56,10 +65,10 @@ class FloatingRowComponent extends HookConsumerWidget {
                   SizedBox(width: 20),
                   GestureDetector(
                       onTap: (){
-                        HapticFeedback.selectionClick();
-                        ref.read(convertMemoChipProvider.notifier).convert();
-                        customMsg('메인화면에 등록되었습니다');
-                        Navigator.pop(context);
+                        // HapticFeedback.selectionClick();
+                        // ref.read(convertMemoChipProvider.notifier).convert();
+                        // customMsg('메인화면이 변경되었습니다');
+                        // Navigator.pop(context);
                       },
                       child: Icon(MdiIcons.refresh,color: context.subTextColor)),
                   SizedBox(width: 20),

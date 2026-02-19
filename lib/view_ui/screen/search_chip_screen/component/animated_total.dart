@@ -35,13 +35,13 @@ class AnimatedTotal extends ConsumerWidget {
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // AnimatedEmoji(
-            //   AnimatedEmojis.coin,
-            //   repeat: true,
-            //   animate: true,
-            //   size: 20,
-            // ),
-            // SizedBox(width: 7.5),
+            AnimatedEmoji(
+              AnimatedEmojis.coin,
+              repeat: true,
+              animate: true,
+              size: 20,
+            ),
+            SizedBox(width: 7.5),
             TextWidget(displayText, 15,
                 context.width,color: context.subTextColor),
           ],

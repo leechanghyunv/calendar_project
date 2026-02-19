@@ -39,12 +39,12 @@ class SearchChipScreen extends HookConsumerWidget {
 
     final fontSize = context.width.responsiveSize([14,13.5,13.5,13.5,13,12]);
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        top: true,
-        bottom: true,
-        child: Padding(
+    return SafeArea(
+      top: true,
+      bottom: true,
+      child: Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,6 @@ class SearchChipScreen extends HookConsumerWidget {
                 subtitle: '칩을 선택하시면 해당 날짜가 달력상에 표시',
                 trailing: MonthMoveButton(),
               ),
-
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 height: selectedLongMemo != null
@@ -99,7 +98,7 @@ class SearchChipScreen extends HookConsumerWidget {
                 )
                     : SizedBox.shrink(),
               ),
-
+              
               Wrap(
                 spacing: 8,
                 runSpacing: 2,
@@ -185,10 +184,10 @@ class SearchChipScreen extends HookConsumerWidget {
             ],
           ),
         ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingRowComponent(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingRowComponent(),
 
+      ),
     );
   }
 }
