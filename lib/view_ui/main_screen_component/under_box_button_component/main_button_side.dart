@@ -1,41 +1,30 @@
+import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-
-import '../../../app_review.dart';
 import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
-import '../../../view_model/view_provider/is_galaxy_fold.dart';
+import '../../screen/app_review_screen/app_review_screen.dart';
 import '../../screen/question_screen/question_screen_modal.dart';
 import '../../version_introduce/new_version_dialog.dart';
 import '../main_box_component/main_box_sizes.dart';
 
-class MainButtonSide extends ConsumerStatefulWidget {
+class MainButtonSide extends HookConsumerWidget {
   const MainButtonSide({super.key});
 
   @override
-  ConsumerState<MainButtonSide> createState() => _MainButtonSideState();
-}
-
-class _MainButtonSideState extends ConsumerState<MainButtonSide> {
-
-
-  final InAppReview inAppReview = InAppReview.instance;
-
-
-  @override
-  Widget build(BuildContext context) {
-    final appWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
-    final version = ref
-        .watch(versionProvider.notifier)
-        .version;
+  Widget build(BuildContext context,WidgetRef ref) {
+    final appWidth = context.width;
+    final version = ref.watch(versionProvider.notifier).version;
 
     final boxSizes = MainBoxSizes(
       width: appWidth,
     );
+
+    useEffect(() {
+      Future.microtask(() => ref.read(versionProvider.notifier).refreshConfig());
+      return null;
+    }, []);
 
     Widget sideButton(bool isDark, String msg) =>
         Container(
@@ -53,7 +42,6 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
 
 
     return Padding(
-
       /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
       padding: EdgeInsets.only(
           bottom: appWidth < 376 ? 2.5 : 10),
@@ -65,7 +53,7 @@ class _MainButtonSideState extends ConsumerState<MainButtonSide> {
         switch (value) {
           'option1' => context.dialog(NewVersionDialog()),
           'option2' => questionModal(context),
-          'option3' => context.dialog(CustomReviewDialog()),
+          'option3' => showReviewModal(context),
           _ => null,
         },
         padding: EdgeInsets.zero,

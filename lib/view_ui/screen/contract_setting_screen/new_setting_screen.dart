@@ -1,11 +1,10 @@
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/setting_use_cases.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/new_Site_registration.dart';
-import 'package:collection/collection.dart';
 import '../../../base_app_size.dart';
 import '../../../base_consumer.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../../model/work_history_model.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/dual_field_bar.dart';
@@ -24,33 +23,12 @@ class NewSettingScreen extends HookConsumerWidget {
     final selectedDate = useState(ref.selected);
     final endDate = useState(DateTime.now());
 
-
     final isActive = ref.watch(memoActiveProvider);
     final history = ref.watch(viewHistoryProvider);
+    final histories = history.valueOrNull ?? [];
 
-    final initialMemo = history.maybeWhen(
-      data: (histories) {
-        final found = histories.firstWhere(
-              (h) => h.date.year == ref.selected.year &&
-              h.date.month == ref.selected.month &&
-              h.date.day == ref.selected.day,
-          orElse: () => WorkHistory(date: ref.selected), // 없으면 빈 값
-        );
-        return found.memo;
-      },
-      orElse: () => '',
-    );
-
-
-    final initialRecord = history.maybeWhen(
-      data: (histories) {
-        final found = histories.firstWhereOrNull(
-              (h) => isSameDay(h.date, ref.selected),
-        );
-        return found?.record.toString() ?? '';
-      },
-      orElse: () => '',
-    );
+    final initialMemo = resolveInitialMemo(histories, ref.selected);
+    final initialRecord = resolveInitialRecord(histories, ref.selected);
 
     final memoController = useTextEditingController(text: initialMemo);
     final decimalController = useTextEditingController(text: initialRecord);
@@ -73,6 +51,13 @@ class NewSettingScreen extends HookConsumerWidget {
 
       return null;
     }, [selectedDate.value, endDate.value]);
+
+    useEffect(() {
+      Future.microtask(() =>
+      ref.read(memoActiveProvider.notifier).state = false
+      );
+      return null;
+    }, const []);
 
     return SafeArea(
       child: Scaffold(

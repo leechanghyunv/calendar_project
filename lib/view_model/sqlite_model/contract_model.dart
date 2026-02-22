@@ -2,12 +2,13 @@ import 'dart:core';
 
 import 'package:calendar_project_240727/repository/sqlite/sqlite_contract_database.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../core/export_package.dart';
 import '../../model/contract_model.dart';
 part 'contract_model.g.dart';
 
 
 @Riverpod(keepAlive: true)
-Future<List<LabourCondition>> viewContract(ViewContractRef ref) async {
+Future<List<LabourCondition>> viewContract(Ref ref) async {
 
   final db = await ref.read(labourConditionManagerProvider.future);
 
@@ -15,14 +16,14 @@ Future<List<LabourCondition>> viewContract(ViewContractRef ref) async {
 }
 
 @riverpod
-Future<void> addContract(AddContractRef ref,LabourCondition condition) async {
+Future<void> addContract(Ref ref,LabourCondition condition) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   db.insertLabourCondition(condition);
   ref.invalidate(viewContractProvider);
 }
 
 @riverpod
-Future<void> updateContract(UpdateContractRef ref, int goal) async {
+Future<void> updateContract(Ref ref, int goal) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   db.updateLastLabourConditionGoal(goal);
   await Future.delayed(const Duration(milliseconds: 200));
@@ -31,7 +32,7 @@ Future<void> updateContract(UpdateContractRef ref, int goal) async {
 
 
 @riverpod
-Future<void> updateSubsidy(UpdateSubsidyRef ref,int newSubsidy) async {
+Future<void> updateSubsidy(Ref ref,int newSubsidy) async {
   final db = await ref.read(labourConditionManagerProvider.future);
   await db.updateLastLabourConditionSubsidy(newSubsidy);
   await Future.delayed(const Duration(milliseconds: 200));
@@ -39,7 +40,7 @@ Future<void> updateSubsidy(UpdateSubsidyRef ref,int newSubsidy) async {
 }
 
 @riverpod
-Future<void> clearContract(ClearContractRef ref,LabourCondition condition) async {
+Future<void> clearContract(Ref ref,LabourCondition condition) async {
   final db = await ref.watch(labourConditionManagerProvider.future);
   await Future.delayed(const Duration(milliseconds: 200));
    db.truncateLabourCondition();

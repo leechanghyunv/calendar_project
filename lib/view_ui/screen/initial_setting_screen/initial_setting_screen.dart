@@ -101,7 +101,8 @@ class InitialSettingScreen extends HookConsumerWidget {
     return SafeArea(
         child: Scaffold(
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 16),
+            padding: const EdgeInsets.symmetric(
+                vertical: 8.0,horizontal: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

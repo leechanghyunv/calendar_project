@@ -10,7 +10,6 @@ import '../../../model/work_history_model.dart';
 import '../../../repository/back_up/archive_zlib_base64.dart';
 import '../../../view_model/view_provider/focus_node_listner.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
-import '../dialog_text.dart';
 
 import 'back_up_dialog_textSpan.dart';
 import 'back_up_dropdown_box.dart';
@@ -131,7 +130,6 @@ class BackUpDialog extends HookConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                   ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
-                  // customMsg('버전충돌문제로 잠시 서비스 지원을 중단합니다');
                   },
                 child: TextWidget('공수기록 백업', 14, context.width,color: context.textColor)
             ),

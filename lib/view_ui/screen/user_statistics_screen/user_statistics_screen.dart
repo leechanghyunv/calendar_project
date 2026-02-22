@@ -9,7 +9,7 @@ import '../initial_setting_screen/initial_setting_screen.dart';
 import 'component/intro_text.dart';
 import 'component/statistics_filter_chip.dart';
 import 'component/statistics_box.dart';
-import 'component/statistics_filter_modal.dart';
+
 
 class UserStatisticsScreen extends HookConsumerWidget {
   const UserStatisticsScreen({super.key});
@@ -54,7 +54,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                   children: [
                                     AnimatedEmoji(
                                       AnimatedEmojis.wave.mediumLight,
-                                      repeat: false,
+                                      repeat: true,
                                       animate: true,
                                       size: width > 400 ? 18 : 17,
                                     ),
@@ -70,8 +70,8 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                   ),
                                 ),
                                 Row(
+                                  crossAxisAlignment: .center,
                                   children: [
-                                    /// 근로조건 설정하기
                                     Expanded(
                                       child: GestureDetector(
                                         onTap: () => initialModal(context),
@@ -117,13 +117,10 @@ class UserStatisticsScreen extends HookConsumerWidget {
                     SizedBox(height: height > 750 ? 20 : 15),
                     // StatisticsFilterModal(),
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width < 370 ? 2.5 : 4.0),
-                      child: StatisticsFilterChip(
+                    StatisticsFilterChip(
                         nestedScrollController
-                      ),
                     ),
+
                     context.height > 850 ? SizedBox(height: 5) : SizedBox.shrink(),
                     Padding(
                       padding:  EdgeInsets.symmetric(

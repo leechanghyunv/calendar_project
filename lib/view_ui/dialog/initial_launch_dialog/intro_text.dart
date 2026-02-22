@@ -1,9 +1,11 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
+import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
+import '../../../core/extentions/theme_extension.dart';
 
 Widget initialText(BuildContext context,double height) {
-  final fontSize = height >= 850 ? 15.5 : height > 750 ? 14.0 : 13.5;
+  final fontSize = context.width.responsiveSize([15,14,14,13.5,13,12.5]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.6 : 1.20,
     fontWeight: FontWeight.w600,

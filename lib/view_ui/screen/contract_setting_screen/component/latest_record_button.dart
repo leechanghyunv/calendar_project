@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../base_app_size.dart';
+import '../../../../base_consumer.dart';
 import '../../../../core/dark_light/dark_light.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/extentions/theme_extension.dart';
@@ -31,6 +32,7 @@ class LatestRecordButton extends HookConsumerWidget {
         textController.text = latest.memo;
         decimalController.text = latest.record.toString();
         ref.read(isSettlementProvider.notifier).state = latest.settlement;
+        ref.formzMemoRead.onChangeMemo(textController.text);
         // ref.read(selectedWorksiteProvider.notifier).state = latest.workSite;
       },
       child: Container(

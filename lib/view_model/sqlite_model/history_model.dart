@@ -22,27 +22,27 @@ void invalidateProviders(Ref ref) {
 }
 
 @riverpod
-Future<List<WorkHistory>> viewHistory(ViewHistoryRef ref) async {
+Future<List<WorkHistory>> viewHistory(Ref ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   return db.getAllWorkHistories();
 }
 
 @riverpod
 Future<List<WorkHistory>> viewRangeHistory(
-    ViewRangeHistoryRef ref, DateTime start, DateTime end) async {
+    Ref ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   return db.getFilteredHistory(start, end);
 }
 
 @riverpod
-Future<void> addAllHistory(AddAllHistoryRef ref, List<WorkHistory> list) async {
+Future<void> addAllHistory(Ref ref, List<WorkHistory> list) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.insertOrOverwriteWorkHistories(list);
   invalidateProviders(ref);
 }
 
 @riverpod
-Future<void> addHistory(AddHistoryRef ref,
+Future<void> addHistory(Ref ref,
     int pay, DateTime date,{double? decimal}) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
@@ -95,14 +95,14 @@ Future<void> addHistory(AddHistoryRef ref,
 
 @riverpod
 Future<void> rangeExcludHoliday(
-    RangeExcludHolidayRef ref, WorkHistory history,DateTime start,DateTime end) async {
+    Ref ref, WorkHistory history,DateTime start,DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
    db.insertWorkHistoryExcludeHolidays(start, end, history);
    invalidateProviders(ref);
 }
 
 @riverpod
-Future<WorkHistory> latestHistory(LatestHistoryRef ref) async {
+Future<WorkHistory> latestHistory(Ref ref) async {
   final selected = ref.watch(timeManagerProvider.notifier);
   final history = ref.watch(viewHistoryProvider);
 
@@ -124,7 +124,7 @@ Future<WorkHistory> latestHistory(LatestHistoryRef ref) async {
 
 
 @riverpod
-Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {
+Future<void> deleteHistory(Ref ref, DateTime time) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteHistory $time');
   db.deleteWorkHistory(time);
@@ -133,7 +133,7 @@ Future<void> deleteHistory(DeleteHistoryRef ref, DateTime time) async {
 
 @riverpod
 Future<void> deleteMonthHistory(
-    DeleteMonthHistoryRef ref, DateTime start, DateTime end) async {
+    Ref ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteMonthHistory $start $end');
   db.deleteWorkHistoryByMonth(start, end);
@@ -141,7 +141,7 @@ Future<void> deleteMonthHistory(
 }
 
 @riverpod
-Future<void> clearHistory(ClearHistoryRef ref) async {
+Future<void> clearHistory(Ref ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.clearWorkHistory();
   invalidateProviders(ref);
@@ -149,7 +149,7 @@ Future<void> clearHistory(ClearHistoryRef ref) async {
 
 @riverpod
 Future<void> updateMemoHistory(
-    UpdateMemoHistoryRef ref, DateTime date, String memo) async {
+    Ref ref, DateTime date, String memo) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.updateMemo(date, memo);
   invalidateProviders(ref);

@@ -1,6 +1,7 @@
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../base_consumer.dart';
 import '../../../core/export_package.dart';
@@ -63,130 +64,50 @@ class SearchChipBox extends HookConsumerWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            Wrap(
-              spacing: 2,
-              runSpacing: 0,
-              alignment: WrapAlignment.start,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: memoCountMap.isEmpty
-                  ? [
-
-                Container(
-                  decoration: BoxDecoration(
-                    color: context.isDark ? Colors.black : Colors.grey[100],
-                    borderRadius: BorderRadius.circular(8),
-                    border: context.isLight ? null : Border.all(
-                      width:  0.25,
-                      color: context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                    ),
-
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AnimatedEmoji(
-                          AnimatedEmojis.headShake,
-                          repeat: false,
-                          animate: true,
-                          size: 20,
-                        ),
-                        SizedBox(width: 5),
-                        Expanded(
-                          child: Text('${ref.monthString}월 메모가 없습니다',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: fontSize,
-                              fontWeight: FontWeight.bold,
-                              color: context.isDark
-                                  ? Colors.white
-                                  : Colors.grey.shade800,
-                            ),
-                          ),
-                        ),
-                      ],
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: .start,
+                children: [
+                  TextWidget('업체정산률', 12.5, context.width),
+                  Spacer(),
+                  /// 38°C
+                  TextWidget('22.2%', 11, context.width,color: context.subTextColor),
+                ],
+              ),
+              SizedBox(height: 5),
+              Divider(thickness: 2.0),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: AnimatedEmoji(
+                        AnimatedEmojis.cursing,
+                        repeat: true,
+                        animate: true,
+                        size: 50,
+                      ),
                     ),
                   ),
-                  // selected: false,
-                  // selectedColor: context.isDark ? Colors.black : Colors.grey[100],
-                  // backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
-                  // side: BorderSide(
-                  //   color: context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                  //   width: 1.0,
-                  // ),
-                  // onSelected: (selected) {
-                  //   dismissedMemo.value = null;
-                  //   HapticFeedback.selectionClick();
-                  // },
-                ),
-
-              ] : memoCountMap.entries.map((entry) {
-                final memo = entry.key;
-                final count = entry.value;
-                final isSelected = selectedMemos.contains(memo);
-                final displayText = count > 1 ? '$memo ($count)' : memo;
-                return Padding(
-                  padding:  EdgeInsets.symmetric(vertical: 4.0),
-                  child: GestureDetector(
-                    onTap: (){
-                      dismissedMemo.value = null;
-                      HapticFeedback.selectionClick();
-                      ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
-                    },
+                  SizedBox(width: 15),
+                  Expanded(
+                    flex: 1,
                     child: Container(
-                      decoration: BoxDecoration(
-                        color: context.isDark ? Colors.black : Colors.grey[100],
-                        borderRadius: BorderRadius.circular(8),
-                        border: context.isLight ? null : Border.all(
-                            width: isSelected ? 0.75 : 0.25,
-                            color: isSelected
-                                ? context.isDark ? Colors.tealAccent : Colors.grey.shade400
-                                : context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                        ),
-
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Text(displayText,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: fontSize,
-                            fontWeight: FontWeight.bold,
-                            color: context.isDark
-                                ? Colors.white
-                                : Colors.grey.shade800,
-                          ),
-                        ),
-                      ),
-                      // selected: isSelected,
-                      // selectedColor: context.isDark ? Colors.black : Colors.grey[100],
-                      // backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
-                      // side: BorderSide(
-                      //   color: isSelected
-                      //       ? context.isDark ? Colors.tealAccent : Colors.grey.shade400
-                      //       : context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                      //   width: 1.25,
-                      // ),
-                      // onSelected: (selected) {
-                      //   dismissedMemo.value = null;
-                      //   HapticFeedback.selectionClick();
-                      //   ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
-                      // },
-                    ),
+                      child: Text('욕나온다 진짜 욕나온다 진짜 욕나온다 진짜 욕나온다 진짜',style: TextStyle(fontSize: 10),),
+                    )
                   ),
-                );
-              }).toList(),
-            ),
+                ],
+              ),
+              SizedBox(height: 5),
+              Text('어지러움증을 느끼신다면 반드시 작업을 멈추세요 반장님 ^^',style: TextStyle(fontSize: 10),),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

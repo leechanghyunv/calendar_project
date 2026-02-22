@@ -20,7 +20,7 @@ final _calendarCacheProvider = StateProvider<CalendarCache?>((ref) => null);
 
 @riverpod
 Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
-    CalendarEventRef ref) async {
+    Ref ref) async {
 
 
   final (year, month) = ref.watch(timeManagerProvider.select(
@@ -54,7 +54,7 @@ Future<Map<DateTime, List<WorkHistory>>> calendarEvent(
 
 
 @riverpod
-Future<Map<DateTime, List<WorkHistory>>> calendarTotalEvent(CalendarTotalEventRef ref) async {
+Future<Map<DateTime, List<WorkHistory>>> calendarTotalEvent(Ref ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final result = await db.calendarTotalHistory();
   return result;

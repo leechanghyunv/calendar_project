@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../calendar/calendar_widget.dart';
@@ -30,6 +29,8 @@ class CalendarScreen extends HookConsumerWidget {
     }, []);
 
     print('height: ${context.height} width: ${context.width}');
+
+
 
     return Scaffold(
       body: SingleChildScrollView(

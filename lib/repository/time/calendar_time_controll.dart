@@ -31,11 +31,6 @@ class TimeManager extends _$TimeManager {
         focused: focused);
   }
 
-  // void carouselPageChanged(DateTime selected) {
-  //   state = state.copyWith(
-  //       selected: DateTime.utc(selected.year, selected.month, selected.day),
-  //       );
-  // }
 
   void onPageChanged(DateTime? focused) {
     if (focused != null) {

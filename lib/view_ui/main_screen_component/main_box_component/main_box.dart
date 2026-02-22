@@ -1,12 +1,10 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
-import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/provider/convert_memoChip_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/month_move_button.dart';
 import '../chart_box_conponent/chart_box.dart';
 import '../column_box_component/column_box.dart';
-import '../search_chip_box_component/search_chip_box.dart';
 import 'controll_chip_component.dart';
 import 'main_box_big_container.dart';
 import 'main_box_sizes.dart';
@@ -86,6 +84,7 @@ class MainBox extends ConsumerWidget {
                     width: 10,
                 ),
                 /// SearchChipBox
+                /// ColumnReactiveBox()
                 Expanded(
                   flex: 10,
                     child: ColumnReactiveBox(),

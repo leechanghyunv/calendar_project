@@ -4,13 +4,13 @@ import '../../model/contract_model.dart';
 part 'sqlite_contract_database.g.dart';
 
 @riverpod
-Future<ContractDatabase> labourConditionManager( ref) async {
+Future<ContractDatabase> labourConditionManager(ref) async {
   final db = await ref.watch(initConditionProvider.future);
   return ContractDatabase(db);
 }
 
 @riverpod
-Future<Database> initCondition(InitConditionRef ref) async {
+Future<Database> initCondition(Ref ref) async {
   final dbPath = await getDatabasesPath();
   final path = join(dbPath, 'labour_condition.db');
 

@@ -10,12 +10,12 @@ part 'supabase_service.g.dart';
 
 
 @riverpod
-SupaBaseRepository supaBaseService(SupaBaseServiceRef ref) {
+SupaBaseRepository supaBaseService(Ref ref) {
   return SupaBaseRepository(ref);
 }
 
 class SupaBaseRepository{
-  final SupaBaseServiceRef _ref;
+  final Ref _ref;
   final _supabase = Supabase.instance.client;
 
   SupaBaseRepository(this._ref);

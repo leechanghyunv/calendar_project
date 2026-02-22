@@ -1,5 +1,3 @@
-
-
 import 'package:calendar_project_240727/model/version_introduce_model.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
@@ -13,7 +11,9 @@ part 'firebase_remote_config_model.g.dart';
 class Version extends _$Version {
   late FirebaseRemoteConfig _remoteConfig;
 
-  String get version => state.value?.version ?? '1.5.8';
+  String versionInfo = Platform.isAndroid ? '1.7.1' : '1.6.5';
+
+  String get version => state.value?.version ?? versionInfo;
 
   @override
   Future<VersionInfo> build() async {

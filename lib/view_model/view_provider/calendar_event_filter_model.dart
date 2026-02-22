@@ -4,7 +4,7 @@ import '../../repository/time/calculate_day.dart';
 part 'calendar_event_filter_model.g.dart';
 
 @riverpod
-Map<DateTime, List<WorkHistory>> filtedEvents(FiltedEventsRef ref) {
+Map<DateTime, List<WorkHistory>> filtedEvents(Ref ref) {
   final event = ref.watch(calendarEventProvider);
 
   ref.listen(calendarTotalEventProvider, (previous, next) {

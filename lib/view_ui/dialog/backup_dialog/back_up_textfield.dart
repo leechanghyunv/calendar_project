@@ -11,7 +11,7 @@ class BackUpTextField extends StatelessWidget {
   final bool? autofocus;
   final Function(String)? onChanged;
   final void Function()? iconOnPressed;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FocusNode? backupNode;
   final Color? iconColor;
 
@@ -23,44 +23,57 @@ class BackUpTextField extends StatelessWidget {
     this.iconOnPressed,
     this.iconColor,
     this.backupNode,
-    this.controller,
+    required this.controller,
     });
 
   @override
   Widget build(BuildContext context) {
 
     final appWidth = context.width;
-
+    final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(4.0,0.0,2.0,0.0),
-      child: Container(
-        alignment: Alignment.center,
-        child: TextFormField(
-          controller: controller,
-          focusNode: backupNode,
-          cursorColor: Colors.grey.shade700,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: hintText,
-            hintStyle: BackupFontStyle(
-                appWidth.responsiveSize([13,12,12,12,11,10]),
-                width: appWidth).copyWith(
-              color: context.subTextColor,
-            ),
-            suffixIcon: IconButton(
-              iconSize: 30,
-              splashRadius: 25,
-              splashColor: Colors.grey.shade500,
-              onPressed: iconOnPressed,
-              icon: Icon(
-                Icons.fingerprint_sharp,
-                color: iconColor,size: appWidth < 376 ? 22 : 25,
+      padding: const EdgeInsets.fromLTRB(4.0,8.0,2.0,0.0),
+      child: Row(
+        crossAxisAlignment: .end,
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller,
+              focusNode: backupNode,
+              maxLines: 10,
+              cursorColor: Colors.grey.shade700,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: hintText,
+                hintStyle: BackupFontStyle(
+                    appWidth.responsiveSize([13,12,12,12,11,10]),
+                    width: appWidth).copyWith(
+                  color: context.subTextColor,
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+
               ),
+              onChanged: onChanged,
             ),
           ),
-          onChanged: onChanged,
-        ),
+          // IconButton(
+          //   iconSize: 30,
+          //   splashRadius: 25,
+          //   splashColor: Colors.grey.shade500,
+          //   onPressed: iconOnPressed,
+          //   icon: Icon(
+          //     Icons.fingerprint_sharp,
+          //     color: context.isDark
+          //         ? controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
+          //         : controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
+          //     size: iconSize,
+          //   ),
+          // ),
+        ],
       ),
     );
   }

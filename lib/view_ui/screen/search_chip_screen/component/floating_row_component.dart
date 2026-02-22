@@ -1,15 +1,10 @@
-
-import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_model/selected_memo_filter.dart';
-import 'package:calendar_project_240727/view_ui/screen/search_chip_screen/provider/convert_memoChip_provider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
-import '../../../../core/utils/converter.dart';
 import '../../search_screen/search_screen.dart';
 import 'animated_total.dart';
 
@@ -65,10 +60,9 @@ class FloatingRowComponent extends HookConsumerWidget {
                   SizedBox(width: 20),
                   GestureDetector(
                       onTap: (){
-                        // HapticFeedback.selectionClick();
-                        // ref.read(convertMemoChipProvider.notifier).convert();
-                        // customMsg('메인화면이 변경되었습니다');
-                        // Navigator.pop(context);
+                        HapticFeedback.selectionClick();
+                        ref.read(selectedMemoFilterProvider.notifier).clear();
+                        customMsg('모든 선택을 해제합니다');
                       },
                       child: Icon(MdiIcons.refresh,color: context.subTextColor)),
                   SizedBox(width: 20),
@@ -84,7 +78,7 @@ class FloatingRowComponent extends HookConsumerWidget {
                         });
 
                       },
-                      child: Icon(MdiIcons.arrowTopRightThin,color: context.subTextColor)),
+                      child: Icon(Icons.outbond_outlined,color: context.subTextColor)),
                 ],
               ),
             ),

@@ -6,7 +6,7 @@ import 'calculate_day.dart';
 part 'calculate_ranged_day.g.dart';
 
 @riverpod
-int calculatedRange(CalculatedRangeRef ref, DateTime start, DateTime end) {
+int calculatedRange(Ref ref, DateTime start, DateTime end) {
 
   final event = ref.watch(eventsProvider);
   return calculateAdditionalHolidays(event,start,end);

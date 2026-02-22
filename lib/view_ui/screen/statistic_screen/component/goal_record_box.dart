@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
+import '../../../../core/utils/converter.dart';
 import '../provider/info_box_provider.dart';
 import '../provider/statistic_switch_provider.dart';
 
@@ -61,20 +62,22 @@ class GoalRecordBox extends ConsumerWidget {
 
     return contract.whenData(
             (val) {
+
               final goal = (val.last.goal).toStringAsFixed(0);
-              final  left = (val.last.goal/10000 - data.total).toStringAsFixed(0);
-              final goalInt = int.tryParse(goal) ?? 0;
-              final goalValue = goalInt ~/ 10000;
+              final left = formatAmount((val.last.goal - data.total).toInt());
+              final goalValue = (double.tryParse(goal) ?? 0) ~/ 10000;
               final percent = goalValue > 0 ? ((total / goalValue) * 100).floor() : 0;
+
               return Container(
                 width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding: const EdgeInsets.all(0.0),
                   child: Column(
                     children: [
-                      TextWidget(goalValue >= 10000
-                          ? '목표금액은 ${(goalValue / 10000).toStringAsFixed(1)}억원 입니다'
-                          : '목표금액은 ${goalValue}만원 입니다', 18, context.width,fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900),
+                      TextWidget(
+                          '목표금액은 ${formatAmount(goalValue)} 입니다',
+                          18, context.width,
+                          fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900),
 
 
                       goalValue == 0 ? Padding(
@@ -93,7 +96,6 @@ class GoalRecordBox extends ConsumerWidget {
                                 style: TextStyle(
                                   fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                   letterSpacing: 0.75,
-                                  // color: Colors.black,
                                 ),
                               ),
                               TextSpan(text: ' 으로 설정'),
@@ -110,7 +112,7 @@ class GoalRecordBox extends ConsumerWidget {
                               RichText(
                                 textScaler: TextScaler.noScaling,
                                 text: TextSpan(
-                                  text: '남은금액 ${left}만원, ',
+                                  text: '남은금액 ${left}, ',
                                   style: TextStyle(
                                     fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900,
                                     fontSize: height > 750 ? (width > 400 ? 13.5 : 12.5) : width < 350 ? 9 : 11.5,

@@ -141,6 +141,7 @@ class DualFieldBar extends HookConsumerWidget {
                 ],
               ),
             ),
+
           SizedBox(height: 15),
           Container(
             decoration: BoxDecoration(

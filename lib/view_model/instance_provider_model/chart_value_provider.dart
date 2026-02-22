@@ -1,10 +1,11 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../core/export_package.dart';
 import '../filted_instance_model/filted_month_model.dart';
 
 part 'chart_value_provider.g.dart';
 
 @riverpod
-Future<double> lineValue(LineValueRef ref, DateTime month) async {
+Future<double> lineValue(Ref ref, DateTime month) async {
 
   final asyncData = ref.watch(monthRecordProvider(month));
 

@@ -44,8 +44,6 @@ class EventListScreen extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Row(
             children: [
-
-
               Expanded(
                 flex: 1,
                 child: LeftElevatedButton(

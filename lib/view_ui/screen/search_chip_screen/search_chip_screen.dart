@@ -99,26 +99,59 @@ class SearchChipScreen extends HookConsumerWidget {
                     : SizedBox.shrink(),
               ),
               
-              Wrap(
-                spacing: 8,
-                runSpacing: 2,
-                alignment: WrapAlignment.start,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: memoCountMap.isEmpty
-                    ? [
-
-                  ChoiceChip(
-                    label: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AnimatedEmoji(
-                          AnimatedEmojis.headShake,
-                          repeat: false,
-                          animate: true,
-                          size: 20,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 2,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: memoCountMap.isEmpty
+                        ? [
+                      ChoiceChip(
+                        label: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AnimatedEmoji(
+                              AnimatedEmojis.headShake,
+                              repeat: true,
+                              animate: true,
+                              size: 20,
+                            ),
+                            SizedBox(width: 5),
+                            Text('${ref.monthString}월 메모가 없습니다',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: fontSize,
+                                fontWeight: FontWeight.bold,
+                                color: context.isDark
+                                    ? Colors.white
+                                    : Colors.grey.shade800,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 5),
-                        Text('${ref.monthString}월 메모가 없습니다',
+                        selected: false,
+                        selectedColor: context.isDark ? Colors.black : Colors.grey[100],
+                        backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
+                        side: BorderSide(
+                          color: context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
+                          width: 1.0,
+                        ),
+                        onSelected: (selected) {
+                          dismissedMemo.value = null;
+                          HapticFeedback.selectionClick();
+                        },
+                      ),
+                  
+                    ] : memoCountMap.entries.map((entry) {
+                      final memo = entry.key;
+                      final count = entry.value;
+                      final isSelected = selectedMemos.contains(memo);
+                      final displayText = count > 1 ? '$memo ($count)' : memo;
+                      return ChoiceChip(
+                        label: Text(displayText,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -129,54 +162,24 @@ class SearchChipScreen extends HookConsumerWidget {
                                 : Colors.grey.shade800,
                           ),
                         ),
-                      ],
-                    ),
-                    selected: false,
-                    selectedColor: context.isDark ? Colors.black : Colors.grey[100],
-                    backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
-                    side: BorderSide(
-                      color: context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                      width: 1.0,
-                    ),
-                    onSelected: (selected) {
-                      dismissedMemo.value = null;
-                      HapticFeedback.selectionClick();
-                    },
+                        selected: isSelected,
+                        selectedColor: context.isDark ? Colors.black : Colors.grey[100],
+                        backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
+                        side: BorderSide(
+                          color: isSelected
+                              ? context.isDark ? Colors.tealAccent : Colors.grey.shade400
+                              : context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
+                          width: 1.25,
+                        ),
+                        onSelected: (selected) {
+                          dismissedMemo.value = null;
+                          HapticFeedback.selectionClick();
+                          ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
+                        },
+                      );
+                    }).toList(),
                   ),
-
-                ] : memoCountMap.entries.map((entry) {
-                  final memo = entry.key;
-                  final count = entry.value;
-                  final isSelected = selectedMemos.contains(memo);
-                  final displayText = count > 1 ? '$memo ($count)' : memo;
-                  return ChoiceChip(
-                    label: Text(displayText,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: fontSize,
-                        fontWeight: FontWeight.bold,
-                        color: context.isDark
-                            ? Colors.white
-                            : Colors.grey.shade800,
-                      ),
-                    ),
-                    selected: isSelected,
-                    selectedColor: context.isDark ? Colors.black : Colors.grey[100],
-                    backgroundColor: context.isDark ? Colors.black : Colors.grey[100],
-                    side: BorderSide(
-                      color: isSelected
-                          ? context.isDark ? Colors.tealAccent : Colors.grey.shade400
-                          : context.isDark ? Colors.grey.shade200 : Colors.grey[100]!,
-                      width: 1.25,
-                    ),
-                    onSelected: (selected) {
-                      dismissedMemo.value = null;
-                      HapticFeedback.selectionClick();
-                      ref.read(selectedMemoFilterProvider.notifier).toggle(memo);
-                    },
-                  );
-                }).toList(),
+                ),
               ),
 
 

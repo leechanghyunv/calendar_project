@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import '../../core/export_package.dart';
 import '../../core/extentions/theme_color.dart';
 import '../../core/utils/formatter.dart';
+import '../screen/goal_setting_screen/goal_setting_screen.dart';
 
 class NumberFieldBar extends HookConsumerWidget {
   final TextEditingController controller;
@@ -29,6 +30,7 @@ class NumberFieldBar extends HookConsumerWidget {
 
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
+    final value = ref.watch(boolProvider);
 
     return Container(
       decoration: BoxDecoration(
@@ -48,7 +50,7 @@ class NumberFieldBar extends HookConsumerWidget {
               maxLines: null,
               keyboardType: TextInputType.number,
               inputFormatters: [
-                CommaInputFormatter6Digits(),
+                value ? CommaInputFormatter() : CommaInputFormatter6Digits(),
               ],
               cursorColor: Colors.grey.shade700,
               style: TextStyle(

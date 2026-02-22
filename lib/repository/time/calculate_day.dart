@@ -8,7 +8,7 @@ part 'calculate_day.g.dart';
 /// 건설근로자 퇴직금 공제 기준일은 252일이다. 하루 금액 6200원
 
 @riverpod
-int calculateValue (CalculateValueRef ref) {
+int calculateValue (Ref ref) {
   final event = ref.watch(eventsProvider);
   final extra = calculateAdditionalHolidays(event);
 

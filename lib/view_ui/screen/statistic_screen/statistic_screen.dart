@@ -3,10 +3,10 @@ import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider
 import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/view_provider/focus_node_listner.dart';
-import '../../dialog/backup_dialog/back_up_dialog.dart';
 import '../../dialog/delete_goal_dialog/all_delete_dialog.dart';
-import '../../dialog/delete_goal_dialog/goal_setting_dialog.dart';
 import '../../widgets/info_row.dart';
+import '../back_up_screen/back_up_screen.dart';
+import '../goal_setting_screen/goal_setting_screen.dart';
 import '../range_history_screen/component/range_history_modal_component.dart';
 import 'component/filter_chip.dart';
 import 'component/function_chip.dart';
@@ -51,7 +51,6 @@ class StatisticScreen extends HookConsumerWidget {
                           child: Column(
                             children: [
 
-
                               InfoRow(
                                 title: '누적기록관리',
                                 subtitle: '등록된 공수를 기반으로 통계를 보여드립니다.',
@@ -70,12 +69,7 @@ class StatisticScreen extends HookConsumerWidget {
                                     color: context.chipColor,
                                     borderColor: Colors.grey.shade600,
                                     textColor: context.chipTextColor,
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => GoalSettingDialog(),
-                                      );
-                                    },
+                                    onTap: () => goalSettingModal(context),
 
                                   ),
                                   SizedBox(width: 10.0),
@@ -100,10 +94,10 @@ class StatisticScreen extends HookConsumerWidget {
                                     borderColor: Colors.grey.shade600,
                                     textColor: context.chipTextColor,
                                     onTap: () {
-                                      // showBackUpModal(context);
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => BackUpDialog());
+                                      backupScreenModal(context);
+                                      // showDialog(
+                                      //     context: context,
+                                      //     builder: (context) => BackUpDialog());
                                     },
                                   ),
 

@@ -1,14 +1,14 @@
 import 'package:calendar_project_240727/repository/sharePreferences_init.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../../core/export_package.dart';
 import '../../core/utils/view_type.dart';
 
 part 'view_type_controller.g.dart';
 
 
 @riverpod
-Future<ViewTypeController> viewType(ViewTypeRef ref) async {
+Future<ViewTypeController> viewType(Ref ref) async {
   final prefs = await ref.prefsWatch;
   return ViewTypeController(prefs);
 }

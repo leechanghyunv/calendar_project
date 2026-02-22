@@ -9,7 +9,7 @@ part 'selected_model.g.dart';
 
 @riverpod
 Future<List<SelectedHistory>> viewSelectedHistory(
-    ViewSelectedHistoryRef ref) async {
+    Ref ref) async {
 final db = await ref.watch(selectedHistoryManagerProvider.future);
   return db.getSelectedHistories();
 }
@@ -17,7 +17,7 @@ final db = await ref.watch(selectedHistoryManagerProvider.future);
 
 @riverpod
 Future<void> addSelected(
-    AddSelectedRef ref,
+    Ref ref,
     DateTime start,
     DateTime end,
     double tax,
@@ -61,7 +61,7 @@ Future<void> addSelected(
 }
 
 @riverpod
-Future<void> deleteSelectedHistory(ClearSelectedHistoryRef ref,int index) async {
+Future<void> deleteSelectedHistory(Ref ref,int index) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.deleteSelectedHistory(index);
@@ -70,14 +70,14 @@ Future<void> deleteSelectedHistory(ClearSelectedHistoryRef ref,int index) async 
 
 
 @riverpod
-Future<void> clearSelectedHistory(ClearSelectedHistoryRef ref) async {
+Future<void> clearSelectedHistory(Ref ref) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.clearSelectedHistory();
 }
 
 @riverpod
-Future<void> deleteOldSelectedHistoryDatabase(ClearSelectedHistoryRef ref) async {
+Future<void> deleteOldSelectedHistoryDatabase(Ref ref) async {
   final db = await ref.watch(selectedHistoryManagerProvider.future);
   ref.invalidate(viewSelectedHistoryProvider);
   return db.deleteOldDatabase();
