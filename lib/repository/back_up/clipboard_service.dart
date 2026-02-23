@@ -9,6 +9,14 @@ class BackUpClipboardService extends _$BackUpClipboardService {
   @override
   AsyncValue<void> build() => AsyncValue.data(null);
 
+  Future<String> getCompressedHistory() async {
+    final history = ref.read(viewHistoryProvider);
+    final val = history.valueOrNull;
+    if (val == null || val.isEmpty) return '';
+
+    final jsonString = jsonEncode(val.map((e) => e.toJson()).toList());
+    return await ZlibBase64().compress(jsonString);
+  }
 
   Future<void> clipboardHistory() async {
     ref.read(firebaseAnalyticsClassProvider.notifier).backupEvent('Backup_Event');

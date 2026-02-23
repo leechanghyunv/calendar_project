@@ -11,7 +11,7 @@ Widget GuildText (BuildContext context,String msg) {
   return Padding(
     padding: const EdgeInsets.symmetric(
       horizontal: 6.0,
-        vertical: 6.0),
+        vertical: 12.0),
     child: Row(
       children: [
         AnimatedEmoji(

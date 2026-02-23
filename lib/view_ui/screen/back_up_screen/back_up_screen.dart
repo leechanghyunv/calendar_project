@@ -1,15 +1,17 @@
-
-import 'package:animated_emoji/emoji.dart';
-import 'package:animated_emoji/emojis.g.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/back_up_screen/provider/screen_type_provider.dart';
 
 import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
-import '../../../core/widget/text_widget.dart';
+import '../../../core/extentions/theme_extension.dart';
+import '../../../model/work_history_model.dart';
+import '../../../repository/back_up/archive_zlib_base64.dart';
+import '../../../repository/back_up/back_up_service.dart';
 import '../../../repository/back_up/clipboard_service.dart';
-import '../../dialog/backup_dialog/back_up_textfield.dart';
+import '../../../view_model/sqlite_model/history_model.dart';
+import 'component/back_up_textfield.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/info_row.dart';
 import '../../widgets/left_eleveted_button.dart';
@@ -21,7 +23,6 @@ void backupScreenModal(BuildContext context) {
     child: BackUpScreen(),
   );
 }
-
 
 
 class BackUpScreen extends HookConsumerWidget {
@@ -42,8 +43,24 @@ class BackUpScreen extends HookConsumerWidget {
       ref.read(backupScreenTypeProvider.notifier).state = newType;
     }
 
+    final workHistoryList = useState<List<WorkHistory>?>(null);
+
+    Future<void> pasteFromClipboard(String externalData) async {
+      try {
+        final output = await ZlibBase64().decompress(externalData);
+        final jsonList = jsonDecode(output) as List;
+        workHistoryList.value =
+            jsonList.map((item) => WorkHistory.fromJson(item)).toList();
+      } catch (e) {
+        print('데이터 변환 중 오류 발생: $e');
+      }
+    }
+
     useEffect(() {
-      isStateEmpty.value = true;
+      Future.microtask(() {
+        ref.read(backupScreenTypeProvider.notifier).state = BackupScreenType.default_;
+        isStateEmpty.value = true;
+      });
       return null;
     }, []);
 
@@ -74,18 +91,10 @@ class BackUpScreen extends HookConsumerWidget {
                         color: context.isDark ? Colors.white : Colors.white,
                         width: context.isDark ? 0.75 : 0.35,
                       ),
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.circular(7.5),
+                      color: context.isDark ? Colors.black : Colors.grey.shade200,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6.0),
-                      child: Column(
-                        children: [
-                          GuildText(context,'복사 후 카카오톡,이메일 등 외부 보관 후 새 기기에 붙여넣기'),
-
-                        ],
-                      ),
-                    ),
+                    child: GuildText(context,type.guideText),
 
                   ),
                 ),
@@ -103,13 +112,59 @@ class BackUpScreen extends HookConsumerWidget {
                       borderRadius: BorderRadius.circular(10),
                       // color: Colors.grey.shade100,
                     ),
-                    child: BackUpTextField(
-                      controller: _backupController,
-                      backupNode: _backupNode,
-                      onChanged: (val){
-                        isStateEmpty.value = val.isEmpty;
-                      },
-                    ),
+                    child: switch (type) {
+                      BackupScreenType.export => HookBuilder(
+                        builder: (context) {
+                          final output = useState<String>('');
+                          useEffect(() {
+                            final notifier = ref.read(backUpClipboardServiceProvider.notifier);
+                            notifier.getCompressedHistory().then((val) => output.value = val);
+                            return null;
+                          }, []);
+                          return SingleChildScrollView(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              output.value.isEmpty ? '데이터 없음' : output.value,
+                              style: TextStyle(
+                                  fontSize: context.width.responsiveSize([13,12,12,12,11,10.5]),
+                                  color: Colors.black),
+                            ),
+                          );
+                        },
+                      ),
+                      BackupScreenType.import => BackUpTextField(
+                        controller: _backupController,
+                        backupNode: _backupNode,
+                        hintText: ' 압축된 공수기록을 붙여넣어주세요',
+                        onChanged: (val) {
+                          isStateEmpty.value = val.isEmpty;
+                          pasteFromClipboard(val);
+                        },
+                      ),
+                      BackupScreenType.default_ => Consumer(
+                          builder: (context,ref,child){
+                        final history = ref.watch(viewHistoryProvider);
+                        final msg = switch (history) {
+                          AsyncData(:final value) => value.isEmpty
+                              ? '저장된 공수 기록이 없습니다.'
+                              : '${value.length}건의 공수 기록이 저장되어 있습니다',
+                          AsyncLoading() => '불러오는 중...',
+                          _ => '오류가 발생했습니다.',
+                        };
+                        return Row(
+                          crossAxisAlignment: .start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: TextWidget(msg, 13.5,
+                                  context.width,color: context.subTextColor),
+                            ),
+                          ],
+                        );
+                      }
+                      ),
+
+                    },
                   ),
                 ),
 
@@ -125,8 +180,6 @@ class BackUpScreen extends HookConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-
-
               Row(
                 children: [
                   if (isStateEmpty.value)
@@ -134,7 +187,6 @@ class BackUpScreen extends HookConsumerWidget {
                     child: LeftElevatedButton(
                       text: '공수기록 복사하기',
                       onPressed: () {
-                        // ref.read(backUpClipboardServiceProvider.notifier).getCompressedHistory();
                         ref.read(backUpClipboardServiceProvider.notifier).clipboardHistory();
                         handleTypeChange(BackupScreenType.export);
                       },
@@ -149,7 +201,19 @@ class BackUpScreen extends HookConsumerWidget {
                     child: CustomElevatedButton(
                       text: isStateEmpty.value ? '공수기록 붙여넣기' : '공수기록 적용하기',
                       onPressed: () {
-                        handleTypeChange(BackupScreenType.import);
+                        switch (type) {
+                          case BackupScreenType.default_:
+                            handleTypeChange(BackupScreenType.import);
+                            _backupNode.requestFocus();
+                          case BackupScreenType.import:
+                            ref.read(backUpServiceProviderProvider.notifier)
+                                .processWorkHistory(context, workHistoryList.value);
+                            Navigator.of(context).pop();
+                            _backupController.clear();
+                          case _:
+                            break;
+                        }
+
                       },
                       fontSize: 16,
                     ),

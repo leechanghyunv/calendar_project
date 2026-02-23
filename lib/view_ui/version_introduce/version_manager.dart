@@ -7,7 +7,7 @@ part 'version_manager.g.dart';
 
 @riverpod
 class VersionManager extends _$VersionManager {
-  static const String _lastShownVersionKey = '1.6.5';
+  static String _lastShownVersionKey = Platform.isAndroid ?  '1.7.2' :  '1.6.5';
 
   @override
   FutureOr<String?> build() async {

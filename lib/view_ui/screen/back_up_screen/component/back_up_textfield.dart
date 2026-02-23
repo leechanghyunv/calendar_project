@@ -2,8 +2,8 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 
-import '../../../core/export_package.dart';
-import '../dialog_text.dart';
+import '../../../../core/export_package.dart';
+import '../../../dialog/dialog_text.dart';
 
 class BackUpTextField extends StatelessWidget {
 
@@ -30,7 +30,7 @@ class BackUpTextField extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appWidth = context.width;
-    final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
+    final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(4.0,8.0,2.0,0.0),
@@ -42,37 +42,27 @@ class BackUpTextField extends StatelessWidget {
               controller: controller,
               focusNode: backupNode,
               maxLines: 10,
-              cursorColor: Colors.grey.shade700,
+              cursorColor: Colors.grey.shade600,
+
               decoration: InputDecoration(
+                isDense: true,
                 border: InputBorder.none,
                 hintText: hintText,
                 hintStyle: BackupFontStyle(
-                    appWidth.responsiveSize([13,12,12,12,11,10]),
+                    fontSize,
                     width: appWidth).copyWith(
                   color: context.subTextColor,
+                  fontWeight: .bold
                 ),
                 contentPadding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
+                  horizontal: 12,
+                  vertical: 6,
                 ),
 
               ),
               onChanged: onChanged,
             ),
           ),
-          // IconButton(
-          //   iconSize: 30,
-          //   splashRadius: 25,
-          //   splashColor: Colors.grey.shade500,
-          //   onPressed: iconOnPressed,
-          //   icon: Icon(
-          //     Icons.fingerprint_sharp,
-          //     color: context.isDark
-          //         ? controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
-          //         : controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
-          //     size: iconSize,
-          //   ),
-          // ),
         ],
       ),
     );
