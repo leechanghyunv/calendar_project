@@ -6,7 +6,7 @@ part of 'calculate_ranged_day.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$calculatedRangeHash() => r'50618564b8fe490157a266d21189d5b0bf5a4005';
+String _$calculatedRangeHash() => r'eca8245515fecd424469343d1a287c5c8e2392dd';
 
 /// Copied from Dart SDK
 class _SystemHash {

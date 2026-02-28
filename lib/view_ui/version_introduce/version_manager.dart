@@ -1,13 +1,16 @@
 
 import 'package:calendar_project_240727/repository/sharePreferences_init.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../../model/version_introduce_model.dart';
 import '../../repository/repository_import.dart';
 
 part 'version_manager.g.dart';
 
+
+
 @riverpod
 class VersionManager extends _$VersionManager {
-  static String _lastShownVersionKey = Platform.isAndroid ?  '1.7.2' :  '1.6.5';
+  static const String _lastShownVersionKey = '1.6.5';
 
   @override
   FutureOr<String?> build() async {

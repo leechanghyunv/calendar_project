@@ -6,7 +6,7 @@ part of 'calendar_event_filter_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filtedEventsHash() => r'ae10c94e2e946f64356dbd112c92cc8274e32b15';
+String _$filtedEventsHash() => r'078728216d55de74a52fb5ecd3fca51012c26fd1';
 
 /// See also [filtedEvents].
 @ProviderFor(filtedEvents)

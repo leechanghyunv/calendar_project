@@ -6,6 +6,7 @@ import 'package:calendar_project_240727/view_ui/screen/app_review_screen/app_rev
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/today_info_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
+import 'package:calendar_project_240727/view_ui/version_introduce/version_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -57,6 +58,7 @@ class MyApp extends HookConsumerWidget {
     ref.watch(bTypeSwitchProviderProvider);
     ref.watch(calendarSwitcherProvider);
     ref.watch(switchNotifierProvider);
+    ref.watch(versionManagerProvider);
     ref.watch(versionProvider);
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp]

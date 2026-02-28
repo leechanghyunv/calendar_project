@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/base_app_size.dart';
+
 import '../../core/export_package.dart';
 import '../../core/extentions/theme_color.dart';
 import '../screen/user_statistics_screen/component/intro_text.dart';
@@ -18,7 +20,7 @@ class InfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final  height = MediaQuery.of(context).size.height;
+    final  height = context.height;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,

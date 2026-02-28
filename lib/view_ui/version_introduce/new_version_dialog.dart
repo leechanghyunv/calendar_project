@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/view_ui/version_introduce/version_manager.dart';
 
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/firebase_remote_config_model.dart';
@@ -15,7 +16,11 @@ class NewVersionDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
+    ref.watch(versionManagerProvider.notifier);
     final version = ref.watch(versionProvider.notifier).version;
+
+
+
     final width = context.width;
 
     return AlertDialog(
@@ -44,39 +49,54 @@ class NewVersionDialog extends ConsumerWidget {
 
       content: Container(
         width: double.minPositive,
-        child: Consumer(
-            builder: (context, ref, child){
-              final version = ref.watch(versionProvider);
-              return switch(version){
-              AsyncData(:final value) =>  Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...value.changes.map((e) => introBox(e.title, e.description,context)),
-                ],
-              ),
-              AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
-                  context.width, color: context.textColor),
-              _ => const Text('............'),
-              };
-            }),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Consumer(
+                builder: (context, ref, child){
+                  final version = ref.watch(versionProvider);
+                  return switch(version){
+                  AsyncData(:final value) =>  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ...value.changes.map((e) => introBox(e.title, e.description,context)),
+                    ],
+                  ),
+                  AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
+                      context.width, color: context.textColor),
+                  _ => const Text('............'),
+                  };
+                }),
+
+          ],
+        ),
       ),
 
       actions: [
-        TextButton(
-          onPressed: () async {
-            if (await inAppReview.isAvailable()) {
-            inAppReview.requestReview();
-            }
-            },
-          child: TextWidget('의견보내기', 15,
-              context.width, color: context.textColor),
+        Row(
+          children: [
+
+
+            Spacer(),
+            TextButton(
+              onPressed: () async {
+                if (await inAppReview.isAvailable()) {
+                  inAppReview.requestReview();
+                }
+              },
+              child: TextWidget('의견보내기', 15,
+                  context.width, color: context.textColor),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: TextWidget('확인', 15,
+                  context.width, color: context.textColor),
+            ),
+          ],
         ),
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('확인', 15,
-              context.width, color: context.textColor),
-        ),
+
+
       ],
     );
   }

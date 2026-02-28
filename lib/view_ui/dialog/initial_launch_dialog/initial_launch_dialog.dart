@@ -22,7 +22,7 @@ class InitialLaunchDialog extends HookConsumerWidget {
       backgroundColor: context.dialogColor,
       shape: context.dialogShape,
       title: TextWidget(Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
-          16, width,color: context.textColor),
+          17, width,color: context.textColor),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

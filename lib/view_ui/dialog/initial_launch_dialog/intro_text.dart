@@ -5,7 +5,7 @@ import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_extension.dart';
 
 Widget initialText(BuildContext context,double height) {
-  final fontSize = context.width.responsiveSize([15,14,14,13.5,13,12.5]);
+  final fontSize = context.width.responsiveSize([15.5,15,15,15,14.5,14]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.6 : 1.20,
     fontWeight: FontWeight.w600,

@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/model/version_introduce_model.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../../repository/repository_import.dart';
+import '../../view_ui/version_introduce/version_manager.dart';
 
 
 part 'firebase_remote_config_model.g.dart';

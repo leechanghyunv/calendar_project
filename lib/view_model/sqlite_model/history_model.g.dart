@@ -6,7 +6,7 @@ part of 'history_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$viewHistoryHash() => r'3131c0673bdccc6e63d3eb3f68147be77f097713';
+String _$viewHistoryHash() => r'b91d83d44f8d90923455dc4801d99e6888c053d2';
 
 /// See also [viewHistory].
 @ProviderFor(viewHistory)
@@ -24,7 +24,7 @@ final viewHistoryProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ViewHistoryRef = AutoDisposeFutureProviderRef<List<WorkHistory>>;
-String _$viewRangeHistoryHash() => r'279b07c015429cd96f6d7dc1ff82840080895518';
+String _$viewRangeHistoryHash() => r'aac8e124770a34db9daf807e8d2907c3324a6351';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -178,7 +178,7 @@ class _ViewRangeHistoryProviderElement
   DateTime get end => (origin as ViewRangeHistoryProvider).end;
 }
 
-String _$addAllHistoryHash() => r'5deb5deb37c3185d9ce5920ca9519a1274edd260';
+String _$addAllHistoryHash() => r'032e00ecd1a5ea8c72526a8f9e1c0b4ad9a5204f';
 
 /// See also [addAllHistory].
 @ProviderFor(addAllHistory)
@@ -298,7 +298,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'a6109a826468b282d17fa6f9b41e0a005c63c0ce';
+String _$addHistoryHash() => r'0ebf1a8d02073355e721fe052f379a48a3aa62a1';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)
@@ -440,7 +440,7 @@ class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
 }
 
 String _$rangeExcludHolidayHash() =>
-    r'89f5f0ea1afb399c894352ca3582d2d3d1a61dfd';
+    r'0faddaf397588404afe288b9eeccfd50cdf446ac';
 
 /// See also [rangeExcludHoliday].
 @ProviderFor(rangeExcludHoliday)
@@ -592,7 +592,7 @@ class _RangeExcludHolidayProviderElement
   DateTime get end => (origin as RangeExcludHolidayProvider).end;
 }
 
-String _$latestHistoryHash() => r'dbd62b941feee78626bd00f1f09de8ce60771789';
+String _$latestHistoryHash() => r'bd8535dc4f016bf752d1d2b184b653c3a232586b';
 
 /// See also [latestHistory].
 @ProviderFor(latestHistory)
@@ -609,7 +609,7 @@ final latestHistoryProvider = AutoDisposeFutureProvider<WorkHistory>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef LatestHistoryRef = AutoDisposeFutureProviderRef<WorkHistory>;
-String _$deleteHistoryHash() => r'dd8d7daf59a2d0003a867877fffe36a19073745c';
+String _$deleteHistoryHash() => r'e30c0cacb1922ebc2888654b2b1bd9faec7dbff5';
 
 /// See also [deleteHistory].
 @ProviderFor(deleteHistory)
@@ -730,7 +730,7 @@ class _DeleteHistoryProviderElement
 }
 
 String _$deleteMonthHistoryHash() =>
-    r'e75381c1dc38aeada6c8e271d6e221f6cb6733b8';
+    r'1b5f3b46b3237f5eeb0ec911a337b5c9f4ea1f01';
 
 /// See also [deleteMonthHistory].
 @ProviderFor(deleteMonthHistory)
@@ -862,7 +862,7 @@ class _DeleteMonthHistoryProviderElement
   DateTime get end => (origin as DeleteMonthHistoryProvider).end;
 }
 
-String _$clearHistoryHash() => r'92d2356e5388d774f4c105cbb7bfd9fd703a6525';
+String _$clearHistoryHash() => r'3d8ae527c71cedd8954cf581e858b8b4bb259564';
 
 /// See also [clearHistory].
 @ProviderFor(clearHistory)
@@ -879,7 +879,7 @@ final clearHistoryProvider = AutoDisposeFutureProvider<void>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ClearHistoryRef = AutoDisposeFutureProviderRef<void>;
-String _$updateMemoHistoryHash() => r'e23a7775adf9ffd457f9d0f94410a2159b3b57d1';
+String _$updateMemoHistoryHash() => r'e07076232c3e8d42ccca4ac6277d6bff82187a16';
 
 /// See also [updateMemoHistory].
 @ProviderFor(updateMemoHistory)

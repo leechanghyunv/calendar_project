@@ -6,7 +6,7 @@ part of 'view_type_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$viewTypeHash() => r'b33ee4dd6630d453e9c8529fc3c191a35edd5887';
+String _$viewTypeHash() => r'9a94a7a459694a9fbe922ef9a6a9dd900401dbcb';
 
 /// See also [viewType].
 @ProviderFor(viewType)

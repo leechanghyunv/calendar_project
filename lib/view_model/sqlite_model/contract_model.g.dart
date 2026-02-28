@@ -6,7 +6,7 @@ part of 'contract_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$viewContractHash() => r'd978fe961e3e0f050dfa3cfe5776805ecdbaabc3';
+String _$viewContractHash() => r'afa3603049258f6532673399f57dc8419e4a7f5d';
 
 /// See also [viewContract].
 @ProviderFor(viewContract)
@@ -23,7 +23,7 @@ final viewContractProvider = FutureProvider<List<LabourCondition>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef ViewContractRef = FutureProviderRef<List<LabourCondition>>;
-String _$addContractHash() => r'699abecbd2b72ba225daf075b9e72066c14577de';
+String _$addContractHash() => r'f3201d8c93586d0255ebb3b28c7beff1fd7de686';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -162,7 +162,7 @@ class _AddContractProviderElement extends AutoDisposeFutureProviderElement<void>
   LabourCondition get condition => (origin as AddContractProvider).condition;
 }
 
-String _$updateContractHash() => r'5eccd8650dc0b9138080959e3f19049b4ff5ec42';
+String _$updateContractHash() => r'14371153c1bcb7acc99f9dc26de3133396c842e5';
 
 /// See also [updateContract].
 @ProviderFor(updateContract)
@@ -282,7 +282,7 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
-String _$updateSubsidyHash() => r'5977a88176e90d8ac9caabba4bd3bad13aa93069';
+String _$updateSubsidyHash() => r'16a4390024a84037b065dfa2cbb5cac5d3006b0e';
 
 /// See also [updateSubsidy].
 @ProviderFor(updateSubsidy)
@@ -402,7 +402,7 @@ class _UpdateSubsidyProviderElement
   int get newSubsidy => (origin as UpdateSubsidyProvider).newSubsidy;
 }
 
-String _$clearContractHash() => r'9c2f4c31365bca589a4530878746413b875df7b1';
+String _$clearContractHash() => r'5b551530e92cb96f7f33a804f8d1e590d988f23d';
 
 /// See also [clearContract].
 @ProviderFor(clearContract)

@@ -1,8 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../base_app_size.dart';
+import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
+import '../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
 import '../../main_screen_component/main_box_component/main_box_sizes.dart';
 
 /// 달력 이동 버튼에 대한 간격을 설정하는 함수
@@ -36,9 +38,11 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
     final isFoldValue = isFold.asData?.value ?? false;
 
     void _onMonthChange(VoidCallback moveMonth) {
+
       HapticFeedback.selectionClick();
       moveMonth();
     }
+
     final boxSizes = MainBoxSizes(
       width: appWidth,
 

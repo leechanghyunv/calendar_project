@@ -6,7 +6,7 @@ part of 'calendar_event_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$calendarEventHash() => r'4a6b108cc1c73aafc7e8e6c643898987ea28ec88';
+String _$calendarEventHash() => r'b7035a7e43482120466033c6b003ccfa8b3b48f1';
 
 /// See also [calendarEvent].
 @ProviderFor(calendarEvent)
@@ -26,7 +26,7 @@ final calendarEventProvider =
 typedef CalendarEventRef =
     AutoDisposeFutureProviderRef<Map<DateTime, List<WorkHistory>>>;
 String _$calendarTotalEventHash() =>
-    r'5b93aeb1bc38d8f805c7c68b3052525f86d677f5';
+    r'1c2ac74e39131d039a74941d152aea939dbd4029';
 
 /// See also [calendarTotalEvent].
 @ProviderFor(calendarTotalEvent)

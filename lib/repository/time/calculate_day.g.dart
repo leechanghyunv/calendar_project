@@ -6,7 +6,7 @@ part of 'calculate_day.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$calculateValueHash() => r'95a9ac55e509442c01ec51782c325346447bb720';
+String _$calculateValueHash() => r'22e5ecff37845d05064bddb4db90d38eccf40b7a';
 
 /// 주휴수당을 계산한다 GPT가 코드짜줌
 /// 실업급여기준은 18개월 이내 180일이다.

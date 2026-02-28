@@ -6,7 +6,7 @@ part of 'firebase_remote_config_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$versionHash() => r'96084452d05920928dfcc61a53609fdad16cb96f';
+String _$versionHash() => r'5e0b0ad0183b193685133881b0a6abc0855550e5';
 
 /// See also [Version].
 @ProviderFor(Version)

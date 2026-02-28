@@ -7,7 +7,7 @@ part of 'selected_model.dart';
 // **************************************************************************
 
 String _$viewSelectedHistoryHash() =>
-    r'998e05197f93fd29b197be84f3ebe890614225ed';
+    r'b05294fe93ef34ab83a43c12781a6c5c45a2ef55';
 
 /// See also [viewSelectedHistory].
 @ProviderFor(viewSelectedHistory)
@@ -26,7 +26,7 @@ final viewSelectedHistoryProvider =
 // ignore: unused_element
 typedef ViewSelectedHistoryRef =
     AutoDisposeFutureProviderRef<List<SelectedHistory>>;
-String _$addSelectedHash() => r'8b517d83e31d2069dd5c5214a24b6adcffb5f240';
+String _$addSelectedHash() => r'73fdc00322bf575cf5c192007dc0f3e944733daa';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -228,7 +228,7 @@ class _AddSelectedProviderElement extends AutoDisposeFutureProviderElement<void>
 }
 
 String _$deleteSelectedHistoryHash() =>
-    r'9ba33730a22ecd85bff606d65767637fe4f92b81';
+    r'5fa53359ed78396b5dfd4d80947d73974f068aa4';
 
 /// See also [deleteSelectedHistory].
 @ProviderFor(deleteSelectedHistory)
@@ -349,7 +349,7 @@ class _DeleteSelectedHistoryProviderElement
 }
 
 String _$clearSelectedHistoryHash() =>
-    r'797c27deb572ece94e23d86cf10a74647ad79084';
+    r'b02deef80716eda0b025432456765a5243c6729d';
 
 /// See also [clearSelectedHistory].
 @ProviderFor(clearSelectedHistory)
@@ -367,7 +367,7 @@ final clearSelectedHistoryProvider = AutoDisposeFutureProvider<void>.internal(
 // ignore: unused_element
 typedef ClearSelectedHistoryRef = AutoDisposeFutureProviderRef<void>;
 String _$deleteOldSelectedHistoryDatabaseHash() =>
-    r'221b42308aedcc86d63098b6e8d8ffdaa201c79f';
+    r'7ecaeec53d4ebb331ed4de030f9cacef2002ff4f';
 
 /// See also [deleteOldSelectedHistoryDatabase].
 @ProviderFor(deleteOldSelectedHistoryDatabase)

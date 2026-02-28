@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
+import 'package:dartx/dartx.dart';
 import '../../../../core/utils/converter.dart';
 import '../provider/info_box_provider.dart';
 import '../provider/statistic_switch_provider.dart';
@@ -58,14 +59,17 @@ class GoalRecordBox extends ConsumerWidget {
     final data = ref.watch(infoBoxProvider)
         .whenData((d) => d).value ?? const InfoBoxModel();
 
-    final total = data.total;
+    final total = data.total * 10000;
+
+
 
     return contract.whenData(
             (val) {
 
               final goal = (val.last.goal).toStringAsFixed(0);
-              final left = formatAmount((val.last.goal - data.total).toInt());
-              final goalValue = (double.tryParse(goal) ?? 0) ~/ 10000;
+              final goalValue = goal.toIntOrNull() ?? 0;
+
+              final left = formatAmount((goalValue - total).toInt());
               final percent = goalValue > 0 ? ((total / goalValue) * 100).floor() : 0;
 
               return Container(

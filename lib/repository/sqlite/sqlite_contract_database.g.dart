@@ -26,7 +26,7 @@ final labourConditionManagerProvider =
 // ignore: unused_element
 typedef LabourConditionManagerRef =
     AutoDisposeFutureProviderRef<ContractDatabase>;
-String _$initConditionHash() => r'c8e2475e21a3cae81ccea02f1383bf56301ae4fc';
+String _$initConditionHash() => r'06cfbe962e99e78c3faa17053fa979a9ee951fe5';
 
 /// See also [initCondition].
 @ProviderFor(initCondition)

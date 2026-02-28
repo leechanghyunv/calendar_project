@@ -210,7 +210,7 @@ return $default(_that.version,_that.changes);case _:
 @JsonSerializable()
 
 class _VersionInfo implements VersionInfo {
-  const _VersionInfo({this.version = '1.4.8', final  List<ChangeItem> changes = const []}): _changes = changes;
+  const _VersionInfo({this.version = '', final  List<ChangeItem> changes = const []}): _changes = changes;
   factory _VersionInfo.fromJson(Map<String, dynamic> json) => _$VersionInfoFromJson(json);
 
 @override@JsonKey() final  String version;

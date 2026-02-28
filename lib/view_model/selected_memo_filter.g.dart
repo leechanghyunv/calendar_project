@@ -23,7 +23,7 @@ final filteredDatesProvider = AutoDisposeProvider<Set<DateTime>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FilteredDatesRef = AutoDisposeProviderRef<Set<DateTime>>;
-String _$filteredTotalPayHash() => r'7b8bbef7d5cb116ce3bc26ae4b63ec9bbfc7dbb3';
+String _$filteredTotalPayHash() => r'ab8ab1daced86e02c7f306b50cec90d5044d507f';
 
 /// See also [filteredTotalPay].
 @ProviderFor(filteredTotalPay)

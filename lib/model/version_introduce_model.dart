@@ -3,10 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'version_introduce_model.freezed.dart';
 part 'version_introduce_model.g.dart';
 
+
+
 @freezed
 abstract class VersionInfo with _$VersionInfo {
   const factory VersionInfo({
-    @Default('1.4.8') String version,
+    @Default('') String version,
     @Default([]) List<ChangeItem> changes,
   }) = _VersionInfo;
 
@@ -15,6 +17,7 @@ abstract class VersionInfo with _$VersionInfo {
 
 
 }
+
 
 @freezed
 abstract class ChangeItem with _$ChangeItem {

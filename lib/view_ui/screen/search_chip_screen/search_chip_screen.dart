@@ -50,18 +50,20 @@ class SearchChipScreen extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
+
               InfoRow(
                 title: '${ref.monthString}월 메모관리',
                 subtitle: '칩을 선택하시면 해당 날짜가 달력상에 표시',
                 trailing: MonthMoveButton(),
               ),
+
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 height: selectedLongMemo != null
                     ? calculateTextHeight(
                     selectedLongMemo, context)
                     .clamp(0, 300)
-                    : 25,
+                    : 10,
                 curve: Curves.easeInOut,
                 child: selectedLongMemo != null
                     ? GestureDetector(
