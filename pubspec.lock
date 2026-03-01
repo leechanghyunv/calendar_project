@@ -1505,6 +1505,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  trina_grid:
+    dependency: "direct main"
+    description:
+      name: trina_grid
+      sha256: "7afe962315850a2e745e9c018fb5704cb149f5a159eb0ac54526dc16c3eae181"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.6.0"
   typed_data:
     dependency: transitive
     description:
