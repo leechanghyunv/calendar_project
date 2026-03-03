@@ -9,7 +9,6 @@ import '../../widgets/info_row.dart';
 import 'component/floating_row_component.dart';
 import 'component/full_text_box_animated.dart';
 import 'component/memo_choice_chip.dart';
-import 'component/unpaid_record_box.dart';
 
 class SearchChipScreen extends HookConsumerWidget {
   const SearchChipScreen({super.key});
@@ -48,12 +47,11 @@ class SearchChipScreen extends HookConsumerWidget {
               FullTextBoxAnimated(fontSize: fontSize),
 
 
-              UnpaidRecordBox(),
-              // MemoChoiceChip(
-              //   memoCountMap: memoCountMap,
-              //   monthString: ref.monthString,
-              //   fontSize: fontSize,
-              // ),
+              MemoChoiceChip(
+                memoCountMap: memoCountMap,
+                monthString: ref.monthString,
+                fontSize: fontSize,
+              ),
 
             ],
           ),

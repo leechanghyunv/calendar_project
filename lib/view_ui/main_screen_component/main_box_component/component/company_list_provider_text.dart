@@ -11,9 +11,6 @@ class CompanyListProviderText extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    /// final eventState = ref.watch(eventViewModelProvider);
-    /// 주요이벤트에 대한 내용을 제공한다
-
     return SizedBox(
       child: Row(
         children: [
@@ -25,28 +22,13 @@ class CompanyListProviderText extends HookConsumerWidget {
             padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
             child: Row(
               children: [
-
+                /// ~ 26일까지
                 TextWidget(
-                    '${ref.selected.year}년 ${ref.selected.month.toString().padLeft(2, '0')}월 급여',
+                    '${ref.selected.year}년 ${ref.monthString}월 급여',
                     11, context.width,color: context.subTextColor),
               ],
             ),
           ),
-          // SizedBox(width: 2.5),
-          // Container(
-          //   decoration: BoxDecoration(
-          //     color: context.bTypeChipColor,
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          //   padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
-          //   child: Row(
-          //     children: [
-          //       TextWidget(
-          //           ' 일비 ',
-          //           11, context.width,color: context.subTextColor),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

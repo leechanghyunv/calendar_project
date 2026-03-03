@@ -1,6 +1,6 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-
+import 'package:dart_time/dart_time.dart';
 import '/../../view_model/view_provider/calendar_switcher_model.dart';
 import 'cell_size.dart';
 
@@ -15,6 +15,7 @@ class DefaultCell extends ConsumerWidget {
     final appWidth = context.width;
     final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
+
 
     final sizes = CellSizes(
         appHeight: appHeight,
@@ -37,6 +38,7 @@ class DefaultCell extends ConsumerWidget {
         borderRadius: BorderRadius.circular(8.0.r),
       ),
       // AsyncValue 상태에 따라 위젯 처리
+
       child: switcher.maybeWhen(
         data: (useColumn) {
           if (useColumn) {
@@ -62,15 +64,15 @@ class DefaultCell extends ConsumerWidget {
             );
           }
         },
-        // 로딩 중이거나 에러 상태에서는 기본값으로 Stack 사용
         orElse: () => Stack(
           alignment: Alignment.center,
           children: [
             Center(
               child: textWidget,
-          )],
+            )],
         ),
       ),
+
     );
   }
 }
