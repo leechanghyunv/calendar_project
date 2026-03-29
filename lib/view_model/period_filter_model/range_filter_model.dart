@@ -7,7 +7,7 @@ import '../sqlite_model/contract_model.dart';
 import '../sqlite_model/history_model.dart';
 
 
-part 'range_filted_model.g.dart';
+part 'range_filter_model.g.dart';
 
 @riverpod
 class RangeSource extends _$RangeSource {

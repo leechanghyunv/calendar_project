@@ -4,7 +4,7 @@ import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/animation_text_provider.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
-import '../../../view_model/filted_instance_model/filted_month_model.dart';
+import '../../../view_model/period_filter_model/monthly_filter_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
 import '../../screen/app_setting_screen/provider/animation_provider.dart';

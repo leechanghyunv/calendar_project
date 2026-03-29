@@ -42,11 +42,10 @@ abstract class LaborStatsModel with _$LaborStatsModel {
 
 
 @freezed
-abstract class LaborFiltedModel with _$LaborFiltedModel {
-  const factory LaborFiltedModel({
+abstract class LaborSummaryModel with _$LaborSummaryModel {
+  const factory LaborSummaryModel({
     @Default(0) int subsidyDay,
     @Default('0만원') String totalSubsidy,
-
     @Default(0) int workDay,
     @Default(0) int totalPay,
     @Default('세율 0.0%') String tax,
@@ -68,11 +67,11 @@ abstract class LaborFiltedModel with _$LaborFiltedModel {
     @Default(0) int offDay,
     @Default([]) List<String> workSites,
 
-  }) = _LaborFiltedModel;
+  }) = _LaborSummaryModel;
 
 
-  factory LaborFiltedModel.fromJson(Map<String, dynamic> json) =>
-      _$LaborFiltedModelFromJson(json);
+  factory LaborSummaryModel.fromJson(Map<String, dynamic> json) =>
+      _$LaborSummaryModelFromJson(json);
 }
 
 

@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'filted_month_model.dart';
+part of 'monthly_filter_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$monthRecordHash() => r'bd50d1c6a8a2318b45be8b74094296fcc3afa8b5';
+String _$monthRecordHash() => r'c6a50b770f378263bf8e53892e5d57726d1caa7f';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,10 +30,10 @@ class _SystemHash {
 }
 
 abstract class _$MonthRecord
-    extends BuildlessAutoDisposeAsyncNotifier<LaborFiltedModel> {
+    extends BuildlessAutoDisposeAsyncNotifier<LaborSummaryModel> {
   late final DateTime time;
 
-  FutureOr<LaborFiltedModel> build(DateTime time);
+  FutureOr<LaborSummaryModel> build(DateTime time);
 }
 
 /// See also [MonthRecord].
@@ -41,7 +41,7 @@ abstract class _$MonthRecord
 const monthRecordProvider = MonthRecordFamily();
 
 /// See also [MonthRecord].
-class MonthRecordFamily extends Family<AsyncValue<LaborFiltedModel>> {
+class MonthRecordFamily extends Family<AsyncValue<LaborSummaryModel>> {
   /// See also [MonthRecord].
   const MonthRecordFamily();
 
@@ -75,7 +75,7 @@ class MonthRecordFamily extends Family<AsyncValue<LaborFiltedModel>> {
 /// See also [MonthRecord].
 class MonthRecordProvider
     extends
-        AutoDisposeAsyncNotifierProviderImpl<MonthRecord, LaborFiltedModel> {
+        AutoDisposeAsyncNotifierProviderImpl<MonthRecord, LaborSummaryModel> {
   /// See also [MonthRecord].
   MonthRecordProvider(DateTime time)
     : this._internal(
@@ -103,7 +103,7 @@ class MonthRecordProvider
   final DateTime time;
 
   @override
-  FutureOr<LaborFiltedModel> runNotifierBuild(covariant MonthRecord notifier) {
+  FutureOr<LaborSummaryModel> runNotifierBuild(covariant MonthRecord notifier) {
     return notifier.build(time);
   }
 
@@ -124,7 +124,7 @@ class MonthRecordProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborFiltedModel>
+  AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborSummaryModel>
   createElement() {
     return _MonthRecordProviderElement(this);
   }
@@ -145,14 +145,14 @@ class MonthRecordProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin MonthRecordRef on AutoDisposeAsyncNotifierProviderRef<LaborFiltedModel> {
+mixin MonthRecordRef on AutoDisposeAsyncNotifierProviderRef<LaborSummaryModel> {
   /// The parameter `time` of this provider.
   DateTime get time;
 }
 
 class _MonthRecordProviderElement
     extends
-        AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborFiltedModel>
+        AutoDisposeAsyncNotifierProviderElement<MonthRecord, LaborSummaryModel>
     with MonthRecordRef {
   _MonthRecordProviderElement(super.provider);
 

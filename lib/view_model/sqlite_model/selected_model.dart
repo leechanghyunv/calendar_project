@@ -1,8 +1,8 @@
 import 'package:calendar_project_240727/repository/sqlite/sqlite_selected_history_database.dart';
-import 'package:calendar_project_240727/view_model/filted_instance_model/range_filted_model.dart';
 import '../../core/utils/converter.dart';
 import '../../model/statistics/selected_history_model.dart';
 import '../../repository/repository_import.dart';
+import '../period_filter_model/range_filter_model.dart';
 
 part 'selected_model.g.dart';
 

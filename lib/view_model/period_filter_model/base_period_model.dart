@@ -5,7 +5,7 @@ import '../../core/utils/converter.dart';
 import '../../model/combined_data_model.dart';
 import '../../repository/repository_import.dart';
 
-part 'filted_source_total.g.dart';
+part 'base_period_model.g.dart';
 
 @riverpod
 class WorkRecord extends _$WorkRecord {

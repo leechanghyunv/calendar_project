@@ -58,8 +58,8 @@ Map<String, dynamic> _$LaborStatsModelToJson(_LaborStatsModel instance) =>
       'remainingGoalAfterTax': instance.remainingGoalAfterTax,
     };
 
-_LaborFiltedModel _$LaborFiltedModelFromJson(Map<String, dynamic> json) =>
-    _LaborFiltedModel(
+_LaborSummaryModel _$LaborSummaryModelFromJson(Map<String, dynamic> json) =>
+    _LaborSummaryModel(
       subsidyDay: (json['subsidyDay'] as num?)?.toInt() ?? 0,
       totalSubsidy: json['totalSubsidy'] as String? ?? '0만원',
       workDay: (json['workDay'] as num?)?.toInt() ?? 0,
@@ -88,7 +88,7 @@ _LaborFiltedModel _$LaborFiltedModelFromJson(Map<String, dynamic> json) =>
           const [],
     );
 
-Map<String, dynamic> _$LaborFiltedModelToJson(_LaborFiltedModel instance) =>
+Map<String, dynamic> _$LaborSummaryModelToJson(_LaborSummaryModel instance) =>
     <String, dynamic>{
       'subsidyDay': instance.subsidyDay,
       'totalSubsidy': instance.totalSubsidy,

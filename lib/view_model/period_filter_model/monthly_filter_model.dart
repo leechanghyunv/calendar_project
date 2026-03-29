@@ -6,7 +6,7 @@ import '../../repository/repository_import.dart';
 import '../../repository/time/calendar_time_controll.dart';
 import '../view_provider/selected_companise_model.dart';
 
-part 'filted_month_model.g.dart';
+part 'monthly_filter_model.g.dart';
 
 class CombinedDataModel {
   final List<LabourCondition> contract;
@@ -33,9 +33,8 @@ class CombinedDataModel {
 @riverpod
 class MonthRecord extends _$MonthRecord {
 
-
   @override
-  Future<LaborFiltedModel> build(DateTime time) async {
+  Future<LaborSummaryModel> build(DateTime time) async {
 
     final startDate = DateTime.utc(time.year, time.month, 1);
     final endDate = DateTime.utc(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
@@ -55,7 +54,7 @@ class MonthRecord extends _$MonthRecord {
       // 빈 데이터 체크
       if (history.isEmpty || contract.isEmpty) {
 
-        return const LaborFiltedModel();
+        return const LaborSummaryModel();
 
       }
 
@@ -76,13 +75,13 @@ class MonthRecord extends _$MonthRecord {
 
 
     } catch (e) {
-      return const LaborFiltedModel();
+      return const LaborSummaryModel();
     }
 
   }
 }
 
-LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
+LaborSummaryModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   final contract = data.contract;
   final history = data.history;
@@ -138,7 +137,7 @@ LaborFiltedModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   final workRecord = filteredHistory.sumBy((e) => e.record);
 
-  return LaborFiltedModel(
+  return LaborSummaryModel(
     subsidyDay: subsidyDay,
     totalSubsidy: formatAmount(newSubsidy),
     workDay: workDay,

@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../core/export_package.dart';
-import '../filted_instance_model/filted_month_model.dart';
+import '../period_filter_model/monthly_filter_model.dart';
 
 part 'chart_value_provider.g.dart';
 

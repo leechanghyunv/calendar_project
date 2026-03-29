@@ -4,7 +4,7 @@ import '../../../../repository/repository_import.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../repository/time/calculate_day.dart';
-import '../../../../view_model/filted_instance_model/filted_source_total.dart';
+import '../../../../view_model/period_filter_model/base_period_model.dart';
 
 part 'info_box_provider.freezed.dart';
 part 'info_box_provider.g.dart';

@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
-import '../../../view_model/filted_instance_model/filted_month_model.dart';
+import '../../../view_model/period_filter_model/monthly_filter_model.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../main_box_component/main_box_sizes.dart';

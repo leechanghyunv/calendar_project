@@ -1,8 +1,8 @@
-import 'package:calendar_project_240727/view_model/filted_instance_model/range_filted_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/utils/formatter.dart';
 import '../../../../repository/repository_import.dart';
+import '../../../../view_model/period_filter_model/range_filter_model.dart';
 
 part 'info_box_sub_provider.freezed.dart';
 part 'info_box_sub_provider.g.dart';

@@ -343,22 +343,22 @@ as String,
 
 
 /// @nodoc
-mixin _$LaborFiltedModel {
+mixin _$LaborSummaryModel {
 
  int get subsidyDay; String get totalSubsidy; int get workDay; int get totalPay; String get tax; String get afterTax; int get prevPay; String get percent; String get totalPayString; String get prevPayString; String get totalPayAnd; double get record; String get workRecord; int get normalDay; String get normalPay; int get extendDay; String get extendPay; int get nightDay; String get nightPay; int get extraDay; int get offDay; List<String> get workSites;
-/// Create a copy of LaborFiltedModel
+/// Create a copy of LaborSummaryModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$LaborFiltedModelCopyWith<LaborFiltedModel> get copyWith => _$LaborFiltedModelCopyWithImpl<LaborFiltedModel>(this as LaborFiltedModel, _$identity);
+$LaborSummaryModelCopyWith<LaborSummaryModel> get copyWith => _$LaborSummaryModelCopyWithImpl<LaborSummaryModel>(this as LaborSummaryModel, _$identity);
 
-  /// Serializes this LaborFiltedModel to a JSON map.
+  /// Serializes this LaborSummaryModel to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LaborFiltedModel&&(identical(other.subsidyDay, subsidyDay) || other.subsidyDay == subsidyDay)&&(identical(other.totalSubsidy, totalSubsidy) || other.totalSubsidy == totalSubsidy)&&(identical(other.workDay, workDay) || other.workDay == workDay)&&(identical(other.totalPay, totalPay) || other.totalPay == totalPay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.afterTax, afterTax) || other.afterTax == afterTax)&&(identical(other.prevPay, prevPay) || other.prevPay == prevPay)&&(identical(other.percent, percent) || other.percent == percent)&&(identical(other.totalPayString, totalPayString) || other.totalPayString == totalPayString)&&(identical(other.prevPayString, prevPayString) || other.prevPayString == prevPayString)&&(identical(other.totalPayAnd, totalPayAnd) || other.totalPayAnd == totalPayAnd)&&(identical(other.record, record) || other.record == record)&&(identical(other.workRecord, workRecord) || other.workRecord == workRecord)&&(identical(other.normalDay, normalDay) || other.normalDay == normalDay)&&(identical(other.normalPay, normalPay) || other.normalPay == normalPay)&&(identical(other.extendDay, extendDay) || other.extendDay == extendDay)&&(identical(other.extendPay, extendPay) || other.extendPay == extendPay)&&(identical(other.nightDay, nightDay) || other.nightDay == nightDay)&&(identical(other.nightPay, nightPay) || other.nightPay == nightPay)&&(identical(other.extraDay, extraDay) || other.extraDay == extraDay)&&(identical(other.offDay, offDay) || other.offDay == offDay)&&const DeepCollectionEquality().equals(other.workSites, workSites));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LaborSummaryModel&&(identical(other.subsidyDay, subsidyDay) || other.subsidyDay == subsidyDay)&&(identical(other.totalSubsidy, totalSubsidy) || other.totalSubsidy == totalSubsidy)&&(identical(other.workDay, workDay) || other.workDay == workDay)&&(identical(other.totalPay, totalPay) || other.totalPay == totalPay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.afterTax, afterTax) || other.afterTax == afterTax)&&(identical(other.prevPay, prevPay) || other.prevPay == prevPay)&&(identical(other.percent, percent) || other.percent == percent)&&(identical(other.totalPayString, totalPayString) || other.totalPayString == totalPayString)&&(identical(other.prevPayString, prevPayString) || other.prevPayString == prevPayString)&&(identical(other.totalPayAnd, totalPayAnd) || other.totalPayAnd == totalPayAnd)&&(identical(other.record, record) || other.record == record)&&(identical(other.workRecord, workRecord) || other.workRecord == workRecord)&&(identical(other.normalDay, normalDay) || other.normalDay == normalDay)&&(identical(other.normalPay, normalPay) || other.normalPay == normalPay)&&(identical(other.extendDay, extendDay) || other.extendDay == extendDay)&&(identical(other.extendPay, extendPay) || other.extendPay == extendPay)&&(identical(other.nightDay, nightDay) || other.nightDay == nightDay)&&(identical(other.nightPay, nightPay) || other.nightPay == nightPay)&&(identical(other.extraDay, extraDay) || other.extraDay == extraDay)&&(identical(other.offDay, offDay) || other.offDay == offDay)&&const DeepCollectionEquality().equals(other.workSites, workSites));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -367,15 +367,15 @@ int get hashCode => Object.hashAll([runtimeType,subsidyDay,totalSubsidy,workDay,
 
 @override
 String toString() {
-  return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
+  return 'LaborSummaryModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $LaborFiltedModelCopyWith<$Res>  {
-  factory $LaborFiltedModelCopyWith(LaborFiltedModel value, $Res Function(LaborFiltedModel) _then) = _$LaborFiltedModelCopyWithImpl;
+abstract mixin class $LaborSummaryModelCopyWith<$Res>  {
+  factory $LaborSummaryModelCopyWith(LaborSummaryModel value, $Res Function(LaborSummaryModel) _then) = _$LaborSummaryModelCopyWithImpl;
 @useResult
 $Res call({
  int subsidyDay, String totalSubsidy, int workDay, int totalPay, String tax, String afterTax, int prevPay, String percent, String totalPayString, String prevPayString, String totalPayAnd, double record, String workRecord, int normalDay, String normalPay, int extendDay, String extendPay, int nightDay, String nightPay, int extraDay, int offDay, List<String> workSites
@@ -386,14 +386,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$LaborFiltedModelCopyWithImpl<$Res>
-    implements $LaborFiltedModelCopyWith<$Res> {
-  _$LaborFiltedModelCopyWithImpl(this._self, this._then);
+class _$LaborSummaryModelCopyWithImpl<$Res>
+    implements $LaborSummaryModelCopyWith<$Res> {
+  _$LaborSummaryModelCopyWithImpl(this._self, this._then);
 
-  final LaborFiltedModel _self;
-  final $Res Function(LaborFiltedModel) _then;
+  final LaborSummaryModel _self;
+  final $Res Function(LaborSummaryModel) _then;
 
-/// Create a copy of LaborFiltedModel
+/// Create a copy of LaborSummaryModel
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? subsidyDay = null,Object? totalSubsidy = null,Object? workDay = null,Object? totalPay = null,Object? tax = null,Object? afterTax = null,Object? prevPay = null,Object? percent = null,Object? totalPayString = null,Object? prevPayString = null,Object? totalPayAnd = null,Object? record = null,Object? workRecord = null,Object? normalDay = null,Object? normalPay = null,Object? extendDay = null,Object? extendPay = null,Object? nightDay = null,Object? nightPay = null,Object? extraDay = null,Object? offDay = null,Object? workSites = null,}) {
   return _then(_self.copyWith(
@@ -426,8 +426,8 @@ as List<String>,
 }
 
 
-/// Adds pattern-matching-related methods to [LaborFiltedModel].
-extension LaborFiltedModelPatterns on LaborFiltedModel {
+/// Adds pattern-matching-related methods to [LaborSummaryModel].
+extension LaborSummaryModelPatterns on LaborSummaryModel {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -440,10 +440,10 @@ extension LaborFiltedModelPatterns on LaborFiltedModel {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LaborFiltedModel value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LaborSummaryModel value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _LaborFiltedModel() when $default != null:
+case _LaborSummaryModel() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -462,10 +462,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LaborFiltedModel value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LaborSummaryModel value)  $default,){
 final _that = this;
 switch (_that) {
-case _LaborFiltedModel():
+case _LaborSummaryModel():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -483,10 +483,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LaborFiltedModel value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LaborSummaryModel value)?  $default,){
 final _that = this;
 switch (_that) {
-case _LaborFiltedModel() when $default != null:
+case _LaborSummaryModel() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -506,7 +506,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int subsidyDay,  String totalSubsidy,  int workDay,  int totalPay,  String tax,  String afterTax,  int prevPay,  String percent,  String totalPayString,  String prevPayString,  String totalPayAnd,  double record,  String workRecord,  int normalDay,  String normalPay,  int extendDay,  String extendPay,  int nightDay,  String nightPay,  int extraDay,  int offDay,  List<String> workSites)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _LaborFiltedModel() when $default != null:
+case _LaborSummaryModel() when $default != null:
 return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay,_that.tax,_that.afterTax,_that.prevPay,_that.percent,_that.totalPayString,_that.prevPayString,_that.totalPayAnd,_that.record,_that.workRecord,_that.normalDay,_that.normalPay,_that.extendDay,_that.extendPay,_that.nightDay,_that.nightPay,_that.extraDay,_that.offDay,_that.workSites);case _:
   return orElse();
 
@@ -527,7 +527,7 @@ return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int subsidyDay,  String totalSubsidy,  int workDay,  int totalPay,  String tax,  String afterTax,  int prevPay,  String percent,  String totalPayString,  String prevPayString,  String totalPayAnd,  double record,  String workRecord,  int normalDay,  String normalPay,  int extendDay,  String extendPay,  int nightDay,  String nightPay,  int extraDay,  int offDay,  List<String> workSites)  $default,) {final _that = this;
 switch (_that) {
-case _LaborFiltedModel():
+case _LaborSummaryModel():
 return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay,_that.tax,_that.afterTax,_that.prevPay,_that.percent,_that.totalPayString,_that.prevPayString,_that.totalPayAnd,_that.record,_that.workRecord,_that.normalDay,_that.normalPay,_that.extendDay,_that.extendPay,_that.nightDay,_that.nightPay,_that.extraDay,_that.offDay,_that.workSites);case _:
   throw StateError('Unexpected subclass');
 
@@ -547,7 +547,7 @@ return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int subsidyDay,  String totalSubsidy,  int workDay,  int totalPay,  String tax,  String afterTax,  int prevPay,  String percent,  String totalPayString,  String prevPayString,  String totalPayAnd,  double record,  String workRecord,  int normalDay,  String normalPay,  int extendDay,  String extendPay,  int nightDay,  String nightPay,  int extraDay,  int offDay,  List<String> workSites)?  $default,) {final _that = this;
 switch (_that) {
-case _LaborFiltedModel() when $default != null:
+case _LaborSummaryModel() when $default != null:
 return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay,_that.tax,_that.afterTax,_that.prevPay,_that.percent,_that.totalPayString,_that.prevPayString,_that.totalPayAnd,_that.record,_that.workRecord,_that.normalDay,_that.normalPay,_that.extendDay,_that.extendPay,_that.nightDay,_that.nightPay,_that.extraDay,_that.offDay,_that.workSites);case _:
   return null;
 
@@ -559,9 +559,9 @@ return $default(_that.subsidyDay,_that.totalSubsidy,_that.workDay,_that.totalPay
 /// @nodoc
 @JsonSerializable()
 
-class _LaborFiltedModel implements LaborFiltedModel {
-  const _LaborFiltedModel({this.subsidyDay = 0, this.totalSubsidy = '0만원', this.workDay = 0, this.totalPay = 0, this.tax = '세율 0.0%', this.afterTax = '0만원', this.prevPay = 0, this.percent = '0.0%', this.totalPayString = '0.0만원', this.prevPayString = '0만원', this.totalPayAnd = '0만원', this.record = 0.0, this.workRecord = '0공수', this.normalDay = 0, this.normalPay = '0만원', this.extendDay = 0, this.extendPay = '0만원', this.nightDay = 0, this.nightPay = '0만원', this.extraDay = 0, this.offDay = 0, final  List<String> workSites = const []}): _workSites = workSites;
-  factory _LaborFiltedModel.fromJson(Map<String, dynamic> json) => _$LaborFiltedModelFromJson(json);
+class _LaborSummaryModel implements LaborSummaryModel {
+  const _LaborSummaryModel({this.subsidyDay = 0, this.totalSubsidy = '0만원', this.workDay = 0, this.totalPay = 0, this.tax = '세율 0.0%', this.afterTax = '0만원', this.prevPay = 0, this.percent = '0.0%', this.totalPayString = '0.0만원', this.prevPayString = '0만원', this.totalPayAnd = '0만원', this.record = 0.0, this.workRecord = '0공수', this.normalDay = 0, this.normalPay = '0만원', this.extendDay = 0, this.extendPay = '0만원', this.nightDay = 0, this.nightPay = '0만원', this.extraDay = 0, this.offDay = 0, final  List<String> workSites = const []}): _workSites = workSites;
+  factory _LaborSummaryModel.fromJson(Map<String, dynamic> json) => _$LaborSummaryModelFromJson(json);
 
 @override@JsonKey() final  int subsidyDay;
 @override@JsonKey() final  String totalSubsidy;
@@ -592,20 +592,20 @@ class _LaborFiltedModel implements LaborFiltedModel {
 }
 
 
-/// Create a copy of LaborFiltedModel
+/// Create a copy of LaborSummaryModel
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$LaborFiltedModelCopyWith<_LaborFiltedModel> get copyWith => __$LaborFiltedModelCopyWithImpl<_LaborFiltedModel>(this, _$identity);
+_$LaborSummaryModelCopyWith<_LaborSummaryModel> get copyWith => __$LaborSummaryModelCopyWithImpl<_LaborSummaryModel>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$LaborFiltedModelToJson(this, );
+  return _$LaborSummaryModelToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LaborFiltedModel&&(identical(other.subsidyDay, subsidyDay) || other.subsidyDay == subsidyDay)&&(identical(other.totalSubsidy, totalSubsidy) || other.totalSubsidy == totalSubsidy)&&(identical(other.workDay, workDay) || other.workDay == workDay)&&(identical(other.totalPay, totalPay) || other.totalPay == totalPay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.afterTax, afterTax) || other.afterTax == afterTax)&&(identical(other.prevPay, prevPay) || other.prevPay == prevPay)&&(identical(other.percent, percent) || other.percent == percent)&&(identical(other.totalPayString, totalPayString) || other.totalPayString == totalPayString)&&(identical(other.prevPayString, prevPayString) || other.prevPayString == prevPayString)&&(identical(other.totalPayAnd, totalPayAnd) || other.totalPayAnd == totalPayAnd)&&(identical(other.record, record) || other.record == record)&&(identical(other.workRecord, workRecord) || other.workRecord == workRecord)&&(identical(other.normalDay, normalDay) || other.normalDay == normalDay)&&(identical(other.normalPay, normalPay) || other.normalPay == normalPay)&&(identical(other.extendDay, extendDay) || other.extendDay == extendDay)&&(identical(other.extendPay, extendPay) || other.extendPay == extendPay)&&(identical(other.nightDay, nightDay) || other.nightDay == nightDay)&&(identical(other.nightPay, nightPay) || other.nightPay == nightPay)&&(identical(other.extraDay, extraDay) || other.extraDay == extraDay)&&(identical(other.offDay, offDay) || other.offDay == offDay)&&const DeepCollectionEquality().equals(other._workSites, _workSites));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LaborSummaryModel&&(identical(other.subsidyDay, subsidyDay) || other.subsidyDay == subsidyDay)&&(identical(other.totalSubsidy, totalSubsidy) || other.totalSubsidy == totalSubsidy)&&(identical(other.workDay, workDay) || other.workDay == workDay)&&(identical(other.totalPay, totalPay) || other.totalPay == totalPay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.afterTax, afterTax) || other.afterTax == afterTax)&&(identical(other.prevPay, prevPay) || other.prevPay == prevPay)&&(identical(other.percent, percent) || other.percent == percent)&&(identical(other.totalPayString, totalPayString) || other.totalPayString == totalPayString)&&(identical(other.prevPayString, prevPayString) || other.prevPayString == prevPayString)&&(identical(other.totalPayAnd, totalPayAnd) || other.totalPayAnd == totalPayAnd)&&(identical(other.record, record) || other.record == record)&&(identical(other.workRecord, workRecord) || other.workRecord == workRecord)&&(identical(other.normalDay, normalDay) || other.normalDay == normalDay)&&(identical(other.normalPay, normalPay) || other.normalPay == normalPay)&&(identical(other.extendDay, extendDay) || other.extendDay == extendDay)&&(identical(other.extendPay, extendPay) || other.extendPay == extendPay)&&(identical(other.nightDay, nightDay) || other.nightDay == nightDay)&&(identical(other.nightPay, nightPay) || other.nightPay == nightPay)&&(identical(other.extraDay, extraDay) || other.extraDay == extraDay)&&(identical(other.offDay, offDay) || other.offDay == offDay)&&const DeepCollectionEquality().equals(other._workSites, _workSites));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -614,15 +614,15 @@ int get hashCode => Object.hashAll([runtimeType,subsidyDay,totalSubsidy,workDay,
 
 @override
 String toString() {
-  return 'LaborFiltedModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
+  return 'LaborSummaryModel(subsidyDay: $subsidyDay, totalSubsidy: $totalSubsidy, workDay: $workDay, totalPay: $totalPay, tax: $tax, afterTax: $afterTax, prevPay: $prevPay, percent: $percent, totalPayString: $totalPayString, prevPayString: $prevPayString, totalPayAnd: $totalPayAnd, record: $record, workRecord: $workRecord, normalDay: $normalDay, normalPay: $normalPay, extendDay: $extendDay, extendPay: $extendPay, nightDay: $nightDay, nightPay: $nightPay, extraDay: $extraDay, offDay: $offDay, workSites: $workSites)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$LaborFiltedModelCopyWith<$Res> implements $LaborFiltedModelCopyWith<$Res> {
-  factory _$LaborFiltedModelCopyWith(_LaborFiltedModel value, $Res Function(_LaborFiltedModel) _then) = __$LaborFiltedModelCopyWithImpl;
+abstract mixin class _$LaborSummaryModelCopyWith<$Res> implements $LaborSummaryModelCopyWith<$Res> {
+  factory _$LaborSummaryModelCopyWith(_LaborSummaryModel value, $Res Function(_LaborSummaryModel) _then) = __$LaborSummaryModelCopyWithImpl;
 @override @useResult
 $Res call({
  int subsidyDay, String totalSubsidy, int workDay, int totalPay, String tax, String afterTax, int prevPay, String percent, String totalPayString, String prevPayString, String totalPayAnd, double record, String workRecord, int normalDay, String normalPay, int extendDay, String extendPay, int nightDay, String nightPay, int extraDay, int offDay, List<String> workSites
@@ -633,17 +633,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$LaborFiltedModelCopyWithImpl<$Res>
-    implements _$LaborFiltedModelCopyWith<$Res> {
-  __$LaborFiltedModelCopyWithImpl(this._self, this._then);
+class __$LaborSummaryModelCopyWithImpl<$Res>
+    implements _$LaborSummaryModelCopyWith<$Res> {
+  __$LaborSummaryModelCopyWithImpl(this._self, this._then);
 
-  final _LaborFiltedModel _self;
-  final $Res Function(_LaborFiltedModel) _then;
+  final _LaborSummaryModel _self;
+  final $Res Function(_LaborSummaryModel) _then;
 
-/// Create a copy of LaborFiltedModel
+/// Create a copy of LaborSummaryModel
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? subsidyDay = null,Object? totalSubsidy = null,Object? workDay = null,Object? totalPay = null,Object? tax = null,Object? afterTax = null,Object? prevPay = null,Object? percent = null,Object? totalPayString = null,Object? prevPayString = null,Object? totalPayAnd = null,Object? record = null,Object? workRecord = null,Object? normalDay = null,Object? normalPay = null,Object? extendDay = null,Object? extendPay = null,Object? nightDay = null,Object? nightPay = null,Object? extraDay = null,Object? offDay = null,Object? workSites = null,}) {
-  return _then(_LaborFiltedModel(
+  return _then(_LaborSummaryModel(
 subsidyDay: null == subsidyDay ? _self.subsidyDay : subsidyDay // ignore: cast_nullable_to_non_nullable
 as int,totalSubsidy: null == totalSubsidy ? _self.totalSubsidy : totalSubsidy // ignore: cast_nullable_to_non_nullable
 as String,workDay: null == workDay ? _self.workDay : workDay // ignore: cast_nullable_to_non_nullable

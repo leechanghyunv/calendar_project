@@ -1,7 +1,7 @@
 name: calendar_project_240727
 description: "A new Flutter project."
 publish_to: 'none'
-version: 1.6.6+69
+version: 1.6.7+70
 #version: 1.7.2+73
 
 environment:
@@ -96,6 +96,7 @@ dependencies:
   package_info_plus: ^8.3.0
   share_plus: ^12.0.1
   flutter_localization: ^0.3.3
+  home_widget: ^0.9.0
 
   # https://pub.dev/packages/change_app_package_name/ 안드로이드,ios 패키지 네일 바꾸는 방법 참고
   # flutter pub run change_app_package_name:main com.app.calendar_project_240727 --android

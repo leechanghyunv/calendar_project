@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'range_filted_model.dart';
+part of 'range_filter_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator

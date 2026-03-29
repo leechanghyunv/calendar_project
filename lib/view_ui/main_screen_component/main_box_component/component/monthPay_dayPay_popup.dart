@@ -1,6 +1,6 @@
 import '../../../../base_consumer.dart';
 import '../../../../core/export_package.dart';
-import '../../../../view_model/filted_instance_model/filted_month_model.dart';
+import '../../../../view_model/period_filter_model/monthly_filter_model.dart';
 
 class MonthPayDayPayPopup extends HookConsumerWidget {
   final double totalPay;

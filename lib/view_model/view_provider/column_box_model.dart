@@ -1,7 +1,7 @@
 import '../../model/column_box_value_model.dart';
 import '../../repository/repository_import.dart';
 import '../../repository/time/calculate_day.dart';
-import '../filted_instance_model/filted_source_total.dart';
+import '../period_filter_model/base_period_model.dart';
 
 part 'column_box_model.g.dart';
 

@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
 import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
 import 'package:calendar_project_240727/repository/time/calendar_time_controll.dart';
+import 'package:calendar_project_240727/view_model/period_filter_model/weekly_filter_model.dart';
 import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,6 +20,7 @@ void invalidateProviders(Ref ref) {
   ref.invalidate(calendarTotalEventProvider);
   ref.invalidate(selectedChipIndexProvider);
   ref.invalidate(viewHistoryProvider);
+  ref.invalidate(weekRecordProvider);
 }
 
 @riverpod
