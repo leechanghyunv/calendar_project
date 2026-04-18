@@ -153,15 +153,18 @@ class DualFieldBar extends HookConsumerWidget {
               borderRadius: BorderRadius.circular(25),
             ),
             child: Row(
+              crossAxisAlignment: .end,
               children: [
                 Expanded(
                   child: TextField(
                     key: ValueKey(isActive),
                     controller: isActive ? textController : decimalController,
                     focusNode: isActive ? textFocusNode : decimalFocusNode,
-                    maxLines: null,
-                    keyboardType: isActive ? TextInputType.text : TextInputType.numberWithOptions(decimal: true),
-                    textInputAction: TextInputAction.next,
+                    minLines: 1,
+                    maxLines: isActive ? 3 : null,
+                    keyboardType: isActive ? TextInputType.multiline : TextInputType.numberWithOptions(decimal: true),
+                    textInputAction: isActive ? TextInputAction.newline : TextInputAction.next,
+
                     inputFormatters: isActive ? null : [
                       TextInputFormatter.withFunction((oldValue, newValue) {
                         if (newValue.text.isEmpty) return newValue;
@@ -178,7 +181,7 @@ class DualFieldBar extends HookConsumerWidget {
                     cursorColor: Colors.grey.shade700,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: fontSize,
+                      fontSize: Platform.isAndroid ? fontSize + 1.5 : fontSize,
                     ),
                     decoration: InputDecoration(
                       isDense: true,
@@ -186,7 +189,7 @@ class DualFieldBar extends HookConsumerWidget {
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,
-                        fontSize: fontSize,
+                        fontSize: Platform.isAndroid ? fontSize + 1.5 : fontSize,
                       ),
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(
@@ -196,6 +199,7 @@ class DualFieldBar extends HookConsumerWidget {
                     ),
                   ),
                 ),
+
                 IconButton(
                   onPressed: () {
                     if (isActive) {
@@ -204,11 +208,13 @@ class DualFieldBar extends HookConsumerWidget {
                       HapticFeedback.selectionClick();
                     } else {
                       ref.decimalRead.onChangeDecimal(decimal);
+
                       if (isDuration.value) {
                         ref.decimalRead.onSubmitMonthAll(
                           selectedDate.value,endDate.value,
                         );
                       }
+
                       ref.decimalRead.onSubmit(decimal: decimal);
                       HapticFeedback.selectionClick();
                     }

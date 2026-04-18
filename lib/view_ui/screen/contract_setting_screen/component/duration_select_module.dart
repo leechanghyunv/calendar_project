@@ -1,10 +1,11 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:flutter/cupertino.dart';
-import '../../base_app_size.dart';
-import '../../core/export_package.dart';
-import '../../core/extentions/theme_color.dart';
-import '../../core/widget/text_widget.dart';
-import '../screen/calendar_screen/provider/today_info_provider.dart';
+import '../../../../base_app_size.dart';
+import '../../../../core/export_package.dart';
+import '../../../../core/extentions/theme_color.dart';
+import '../../../../core/widget/text_widget.dart';
+import '../../calendar_screen/provider/today_info_provider.dart';
+import 'holiday_select_chip.dart';
 
 class DurationSelectModule extends HookConsumerWidget {
   final FocusNode? focusNode;
@@ -41,20 +42,24 @@ class DurationSelectModule extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(bottom: 2.0),
-              child: Icon(Icons.access_time, color: context.subTextColor,size: 17.5),
+              child:
+              Icon(Icons.access_time,
+                  color: context.subTextColor,size: 17.5),
             ),
             SizedBox(width: 7.5),
-            TextWidget(
-              isDuration.value ? '기간 선택' : '날짜 선택',
-              15,
-              context.width,
-              color: context.subTextColor,
-            ),
+              TextWidget(
+                isDuration.value ? '기간 선택' : '날짜 선택',
+                15,
+                context.width,
+                color: context.subTextColor,
+              ),
+
             Spacer(),
             Switch(
               value: isDuration.value,
@@ -145,6 +150,8 @@ class DurationSelectModule extends HookConsumerWidget {
         ),
 
 
+        if(isDuration.value)
+        HolidaySelectChip(),
 
         SizedBox(height: 5),
 

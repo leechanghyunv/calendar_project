@@ -66,17 +66,9 @@ class DisplayValue extends _$DisplayValue {
 
     final isDefault = normal == 1.0 && extended == 1.5 && night == 2.0;
     await prefs.setBool('valueChange', !isDefault);
-
-    state = await AsyncValue.guard(() async {
-      final current = await future; // 🎯 현재 값 추출
-      return current.copyWith(
-        normal: normal,
-        extended: extended,
-        night: night,
-        valueChange: !isDefault,
-      );
-    });
-
+    HapticFeedback.selectionClick();
+    customMsg('리스트에 반영되었습니다');
+    ref.invalidateSelf();
 
   }
 

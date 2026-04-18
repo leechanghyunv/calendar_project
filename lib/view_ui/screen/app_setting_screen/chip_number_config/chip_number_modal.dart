@@ -1,11 +1,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:dartx/dartx.dart';
-
 import '../../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
-import '../../../../view_model/view_provider/display_view_record_model.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/munti_decimal_field_bar.dart';
 import '../../../widgets/svg_imoji.dart';
@@ -16,7 +13,6 @@ void ChipNumberModal(BuildContext context){
     child: ChipNumberScreen(),
   );
 }
-
 
 class ChipNumberScreen extends HookConsumerWidget {
   const ChipNumberScreen({super.key});
@@ -148,7 +144,6 @@ class ChipNumberScreen extends HookConsumerWidget {
                 ),
               ),
               SizedBox(height: 15),
-      
               Row(
                 children: [
                   Expanded(
@@ -156,16 +151,8 @@ class ChipNumberScreen extends HookConsumerWidget {
                       controllers: [firstController, secondController, thirdController],
                       hintTexts: ['예) 1.0', '두번째 입력', '세번째 입력'],
                       currentIndexNotifier: currentIndex,
-                      onComplete: () {
-                        ref.read(displayValueProvider.notifier).copyWithState(
-                            firstText.toDouble(), secondText.toDouble(), thirdText.toDouble());
-                        HapticFeedback.selectionClick();
-                        Navigator.pop(context);
-                      },
                     ),
                   ),
-      
-      
                 ],
               ),
             ],

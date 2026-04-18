@@ -8,7 +8,7 @@ import '../../../core/widget/text_widget.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/dual_field_bar.dart';
-import '../../widgets/duration_select_module.dart';
+import 'component/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';
 import 'component/settlementState_box.dart';
@@ -169,7 +169,7 @@ class NewSettingScreen extends HookConsumerWidget {
                         });
                       },
                       child: TextWidget(
-                           '공수조건변경',
+                           '일당수정',
                           13.5,
                           context.width,
                           color: context.subTextColor
@@ -188,20 +188,22 @@ class NewSettingScreen extends HookConsumerWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              DualFieldBar(
-                selectedDate: selectedDate,
-                endDate: endDate,
-                isDuration: isDuration,
-                textController: memoController,
-                decimalController: decimalController,
-                textFocusNode: memoFocus,
-                decimalFocusNode: decimalFocus,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DualFieldBar(
+                  selectedDate: selectedDate,
+                  endDate: endDate,
+                  isDuration: isDuration,
+                  textController: memoController,
+                  decimalController: decimalController,
+                  textFocusNode: memoFocus,
+                  decimalFocusNode: decimalFocus,
+                ),
+              ],
+            ),
           ),
         ),
       ),

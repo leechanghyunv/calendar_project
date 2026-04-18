@@ -62,6 +62,8 @@ class MyApp extends HookConsumerWidget {
     ref.watch(switchNotifierProvider);
     ref.watch(versionManagerProvider);
     ref.watch(versionProvider);
+
+
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp]
     );

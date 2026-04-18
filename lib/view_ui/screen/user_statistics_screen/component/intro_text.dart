@@ -7,7 +7,7 @@ Widget introText(double height) {
   final fontSize = height.responsiveSize([16,15,15,15,13.5,13]);
   final baseStyle = TextStyle(
     height: Platform.isAndroid ? 1.5 : null,
-    fontSize: fontSize,
+    fontSize: Platform.isAndroid ? fontSize - 3.0 : fontSize,
   );
   return Text.rich(
     TextSpan(

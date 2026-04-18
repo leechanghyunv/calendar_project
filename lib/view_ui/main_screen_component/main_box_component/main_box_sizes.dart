@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 class MainBoxSizes {
   final double width;
   final bool isFold;
@@ -76,12 +78,12 @@ class MainBoxSizes {
   };
 
 
-  double get indicatorFont => switch (width){
+  double get indicatorFont => (switch (width) {
     >= 400 => 10,
     >= 390 => 9.5,
     >= 375 => 8.0,
     _ => 7.0
-  };
+  }) + (Platform.isAndroid ? 1.25 : 0.0);
 
 
 

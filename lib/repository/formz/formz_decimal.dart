@@ -25,6 +25,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
   }
 
   Future<void> onChangeDecimal(double number) async {
+
     final time = ref.watch(timeManagerProvider.notifier).DaySelected;
     final pay = ref.watch(viewContractProvider).value!.last.normal;
 
@@ -44,13 +45,20 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
           ? DecimalFormzStatus.invalid
           : DecimalFormzStatus.submissionInProgress,
     );
+
+    print('decimal $decimal');
+
   }
 
   void onSubmit({double? decimal}) async {
+
+    print('onSubmit $decimal');
+
     final date = ref.watch(timeManagerProvider).selected;
     final contract = ref.watch(viewContractProvider).valueOrNull;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
+    print('onSubmit_calculated: pay: ${value.pay} decimal: ${value.decimal}, $calculated');
     try{
       await ref.read(
           addHistoryProvider(calculated, date, decimal: decimal),

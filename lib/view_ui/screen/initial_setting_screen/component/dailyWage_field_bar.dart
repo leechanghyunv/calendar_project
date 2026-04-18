@@ -149,7 +149,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
                 cursorColor: Colors.grey.shade700,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: fontSize,
+                  fontSize: Platform.isAndroid ? fontSize + 1.5 : fontSize,
                 ),
                 decoration: InputDecoration(
                   prefixText: currentController.text.isNotEmpty ? (currentIndex == 3 ? ' ': '₩ ') : null,
@@ -158,7 +158,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
                   hintStyle: TextStyle(
                     color: Colors.grey[500],
                     fontWeight: FontWeight.bold,
-                    fontSize: fontSize,
+                    fontSize: Platform.isAndroid ? fontSize + 1.5 : fontSize,
                   ),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(

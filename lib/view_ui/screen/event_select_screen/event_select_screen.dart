@@ -5,7 +5,7 @@ import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import '../../../../core/export_package.dart';
 import '../../../model/event/custom_event.dart';
 import '../../../view_model/sqlite_model/event_model.dart';
-import '../../widgets/duration_select_module.dart';
+import '../contract_setting_screen/component/duration_select_module.dart';
 import '../../widgets/elevated_button.dart';
 import 'component/day_select_textfield.dart';
 import 'component/event_textfield.dart';

@@ -90,11 +90,14 @@ extension sizeExt on double {
   double responsiveSize(List<double> sizes) {
     assert(sizes.length == 6, 'sizes must have exactly 4 elements');
 
-    if (this >= 450) return sizes[0];  // 14
-    if (this >= 420) return sizes[1];  // 12.5
-    if (this >= 410) return sizes[2];  // 12
-    if (this >= 390) return sizes[3];  // 10.5
-    if (this >= 350) return sizes[4];  // 10
+    final offset = Platform.isAndroid ? 1.5 : 0.0;
+
+
+    if (this >= 450) return sizes[0] + offset;  // 14
+    if (this >= 420) return sizes[1] + offset;  // 12.5
+    if (this >= 410) return sizes[2] + offset;  // 12
+    if (this >= 390) return sizes[3] + offset;  // 10.5
+    if (this >= 350) return sizes[4] + offset;  // 10
     return sizes[5];  // 9 ← 320은 여기!
   }
 }

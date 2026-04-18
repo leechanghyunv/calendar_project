@@ -21,6 +21,7 @@ void invalidateProviders(Ref ref) {
   ref.invalidate(selectedChipIndexProvider);
   ref.invalidate(viewHistoryProvider);
   ref.invalidate(weekRecordProvider);
+  ref.read(weekRecordProvider.notifier).refresh();
 }
 
 @riverpod

@@ -26,11 +26,9 @@ class TextFieldBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    useListenable(controller);
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
-
-    // 🔥 화면 빌드 후 자동으로 포커스
-
 
     return Container(
       decoration: BoxDecoration(
@@ -51,7 +49,7 @@ class TextFieldBar extends HookConsumerWidget {
               cursorColor: Colors.grey.shade700,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: fontSize,
+                fontSize:  fontSize,
               ),
               onChanged: onChanged,
               decoration: InputDecoration(
@@ -60,7 +58,7 @@ class TextFieldBar extends HookConsumerWidget {
                 hintText: hintText,
                 hintStyle: TextStyle(
                   color: Colors.grey[500],
-                  fontSize: fontSize,
+                  fontSize:  fontSize,
                 ),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(

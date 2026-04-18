@@ -56,7 +56,12 @@ class InitialSettingScreen extends HookConsumerWidget {
 
     final currentText = useListenable(currentController).text;
 
-    final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
+    final iconSize = _getSize(context.width,
+        sizes: [
+          13,
+          12,
+          12,
+          11.5]);
 
     void handleNext() {
       final isLast = currentIndex.value == 3;

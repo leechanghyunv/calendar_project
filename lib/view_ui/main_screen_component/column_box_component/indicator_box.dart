@@ -43,7 +43,9 @@ Widget buildStatsBox({
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    TextWidget(title, 12, appWidth,color: context.textColor,),
+                    TextWidget(
+                      title, Platform.isAndroid ? 12.5 : 12,
+                      appWidth,color: context.textColor,),
                     const Spacer(),
                     AnimatedNumber(
                       end: value,
@@ -58,10 +60,11 @@ Widget buildStatsBox({
                 Text(description,
                   textScaler: TextScaler.noScaling,
                     style: TextStyle(
-                        color: context.textColor,
-                        height: textHeight,
-                        fontWeight: context.isDark ? FontWeight.w600 : FontWeight.w500,
-                        fontSize: boxSizes.indicatorFont,
+                      color: context.textColor,
+                      height: textHeight,
+                      fontWeight: context.isDark ? FontWeight.w600 : FontWeight.w500,
+                      fontSize: boxSizes.indicatorFont,
+                      letterSpacing: Platform.isAndroid ? 0.25 : 0.0,
                     ),
                 ),
               ],

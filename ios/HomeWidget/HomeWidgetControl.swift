@@ -1,4 +1,0 @@
-//
-//  HomeWidgetControl.swift
-//  HomeWidget
-//

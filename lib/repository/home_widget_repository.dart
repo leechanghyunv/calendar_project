@@ -22,13 +22,21 @@ class WidgetBridge extends _$WidgetBridge {
   /// 공수데이터
   Future<void> saveWorkRecord(double days) async {
     await HomeWidget.saveWidgetData('workRecord', days);
-    await HomeWidget.updateWidget(iOSName: _iOSWidgetName);
+
   }
 
   /// 임금데이터
   Future<void> saveWage(int wage) async {
     await HomeWidget.saveWidgetData('wage', wage);
-    await HomeWidget.updateWidget(iOSName: _iOSWidgetName);
+
+  }
+
+  /// ✅ iOS/Android 위젯을 실제로 새로고침하는 명령
+  Future<void> updateWidget() async {
+    await HomeWidget.updateWidget(
+      iOSName: _iOSWidgetName,
+      // androidName: 'HomeWidgetProvider', // 안드로이드도 있다면 추가
+    );
   }
 
 

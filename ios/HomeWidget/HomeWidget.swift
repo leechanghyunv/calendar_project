@@ -1,7 +1,5 @@
-//
 //  HomeWidget.swift
 //  HomeWidget
-//
 
 import WidgetKit
 import SwiftUI
@@ -37,100 +35,32 @@ struct WorkProvider: TimelineProvider {
     }
 }
 
-// MARK: - Lock Screen Views
+// MARK: - Lock Screen View
 
 struct AccessoryRectangularView: View {
     let entry: WorkEntry
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            HStack {
-                Text(String(format: "%.1f공수", entry.workRecord))
-                    .font(.headline)
-            }
-            HStack {
-                Text("\(entry.wage.formatted())원")
-                    .font(.subheadline)
-            }
+            Text("이번주")
+                .font(.system(size: 13))
+                .foregroundColor(.secondary)
+            Text(String(format: "%.1f공수", entry.workRecord))
+                .font(.system(size: 18, weight: .bold))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .modifier(WidgetBackgroundModifier())
     }
 }
 
-struct AccessoryInlineView: View {
-    let entry: WorkEntry
-
-    var body: some View {
-        Text(String(format: "%.1f공수  %@원", entry.workRecord, entry.wage.formatted()))
-    }
-}
-
-// MARK: - Home Screen View
-
-struct HomeScreenWidgetView: View {
-    let entry: WorkEntry
-
-    var body: some View {
-        VStack(spacing: 8) {
-            HStack {
-                Text("공수")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(String(format: "%.1f공수", entry.workRecord))
-                    .font(.headline.bold())
-            }
-            Divider()
-            HStack {
-                Text("임금")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text("\(entry.wage.formatted())원")
-                    .font(.headline.bold())
-            }
-        }
-        .padding(12)
-    }
-}
-
-// MARK: - Entry View
-
-struct HomeWidgetEntryView: View {
-    @Environment(\.widgetFamily) var family
-    var entry: WorkEntry
-
-    @ViewBuilder
-    var body: some View {
+struct WidgetBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
         if #available(iOS 17.0, *) {
-            Group {
-                switch family {
-                case .accessoryRectangular:
-                    AccessoryRectangularView(entry: entry)
-                case .accessoryInline:
-                    AccessoryInlineView(entry: entry)
-                default:
-                    HomeScreenWidgetView(entry: entry)
-                }
-            }
-            .containerBackground(for: .widget) {
-                Color(.systemFill)
-            }
+            content.containerBackground(for: .widget) { Color.clear }
         } else {
-            ZStack {
-                Color(.systemFill)
-                switch family {
-                case .accessoryRectangular:
-                    AccessoryRectangularView(entry: entry)
-                case .accessoryInline:
-                    AccessoryInlineView(entry: entry)
-                default:
-                    HomeScreenWidgetView(entry: entry)
-                }
-            }
+            content
         }
     }
-    
 }
 
 // MARK: - Widget
@@ -138,37 +68,14 @@ struct HomeWidgetEntryView: View {
 struct HomeWidget: Widget {
     let kind: String = "HomeWidget"
 
-    static var supportedFamilies: [WidgetFamily] {
-        var families: [WidgetFamily] = [.systemSmall]
-        #if os(iOS)
-        families += [.accessoryRectangular, .accessoryInline]
-        #endif
-        return families
-    }
-
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: WorkProvider()) { entry in
-            HomeWidgetEntryView(entry: entry)
-                
+            AccessoryRectangularView(entry: entry)
         }
-        .configurationDisplayName("한주간 근로기록")
-        .description("공수와 임금을 확인합니다.")
-        .supportedFamilies(Self.supportedFamilies)
-    }
-}
-
-// MARK: - Background Helper
-
-extension View {
-    @ViewBuilder
-    func widgetContainerBackground() -> some View {
-        if #available(iOS 17.0, *) {
-            self.containerBackground(for: .widget) {
-                Color(.systemFill)
-            }
-        } else {
-            self.background(Color(.systemFill))
-        }
+        .configurationDisplayName("이번주 공수")
+        .description("잠금 화면에서 이번주 공수를 확인합니다.")
+        .supportedFamilies([.accessoryRectangular])
+        .contentMarginsDisabled()
     }
 }
 
@@ -176,11 +83,7 @@ extension View {
 
 struct HomeWidget_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenWidgetView(entry: WorkEntry(date: .now, workRecord: 1.5, wage: 150000))
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
-        #if os(iOS)
-        AccessoryRectangularView(entry: WorkEntry(date: .now, workRecord: 1.5, wage: 150000))
+        AccessoryRectangularView(entry: WorkEntry(date: .now, workRecord: 1.5, wage: 164000))
             .previewContext(WidgetPreviewContext(family: .accessoryRectangular))
-        #endif
     }
 }

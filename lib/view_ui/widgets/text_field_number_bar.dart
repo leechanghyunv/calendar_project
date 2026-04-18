@@ -55,7 +55,7 @@ class NumberFieldBar extends HookConsumerWidget {
               cursorColor: Colors.grey.shade700,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: fontSize,
+                fontSize:  fontSize,
               ),
               onChanged: onChanged,
               decoration: InputDecoration(
@@ -63,7 +63,7 @@ class NumberFieldBar extends HookConsumerWidget {
                 hintText: hintText,
                 hintStyle: TextStyle(
                   color: Colors.grey[500],
-                  fontSize: fontSize,
+                  fontSize:  fontSize,
                 ),
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(

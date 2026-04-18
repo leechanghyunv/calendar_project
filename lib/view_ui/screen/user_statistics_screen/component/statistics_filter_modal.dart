@@ -1,7 +1,5 @@
 import '../../../../core/export_package.dart';
 
-
-
 class StatisticsFilterModal extends HookConsumerWidget {
   const StatisticsFilterModal({super.key});
 

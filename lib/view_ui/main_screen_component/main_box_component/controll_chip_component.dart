@@ -7,6 +7,7 @@ import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 import '../../../core/extentions/theme_extension.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
+import '../../dialog/delete_goal_dialog/delete_dialog.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
 import '../../screen/initial_setting_screen/initial_setting_screen.dart';
@@ -108,7 +109,6 @@ class _WorkTypeChipList extends HookConsumerWidget {
             case AsyncData(value: final model):
               final values = [model.normal, model.extended, model.night];
               ref.decimalRead.onChangeDecimal(values[index]);
-              await Future.delayed(const Duration(milliseconds: 100));
               ref.decimalRead.onSubmit(decimal: values[index]);
           }
         } else {
@@ -171,10 +171,7 @@ class _DeleteChipButton extends HookConsumerWidget {
             if (selectedOne.isEmpty) {
               customMsg('${ref.selected.day}일 공수가 없습니다.');
             } else {
-              await ref.read(deleteHistoryProvider(ref.selected).future);
-              await Future.delayed(const Duration(milliseconds: 50));
-              customMsg('${ref.selected.day}일 공수가 삭제되었습니다.');
-              ref.refreshState(context);
+              recordDeleteDialog(context);
             }
         }
       },
@@ -235,15 +232,21 @@ class _ChipButton extends StatelessWidget {
           Platform.isAndroid ? 19.5 : 19]
     );
 
+    final iconType1 = appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
+    final iconType2 = appWidth.responsiveSize([13.5, 12, 11.5, 11,10,9]);
+
     final iconSize = type == ChipType.workType
     /// 공수 칩 일때
-        ? appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9])
-        : appWidth.responsiveSize([13.5, 12, 11.5, 11,10,9]);
+        ? Platform.isAndroid ? iconType1 - 1.5 : iconType1
+        : Platform.isAndroid ? iconType2 - 1.5 : iconType2;
+
+    final fontType1 = appWidth.responsiveSize([14, 12.5, 12, 11.5,10.5,9.5]);
+    final fontType2 = appWidth.responsiveSize([13, 12.5, 12, 10.5,10,9]);
 
     final fontSize = type == ChipType.workType
     /// 공수 칩 일때
-        ? appWidth.responsiveSize([14, 12.5, 12, 11.5,10.5,9.5])
-        : appWidth.responsiveSize([13, 12.5, 12, 10.5,10,9]);
+        ? Platform.isAndroid ? fontType1 - 1.0 : fontType1
+        : Platform.isAndroid ? fontType2 - 1.5 : fontType2;
 
     return Container(
       height: height,
