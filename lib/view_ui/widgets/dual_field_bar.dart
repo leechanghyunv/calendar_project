@@ -9,6 +9,7 @@ import '../../core/utils/converter.dart';
 import '../../core/widget/text_widget.dart';
 import '../../repository/formz/formz_decimal.dart';
 import '../screen/contract_setting_screen/component/latest_record_button.dart';
+import '../screen/contract_setting_screen/component/show_history_button.dart';
 import 'blink_text.dart';
 
 final memoActiveProvider = StateProvider<bool>((ref) => false);
@@ -17,6 +18,7 @@ class DualFieldBar extends HookConsumerWidget {
   final ValueNotifier<DateTime> selectedDate;
   final ValueNotifier<DateTime> endDate;
   final ValueNotifier<bool> isDuration;
+  final ValueNotifier<bool> containHoliDay;
   final TextEditingController textController;
   final TextEditingController decimalController;
   final FocusNode textFocusNode;
@@ -27,6 +29,7 @@ class DualFieldBar extends HookConsumerWidget {
     required this.selectedDate,
     required this.endDate,
     required this.isDuration,
+    required this.containHoliDay,
     required this.textController,
     required this.decimalController,
     required this.textFocusNode,
@@ -44,6 +47,8 @@ class DualFieldBar extends HookConsumerWidget {
     final contract = ref.watch(viewContractProvider);
     final contractPay = contract.valueOrNull?.lastOrNull?.normal ?? 0.0;
     final contractSubsidy = contract.valueOrNull?.lastOrNull?.subsidy ?? 0.0;
+
+    print('textController ${textController.text}');
 
     ref.watch(formzDecimalValidatorProvider);
     ref.formzMemoWatch;
@@ -133,7 +138,9 @@ class DualFieldBar extends HookConsumerWidget {
                     color: context.subTextColor,
                   ),
                   Spacer(),
-                  LatestRecordButton(
+                  /// LatestRecordButton
+                  /// ShowHistoryButton
+                  ShowHistoryButton(
                     textController: textController,
                     decimalController: decimalController,
 
@@ -207,11 +214,12 @@ class DualFieldBar extends HookConsumerWidget {
                       ref.read(memoActiveProvider.notifier).state = !isActive;
                       HapticFeedback.selectionClick();
                     } else {
+                      ref.formzMemoRead.onChangeMemo(textController.text);
                       ref.decimalRead.onChangeDecimal(decimal);
 
                       if (isDuration.value) {
                         ref.decimalRead.onSubmitMonthAll(
-                          selectedDate.value,endDate.value,
+                          selectedDate.value,endDate.value,containHoliDay.value
                         );
                       }
 

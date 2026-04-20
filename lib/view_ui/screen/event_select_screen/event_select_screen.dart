@@ -24,6 +24,7 @@ class EventSelectScreen extends HookConsumerWidget {
     final DayController = useTextEditingController();
 
     final isDuration = useState(false);
+    final containHoliDay = useState(false);
     final selectedDate = useState(DateTime.now());
     final endDate = useState(DateTime.now());
 
@@ -111,6 +112,7 @@ class EventSelectScreen extends HookConsumerWidget {
                                           DurationSelectModule(
                                             focusNode: focusNode,
                                             isDuration: isDuration,
+                                            containHoliDay: containHoliDay,
                                             selectedDate: selectedDate,
                                             endDate: endDate,
                                           ),

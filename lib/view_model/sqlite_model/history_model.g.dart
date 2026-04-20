@@ -440,7 +440,7 @@ class _AddHistoryProviderElement extends AutoDisposeFutureProviderElement<void>
 }
 
 String _$rangeExcludHolidayHash() =>
-    r'0faddaf397588404afe288b9eeccfd50cdf446ac';
+    r'8dc5c81a3950259b7c0b950e9fc2516e4f067bc7';
 
 /// See also [rangeExcludHoliday].
 @ProviderFor(rangeExcludHoliday)
@@ -456,15 +456,21 @@ class RangeExcludHolidayFamily extends Family<AsyncValue<void>> {
     WorkHistory history,
     DateTime start,
     DateTime end,
+    bool containHoliDay,
   ) {
-    return RangeExcludHolidayProvider(history, start, end);
+    return RangeExcludHolidayProvider(history, start, end, containHoliDay);
   }
 
   @override
   RangeExcludHolidayProvider getProviderOverride(
     covariant RangeExcludHolidayProvider provider,
   ) {
-    return call(provider.history, provider.start, provider.end);
+    return call(
+      provider.history,
+      provider.start,
+      provider.end,
+      provider.containHoliDay,
+    );
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -485,13 +491,18 @@ class RangeExcludHolidayFamily extends Family<AsyncValue<void>> {
 /// See also [rangeExcludHoliday].
 class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
   /// See also [rangeExcludHoliday].
-  RangeExcludHolidayProvider(WorkHistory history, DateTime start, DateTime end)
-    : this._internal(
+  RangeExcludHolidayProvider(
+    WorkHistory history,
+    DateTime start,
+    DateTime end,
+    bool containHoliDay,
+  ) : this._internal(
         (ref) => rangeExcludHoliday(
           ref as RangeExcludHolidayRef,
           history,
           start,
           end,
+          containHoliDay,
         ),
         from: rangeExcludHolidayProvider,
         name: r'rangeExcludHolidayProvider',
@@ -504,6 +515,7 @@ class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
         history: history,
         start: start,
         end: end,
+        containHoliDay: containHoliDay,
       );
 
   RangeExcludHolidayProvider._internal(
@@ -516,11 +528,13 @@ class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
     required this.history,
     required this.start,
     required this.end,
+    required this.containHoliDay,
   }) : super.internal();
 
   final WorkHistory history;
   final DateTime start;
   final DateTime end;
+  final bool containHoliDay;
 
   @override
   Override overrideWith(
@@ -538,6 +552,7 @@ class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
         history: history,
         start: start,
         end: end,
+        containHoliDay: containHoliDay,
       ),
     );
   }
@@ -552,7 +567,8 @@ class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
     return other is RangeExcludHolidayProvider &&
         other.history == history &&
         other.start == start &&
-        other.end == end;
+        other.end == end &&
+        other.containHoliDay == containHoliDay;
   }
 
   @override
@@ -561,6 +577,7 @@ class RangeExcludHolidayProvider extends AutoDisposeFutureProvider<void> {
     hash = _SystemHash.combine(hash, history.hashCode);
     hash = _SystemHash.combine(hash, start.hashCode);
     hash = _SystemHash.combine(hash, end.hashCode);
+    hash = _SystemHash.combine(hash, containHoliDay.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -577,6 +594,9 @@ mixin RangeExcludHolidayRef on AutoDisposeFutureProviderRef<void> {
 
   /// The parameter `end` of this provider.
   DateTime get end;
+
+  /// The parameter `containHoliDay` of this provider.
+  bool get containHoliDay;
 }
 
 class _RangeExcludHolidayProviderElement
@@ -590,6 +610,9 @@ class _RangeExcludHolidayProviderElement
   DateTime get start => (origin as RangeExcludHolidayProvider).start;
   @override
   DateTime get end => (origin as RangeExcludHolidayProvider).end;
+  @override
+  bool get containHoliDay =>
+      (origin as RangeExcludHolidayProvider).containHoliDay;
 }
 
 String _$latestHistoryHash() => r'bd8535dc4f016bf752d1d2b184b653c3a232586b';

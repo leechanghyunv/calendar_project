@@ -98,9 +98,9 @@ Future<void> addHistory(Ref ref,
 
 @riverpod
 Future<void> rangeExcludHoliday(
-    Ref ref, WorkHistory history,DateTime start,DateTime end) async {
+    Ref ref, WorkHistory history, DateTime start, DateTime end, bool containHoliDay) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-   db.insertWorkHistoryExcludeHolidays(start, end, history);
+   db.insertWorkHistoryExcludeHolidays(start, end, history,containHoliDay);
    invalidateProviders(ref);
 }
 

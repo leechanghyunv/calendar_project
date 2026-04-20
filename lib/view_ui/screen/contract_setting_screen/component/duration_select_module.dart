@@ -10,6 +10,7 @@ import 'holiday_select_chip.dart';
 class DurationSelectModule extends HookConsumerWidget {
   final FocusNode? focusNode;
   final ValueNotifier<bool> isDuration;
+  final ValueNotifier<bool> containHoliDay;
   final ValueNotifier<DateTime> selectedDate;
   final ValueNotifier<DateTime> endDate;
 
@@ -17,6 +18,7 @@ class DurationSelectModule extends HookConsumerWidget {
     super.key,
     this.focusNode,
     required this.isDuration,
+    required this.containHoliDay,
     required this.selectedDate,
     required this.endDate,
   });
@@ -151,7 +153,9 @@ class DurationSelectModule extends HookConsumerWidget {
 
 
         if(isDuration.value)
-        HolidaySelectChip(),
+        HolidaySelectChip(
+          containHoliDay: containHoliDay,
+        ),
 
         SizedBox(height: 5),
 

@@ -20,6 +20,7 @@ class NewSettingScreen extends HookConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
 
     final isDuration = useState(false);
+    final containHoliDay = useState(false);
     final selectedDate = useState(ref.selected);
     final endDate = useState(DateTime.now());
 
@@ -28,9 +29,11 @@ class NewSettingScreen extends HookConsumerWidget {
     final histories = history.valueOrNull ?? [];
 
     final initialMemo = resolveInitialMemo(histories, ref.selected);
+
     final initialRecord = resolveInitialRecord(histories, ref.selected);
 
     final memoController = useTextEditingController(text: initialMemo);
+
     final decimalController = useTextEditingController(text: initialRecord);
 
     final decimalFocus = useFocusNode();
@@ -81,6 +84,7 @@ class NewSettingScreen extends HookConsumerWidget {
                 DurationSelectModule(
                   focusNode: isActive ? memoFocus : decimalFocus,
                   isDuration: isDuration,
+                  containHoliDay: containHoliDay,
                   selectedDate: selectedDate,
                   endDate: endDate,
                 ),
@@ -197,10 +201,12 @@ class NewSettingScreen extends HookConsumerWidget {
                   selectedDate: selectedDate,
                   endDate: endDate,
                   isDuration: isDuration,
+                  containHoliDay: containHoliDay,
                   textController: memoController,
                   decimalController: decimalController,
                   textFocusNode: memoFocus,
                   decimalFocusNode: decimalFocus,
+
                 ),
               ],
             ),

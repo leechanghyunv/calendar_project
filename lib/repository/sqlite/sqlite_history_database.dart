@@ -182,7 +182,7 @@ class HistoryDatabase {
 
 // 해당 월 모두 데이터 저장하기
   Future<void> insertWorkHistoryExcludeHolidays(
-      DateTime start, DateTime end, WorkHistory history) async {
+      DateTime start, DateTime end, WorkHistory history,bool containHoliDay) async {
     try {
       final db = await database;
       await db.transaction((txn) async {
@@ -199,7 +199,8 @@ class HistoryDatabase {
         date.isBefore(end.add(Duration(days: 1)));
         date = date.add(Duration(days: 1))) {
 
-          if (date.weekday == DateTime.sunday) continue;
+          // if (date.weekday == DateTime.sunday) continue;
+          if (date.weekday == DateTime.sunday && !containHoliDay) continue; // ✅ 변경
 
           bool isHoliday = holidays.keys.any((holiday) =>
           holiday.year == date.year &&
@@ -207,7 +208,7 @@ class HistoryDatabase {
               holiday.day == date.day
           );
 
-          if (!isHoliday) {
+          if (!isHoliday || containHoliDay) {
             DateTime utcDate = DateTime.utc(date.year, date.month, date.day);
             /// date에서 date를 utc 처리한다 이후 시간을 00:00으로 설정 25.1.13
             WorkHistory dayHistory = WorkHistory(

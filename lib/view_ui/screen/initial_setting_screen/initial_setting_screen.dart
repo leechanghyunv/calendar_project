@@ -1,10 +1,13 @@
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:intl/intl.dart';
 
 import '../../../base_app_size.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
+import '../../../core/extentions/theme_extension.dart';
 import '../../widgets/info_row.dart';
+import '../../widgets/svg_imoji.dart';
 import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
 import 'component/Index2Content.dart';
@@ -56,12 +59,8 @@ class InitialSettingScreen extends HookConsumerWidget {
 
     final currentText = useListenable(currentController).text;
 
-    final iconSize = _getSize(context.width,
-        sizes: [
-          13,
-          12,
-          12,
-          11.5]);
+    final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
+    final LightBulbSize = context.width.responsiveSize([14, 12.5, 12, 11.5,10.5,9.5]);
 
     void handleNext() {
       final isLast = currentIndex.value == 3;
@@ -97,9 +96,10 @@ class InitialSettingScreen extends HookConsumerWidget {
     ];
 
     final contract = ref.watch(viewContractProvider);
+    final contractValue = contract.value!.last.normal;
 
     String contractText(){
-      if (contract.hasValue) return '일당 수정하기';
+      if (contract.hasValue && contractValue > 0) return '일당 수정하기';
       return '일당 입력하기';
     }
 
@@ -136,6 +136,34 @@ class InitialSettingScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
+                SizedBox(height: 25),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: context.isDark ? Colors.black87 : Colors.grey[100],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(2.0),
+                          child: ChipImoJi(
+                            name: 'LightBulb',
+                            width: LightBulbSize,
+                          ),
+                        ),
+                        SizedBox(width: 2.5),
+                        Expanded(
+                          child: TextWidget('일당 수정방법은 [등록] - [일당수정] 에서 변경할 일당입력', 13.25,
+                              context.width,fontWeight: FontWeight.normal),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
               ],
             ),
           ),

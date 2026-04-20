@@ -6,7 +6,7 @@ part of 'weekly_filter_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$weekRecordHash() => r'296c85aa99a36df8fb7ec0aa2f4dd637296bfeb6';
+String _$weekRecordHash() => r'2524478c7d102db5f6bbd4a7ee9d8e1a3f8e8763';
 
 /// See also [WeekRecord].
 @ProviderFor(WeekRecord)

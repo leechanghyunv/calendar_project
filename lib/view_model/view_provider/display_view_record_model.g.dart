@@ -28,7 +28,7 @@ Map<String, dynamic> _$DisplayViewRecordModelToJson(
 // RiverpodGenerator
 // **************************************************************************
 
-String _$displayValueHash() => r'4f432789f7c726e03c7cf22663feee221370ab12';
+String _$displayValueHash() => r'0755c3e3f4e2e6dd1f2079063a0194f1ee53e883';
 
 /// See also [DisplayValue].
 @ProviderFor(DisplayValue)

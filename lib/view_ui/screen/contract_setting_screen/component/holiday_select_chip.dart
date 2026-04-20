@@ -7,13 +7,16 @@ import '../../../../core/widget/text_widget.dart';
 import '../../../../core/widget/toast_msg.dart';
 
 class HolidaySelectChip extends HookConsumerWidget {
-  const HolidaySelectChip({super.key});
+
+  final ValueNotifier<bool> containHoliDay;
+
+
+  const HolidaySelectChip({super.key, required this.containHoliDay});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
     final iconSize = context.width.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
-    final containHolliDay = useState(false);
 
     return Padding(
       padding: const EdgeInsets.only(top: 15.0),
@@ -24,8 +27,8 @@ class HolidaySelectChip extends HookConsumerWidget {
           GestureDetector(
             onTap: () {
               HapticFeedback.selectionClick();
-              containHolliDay.value = !containHolliDay.value;
-              customMsg(containHolliDay.value ? '공휴일포함' : '공휴일제외');
+              containHoliDay.value = !containHoliDay.value;
+              customMsg(containHoliDay.value ? '공휴일포함' : '공휴일제외');
 
             },
             child: Container(
@@ -43,7 +46,7 @@ class HolidaySelectChip extends HookConsumerWidget {
                     ),
                     SizedBox(width: 1.5),
                     TextWidget(
-                      containHolliDay.value ?  ' 공휴일포함 ' : ' 공휴일제외 ',
+                      containHoliDay.value ?  ' 공휴일포함 ' : ' 공휴일제외 ',
                       13,
                       context.width,
                       color: context.subTextColor,

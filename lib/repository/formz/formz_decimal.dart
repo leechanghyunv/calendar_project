@@ -86,7 +86,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
 
 
 
-  Future<void> onSubmitMonthAll(DateTime start,DateTime end) async {
+  Future<void> onSubmitMonthAll(DateTime start,DateTime end,bool containHoliDay) async {
     final value = state.decimalData.value;
     final calculated = value.pay * value.decimal;
     int pay = calculated.toInt();
@@ -118,7 +118,7 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     );
     try{
       ref.read(
-          rangeExcludHolidayProvider(history,start,end ));
+          rangeExcludHolidayProvider(history,start,end,containHoliDay));
       Future.delayed(const Duration(milliseconds: 250),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
         customMsg('근로조건이 등록되었습니다.');
