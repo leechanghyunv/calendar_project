@@ -53,56 +53,62 @@ class AdditionalCell extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(12.0, 12.0, 12.0, 0.0),
       child: Container(
-        height: 50,
+        // height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.0),
         ),
         alignment: Alignment.centerLeft,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                  Row(
+                  children: [
+                    TextWidget(
+                      '${ref.selected.month}월 ${ref.selected.day}일 $displayText',
+                      12,
+                      context.width,
+                      color: context.subTextColor,
+                    ),
+                    // Spacer(),
+                    // AdditionalIconButton(),
+                  ],
+                ),
+                SizedBox(height: 4),
                 Row(
-
-                children: [
-                  TextWidget(
-                    '${ref.selected.month}월 ${ref.selected.day}일 $displayText',
-                    12,
-                    context.width,
-                    color: context.subTextColor,
-                  ),
-                  Spacer(),
-                  AdditionalIconButton(),
-                ],
-              ),
-              Spacer(),
-              Row(
-                children: [
-                  Container(
-                    width: 3.5,
-                    height: 12.5,
-                    color: context.sundayColor,
-                  ),
-                  SizedBox(width: 5),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: (){
-                        HapticFeedback.selectionClick();
-                        customMsg('${todayMemo}');
-                      },
-                      child: TextWidget(
-                        todayMemo,
-                        12.5,
-                        context.width,
-                        color: context.textColor,
+                  crossAxisAlignment: .start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 1.0),
+                      child: Container(
+                        width: 3.5,
+                        height: 12.5,
+                        color: context.sundayColor,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(width: 5),
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: (){
+                          HapticFeedback.selectionClick();
+                          customMsg('${todayMemo}');
+                        },
+                        child: TextWidget(
+                          todayMemo,
+                          12.5,
+                          context.width,
+                          color: context.textColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+
+              ],
+            ),
           ),
         ),
       ),

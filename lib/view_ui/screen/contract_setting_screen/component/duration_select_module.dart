@@ -145,7 +145,8 @@ class DurationSelectModule extends HookConsumerWidget {
               ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 8.0),
-                  child: TextWidget('${holidayText.toString()}', 13.5, context.width,color: context.subTextColor),
+                  child: TextWidget(
+                      '${holidayText.toString()}', 13.5, context.width,color: context.subTextColor),
                 ),
             ),
           ],

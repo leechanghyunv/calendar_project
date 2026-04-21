@@ -48,7 +48,8 @@ class DualFieldBar extends HookConsumerWidget {
     final contractPay = contract.valueOrNull?.lastOrNull?.normal ?? 0.0;
     final contractSubsidy = contract.valueOrNull?.lastOrNull?.subsidy ?? 0.0;
 
-    print('textController ${textController.text}');
+
+    final isOpen = useState(false);
 
     ref.watch(formzDecimalValidatorProvider);
     ref.formzMemoWatch;
@@ -128,27 +129,11 @@ class DualFieldBar extends HookConsumerWidget {
               ),
             )
           else
-            Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: Row(
-                children: [
-                  BlinkTwiceText(
-                    "휴일처리는 숫자 '0' 입력 후 확인",
-                    13.5,
-                    color: context.subTextColor,
-                  ),
-                  Spacer(),
-                  /// LatestRecordButton
-                  /// ShowHistoryButton
-                  ShowHistoryButton(
-                    textController: textController,
-                    decimalController: decimalController,
-
-                  ),
-                ],
-              ),
+            ShowHistoryButton(
+              textController: textController,
+              decimalController: decimalController,
+              isOpen: isOpen,
             ),
-
           SizedBox(height: 15),
           Container(
             decoration: BoxDecoration(
@@ -192,7 +177,7 @@ class DualFieldBar extends HookConsumerWidget {
                     ),
                     decoration: InputDecoration(
                       isDense: true,
-                      hintText: isActive ? ' 메모를 입력해주세요' : ' 예) 1.25 ',
+                      hintText: isOpen.value ? ' 날짜를 터치해서 공수기록을 가져오세요' : (isActive ? ' 메모를 입력해주세요' : ' 예) 1.25 '),
                       hintStyle: TextStyle(
                         color: Colors.grey[500],
                         fontWeight: FontWeight.bold,

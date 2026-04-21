@@ -13,8 +13,7 @@ class latestHistoryList extends _$latestHistoryList {
 
     return history
         .sortedByDescending((e) => e.date)
-        .take(5)
+        .take(6)
         .toList();
-
   }
 }

@@ -43,3 +43,18 @@ class ChipImoJi extends StatelessWidget {
     );
   }
 }
+
+class ChipImoJiFile extends StatelessWidget {
+  final String? name;
+  final double? width;
+
+  const ChipImoJiFile({super.key, this.name, this.width});
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(
+      'assets/$name.svg',
+      width: width,
+    );
+  }
+}

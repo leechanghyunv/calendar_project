@@ -111,7 +111,7 @@ class RangeHistoryScreen extends HookConsumerWidget {
                   SizedBox(height: context.width > 400 ? 20 : 15),
                   Row(
                     children: [
-                      ChipImoJi(
+                      ChipImoJiFile(
                         name: 'check',
                         width: 14,
                       ),

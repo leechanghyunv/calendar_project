@@ -1,91 +1,103 @@
-import 'dart:ui';
-
 import 'package:intl/intl.dart';
 
 import '../../../../base_app_size.dart';
+import '../../../../base_consumer.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
+import '../../../../core/extentions/theme_extension.dart';
 import '../../../../core/widget/text_widget.dart';
-import '../../../../model/work_history_model.dart';
+import '../../../widgets/blink_text.dart';
+import '../../../widgets/svg_imoji.dart';
 import '../provider/latest_history_provider.dart';
+import '../provider/settlement_state_provider.dart';
 
 class ShowHistoryButton extends HookConsumerWidget {
   final TextEditingController textController;
   final TextEditingController decimalController;
+  final ValueNotifier<bool> isOpen;
 
   const ShowHistoryButton({
     super.key,
     required this.textController,
     required this.decimalController,
+    required this.isOpen,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isOpen = useState(false);
-    final overlayEntry = useRef<OverlayEntry?>(null);
+
+
     final latestHistory = ref.watch(latestHistoryListProvider).valueOrNull ?? [];
 
-    void removeOverlay() {
-      overlayEntry.value?.remove();
-      overlayEntry.value = null;
-      isOpen.value = false;
-    }
-
-    void showOverlay(List<WorkHistory> histories) {
-      isOpen.value = true;
-      overlayEntry.value = OverlayEntry(
-        builder: (_) => Stack(
-          children: [
-            // ✅ 블러 배경
-            Positioned.fill(
-              child: GestureDetector(
-                onTap: removeOverlay,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
-                  child: Container(color: Colors.black.withOpacity(0.25)),
-                ),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 12.0),
+      child: Row(
+        children: [
+          if (!isOpen.value) ...[
+            BlinkTwiceText(
+              "휴일처리는 숫자 '0' 입력 후 확인",
+              13.5,
+              color: context.subTextColor,
             ),
-
-            // ✅ 멀티 액션 버튼들 (우하단 기준)
-            Positioned(
-              bottom: 150,
-              right: 20,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: context.isDark ? Colors.black87 : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      3, 10, 10, 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: histories.map((history) => _ActionItem(
-                      history: history,
+            const Expanded(child: SizedBox.shrink()),
+            _DefaultButton(
+              onTap: () {
+                HapticFeedback.selectionClick();
+                isOpen.value = true;
+              },
+            ),
+          ] else ...[
+            Expanded(
+              child: SizedBox(
+                height: 30,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  reverse: true,
+                  itemCount: latestHistory.length,
+                  itemBuilder: (context, index) {
+                    final item = latestHistory[index];
+                    final dateLabel = DateFormat('d일').format(item.date);
+                    return _RecentButton(
+                      label: dateLabel,
                       onTap: () {
                         HapticFeedback.selectionClick();
-                        // TODO: textController, decimalController에 값 반영
-                        removeOverlay();
-                      },
-                    )).toList(),
-                  ),
+                        textController.text = item.memo;
+                        decimalController.text = item.record.toString();
+                        ref.read(isSettlementProvider.notifier).state = item.settlement;
+                        ref.formzMemoRead.onChangeMemo(textController.text);
+                        isOpen.value = false;
+                        },
+                    );
+                  },
                 ),
               ),
             ),
           ],
-        ),
-      );
+        ],
+      ),
+    );
+  }
+}
 
-      Overlay.of(context).insert(overlayEntry.value!);
-    }
+class _DefaultButton extends StatelessWidget {
+  final VoidCallback onTap;
 
-    // 위젯 dispose시 오버레이 제거
-    useEffect(() => removeOverlay, const []);
+  const _DefaultButton({
+
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final iconType1 = context.width.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
+
+    final iconSize =  Platform.isAndroid ? iconType1 - 1.5 : iconType1;
 
     return GestureDetector(
-      onTap: isOpen.value ? removeOverlay : () => showOverlay(latestHistory),
+      onTap: onTap,
       child: Container(
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: context.isDark ? Colors.black87 : Colors.grey[100],
           borderRadius: BorderRadius.circular(10),
@@ -93,8 +105,13 @@ class ShowHistoryButton extends HookConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
         child: Row(
           children: [
+            ChipImoJiFile(
+              name: 'file',
+              width: iconSize,
+            ),
+            SizedBox(width: 5.5),
             TextWidget(
-              ' @ 최근기록 ',
+              '최근기록',
               13,
               context.width,
               color: context.subTextColor,
@@ -106,50 +123,32 @@ class ShowHistoryButton extends HookConsumerWidget {
   }
 }
 
-// 액션 아이템 위젯
-class _ActionItem extends StatelessWidget {
-  final WorkHistory history;
+// 재사용 버튼 컴포넌트
+class _RecentButton extends StatelessWidget {
+  final String label;
   final VoidCallback onTap;
 
-  const _ActionItem({
-    required this.history,
+  const _RecentButton({
+    this.label = ' @ 최근기록 ',
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-
-    final dateLabel = DateFormat('M월 d일').format(history.date);
-
-
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-
+          color: context.isDark ? Colors.black87 : Colors.grey[100],
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          children: [
-            Column(
-              crossAxisAlignment: .start,
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-                      color: context.isDark ? Colors.black87 : Colors.grey[200],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-
-                    child: Padding(
-                      /// (this.left, this.top, this.right, this.bottom)
-                      padding: const EdgeInsets.fromLTRB(
-                          5, 7.5, 10, 7.5),
-                      child: TextWidget('${dateLabel}', 13, context.width),
-                    )),
-              ],
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+        child: TextWidget(
+          label,
+          13,
+          context.width,
+          color: context.subTextColor,
         ),
       ),
     );

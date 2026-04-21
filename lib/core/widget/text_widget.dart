@@ -6,7 +6,8 @@ Widget TextWidget(
     String msg, double size, double appWidth, {Color? color,FontWeight? fontWeight}) => Text(
   msg,
   textScaler: TextScaler.noScaling,
-  // overflow: TextOverflow.ellipsis,
+  overflow: TextOverflow.ellipsis,
+  maxLines: 3,
   style: TextStyle(
     fontWeight: fontWeight ?? FontWeight.bold,
     height: textHeight,
