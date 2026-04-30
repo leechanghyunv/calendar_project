@@ -35,10 +35,10 @@ class CustomExpansionTile extends HookWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextWidget(title, 15, context.width,
+                    TextWidget(title, 15,
                     color: context.textColor),
                     const SizedBox(height: 2.5),
-                    TextWidget(subtitle, 12, context.width,
+                    TextWidget(subtitle, 12,
                         color: context.subTextColor),
                   ],
                 ),

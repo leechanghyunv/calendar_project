@@ -42,16 +42,12 @@ class AnimatedNumber extends ConsumerWidget {
                   ? '$paddedValue/252'
                   : '$paddedValue/180';
 
-              return TextWidget(displayText, 11, context.width);
+              return TextWidget(displayText, 11);
             },
           )
         : TextWidget(
-            type == true
-                ? '${end.toStringAsFixed(0)}/252'
-                : '${end.toStringAsFixed(0)}/180',
-      Platform.isAndroid ? 11.5 : 11,
-            context.width,
-            color: fillColor,
+            type == true ? '${end.toStringAsFixed(0)}/252' : '${end.toStringAsFixed(0)}/180',
+      Platform.isAndroid ? 11.5 : 11, color: fillColor,
           );
 
   }

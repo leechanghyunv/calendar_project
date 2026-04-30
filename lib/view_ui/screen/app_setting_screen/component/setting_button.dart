@@ -31,10 +31,10 @@ class SettingItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                    title, 15, context.width,
+                    title, 15,
                 color: context.textColor),
                 TextWidget(
-                    subtitle, 11, context.width,
+                    subtitle, 11,
                     color: context.subTextColor),
               ],
             ),

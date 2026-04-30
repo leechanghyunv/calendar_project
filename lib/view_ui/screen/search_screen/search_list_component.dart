@@ -48,12 +48,12 @@ class SearchListWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TextWidget('최근 검색', 13, context.width,
+        TextWidget('최근 검색', 13,
             color: context.isDark ? Colors.grey[200] : Colors.grey[600],
             fontWeight: FontWeight.w500),
         GestureDetector(
           onTap: () => onClearAll,
-          child: TextWidget('전체삭제', 12, context.width,
+          child: TextWidget('전체삭제', 12,
               color:  context.isDark ? Colors.grey[200] : Colors.grey[500],
               fontWeight: FontWeight.normal),
         ),
@@ -110,7 +110,7 @@ class _HistoryChip extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextWidget(text, 13, context.width,
+            TextWidget(text, 13,
                 color: textColor, fontWeight: FontWeight.normal,
             ),
             SizedBox(width: 4),

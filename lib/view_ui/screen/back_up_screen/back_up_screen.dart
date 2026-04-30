@@ -156,8 +156,7 @@ class BackUpScreen extends HookConsumerWidget {
                           children: [
                             Padding(
                               padding: EdgeInsets.all(16.0),
-                              child: TextWidget(msg, 13.5,
-                                  context.width,color: context.subTextColor),
+                              child: TextWidget(msg, 13.5, color: context.subTextColor),
                             ),
                           ],
                         );

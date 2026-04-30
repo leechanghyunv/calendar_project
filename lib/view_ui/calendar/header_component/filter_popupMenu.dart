@@ -72,7 +72,7 @@ class FilterPopupMenu extends HookConsumerWidget {
                     );
                   }).toList(),
                 ),
-                AsyncData() => TextWidget(' 등록된 현장이 없습니다', 13, context.width,
+                AsyncData() => TextWidget(' 등록된 현장이 없습니다', 13,
                 color: context.subTextColor),
                 _ => SizedBox.shrink(),
               };

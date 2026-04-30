@@ -79,8 +79,8 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
               children: [
                 animationSetting ? animateText
                     ? NumberCounter(end: monthRecord)
-                    : TextWidget('${month}', 27, appWidth,fontWeight: FontWeight.w800,color: context.textColor,)
-                    : TextWidget('${month}', 27, appWidth,fontWeight: FontWeight.w800,color: context.textColor,),
+                    : TextWidget('${month}', 27,fontWeight: FontWeight.w800,color: context.textColor,)
+                    : TextWidget('${month}', 27,fontWeight: FontWeight.w800,color: context.textColor,),
 
 
                 Spacer(),
@@ -90,9 +90,9 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
             ),
             Row(
               children: [
-                TextWidget(' 출력일수: ${workDay}일', 12, appWidth,color: context.textColor),
+                TextWidget(' 출력일수: ${workDay}일', 12,color: context.textColor),
                 SizedBox(width: 5),
-                TextWidget('${offDay}일 휴일', 10, appWidth,color: context.isDark ? Colors.tealAccent : Colors.teal),
+                TextWidget('${offDay}일 휴일', 10,color: context.isDark ? Colors.tealAccent : Colors.teal),
               ],
             ),
             Divider(

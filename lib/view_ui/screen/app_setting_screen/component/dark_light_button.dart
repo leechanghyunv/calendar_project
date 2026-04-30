@@ -47,7 +47,7 @@ class ModeButton extends ConsumerWidget {
             ),
             const SizedBox(height: 5),
             TextWidget(
-                label, 14, context.width,
+                label, 14,
                 color: isSelected
                     ? context.isLight ? Colors.grey.shade800 : Colors.grey.shade400
                     : context.isLight ? Colors.grey.shade600 : Colors.grey.shade200,

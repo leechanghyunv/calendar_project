@@ -25,7 +25,7 @@ class CompanyListProviderText extends HookConsumerWidget {
                 /// ~ 26일까지
                 TextWidget(
                     '${ref.selected.year}년 ${ref.monthString}월 급여',
-                    11, context.width,color: context.subTextColor),
+                    11,color: context.subTextColor),
               ],
             ),
           ),

@@ -20,7 +20,7 @@ class StatisticsFilterModal extends HookConsumerWidget {
               child: Row(
                 children: [
 
-                  // TextWidget('infomation',13.5, context.width,
+                  // TextWidget('infomation',13.5,
                   //     color: context.subTextColor),
 
                   Spacer(),
@@ -37,7 +37,7 @@ class StatisticsFilterModal extends HookConsumerWidget {
                   //   ),
                   //   child: Padding(
                   //     padding: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 2.0),
-                  //     child: TextWidget('작업현장 선택',13.5, context.width,
+                  //     child: TextWidget('작업현장 선택',13.5,
                   //         color: context.subTextColor),
                   //   ),
                   // ),

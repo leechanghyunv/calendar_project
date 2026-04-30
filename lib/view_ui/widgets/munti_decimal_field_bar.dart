@@ -78,7 +78,6 @@ class MultiDecimalFieldBar extends HookConsumerWidget {
                       children: [
                         TextWidget(
                           ' @ 초기화 ', 13,
-                          context.width,
                           color: context.subTextColor,
                         ),
                       ],

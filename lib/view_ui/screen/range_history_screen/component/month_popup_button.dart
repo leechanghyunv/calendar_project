@@ -11,7 +11,6 @@ class MonthPopupButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
     final selectedMonths = useState<int?>(null);
 
     // 👇 텍스트 매핑
@@ -33,11 +32,11 @@ class MonthPopupButton extends HookConsumerWidget {
           onSelected?.call(value);
         },
         itemBuilder: (context) => [
-          PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14, appWidth,color: context.textColor)),
-          PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14, appWidth,color: context.textColor)),
-          PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14, appWidth,color: context.textColor)),
-          PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14, appWidth,color: context.textColor)),
-          PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14, appWidth,color: context.textColor)),
+          PopupMenuItem(value: 1, child: TextWidget('지난 1개월', 14,color: context.textColor)),
+          PopupMenuItem(value: 2, child: TextWidget('지난 2개월', 14,color: context.textColor)),
+          PopupMenuItem(value: 3, child: TextWidget('지난 3개월', 14,color: context.textColor)),
+          PopupMenuItem(value: 6, child: TextWidget('지난 6개월', 14,color: context.textColor)),
+          PopupMenuItem(value: 12, child: TextWidget('지난 12개월', 14,color: context.textColor)),
         ],
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
@@ -61,7 +60,7 @@ class MonthPopupButton extends HookConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextWidget(getButtonText(), 14, appWidth, color: context.textColor),
+              TextWidget(getButtonText(), 14, color: context.textColor),
               SizedBox(width: 5),
               Icon(Icons.arrow_drop_down, size: 20),
             ],

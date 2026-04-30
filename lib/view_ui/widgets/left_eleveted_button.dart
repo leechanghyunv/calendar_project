@@ -26,7 +26,7 @@ class LeftElevatedButton extends StatelessWidget {
         elevation: 2,
       ),
       onPressed: onPressed,
-      child: TextWidget(text, 15, context.width, color: context.textColor),
+      child: TextWidget(text, 15, color: context.textColor),
     );
   }
 }

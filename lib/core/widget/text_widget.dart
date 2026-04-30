@@ -2,20 +2,24 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import '../extentions/theme_color.dart';
 
+
 Widget TextWidget(
-    String msg, double size, double appWidth, {Color? color,FontWeight? fontWeight}) => Text(
-  msg,
-  textScaler: TextScaler.noScaling,
-  overflow: TextOverflow.ellipsis,
-  maxLines: 3,
-  style: TextStyle(
-    fontWeight: fontWeight ?? FontWeight.bold,
-    height: textHeight,
-    color: color ?? null,
-    fontSize: _getFontSize(size, appWidth),
-    letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
-  ),
-);
+    String msg, double size, {Color? color, FontWeight? fontWeight}) =>
+    Builder(builder: (context) =>  // 👈 Builder로 context 획득
+    Text(
+      msg,
+      textScaler: TextScaler.noScaling,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 3,
+      style: TextStyle(
+        fontWeight: fontWeight ?? FontWeight.bold,
+        height: textHeight,
+        color: color,
+        fontSize: _getFontSize(size, context.width), // 👈 내부에서 처리
+        letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
+      ),
+    ),
+    );
 
 Widget ErrorText(String msg, double appWidth, {Color? color}) {
   FontWeight fontWeight = msg.contains('목표금액은') ? FontWeight.w900 : FontWeight.bold;

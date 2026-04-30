@@ -86,9 +86,9 @@ class IntroSelectedBox extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(height: 35.0),
-                  TextWidget('공수등록 상단에서 근로기간 설정하기', 15, context.width),
+                  TextWidget('공수등록 상단에서 근로기간 설정하기', 15),
                   SizedBox(height: 5.0),
-                  TextWidget('근로기간 설정 후 저장 후 보관', 15, context.width),
+                  TextWidget('근로기간 설정 후 저장 후 보관', 15),
 
                 ],
               ),

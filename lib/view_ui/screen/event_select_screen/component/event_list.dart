@@ -49,15 +49,11 @@ class EventListWidget extends HookConsumerWidget {
                     child: Column(
                       children: [
                         TextWidget(
-                          event.date.day.toString(),
-                          22,
-                          context.width,
+                          event.date.day.toString(), 22,
                           color: Colors.teal,
                         ),
                         TextWidget(
-                          '${event.date.month}월',
-                          12,
-                          context.width,
+                          '${event.date.month}월', 12,
                           color: Colors.teal[200],
                           fontWeight: FontWeight.normal,
                         ),
@@ -67,9 +63,7 @@ class EventListWidget extends HookConsumerWidget {
                   SizedBox(width: 16),
                   Expanded(
                     child: TextWidget(
-                      event.name,
-                      14,
-                      context.width,
+                      event.name, 14,
                       color: context.isDark ? Colors.grey[100] : Colors.grey[800],
                       fontWeight: FontWeight.normal,
                     ),
@@ -94,16 +88,12 @@ class EventListWidget extends HookConsumerWidget {
         ),
       ),
       AsyncError(:final error) => TextWidget(
-        'Error: $error',
-        14,
-        context.width,
+        'Error: $error', 14,
         color: context.subTextColor,
       ),
       _ => Center(
           child: TextWidget(
-            'loading......',
-            14,
-            context.width,
+            'loading......', 14,
             color: context.subTextColor,
           ),
       ),

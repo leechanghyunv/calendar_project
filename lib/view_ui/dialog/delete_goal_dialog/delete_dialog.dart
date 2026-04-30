@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 
@@ -17,22 +16,19 @@ class DeleteDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = context.width;
+    Widget _label(String msg) => TextWidget(msg, 15, color: context.textColor);
 
     return AlertDialog(
-
       backgroundColor:  context.dialogColor,
       shape: context.dialogShape,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: TextWidget('공수기록을 삭제하시겠습니까?',
-            15,appWidth,color: context.textColor),
+        child: _label('공수기록을 삭제하시겠습니까?'),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('취소', 15,appWidth,
-              color: context.textColor
+          child: _label('취소'
           ),
         ),
         TextButton(
@@ -43,8 +39,7 @@ class DeleteDialog extends ConsumerWidget {
             ref.refreshState(context);
             Navigator.of(context).pop();
           },
-          child: TextWidget('삭제', 15,appWidth,
-              color: context.textColor),
+          child: _label('삭제'),
         ),
       ],
     );

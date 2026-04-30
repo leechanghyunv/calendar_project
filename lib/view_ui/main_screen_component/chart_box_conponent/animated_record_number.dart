@@ -16,17 +16,12 @@ class NumberCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appWidth = MediaQuery.of(context).size.width;
-
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: start, end: end),
       duration: duration,
       builder: (context, value, child) {
         return TextWidget(
-          '${value.toStringAsFixed(1)}공수',
-          27,
-          appWidth,
-          fontWeight: FontWeight.w800,
+          '${value.toStringAsFixed(1)}공수', 27, fontWeight: FontWeight.w800,
         );
       },
     );

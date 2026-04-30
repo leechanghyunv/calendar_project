@@ -31,7 +31,7 @@ class AppReviewScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 20),
                 TextWidget('안녕하세요 개발자입니다',
-                    22, context.width,color: context.textColor),
+                    22,color: context.textColor),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -47,21 +47,21 @@ class AppReviewScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4.0),
                   child: TextWidget('워크캘린더는 쓸만한 앱인가요?',
-                      18, context.width,color: context.textColor),
+                      18,color: context.textColor),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 28.0),
                   child: TextWidget('반장님들의 의견을 듣고싶습니다.',
-                      17, context.width,color: context.textColor),
+                      17,color: context.textColor),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 4.0),
                   child: TextWidget('반장님의 소중한 의견이 더 나은 앱을 만드는 힘이 됩니다!',
-                      12.5, context.width,color: context.subTextColor),
+                      12.5,color: context.subTextColor),
                 ),
 
                 TextWidget('다시한번 이용해주셔서 감사합니다',
-                    12.5, context.width,color: context.subTextColor),
+                    12.5,color: context.subTextColor),
 
               ],
             ),

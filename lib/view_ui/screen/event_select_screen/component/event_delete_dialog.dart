@@ -23,17 +23,16 @@ class EventDeleteDialog extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextWidget('주요일정을 모두 삭제하시겠습니까?',
-                15,context.width,color: context.textColor),
+                15,color: context.textColor),
             TextWidget('${ref.month}월 이외에 등록된 모든 기록을 삭제합니다',
-                11,context.width,color: context.subTextColor),
+                11,color: context.subTextColor),
           ],
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('취소', 15,context.width,
-              color: context.textColor
+          child: TextWidget('취소', 15, color: context.textColor
           ),
         ),
         TextButton(
@@ -42,8 +41,7 @@ class EventDeleteDialog extends ConsumerWidget {
             customMsg('주요일정을 모두 삭제합니다');
             Navigator.of(context).pop();
           },
-          child: TextWidget('삭제', 15,context.width,
-              color: context.textColor),
+          child: TextWidget('삭제', 15, color: context.textColor),
         ),
       ],
 

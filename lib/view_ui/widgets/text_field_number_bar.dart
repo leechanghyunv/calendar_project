@@ -31,6 +31,16 @@ class NumberFieldBar extends HookConsumerWidget {
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
     final value = ref.watch(boolProvider);
+    final textLength = useState(0); // 👈 추가
+
+    useEffect(() {
+      controller.addListener(() {
+        textLength.value = controller.text.length; // 👈 변경시 rebuild 트리거
+      });
+      return null;
+    }, [controller]);
+
+
 
     return Container(
       decoration: BoxDecoration(
@@ -80,8 +90,8 @@ class NumberFieldBar extends HookConsumerWidget {
             icon: Icon(
               icon,
               color: context.isDark
-                  ? controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
-                  : controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
+                  ? textLength.value >= 1 ? Colors.white : Colors.grey.shade700
+                  : textLength.value >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
               size: iconSize,
             ),
           ),

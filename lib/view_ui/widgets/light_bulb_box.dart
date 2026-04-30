@@ -39,8 +39,7 @@ class LightBulbBox extends StatelessWidget {
               ),
               context.isDark ? SizedBox.shrink() : SizedBox(width: 2.5),
               Expanded(
-                child: TextWidget(msg, 13.25,
-                    context.width,fontWeight: FontWeight.normal),
+                child: TextWidget(msg, 13.25, fontWeight: FontWeight.normal),
               ),
             ],
           ),

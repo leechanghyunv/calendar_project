@@ -49,7 +49,7 @@ class BlinkTwiceText extends HookConsumerWidget {
 
     return Opacity(
       opacity: animation,
-      child: TextWidget(text, fontSize, context.width, color: color),
+      child: TextWidget(text, fontSize, color: color),
     );
   }
 }

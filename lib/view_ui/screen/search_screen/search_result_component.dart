@@ -29,7 +29,7 @@ class SearchResultWidget extends StatelessWidget {
 
   Widget _buildLoading(BuildContext context) {
     return Center(
-      child: TextWidget('로딩중....', 14, context.width),
+      child: TextWidget('로딩중....', 14),
     );
   }
 
@@ -38,7 +38,7 @@ class SearchResultWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextWidget('${error.toString()}', 14, context.width,
+          TextWidget('${error.toString()}', 14,
               color: Colors.grey.shade700),
         ],
       ),
@@ -50,7 +50,7 @@ class SearchResultWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextWidget('검색 결과가 여기에 표시됩니다', 14, context.width,
+          TextWidget('검색 결과가 여기에 표시됩니다', 14,
               color: Colors.grey[500]),
         ],
       ),
@@ -102,15 +102,11 @@ class _HistoryCard extends StatelessWidget {
             child: Column(
               children: [
                 TextWidget(
-                  history.date.day.toString(),
-                  22,
-                  context.width,
+                  history.date.day.toString(), 22,
                   color: Colors.teal,
                 ),
                 TextWidget(
-                  '${history.date.month}월',
-                  12,
-                  context.width,
+                  '${history.date.month}월', 12,
                   color: Colors.teal[200],
                   fontWeight: FontWeight.normal,
                 ),
@@ -120,9 +116,7 @@ class _HistoryCard extends StatelessWidget {
           SizedBox(width: 16),
           Expanded(
             child: TextWidget(
-              '${history.memo}',
-              14,
-              context.width,
+              '${history.memo}', 14,
               color: context.isDark ? Colors.grey[100] : Colors.grey[800],
               fontWeight: FontWeight.normal,
             ),

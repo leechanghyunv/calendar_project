@@ -22,7 +22,6 @@ class MemoComponent extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = context.width;
     final appHeight = context.height;
 
     final selectedDate = ref.selected;
@@ -63,7 +62,7 @@ class MemoComponent extends HookConsumerWidget {
         SizedBox(height: 5),
         Row(
           children: [
-            TextWidget('${ref.monthString}월 메모기록(${monthlyMemoCount})', 14, appWidth),
+            TextWidget('${ref.monthString}월 메모기록(${monthlyMemoCount})', 14),
             SizedBox(width: 7.5),
             Icon(Icons.keyboard_arrow_down_rounded),
             Spacer(),
@@ -72,7 +71,7 @@ class MemoComponent extends HookConsumerWidget {
                   Future.microtask(() => nodeMemo.requestFocus());
                 },
                 /// 메모추가를 누르면 memofocus가 집중되도록
-                child: TextWidget('+ 메모추가', 14, appWidth)),
+                child: TextWidget('+ 메모추가', 14)),
           ],
         ),
         Divider(

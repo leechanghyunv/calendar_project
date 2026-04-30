@@ -34,7 +34,7 @@ class MainButtonSide extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
           child: Row(
             children: [
-              TextWidget(msg, 13, appWidth)
+              TextWidget(msg, 13)
 
             ],
           ),

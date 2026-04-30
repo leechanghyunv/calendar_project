@@ -42,9 +42,7 @@ class CalendarHeader extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
                 child: TextWidget(
-                  '${(DateTime.now().day).toString().padLeft(2, '0')}',
-                  16,
-                  appWidth,
+                  '${(DateTime.now().day).toString().padLeft(2, '0')}', 16,
                   color: context.isLight ? Colors.grey.shade800 : Colors.white,
                 ),
               ),

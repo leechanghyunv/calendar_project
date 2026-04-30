@@ -51,12 +51,12 @@ class HistoryBox extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextWidget('${formatSelectedDate(selectedHistory.startDate)} ~ ${formatSelectedDate(selectedHistory.endDate)}',
-                      11, context.width,color: context.subTextColor),
+                      11,color: context.subTextColor),
 
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 7.0),
                     child: TextWidget('${selectedHistory.memo}',
-                        18, context.width,color: context.textColor)
+                        18,color: context.textColor)
                   ),
                   Row(
                     children: [
@@ -126,7 +126,7 @@ class MomoChip extends StatelessWidget {
         final type = result[index];
 
         Widget  MoreText = TextWidget(type == ' 더보기... ' ? '$type' : '#$type',
-            11, width,color: context.textColor);
+            11, color: context.textColor);
 
         return type.isNotEmpty ?  Container(
           height: height > 750 ? (width > 400 ? 24 : 23) : 22,

@@ -56,9 +56,7 @@ class DurationSelectModule extends HookConsumerWidget {
             ),
             SizedBox(width: 7.5),
               TextWidget(
-                isDuration.value ? '기간 선택' : '날짜 선택',
-                15,
-                context.width,
+                isDuration.value ? '기간 선택' : '날짜 선택', 15,
                 color: context.subTextColor,
               ),
 
@@ -83,9 +81,7 @@ class DurationSelectModule extends HookConsumerWidget {
                 showPicker.value = !showPicker.value;
               },
               child: TextWidget(
-                formatDate(selectedDate.value),
-                22.5,
-                context.width,
+                formatDate(selectedDate.value), 22.5,
               ),
             ),
             if (isDuration.value) ...[
@@ -102,7 +98,6 @@ class DurationSelectModule extends HookConsumerWidget {
                 child: TextWidget(
                     formatDate(endDate.value),
                     22.5,
-                    context.width
                 ),
               ),
             ]
@@ -146,7 +141,7 @@ class DurationSelectModule extends HookConsumerWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.0,horizontal: 8.0),
                   child: TextWidget(
-                      '${holidayText.toString()}', 13.5, context.width,color: context.subTextColor),
+                      '${holidayText.toString()}', 13.5,color: context.subTextColor),
                 ),
             ),
           ],

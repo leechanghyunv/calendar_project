@@ -39,10 +39,7 @@ class WorkloadSearchButton extends StatelessWidget {
                     elevation: 1,
                   ),
                   onPressed: onPressed,
-                child: TextWidget(
-                  text, 15,
-                  context.width,
-                  color: context.buttonColor,
+                child: TextWidget(text, 15, color: context.buttonColor,
                 ),
               ),
             ),

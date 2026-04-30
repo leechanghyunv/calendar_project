@@ -117,10 +117,7 @@ class DualFieldBar extends HookConsumerWidget {
                   ),
                   SizedBox(width: 5),
                   TextWidget(
-                      totalString,
-                      13.5,
-                      context.width,
-                      color: context.subTextColor
+                      totalString, 13.5, color: context.subTextColor
                   ),
                   Spacer(),
                   Icon(Icons.more_horiz,color: context.subTextColor,size: 17.5),

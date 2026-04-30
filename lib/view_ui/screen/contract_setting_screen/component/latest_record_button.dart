@@ -39,7 +39,6 @@ class LatestRecordButton extends HookConsumerWidget {
             children: [
               TextWidget(
                 ' @ 최근기록 ', 13,
-                context.width,
                 color: context.subTextColor,
               ),
             ],

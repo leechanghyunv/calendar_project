@@ -36,7 +36,6 @@ class CheckboxWithLabel extends HookConsumerWidget {
           child: TextWidget(
             isChecked ? '수금완료' : '미수금',
             13.5,
-            context.width,
             color: context.subTextColor,
           ),
         ),

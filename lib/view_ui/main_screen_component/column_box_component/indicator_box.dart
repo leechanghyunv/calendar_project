@@ -44,8 +44,7 @@ Widget buildStatsBox({
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextWidget(
-                      title, Platform.isAndroid ? 12.5 : 12,
-                      appWidth,color: context.textColor,),
+                      title, Platform.isAndroid ? 12.5 : 12, color: context.textColor,),
                     const Spacer(),
                     AnimatedNumber(
                       end: value,

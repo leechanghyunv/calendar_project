@@ -23,6 +23,8 @@ class PaymentCycleScreen extends HookConsumerWidget {
 
     final dayController = useTextEditingController();
     final dayFocusNode = useFocusNode();
+    final dayText = useValueListenable(dayController).text; // 👈 추가
+
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -67,6 +69,7 @@ class PaymentCycleScreen extends HookConsumerWidget {
                   msg: '이전달 20일에서 이번달 19일까지 캘린더에 반영',
                 ),
                 SizedBox(height: 20),
+                TextWidget(dayText, 25),
 
               ],
             ),

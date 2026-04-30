@@ -37,9 +37,7 @@ class ArrowDialogRow extends HookConsumerWidget {
             child: Row(
               children: [
                 TextWidget(
-                  DateFormat('yyyy.MM').format(day),
-                  20, appWidth, fontWeight: FontWeight.w800,
-                  color: context.textColor,
+                  DateFormat('yyyy.MM').format(day), 20, fontWeight: FontWeight.w800, color: context.textColor,
                 ),
                 AnimatedRotation(
                   turns: isDialogOpen.value ? 0.5 : 0, // 0.5 = 180도

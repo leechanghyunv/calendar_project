@@ -60,7 +60,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     ),
                                     SizedBox(width: 5),
                                     TextWidget('안녕하세요 워크캘린더입니다.',
-                                        15.5,width,
+                                        15.5,
                                     color: context.textColor),
                                   ],
                                 ),
@@ -91,7 +91,7 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                             ],
                                           ),
                                           child: TextWidget(
-                                              '근로조건 설정하기', 14.5, width,
+                                              '근로조건 설정하기', 14.5,
                                               color: context.buttonColor),
                                         ),
                                       ),

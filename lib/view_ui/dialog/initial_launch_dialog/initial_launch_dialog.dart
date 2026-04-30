@@ -14,15 +14,14 @@ class InitialLaunchDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final width =  context.width;
     final height = context.height;
-
 
     return AlertDialog(
       backgroundColor: context.dialogColor,
       shape: context.dialogShape,
-      title: TextWidget(Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
-          17, width,color: context.textColor),
+      title: TextWidget(
+          Platform.isAndroid ? '안녕하세요 개발자입니다.' : '🎉 안녕하세요 개발자입니다.',
+          17,color: context.textColor),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

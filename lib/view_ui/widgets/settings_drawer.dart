@@ -39,8 +39,8 @@ class SettingsDrawer extends HookConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TextWidget('워크캘린더', 15, context.width),
-                        TextWidget('version 1.5.7', 8.5, context.width),
+                        TextWidget('워크캘린더', 15),
+                        TextWidget('version 1.5.7', 8.5),
                       ],
                     ),
                     Spacer(),
@@ -55,7 +55,7 @@ class SettingsDrawer extends HookConsumerWidget {
                     color: Colors.grey.shade200,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextWidget('infomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomation', 9.5, context.width),
+                      child: TextWidget('infomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomationomationinfomationinfomation', 9.5),
                     ),
                   ),
                 ),

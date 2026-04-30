@@ -52,7 +52,7 @@ class BlinkThreeTimesText extends HookConsumerWidget {
         padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 8.0),
         child: Opacity(
           opacity: animation,
-          child: TextWidget(text, fontSize, context.width, color: color),
+          child: TextWidget(text, fontSize, color: color),
         ),
       ),
     );

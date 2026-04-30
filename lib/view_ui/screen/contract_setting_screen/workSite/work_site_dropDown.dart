@@ -39,7 +39,7 @@ class WorkSiteDropdown extends HookConsumerWidget {
           color: context.isDark ? Colors.black87 : Colors.grey[200],
           borderRadius: BorderRadius.circular(7.5),
         ),
-        child: TextWidget('업체 등록 가능', 14.5, context.width, color: context.subTextColor),
+        child: TextWidget('업체 등록 가능', 14.5, color: context.subTextColor),
       ),
       AsyncData(:final value) => Container(
         decoration: BoxDecoration(
@@ -61,7 +61,7 @@ class WorkSiteDropdown extends HookConsumerWidget {
               final reversedIndex = value.length - 1 - index;
               return DropdownMenuItem<int>(
                 value: reversedIndex,
-                child: TextWidget('${value[reversedIndex].value}', 14.5, context.width),
+                child: TextWidget('${value[reversedIndex].value}', 14.5),
               );
             }),
             onChanged: (selectedIndex) async {

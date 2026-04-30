@@ -22,13 +22,13 @@ class RangeDeleteDialog extends HookConsumerWidget {
       shape: context.dialogShape,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: TextWidget('기록들을 삭제하시겠습니까?', 15, context.width,
+        child: TextWidget('기록들을 삭제하시겠습니까?', 15,
             color: context.textColor),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('취소', 15, context.width, color: context.textColor),
+          child: TextWidget('취소', 15,  color: context.textColor),
         ),
         TextButton(
           onPressed: () async {
@@ -41,7 +41,7 @@ class RangeDeleteDialog extends HookConsumerWidget {
             }
 
           },
-          child: TextWidget('삭제', 15, context.width, color: context.textColor),
+          child: TextWidget('삭제', 15, color: context.textColor),
         ),
       ],
     );

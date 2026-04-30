@@ -103,9 +103,7 @@ class ChipNumberScreen extends HookConsumerWidget {
                     ),
                     SizedBox(width: 5),
                     TextWidget(
-                        '정상근무 자리는 $firstText 공수로 대체',
-                        13.5,
-                        context.width,color: context.subTextColor),
+                        '정상근무 자리는 $firstText 공수로 대체', 13.5, color: context.subTextColor),
                   ],
                 ),
               ),
@@ -122,9 +120,7 @@ class ChipNumberScreen extends HookConsumerWidget {
                     ),
                     SizedBox(width: 5),
                     TextWidget(
-                        '연장근무 자리는 $secondText 공수로 대체',
-                        13.5,
-                        context.width,color: context.subTextColor),
+                        '연장근무 자리는 $secondText 공수로 대체', 13.5, color: context.subTextColor),
                   ],
                 ),
               ),
@@ -141,9 +137,7 @@ class ChipNumberScreen extends HookConsumerWidget {
                     ),
                     SizedBox(width: 5),
                     TextWidget(
-                        '야간근무 자리는 $thirdText 공수로 대체 합니다',
-                        13.5,
-                        context.width,color: context.subTextColor),
+                        '야간근무 자리는 $thirdText 공수로 대체 합니다', 13.5, color: context.subTextColor),
                   ],
                 ),
               ),

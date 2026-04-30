@@ -74,7 +74,7 @@ class QuestionScreen extends StatelessWidget {
     final value = context.width > 360 ? 16.0 : 8.0;
 
     return ExpansionTile(
-      title: TextWidget(question, 14,context.width),
+      title: TextWidget(question, 14),
       textColor: Colors.teal,
       collapsedIconColor: Colors.grey,
       iconColor: Colors.teal,

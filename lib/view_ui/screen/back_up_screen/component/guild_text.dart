@@ -23,7 +23,7 @@ Widget GuildText (BuildContext context,String msg) {
         SizedBox(width: 3.5),
         Expanded(
           child: TextWidget(msg,
-              13.5, context.width,color: context.textColor),
+              13.5,color: context.textColor),
         )
       ],
     ),

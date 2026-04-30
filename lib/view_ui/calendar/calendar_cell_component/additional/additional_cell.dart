@@ -67,10 +67,7 @@ class AdditionalCell extends HookConsumerWidget {
                   Row(
                   children: [
                     TextWidget(
-                      '${ref.selected.month}월 ${ref.selected.day}일 $displayText',
-                      12,
-                      context.width,
-                      color: context.subTextColor,
+                      '${ref.selected.month}월 ${ref.selected.day}일 $displayText', 12, color: context.subTextColor,
                     ),
                     // Spacer(),
                     // AdditionalIconButton(),
@@ -95,11 +92,7 @@ class AdditionalCell extends HookConsumerWidget {
                           HapticFeedback.selectionClick();
                           customMsg('${todayMemo}');
                         },
-                        child: TextWidget(
-                          todayMemo,
-                          12.5,
-                          context.width,
-                          color: context.textColor,
+                        child: TextWidget(todayMemo, 12.5, color: context.textColor,
                         ),
                       ),
                     ),

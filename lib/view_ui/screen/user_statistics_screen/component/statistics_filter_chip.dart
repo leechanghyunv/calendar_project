@@ -79,7 +79,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                           boxShadow: context.defaultShadow,
                         ),
                         child: TextWidget(option == '전체' ? '@${option}' : '#$option', 13.5,
-                            context.width, color: option == '전체' ? context.idChipTextColor : isSelected ? context.textColor : context.chipTextColor,),
+                             color: option == '전체' ? context.idChipTextColor : isSelected ? context.textColor : context.chipTextColor,),
 
                       ),
                     ),

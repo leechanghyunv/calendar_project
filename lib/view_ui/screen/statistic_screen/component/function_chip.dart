@@ -61,7 +61,7 @@ class _FunctionChipState extends State<FunctionChip> {
             isSelected = false;
           });
         },
-        child: TextWidget(widget.label, 13, context.width,color: widget.textColor),
+        child: TextWidget(widget.label, 13,color: widget.textColor),
       ),
     );
   }

@@ -16,8 +16,8 @@ class RangeHistoryScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    final height = context.height;
+    final width = context.width;
 
     final dateRange = ref.watch(timeRangeManagerProvider);
     final state = ref.watch(searchSourceModelProvider);
@@ -28,9 +28,9 @@ class RangeHistoryScreen extends HookConsumerWidget {
     Widget _InfoRow(String label, String value, [double fontSize = 15]) {
       return Row(
         children: [
-          TextWidget(label, fontSize, context.width, color: context.subTextColor),
+          TextWidget(label, fontSize, color: context.subTextColor),
           Spacer(),
-          TextWidget(value, fontSize, context.width, color: context.textColor),
+          TextWidget(value, fontSize,  color: context.textColor),
         ],
       );
     }
@@ -38,7 +38,7 @@ class RangeHistoryScreen extends HookConsumerWidget {
     Widget _StateContainer(String msg) => Container(
       height: height / 1.7,
       alignment: Alignment.center,
-      child: TextWidget(msg, 15, width),
+      child: TextWidget(msg, 15),
     );
 
     void handleSave() {
@@ -117,7 +117,6 @@ class RangeHistoryScreen extends HookConsumerWidget {
                       ),
                       SizedBox(width: 5),
                       TextWidget('저장된 이력은 누적기록에서 확인하세요', 14,
-                          context.width,
                           color: context.subTextColor,
                       ),
                     ],

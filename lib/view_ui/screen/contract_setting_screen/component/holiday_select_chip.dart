@@ -47,9 +47,7 @@ class HolidaySelectChip extends HookConsumerWidget {
                     SizedBox(width: 1.5),
                     TextWidget(
                       containHoliDay.value ?  ' 공휴일포함 ' : ' 공휴일제외 ',
-                      13,
-                      context.width,
-                      color: context.subTextColor,
+                      13, color: context.subTextColor,
                     ),
                   ],
                 ),

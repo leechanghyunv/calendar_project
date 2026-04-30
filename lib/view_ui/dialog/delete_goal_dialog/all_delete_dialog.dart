@@ -13,7 +13,7 @@ class AllDeleteDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = context.width;
+    Widget _label(String msg) => TextWidget(msg, 15, color: context.textColor);
 
     return AlertDialog(
 
@@ -21,14 +21,12 @@ class AllDeleteDialog extends ConsumerWidget {
       shape: context.dialogShape,
       content: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: TextWidget('공수기록을 모두 삭제하시겠습니까?',
-            15,appWidth,color: context.textColor),
+        child: _label('공수기록을 모두 삭제하시겠습니까?'),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('취소', 15,appWidth,
-              color: context.textColor
+          child: _label('취소'
           ),
         ),
         TextButton(
@@ -37,8 +35,7 @@ class AllDeleteDialog extends ConsumerWidget {
             customMsg('이 기간의 공수기록 모두 삭제합니다');
             Navigator.of(context).pop();
           },
-          child: TextWidget('삭제', 15,appWidth,
-              color: context.textColor),
+          child: _label('삭제'),
         ),
       ],
     );

@@ -42,8 +42,7 @@ class AnimatedTotal extends ConsumerWidget {
               size: 20,
             ),
             SizedBox(width: 7.5),
-            TextWidget(displayText, 15,
-                context.width,color: context.subTextColor),
+            TextWidget(displayText, 15, color: context.subTextColor),
           ],
         );
       },

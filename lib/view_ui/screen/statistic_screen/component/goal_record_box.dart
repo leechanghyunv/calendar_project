@@ -79,8 +79,7 @@ class GoalRecordBox extends ConsumerWidget {
                   child: Column(
                     children: [
                       TextWidget(
-                          '목표금액은 ${formatAmount(goalValue)} 입니다',
-                          18, context.width,
+                          '목표금액은 ${formatAmount(goalValue)} 입니다', 18,
                           fontWeight: Platform.isAndroid ? FontWeight.w600 :  FontWeight.w900),
 
 

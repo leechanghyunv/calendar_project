@@ -37,9 +37,8 @@ class Index2content extends HookConsumerWidget {
               ),
               SizedBox(width: 5),
               TextWidget(
-                  displayText,
-                  13.5,
-                  context.width,color: context.subTextColor),
+                  displayText, 13.5,
+                  color: context.subTextColor),
             ],
           ),
         ),

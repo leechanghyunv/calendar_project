@@ -19,17 +19,13 @@ class NewVersionDialog extends ConsumerWidget {
     ref.watch(versionManagerProvider.notifier);
     final version = ref.watch(versionProvider.notifier).version;
 
-
-
-    final width = context.width;
-
     return AlertDialog(
       backgroundColor:  context.dialogColor,
       shape: context.dialogShape,
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TextWidget('버전 업데이트', 16, width,fontWeight: FontWeight.w900),
+          TextWidget('버전 업데이트', 16,fontWeight: FontWeight.w900),
 
           Spacer(),
           Container(
@@ -41,7 +37,7 @@ class NewVersionDialog extends ConsumerWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8.5,2.5,8.5,2.5),
-              child: TextWidget('${version}', 15, width),
+              child: TextWidget('${version}', 15),
             ),
           ),
         ],
@@ -64,7 +60,7 @@ class NewVersionDialog extends ConsumerWidget {
                     ],
                   ),
                   AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
-                      context.width, color: context.textColor),
+                      color: context.textColor),
                   _ => const Text('............'),
                   };
                 }),
@@ -86,12 +82,12 @@ class NewVersionDialog extends ConsumerWidget {
                 }
               },
               child: TextWidget('의견보내기', 15,
-                  context.width, color: context.textColor),
+                   color: context.textColor),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
               child: TextWidget('확인', 15,
-                  context.width, color: context.textColor),
+                  color: context.textColor),
             ),
           ],
         ),
@@ -124,10 +120,10 @@ Widget introBox(String title, String description,BuildContext context) => Column
     SizedBox(height: 7.5),
     FittedBox(
       fit: BoxFit.scaleDown,
-      child: TextWidget(title, 15, context.width),
+      child: TextWidget(title, 15),
     ),
     SizedBox(height: 2.5),
-    TextWidget(description, 11, context.width,color: Colors.teal),
+    TextWidget(description, 11,color: Colors.teal),
     SizedBox(height: 7.5),
   ],
 );

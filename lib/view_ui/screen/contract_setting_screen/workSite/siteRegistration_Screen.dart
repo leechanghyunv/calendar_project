@@ -70,9 +70,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                   AsyncData(:final value) => value.isEmpty
                       ? Center(
                     child: TextWidget(
-                      '등록된 현장이 없습니다',
-                      14.0,
-                      context.width,
+                      '등록된 현장이 없습니다', 14.0,
                       color: context.subTextColor,
                     ),
                   ) : ListView.separated(
@@ -94,9 +92,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                           child: Row(
                             children: [
                               TextWidget(
-                                site.value,
-                                15.0,
-                                context.width,
+                                site.value, 15.0,
                                 color: context.textColor,
                               ),
                               Spacer(),

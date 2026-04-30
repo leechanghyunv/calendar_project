@@ -163,7 +163,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('기본공수 변경', 15, context.width, color: context.textColor),
+                          TextWidget('기본공수 변경', 15, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -187,7 +187,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('정산주기 설정', 15, context.width,
+                          TextWidget('정산주기 설정', 15,
                               color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
@@ -212,7 +212,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('주요일정 관리', 15, context.width, color: context.textColor),
+                          TextWidget('주요일정 관리', 15, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -236,7 +236,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('근로기간 검색', 15, context.width, color: context.textColor),
+                          TextWidget('근로기간 검색', 15, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -260,7 +260,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('자주 묻는 질문', 15, context.width, color: context.textColor),
+                          TextWidget('자주 묻는 질문', 15, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),

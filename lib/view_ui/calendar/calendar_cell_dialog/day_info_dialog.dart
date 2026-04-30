@@ -30,12 +30,14 @@ class DayInfoDialog extends ConsumerWidget {
     final localDate = DateTime(ref.selected.year, ref.selected.month, ref.selected.day);
     final hasCustomEvent = customEventMarkers.containsKey(localDate);
 
+
+    Widget _label(String msg) => TextWidget(msg, 14.5, color: context.textColor);
+
     return AlertDialog(
       backgroundColor: context.dialogColor,
       shape: context.dialogShape,
       title: TextWidget(
-          ' ${ref.monthString}월 ${ref.dayString}일 공수기록',
-          16,context.width,
+          ' ${ref.monthString}월 ${ref.dayString}일 공수기록', 16,
         color: context.textColor,
       ),
       content: Container(
@@ -58,31 +60,23 @@ class DayInfoDialog extends ConsumerWidget {
             children: <Widget>[
 
               TextWidget('일당: ${calendarPayText}',
-                  14.5, context.width,
+                  14.5,
                   color: context.textColor),
               SizedBox(height: 7.5),
-              TextWidget('공수: ${calendarText}', 14.5,
-                  context.width,
-                  color: context.textColor),
+              _label('공수: ${calendarText}'),
               SizedBox(height: 7.5),
-              TextWidget('메모: ${calendarMemoText}', 14.5,
-                  context.width,
-                  color: context.textColor),
+              _label('메모: ${calendarMemoText}'),
               if (event.workSite.isNotEmpty)
               SizedBox(height: 7.5),
               if (event.workSite.isNotEmpty)
-              TextWidget('현장: ${calendarSite}', 14.5,
-                  context.width,
-                  color: context.textColor),
+                _label('현장: ${calendarSite}'),
 
 
               /// /// ///
 
               if (hasCustomEvent) ...[
                 SizedBox(height: 7.5),
-                TextWidget('주요일정: ${customEventMarkers[localDate]}', 14.5,
-                    context.width,
-                    color: context.textColor),
+                _label('주요일정: ${customEventMarkers[localDate]}'),
               ] else
                 SizedBox(),
 
@@ -98,7 +92,7 @@ class DayInfoDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: TextWidget('나가기', 15, context.width,
+          child: TextWidget('나가기', 15,
               color: context.textColor),
         ),
         TextButton(
@@ -108,7 +102,7 @@ class DayInfoDialog extends ConsumerWidget {
               NumberPickerModal(context);
             });
           },
-          child: TextWidget('수정', 15, context.width,
+          child: TextWidget('수정', 15,
               color: context.textColor),
         ),
       ],

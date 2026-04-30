@@ -108,8 +108,7 @@ class DailyPayScreen extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
                   child: Row(
                     children: [
-                      TextWidget(formzRefNot.subsidyError, 13.5,
-                          context.width,color: context.subTextColor),
+                      TextWidget(formzRefNot.subsidyError, 13.5, color: context.subTextColor),
                     ],
                   ),
                 ),

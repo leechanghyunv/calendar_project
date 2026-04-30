@@ -95,9 +95,7 @@ class NewSettingScreen extends HookConsumerWidget {
                     Row(
                       children: [
                         TextWidget(
-                            '메모기록',
-                            14,
-                            context.width,
+                            '메모기록', 14,
                             color: context.subTextColor
                         ),
                         Spacer(),
@@ -122,9 +120,7 @@ class NewSettingScreen extends HookConsumerWidget {
                       children: [
                         Expanded(
                           child: TextWidget(
-                              memoText,
-                              13.5,
-                              context.width,
+                              memoText, 13.5,
                               color: context.subTextColor
                           ),
                         ),
@@ -152,9 +148,7 @@ class NewSettingScreen extends HookConsumerWidget {
                         });
                       },
                       child: TextWidget(
-                          '일비설정',
-                          13.5,
-                          context.width,
+                          '일비설정', 13.5,
                           color: context.subTextColor
                       ),
                     ),
@@ -172,10 +166,7 @@ class NewSettingScreen extends HookConsumerWidget {
                           initialModal(context);
                         });
                       },
-                      child: TextWidget(
-                           '일당수정',
-                          13.5,
-                          context.width,
+                      child: TextWidget('일당수정', 13.5,
                           color: context.subTextColor
                       ),
                     ),

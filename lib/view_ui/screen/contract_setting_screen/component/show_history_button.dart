@@ -35,8 +35,7 @@ class ShowHistoryButton extends HookConsumerWidget {
         children: [
           if (!isOpen.value) ...[
             BlinkTwiceText(
-              "휴일처리는 숫자 '0' 입력 후 확인",
-              13.5,
+              "휴일처리는 숫자 '0' 입력 후 확인", 13.5,
               color: context.subTextColor,
             ),
             const Expanded(child: SizedBox.shrink()),
@@ -111,10 +110,7 @@ class _DefaultButton extends StatelessWidget {
             ),
             SizedBox(width: 5.5),
             TextWidget(
-              context.isDark ?  '@ 최근기록' :  '최근기록',
-              13,
-              context.width,
-              color: context.subTextColor,
+              context.isDark ?  '@ 최근기록' :  '최근기록', 13, color: context.subTextColor,
             ),
           ],
         ),
@@ -144,11 +140,7 @@ class _RecentButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
-        child: TextWidget(
-          label,
-          13,
-          context.width,
-          color: context.subTextColor,
+        child: TextWidget(label, 13, color: context.subTextColor,
         ),
       ),
     );

@@ -52,9 +52,7 @@ class PayChipsIndex0 extends HookWidget {
                     TextWidget(
                       '${amount ~/ 10000}만',
                       13,
-                      context.width,
                       fontWeight: FontWeight.w600,
-                      // color: context.subTextColor
                     ),
                   ],
                 )

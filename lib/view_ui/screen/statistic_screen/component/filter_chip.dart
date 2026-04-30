@@ -55,7 +55,7 @@ class FilterHistoryChip extends HookConsumerWidget {
               ),
               boxShadow: context.defaultShadow,
             ),
-            child: TextWidget('#$option', 13, context.width,color: isSelected ? context.textColor : context.chipTextColor),
+            child: TextWidget('#$option', 13,color: isSelected ? context.textColor : context.chipTextColor),
           ),
         );
       }).toList(),

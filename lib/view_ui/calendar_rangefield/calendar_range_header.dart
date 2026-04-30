@@ -63,8 +63,7 @@ class CalendarRangeHeader extends HookConsumerWidget {
                 SizedBox(width: 7.5),
                 TextWidget(
                   // '322.5만원 [32공수]',
-                    '${DateFormat.yMMMM('ko_KR').format(day)}',
-                    20, appWidth,color: context.textColor),
+                    '${DateFormat.yMMMM('ko_KR').format(day)}', 20,color: context.textColor),
                 Spacer(),
                 MonthPopupButton(
                   onSelected: onMonthsSelected, // 👈 콜백 연결

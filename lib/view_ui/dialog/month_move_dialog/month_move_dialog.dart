@@ -36,7 +36,7 @@ class MonthMoveDialog extends HookConsumerWidget {
             itemBuilder: (context) => years
                 .map((year) => PopupMenuItem(
               value: year,
-              child: TextWidget('$year년', 15, context.width,
+              child: TextWidget('$year년', 15,
                   color: context.textColor),
             ))
                 .toList(),
@@ -44,7 +44,7 @@ class MonthMoveDialog extends HookConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  TextWidget('${selectedYear.value}년', 18, context.width,
+                  TextWidget('${selectedYear.value}년', 18,
                       color: context.textColor),
                   const SizedBox(width: 2.5),
                   Padding(
@@ -99,7 +99,7 @@ class MonthMoveDialog extends HookConsumerWidget {
                                   : isSelected ? Border.all(width: 1.25,color: Colors.white) : null,
                             ),
                             child: TextWidget('${month.toString().padLeft(2, '0')}월',
-                                15, context.width,color: context.textColor),
+                                15,color: context.textColor),
                           ),
                         );
                       }),
@@ -120,7 +120,7 @@ class MonthMoveDialog extends HookConsumerWidget {
               Spacer(),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: TextWidget('나가기', 15, context.width,
+                child: TextWidget('나가기', 15,
                     color: context.textColor),
               ),
               TextButton(
@@ -131,7 +131,7 @@ class MonthMoveDialog extends HookConsumerWidget {
                   Navigator.of(context).pop();
                 }
                     : null,
-                child: TextWidget('확인', 15, context.width,
+                child: TextWidget('확인', 15,
                     color: context.textColor),
               ),
             ],

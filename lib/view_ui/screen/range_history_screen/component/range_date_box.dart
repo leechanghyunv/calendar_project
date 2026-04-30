@@ -23,7 +23,7 @@ class RangeDateBox extends StatelessWidget {
         color: Theme.of(context).scaffoldBackgroundColor,
       ),
       child: TextWidget(
-          text, 15, context.width, color: context.textColor),
+          text, 15, color: context.textColor),
     );
   }
 }

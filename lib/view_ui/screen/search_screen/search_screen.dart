@@ -23,10 +23,6 @@ class SearchScreen extends HookConsumerWidget {
 
     final searchQuery = useState('');
 
-    // final searchHistory = searchHistoryAsync.maybeWhen(
-    //   data: (data) => data,
-    //   orElse: () => <String>[],
-    // );
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {

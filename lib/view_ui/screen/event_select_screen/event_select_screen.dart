@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
@@ -122,9 +121,7 @@ class EventSelectScreen extends HookConsumerWidget {
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               children: [
                                                 TextWidget(
-                                                    '${monthDifference}개월 간 매월',
-                                                    13.5,
-                                                    context.width,
+                                                    '${monthDifference}개월 간 매월', 13.5,
                                                     color: context.subTextColor
                                                 ),
                                                 SizedBox(width: 5),
@@ -136,9 +133,7 @@ class EventSelectScreen extends HookConsumerWidget {
                                                 SizedBox(width: 5),
                                                 Expanded(
                                                   child: TextWidget(
-                                                      getGuideText(),
-                                                      13.5,
-                                                      context.width,
+                                                      getGuideText(), 13.5,
                                                       color: context.subTextColor
                                                   ),
                                                 ),
@@ -146,9 +141,7 @@ class EventSelectScreen extends HookConsumerWidget {
                                             )
                                           else
                                             TextWidget(
-                                                getGuideText(),
-                                                13.5,
-                                                context.width,
+                                                getGuideText(), 13.5,
                                                 color: context.subTextColor
                                             ),
                                         ],

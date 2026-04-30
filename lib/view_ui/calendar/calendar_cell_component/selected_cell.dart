@@ -30,11 +30,7 @@ class SelectedCell extends ConsumerWidget {
         shape: BoxShape.circle,
       ),
       alignment: Alignment.center,
-      child: TextWidget(
-        '${day.day}',
-        20,
-        context.width,
-        color: Color(0xFFFAFAFA),
+      child: TextWidget('${day.day}', 20, color: Color(0xFFFAFAFA),
       ),
     );
 

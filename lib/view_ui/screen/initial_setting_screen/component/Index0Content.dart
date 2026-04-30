@@ -170,7 +170,7 @@ class Index0content extends HookConsumerWidget {
             ChipImoJi(name: icon, width: iconSize),
             SizedBox(width: 5),
           ],
-          TextWidget(text, 13.5, context.width, color: context.subTextColor),
+          TextWidget(text, 13.5, color: context.subTextColor),
         ],
       ),
     );

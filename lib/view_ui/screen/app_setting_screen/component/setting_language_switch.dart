@@ -69,9 +69,7 @@ class SettingLanguageSwitch extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextWidget(
-                  languages[selectedLanguage.value]!['label']!,
-                  15,
-                  context.width,
+                  languages[selectedLanguage.value]!['label']!, 15,
                   color: context.textColor,
                 ),
                 Text(

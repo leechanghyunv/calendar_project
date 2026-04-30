@@ -72,10 +72,10 @@ class SearchChipBox extends HookConsumerWidget {
               Row(
                 crossAxisAlignment: .start,
                 children: [
-                  TextWidget('업체정산률', 12.5, context.width),
+                  TextWidget('업체정산률', 12.5),
                   Spacer(),
                   /// 38°C
-                  TextWidget('22.2%', 11, context.width,color: context.subTextColor),
+                  TextWidget('22.2%', 11,color: context.subTextColor),
                 ],
               ),
               SizedBox(height: 5),

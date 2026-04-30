@@ -65,8 +65,7 @@ class GoalSettingScreen extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 12.0),
-                child: TextWidget(formZRead.goalError, 12.0,
-                    context.width,color: context.subTextColor),
+                child: TextWidget(formZRead.goalError, 12.0, color: context.subTextColor),
               ),
               SizedBox(height: 15),
               NumberFieldBar(

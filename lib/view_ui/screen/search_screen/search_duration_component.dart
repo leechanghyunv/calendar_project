@@ -59,7 +59,6 @@ class _PeriodChip extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 6),
       child: ChoiceChip(
         label: TextWidget(period,14,
-            context.width,
             color: context.textColor),
         selected: isSelected,
         onSelected: (_) => onSelected(),
