@@ -9,6 +9,7 @@ import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../widgets/info_row.dart';
+import '../../../widgets/light_bulb_box.dart';
 import '../../../widgets/text_field_number_bar.dart';
 
 
@@ -84,9 +85,11 @@ class DailyPayScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 25),
-      
-      
+
+                SizedBox(height: 20),
+                LightBulbBox(
+                  msg: '일비는 세전,세후금액에 합산되어서 반영됩니다',
+                ),
       
               ],
       
@@ -105,12 +108,6 @@ class DailyPayScreen extends HookConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8.0),
                   child: Row(
                     children: [
-                      // SvgImoJi(
-                      //   nameLight: 'Rocket_new',
-                      //   nameDark: 'rocket',
-                      //   width: iconSize,
-                      // ),
-                      // SizedBox(width: 5),
                       TextWidget(formzRefNot.subsidyError, 13.5,
                           context.width,color: context.subTextColor),
                     ],

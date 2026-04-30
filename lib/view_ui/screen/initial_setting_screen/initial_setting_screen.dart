@@ -1,19 +1,15 @@
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:intl/intl.dart';
-
 import '../../../base_app_size.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
-import '../../../core/extentions/theme_extension.dart';
 import '../../widgets/info_row.dart';
-import '../../widgets/svg_imoji.dart';
 import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
 import 'component/Index2Content.dart';
 import 'component/Index3Content.dart';
 import 'component/dailyWage_field_bar.dart';
-import 'component/light_bulb_box.dart';
+import '../../widgets/light_bulb_box.dart';
 
 void initialModal(BuildContext context) {
   context.showModal(
@@ -96,12 +92,6 @@ class InitialSettingScreen extends HookConsumerWidget {
     ];
 
     final contract = ref.watch(viewContractProvider);
-    final contractValue = contract.value!.last.normal;
-
-    String contractText(){
-      if (contract.hasValue && contractValue > 0) return '일당 수정하기';
-      return '일당 입력하기';
-    }
 
     return SafeArea(
         child: Scaffold(
@@ -117,7 +107,7 @@ class InitialSettingScreen extends HookConsumerWidget {
                 Row(
                   children: [
                     InfoRow(
-                      title: contractText(),
+                      title: '일당 입력하기',
                       subtitle: '근로수당,세율을 설정합니다',
                     ),
                     Spacer(),
@@ -137,7 +127,12 @@ class InitialSettingScreen extends HookConsumerWidget {
                   ],
                 ),
                 SizedBox(height: 20),
-                LightBulbBox(msg: '일당 수정방법은 [등록] - [일당수정] 에서 변경할 일당입력'),
+                LightBulbBox(
+                  msg: currentIndex.value == 0
+                      ? '일당 수정방법은 [등록] - [일당수정] 에서 변경할 일당입력'
+                      : '캘린더상 연장,야간 공수는 [기본공수 변경하기] 에서 변경',
+                ),
+
 
               ],
             ),

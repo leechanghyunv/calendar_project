@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/payment_cycle_confing/payment_cycle_modal.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
 import '../../../../core/export_package.dart';
 import '../../../core/dark_light/dark_light.dart';
@@ -13,7 +14,6 @@ import 'chip_number_config/chip_number_modal.dart';
 import 'component/dark_light_button.dart';
 import 'component/setting_button.dart';
 import 'component/setting_language_switch.dart';
-import 'daily_pay_config/daily_pay_modal.dart';
 
 class AppSettingScreen extends HookConsumerWidget {
   const AppSettingScreen({super.key});
@@ -163,7 +163,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('기본공수 변경하기', 15, context.width, color: context.textColor),
+                          TextWidget('기본공수 변경', 15, context.width, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -176,7 +176,7 @@ class AppSettingScreen extends HookConsumerWidget {
                     onTap: () {
                       Navigator.pop(context);
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        DailyPayModal(context);
+                        PaymentCycleModal(context);
                       });
                     },
                     borderRadius: BorderRadius.circular(12),
@@ -187,7 +187,8 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('일비 설정하기', 15, context.width, color: context.textColor),
+                          TextWidget('정산주기 설정', 15, context.width,
+                              color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -235,7 +236,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('근로기간 검색하기', 15, context.width, color: context.textColor),
+                          TextWidget('근로기간 검색', 15, context.width, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),
@@ -259,7 +260,7 @@ class AppSettingScreen extends HookConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          TextWidget('자주 묻는 질문들', 15, context.width, color: context.textColor),
+                          TextWidget('자주 묻는 질문', 15, context.width, color: context.textColor),
                           Spacer(),
                           Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
                           SizedBox(width: 5),

@@ -59,6 +59,7 @@ class NumberFieldBar extends HookConsumerWidget {
               ),
               onChanged: onChanged,
               decoration: InputDecoration(
+
                 isDense: true,
                 hintText: hintText,
                 hintStyle: TextStyle(

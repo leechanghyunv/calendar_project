@@ -1,10 +1,10 @@
 
-import '../../../../base_app_size.dart';
-import '../../../../core/export_package.dart';
-import '../../../../core/extentions/theme_color.dart';
-import '../../../../core/extentions/theme_extension.dart';
-import '../../../../core/widget/text_widget.dart';
-import '../../../widgets/svg_imoji.dart';
+import '../../base_app_size.dart';
+import '../../core/export_package.dart';
+import '../../core/extentions/theme_color.dart';
+import '../../core/extentions/theme_extension.dart';
+import '../../core/widget/text_widget.dart';
+import 'svg_imoji.dart';
 
 class LightBulbBox extends StatelessWidget {
 
@@ -30,14 +30,14 @@ class LightBulbBox extends StatelessWidget {
               horizontal: 8.0),
           child: Row(
             children: [
-              Padding(
+              context.isDark ? SizedBox.shrink() : Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: ChipImoJiFile(
                   name: 'LightBulb',
                   width: LightBulbSize,
                 ),
               ),
-              SizedBox(width: 2.5),
+              context.isDark ? SizedBox.shrink() : SizedBox(width: 2.5),
               Expanded(
                 child: TextWidget(msg, 13.25,
                     context.width,fontWeight: FontWeight.normal),

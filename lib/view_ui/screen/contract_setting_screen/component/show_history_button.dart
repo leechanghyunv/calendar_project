@@ -105,13 +105,13 @@ class _DefaultButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
         child: Row(
           children: [
-            ChipImoJiFile(
+            context.isDark ? SizedBox() : ChipImoJiFile(
               name: 'file',
               width: iconSize,
             ),
             SizedBox(width: 5.5),
             TextWidget(
-              '최근기록',
+              context.isDark ?  '@ 최근기록' :  '최근기록',
               13,
               context.width,
               color: context.subTextColor,

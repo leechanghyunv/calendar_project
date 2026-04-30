@@ -4,6 +4,7 @@ import '../../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../widgets/info_row.dart';
+import '../../../widgets/light_bulb_box.dart';
 import '../../../widgets/munti_decimal_field_bar.dart';
 import '../../../widgets/svg_imoji.dart';
 
@@ -72,8 +73,11 @@ class ChipNumberScreen extends HookConsumerWidget {
                     ),
                   ],
                 ),
-      
                 SizedBox(height: 20),
+
+                LightBulbBox(
+                  msg: '1.0(기본),1.5(연장),2.0(야간) 변경해서 사용',
+                ),
       
               ],
             ),

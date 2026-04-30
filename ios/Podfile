@@ -45,5 +45,8 @@ post_install do |installer|
     end
   end
 
-
+ # ✅ 추가: x86_64 시뮬레이터 슬라이스 직접 제거
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+  end
 end
