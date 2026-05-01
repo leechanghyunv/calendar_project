@@ -1,16 +1,17 @@
-import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
-
+import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
+import '../../../../core/extentions/theme_extension.dart';
+import '../../../../core/widget/text_widget.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/light_bulb_box.dart';
-import '../../../widgets/text_field_number_bar.dart';
+import '../../../widgets/svg_imoji.dart';
+import '../../../widgets/textField_bar/date_field_bar.dart';
 
 void PaymentCycleModal(BuildContext context){
   context.showModal(
-    heightRatio: 0.8,
+    heightRatio: 0.5,
     child: PaymentCycleScreen(),
   );
 }
@@ -66,11 +67,8 @@ class PaymentCycleScreen extends HookConsumerWidget {
                 ),
                 SizedBox(height: 20),
                 LightBulbBox(
-                  msg: '이전달 20일에서 이번달 19일까지 캘린더에 반영',
+                  msg: 'ex) 이전달 20일에서 이번달 19일까지 캘린더에 반영',
                 ),
-                SizedBox(height: 20),
-                TextWidget(dayText, 25),
-
               ],
             ),
           ),
@@ -82,15 +80,49 @@ class PaymentCycleScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 10),
-                NumberFieldBar(
+                if(dayText.length > 0)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0,horizontal: 8.0),
+                  child: Row(
+                    crossAxisAlignment: .end,
+                    children: [
+                      SizedBox(width: 5),
+                      TextWidget(
+                          '정산주기는 이전달 ', 13.5,
+                          color: context.subTextColor),
+                      TextWidget(
+                          '${dayText}', 18.5,
+                          color: Colors.teal),
+                      TextWidget(
+                          '일 기준으로 설정', 13.5,
+                          color: context.subTextColor),
+                    ],
+                  ),
+                ) else
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 0.0),
+                    child: Row(
+                      crossAxisAlignment: .end,
+                      children: [
+                        const Expanded(child: SizedBox.shrink()),
+                        _DefaultButton(
+                          onTap: (){
+
+                          },
+                        ),
+
+                      ],
+                    ),
+                  ),
+                SizedBox(height: 7.5),
+                DateFieldBar(
                   controller: dayController,
                   focusNode: dayFocusNode,
                   hintText: ' 정산기준 날짜를 입력해주세요',
                   icon: Icons.check,
-                  onChanged: (val){
-                  },
-                  onPressed: (){}
+                  onPressed: (){
+
+                  }
                 ),
               ],
             ),
@@ -99,3 +131,45 @@ class PaymentCycleScreen extends HookConsumerWidget {
     );
   }
 }
+
+class _DefaultButton extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _DefaultButton({
+
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+
+    final iconType1 = context.width.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
+
+    final iconSize =  Platform.isAndroid ? iconType1 - 1.5 : iconType1;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          color: context.isDark ? Colors.black87 : Colors.grey[100],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 8.0),
+        child: Row(
+          children: [
+            context.isDark ? SizedBox() : ChipImoJiFile(
+              name: 'Setting',
+              width: iconSize,
+            ),
+            SizedBox(width: 5.5),
+            TextWidget(
+              context.isDark ?  '@ 초기화' :  '초기화', 13, color: context.subTextColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

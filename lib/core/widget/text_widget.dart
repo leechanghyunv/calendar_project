@@ -2,44 +2,25 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import '../extentions/theme_color.dart';
 
-
 Widget TextWidget(
-    String msg, double size, {Color? color, FontWeight? fontWeight}) =>
-    Builder(builder: (context) =>  // 👈 Builder로 context 획득
-    Text(
-      msg,
-      textScaler: TextScaler.noScaling,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 3,
-      style: TextStyle(
-        fontWeight: fontWeight ?? FontWeight.bold,
-        height: textHeight,
-        color: color,
-        fontSize: _getFontSize(size, context.width), // 👈 내부에서 처리
-        letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
-      ),
-    ),
-    );
-
-Widget ErrorText(String msg, double appWidth, {Color? color}) {
-  FontWeight fontWeight = msg.contains('목표금액은') ? FontWeight.w900 : FontWeight.bold;
-
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Text(
-        '$msg',
+    String msg, double size, {Color? color, FontWeight? fontWeight})
+    => Builder(builder: (context){
+      return Text(msg,
         textScaler: TextScaler.noScaling,
+        overflow: TextOverflow.ellipsis,
+        maxLines: 3,
         style: TextStyle(
-          fontWeight: fontWeight,
+          fontWeight: fontWeight ?? FontWeight.bold,
           height: textHeight,
-          color: color ?? Colors.grey[700],  // color가 null이면 기본값 Colors.blue[700] 사용
-          fontSize: _getFontSize(11,appWidth),
+          color: color,
+          fontSize: _getFontSize(size, context.width),
+          letterSpacing: Platform.isAndroid ? 0.5 : 0.0,
         ),
-      ),
-    ],
+      );
+    }
   );
-}
+
+
 
 double _getFontSize(double baseSize, double appWidth) {
   return switch (appWidth) {
@@ -51,8 +32,6 @@ double _getFontSize(double baseSize, double appWidth) {
     _ => baseSize - 2.5, // 기본값
   };
 }
-
-
 
 
 Widget dayText(String day) {

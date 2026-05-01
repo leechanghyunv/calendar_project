@@ -1,11 +1,11 @@
 import 'package:dartx/dartx.dart';
-import '../../base_app_size.dart';
-import '../../core/export_package.dart';
-import '../../core/extentions/theme_color.dart';
-import '../../core/extentions/theme_extension.dart';
-import '../../core/widget/text_widget.dart';
-import '../../core/widget/toast_msg.dart';
-import '../../view_model/view_provider/display_view_record_model.dart';
+import '../../../base_app_size.dart';
+import '../../../core/export_package.dart';
+import '../../../core/extentions/theme_color.dart';
+import '../../../core/extentions/theme_extension.dart';
+import '../../../core/widget/text_widget.dart';
+import '../../../core/widget/toast_msg.dart';
+import '../../../view_model/view_provider/display_view_record_model.dart';
 
 class MultiDecimalFieldBar extends HookConsumerWidget {
   final List<TextEditingController> controllers;

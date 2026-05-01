@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
-import 'package:calendar_project_240727/view_ui/widgets/text_field_bar.dart';
+import 'package:calendar_project_240727/view_ui/widgets/textField_bar/text_field_bar.dart';
 
 import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';

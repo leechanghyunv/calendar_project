@@ -116,9 +116,7 @@ class MainButton extends HookConsumerWidget {
                             },
                             letterSpacing: appWidth > 450 ? 1.0 : null,
                             fontWeight: Platform.isAndroid ? FontWeight.bold : FontWeight.w900,
-                            color: selectedIndex == index
-                                ? context.textColor
-                                : context.textColor,
+                            color: context.textColor
                           ),
                         ),
 

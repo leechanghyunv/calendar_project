@@ -7,7 +7,7 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
-import '../../widgets/dual_field_bar.dart';
+import '../../widgets/textField_bar/dual_field_bar.dart';
 import 'component/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';

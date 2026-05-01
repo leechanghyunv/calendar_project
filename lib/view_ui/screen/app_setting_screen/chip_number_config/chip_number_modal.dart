@@ -5,7 +5,7 @@ import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/light_bulb_box.dart';
-import '../../../widgets/munti_decimal_field_bar.dart';
+import '../../../widgets/textField_bar/munti_decimal_field_bar.dart';
 import '../../../widgets/svg_imoji.dart';
 
 void ChipNumberModal(BuildContext context){

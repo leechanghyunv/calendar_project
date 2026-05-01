@@ -30,7 +30,6 @@ class UnifiedChipBar extends HookConsumerWidget {
 
     final sizes = MainBoxSizes(width: appWidth);
 
-
     return Container(
       alignment: Alignment.center,
       height: sizes.gap,

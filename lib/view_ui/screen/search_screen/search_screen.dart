@@ -7,7 +7,7 @@ import '../../../model/work_history_model.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../../view_model/sqlite_model/search_list_model.dart';
 import '../../widgets/info_row.dart';
-import '../../widgets/text_field_bar.dart';
+import '../../widgets/textField_bar/text_field_bar.dart';
 
 
 class SearchScreen extends HookConsumerWidget {

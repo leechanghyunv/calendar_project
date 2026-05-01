@@ -9,7 +9,7 @@ import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/contract_model.dart';
-import '../../widgets/text_field_number_bar.dart';
+import '../../widgets/textField_bar/text_field_number_bar.dart';
 
 void goalSettingModal(BuildContext context) {
   context.showModal(

@@ -139,13 +139,11 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
                                   chartInText('주간 ${data.value.normalDay}일 ${data.value.normalPay}',context),
                                 ],
                               ),
-
                               Row(
                                 children: [
                                   chartInText('연장 ${data.value.extendDay}일 ${data.value.extendPay}',context),
                                 ],
                               ),
-
                               Row(
                                 children: [
                                   chartInText('야간 ${data.value.nightDay}일 ${data.value.nightPay}',context),

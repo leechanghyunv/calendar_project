@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
@@ -18,6 +17,7 @@ class NewVersionDialog extends ConsumerWidget {
 
     ref.watch(versionManagerProvider.notifier);
     final version = ref.watch(versionProvider.notifier).version;
+    Widget _label(String msg) => TextWidget(msg, 15, color: context.textColor);
 
     return AlertDialog(
       backgroundColor:  context.dialogColor,
@@ -59,8 +59,7 @@ class NewVersionDialog extends ConsumerWidget {
                       ...value.changes.map((e) => introBox(e.title, e.description,context)),
                     ],
                   ),
-                  AsyncError() => TextWidget('업데이트 정보를 불러올 수 없어요 😅', 15,
-                      color: context.textColor),
+                  AsyncError() => _label('업데이트 정보를 불러올 수 없어요 😅'),
                   _ => const Text('............'),
                   };
                 }),
@@ -72,8 +71,6 @@ class NewVersionDialog extends ConsumerWidget {
       actions: [
         Row(
           children: [
-
-
             Spacer(),
             TextButton(
               onPressed: () async {
@@ -81,13 +78,11 @@ class NewVersionDialog extends ConsumerWidget {
                   inAppReview.requestReview();
                 }
               },
-              child: TextWidget('의견보내기', 15,
-                   color: context.textColor),
+              child: _label('의견보내기')
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: TextWidget('확인', 15,
-                  color: context.textColor),
+              child: _label('확인')
             ),
           ],
         ),

@@ -1,7 +1,6 @@
 
 import 'package:calendar_project_240727/repository/sharePreferences_init.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import '../../model/version_introduce_model.dart';
 import '../../repository/repository_import.dart';
 
 part 'version_manager.g.dart';

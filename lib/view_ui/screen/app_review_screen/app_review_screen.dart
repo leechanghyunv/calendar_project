@@ -7,8 +7,8 @@ import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../widgets/elevated_button.dart';
-import '../../widgets/left_eleveted_button.dart';
+import '../../widgets/elevated_button/elevated_button.dart';
+import '../../widgets/elevated_button/left_eleveted_button.dart';
 
 void showReviewModal(BuildContext context){
   context.showModal(

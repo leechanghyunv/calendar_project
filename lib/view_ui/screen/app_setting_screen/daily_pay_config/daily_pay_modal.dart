@@ -10,7 +10,7 @@ import '../../../../core/widget/toast_msg.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/light_bulb_box.dart';
-import '../../../widgets/text_field_number_bar.dart';
+import '../../../widgets/textField_bar/text_field_number_bar.dart';
 
 
 void DailyPayModal(BuildContext context){

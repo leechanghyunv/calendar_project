@@ -12,9 +12,9 @@ import '../../../repository/back_up/back_up_service.dart';
 import '../../../repository/back_up/clipboard_service.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import 'component/back_up_textfield.dart';
-import '../../widgets/elevated_button.dart';
+import '../../widgets/elevated_button/elevated_button.dart';
 import '../../widgets/info_row.dart';
-import '../../widgets/left_eleveted_button.dart';
+import '../../widgets/elevated_button/left_eleveted_button.dart';
 import 'component/guild_text.dart';
 
 void backupScreenModal(BuildContext context) {

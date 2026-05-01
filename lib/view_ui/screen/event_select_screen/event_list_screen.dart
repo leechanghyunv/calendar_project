@@ -2,9 +2,9 @@ import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/view_ui/screen/event_select_screen/provider/event_screen_provider.dart';
 import '../../../../core/export_package.dart';
-import '../../widgets/elevated_button.dart';
+import '../../widgets/elevated_button/elevated_button.dart';
 import '../../widgets/info_row.dart';
-import '../../widgets/left_eleveted_button.dart';
+import '../../widgets/elevated_button/left_eleveted_button.dart';
 import 'component/event_delete_dialog.dart';
 import 'component/event_list.dart';
 

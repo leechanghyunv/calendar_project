@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../core/extentions/theme_extension.dart';
 import '../../../core/widget/text_widget.dart';
-import '../../widgets/elevated_button.dart';
+import '../../widgets/elevated_button/elevated_button.dart';
 
 class QuestionScreen extends StatelessWidget {
   const QuestionScreen({super.key});

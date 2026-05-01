@@ -17,16 +17,5 @@ class CalendarSwitcher extends _$CalendarSwitcher {
 
     final prefs = await ref.prefsRead;
     await prefs.setBool(_key, state.value!);
-
-    // try {
-    //   final prefs = await ref.prefsRead;
-    //   final currentValue = state.value ?? false;
-    //   final newValue = !currentValue;
-    //
-    //   await prefs.setBool(_key, newValue);
-    //   state = AsyncValue.data(newValue);
-    // } catch (e, st) {
-    //   state = AsyncValue.error(e, st);
-    // }
   }
 }

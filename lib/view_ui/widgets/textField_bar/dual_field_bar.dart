@@ -1,16 +1,14 @@
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 
-import '../../base_app_size.dart';
-import '../../base_consumer.dart';
-import '../../core/extentions/theme_color.dart';
-import '../../core/extentions/theme_extension.dart';
-import '../../core/utils/converter.dart';
-import '../../core/widget/text_widget.dart';
-import '../../repository/formz/formz_decimal.dart';
-import '../screen/contract_setting_screen/component/latest_record_button.dart';
-import '../screen/contract_setting_screen/component/show_history_button.dart';
-import 'blink_text.dart';
+import '../../../base_app_size.dart';
+import '../../../base_consumer.dart';
+import '../../../core/extentions/theme_color.dart';
+import '../../../core/extentions/theme_extension.dart';
+import '../../../core/utils/converter.dart';
+import '../../../core/widget/text_widget.dart';
+import '../../../repository/formz/formz_decimal.dart';
+import '../../screen/contract_setting_screen/component/show_history_button.dart';
 
 final memoActiveProvider = StateProvider<bool>((ref) => false);
 

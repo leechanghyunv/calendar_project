@@ -6,7 +6,7 @@ part of 'latest_history_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$latestHistoryListHash() => r'5b48e06f09bac10832356c034098050626c47eb2';
+String _$latestHistoryListHash() => r'ebd9b4bac958dfa35cd11c9b06e1bc18279e65c7';
 
 /// See also [latestHistoryList].
 @ProviderFor(latestHistoryList)

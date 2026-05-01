@@ -9,5 +9,4 @@ class AdditionalPay extends _$AdditionalPay {
    bool build() => false;
 
   void openBox() => state = !state;
-
 }

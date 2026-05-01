@@ -1,34 +1,40 @@
-import '../../base_app_size.dart';
-import '../../core/export_package.dart';
-import '../../core/extentions/theme_color.dart';
-import '../../core/extentions/theme_extension.dart';
+import '../../../base_app_size.dart';
+import '../../../core/export_package.dart';
+import '../../../core/extentions/theme_color.dart';
+import '../../../core/extentions/theme_extension.dart';
 
-class TextFieldBar extends HookConsumerWidget {
+class DateFieldBar extends HookConsumerWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final VoidCallback? onPressed;
   final IconData? icon;
   final String? hintText;
-  final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
 
-  const TextFieldBar({
+  const DateFieldBar({
     super.key,
     required this.controller,
     required this.focusNode,
     this.onPressed,
     this.icon,
     this.hintText,
-    this.onChanged,
     this.onSubmitted,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    useListenable(controller);
     final fontSize = context.width.responsiveSize([15,13.5,13.5,13.5,13,12]);
     final iconSize = context.width.responsiveSize([25,24,24,23,21,18.5]);
+    final textLength = useState(0); // 👈 추가
+
+    useEffect(() {
+      controller.addListener(() {
+        textLength.value = controller.text.length; // 👈 변경시 rebuild 트리거
+      });
+      return null;
+    }, [controller]);
+
 
     return Container(
       decoration: BoxDecoration(
@@ -46,12 +52,21 @@ class TextFieldBar extends HookConsumerWidget {
               focusNode: focusNode,
               controller: controller,
               maxLines: null,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(2),
+                TextInputFormatter.withFunction((oldValue, newValue) {
+                  final number = int.tryParse(newValue.text);
+                  if (number == null) return newValue;
+                  return number > 31 ? oldValue : newValue;
+                }),
+              ],
               cursorColor: Colors.grey.shade700,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize:  fontSize,
               ),
-              onChanged: onChanged,
               decoration: InputDecoration(
 
                 isDense: true,
@@ -74,8 +89,8 @@ class TextFieldBar extends HookConsumerWidget {
             icon: Icon(
               icon,
               color: context.isDark
-                  ? controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
-                  : controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
+                  ? textLength.value >= 1 ? Colors.white : Colors.grey.shade700
+                  : textLength.value >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
               size: iconSize,
             ),
           ),
