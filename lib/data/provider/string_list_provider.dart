@@ -14,8 +14,13 @@ class StringListNotifier extends _$StringListNotifier {
     return repo.getAll();
   }
 
+  Future<void> _performAction(Future<void> Function(StringListRepository repo) action) async {
+    final repo = await ref.read(stringListRepositoryProvider.future);
+    await action(repo);
+    ref.invalidateSelf();
+  }
+
   Future<void> add(String value) async {
-    final repo = await ref.watch(stringListRepositoryProvider.future);
 
     final currentList = state.value ?? [];
     state = AsyncData([
@@ -27,32 +32,25 @@ class StringListNotifier extends _$StringListNotifier {
       )
     ]);
 
-    await repo.add(value);
-    ref.invalidateSelf();
+    await _performAction((repo) => repo.add(value));
+
   }
 
   Future<void> delete(String value) async {
-    final repo = await ref.watch(stringListRepositoryProvider.future);
 
     state = AsyncData(
         state.value?.where((item) => item.value != value).toList() ?? []
     );
+    await _performAction((repo) => repo.delete(value));
 
-    await repo.delete(value);
-    ref.invalidateSelf();
   }
 
   Future<void> reorder(List<StringItem> items) async {
-    final repo = await ref.watch(stringListRepositoryProvider.future);
-    await repo.updateOrder(items);
-    ref.invalidateSelf();
+    await _performAction((repo) => repo.updateOrder(items));
   }
 
   Future<void> clear() async {
-    final repo = await ref.watch(stringListRepositoryProvider.future);
-    await repo.clear();
-    ref.invalidateSelf();
+    await _performAction((repo) => repo.clear());
 
   }
-
 }

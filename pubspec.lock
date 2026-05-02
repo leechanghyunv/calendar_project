@@ -97,14 +97,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.1"
-  badges:
-    dependency: "direct main"
-    description:
-      name: badges
-      sha256: cf1c88fb3777df69ccd630b80de5267f54efa4a39381b0404a7c03d56cb7c041
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -494,14 +486,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.1"
-  flutter_form_builder:
-    dependency: "direct main"
-    description:
-      name: flutter_form_builder
-      sha256: "1233251b4bc1d5deb245745d2a89dcebf4cdd382e1ec3f21f1c6703b700e574f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.3.0+2"
   flutter_hooks:
     dependency: "direct main"
     description:
@@ -1317,14 +1301,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-  showcaseview:
-    dependency: "direct main"
-    description:
-      name: showcaseview
-      sha256: c92a9ea98c3a13191a88f93c1d75cbc3ba419f16e385ada89b1ee10f22f1bd96
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.2"
   simple_gesture_detector:
     dependency: transitive
     description:
@@ -1505,14 +1481,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.6"
-  timer_builder:
-    dependency: "direct main"
-    description:
-      name: timer_builder
-      sha256: "67c5653a8d9f6ce62fe9121e520736e9da74418a919fe1c0e181b5d2627dbc4a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   timing:
     dependency: transitive
     description:

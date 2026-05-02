@@ -123,19 +123,7 @@ class HistoryDatabase {
     return maps.map((map) => WorkHistory.fromMap(map)).toList();
   }
 
-
-  Future<WorkHistory?> getWorkHistoryByDate(DateTime date) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'workhistory',
-      where: 'date = ?',
-      whereArgs: [date.toIso8601String()],
-    );
-
-    if (maps.isEmpty) return null;
-    return WorkHistory.fromMap(maps.first);
-  }
-/// /// 2024년 12월 15일 새로 추가된 기능
+  /// /// 2024년 12월 15일 새로 추가된 기능
   Future<void> updateMemo(DateTime date, String newMemo) async {
     try {
       final db = await database;
@@ -154,6 +142,25 @@ class HistoryDatabase {
     }
   }
 
+  Future<void> updateSubsidy(DateTime start, DateTime end, int subsidy) async {
+    try {
+      final db = await database;
+      await db.transaction((txn) async {
+        await txn.rawUpdate(
+          'UPDATE workhistory SET subsidy = ? WHERE date >= ? AND date <= ?',
+          [
+            subsidy,
+            start.toUtc().toIso8601String(),
+            end.toUtc().toIso8601String(),
+          ],
+        );
+      });
+      print('updateSubsidyByRange: 보조금 업데이트 성공');
+    } catch (e) {
+      print('updateSubsidyByRange error: ${e.toString()}');
+      throw Exception('보조금 업데이트 중 오류 발생');
+    }
+  }
 
 
   // 날짜가 있으면 기존데이터 삭제 후 삽입, 없으면 삽입
@@ -199,7 +206,6 @@ class HistoryDatabase {
         date.isBefore(end.add(Duration(days: 1)));
         date = date.add(Duration(days: 1))) {
 
-          // if (date.weekday == DateTime.sunday) continue;
           if (date.weekday == DateTime.sunday && !containHoliDay) continue; // ✅ 변경
 
           bool isHoliday = holidays.keys.any((holiday) =>

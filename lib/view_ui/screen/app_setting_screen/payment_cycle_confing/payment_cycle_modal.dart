@@ -1,3 +1,5 @@
+import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+
 import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';
@@ -8,6 +10,7 @@ import '../../../widgets/info_row.dart';
 import '../../../widgets/light_bulb_box.dart';
 import '../../../widgets/svg_imoji.dart';
 import '../../../widgets/textField_bar/date_field_bar.dart';
+import '../provider/payment_cycle_provider.dart';
 
 void PaymentCycleModal(BuildContext context){
   context.showModal(
@@ -25,6 +28,9 @@ class PaymentCycleScreen extends HookConsumerWidget {
     final dayController = useTextEditingController();
     final dayFocusNode = useFocusNode();
     final dayText = useValueListenable(dayController).text; // 👈 추가
+    final day = int.tryParse(dayText) ?? 0;
+
+    final cycleSwitch = ref.watch(paymentCycleSwitchProvider).valueOrNull;
 
 
     useEffect(() {
@@ -88,7 +94,7 @@ class PaymentCycleScreen extends HookConsumerWidget {
                     children: [
                       SizedBox(width: 5),
                       TextWidget(
-                          '정산주기는 이전달 ', 13.5,
+                          '이전달 ', 13.5,
                           color: context.subTextColor),
                       TextWidget(
                           '${dayText}', 18.5,
@@ -107,7 +113,10 @@ class PaymentCycleScreen extends HookConsumerWidget {
                         const Expanded(child: SizedBox.shrink()),
                         _DefaultButton(
                           onTap: (){
-
+                            customMsg('캘린더 기준으로 변경합니다');
+                            HapticFeedback.selectionClick();
+                            ref.read(paymentCycleSwitchProvider.notifier).switchValue(isActive: false);
+                            Navigator.pop(context);
                           },
                         ),
 
@@ -121,7 +130,11 @@ class PaymentCycleScreen extends HookConsumerWidget {
                   hintText: ' 정산기준 날짜를 입력해주세요',
                   icon: Icons.check,
                   onPressed: (){
-
+                    customMsg('정산주기를 변경합니다');
+                    HapticFeedback.selectionClick();
+                    ref.read(paymentCycleSwitchProvider.notifier).switchValue(cycle: day);
+                    ref.read(paymentCycleSwitchProvider.notifier).switchValue(isActive: true);
+                    Navigator.pop(context);
                   }
                 ),
               ],

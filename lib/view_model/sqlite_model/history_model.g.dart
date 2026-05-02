@@ -1034,5 +1034,154 @@ class _UpdateMemoHistoryProviderElement
   String get memo => (origin as UpdateMemoHistoryProvider).memo;
 }
 
+String _$updateSubsidyHistoryHash() =>
+    r'483a1c3435be12f4f0556d358c52a31d26809865';
+
+/// See also [updateSubsidyHistory].
+@ProviderFor(updateSubsidyHistory)
+const updateSubsidyHistoryProvider = UpdateSubsidyHistoryFamily();
+
+/// See also [updateSubsidyHistory].
+class UpdateSubsidyHistoryFamily extends Family<AsyncValue<void>> {
+  /// See also [updateSubsidyHistory].
+  const UpdateSubsidyHistoryFamily();
+
+  /// See also [updateSubsidyHistory].
+  UpdateSubsidyHistoryProvider call(DateTime start, DateTime end, int subsidy) {
+    return UpdateSubsidyHistoryProvider(start, end, subsidy);
+  }
+
+  @override
+  UpdateSubsidyHistoryProvider getProviderOverride(
+    covariant UpdateSubsidyHistoryProvider provider,
+  ) {
+    return call(provider.start, provider.end, provider.subsidy);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'updateSubsidyHistoryProvider';
+}
+
+/// See also [updateSubsidyHistory].
+class UpdateSubsidyHistoryProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [updateSubsidyHistory].
+  UpdateSubsidyHistoryProvider(DateTime start, DateTime end, int subsidy)
+    : this._internal(
+        (ref) => updateSubsidyHistory(
+          ref as UpdateSubsidyHistoryRef,
+          start,
+          end,
+          subsidy,
+        ),
+        from: updateSubsidyHistoryProvider,
+        name: r'updateSubsidyHistoryProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$updateSubsidyHistoryHash,
+        dependencies: UpdateSubsidyHistoryFamily._dependencies,
+        allTransitiveDependencies:
+            UpdateSubsidyHistoryFamily._allTransitiveDependencies,
+        start: start,
+        end: end,
+        subsidy: subsidy,
+      );
+
+  UpdateSubsidyHistoryProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.start,
+    required this.end,
+    required this.subsidy,
+  }) : super.internal();
+
+  final DateTime start;
+  final DateTime end;
+  final int subsidy;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(UpdateSubsidyHistoryRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: UpdateSubsidyHistoryProvider._internal(
+        (ref) => create(ref as UpdateSubsidyHistoryRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        start: start,
+        end: end,
+        subsidy: subsidy,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _UpdateSubsidyHistoryProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is UpdateSubsidyHistoryProvider &&
+        other.start == start &&
+        other.end == end &&
+        other.subsidy == subsidy;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, start.hashCode);
+    hash = _SystemHash.combine(hash, end.hashCode);
+    hash = _SystemHash.combine(hash, subsidy.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin UpdateSubsidyHistoryRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `start` of this provider.
+  DateTime get start;
+
+  /// The parameter `end` of this provider.
+  DateTime get end;
+
+  /// The parameter `subsidy` of this provider.
+  int get subsidy;
+}
+
+class _UpdateSubsidyHistoryProviderElement
+    extends AutoDisposeFutureProviderElement<void>
+    with UpdateSubsidyHistoryRef {
+  _UpdateSubsidyHistoryProviderElement(super.provider);
+
+  @override
+  DateTime get start => (origin as UpdateSubsidyHistoryProvider).start;
+  @override
+  DateTime get end => (origin as UpdateSubsidyHistoryProvider).end;
+  @override
+  int get subsidy => (origin as UpdateSubsidyHistoryProvider).subsidy;
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

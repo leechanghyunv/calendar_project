@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/widgets/textField_bar/text_field_bar.dart';
@@ -19,6 +18,8 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     final siteNode = useFocusNode();
     final siteEditingController = useTextEditingController();
     final sitesAsync = ref.watch(stringListNotifierProvider);
+    final isDuration = useState(true);
+
 
     void siteRegistration(){
       if (siteEditingController.text.isEmpty){
@@ -65,6 +66,33 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 ],
               ),
               SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  color: context.isDark ? Colors.black87 : Colors.grey[100],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 7.5),
+                    TextWidget(
+                      '일반공수칩 등록시에도 현장 적용', 15,
+                      color: context.subTextColor,
+                    ),
+                    Spacer(),
+                    Switch(
+                      value: isDuration.value,
+                      onChanged: (bool val) {
+                        isDuration.value = !isDuration.value;
+                        HapticFeedback.selectionClick();
+                      },
+                      activeThumbColor: Colors.teal,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+
               Expanded(
                 child: switch (sitesAsync) {
                   AsyncData(:final value) => value.isEmpty

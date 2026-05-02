@@ -1,12 +1,11 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
+import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/daily_pay_config/retroactive_modal.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../../../../core/export_package.dart';
 import '../../../../base_consumer.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
-import '../../../../core/widget/toast_msg.dart';
 import '../../../../view_model/sqlite_model/contract_model.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/light_bulb_box.dart';
@@ -23,17 +22,8 @@ void DailyPayModal(BuildContext context){
 class DailyPayScreen extends HookConsumerWidget {
   const DailyPayScreen({super.key});
 
-  double _getSize(double appWidth, {required List<double> sizes}) {
-    if (appWidth > 450) return sizes[0];
-    if (appWidth > 420) return sizes[1];
-    if (appWidth > 400) return sizes[2];
-    return sizes[3];
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    final iconSize = _getSize(context.width, sizes: [13, 12, 12, 11.5]);
 
     final dayPayController = useTextEditingController();
     final dayPayFocusNode = useFocusNode();
@@ -131,8 +121,13 @@ class DailyPayScreen extends HookConsumerWidget {
                       ref.read(updateSubsidyProvider(value));
                       ref.refreshState(context);
                     }
-                    customMsg('일비가 변경되었습니다.');
+                    // customMsg('일비가 변경되었습니다.');
+
                     Navigator.pop(context);
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      RetroactiveModal(context);
+                    });
                   },
       
                 ),

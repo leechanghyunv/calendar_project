@@ -1,8 +1,5 @@
-
 import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
-
-import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';
 import '../../../core/extentions/theme_color.dart';

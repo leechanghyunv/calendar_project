@@ -157,3 +157,11 @@ Future<void> updateMemoHistory(
   db.updateMemo(date, memo);
   invalidateProviders(ref);
 }
+
+@riverpod
+Future<void> updateSubsidyHistory(
+    Ref ref, DateTime start,DateTime end, int subsidy) async {
+  final db = await ref.watch(workHistoryManagerProvider.future);
+  db.updateSubsidy(start,end, subsidy);
+  invalidateProviders(ref);
+}

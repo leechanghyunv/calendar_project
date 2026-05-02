@@ -1,10 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:flutter/cupertino.dart';
-import '../../../../core/export_package.dart';
-import '../../../../core/extentions/theme_color.dart';
-import '../../../../core/widget/text_widget.dart';
-import '../../calendar_screen/provider/today_info_provider.dart';
-import 'holiday_select_chip.dart';
+import '../../core/export_package.dart';
+import '../../core/extentions/theme_color.dart';
+import '../../core/widget/text_widget.dart';
+import '../screen/calendar_screen/provider/today_info_provider.dart';
+import '../screen/contract_setting_screen/component/holiday_select_chip.dart';
 
 class DurationSelectModule extends HookConsumerWidget {
   final FocusNode? focusNode;

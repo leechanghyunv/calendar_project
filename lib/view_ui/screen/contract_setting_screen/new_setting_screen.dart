@@ -8,7 +8,7 @@ import '../../../core/widget/text_widget.dart';
 import '../../../repository/formz/formz_decimal.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/textField_bar/dual_field_bar.dart';
-import 'component/duration_select_module.dart';
+import '../../widgets/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
 import '../initial_setting_screen/initial_setting_screen.dart';
 import 'component/settlementState_box.dart';
@@ -148,7 +148,7 @@ class NewSettingScreen extends HookConsumerWidget {
                         });
                       },
                       child: TextWidget(
-                          '일비설정', 13.5,
+                          '일비등록', 13.5,
                           color: context.subTextColor
                       ),
                     ),

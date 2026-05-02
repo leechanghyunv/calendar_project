@@ -40,7 +40,8 @@ void main() async {
 
 
   runApp(ProviderScope(
-      child: MyApp(),
+      child: MyApp(
+      ),
   ),
   );
 }
@@ -94,39 +95,35 @@ class MyApp extends HookConsumerWidget {
       return ScreenUtilInit(
         designSize: const Size(390, 850),
         builder: (_, child) =>
-            ShowCaseWidget(
-              builder: (context) =>
-                     MaterialApp.router(
-                      localizationsDelegates: const [
-                        GlobalMaterialLocalizations.delegate,
-                        GlobalWidgetsLocalizations.delegate,
-                        GlobalCupertinoLocalizations.delegate,
-                      ],
-                      supportedLocales: const [
-                        Locale('ko', 'KR'),
-                      ],
-                      debugShowCheckedModeBanner: false,
-                      themeMode: themeMode,
-                      theme: themeNotifier.lightMode,
-                      darkTheme: themeNotifier.darkMode,
-                      routerConfig: router,
-                      builder: (context, child) {
-                        return StyledToast(
-                          child: Scaffold(
-                            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                            body: Center(
-                              child: ConstrainedBox(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 475,
-                                ),
-                                child: child ?? const SizedBox(),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+            MaterialApp.router(
+              localizationsDelegates: const [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: const [
+                Locale('ko', 'KR'),
+              ],
+              debugShowCheckedModeBanner: false,
+              themeMode: themeMode,
+              theme: themeNotifier.lightMode,
+              darkTheme: themeNotifier.darkMode,
+              routerConfig: router,
+              builder: (context, child) {
+                return StyledToast(
+                  child: Scaffold(
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    body: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 475,
+                        ),
+                        child: child ?? const SizedBox(),
+                      ),
                     ),
-                  
+                  ),
+                );
+              },
             ),
 
       );

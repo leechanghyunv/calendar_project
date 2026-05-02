@@ -100,8 +100,11 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
           children: [
             Text(
               textScaler: TextScaler.noScaling,
+              // '  15.0만  |  115.0만  |  23.5만',
+              // ' ${taxValue}, 세후 452.2',
               ' ${taxValue}, 세후 ${afterTax}',
                 style: TextStyle(
+                  // color: context.subTextColor,
                   letterSpacing: Platform.isAndroid && appWidth > 400 ? 1.0 : 0.5,
                     shadows: commonShadow,
                     fontWeight: FontWeight.bold,

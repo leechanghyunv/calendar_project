@@ -102,7 +102,9 @@ class MarkerCell extends ConsumerWidget {
         padding: EdgeInsets.all(1),
         alignment: Alignment.center,
         width: sizes.markerWidth,
-        decoration: isExpanded ? null : markerDeco(isFiltered,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent),
+        decoration: isExpanded ? null : markerDeco(
+            isFiltered,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent
+        ),
         child: isExpanded
             ? Column(
           crossAxisAlignment: CrossAxisAlignment.center,
