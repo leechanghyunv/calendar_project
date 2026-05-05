@@ -6,7 +6,6 @@ part 'focus_node_listner.g.dart';
 class FocusState extends _$FocusState {
   @override
   bool build() {
-    print('FocusState: false');
     return false;
   }
 

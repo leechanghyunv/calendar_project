@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'focus_node_listner.dart';
+part of 'work_site_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$focusStateHash() => r'886a5cb4d338b3c2f1abe98218fc1b2f9ee5493d';
+String _$workSiteSwitchHash() => r'acadf86b614981bf5f1f8974fda94baa3057e5d5';
 
-/// See also [FocusState].
-@ProviderFor(FocusState)
-final focusStateProvider =
-    AutoDisposeNotifierProvider<FocusState, bool>.internal(
-      FocusState.new,
-      name: r'focusStateProvider',
+/// See also [workSiteSwitch].
+@ProviderFor(workSiteSwitch)
+final workSiteSwitchProvider =
+    AsyncNotifierProvider<workSiteSwitch, bool>.internal(
+      workSiteSwitch.new,
+      name: r'workSiteSwitchProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$focusStateHash,
+          : _$workSiteSwitchHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$FocusState = AutoDisposeNotifier<bool>;
+typedef _$workSiteSwitch = AsyncNotifier<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

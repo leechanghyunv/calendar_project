@@ -111,7 +111,7 @@ class MainButton extends HookConsumerWidget {
                               >= 400 => 15,
                               >= 390 => 14,
                               >= 375  => 13,
-                              >= 350  => 11.5,
+                              >= 350  => 12,
                               _ => 11.5,
                             },
                             letterSpacing: appWidth > 450 ? 1.0 : null,

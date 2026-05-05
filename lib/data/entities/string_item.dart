@@ -8,6 +8,8 @@ abstract class StringItem with _$StringItem {
   const factory StringItem({
     int? id,
     @Default('') String value,
+    @Default(0) int pay,           // ✅ 추가
+    @Default(3.3) double tax,      // ✅ 추가
     @Default(0) int order,
   }) = _StringItem;
 

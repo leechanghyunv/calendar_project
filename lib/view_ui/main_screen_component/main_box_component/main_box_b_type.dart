@@ -34,7 +34,8 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
   Widget build(BuildContext context) {
 
     final data1 = ref.watch(monthRecordProvider(ref.selected));
-    final data2 = ref.watch(monthRecordProvider(ref.selected));    final data = ref.history;
+    final data2 = ref.watch(monthRecordProvider(ref.selected));
+    final data = ref.history;
 
     final appWidth = context.width;
     data1.whenData((val) {

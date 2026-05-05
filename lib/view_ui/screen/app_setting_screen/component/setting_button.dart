@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
@@ -49,3 +48,36 @@ class SettingItem extends StatelessWidget {
     );
   }
 }
+
+class SettingTile extends StatelessWidget {
+  const SettingTile({
+    super.key,
+    required this.title,
+    required this.onTap,
+  });
+
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Ink(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12)),
+        child: Row(
+          children: [
+            TextWidget(title, 15, color: context.textColor),
+            const Spacer(),
+            const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
+            const SizedBox(width: 5),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

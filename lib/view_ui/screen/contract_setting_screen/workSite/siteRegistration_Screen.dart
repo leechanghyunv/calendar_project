@@ -1,11 +1,13 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'package:calendar_project_240727/view_ui/widgets/textField_bar/text_field_bar.dart';
 
 import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../widgets/info_row.dart';
+import '../../../widgets/textField_bar/site_field_bar.dart';
 import '../component/number_picker_modal.dart';
 import '/../../core/export_package.dart';
 
@@ -15,25 +17,37 @@ class SiteRegistrationScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final siteNode = useFocusNode();
-    final siteEditingController = useTextEditingController();
+    // final siteNode = useFocusNode();
+    final firstController = useTextEditingController();
+    final secondController = useTextEditingController();
+    final thirdController = useTextEditingController();
+    // final siteEditingController = useTextEditingController();
+    final firstNode = useFocusNode();
+    final secondNode = useFocusNode();
+    final thirdNode = useFocusNode();
+
+    final currentIndex = useState(0);
+
     final sitesAsync = ref.watch(stringListNotifierProvider);
-    final isDuration = useState(true);
+
+    final siteSwitcher = ref.watch(workSiteSwitchProvider);
+    final switchValue = useState(siteSwitcher.valueOrNull ?? false);
 
 
-    void siteRegistration(){
-      if (siteEditingController.text.isEmpty){
-        customMsg('현장을 입력해주세요');
-        return;
-      }
-      HapticFeedback.selectionClick();
-      ref.read(stringListNotifierProvider.notifier).add(siteEditingController.text);
-      Navigator.pop(context);
-      ref.refreshState(context);
-      WidgetsBinding.instance.addPostFrameCallback((_){
-        NumberPickerModal(context);
-      });
-    }
+    // void siteRegistration(){
+    //   if (siteEditingController.text.isEmpty){
+    //     customMsg('현장을 입력해주세요');
+    //     return;
+    //   }
+    //   HapticFeedback.selectionClick();
+    //   ref.read(stringListNotifierProvider.notifier).add(
+    //       siteEditingController.text);
+    //   Navigator.pop(context);
+    //   ref.refreshState(context);
+    //   WidgetsBinding.instance.addPostFrameCallback((_){
+    //     NumberPickerModal(context);
+    //   });
+    // }
 
 
     return SafeArea(
@@ -42,7 +56,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
           child: Column(
             children: [
-              SizedBox(height: 5),
+              SizedBox(height: 20),
               Row(
                 children: [
                   InfoRow(
@@ -71,24 +85,18 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                   color: context.isDark ? Colors.black87 : Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 7.5),
-                    TextWidget(
-                      '일반공수칩 등록시에도 현장 적용', 15,
-                      color: context.subTextColor,
-                    ),
-                    Spacer(),
-                    Switch(
-                      value: isDuration.value,
-                      onChanged: (bool val) {
-                        isDuration.value = !isDuration.value;
-                        HapticFeedback.selectionClick();
-                      },
-                      activeThumbColor: Colors.teal,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(width: 7.5),
+                      TextWidget(
+                        '일반공수칩 등록시에도 작업 현장이 적용됩니다', 15,
+                        color: context.subTextColor,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -155,14 +163,21 @@ class SiteRegistrationScreen extends HookConsumerWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
-          child: TextFieldBar(
-              controller: siteEditingController,
-              focusNode: siteNode,
-              icon: Icons.check,
-              onSubmitted: (val) => siteRegistration(),
-              onPressed: () => siteRegistration(),
-              hintText: '현장 등록 후 저장하기'
+          child:
+          SiteFieldBar(
+            controllers: [firstController, secondController, thirdController],
+            nodes: [firstNode, secondNode, thirdNode],
+            hintTexts: ['입력 후 우측 아이콘','연장근무','야간근무','세율 입력'],
+            FieldBarIndex: currentIndex,
           ),
+          // TextFieldBar(
+          //     controller: siteEditingController,
+          //     focusNode: siteNode,
+          //     icon: Icons.check,
+          //     onSubmitted: (val) => siteRegistration(),
+          //     onPressed: () => siteRegistration(),
+          //     hintText: '현장 등록 후 저장하기'
+          // ),
         ),
       ),
     );

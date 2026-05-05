@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/firebase_analytics.dart';
 import 'package:calendar_project_240727/repository/formz/formz_memo.dart';
 import 'package:calendar_project_240727/repository/sqlite/sqlite_history_database.dart';
@@ -51,8 +52,10 @@ Future<void> addHistory(Ref ref,
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
   final settlement = ref.watch(isSettlementProvider);
+  /// settlement는 정산내역이다.
 
-  final workSite = ref.watch(selectedWorksiteProvider);
+  final workSite = ref.watch(stringListNotifierProvider).valueOrNull?.lastOrNull?.value ?? '';
+
   final Map<String, dynamic> event = {};
   late WorkHistory history;
 

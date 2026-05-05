@@ -106,6 +106,7 @@ class DailyPayScreen extends HookConsumerWidget {
                 NumberFieldBar(
                   controller: dayPayController,
                   focusNode: dayPayFocusNode,
+                  ///
                   hintText: ' 예) 10,000',
                   icon: Icons.check,
                   onChanged: (val){
@@ -121,12 +122,9 @@ class DailyPayScreen extends HookConsumerWidget {
                       ref.read(updateSubsidyProvider(value));
                       ref.refreshState(context);
                     }
-                    // customMsg('일비가 변경되었습니다.');
-
                     Navigator.pop(context);
-
                     WidgetsBinding.instance.addPostFrameCallback((_) {
-                      RetroactiveModal(context);
+                      RetroactiveModal(context,subsidyAmount: value ?? 0);
                     });
                   },
       

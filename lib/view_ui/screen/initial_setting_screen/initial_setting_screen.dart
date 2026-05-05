@@ -148,6 +148,7 @@ class InitialSettingScreen extends HookConsumerWidget {
 
 
                 contents[currentIndex.value],
+
                 SizedBox(height: 5),
                 DailyWageFieldBar(
                   controllers: [firstController, secondController, thirdController,fourthController],

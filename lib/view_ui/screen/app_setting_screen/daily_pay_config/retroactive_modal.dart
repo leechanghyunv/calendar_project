@@ -1,22 +1,29 @@
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/widgets/elevated_button/elevated_button.dart';
 import 'package:calendar_project_240727/view_ui/widgets/elevated_button/left_eleveted_button.dart';
+import 'package:dartx/dartx.dart';
 
-import '../../../../core/export_package.dart';
+import '../../../../base_consumer.dart';
 import '../../../../core/extentions/modal_extension.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../widgets/duration_select_module.dart';
 import '../../../widgets/info_row.dart';
+import '../../contract_setting_screen/component/number_picker_modal.dart';
 
-void RetroactiveModal(BuildContext context){
+void RetroactiveModal(
+    BuildContext context,{required int subsidyAmount}){
   context.showModal(
     heightRatio: 0.8,
-    child: RetroactiveScreen(),
+    child: RetroactiveScreen(subsidy: subsidyAmount),
   );
 }
 
 class RetroactiveScreen extends HookConsumerWidget {
-  const RetroactiveScreen({super.key});
+
+  final int subsidy;
+
+  const RetroactiveScreen({super.key, required this.subsidy});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -27,6 +34,26 @@ class RetroactiveScreen extends HookConsumerWidget {
 
     final selectedDate = useState(DateTime.now());
     final endDate = useState(DateTime.now());
+
+    final historyAsync = ref.watch(viewHistoryProvider);
+    final histories = historyAsync.valueOrNull;
+
+    useEffect(() {
+      if (histories != null && histories.isNotEmpty) {
+        selectedDate.value = histories.minBy((h) => h.date)?.date ?? DateTime.now();
+        endDate.value = histories.maxBy((h) => h.date)?.date ?? DateTime.now();
+      }
+      return null;
+    }, [histories]);
+
+    void _closeAndNavigate(BuildContext context) {
+      HapticFeedback.selectionClick();
+      Navigator.pop(context);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.refreshState(context);
+        NumberPickerModal(context);
+      });
+    }
 
     return SafeArea(
         child: Scaffold(
@@ -94,7 +121,11 @@ class RetroactiveScreen extends HookConsumerWidget {
                       Expanded(
                         child: LeftElevatedButton(
                             text: '일비 등록만 하고 나가기',
-                            onPressed: (){}),
+                          onPressed: () {
+                            _closeAndNavigate(context);
+                            customMsg('다음 공수등록에 반영됩니다');
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -106,7 +137,12 @@ class RetroactiveScreen extends HookConsumerWidget {
                       Expanded(
                         child: CustomElevatedButton(
                             text: '선택한 기간에 일비 추가',
-                            onPressed: (){}),
+                          onPressed: () async {
+                            await ref.read(updateSubsidyHistoryProvider(
+                                selectedDate.value, endDate.value, subsidy));
+                            _closeAndNavigate(context);
+                            customMsg('일비가 추가되었습니다');
+                          }),
                       ),
                     ],
                   ),

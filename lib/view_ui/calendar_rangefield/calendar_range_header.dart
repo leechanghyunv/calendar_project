@@ -30,8 +30,6 @@ class CalendarRangeHeader extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
-
     final dateRangeValue = ref.watch(rangeSelectManagerProvider);
     ref.watch(timeRangeManagerProvider);
 

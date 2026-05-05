@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/calendar/table_calendar_frame.dart';
 import '../../core/extentions/theme_dialog_extenstion.dart';
 import '../../view_model/view_provider/calendar_event_filter_model.dart';
+import '../screen/app_setting_screen/provider/payment_cycle_provider.dart';
 import '../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../screen/calendar_screen/provider/marker_event_provider.dart';
 import '../screen/calendar_screen/provider/today_info_provider.dart';
@@ -27,9 +28,14 @@ class WorkCalendar extends ConsumerWidget {
     final Map<DateTime, bool> _holidayCache = {};
     final Map<DateTime, bool> _substituteHolidayCache = {};
 
-    final dynamicHolidays = ref.watch(dynamicHolidaysProvider);
-
     final customEventMarkers = ref.watch(markerEventProvider);
+
+    final dynamicHolidays = ref.watch(dynamicHolidaysProvider);
+    final cycleData = ref.watch(paymentCycleSwitchProvider).valueOrNull;
+
+    final cycle = (cycleData?.cycle ?? 0) - 1;
+    final isActive = cycleData?.isActive ?? false;
+
 
     void _initHolidayCache() {
       if (_holidayCache.isEmpty) {
@@ -97,22 +103,34 @@ class WorkCalendar extends ConsumerWidget {
             timeManagerNot.onPageChanged(focusedDay),
 
         defaultBuilder: (context, date, events) {
-          Color textColor;
+
+          final isPastCycle = isActive && cycle > 0 && date.day > cycle;
 
           final utcDate = DateTime.utc(date.year, date.month, date.day);
           // 캐시된 결과 활용
           final isHoliday = _holidayCache[utcDate] ?? false;
           final isSubstituteHoliday = _substituteHolidayCache[utcDate] ?? false;
 
-          if (date.weekday == DateTime.saturday) {
-            textColor = context.saturdayColor;
-          } else if (date.weekday == DateTime.sunday ||
-              isSubstituteHoliday ||
-              isHoliday) {
-            textColor = context.sundayColor;
+          Color textColor;
+
+          if (isPastCycle) {
+            // OutSideCell과 동일한 색상 규칙
+            textColor = date.weekday == DateTime.saturday
+                ? context.isDark ? Colors.grey.shade500 : Colors.blue.shade200
+                : date.weekday == DateTime.sunday
+                ? Colors.teal.shade200
+                : context.isDark ? Colors.grey.shade500 : Colors.grey.shade400;
+
           } else {
-            textColor = context.textColor;
+            if (date.weekday == DateTime.saturday) {
+              textColor = context.saturdayColor;
+            } else if (date.weekday == DateTime.sunday || isSubstituteHoliday || isHoliday) {
+              textColor = context.sundayColor;
+            } else {
+              textColor = context.textColor;
+            }
           }
+
 
           return DefaultCell(date: date, textColor: textColor);
         },
@@ -123,15 +141,10 @@ class WorkCalendar extends ConsumerWidget {
           final localDate = DateTime(date.year, date.month, date.day);
           /// final boolSelector = isHoliday(date); 대신에
           final boolSelector = dynamicHolidays.containsKey(localDate);
-          /// date
-          if (boolSelector) {
-            if (events.isEmpty) {
-              return HolidayCell(date, dynamicHolidays);
-            } else {
-              return MarkerCell(date, events);
-            }
-          }
-          return MarkerCell(date, events);
+
+          return (boolSelector && events.isEmpty)
+              ? HolidayCell(date, dynamicHolidays)
+              : MarkerCell(date, events);
         },
         additionalSpaceBuilder: (context, focusedDay, weekDays) {
           return AdditionalCell(

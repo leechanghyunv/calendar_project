@@ -4,6 +4,7 @@ import '../../model/combined_data_model.dart';
 import '../../model/contract_model.dart';
 import '../../repository/repository_import.dart';
 import '../../repository/time/calendar_time_controll.dart';
+import '../../view_ui/screen/app_setting_screen/provider/payment_cycle_provider.dart';
 import '../view_provider/selected_companise_model.dart';
 
 part 'monthly_filter_model.g.dart';
@@ -36,11 +37,27 @@ class MonthRecord extends _$MonthRecord {
   @override
   Future<LaborSummaryModel> build(DateTime time) async {
 
-    final startDate = DateTime.utc(time.year, time.month, 1);
-    final endDate = DateTime.utc(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
+    final cycleData = ref.watch(paymentCycleSwitchProvider).valueOrNull;
+    final cycle = (cycleData?.cycle ?? 0) - 1;
+    final isActive = cycleData?.isActive ?? false;
 
-    final prevStartDate = DateTime.utc(time.year, time.month - 1, 1);
-    final prevEndDate = DateTime.utc(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+    final DateTime startDate;
+    final DateTime endDate;
+    final DateTime prevStartDate;
+    final DateTime prevEndDate;
+
+    if (isActive && cycle > 0) {
+      startDate = DateTime.utc(time.year, time.month - 1, cycle + 1);
+      endDate = DateTime.utc(time.year, time.month, cycle);
+      prevStartDate = DateTime.utc(time.year, time.month - 2, cycle + 1);
+      prevEndDate = DateTime.utc(time.year, time.month - 1, cycle);
+    } else {
+      startDate = DateTime.utc(time.year, time.month, 1);
+      endDate = DateTime.utc(time.year, time.month + 1, 1).subtract(const Duration(seconds: 1));
+      prevStartDate = DateTime.utc(time.year, time.month - 1, 1);
+      prevEndDate = DateTime.utc(time.year, time.month, 1).subtract(const Duration(seconds: 1));
+    }
+
 
     final workSiteList = ref.watch(selectedCompaniesModelProvider);
 
@@ -50,7 +67,6 @@ class MonthRecord extends _$MonthRecord {
     try {
       final contract = await ref.watch(viewContractProvider.future);
       final history = await ref.watch(viewRangeHistoryProvider(prevStartDate,endDate).future);
-
       // 빈 데이터 체크
       if (history.isEmpty || contract.isEmpty) {
 

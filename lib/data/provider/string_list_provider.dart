@@ -20,7 +20,10 @@ class StringListNotifier extends _$StringListNotifier {
     ref.invalidateSelf();
   }
 
-  Future<void> add(String value) async {
+  Future<void> add({String value = '',String pay = '0', String tax = '3.3'}) async {
+
+    final parsedPay = int.tryParse(pay) ?? 0;
+    final parsedTax = double.tryParse(tax) ?? 3.3;
 
     final currentList = state.value ?? [];
     state = AsyncData([
@@ -29,6 +32,8 @@ class StringListNotifier extends _$StringListNotifier {
         id: DateTime.now().millisecondsSinceEpoch, // 임시 ID
         value: value,
         order: currentList.length,
+        pay: parsedPay,       // ✅ 추가
+        tax: parsedTax,       // ✅ 추가
       )
     ]);
 

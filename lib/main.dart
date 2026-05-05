@@ -5,6 +5,7 @@ import 'package:calendar_project_240727/view_model/view_provider/firebase_remote
 import 'package:calendar_project_240727/view_ui/screen/app_review_screen/app_review_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/today_info_provider.dart';
+import 'package:calendar_project_240727/view_ui/screen/second_open_screen/second_open_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/statistic_screen/provider/statistic_switch_provider.dart';
 import 'package:calendar_project_240727/view_ui/version_introduce/version_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -75,6 +76,9 @@ class MyApp extends HookConsumerWidget {
         final count = prefs.getInt('app_count') ?? 0;
         final hasShownReview = prefs.getBool('review_shown') ?? false;
 
+        // if (count == 2) {
+        //   secondOpenModal(context);
+        // }
         if (count == 3) {
           OneSignalNotification.init();
           /// 유저 이탈율을 막고 oneSignal의 참여수를 증가시키고자 변경함
@@ -87,6 +91,8 @@ class MyApp extends HookConsumerWidget {
             showReviewModal(context);
           };
         }
+
+
       });
       return null;
     }, []);

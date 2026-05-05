@@ -1,6 +1,4 @@
 import 'package:calendar_project_240727/base_app_size.dart';
-import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/payment_cycle_confing/payment_cycle_modal.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
@@ -40,7 +38,10 @@ class AppSettingScreen extends HookConsumerWidget {
       ThemeMode.system => 2,
     };
 
-
+    void _popAndShow(BuildContext context, VoidCallback fn) {
+      Navigator.pop(context);
+      WidgetsBinding.instance.addPostFrameCallback((_) => fn());
+    }
 
     Widget dib() =>  Padding(
       padding: EdgeInsets.symmetric(vertical: context.width <= 375 ? 0.0 : 4.0),
@@ -119,11 +120,8 @@ class AppSettingScreen extends HookConsumerWidget {
 
                   if (context.width > 400)
                     SizedBox(height: 12),
-      
-                  SizedBox(height: 12),
 
-      
-                  SettingLanguageSwitch(),
+                  // SettingLanguageSwitch(),
       
                   const SizedBox(height: 4),
                   SettingItem(
@@ -136,7 +134,6 @@ class AppSettingScreen extends HookConsumerWidget {
                     },
                   ),
                   const SizedBox(height: 4),
-      
                   SettingItem(
                       title: '오프닝 애니메이션',
                       subtitle: isAnimated.value ? '오프닝 애니메이션 유지' : '오프닝 애니메이션 중단',
@@ -147,128 +144,34 @@ class AppSettingScreen extends HookConsumerWidget {
                       }
                   ),
                   dib(),
+                  SettingTile(
+                    title: '기본공수 변경',
+                    onTap: () => _popAndShow(context, () => ChipNumberModal(context)),
+                  ),
 
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        ChipNumberModal(context);
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Ink(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          TextWidget('기본공수 변경', 15, color: context.textColor),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
-                  ),
                   dib(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        PaymentCycleModal(context);
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Ink(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          TextWidget('정산주기 설정', 15,
-                              color: context.textColor),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
+                  SettingTile(
+                    title: '정산주기 설정',
+                    onTap: () => _popAndShow(context, () => PaymentCycleModal(context)),
                   ),
+
                   dib(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        eventListModal(context);
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Ink(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          TextWidget('주요일정 관리', 15, color: context.textColor),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
+                  SettingTile(
+                    title: '주요일정 관리',
+                    onTap: () => _popAndShow(context, () => eventListModal(context)),
                   ),
+
                   dib(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        showRangeModal(context,ref);
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Ink(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          TextWidget('근로기간 검색', 15, color: context.textColor),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
+                  SettingTile(
+                    title: '근로기간 검색',
+                    onTap: () => _popAndShow(context, () => showRangeModal(context,ref)),
                   ),
+
                   dib(),
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-                        questionModal(context);
-                      });
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Ink(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          TextWidget('자주 묻는 질문', 15, color: context.textColor),
-                          Spacer(),
-                          Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
-                        ],
-                      ),
-                    ),
+                  SettingTile(
+                    title: '자주 묻는 질문',
+                    onTap: () => _popAndShow(context, () => questionModal(context)),
                   ),
-      
                 ]
               ),
             ),

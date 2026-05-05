@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
-import 'package:dart_time/dart_time.dart';
 import '/../../view_model/view_provider/calendar_switcher_model.dart';
 import 'cell_size.dart';
 
@@ -15,7 +14,6 @@ class DefaultCell extends ConsumerWidget {
     final appWidth = context.width;
     final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
-
 
     final sizes = CellSizes(
         appHeight: appHeight,

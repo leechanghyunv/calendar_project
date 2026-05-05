@@ -11,17 +11,32 @@ Future<StringListRepository> stringListRepository(ref) async {
 
 
 @riverpod
-Future<Database> initStringList(InitStringListRef ref) async {
+Future<Database> initStringList(ref) async {
   final dbPath = await getDatabasesPath();
   final path = join(dbPath, 'siteList.db');
 
   return await openDatabase(
     path,
-    version: 1,
+    version: 2,
     onCreate: (db, version) async {
+      // await db.execute(
+      //   'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, sort_order INTEGER)',
+      // );
       await db.execute(
-        'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, sort_order INTEGER)',
+        'CREATE TABLE items('
+            'id INTEGER PRIMARY KEY, '
+            'value TEXT, '
+            'sort_order INTEGER, '
+            'pay INTEGER NOT NULL DEFAULT 0, '       // ✅ 추가
+            'tax REAL NOT NULL DEFAULT 0.0'          // ✅ 추가
+            ')',
       );
+    },
+    onUpgrade: (db, oldVersion, newVersion) async {   // ✅ 추가
+      if (oldVersion < 2) {
+        await db.execute('ALTER TABLE items ADD COLUMN pay INTEGER NOT NULL DEFAULT 0');
+        await db.execute('ALTER TABLE items ADD COLUMN tax REAL NOT NULL DEFAULT 0.0');
+      }
     },
   );
 }
@@ -36,7 +51,7 @@ class StringListRepository {
     return maps.map((m) => StringItem.fromJson(m)).toList();
   }
 
-  Future<void> add(String value) async {
+  Future<void> add(String value,{int pay = 0, double tax = 3.3}) async {
     customMsg(value);
     await database.transaction((txn) async {
       final maps = await txn.query('items', orderBy: 'sort_order ASC');
@@ -45,6 +60,8 @@ class StringListRepository {
       await txn.insert('items', {
         'value': value,
         'sort_order': maxOrder,
+        'pay': pay,       // ✅ 추가
+        'tax': tax,       // ✅ 추가
       });
     });
   }

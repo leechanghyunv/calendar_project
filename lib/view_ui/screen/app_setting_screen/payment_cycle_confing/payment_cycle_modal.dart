@@ -30,8 +30,10 @@ class PaymentCycleScreen extends HookConsumerWidget {
     final dayText = useValueListenable(dayController).text; // 👈 추가
     final day = int.tryParse(dayText) ?? 0;
 
-    final cycleSwitch = ref.watch(paymentCycleSwitchProvider).valueOrNull;
+    final cycleData = ref.watch(paymentCycleSwitchProvider).valueOrNull;
 
+    final cycle = cycleData?.cycle ?? 0;
+    final isActive = cycleData?.isActive ?? false;
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -110,6 +112,7 @@ class PaymentCycleScreen extends HookConsumerWidget {
                     child: Row(
                       crossAxisAlignment: .end,
                       children: [
+
                         const Expanded(child: SizedBox.shrink()),
                         _DefaultButton(
                           onTap: (){
@@ -127,13 +130,12 @@ class PaymentCycleScreen extends HookConsumerWidget {
                 DateFieldBar(
                   controller: dayController,
                   focusNode: dayFocusNode,
-                  hintText: ' 정산기준 날짜를 입력해주세요',
+                  hintText:  isActive ? ' 이전달 ${cycle}일 기준 설정되어있어요' : ' 정산기준 날짜를 입력해주세요',
                   icon: Icons.check,
                   onPressed: (){
                     customMsg('정산주기를 변경합니다');
                     HapticFeedback.selectionClick();
-                    ref.read(paymentCycleSwitchProvider.notifier).switchValue(cycle: day);
-                    ref.read(paymentCycleSwitchProvider.notifier).switchValue(isActive: true);
+                    ref.read(paymentCycleSwitchProvider.notifier).switchValue(cycle: day, isActive: true);
                     Navigator.pop(context);
                   }
                 ),
@@ -144,6 +146,9 @@ class PaymentCycleScreen extends HookConsumerWidget {
     );
   }
 }
+
+
+
 
 class _DefaultButton extends StatelessWidget {
   final VoidCallback onTap;

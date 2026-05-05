@@ -12,7 +12,7 @@ part 'firebase_remote_config_model.g.dart';
 class Version extends _$Version {
   late FirebaseRemoteConfig _remoteConfig;
 
-  String versionInfo = Platform.isAndroid ? '1.7.1' : '1.6.5';
+  String versionInfo = Platform.isAndroid ? '1.7.3' : '1.7.1';
 
   String get version => state.value?.version ?? versionInfo;
 
