@@ -30,32 +30,21 @@ class SiteFieldBar extends HookConsumerWidget {
     final iconSize = context.width.responsiveSize([25, 24, 24, 23, 21, 18.5]);
 
     final currentIndex = useValueListenable(FieldBarIndex);
-    final currentController = controllers[currentIndex];
-    final currentNode = nodes[currentIndex];
     final isLast = currentIndex == controllers.length - 1;
-
-    // 🔥 Index 변경 시마다 해당 Node로 자동 포커스
-    useEffect(() {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        currentNode.requestFocus();
-      });
-      return null;
-    }, [currentIndex]);
-
 
     // 인덱스별 설정 내부 정의
     final configs = [
       (
         controller: controllers[0],
         focusNode: nodes[0],
-        hint: '현장명 입력',
+        hint: hintTexts[0],
         keyboardType: TextInputType.text,
         formatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(20)],
       ),
       (
         controller: controllers[1],
         focusNode: nodes[1],
-        hint: '계약 단가 입력',
+        hint: hintTexts[1],
         keyboardType: TextInputType.numberWithOptions(decimal: true),
         formatters: <TextInputFormatter>[
           CommaInputFormatter6Digits(),
@@ -64,7 +53,7 @@ class SiteFieldBar extends HookConsumerWidget {
       (
         controller: controllers[2],
         focusNode: nodes[2],
-        hint: '세율 입력',
+        hint: hintTexts[2],
         keyboardType: TextInputType.number,
         formatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
@@ -75,40 +64,50 @@ class SiteFieldBar extends HookConsumerWidget {
           }),
         ],
       ),
+      (
+      controller: controllers[3],
+      focusNode: nodes[3],
+      hint: hintTexts[3],
+      keyboardType: TextInputType.number,
+      formatters: <TextInputFormatter>[
+        CommaInputFormatter6Digits(),
+      ],
+      ),
     ];
 
     final current = configs[currentIndex];
 
+    // 🔥 Index 변경 시마다 해당 Node로 자동 포커스
     useEffect(() {
-      void onTextChanged() {
-        HapticFeedback.selectionClick();
-        final focusedIndex = nodes.indexWhere((node) => node.hasFocus);
-        final text = controllers[focusedIndex].text;
-        final cleanText = text.replaceAll(',', '');
-        switch (focusedIndex) {
-          // case 0: customMsg(cleanText); break;
-          // case 1: customMsg(cleanText); break;
-          // case 2: customMsg(cleanText); break;
-        }
-      }
-      for (var controller in controllers) {
-        controller.addListener(onTextChanged);
-      }
-      return () {
-        for (var controller in controllers) {
-          controller.removeListener(onTextChanged);
-        }
-      };
-    }, []);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        current.focusNode.requestFocus();
+      });
+      return null;
+    }, [currentIndex]);
+
 
     void handleNext() {
-      currentNode.requestFocus();
+      HapticFeedback.selectionClick();
+      if (currentIndex == 0 && controllers[0].text.trim().isEmpty) {
+        customMsg('현장명을 입력해주세요');
+        return;
+      }
       if (isLast) {
         FocusScope.of(context).unfocus();
         FieldBarIndex.value = 0;
+        ref.read(stringListNotifierProvider.notifier).add(
+          value: controllers[0].text,
+          pay: controllers[1].text,
+          tax: controllers[2].text,
+          subsidy: controllers[3].text,
+
+        );
+        ref.refreshState(context);
+        Navigator.pop(context);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          NumberPickerModal(context);
+        });
       } else {
-        // final labels = ['연장근무 자리 입력', '야간근무 자리 입력','세율 입력'];
-        // customMsg('${labels[currentIndex]}');
         FieldBarIndex.value++;
       }
     }
@@ -154,27 +153,12 @@ class SiteFieldBar extends HookConsumerWidget {
                 ),
             ),
             IconButton(
-                onPressed: (){
-                  if (currentIndex == 0 || currentIndex == 1){
-                    handleNext();
-                  } else if (currentIndex == 2){
-                    Navigator.pop(context);
-                    ref.refreshState(context);
-                      WidgetsBinding.instance.addPostFrameCallback((_){
-                        NumberPickerModal(context);
-                      });
-                    ref.read(stringListNotifierProvider.notifier).add(
-                        value: controllers[0].text,
-                        pay: controllers[1].text,
-                        tax: controllers[2].text
-                    );
-                  }
-                },
+                onPressed: () => handleNext(),
                 icon: Icon(
                   isLast ? Icons.check : Icons.arrow_forward,
                   color: context.isDark
-                      ? currentController.text.length >= 1 ? Colors.white : Colors.grey.shade700
-                      : currentController.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
+                      ? current.controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
+                      : current.controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
                   size: iconSize,
                 ),
             ),

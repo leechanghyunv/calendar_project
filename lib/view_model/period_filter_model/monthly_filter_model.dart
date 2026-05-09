@@ -141,6 +141,12 @@ LaborSummaryModel _calculateStats(CombinedDataModel data,List<String> siteList){
   final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
 
 
+  // final hasLegacyData = filteredHistory.any((e) => e.afterTax == 0);
+  //
+  // final afterTax = hasLegacyData
+  //     ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy
+  //     : filteredHistory.sumBy((e) => e.afterTax).toDouble();
+
   final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy;
 
   final prevPay = prevHistory.sumBy((e) => e.pay);

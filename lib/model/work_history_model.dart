@@ -29,6 +29,33 @@ abstract class WorkHistory with _$WorkHistory {
     @Default(false) bool settlement,
   }) = _WorkHistory;
 
+  // // 🆕 비즈니스 로직을 포함한 생성 팩토리
+  // factory WorkHistory.create({
+  //   required DateTime date,
+  //   required int pay,
+  //   double record = 1.0,
+  //   String? workSite,
+  //   int? subsidy,
+  // }) {
+  //   // record에 따른 comment 패턴 정의
+  //   final autoComment = switch (record) {
+  //     1.0 => '정상근무',
+  //     1.5 => '연장근무',
+  //     2.0 => '야간근무',
+  //     _ => '기타근무',
+  //   };
+  //
+  //   return WorkHistory(
+  //     date: date,
+  //     pay: pay,
+  //     record: record,
+  //     comment: autoComment,
+  //     workSite: workSite ?? '',
+  //     subsidy: subsidy ?? 0,
+  //   );
+  // }
+
+
   factory WorkHistory.fromJson(Map<String, dynamic> json) =>
       _$WorkHistoryFromJson(json);
 
@@ -45,7 +72,6 @@ abstract class WorkHistory with _$WorkHistory {
     'workSite': workSite,
     'subsidy': subsidy,
     'settlement': settlement ? 1 : 0,
-
   };
 
   static WorkHistory fromMap(Map<String, dynamic> map) {

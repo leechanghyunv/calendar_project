@@ -1,5 +1,3 @@
-import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
-
 import '../../data/provider/string_list_provider.dart';
 import '../../view_model/decimal_value_provider.dart';
 import '../../view_ui/screen/contract_setting_screen/provider/settlement_state_provider.dart';
@@ -73,10 +71,6 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
         } else {
           customMsg('${date.day}일 ${value.decimal}공수');
         }
-
-
-
-
 
       });
     }catch(e){

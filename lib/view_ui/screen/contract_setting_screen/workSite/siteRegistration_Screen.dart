@@ -1,14 +1,11 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
-import 'package:calendar_project_240727/view_ui/widgets/textField_bar/text_field_bar.dart';
 
-import '../../../../base_consumer.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/textField_bar/site_field_bar.dart';
-import '../component/number_picker_modal.dart';
 import '/../../core/export_package.dart';
 
 class SiteRegistrationScreen extends HookConsumerWidget {
@@ -17,14 +14,17 @@ class SiteRegistrationScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    // final siteNode = useFocusNode();
+
     final firstController = useTextEditingController();
     final secondController = useTextEditingController();
     final thirdController = useTextEditingController();
-    // final siteEditingController = useTextEditingController();
+    final fourthController = useTextEditingController();
+
     final firstNode = useFocusNode();
     final secondNode = useFocusNode();
     final thirdNode = useFocusNode();
+    final fourthNode = useFocusNode();
+
 
     final currentIndex = useState(0);
 
@@ -32,23 +32,6 @@ class SiteRegistrationScreen extends HookConsumerWidget {
 
     final siteSwitcher = ref.watch(workSiteSwitchProvider);
     final switchValue = useState(siteSwitcher.valueOrNull ?? false);
-
-
-    // void siteRegistration(){
-    //   if (siteEditingController.text.isEmpty){
-    //     customMsg('현장을 입력해주세요');
-    //     return;
-    //   }
-    //   HapticFeedback.selectionClick();
-    //   ref.read(stringListNotifierProvider.notifier).add(
-    //       siteEditingController.text);
-    //   Navigator.pop(context);
-    //   ref.refreshState(context);
-    //   WidgetsBinding.instance.addPostFrameCallback((_){
-    //     NumberPickerModal(context);
-    //   });
-    // }
-
 
     return SafeArea(
       child: Scaffold(
@@ -119,7 +102,12 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                     itemBuilder: (context, index) {
                       final site = value[index];
                       return InkWell(
-                        onTap: () => customMsg('${site.value} 선택'),
+                        onTap: () {
+                          final msg = (site.pay != 0 && site.tax != 0.0)
+                              ? '${site.value}\n계약단가:${site.pay}\n세율:${site.tax}'
+                              : '${site.value} 선택';
+                          customMsg(msg);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 6.0,
@@ -165,9 +153,9 @@ class SiteRegistrationScreen extends HookConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
           child:
           SiteFieldBar(
-            controllers: [firstController, secondController, thirdController],
-            nodes: [firstNode, secondNode, thirdNode],
-            hintTexts: ['입력 후 우측 아이콘','연장근무','야간근무','세율 입력'],
+            controllers: [firstController, secondController, thirdController,fourthController],
+            nodes: [firstNode, secondNode, thirdNode,fourthNode],
+            hintTexts: ['현장을 등록해주세요','계약 단가를 입력해주세요','세율 입력','일비가 따로 있으신가요?'],
             FieldBarIndex: currentIndex,
           ),
           // TextFieldBar(

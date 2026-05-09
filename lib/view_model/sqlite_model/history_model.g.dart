@@ -298,7 +298,7 @@ class _AddAllHistoryProviderElement
   List<WorkHistory> get list => (origin as AddAllHistoryProvider).list;
 }
 
-String _$addHistoryHash() => r'1809081f8ef13e31f3c2f2990d2d3a3898844492';
+String _$addHistoryHash() => r'6b4571361bea46c76e66f264e4bddca64356795d';
 
 /// See also [addHistory].
 @ProviderFor(addHistory)

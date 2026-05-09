@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../entities/string_item.dart';
@@ -20,12 +21,26 @@ class StringListNotifier extends _$StringListNotifier {
     ref.invalidateSelf();
   }
 
-  Future<void> add({String value = '',String pay = '0', String tax = '3.3'}) async {
+  Future<void> add({String value = '',String pay = '0', String tax = '3.3',String subsidy = '0.0'}) async {
 
-    final parsedPay = int.tryParse(pay) ?? 0;
-    final parsedTax = double.tryParse(tax) ?? 3.3;
+    final contracts = await ref.read(viewContractProvider.future);
+    final contract = contracts.lastOrNull;
+
+    final cleanPay = pay.replaceAll(',', '');
+    final cleanTax = tax.replaceAll(',', '');
+    final cleanSubsidy = subsidy.replaceAll(',', '');
+
+    final parsedPay = int.tryParse(cleanPay) ?? contract?.normal ?? 0;
+    final parsedTax = double.tryParse(cleanTax) ?? contract?.tax ?? 3.3;
+    final parsedSubsidy = int.tryParse(cleanSubsidy) ?? contract?.normal ?? 0;
 
     final currentList = state.value ?? [];
+
+
+    ref.read(toggleOrAddProvider(value,parsedPay,parsedSubsidy,parsedTax));
+
+    print('StringListState ${state}');
+
     state = AsyncData([
       ...currentList,
       StringItem(

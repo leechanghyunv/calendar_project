@@ -29,6 +29,24 @@ abstract class LabourCondition with _$LabourCondition {
     @Default('') String job,
   }) = _LabourCondition;
 
+  // factory LabourCondition.create({
+  //   required String site,
+  //   required int pay,
+  //   required int subsidy,
+  //   required double tax,
+  //   LabourCondition? last,
+  // }) => LabourCondition(
+  //   date: DateTime.now(),
+  //   site: site,
+  //   normal: pay,
+  //   extend: (pay * 1.5).toInt(), // 내부에서 고정 계산
+  //   night: (pay * 2.0).toInt(),  // 내부에서 고정 계산
+  //   subsidy: subsidy,
+  //   tax: tax,
+  //   goal: last?.goal ?? 0,
+  //   job: last?.job ?? '',
+  // );
+
   factory LabourCondition.fromJson(Map<String, dynamic> json) =>
       _$LabourConditionFromJson(json);
   // SQLite 변환을 위한 메서드들

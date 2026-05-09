@@ -109,7 +109,6 @@ class DailyWageFieldBar extends HookConsumerWidget {
             context.go('/calendar');
           }
         });
-
       }
     });
 
@@ -178,12 +177,6 @@ class DailyWageFieldBar extends HookConsumerWidget {
                 final pay3 = controllers[2].text.replaceAll(',', '');
                 final taxText = controllers[3].text;
                 final tax = taxText.isEmpty ? 3.3 : (taxText.toDoubleOrNull() ?? 3.3);
-
-                print('기본 일당: ${controllers[0].text}');
-                print('연장근무: ${controllers[1].text}');
-                print('야간근무: ${controllers[2].text}');
-                print('세율: ${controllers[3].text}');
-                print('세율: ${tax}');
 
                 formzRefRead
                   ..onChangePay1(pay1)

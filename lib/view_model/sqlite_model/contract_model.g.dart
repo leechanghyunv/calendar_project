@@ -282,6 +282,158 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
+String _$toggleOrAddHash() => r'c9cbcf349300c02d5235aa71561858b07e006098';
+
+/// See also [toggleOrAdd].
+@ProviderFor(toggleOrAdd)
+const toggleOrAddProvider = ToggleOrAddFamily();
+
+/// See also [toggleOrAdd].
+class ToggleOrAddFamily extends Family<AsyncValue<void>> {
+  /// See also [toggleOrAdd].
+  const ToggleOrAddFamily();
+
+  /// See also [toggleOrAdd].
+  ToggleOrAddProvider call(String site, int pay, int subsidy, double tax) {
+    return ToggleOrAddProvider(site, pay, subsidy, tax);
+  }
+
+  @override
+  ToggleOrAddProvider getProviderOverride(
+    covariant ToggleOrAddProvider provider,
+  ) {
+    return call(provider.site, provider.pay, provider.subsidy, provider.tax);
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'toggleOrAddProvider';
+}
+
+/// See also [toggleOrAdd].
+class ToggleOrAddProvider extends AutoDisposeFutureProvider<void> {
+  /// See also [toggleOrAdd].
+  ToggleOrAddProvider(String site, int pay, int subsidy, double tax)
+    : this._internal(
+        (ref) => toggleOrAdd(ref as ToggleOrAddRef, site, pay, subsidy, tax),
+        from: toggleOrAddProvider,
+        name: r'toggleOrAddProvider',
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$toggleOrAddHash,
+        dependencies: ToggleOrAddFamily._dependencies,
+        allTransitiveDependencies: ToggleOrAddFamily._allTransitiveDependencies,
+        site: site,
+        pay: pay,
+        subsidy: subsidy,
+        tax: tax,
+      );
+
+  ToggleOrAddProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.site,
+    required this.pay,
+    required this.subsidy,
+    required this.tax,
+  }) : super.internal();
+
+  final String site;
+  final int pay;
+  final int subsidy;
+  final double tax;
+
+  @override
+  Override overrideWith(
+    FutureOr<void> Function(ToggleOrAddRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ToggleOrAddProvider._internal(
+        (ref) => create(ref as ToggleOrAddRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        site: site,
+        pay: pay,
+        subsidy: subsidy,
+        tax: tax,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<void> createElement() {
+    return _ToggleOrAddProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ToggleOrAddProvider &&
+        other.site == site &&
+        other.pay == pay &&
+        other.subsidy == subsidy &&
+        other.tax == tax;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, site.hashCode);
+    hash = _SystemHash.combine(hash, pay.hashCode);
+    hash = _SystemHash.combine(hash, subsidy.hashCode);
+    hash = _SystemHash.combine(hash, tax.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ToggleOrAddRef on AutoDisposeFutureProviderRef<void> {
+  /// The parameter `site` of this provider.
+  String get site;
+
+  /// The parameter `pay` of this provider.
+  int get pay;
+
+  /// The parameter `subsidy` of this provider.
+  int get subsidy;
+
+  /// The parameter `tax` of this provider.
+  double get tax;
+}
+
+class _ToggleOrAddProviderElement extends AutoDisposeFutureProviderElement<void>
+    with ToggleOrAddRef {
+  _ToggleOrAddProviderElement(super.provider);
+
+  @override
+  String get site => (origin as ToggleOrAddProvider).site;
+  @override
+  int get pay => (origin as ToggleOrAddProvider).pay;
+  @override
+  int get subsidy => (origin as ToggleOrAddProvider).subsidy;
+  @override
+  double get tax => (origin as ToggleOrAddProvider).tax;
+}
+
 String _$updateSubsidyHash() => r'16a4390024a84037b065dfa2cbb5cac5d3006b0e';
 
 /// See also [updateSubsidy].

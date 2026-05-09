@@ -135,5 +135,25 @@ class ContractDatabase {
     }
   }
 
+
+  Future<void> updateOrder(List<LabourCondition> items) async {
+    // items는 이미 [1, 2, 4, 5, 3] 처럼 순서가 정렬된 상태여야 함
+    await database.transaction((txn) async {
+      for (int i = 0; i < items.length; i++) {
+        await txn.update(
+          'labour_condition',
+          {
+            // index 'i'를 순서 컬럼에 그대로 박아넣음으로써
+            // [1, 2, 4, 5, 3]의 순서를 물리적으로 고정
+            'display_order': i,
+          },
+          where: 'id = ?',
+          whereArgs: [items[i].id],
+        );
+      }
+    });
+  }
+
+
   
 }

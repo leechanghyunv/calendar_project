@@ -101,6 +101,7 @@ class _WorkTypeChipList extends HookConsumerWidget {
 
     switch (ref.contract) {
       case AsyncData(value: final conditions) when conditions.isNotEmpty:
+
         final condition = conditions.last;
 
         if (displayVal) {
@@ -112,6 +113,7 @@ class _WorkTypeChipList extends HookConsumerWidget {
           }
         } else {
           final workTypes = ['정상근무', '연장근무', '야간근무'];
+
           final conditionValues = [condition.normal, condition.extend, condition.night];
 
           if (condition.subsidy != 0) {

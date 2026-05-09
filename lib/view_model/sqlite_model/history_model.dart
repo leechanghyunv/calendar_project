@@ -54,7 +54,8 @@ Future<void> addHistory(Ref ref,
   final settlement = ref.watch(isSettlementProvider);
   /// settlement는 정산내역이다.
 
-  final workSite = ref.watch(stringListNotifierProvider).valueOrNull?.lastOrNull?.value ?? '';
+  final workSiteList = await ref.read(stringListNotifierProvider.future);
+  final workSite = workSiteList.lastOrNull?.value ?? '';
 
   final Map<String, dynamic> event = {};
   late WorkHistory history;
@@ -69,6 +70,8 @@ Future<void> addHistory(Ref ref,
           _ => ('기타근무', 'AB47BC', decimal ?? 1.0),
         };
 
+
+
         history = WorkHistory(
           date: date,
           comment: comment,
@@ -77,6 +80,7 @@ Future<void> addHistory(Ref ref,
           record: record,
           memo: memoNote,
           workSite: workSite,
+
           subsidy: val.last.subsidy,
           settlement: settlement,
 
@@ -91,6 +95,7 @@ Future<void> addHistory(Ref ref,
     'date': DateFormat('yyyy-MM-dd').format(history.date),
     'memo': history.memo,
     'workSite': history.workSite,
+
     'subsidy': history.subsidy,
     'settlement': history.settlement,
   });
