@@ -26,10 +26,14 @@ class SiteFieldBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+    final currentIndex = useValueListenable(FieldBarIndex);
+
     final fontSize = context.width.responsiveSize([15, 13.5, 13.5, 13.5, 13, 12,]);
     final iconSize = context.width.responsiveSize([25, 24, 24, 23, 21, 18.5]);
 
-    final currentIndex = useValueListenable(FieldBarIndex);
+    final currentController = controllers[currentIndex];
+    useListenable(currentController);
+
     final isLast = currentIndex == controllers.length - 1;
 
     // 인덱스별 설정 내부 정의
@@ -38,14 +42,14 @@ class SiteFieldBar extends HookConsumerWidget {
         controller: controllers[0],
         focusNode: nodes[0],
         hint: hintTexts[0],
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.multiline,
         formatters: <TextInputFormatter>[LengthLimitingTextInputFormatter(20)],
       ),
       (
         controller: controllers[1],
         focusNode: nodes[1],
         hint: hintTexts[1],
-        keyboardType: TextInputType.numberWithOptions(decimal: true),
+        keyboardType: TextInputType.number,
         formatters: <TextInputFormatter>[
           CommaInputFormatter6Digits(),
         ],
@@ -54,7 +58,7 @@ class SiteFieldBar extends HookConsumerWidget {
         controller: controllers[2],
         focusNode: nodes[2],
         hint: hintTexts[2],
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
         formatters: <TextInputFormatter>[
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
           TextInputFormatter.withFunction((oldValue, newValue) {
@@ -88,6 +92,7 @@ class SiteFieldBar extends HookConsumerWidget {
 
     void handleNext() {
       HapticFeedback.selectionClick();
+      print(controllers[currentIndex].text);
       if (currentIndex == 0 && controllers[0].text.trim().isEmpty) {
         customMsg('현장명을 입력해주세요');
         return;
@@ -95,6 +100,7 @@ class SiteFieldBar extends HookConsumerWidget {
       if (isLast) {
         FocusScope.of(context).unfocus();
         FieldBarIndex.value = 0;
+
         ref.read(stringListNotifierProvider.notifier).add(
           value: controllers[0].text,
           pay: controllers[1].text,
@@ -125,6 +131,7 @@ class SiteFieldBar extends HookConsumerWidget {
           children: [
             Expanded(
                 child: TextField(
+                  key: ValueKey(currentIndex),
                   focusNode: current.focusNode,
                   controller: current.controller,
                   keyboardType: current.keyboardType,
@@ -136,7 +143,6 @@ class SiteFieldBar extends HookConsumerWidget {
                     fontSize: Platform.isAndroid ? fontSize + 1.5 : fontSize,
                   ),
                   decoration: InputDecoration(
-                    // prefixText: currentController.text.isNotEmpty ? (currentIndex == 3 ? ' ': '₩ ') : null,
                     isDense: true,
                     hintText: hintTexts[currentIndex],
                     hintStyle: TextStyle(
@@ -157,8 +163,13 @@ class SiteFieldBar extends HookConsumerWidget {
                 icon: Icon(
                   isLast ? Icons.check : Icons.arrow_forward,
                   color: context.isDark
-                      ? current.controller.text.length >= 1 ? Colors.white : Colors.grey.shade700
-                      : current.controller.text.length >= 1 ? Colors.teal.shade700 : Colors.grey.shade400,
+                      ? currentController.text.length >= 1
+                      ? Colors.white
+                      : Colors.grey.shade700
+
+                      : currentController.text.length >= 1
+                      ? Colors.teal.shade700
+                      : Colors.grey.shade400,
                   size: iconSize,
                 ),
             ),

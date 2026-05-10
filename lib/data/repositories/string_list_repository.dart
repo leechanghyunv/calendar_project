@@ -32,10 +32,16 @@ Future<Database> initStringList(ref) async {
             ')',
       );
     },
-    onUpgrade: (db, oldVersion, newVersion) async {   // ✅ 추가
+    onUpgrade: (db, oldVersion, newVersion) async {
       if (oldVersion < 2) {
-        await db.execute('ALTER TABLE items ADD COLUMN pay INTEGER NOT NULL DEFAULT 0');
-        await db.execute('ALTER TABLE items ADD COLUMN tax REAL NOT NULL DEFAULT 0.0');
+        final columns = await db.rawQuery('PRAGMA table_info(items)');
+        final existing = columns.map((c) => c['name'] as String).toSet();
+        if (!existing.contains('pay')) {
+          await db.execute('ALTER TABLE items ADD COLUMN pay INTEGER NOT NULL DEFAULT 0');
+        }
+        if (!existing.contains('tax')) {
+          await db.execute('ALTER TABLE items ADD COLUMN tax REAL NOT NULL DEFAULT 0.0');
+        }
       }
     },
   );

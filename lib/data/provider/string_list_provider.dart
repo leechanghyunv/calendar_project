@@ -30,16 +30,13 @@ class StringListNotifier extends _$StringListNotifier {
     final cleanTax = tax.replaceAll(',', '');
     final cleanSubsidy = subsidy.replaceAll(',', '');
 
-    final parsedPay = int.tryParse(cleanPay) ?? contract?.normal ?? 0;
+    final parsedPay = int.tryParse(cleanPay) ?? 0;
     final parsedTax = double.tryParse(cleanTax) ?? contract?.tax ?? 3.3;
-    final parsedSubsidy = int.tryParse(cleanSubsidy) ?? contract?.normal ?? 0;
+    final parsedSubsidy = int.tryParse(cleanSubsidy) ?? 0;
 
     final currentList = state.value ?? [];
 
-
-    ref.read(toggleOrAddProvider(value,parsedPay,parsedSubsidy,parsedTax));
-
-    print('StringListState ${state}');
+    await ref.read(toggleOrAddProvider(value, parsedPay, parsedSubsidy, parsedTax).future);
 
     state = AsyncData([
       ...currentList,

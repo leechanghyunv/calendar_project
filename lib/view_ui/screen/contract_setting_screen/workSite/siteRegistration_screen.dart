@@ -1,6 +1,7 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_guide_text.dart';
 
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/toast_msg.dart';
@@ -105,7 +106,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                         onTap: () {
                           final msg = (site.pay != 0 && site.tax != 0.0)
                               ? '${site.value}\n계약단가:${site.pay}\n세율:${site.tax}'
-                              : '${site.value} 선택';
+                              : '${site.value} 선택 ';
                           customMsg(msg);
                         },
                         child: Padding(
@@ -151,21 +152,23 @@ class SiteRegistrationScreen extends HookConsumerWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8.0),
-          child:
-          SiteFieldBar(
-            controllers: [firstController, secondController, thirdController,fourthController],
-            nodes: [firstNode, secondNode, thirdNode,fourthNode],
-            hintTexts: ['현장을 등록해주세요','계약 단가를 입력해주세요','세율 입력','일비가 따로 있으신가요?'],
-            FieldBarIndex: currentIndex,
+          child: Column(
+            mainAxisSize: .min,
+            children: [
+              RegistrationGuideText(
+                controllers: [firstController, secondController, thirdController,fourthController],
+                guideIndex: currentIndex,
+              ),
+              SizedBox(height: 5),
+              SiteFieldBar(
+                controllers: [firstController, secondController, thirdController,fourthController],
+                nodes: [firstNode, secondNode, thirdNode,fourthNode],
+                hintTexts: ['현장을 등록해주세요','계약 단가를 입력해주세요','세율 입력','일비 없으면 넘어가기'],
+                FieldBarIndex: currentIndex,
+              ),
+            ],
           ),
-          // TextFieldBar(
-          //     controller: siteEditingController,
-          //     focusNode: siteNode,
-          //     icon: Icons.check,
-          //     onSubmitted: (val) => siteRegistration(),
-          //     onPressed: () => siteRegistration(),
-          //     hintText: '현장 등록 후 저장하기'
-          // ),
+
         ),
       ),
     );

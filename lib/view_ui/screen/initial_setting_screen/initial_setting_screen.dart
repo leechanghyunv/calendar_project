@@ -8,7 +8,7 @@ import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
 import 'component/Index2Content.dart';
 import 'component/Index3Content.dart';
-import 'component/dailyWage_field_bar.dart';
+import '../../widgets/textField_bar/dailyWage_field_bar.dart';
 import '../../widgets/light_bulb_box.dart';
 
 void initialModal(BuildContext context) {
@@ -91,8 +91,6 @@ class InitialSettingScreen extends HookConsumerWidget {
       Index3content(text: currentText,iconSize: iconSize),
     ];
 
-    final contract = ref.watch(viewContractProvider);
-
     return SafeArea(
         child: Scaffold(
           body: Padding(
@@ -145,7 +143,6 @@ class InitialSettingScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-
 
                 contents[currentIndex.value],
 

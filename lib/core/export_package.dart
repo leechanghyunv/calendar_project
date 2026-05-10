@@ -19,5 +19,6 @@ export 'package:fl_chart/fl_chart.dart';
 export 'package:formz/formz.dart';
 export 'package:sqflite/sqflite.dart';
 export 'package:path/path.dart';
+export 'package:collection/collection.dart';
 export 'dart:convert';
 export 'dart:io';

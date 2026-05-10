@@ -34,6 +34,7 @@ Future<void> updateContract(Ref ref, int goal) async {
 
 @riverpod
 Future<void> toggleOrAdd(ref,String site,int pay,int subsidy,double tax) async {
+
   final db = await ref.read(labourConditionManagerProvider.future);
 
   final conditions = await ref.read(viewContractProvider.future);
@@ -41,7 +42,7 @@ Future<void> toggleOrAdd(ref,String site,int pay,int subsidy,double tax) async {
 
   if (!exists) {
 
-    final last = conditions.lastOrNull;
+    final last = conditions.isEmpty ? null : conditions.last;
 
     final newCondition = LabourCondition(
       date: DateTime.now(),
@@ -58,14 +59,14 @@ Future<void> toggleOrAdd(ref,String site,int pay,int subsidy,double tax) async {
   } else {
     final target = conditions.firstWhere((e) => e.site == site && e.normal == pay);
     final updated = [
-      ...conditions.whereNot((e) => e.site == site && e.normal == pay),
+      ...conditions.where((e) => !(e.site == site && e.normal == pay)),
       target,
     ];
 
-    print('ConditionListState ${conditions}');
-
     await db.updateOrder(updated);
     ref.invalidate(viewContractProvider);
+
+    print('ConditionListState ${conditions}');
   }
 }
 

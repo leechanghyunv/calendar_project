@@ -1,15 +1,15 @@
 import 'package:dartx/dartx.dart';
 
-import '../../../../base_app_size.dart';
-import '../../../../base_consumer.dart';
-import '../../../../core/export_package.dart';
-import '../../../../core/extentions/theme_color.dart';
-import '../../../../core/extentions/theme_extension.dart';
-import '../../../../core/utils/formatter.dart';
-import '../../../../core/widget/toast_msg.dart';
-import '../../../../model/formz/formz_model.dart';
-import '../../../../repository/formz/formz_model.dart';
-import '../../../../view_model/view_provider/main_button_index_provider.dart';
+import '../../../base_app_size.dart';
+import '../../../base_consumer.dart';
+import '../../../core/export_package.dart';
+import '../../../core/extentions/theme_color.dart';
+import '../../../core/extentions/theme_extension.dart';
+import '../../../core/utils/formatter.dart';
+import '../../../core/widget/toast_msg.dart';
+import '../../../model/formz/formz_model.dart';
+import '../../../repository/formz/formz_model.dart';
+import '../../../view_model/view_provider/main_button_index_provider.dart';
 
 class DailyWageFieldBar extends HookConsumerWidget {
   final List<TextEditingController> controllers;

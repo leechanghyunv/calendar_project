@@ -56,6 +56,7 @@ class MultiDecimalFieldBar extends HookConsumerWidget {
 
     return Column(
       children: [
+        if(controllers[0].text.isEmpty)
         Padding(
           padding: const EdgeInsets.only(right: 6.0),
           child: Row(

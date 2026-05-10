@@ -1,10 +1,8 @@
-import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../widgets/blink_threeTimes_text.dart';
 import '../../../widgets/svg_imoji.dart';
-import 'index0selectChip.dart';
 
 class Index0content extends HookConsumerWidget {
   final String text;

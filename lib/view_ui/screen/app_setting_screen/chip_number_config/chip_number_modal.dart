@@ -93,7 +93,7 @@ class ChipNumberScreen extends HookConsumerWidget {
             children: [
               if (firstText.isNotEmpty)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 4.0),
+                padding: const EdgeInsets.symmetric(horizontal: 18.0,vertical: 0.0),
                 child: Row(
                   children: [
                     SvgImoJi(
@@ -141,7 +141,6 @@ class ChipNumberScreen extends HookConsumerWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 15),
               Row(
                 children: [
                   Expanded(

@@ -1,7 +1,6 @@
 
 import 'package:calendar_project_240727/core/export_package.dart';
 
-import '../../../../base_app_size.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../widgets/svg_imoji.dart';

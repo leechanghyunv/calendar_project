@@ -11,7 +11,6 @@ import '../../core/export_package.dart';
 import '../../model/work_history_model.dart';
 import '../../view_ui/main_screen_component/main_box_component/controll_chip_component.dart';
 import '../../view_ui/screen/contract_setting_screen/provider/settlement_state_provider.dart';
-import '../../view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'calendar_event_model.dart';
 import 'contract_model.dart';
 part 'history_model.g.dart';
@@ -33,7 +32,10 @@ Future<List<WorkHistory>> viewHistory(Ref ref) async {
 
 @riverpod
 Future<List<WorkHistory>> viewRangeHistory(
-    Ref ref, DateTime start, DateTime end) async {
+  Ref ref,
+  DateTime start,
+  DateTime end,
+) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   return db.getFilteredHistory(start, end);
 }
@@ -46,12 +48,17 @@ Future<void> addAllHistory(Ref ref, List<WorkHistory> list) async {
 }
 
 @riverpod
-Future<void> addHistory(Ref ref,
-    int pay, DateTime date,{double? decimal}) async {
+Future<void> addHistory(
+  Ref ref,
+  int pay,
+  DateTime date, {
+  double? decimal,
+}) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   final contract = ref.watch(viewContractProvider);
   final memoNote = ref.watch(formzMemoValidatorProvider.notifier).value;
   final settlement = ref.watch(isSettlementProvider);
+
   /// settlement는 정산내역이다.
 
   final workSiteList = await ref.read(stringListNotifierProvider.future);
@@ -61,33 +68,31 @@ Future<void> addHistory(Ref ref,
   late WorkHistory history;
 
   contract.when(
-      data: (val) {
-        final (comment, colorCode, record) = switch (pay) {
-          _ when pay == val.last.normal => ('정상근무', '2196F3', 1.0),
-          _ when pay == val.last.extend => ('연장근무', 'FCAF50', 1.5),
-          _ when pay == val.last.night => ('야간근무', 'F44336', 2.0),
-          0 => ('휴무', '4CAF50', 0.0),
-          _ => ('기타근무', 'AB47BC', decimal ?? 1.0),
-        };
+    data: (val) {
+      final (comment, colorCode, record) = switch (pay) {
+        _ when pay == val.last.normal => ('정상근무', '2196F3', 1.0),
+        _ when pay == val.last.extend => ('연장근무', 'FCAF50', 1.5),
+        _ when pay == val.last.night => ('야간근무', 'F44336', 2.0),
+        0 => ('휴무', '4CAF50', 0.0),
+        _ => ('기타근무', 'AB47BC', decimal ?? 1.0),
+      };
 
+      history = WorkHistory(
+        date: date,
+        comment: comment,
+        pay: pay,
+        colorCode: colorCode,
+        record: record,
+        memo: memoNote,
+        workSite: workSite,
 
-
-        history = WorkHistory(
-          date: date,
-          comment: comment,
-          pay: pay,
-          colorCode: colorCode,
-          record: record,
-          memo: memoNote,
-          workSite: workSite,
-
-          subsidy: val.last.subsidy,
-          settlement: settlement,
-
-        );
-      },
-      error: (err, trace) => print(err.toString()),
-      loading: () => print('loading....'));
+        subsidy: val.last.subsidy,
+        settlement: settlement,
+      );
+    },
+    error: (err, trace) => print(err.toString()),
+    loading: () => print('loading....'),
+  );
   event.addAll({
     'recode': history.record,
     'pay': history.pay,
@@ -106,10 +111,15 @@ Future<void> addHistory(Ref ref,
 
 @riverpod
 Future<void> rangeExcludHoliday(
-    Ref ref, WorkHistory history, DateTime start, DateTime end, bool containHoliDay) async {
+  Ref ref,
+  WorkHistory history,
+  DateTime start,
+  DateTime end,
+  bool containHoliDay,
+) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-   db.insertWorkHistoryExcludeHolidays(start, end, history,containHoliDay);
-   invalidateProviders(ref);
+  db.insertWorkHistoryExcludeHolidays(start, end, history, containHoliDay);
+  invalidateProviders(ref);
 }
 
 @riverpod
@@ -133,7 +143,6 @@ Future<WorkHistory> latestHistory(Ref ref) async {
   };
 }
 
-
 @riverpod
 Future<void> deleteHistory(Ref ref, DateTime time) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
@@ -143,8 +152,7 @@ Future<void> deleteHistory(Ref ref, DateTime time) async {
 }
 
 @riverpod
-Future<void> deleteMonthHistory(
-    Ref ref, DateTime start, DateTime end) async {
+Future<void> deleteMonthHistory(Ref ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteMonthHistory $start $end');
   db.deleteWorkHistoryByMonth(start, end);
@@ -159,8 +167,7 @@ Future<void> clearHistory(Ref ref) async {
 }
 
 @riverpod
-Future<void> updateMemoHistory(
-    Ref ref, DateTime date, String memo) async {
+Future<void> updateMemoHistory(Ref ref, DateTime date, String memo) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   db.updateMemo(date, memo);
   invalidateProviders(ref);
@@ -168,8 +175,12 @@ Future<void> updateMemoHistory(
 
 @riverpod
 Future<void> updateSubsidyHistory(
-    Ref ref, DateTime start,DateTime end, int subsidy) async {
+  Ref ref,
+  DateTime start,
+  DateTime end,
+  int subsidy,
+) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.updateSubsidy(start,end, subsidy);
+  db.updateSubsidy(start, end, subsidy);
   invalidateProviders(ref);
 }

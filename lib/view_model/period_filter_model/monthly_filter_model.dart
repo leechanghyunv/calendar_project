@@ -60,13 +60,16 @@ class MonthRecord extends _$MonthRecord {
 
 
     final workSiteList = ref.watch(selectedCompaniesModelProvider);
-
-
     final timeManagerDay = ref.read(timeManagerProvider.notifier).DaySelected;
 
+    // ref.watch는 await 이전에 호출해 Future를 미리 캡처해야 함
+    final contractFuture = ref.watch(viewContractProvider.future);
+    final historyFuture = ref.watch(viewRangeHistoryProvider(prevStartDate, endDate).future);
+
     try {
-      final contract = await ref.watch(viewContractProvider.future);
-      final history = await ref.watch(viewRangeHistoryProvider(prevStartDate,endDate).future);
+      
+      final contract = await contractFuture;
+      final history = await historyFuture;
       // 빈 데이터 체크
       if (history.isEmpty || contract.isEmpty) {
 

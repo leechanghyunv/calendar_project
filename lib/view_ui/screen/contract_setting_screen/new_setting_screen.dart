@@ -1,12 +1,11 @@
+import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/setting_use_cases.dart';
-import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/new_Site_registration.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/new_site_registration.dart';
 import '../../../base_app_size.dart';
 import '../../../base_consumer.dart';
-import '../../../core/export_package.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../core/widget/text_widget.dart';
 import '../../../repository/formz/formz_decimal.dart';
-import '../../../view_model/sqlite_model/history_model.dart';
 import '../../widgets/textField_bar/dual_field_bar.dart';
 import '../../widgets/duration_select_module.dart';
 import '../app_setting_screen/daily_pay_config/daily_pay_modal.dart';
@@ -26,7 +25,10 @@ class NewSettingScreen extends HookConsumerWidget {
 
     final isActive = ref.watch(memoActiveProvider);
     final history = ref.watch(viewHistoryProvider);
+
+
     final histories = history.valueOrNull ?? [];
+
 
     final initialMemo = resolveInitialMemo(histories, ref.selected);
 
