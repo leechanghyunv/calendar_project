@@ -58,15 +58,12 @@ Future<void> toggleOrAdd(ref,String site,int pay,int subsidy,double tax) async {
     await ref.read(addContractProvider(newCondition).future);
   } else {
     final target = conditions.firstWhere((e) => e.site == site && e.normal == pay);
-    final updated = [
+    final updated = <LabourCondition>[
       ...conditions.where((e) => !(e.site == site && e.normal == pay)),
       target,
     ];
-
     await db.updateOrder(updated);
     ref.invalidate(viewContractProvider);
-
-    print('ConditionListState ${conditions}');
   }
 }
 

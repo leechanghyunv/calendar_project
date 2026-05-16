@@ -10,7 +10,9 @@ abstract class StringItem with _$StringItem {
     @Default('') String value,
     @Default(0) int pay,           // ✅ 추가
     @Default(3.3) double tax,      // ✅ 추가
+    @Default(0) int subsidy,
     @Default(0) int order,
+
   }) = _StringItem;
 
   factory StringItem.fromJson(Map<String, dynamic> json) => _$StringItemFromJson(json);

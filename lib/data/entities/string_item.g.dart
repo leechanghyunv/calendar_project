@@ -11,6 +11,7 @@ _StringItem _$StringItemFromJson(Map<String, dynamic> json) => _StringItem(
   value: json['value'] as String? ?? '',
   pay: (json['pay'] as num?)?.toInt() ?? 0,
   tax: (json['tax'] as num?)?.toDouble() ?? 3.3,
+  subsidy: (json['subsidy'] as num?)?.toInt() ?? 0,
   order: (json['order'] as num?)?.toInt() ?? 0,
 );
 
@@ -20,5 +21,6 @@ Map<String, dynamic> _$StringItemToJson(_StringItem instance) =>
       'value': instance.value,
       'pay': instance.pay,
       'tax': instance.tax,
+      'subsidy': instance.subsidy,
       'order': instance.order,
     };

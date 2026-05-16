@@ -1,9 +1,11 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
+import 'package:calendar_project_240727/data/repositories/string_list_repository.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_guide_text.dart';
 
 import '../../../../core/extentions/theme_color.dart';
+import '../../../../core/utils/converter.dart';
 import '../../../../core/widget/toast_msg.dart';
 import '../../../widgets/info_row.dart';
 import '../../../widgets/textField_bar/site_field_bar.dart';
@@ -33,6 +35,11 @@ class SiteRegistrationScreen extends HookConsumerWidget {
 
     final siteSwitcher = ref.watch(workSiteSwitchProvider);
     final switchValue = useState(siteSwitcher.valueOrNull ?? false);
+
+    if (sitesAsync case AsyncData(:final value)) {
+      debugPrint('✅ sites: $value');
+    }
+
 
     return SafeArea(
       child: Scaffold(
@@ -76,7 +83,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                     children: [
                       SizedBox(width: 7.5),
                       TextWidget(
-                        '일반공수칩 등록시에도 작업 현장이 적용됩니다', 15,
+                        '일당 등록이 안되어 있을경우 삭제 후 다시 등록해주세요', 14,
                         color: context.subTextColor,
                       ),
                     ],
@@ -105,8 +112,8 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                       return InkWell(
                         onTap: () {
                           final msg = (site.pay != 0 && site.tax != 0.0)
-                              ? '${site.value}\n계약단가:${site.pay}\n세율:${site.tax}'
-                              : '${site.value} 선택 ';
+                              ? '${site.value}\n단가:${formatAmount(site.pay)}\n세율:${site.tax}'
+                              : '계약 단가가 포함되어 있지 않습니다 ';
                           customMsg(msg);
                         },
                         child: Padding(

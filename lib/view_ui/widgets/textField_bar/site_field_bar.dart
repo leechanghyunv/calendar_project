@@ -90,7 +90,7 @@ class SiteFieldBar extends HookConsumerWidget {
     }, [currentIndex]);
 
 
-    void handleNext() {
+    void handleNext() async {
       HapticFeedback.selectionClick();
       print(controllers[currentIndex].text);
       if (currentIndex == 0 && controllers[0].text.trim().isEmpty) {
@@ -101,14 +101,14 @@ class SiteFieldBar extends HookConsumerWidget {
         FocusScope.of(context).unfocus();
         FieldBarIndex.value = 0;
 
-        ref.read(stringListNotifierProvider.notifier).add(
+        await ref.read(stringListNotifierProvider.notifier).add(
           value: controllers[0].text,
           pay: controllers[1].text,
           tax: controllers[2].text,
           subsidy: controllers[3].text,
 
         );
-        ref.refreshState(context);
+        await ref.refreshState(context);
         Navigator.pop(context);
         WidgetsBinding.instance.addPostFrameCallback((_) {
           NumberPickerModal(context);
@@ -163,11 +163,11 @@ class SiteFieldBar extends HookConsumerWidget {
                 icon: Icon(
                   isLast ? Icons.check : Icons.arrow_forward,
                   color: context.isDark
-                      ? currentController.text.length >= 1
+                      ? isLast || currentController.text.length >= 1
                       ? Colors.white
                       : Colors.grey.shade700
 
-                      : currentController.text.length >= 1
+                      : isLast || currentController.text.length >= 1
                       ? Colors.teal.shade700
                       : Colors.grey.shade400,
                   size: iconSize,

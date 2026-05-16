@@ -1,8 +1,6 @@
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
-import 'package:calendar_project_240727/view_ui/version_introduce/version_manager.dart';
-
 import '../../core/export_package.dart';
 import '../../view_model/view_provider/firebase_remote_config_model.dart';
 
@@ -15,7 +13,6 @@ class NewVersionDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    ref.watch(versionManagerProvider.notifier);
     final version = ref.watch(versionProvider.notifier).version;
     Widget _label(String msg) => TextWidget(msg, 15, color: context.textColor);
 
@@ -28,6 +25,7 @@ class NewVersionDialog extends ConsumerWidget {
           TextWidget('버전 업데이트', 16,fontWeight: FontWeight.w900),
 
           Spacer(),
+
           Container(
             decoration: BoxDecoration(
                 color: context.chipColor,

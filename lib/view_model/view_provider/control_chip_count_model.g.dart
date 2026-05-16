@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'version_manager.dart';
+part of 'control_chip_count_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$versionManagerHash() => r'c454eb5cfc4423e92aaecb4e59c672d04d17a6e8';
+String _$controlChipCountHash() => r'3d709fd6b283f922355ffc1ce7fba45e6d394125';
 
-/// See also [VersionManager].
-@ProviderFor(VersionManager)
-final versionManagerProvider =
-    AutoDisposeAsyncNotifierProvider<VersionManager, String?>.internal(
-      VersionManager.new,
-      name: r'versionManagerProvider',
+/// See also [ControlChipCount].
+@ProviderFor(ControlChipCount)
+final controlChipCountProvider =
+    AsyncNotifierProvider<ControlChipCount, int>.internal(
+      ControlChipCount.new,
+      name: r'controlChipCountProvider',
       debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
           ? null
-          : _$versionManagerHash,
+          : _$controlChipCountHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$VersionManager = AutoDisposeAsyncNotifier<String?>;
+typedef _$ControlChipCount = AsyncNotifier<int>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

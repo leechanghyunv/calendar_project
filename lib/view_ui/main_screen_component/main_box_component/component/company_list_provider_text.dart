@@ -25,19 +25,6 @@ class CompanyListProviderText extends HookConsumerWidget {
     return SizedBox(
       child: Row(
         children: [
-          // Container(
-          //   decoration: BoxDecoration(
-          //     color: context.bTypeChipColor,
-          //     borderRadius: BorderRadius.circular(10),
-          //   ),
-          //   padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
-          //   child: Row(
-          //     children: [
-          //       TextWidget(' 세보MEC ',11,color: context.subTextColor),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(width: 2.5,),
           Container(
             decoration: BoxDecoration(
               color: context.bTypeChipColor,

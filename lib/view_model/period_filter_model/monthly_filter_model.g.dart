@@ -6,7 +6,7 @@ part of 'monthly_filter_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$monthRecordHash() => r'6c334123516e8685703f63394a8157b2fd8a52ec';
+String _$monthRecordHash() => r'ef1e6d9e5914afa9d9275ccfd0749e704bad425a';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -282,7 +282,7 @@ class _UpdateContractProviderElement
   int get goal => (origin as UpdateContractProvider).goal;
 }
 
-String _$toggleOrAddHash() => r'c9cbcf349300c02d5235aa71561858b07e006098';
+String _$toggleOrAddHash() => r'b53e62b5442961f4067335ba4dc4cdbd85424fee';
 
 /// See also [toggleOrAdd].
 @ProviderFor(toggleOrAdd)

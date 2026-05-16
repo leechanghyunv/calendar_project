@@ -4,8 +4,11 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
+import '../../dialog/delete_goal_dialog/five_time_tab_dialog.dart';
+import '../../dialog/delete_goal_dialog/second_tab_dialog.dart';
 import '../../screen/app_review_screen/app_review_screen.dart';
 import '../../screen/question_screen/question_screen_modal.dart';
+import '../../screen/second_open_screen/second_open_screen.dart';
 import '../../version_introduce/new_version_dialog.dart';
 import '../main_box_component/main_box_sizes.dart';
 
@@ -54,6 +57,7 @@ class MainButtonSide extends HookConsumerWidget {
           'option1' => context.dialog(NewVersionDialog()),
           'option2' => questionModal(context),
           'option3' => showReviewModal(context),
+          'option4' => FiveTimeTabDialog(context),
           _ => null,
         },
         padding: EdgeInsets.zero,
@@ -99,8 +103,21 @@ class MainButtonSide extends HookConsumerWidget {
             child: sideButton(
                 context.isDark,
                 ' 의견 보내기'),
-
           ),
+          /// /// /// /// /// /// /// /// /// /// /// ///
+          PopupMenuDivider(
+            color: context.isDark ? Colors.white : null,
+          ),
+          PopupMenuItem<String>(
+            value: 'option4',
+            height: 30,
+            child: sideButton(
+                context.isDark,
+                ' Test입니다'),
+          ),
+
+
+
         ],
       ),
     );

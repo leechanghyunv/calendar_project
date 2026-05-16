@@ -15,7 +15,7 @@ Future<Database> initWorkHistory(ref) async {
 
   return await openDatabase(
       path,
-      version: 4,
+      version: 5,
       onCreate: (Database db, int version) async {
         await db.execute('''
       CREATE TABLE workhistory(
@@ -28,19 +28,25 @@ Future<Database> initWorkHistory(ref) async {
         comment TEXT NOT NULL DEFAULT '정상근무',
         workSite TEXT NOT NULL DEFAULT '',
         subsidy INTEGER NOT NULL DEFAULT 0,
-        settlement INTEGER NOT NULL DEFAULT 0
+        settlement INTEGER NOT NULL DEFAULT 0,
+        afterTax INTEGER NOT NULL DEFAULT 0
       )
     ''');
       },
     onUpgrade: (Database db, int oldVersion, int newVersion) async {
+      final columns = await db.rawQuery('PRAGMA table_info(workhistory)');
+      final existing = columns.map((c) => c['name'] as String).toSet();
       if (oldVersion < 2) {
-        await db.execute('ALTER TABLE workhistory ADD COLUMN workSite TEXT NOT NULL DEFAULT ""');
+        if (!existing.contains('workSite')) await db.execute('ALTER TABLE workhistory ADD COLUMN workSite TEXT NOT NULL DEFAULT ""');
       }
       if (oldVersion < 3) {
-        await db.execute('ALTER TABLE workhistory ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
+        if (!existing.contains('subsidy')) await db.execute('ALTER TABLE workhistory ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
       }
-      if (oldVersion < 4) {  // ✨ 새 마이그레이션 추가
-        await db.execute('ALTER TABLE workhistory ADD COLUMN settlement INTEGER NOT NULL DEFAULT 0');
+      if (oldVersion < 4) {
+        if (!existing.contains('settlement')) await db.execute('ALTER TABLE workhistory ADD COLUMN settlement INTEGER NOT NULL DEFAULT 0');
+      }
+      if (oldVersion < 5) {
+        if (!existing.contains('afterTax')) await db.execute('ALTER TABLE workhistory ADD COLUMN afterTax INTEGER NOT NULL DEFAULT 0');
       }
     },
     
@@ -226,7 +232,8 @@ class HistoryDatabase {
                 memo: history.memo,
                 workSite: history.workSite,
                 subsidy: history.subsidy,
-                settlement: history.settlement
+                settlement: history.settlement,
+                afterTax: history.afterTax
             );
             await txn.insert('workhistory', dayHistory.toMap());
           }
@@ -318,7 +325,8 @@ class HistoryDatabase {
           memo: history.memo,
           workSite: history.workSite,
           subsidy: history.subsidy,
-            settlement: history.settlement
+            settlement: history.settlement,
+            afterTax: history.afterTax
         );
         filteredData[dateKey]!.add(newHistory);
       }
@@ -362,7 +370,8 @@ class HistoryDatabase {
           memo: history.memo,
           workSite: history.workSite,
           subsidy: history.subsidy,
-            settlement: history.settlement
+            settlement: history.settlement,
+            afterTax: history.afterTax
         );
         filteredData[dateKey]!.add(newHistory);
       }

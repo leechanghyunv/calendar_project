@@ -1,3 +1,4 @@
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
@@ -62,7 +63,7 @@ class _StepWidget extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(8.0,6.0,8.0,12.0),
       child: Row(
         children: [
-          TextWidget(text,13),
+          TextWidget(text,13,color: context.subTextColor),
         ],
       ),
     );

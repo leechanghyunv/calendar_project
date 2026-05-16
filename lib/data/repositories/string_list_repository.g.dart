@@ -26,7 +26,7 @@ final stringListRepositoryProvider =
 // ignore: unused_element
 typedef StringListRepositoryRef =
     AutoDisposeFutureProviderRef<StringListRepository>;
-String _$initStringListHash() => r'c2fe9a483734a3f05f75c5b542220d803238a54d';
+String _$initStringListHash() => r'87ebbf280f8a57f500c8113e83f230b6c8f69033';
 
 /// See also [initStringList].
 @ProviderFor(initStringList)

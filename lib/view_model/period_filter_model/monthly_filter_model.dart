@@ -36,6 +36,7 @@ class MonthRecord extends _$MonthRecord {
 
   @override
   Future<LaborSummaryModel> build(DateTime time) async {
+    ref.keepAlive();
 
     final cycleData = ref.watch(paymentCycleSwitchProvider).valueOrNull;
     final cycle = (cycleData?.cycle ?? 0) - 1;
@@ -142,16 +143,15 @@ LaborSummaryModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
 
   final newSubsidy = filteredHistory.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
+   /// 1.0 즉 정상근무 이상으로 출결기록이 있다면 일비 기록을 모두 합한다
 
+  /// /// /// 세후금액의 새로운 정산방식 
+  final hasLegacyData = filteredHistory.any((e) => e.pay > 0 && e.afterTax == 0);
 
-  // final hasLegacyData = filteredHistory.any((e) => e.afterTax == 0);
-  //
-  // final afterTax = hasLegacyData
-  //     ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy
-  //     : filteredHistory.sumBy((e) => e.afterTax).toDouble();
-
-  final afterTax = totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy;
-
+  final afterTax = hasLegacyData
+      ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy
+      : filteredHistory.sumBy((e) => e.afterTax).toDouble();
+/// /// ///
   final prevPay = prevHistory.sumBy((e) => e.pay);
 
   final totalPayAnd = totalPay + newSubsidy;

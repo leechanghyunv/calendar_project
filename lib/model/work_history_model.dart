@@ -27,6 +27,7 @@ abstract class WorkHistory with _$WorkHistory {
     @Default('') String workSite,
     @Default(0) int subsidy,
     @Default(false) bool settlement,
+    @Default(0) int afterTax,
   }) = _WorkHistory;
 
   // // 🆕 비즈니스 로직을 포함한 생성 팩토리
@@ -72,6 +73,7 @@ abstract class WorkHistory with _$WorkHistory {
     'workSite': workSite,
     'subsidy': subsidy,
     'settlement': settlement ? 1 : 0,
+    'afterTax': afterTax,
   };
 
   static WorkHistory fromMap(Map<String, dynamic> map) {
@@ -86,7 +88,7 @@ abstract class WorkHistory with _$WorkHistory {
       workSite: map['workSite'] as String,
       subsidy: map['subsidy'] as int,
       settlement: (map['settlement'] as int?) == 1,
-
+      afterTax: map['afterTax'] as int? ?? 0,
     );
   }
 }

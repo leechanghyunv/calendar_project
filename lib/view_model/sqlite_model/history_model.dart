@@ -77,6 +77,9 @@ Future<void> addHistory(
         _ => ('기타근무', 'AB47BC', decimal ?? 1.0),
       };
 
+      final tax = val.last.tax / 100;
+      final afterTax = pay <= 0 ? 0 : (pay * (1 - tax)).round() + val.last.subsidy;
+
       history = WorkHistory(
         date: date,
         comment: comment,
@@ -85,9 +88,9 @@ Future<void> addHistory(
         record: record,
         memo: memoNote,
         workSite: workSite,
-
         subsidy: val.last.subsidy,
         settlement: settlement,
+        afterTax: afterTax,
       );
     },
     error: (err, trace) => print(err.toString()),
@@ -100,9 +103,9 @@ Future<void> addHistory(
     'date': DateFormat('yyyy-MM-dd').format(history.date),
     'memo': history.memo,
     'workSite': history.workSite,
-
     'subsidy': history.subsidy,
     'settlement': history.settlement,
+    'afterTax': history.afterTax,
   });
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
   db.insertOrUpdateWorkHistory(history);
@@ -138,6 +141,7 @@ Future<WorkHistory> latestHistory(Ref ref) async {
       workSite: value.last.workSite,
       subsidy: value.last.subsidy,
       settlement: value.last.settlement,
+      afterTax: value.last.afterTax,
     ),
     _ => throw Exception('최근 기록을 찾을 수 없습니다'),
   };

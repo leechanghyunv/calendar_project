@@ -94,7 +94,7 @@ class TimeManager extends _$TimeManager {
   void selectedNextDay() async {
     final addDay = DaySelected.add(const Duration(days: 1));
     ref.refresh(viewRangeHistoryProvider(prevStartDate, endDate).future);
-    Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (addDay != DaySelected) {
       await ref.read(monthRecordProvider(addDay).future);
       ref.read(formzMemoValidatorProvider.notifier).clearMemo();

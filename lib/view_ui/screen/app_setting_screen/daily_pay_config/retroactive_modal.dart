@@ -1,6 +1,6 @@
 import 'package:calendar_project_240727/repository/repository_import.dart';
-import 'package:calendar_project_240727/view_ui/widgets/elevated_button/elevated_button.dart';
-import 'package:calendar_project_240727/view_ui/widgets/elevated_button/left_eleveted_button.dart';
+import 'package:calendar_project_240727/view_ui/widgets/button/elevated_button.dart';
+import 'package:calendar_project_240727/view_ui/widgets/button/left_eleveted_button.dart';
 import 'package:dartx/dartx.dart';
 
 import '../../../../base_consumer.dart';
@@ -120,7 +120,7 @@ class RetroactiveScreen extends HookConsumerWidget {
                     children: [
                       Expanded(
                         child: LeftElevatedButton(
-                            text: '일비 등록만 하고 나가기',
+                            text: '일비 등록',
                           onPressed: () {
                             _closeAndNavigate(context);
                             customMsg('다음 공수등록에 반영됩니다');
@@ -136,7 +136,7 @@ class RetroactiveScreen extends HookConsumerWidget {
                     children: [
                       Expanded(
                         child: CustomElevatedButton(
-                            text: '선택한 기간에 일비 추가',
+                            text: '선택 기간에 일비 적용',
                           onPressed: () async {
                             await ref.read(updateSubsidyHistoryProvider(
                                 selectedDate.value, endDate.value, subsidy));

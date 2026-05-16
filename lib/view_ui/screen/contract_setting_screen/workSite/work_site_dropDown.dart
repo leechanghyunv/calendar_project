@@ -67,19 +67,22 @@ class WorkSiteDropdown extends HookConsumerWidget {
             onChanged: (selectedIndex) async {
               if (selectedIndex != null) {
                 ref.read(registrationIndexProvider.notifier).setIndex(selectedIndex);
+                /// setIndex는 단순 순서만 int만 관리한다
                 ref.read(selectedWorksiteProvider.notifier).state = value[selectedIndex].value;
-
+                /// selectedWorksiteProvider는 단순 현장명을 기억하고 전달한다
                 final reorderedList = List<StringItem>.from(value);
                 final selected = reorderedList.removeAt(selectedIndex);
                 reorderedList.add(selected);
+                /// 리스트재배치인데 selected된 현장명이 제일 마지막으로 온다.
 
                 await ref.read(stringListNotifierProvider.notifier).reorder(reorderedList);
+                /// StringListProvider 이건 sqlite에 영구저장되는데 리스트를 제배치한다.
 
                 await Future.delayed(Duration(milliseconds: 100));
 
                 ref.read(registrationIndexProvider.notifier).setIndex(value.length - 1);
                 ref.read(selectedWorksiteProvider.notifier).state = selected.value;
-                customMsg('${value[selectedIndex].value} 선택');
+
               }
             },
           ),

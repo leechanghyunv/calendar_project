@@ -1,8 +1,8 @@
 import 'package:calendar_project_240727/model/version_introduce_model.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../repository/repository_import.dart';
-import '../../view_ui/version_introduce/version_manager.dart';
 
 
 part 'firebase_remote_config_model.g.dart';
@@ -15,9 +15,21 @@ class Version extends _$Version {
   String versionInfo = Platform.isAndroid ? '1.7.3' : '1.7.1';
 
   String get version => state.value?.version ?? versionInfo;
+/// version은 아마 storeVersion으로 변경
+
+  // String _currentVersion = '0.0.0';
+
+  // 💡 UI에서 편하게 쓸 String Getter
+  // // 데이터가 로딩 중이거나 에러여도 최소한 현재 기기 버전은 반환합니다.
+  // String get currentVersion => state.value?.currentVersion ?? _currentVersion;
+  // String get storeVersion => state.value?.storeVersion ?? '0.0.0';
 
   @override
   Future<VersionInfo> build() async {
+
+    // final packageInfo = await PackageInfo.fromPlatform();
+    // versionInfo = packageInfo.version;
+
     _remoteConfig = FirebaseRemoteConfig.instance;
     return _fetchVersion();
   }

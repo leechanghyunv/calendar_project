@@ -29,7 +29,6 @@ class _MainBoxBigContainerState extends ConsumerState<MainBoxBigContainer> {
   Widget build(BuildContext context) {
     final animateText = ref.watch(animationTextProviderProvider);
 
-    /// animationSetting의 타입은 AsyncValue<bool>
     final animationSetting = ref.watch(openingAnimationProvider).valueOrNull ?? false;
 
     final isFold = ref.watch(isGalaxyFoldProvider);

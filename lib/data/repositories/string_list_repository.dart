@@ -17,30 +17,33 @@ Future<Database> initStringList(ref) async {
 
   return await openDatabase(
     path,
-    version: 2,
+    version: 3,
     onCreate: (db, version) async {
-      // await db.execute(
-      //   'CREATE TABLE items(id INTEGER PRIMARY KEY, value TEXT, sort_order INTEGER)',
-      // );
       await db.execute(
         'CREATE TABLE items('
             'id INTEGER PRIMARY KEY, '
             'value TEXT, '
             'sort_order INTEGER, '
-            'pay INTEGER NOT NULL DEFAULT 0, '       // ✅ 추가
-            'tax REAL NOT NULL DEFAULT 0.0'          // ✅ 추가
+            'pay INTEGER NOT NULL DEFAULT 0, '
+            'tax REAL NOT NULL DEFAULT 0.0, '
+            'subsidy INTEGER NOT NULL DEFAULT 0'
             ')',
       );
     },
     onUpgrade: (db, oldVersion, newVersion) async {
+      final columns = await db.rawQuery('PRAGMA table_info(items)');
+      final existing = columns.map((c) => c['name'] as String).toSet();
       if (oldVersion < 2) {
-        final columns = await db.rawQuery('PRAGMA table_info(items)');
-        final existing = columns.map((c) => c['name'] as String).toSet();
         if (!existing.contains('pay')) {
           await db.execute('ALTER TABLE items ADD COLUMN pay INTEGER NOT NULL DEFAULT 0');
         }
         if (!existing.contains('tax')) {
           await db.execute('ALTER TABLE items ADD COLUMN tax REAL NOT NULL DEFAULT 0.0');
+        }
+      }
+      if (oldVersion < 3) {
+        if (!existing.contains('subsidy')) {
+          await db.execute('ALTER TABLE items ADD COLUMN subsidy INTEGER NOT NULL DEFAULT 0');
         }
       }
     },
@@ -57,7 +60,7 @@ class StringListRepository {
     return maps.map((m) => StringItem.fromJson(m)).toList();
   }
 
-  Future<void> add(String value,{int pay = 0, double tax = 3.3}) async {
+  Future<void> add(String value, {int pay = 0, double tax = 3.3, int subsidy = 0}) async {
     customMsg(value);
     await database.transaction((txn) async {
       final maps = await txn.query('items', orderBy: 'sort_order ASC');
@@ -66,8 +69,9 @@ class StringListRepository {
       await txn.insert('items', {
         'value': value,
         'sort_order': maxOrder,
-        'pay': pay,       // ✅ 추가
-        'tax': tax,       // ✅ 추가
+        'pay': pay,
+        'tax': tax,
+        'subsidy': subsidy,
       });
     });
   }

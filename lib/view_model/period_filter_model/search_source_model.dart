@@ -47,12 +47,17 @@ SearchHistoryModel _SearchModelState(
   final workDay = filteredHistory.count((e) => e.record != 0.0);
   final totalPay = filteredHistory.sumBy( ( e) =>  e.pay);
   final workRecord = filteredHistory.sumBy( ( e) => e.record);
-
+  final tax = (contract.last.tax) / 100;
   final wrd = workDay + extraDay;
   final severancePay = (wrd * 6200) / 10000;
 
+  // final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (contract.last.tax/100))).toStringAsFixed(1));
 
-  final double afterTax = totalPay <= 0 ? 0.0 : double.parse((totalPay * (1 - (contract.last.tax/100))).toStringAsFixed(1));
+  final hasLegacyData = filteredHistory.any((e) => e.pay > 0 && e.afterTax == 0);
+
+  final afterTax = hasLegacyData
+      ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble()
+      : filteredHistory.sumBy((e) => e.afterTax).toDouble();
 
   return SearchHistoryModel(
     total: totalPay.toDouble(),

@@ -17,7 +17,7 @@ mixin _$StringItem {
 
  int? get id; String get value; int get pay;// ✅ 추가
  double get tax;// ✅ 추가
- int get order;
+ int get subsidy; int get order;
 /// Create a copy of StringItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +30,16 @@ $StringItemCopyWith<StringItem> get copyWith => _$StringItemCopyWithImpl<StringI
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is StringItem&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.order, order) || other.order == order));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is StringItem&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.order, order) || other.order == order));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,value,pay,tax,order);
+int get hashCode => Object.hash(runtimeType,id,value,pay,tax,subsidy,order);
 
 @override
 String toString() {
-  return 'StringItem(id: $id, value: $value, pay: $pay, tax: $tax, order: $order)';
+  return 'StringItem(id: $id, value: $value, pay: $pay, tax: $tax, subsidy: $subsidy, order: $order)';
 }
 
 
@@ -50,7 +50,7 @@ abstract mixin class $StringItemCopyWith<$Res>  {
   factory $StringItemCopyWith(StringItem value, $Res Function(StringItem) _then) = _$StringItemCopyWithImpl;
 @useResult
 $Res call({
- int? id, String value, int pay, double tax, int order
+ int? id, String value, int pay, double tax, int subsidy, int order
 });
 
 
@@ -67,13 +67,14 @@ class _$StringItemCopyWithImpl<$Res>
 
 /// Create a copy of StringItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? value = null,Object? pay = null,Object? tax = null,Object? order = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? value = null,Object? pay = null,Object? tax = null,Object? subsidy = null,Object? order = null,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,pay: null == pay ? _self.pay : pay // ignore: cast_nullable_to_non_nullable
 as int,tax: null == tax ? _self.tax : tax // ignore: cast_nullable_to_non_nullable
-as double,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as double,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
+as int,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String value,  int pay,  double tax,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? id,  String value,  int pay,  double tax,  int subsidy,  int order)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _StringItem() when $default != null:
-return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
+return $default(_that.id,_that.value,_that.pay,_that.tax,_that.subsidy,_that.order);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String value,  int pay,  double tax,  int order)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? id,  String value,  int pay,  double tax,  int subsidy,  int order)  $default,) {final _that = this;
 switch (_that) {
 case _StringItem():
-return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
+return $default(_that.id,_that.value,_that.pay,_that.tax,_that.subsidy,_that.order);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String value,  int pay,  double tax,  int order)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? id,  String value,  int pay,  double tax,  int subsidy,  int order)?  $default,) {final _that = this;
 switch (_that) {
 case _StringItem() when $default != null:
-return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
+return $default(_that.id,_that.value,_that.pay,_that.tax,_that.subsidy,_that.order);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.value,_that.pay,_that.tax,_that.order);case _:
 @JsonSerializable()
 
 class _StringItem implements StringItem {
-  const _StringItem({this.id, this.value = '', this.pay = 0, this.tax = 3.3, this.order = 0});
+  const _StringItem({this.id, this.value = '', this.pay = 0, this.tax = 3.3, this.subsidy = 0, this.order = 0});
   factory _StringItem.fromJson(Map<String, dynamic> json) => _$StringItemFromJson(json);
 
 @override final  int? id;
@@ -224,6 +225,7 @@ class _StringItem implements StringItem {
 // ✅ 추가
 @override@JsonKey() final  double tax;
 // ✅ 추가
+@override@JsonKey() final  int subsidy;
 @override@JsonKey() final  int order;
 
 /// Create a copy of StringItem
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StringItem&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.order, order) || other.order == order));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _StringItem&&(identical(other.id, id) || other.id == id)&&(identical(other.value, value) || other.value == value)&&(identical(other.pay, pay) || other.pay == pay)&&(identical(other.tax, tax) || other.tax == tax)&&(identical(other.subsidy, subsidy) || other.subsidy == subsidy)&&(identical(other.order, order) || other.order == order));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,value,pay,tax,order);
+int get hashCode => Object.hash(runtimeType,id,value,pay,tax,subsidy,order);
 
 @override
 String toString() {
-  return 'StringItem(id: $id, value: $value, pay: $pay, tax: $tax, order: $order)';
+  return 'StringItem(id: $id, value: $value, pay: $pay, tax: $tax, subsidy: $subsidy, order: $order)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$StringItemCopyWith<$Res> implements $StringItemCopyWith<$
   factory _$StringItemCopyWith(_StringItem value, $Res Function(_StringItem) _then) = __$StringItemCopyWithImpl;
 @override @useResult
 $Res call({
- int? id, String value, int pay, double tax, int order
+ int? id, String value, int pay, double tax, int subsidy, int order
 });
 
 
@@ -276,13 +278,14 @@ class __$StringItemCopyWithImpl<$Res>
 
 /// Create a copy of StringItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? value = null,Object? pay = null,Object? tax = null,Object? order = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? value = null,Object? pay = null,Object? tax = null,Object? subsidy = null,Object? order = null,}) {
   return _then(_StringItem(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int?,value: null == value ? _self.value : value // ignore: cast_nullable_to_non_nullable
 as String,pay: null == pay ? _self.pay : pay // ignore: cast_nullable_to_non_nullable
 as int,tax: null == tax ? _self.tax : tax // ignore: cast_nullable_to_non_nullable
-as double,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
+as double,subsidy: null == subsidy ? _self.subsidy : subsidy // ignore: cast_nullable_to_non_nullable
+as int,order: null == order ? _self.order : order // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

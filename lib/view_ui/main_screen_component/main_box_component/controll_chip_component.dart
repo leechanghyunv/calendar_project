@@ -7,6 +7,7 @@ import 'package:calendar_project_240727/view_ui/widgets/svg_imoji.dart';
 import '../../../core/extentions/theme_extension.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
+import '../../../view_model/view_provider/control_chip_count_model.dart';
 import '../../dialog/delete_goal_dialog/delete_dialog.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
@@ -81,7 +82,10 @@ class _WorkTypeChipList extends HookConsumerWidget {
               right: appWidth > 400 ? 8 : (appWidth < 370 ? 3.5 : 6),
             ),
             child: GestureDetector(
-              onTap: () => _handleChipTap(ref, index, displayVal, displayValue),
+              onTap: () {
+                ref.read(controlChipCountProvider.notifier).count(context);
+                _handleChipTap(ref, index, displayVal, displayValue);
+              },
               onTapUp: (_) => _handleChipTapUp(ref, context),
               child: _ChipButton(
                 icon: chipList[index]['icon']!,
