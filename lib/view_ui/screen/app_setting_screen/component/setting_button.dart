@@ -53,10 +53,12 @@ class SettingTile extends StatelessWidget {
   const SettingTile({
     super.key,
     required this.title,
+    this.subtitle,
     required this.onTap,
   });
 
   final String title;
+  final String? subtitle;
   final VoidCallback onTap;
 
   @override
@@ -70,7 +72,18 @@ class SettingTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(12)),
         child: Row(
           children: [
-            TextWidget(title, 15, color: context.textColor),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextWidget(title, 15, color: context.textColor),
+                if (subtitle != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0),
+                    child: TextWidget(subtitle!, 11, color: context.subTextColor),
+                  ),
+              ],
+            ),
             const Spacer(),
             const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey),
             const SizedBox(width: 5),

@@ -16,8 +16,8 @@ class FilterHistoryChip extends HookConsumerWidget {
     final List<String> options = ['누적금액', '근로공수', '공사기간'];
     final selectedValue = useState<String?>(null); // hooks로 상태 관리
 
-    final double height = MediaQuery.of(context).size.height;
-    final double width = MediaQuery.of(context).size.width;
+    final double height = context.height;
+    final double width = context.width;
 
     // 옵션 → SortBy 매핑
     SortBy getSortByFromOption(String option) {

@@ -57,5 +57,4 @@ class FormzMemoValidator extends _$FormzMemoValidator {
     }
   }
 
-
 }

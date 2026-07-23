@@ -37,7 +37,7 @@ class DualFieldBar extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final fontSize = context.width.responsiveSize([15, 14.5, 14, 14, 13.5, 13]);
+    final fontSize = context.width.responsiveSize([15, 14.5, 14, 14, 13.5, 12.5]);
     final iconSize = context.width.responsiveSize([25, 24, 24, 23, 21, 18.5]);
 
     final isActive = ref.watch(memoActiveProvider);
@@ -45,7 +45,6 @@ class DualFieldBar extends HookConsumerWidget {
     final contract = ref.watch(viewContractProvider);
     final contractPay = contract.valueOrNull?.lastOrNull?.normal ?? 0.0;
     final contractSubsidy = contract.valueOrNull?.lastOrNull?.subsidy ?? 0.0;
-
 
     final isOpen = useState(false);
 
@@ -102,7 +101,6 @@ class DualFieldBar extends HookConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-
           if (decimalText.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 0.0),
@@ -115,7 +113,7 @@ class DualFieldBar extends HookConsumerWidget {
                   ),
                   SizedBox(width: 5),
                   TextWidget(
-                      totalString, 13.5, color: context.subTextColor
+                      totalString, 13.5, color: context.textColor
                   ),
                   Spacer(),
                   Icon(Icons.more_horiz,color: context.subTextColor,size: 17.5),
@@ -129,7 +127,7 @@ class DualFieldBar extends HookConsumerWidget {
               decimalController: decimalController,
               isOpen: isOpen,
             ),
-          SizedBox(height: 15),
+          SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(
               color: context.isDark ? Colors.black87 : Colors.grey[100],
@@ -188,21 +186,20 @@ class DualFieldBar extends HookConsumerWidget {
                 ),
 
                 IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (isActive) {
                       ref.formzMemoRead.onChangeMemo(textController.text);
                       ref.read(memoActiveProvider.notifier).state = !isActive;
                       HapticFeedback.selectionClick();
                     } else {
                       ref.formzMemoRead.onChangeMemo(textController.text);
-                      ref.decimalRead.onChangeDecimal(decimal);
+                      await ref.decimalRead.onChangeDecimal(decimal);
 
                       if (isDuration.value) {
-                        ref.decimalRead.onSubmitMonthAll(
+                        await ref.decimalRead.onSubmitMonthAll(
                           selectedDate.value,endDate.value,containHoliDay.value
                         );
                       }
-
                       ref.decimalRead.onSubmit(decimal: decimal);
                       HapticFeedback.selectionClick();
                     }

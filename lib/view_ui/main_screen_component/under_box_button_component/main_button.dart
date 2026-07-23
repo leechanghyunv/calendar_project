@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/popup_menu_provider.dart';
@@ -22,9 +24,10 @@ class MainButton extends HookConsumerWidget {
 
     const chipWidth = 120.0;
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+
     final popupAction = ref.watch(popupMenuOpenProvider);
 
     // 🎯 스크롤 함수
@@ -51,22 +54,20 @@ class MainButton extends HookConsumerWidget {
         case 1: context.go('/calendar'); break;
         case 2: context.go('/statics'); break;
       }
-
-
     }
 
     return isFocused ? SizedBox.shrink() :  Padding(
       padding: EdgeInsets.only(right: context.width < 350 ? 0.0 : 8.0),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: isFoldValue? .center : .end,
         children: [
           Expanded(
             child: Container(
               padding:  EdgeInsets.only(
                 left: 16.0, right: 0.0,
                 /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
-                top: appWidth < 376 ? 0 : isFoldValue ? 0 : 16,
-                /// 16
+                top: Platform.isAndroid ? 0 : appWidth < 376 ? 0 : 16,
+
                 bottom: appWidth < 376 ? 10 : isFoldValue ? 10 : 16,
               ),
               width: appWidth * 0.77,
@@ -91,7 +92,7 @@ class MainButton extends HookConsumerWidget {
                         avatar: Icon(
                           options[index]['icon'],
                           size: switch (appWidth) {
-                            >= 450 => 21,
+                            >= 450 => isFoldValue ? 17.5 : 21,
                             >= 400 => 19,
                             >= 390 => 18,
                             >= 375 => 17,
@@ -107,7 +108,7 @@ class MainButton extends HookConsumerWidget {
                           textScaler: TextScaler.noScaling,
                           style: TextStyle(
                             fontSize: switch (appWidth) {
-                              >= 450 => 16,
+                              >= 450 => isFoldValue ? 13.5 : 15.5,
                               >= 400 => 15,
                               >= 390 => 14,
                               >= 375  => 13,

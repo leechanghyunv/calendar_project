@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
 import '../../../core/widget/text_widget.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import 'package:calendar_project_240727/view_model/view_provider/calendar_switcher_model.dart';
 
 class SelectedCell extends ConsumerWidget {
   final DateTime day;
@@ -13,13 +13,17 @@ class SelectedCell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final switcher = ref.watch(calendarSwitcherProvider);
-    final appHeight = context.height;
+
+    final height = context.height;
+    final width = context.width;
+
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
       orElse: () => false,
     );
+
     final circleContainer = Container(
-      width: appHeight < 700 ? 35 : 40,
+      width: height < 700 ? 35 : width > 370 ? 40 : 35,
       height: isExpanded ? 50 : 100,
       margin: EdgeInsets.zero,
       decoration: BoxDecoration(
@@ -36,7 +40,7 @@ class SelectedCell extends ConsumerWidget {
 
     return switch (switcher) {
       AsyncData(value: final useColumn) =>
-        useColumn ? Column(children: [circleContainer]) : circleContainer,
+      useColumn ? Column(children: [circleContainer]) : circleContainer,
       _ => circleContainer,
     };
   }

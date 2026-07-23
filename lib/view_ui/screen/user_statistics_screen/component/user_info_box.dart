@@ -2,6 +2,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../../../core/export_package.dart';
 
@@ -23,40 +24,29 @@ class UserInfoBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = context.height;
-    final double width = context.width;
 
-    final valueInt = context.width.responsiveSize([38, 36, 34, 33, 28, 26]);
+
+
+    final valueInt = context.width.responsiveSize([38, 36, 34, 33, 31, 28]);
     final valueDecimal = context.width.responsiveSize([20, 19, 18, 17, 16, 15]);
 
     return Container(
-      height: height > 750 ? (width > 410 ? 160.0 : (width < 375 ? 130.0 : 140.0)) : 125,
-      width: width,
       decoration: context.cardDecoration,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 12.0),
+        padding: const EdgeInsets.fromLTRB(12.0,16.0,12.0,10.0),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  name,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-
-                    fontSize: context.width.responsiveSize([15,14.5,14,14,12,11]),
-                    color: Colors.grey.shade600,
-                    fontWeight: Platform.isAndroid ? FontWeight.w600 : FontWeight.w900,
-                  ),
-                ),
+                TextWidget(name, 13.5,color: Colors.grey.shade600),
                 Spacer(),
                 widget ?? const SizedBox.shrink(),
               ],
             ),
+            SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -97,26 +87,15 @@ class UserInfoBox extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(
                       top: 12.0, right: 1.0),
-                  child: Text(unit,
-                      textScaler: TextScaler.noScaling,
-                      style: TextStyle(
-
-                        color: Colors.grey,
-                        fontSize: context.width.responsiveSize([15,14,13,12,11,10]),
-                      )),
+                  child: TextWidget(unit,12.5,color: Colors.grey),
                 ),
 
               ],
             ),
-            Text(
-              text,
-              maxLines: 2,
-              textScaler: TextScaler.noScaling,
-              style: TextStyle(
-                fontSize: context.width.responsiveSize([12,11,11,10.5,9,8.25]),
-                color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
-              ),
-            ),
+            SizedBox(height: 16),
+            TextWidget(
+                text, 10,color: context.isDark ? Colors.grey.shade100 : Colors.grey.shade700,
+            fontWeight: FontWeight.normal,maxLines: 2),
           ],
         ),
       ),

@@ -23,6 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: context.isDark ? Colors.teal.shade900 : Colors.teal,
@@ -34,7 +35,7 @@ class CustomElevatedButton extends StatelessWidget {
         elevation: 1,
       ),
       onPressed: onPressed,
-      child: TextWidget(text, fontSize!,
+      child: TextWidget(text, 16,
           color: textColor ?? context.buttonColor),
     );
   }

@@ -33,9 +33,10 @@ class WidgetBridge extends _$WidgetBridge {
 
   /// ✅ iOS/Android 위젯을 실제로 새로고침하는 명령
   Future<void> updateWidget() async {
+    if (Platform.isAndroid) return;
     await HomeWidget.updateWidget(
       iOSName: _iOSWidgetName,
-      // androidName: 'HomeWidgetProvider', // 안드로이드도 있다면 추가
+      // androidName: 'HomeWidgetProvider',
     );
   }
 

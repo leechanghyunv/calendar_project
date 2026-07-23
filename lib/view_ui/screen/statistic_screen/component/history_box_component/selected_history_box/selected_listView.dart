@@ -1,4 +1,3 @@
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/model/statistics/selected_history_model.dart';
 import 'package:calendar_project_240727/view_model/sqlite_model/selected_model.dart';

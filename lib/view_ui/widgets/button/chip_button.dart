@@ -23,19 +23,22 @@ class ChipButton extends StatelessWidget {
     final appWidth = context.width;
 
     final height = appWidth.responsiveSize(
-        [26, 24, 23,
+        [ Platform.isAndroid ? 22.5 : 23,
+          Platform.isAndroid ? 22.5 : 23,
+          Platform.isAndroid ? 21.5 : 23,
           Platform.isAndroid ? 21.5 : 22.5,
           Platform.isAndroid ? 20.5 : 21.5,
-          Platform.isAndroid ? 19.5 : 19]
+          Platform.isAndroid ? 18.5 : 19]
     );
 
-    final iconType1 = appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
+    final iconBase = appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
 
-    final iconSize = Platform.isAndroid ? iconType1 - 1.5 : iconType1;
+    final iconSize = Platform.isAndroid ? iconBase - 1.5 : iconBase;
 
-    final fontType1 = appWidth.responsiveSize([14, 12.5, 12, 11.5,10.5,9.5]);
+    final fontBase = appWidth.responsiveSize([13, 11.5, 11, 10.5, 9.5, 8.5],
+    );
 
-    final fontSize = Platform.isAndroid ? fontType1 - 1.0 : fontType1;
+    final fontSize = Platform.isAndroid ? fontBase - (1.5) : fontBase;
 
     return Container(
       height: height,
@@ -44,7 +47,7 @@ class ChipButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(context.isLight ? 0.2 : 0.1),
+            color: Colors.grey.withValues(alpha:context.isLight ? 0.2 : 0.1),
             spreadRadius: 1.5,
             blurRadius: 4,
             offset: const Offset(0, 2),

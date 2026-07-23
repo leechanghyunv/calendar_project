@@ -1,11 +1,10 @@
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../base_app_size.dart';
-import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../core/export_package.dart';
-import '../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
-import '../../main_screen_component/main_box_component/main_box_sizes.dart';
+import '../../main_screen_component/main_box_component/size_module/main_box_sizes.dart';
+
 
 /// 달력 이동 버튼에 대한 간격을 설정하는 함수
 double buttonBetween(double height, double width) {
@@ -36,6 +35,8 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
     final appWidth = context.width;
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+    final ratio = appHeight/appWidth;
+    final isWideRatio = ratio >= 1 && ratio < 1.5;
 
     void _onMonthChange(VoidCallback moveMonth) {
 
@@ -45,6 +46,7 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
 
     final boxSizes = MainBoxSizes(
       width: appWidth,
+      isFold: isFoldValue,
 
     );
 
@@ -71,12 +73,14 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
               ),
               constraints: const BoxConstraints(maxHeight: 32),
               padding: EdgeInsets.zero,
-              onPressed: () => _onMonthChange(ref.timeNot.movePreviousMonth),
+              /// InitialLaunchDialog
+              onPressed: () {
+                _onMonthChange(ref.timeNot.movePreviousMonth);
+              },
             ),
 
             SizedBox(
-                width: isFoldValue
-                    ? 32.5
+                width: isFoldValue ? isWideRatio ? 32.5 : 16.5
                     : buttonBetween(appHeight,appWidth),
             ),
             IconButton(
@@ -90,7 +94,9 @@ class _MonthMoveButtonState extends ConsumerState<MonthMoveButton> {
               ),
               constraints: const BoxConstraints(maxHeight: 32),
               padding: EdgeInsets.zero,
-              onPressed: () => _onMonthChange(ref.timeNot.moveNextMonth),
+              onPressed: () {
+                _onMonthChange(ref.timeNot.moveNextMonth);
+              },
             ),
           ],
         ),

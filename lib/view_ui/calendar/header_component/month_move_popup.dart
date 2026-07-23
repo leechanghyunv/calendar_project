@@ -17,7 +17,6 @@ class ArrowDialogRow extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLight = Theme.of(context).brightness == Brightness.light;
     final isDialogOpen = useState(false); // dialog 열림 상태 관리
-    final appWidth = MediaQuery.of(context).size.width;
     final sizes = HeaderSizes(context.width);
 
     Future<void> showMyDialog() async {

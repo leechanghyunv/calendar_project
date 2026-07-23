@@ -5,8 +5,9 @@ import 'package:calendar_project_240727/view_ui/calendar/calendar_cell_component
 import '../../core/export_package.dart';
 import '../../core/widget/text_widget.dart';
 import '../../model/work_history_model.dart';
-import 'calendar_header.dart';
 import '../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../view_model/view_provider/is_galaxy_fold.dart';
+import 'calendar_header.dart';
 
 HeaderStyle get header => const HeaderStyle(
   headerPadding: EdgeInsets.only(bottom: 8.0),
@@ -49,7 +50,13 @@ class TableCalendarFrame extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final appWidth = context.width;
+    final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
+    final ratio = appHeight/appWidth;
+    final isWideRatio = ratio >= 1 && ratio < 1.5;
+    final narrowRatio = ratio > 2;
 
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
@@ -57,8 +64,13 @@ class TableCalendarFrame extends ConsumerWidget {
     );
 
     final double rowHeight = isExpanded
-        ? (Platform.isAndroid ? 87.5.h : 85.h)
-        : (Platform.isAndroid ? appWidth > 550 ? 56.25.h : 56.25.h : 52.5.h);
+        ? (Platform.isAndroid ? 82.5.h : 85.h)
+
+        : (
+        Platform.isAndroid
+            ? isFoldValue && isWideRatio? 52.25.h : narrowRatio ? 60.25.h : 56.25.h
+            : 52.5.h);
+
 
     return TableCalendar<WorkHistory>(
       locale: 'ko_KR',
@@ -76,7 +88,7 @@ class TableCalendarFrame extends ConsumerWidget {
 
       headerStyle: header,
       weekendDays: const [DateTime.sunday],
-      additionalSpaceEnabled: true,
+      additionalSpaceEnabled: isExpanded ? false : true,
       additionalSpaceHeight: null,
       additionalSpaceAnimationDuration: const Duration(milliseconds: 500),
       additionalSpaceAnimationCurve: Curves.easeOut,

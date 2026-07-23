@@ -1,6 +1,6 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_model/selected_memo_filter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/modal_extension.dart';

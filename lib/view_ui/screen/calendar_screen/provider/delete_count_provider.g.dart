@@ -6,7 +6,7 @@ part of 'delete_count_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deleteTapCountHash() => r'e536a220edab91fe0124e76b87828fb04edfac31';
+String _$deleteTapCountHash() => r'0ea66e3c8d666c9417d0dcc878915fabb4d917b9';
 
 /// See also [DeleteTapCount].
 @ProviderFor(DeleteTapCount)

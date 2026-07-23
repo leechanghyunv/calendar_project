@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/base_app_size.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 
 import '../../core/export_package.dart';
-import '../../core/extentions/theme_color.dart';
 import '../screen/user_statistics_screen/component/intro_text.dart';
 
 class InfoRow extends StatelessWidget {
@@ -28,7 +28,8 @@ class InfoRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            bigText(title, height),
+            TextWidget(title, 20),
+
             if (subtitle != null && height > 750)
               smallText(context,subtitle!, height)
             else
@@ -44,16 +45,3 @@ class InfoRow extends StatelessWidget {
   }
 }
 
-Widget bigText(String text, double height) => Text(
-  text,
-  textScaler: TextScaler.noScaling,
-  style: TextStyle(
-    height: textHeight,
-    fontSize: height >= 850
-        ? 20
-        : height > 750
-        ? 17.5
-        : 15.5,
-    fontWeight: Platform.isAndroid ? FontWeight.w700 : FontWeight.bold,
-  ),
-);

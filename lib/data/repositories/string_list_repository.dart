@@ -61,7 +61,6 @@ class StringListRepository {
   }
 
   Future<void> add(String value, {int pay = 0, double tax = 3.3, int subsidy = 0}) async {
-    customMsg(value);
     await database.transaction((txn) async {
       final maps = await txn.query('items', orderBy: 'sort_order ASC');
       final maxOrder = maps.isEmpty ? 0 : maps.length;

@@ -1,7 +1,7 @@
 import 'package:calendar_project_240727/repository/sharePreferences_init.dart';
-import 'package:calendar_project_240727/view_ui/dialog/delete_goal_dialog/five_time_tab_dialog.dart';
 import '../../repository/repository_import.dart';
-import '../../view_ui/dialog/delete_goal_dialog/second_tab_dialog.dart';
+import '../../view_ui/main_screen_component/main_box_component/tab_modal/fiveTab_modal.dart';
+import '../../view_ui/main_screen_component/main_box_component/tab_modal/secondTab_modal.dart';
 part 'control_chip_count_model.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -21,10 +21,10 @@ class ControlChipCount extends _$ControlChipCount {
     await prefs.setInt(_key, state.value!);
 
     if (state.value! == 3) {
-      SecondTabDialog(context);
+      secondTabModal(context);
     }
     if (state.value! == 5) {
-      FiveTimeTabDialog(context);
+      fiveTabModal(context);
     }
 
   }

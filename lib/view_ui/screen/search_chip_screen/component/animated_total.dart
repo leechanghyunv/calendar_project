@@ -3,7 +3,6 @@ import 'package:animated_emoji/emoji.dart';
 import 'package:animated_emoji/emojis.g.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 
-import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/utils/converter.dart';
 import '../../../../core/widget/text_widget.dart';

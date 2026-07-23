@@ -41,8 +41,6 @@ class StringListNotifier extends _$StringListNotifier {
 
     final currentList = state.value ?? [];
 
-    print('object');
-
     await ref.read(
       toggleOrAddProvider(value, parsedPay, parsedSubsidy, parsedTax).future,
     );
@@ -71,17 +69,13 @@ class StringListNotifier extends _$StringListNotifier {
   }
 
   Future<void> reorder(List<StringItem> items) async {
-    print('reorder 입니다');
     final last = items.last;
-    print('reorder $last');
     if (last.pay == 0) {
-      print('reorder last.pay == 0');
       customMsg('${last.value} 현장의 계약 단가를 등록해주세요');
       return;
     }
-    customMsg('${last.value} 선택');
+    customMsg('${last.value} 조건 적용');
 
-    print('reorder last.pay: ${last.pay}');
     await ref.read(
       toggleOrAddProvider(last.value, last.pay, last.subsidy, last.tax).future,
     );

@@ -1,7 +1,6 @@
 
 import 'package:calendar_project_240727/view_ui/widgets/info_row.dart';
 
-import '../../../base_app_size.dart';
 import '../../../base_consumer.dart';
 import '../../../core/export_package.dart';
 import '../../../core/extentions/modal_extension.dart';

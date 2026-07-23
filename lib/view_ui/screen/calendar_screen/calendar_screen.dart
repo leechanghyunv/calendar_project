@@ -1,10 +1,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/export_package.dart';
-import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../calendar/calendar_widget.dart';
-import '../../dialog/initial_launch_dialog/initial_launch_dialog.dart';
-
+import '../initial_launch_screen/initial_launch_screen.dart';
 
 class CalendarScreen extends HookConsumerWidget {
   const CalendarScreen({super.key});
@@ -18,7 +16,9 @@ class CalendarScreen extends HookConsumerWidget {
         final isFirstLaunch = prefs.getBool('isFirstLaunch') ?? true;
         if (isFirstLaunch) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            context.dialog(InitialLaunchDialog());
+
+            initialLaunchModal(context);
+
           });
           await prefs.setBool('isFirstLaunch', false);
         }

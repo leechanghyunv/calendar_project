@@ -23,5 +23,22 @@ final isGalaxyFoldProvider = AutoDisposeFutureProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsGalaxyFoldRef = AutoDisposeFutureProviderRef<bool>;
+String _$isGalaxyFlipHash() => r'8e3a976d399ad2dfeff391ce8b93a6d11d74bc82';
+
+/// See also [isGalaxyFlip].
+@ProviderFor(isGalaxyFlip)
+final isGalaxyFlipProvider = AutoDisposeFutureProvider<bool>.internal(
+  isGalaxyFlip,
+  name: r'isGalaxyFlipProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isGalaxyFlipHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IsGalaxyFlipRef = AutoDisposeFutureProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

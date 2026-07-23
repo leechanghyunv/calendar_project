@@ -6,7 +6,7 @@ part of 'control_chip_count_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$controlChipCountHash() => r'3d709fd6b283f922355ffc1ce7fba45e6d394125';
+String _$controlChipCountHash() => r'5254286b388242f28ec3d501a8d09c648e9bcbf3';
 
 /// See also [ControlChipCount].
 @ProviderFor(ControlChipCount)

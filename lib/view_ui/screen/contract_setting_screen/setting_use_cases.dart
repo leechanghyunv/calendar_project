@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 
 import '../../../core/export_package.dart';
 import '../../../model/work_history_model.dart';

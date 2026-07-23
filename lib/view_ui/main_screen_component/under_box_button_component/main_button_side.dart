@@ -4,13 +4,11 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../core/extentions/theme_dialog_extenstion.dart';
 import '../../../view_model/view_provider/firebase_remote_config_model.dart';
-import '../../dialog/delete_goal_dialog/five_time_tab_dialog.dart';
-import '../../dialog/delete_goal_dialog/second_tab_dialog.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../screen/app_review_screen/app_review_screen.dart';
 import '../../screen/question_screen/question_screen_modal.dart';
-import '../../screen/second_open_screen/second_open_screen.dart';
 import '../../version_introduce/new_version_dialog.dart';
-import '../main_box_component/main_box_sizes.dart';
+import '../main_box_component/size_module/main_box_sizes.dart';
 
 class MainButtonSide extends HookConsumerWidget {
   const MainButtonSide({super.key});
@@ -20,8 +18,13 @@ class MainButtonSide extends HookConsumerWidget {
     final appWidth = context.width;
     final version = ref.watch(versionProvider.notifier).version;
 
+    final isFold = ref.watch(isGalaxyFoldProvider);
+
+    final isFoldValue = isFold.asData?.value ?? false;
+
     final boxSizes = MainBoxSizes(
       width: appWidth,
+      isFold: isFoldValue
     );
 
     useEffect(() {
@@ -47,7 +50,7 @@ class MainButtonSide extends HookConsumerWidget {
     return Padding(
       /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
       padding: EdgeInsets.only(
-          bottom: appWidth < 376 ? 2.5 : 10),
+          bottom: appWidth < 376 ? 2.5 : isFoldValue ? 5 : 10),
 
       /// 0
       child: PopupMenuButton<String>(
@@ -57,7 +60,7 @@ class MainButtonSide extends HookConsumerWidget {
           'option1' => context.dialog(NewVersionDialog()),
           'option2' => questionModal(context),
           'option3' => showReviewModal(context),
-          'option4' => FiveTimeTabDialog(context),
+          // 'option4' => FiveTimeTabDialog(context),
           _ => null,
         },
         padding: EdgeInsets.zero,
@@ -105,16 +108,16 @@ class MainButtonSide extends HookConsumerWidget {
                 ' 의견 보내기'),
           ),
           /// /// /// /// /// /// /// /// /// /// /// ///
-          PopupMenuDivider(
-            color: context.isDark ? Colors.white : null,
-          ),
-          PopupMenuItem<String>(
-            value: 'option4',
-            height: 30,
-            child: sideButton(
-                context.isDark,
-                ' Test입니다'),
-          ),
+          // PopupMenuDivider(
+          //   color: context.isDark ? Colors.white : null,
+          // ),
+          // PopupMenuItem<String>(
+          //   value: 'option4',
+          //   height: 30,
+          //   child: sideButton(
+          //       context.isDark,
+          //       ' Test입니다'),
+          // ),
 
 
 

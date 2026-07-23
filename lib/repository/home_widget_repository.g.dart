@@ -6,7 +6,7 @@ part of 'home_widget_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$widgetBridgeHash() => r'e4d3c0f223add965db01a9cbea8c99c650224001';
+String _$widgetBridgeHash() => r'b4b8a5ef41be3ecd0c76b166a9c3fa180545db3d';
 
 /// See also [WidgetBridge].
 @ProviderFor(WidgetBridge)

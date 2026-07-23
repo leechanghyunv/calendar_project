@@ -9,7 +9,7 @@ class SwitchExample extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final switchAsync = ref.watch(bTypeSwitchProviderProvider);
+    final switchAsync = ref.watch(bTypeSwitchProvider);
     final isOn = switchAsync.valueOrNull ?? false;
     final width = context.width;
     final height = width > 750 ? 25.0 : 24.0;
@@ -20,7 +20,7 @@ class SwitchExample extends HookConsumerWidget {
         scale: height / (width > 400 ? 21.0 : 24.0), // 기본 스위치 높이가 24이므로 비율 맞춤
         child: Switch(
           value: isOn,
-          onChanged: (bool val) => ref.read(bTypeSwitchProviderProvider.notifier).setValue(val),
+          onChanged: (bool val) => ref.read(bTypeSwitchProvider.notifier).setValue(val),
           thumbColor: WidgetStateProperty.resolveWith((states) {
             return states.contains(WidgetState.selected)
                 ? context.toggleOnColor
@@ -32,8 +32,6 @@ class SwitchExample extends HookConsumerWidget {
             }
             return context.toggleTrackOnColor; // OFF 상태
           }),
-          // ✅ 트랙 외곽선 색상
-          trackOutlineColor: WidgetStateProperty.all(Colors.black26),
           // ✅ 트랙 외곽선 굵기
           trackOutlineWidth: WidgetStateProperty.all(0.5),
         ),

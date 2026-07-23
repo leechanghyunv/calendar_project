@@ -1,5 +1,4 @@
 
-import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 
@@ -35,7 +34,7 @@ class EventListWidget extends HookConsumerWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 10,
                     offset: Offset(0, 2),
                   ),

@@ -15,12 +15,12 @@ void _showCustomToast(Widget child) {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.7),
+        color: Colors.black.withValues(alpha: 0.7),
         borderRadius: BorderRadius.circular(8),
         border: context.isDark ? Border.all(color: Colors.white, width: 0.5) : null,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -54,9 +54,11 @@ void customMsg(String msg) {
 }
 
 void enrollMsg(DateTime day, String value) {
+
+
   _showCustomToast(
     Text(
-      '${day.month}월 ${day.day}일 $value',
+      '${day.day}일 $value',
       textScaler: TextScaler.noScaling,
       style: _defaultToastTextStyle,
     ),

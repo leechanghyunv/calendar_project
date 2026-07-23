@@ -1,4 +1,5 @@
 import 'package:calendar_project_240727/repository/repository_import.dart';
+import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/color_setting_modal.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/setting_use_cases.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/new_site_registration.dart';
 import '../../../base_app_size.dart';
@@ -67,143 +68,159 @@ class NewSettingScreen extends HookConsumerWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: context.height > 750 ? 24.0 : 12.0, horizontal: 24.0
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 15),
-                NewSiteRegistration(),
-            
-                SizedBox(height: 10),
-                Divider(
-                  color: Theme.of(context).dividerColor,
-                  thickness: 1,
-                ),
-                DurationSelectModule(
-                  focusNode: isActive ? memoFocus : decimalFocus,
-                  isDuration: isDuration,
-                  containHoliDay: containHoliDay,
-                  selectedDate: selectedDate,
-                  endDate: endDate,
-                ),
-            
-                SizedBox(height: 10),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        TextWidget(
-                            '메모기록', 14,
-                            color: context.subTextColor
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                          onTap: (){
-                            ref.read(memoActiveProvider.notifier).state = !isActive;
-                            HapticFeedback.selectionClick();
-                          },
-                          child: Icon(
-                            fontWeight: FontWeight.bold,
-                            size: 17.5,
-                            initialMemo.isNotEmpty ? Icons.refresh : Icons.add,
-                            color: context.subTextColor,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                      ],
-                    ),
-                    if (memoText.isNotEmpty)
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: context.height > 750 ? 24.0 : 12.0, horizontal: 24.0
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
                       SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextWidget(
-                              memoText, 13.5,
+                      NewSiteRegistration(),
+                  
+                      SizedBox(height: 10),
+                      Divider(
+                        color: Theme.of(context).dividerColor,
+                        thickness: 1,
+                      ),
+                      DurationSelectModule(
+                        focusNode: isActive ? memoFocus : decimalFocus,
+                        isDuration: isDuration,
+                        containHoliDay: containHoliDay,
+                        selectedDate: selectedDate,
+                        endDate: endDate,
+                      ),
+                  
+                      SizedBox(height: 10),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              TextWidget(
+                                  '메모기록', 14,
+                                  color: context.subTextColor
+                              ),
+                              Spacer(),
+                              GestureDetector(
+                                onTap: (){
+                                  ref.read(memoActiveProvider.notifier).state = !isActive;
+                                  HapticFeedback.selectionClick();
+                                },
+                                child: Icon(
+                                  fontWeight: FontWeight.bold,
+                                  size: 17.5,
+                                  initialMemo.isNotEmpty ? Icons.refresh : Icons.add,
+                                  color: context.subTextColor,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                            ],
+                          ),
+                          if (memoText.isNotEmpty)
+                            SizedBox(height: 15),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextWidget(
+                                    memoText, 13.5,
+                                    color: context.subTextColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Divider(
+                        color: Theme.of(context).dividerColor,
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 10),
+                      /// /// /// /// /// /// /// /// /// ///
+                      Row(
+                        children: [
+                          TextWidget(
+                              '색상선택', 14,
                               color: context.subTextColor
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
-                Divider(
-                  color: Theme.of(context).dividerColor,
-                  thickness: 1,
-                ),
-                SizedBox(height: 10),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CheckboxWithLabel(),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: (){
-                        HapticFeedback.selectionClick();
-                        Navigator.pop(context);
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          DailyPayModal(context);
-                        });
-                      },
-                      child: TextWidget(
-                          '일비등록', 13.5,
-                          color: context.subTextColor
-                      ),
-                    ),
-                    Container(
-                      width: 1,
-                      height: 12,
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      color: context.subTextColor,
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                        HapticFeedback.selectionClick();
-                        Navigator.pop(context);
-                        WidgetsBinding.instance.addPostFrameCallback((_) {
-                          initialModal(context);
-                        });
-                      },
-                      child: TextWidget('일당수정', 13.5,
-                          color: context.subTextColor
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                  ],
-                ),
-                
-            
-              ],
-            ),
-          ),
-        ),
 
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DualFieldBar(
-                  selectedDate: selectedDate,
-                  endDate: endDate,
-                  isDuration: isDuration,
-                  containHoliDay: containHoliDay,
-                  textController: memoController,
-                  decimalController: decimalController,
-                  textFocusNode: memoFocus,
-                  decimalFocusNode: decimalFocus,
+                          Spacer(),
+                          ColorSettingScreen(),
 
+                        ],
+                      ),
+                      /// /// /// /// /// /// /// /// /// ///
+                      SizedBox(height: 10),
+                      Divider(
+                        color: Theme.of(context).dividerColor,
+                        thickness: 1,
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CheckboxWithLabel(),
+                          Spacer(),
+                          GestureDetector(
+                            onTap: (){
+                              HapticFeedback.selectionClick();
+                              Navigator.pop(context);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                DailyPayModal(context);
+                              });
+                            },
+                            child: TextWidget(
+                                '일비등록', 13.5,
+                                color: context.subTextColor
+                            ),
+                          ),
+                          Container(
+                            width: 1,
+                            height: 12,
+                            margin: EdgeInsets.symmetric(horizontal: 8),
+                            color: context.subTextColor,
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              HapticFeedback.selectionClick();
+                              Navigator.pop(context);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                initialModal(context);
+                              });
+                            },
+                            child: TextWidget('일당수정', 13.5,
+                                color: context.subTextColor
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                        ],
+                      ),
+                      /// /// /// /// /// /// /// /// /// ///
+
+
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: DualFieldBar(
+                selectedDate: selectedDate,
+                endDate: endDate,
+                isDuration: isDuration,
+                containHoliDay: containHoliDay,
+                textController: memoController,
+                decimalController: decimalController,
+                textFocusNode: memoFocus,
+                decimalFocusNode: decimalFocus,
+              ),
+            ),
+          ],
         ),
       ),
     );

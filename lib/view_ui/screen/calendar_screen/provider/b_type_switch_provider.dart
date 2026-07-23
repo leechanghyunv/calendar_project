@@ -5,7 +5,7 @@ import '../../../../repository/repository_import.dart';
 part 'b_type_switch_provider.g.dart';
 
 @riverpod
-class BTypeSwitchProvider extends _$BTypeSwitchProvider {
+class BTypeSwitch extends _$BTypeSwitch {
 
   static const String _key = 'b_type_switch';
 

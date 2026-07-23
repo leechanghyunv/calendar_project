@@ -10,12 +10,14 @@ import '../../../core/widget/toast_msg.dart';
 import '../../../model/formz/formz_model.dart';
 import '../../../repository/formz/formz_model.dart';
 import '../../../view_model/view_provider/main_button_index_provider.dart';
+import '../../screen/initial_setting_screen/provider/tax_value_provider.dart';
 
 class DailyWageFieldBar extends HookConsumerWidget {
   final List<TextEditingController> controllers;
   final List<FocusNode> nodes;
   final List<String> hintTexts;
   final ValueNotifier<int> FieldBarIndex;
+  final ValueNotifier<int?> selectedIndex;
 
   const DailyWageFieldBar({
     super.key,
@@ -23,13 +25,14 @@ class DailyWageFieldBar extends HookConsumerWidget {
     required this.nodes,
     required this.hintTexts,
     required this.FieldBarIndex,
+    required this.selectedIndex,
   });
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
     ref.contractForm;
-    final formzRefNot = ref.formzWatch;
+    ref.formzWatch;
     final formzRefRead = ref.formzRead;
 
     final currentIndex = useValueListenable(FieldBarIndex);
@@ -91,7 +94,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
         controllers[2].text = (base * 2).toInt().toString();
         FieldBarIndex.value = 3;
         nodes[3].requestFocus();
-        customMsg(hintTexts[3]);
+        // customMsg(hintTexts[3]);
       } else {
         customMsg('기본 일당을 먼저 입력해주세요');
         FieldBarIndex.value = 0;
@@ -168,7 +171,7 @@ class DailyWageFieldBar extends HookConsumerWidget {
               ),
           ),
           IconButton(
-            onPressed: (){
+            onPressed: () async {
               if (currentIndex == 1 || currentIndex == 2) {
                 handleNext();
               } else if (currentIndex == 3) {
@@ -177,6 +180,10 @@ class DailyWageFieldBar extends HookConsumerWidget {
                 final pay3 = controllers[2].text.replaceAll(',', '');
                 final taxText = controllers[3].text;
                 final tax = taxText.isEmpty ? 3.3 : (taxText.toDoubleOrNull() ?? 3.3);
+
+                if (selectedIndex.value == 2) {
+                  await ref.read(taxValueProvider.notifier).getTaxValue(tax);
+                }
 
                 formzRefRead
                   ..onChangePay1(pay1)

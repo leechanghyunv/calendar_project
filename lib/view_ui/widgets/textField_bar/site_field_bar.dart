@@ -14,6 +14,7 @@ class SiteFieldBar extends HookConsumerWidget {
   final List<FocusNode> nodes;
   final List<String> hintTexts;
   final ValueNotifier<int> FieldBarIndex;
+  final Future<void> Function()? onComplete;
 
   const SiteFieldBar({
     super.key,
@@ -21,6 +22,7 @@ class SiteFieldBar extends HookConsumerWidget {
     required this.nodes,
     required this.hintTexts,
     required this.FieldBarIndex,
+    this.onComplete,
   });
 
   @override
@@ -92,27 +94,39 @@ class SiteFieldBar extends HookConsumerWidget {
 
     void handleNext() async {
       HapticFeedback.selectionClick();
-      print(controllers[currentIndex].text);
       if (currentIndex == 0 && controllers[0].text.trim().isEmpty) {
         customMsg('현장명을 입력해주세요');
         return;
       }
+
+      if (currentIndex == 1) {
+        final raw = controllers[1].text.replaceAll(',', '');
+        if (raw.length <= 5 || int.tryParse(raw) == null) {
+          customMsg('일당은 만원대 이하일 수 없습니다');
+          return;
+        }
+      }
+
       if (isLast) {
-        FocusScope.of(context).unfocus();
-        FieldBarIndex.value = 0;
+        if (onComplete != null) {
+          await onComplete!();
+        } else {
+          FocusScope.of(context).unfocus();
+          FieldBarIndex.value = 0;
 
-        await ref.read(stringListNotifierProvider.notifier).add(
-          value: controllers[0].text,
-          pay: controllers[1].text,
-          tax: controllers[2].text,
-          subsidy: controllers[3].text,
-
-        );
-        await ref.refreshState(context);
-        Navigator.pop(context);
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          NumberPickerModal(context);
-        });
+          await ref.read(stringListNotifierProvider.notifier).add(
+            value: controllers[0].text,
+            pay: controllers[1].text,
+            tax: controllers[2].text,
+            subsidy: controllers[3].text,
+          );
+          customMsg('${controllers[0].text} 조건 적용');
+          await ref.refreshState(context);
+          Navigator.pop(context);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            NumberPickerModal(context);
+          });
+        }
       } else {
         FieldBarIndex.value++;
       }

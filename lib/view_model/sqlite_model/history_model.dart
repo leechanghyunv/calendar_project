@@ -43,7 +43,7 @@ Future<List<WorkHistory>> viewRangeHistory(
 @riverpod
 Future<void> addAllHistory(Ref ref, List<WorkHistory> list) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.insertOrOverwriteWorkHistories(list);
+  await db.insertOrOverwriteWorkHistories(list);
   invalidateProviders(ref);
 }
 
@@ -108,7 +108,7 @@ Future<void> addHistory(
     'afterTax': history.afterTax,
   });
   ref.read(firebaseAnalyticsClassProvider.notifier).dailyEvent(event);
-  db.insertOrUpdateWorkHistory(history);
+  await db.insertOrUpdateWorkHistory(history);
   invalidateProviders(ref);
 }
 
@@ -121,7 +121,7 @@ Future<void> rangeExcludHoliday(
   bool containHoliDay,
 ) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.insertWorkHistoryExcludeHolidays(start, end, history, containHoliDay);
+  await db.insertWorkHistoryExcludeHolidays(start, end, history, containHoliDay);
   invalidateProviders(ref);
 }
 
@@ -151,7 +151,7 @@ Future<WorkHistory> latestHistory(Ref ref) async {
 Future<void> deleteHistory(Ref ref, DateTime time) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteHistory $time');
-  db.deleteWorkHistory(time);
+  await db.deleteWorkHistory(time);
   invalidateProviders(ref);
 }
 
@@ -159,21 +159,21 @@ Future<void> deleteHistory(Ref ref, DateTime time) async {
 Future<void> deleteMonthHistory(Ref ref, DateTime start, DateTime end) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
   print('deleteMonthHistory $start $end');
-  db.deleteWorkHistoryByMonth(start, end);
+  await db.deleteWorkHistoryByMonth(start, end);
   invalidateProviders(ref);
 }
 
 @riverpod
 Future<void> clearHistory(Ref ref) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.clearWorkHistory();
+  await db.clearWorkHistory();
   invalidateProviders(ref);
 }
 
 @riverpod
 Future<void> updateMemoHistory(Ref ref, DateTime date, String memo) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.updateMemo(date, memo);
+  await db.updateMemo(date, memo);
   invalidateProviders(ref);
 }
 
@@ -185,6 +185,6 @@ Future<void> updateSubsidyHistory(
   int subsidy,
 ) async {
   final db = await ref.watch(workHistoryManagerProvider.future);
-  db.updateSubsidy(start, end, subsidy);
+  await db.updateSubsidy(start, end, subsidy);
   invalidateProviders(ref);
 }

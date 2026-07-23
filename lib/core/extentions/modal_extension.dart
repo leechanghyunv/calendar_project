@@ -85,7 +85,7 @@ extension ModalExtension on BuildContext {
       isScrollControlled: isScrollControlled,
       isDismissible: isDismissible,
       enableDrag: enableDrag,
-      barrierColor: Colors.black.withOpacity(0.1),
+      barrierColor: Colors.black.withValues(alpha: 0.1),
       backgroundColor: backgroundColor ?? Colors.black26,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.only(
@@ -115,7 +115,7 @@ extension ModalExtension on BuildContext {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withValues(alpha: 0.2),
                 spreadRadius: 1,
                 blurRadius: 4,
                 offset: const Offset(0, 2),

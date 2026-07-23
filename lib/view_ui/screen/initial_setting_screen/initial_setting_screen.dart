@@ -7,9 +7,9 @@ import '../../widgets/info_row.dart';
 import 'component/Index0Content.dart';
 import 'component/Index1Content.dart';
 import 'component/Index2Content.dart';
-import 'component/Index3Content.dart';
 import '../../widgets/textField_bar/dailyWage_field_bar.dart';
 import '../../widgets/light_bulb_box.dart';
+import 'component/worker_tax_type.dart';
 
 void initialModal(BuildContext context) {
   context.showModal(
@@ -46,6 +46,7 @@ class InitialSettingScreen extends HookConsumerWidget {
     final currentIndex = useState(0);
 
     final selectedAmount = useState(0);
+    final selectedIndex = useState<int?>(null);
 
     final currentController = [
       firstController,
@@ -88,7 +89,11 @@ class InitialSettingScreen extends HookConsumerWidget {
       ),
       Index1content(text: currentText,iconSize: iconSize),
       Index2content(text: currentText,iconSize: iconSize),
-      Index3content(text: currentText,iconSize: iconSize),
+      // Index3content(text: currentText,iconSize: iconSize),
+      WorkerTaxType(
+          payController: firstController,
+          taxController: fourthController,
+          selectedIndex: selectedIndex),
     ];
 
     return SafeArea(
@@ -125,13 +130,11 @@ class InitialSettingScreen extends HookConsumerWidget {
                   ],
                 ),
                 SizedBox(height: 20),
+
+                /// currentIndex.value == 0
                 LightBulbBox(
-                  msg: currentIndex.value == 0
-                      ? '일당 수정방법은 [등록] - [일당수정] 에서 변경할 일당입력'
-                      : '캘린더상 연장,야간 공수는 [기본공수 변경하기] 에서 변경',
+                  msg: '일당 수정방법은 [등록] - [일당수정] 에서 변경할 일당입력',
                 ),
-
-
               ],
             ),
           ),
@@ -145,13 +148,13 @@ class InitialSettingScreen extends HookConsumerWidget {
               children: [
 
                 contents[currentIndex.value],
-
                 SizedBox(height: 5),
-                DailyWageFieldBar(
+                 DailyWageFieldBar(
                   controllers: [firstController, secondController, thirdController,fourthController],
                   nodes: [firstNode, secondNode, thirdNode,fourthNode],
-                  hintTexts: ['입력 후 우측 아이콘','연장근무','야간근무','세율 입력'],
+                  hintTexts: [' 입력 후 우측 아이콘',' 연장근무',' 야간근무',' 세율이 몇 %인가요'],
                   FieldBarIndex: currentIndex,
+                  selectedIndex: selectedIndex,
                 ),
               ],
             ),

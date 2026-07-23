@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/repository/view_controll/app_router_repo.dart';
-import 'package:calendar_project_240727/view_model/view_provider/calendar_switcher_model.dart';
 import 'package:calendar_project_240727/view_model/view_provider/firebase_remote_config_model.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_review_screen/app_review_screen.dart';
 import 'package:calendar_project_240727/view_ui/screen/calendar_screen/provider/b_type_switch_provider.dart';
@@ -52,13 +51,14 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
+
     final themeMode = ref.watch(lightDarkModeProvider);
     final themeNotifier = ref.read(lightDarkModeProvider.notifier);
 
     final router = ref.watch(routerProvider);
     ref.watch(dynamicHolidaysProvider);
-    ref.watch(bTypeSwitchProviderProvider);
-    ref.watch(calendarSwitcherProvider);
+    ref.watch(bTypeSwitchProvider);
+
     ref.watch(switchNotifierProvider);
     ref.watch(versionProvider);
 
@@ -73,9 +73,6 @@ class MyApp extends HookConsumerWidget {
         final count = prefs.getInt('app_count') ?? 0;
         final hasShownReview = prefs.getBool('review_shown') ?? false;
 
-        // if (count == 2) {
-        //   secondOpenModal(context);
-        // }
         if (count == 3) {
           OneSignalNotification.init();
           /// 유저 이탈율을 막고 oneSignal의 참여수를 증가시키고자 변경함
@@ -119,10 +116,12 @@ class MyApp extends HookConsumerWidget {
                     body: Center(
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
-                          maxWidth: 475,
+                          maxWidth: 430,
                         ),
                         child: child ?? const SizedBox(),
                       ),
+
+
                     ),
                   ),
                 );

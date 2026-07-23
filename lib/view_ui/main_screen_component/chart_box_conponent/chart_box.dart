@@ -8,7 +8,7 @@ import '../../../view_model/period_filter_model/monthly_filter_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../minor_issue/widget/simple_line_chart.dart';
 import '../../screen/app_setting_screen/provider/animation_provider.dart';
-import '../main_box_component/main_box_sizes.dart';
+import '../main_box_component/size_module/main_box_sizes.dart';
 import 'animated_record_number.dart';
 import 'chart_in_dialog.dart';
 
@@ -37,7 +37,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +68,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
       width: appWidth * 0.4,
       height: boxSizes.chartBoxHeight,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,8 +80,6 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
                     ? NumberCounter(end: monthRecord)
                     : TextWidget('${month}', 27,fontWeight: FontWeight.w800,color: context.textColor,)
                     : TextWidget('${month}', 27,fontWeight: FontWeight.w800,color: context.textColor,),
-
-
                 Spacer(),
                 ChartInDialog(),
 
@@ -92,7 +89,7 @@ class _SmallContainerState extends ConsumerState<SmallContainer> {
               children: [
                 TextWidget(' 출력일수: ${workDay}일', 12,color: context.textColor),
                 SizedBox(width: 5),
-                TextWidget('${offDay}일 휴일', 10,color: context.isDark ? Colors.tealAccent : Colors.teal),
+                TextWidget('${offDay}일 휴일', 11,color: context.isDark ? Colors.tealAccent : Colors.teal),
               ],
             ),
             Divider(

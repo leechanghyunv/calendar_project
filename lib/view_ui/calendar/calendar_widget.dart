@@ -69,7 +69,7 @@ class WorkCalendar extends ConsumerWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: appWidth > 550 ? 7.5.w : appWidth < 376 ? 7.5.w : 15.w,
+        horizontal: context.width > 450 ? 0.5.w : 7.5.w,
           ),
       child: TableCalendarFrame(
         selectedDay: ref.selected,

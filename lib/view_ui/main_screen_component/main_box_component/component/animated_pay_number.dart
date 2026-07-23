@@ -1,8 +1,9 @@
 
+import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../view_model/view_provider/is_galaxy_fold.dart';
-import '../main_box_sizes.dart';
+import '../size_module/main_box_sizes.dart';
 
 class PayNumberCounter extends ConsumerWidget {
   final double start;
@@ -21,8 +22,10 @@ class PayNumberCounter extends ConsumerWidget {
 
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
+    final isFlip = ref.watch(isGalaxyFlipProvider);
+    final isFlipValue = isFlip.asData?.value ?? false;
 
-    final appWidth = MediaQuery.of(context).size.width;
+    final appWidth = context.width;
 
     final commonShadow = Platform.isAndroid
         ? [Shadow(blurRadius: 0.25, color: Colors.grey, offset: Offset(0.25, 0.25))]
@@ -31,6 +34,7 @@ class PayNumberCounter extends ConsumerWidget {
     final boxSizes = MainBoxSizes(
       width: appWidth,
       isFold: isFoldValue,
+      isFlip: isFlipValue,
     );
 
     return TweenAnimationBuilder<double>(

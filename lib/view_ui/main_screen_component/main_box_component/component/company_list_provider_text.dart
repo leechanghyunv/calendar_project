@@ -1,6 +1,7 @@
 
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../../core/extentions/theme_color.dart';
+import '../../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../screen/app_setting_screen/provider/payment_cycle_provider.dart';
 import '/../../core/export_package.dart';
 import '../../../../base_consumer.dart';
@@ -15,12 +16,17 @@ class CompanyListProviderText extends HookConsumerWidget {
     final cycle = (cycleData?.cycle ?? 0) - 1;
     final isActive = cycleData?.isActive ?? false;
 
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFlip = ref.watch(isGalaxyFlipProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
+    final isFlipValue = isFlip.asData?.value ?? false;
+
     final now = ref.selected;
 
     final prevMonth = now.month == 1 ? 12 : now.month - 1;
     final durationText = isActive
-        ? '$prevMonth월 ${cycle + 1}일 ~ ${now.month}월 ${cycle}일 '
-        : '${now.year}년 ${ref.monthString}월 급여 ';
+        ? ' $prevMonth월 ${cycle + 1}일 ~ ${now.month}월 ${cycle}일 '
+        : ' ${now.year}년 ${ref.monthString}월 급여 ';
 
     return SizedBox(
       child: Row(
@@ -30,10 +36,11 @@ class CompanyListProviderText extends HookConsumerWidget {
               color: context.bTypeChipColor,
               borderRadius: BorderRadius.circular(10),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.5),
+            padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.5),
             child: Row(
               children: [
-                TextWidget(durationText,11,color: context.subTextColor),
+                TextWidget(durationText, isFlipValue ? 12 : 11,
+                    color: context.subTextColor),
               ],
             ),
           ),

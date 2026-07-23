@@ -1,14 +1,10 @@
-import '../../../../base_app_size.dart';
 import '../../../../core/export_package.dart';
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/widget/text_widget.dart';
 import '../../../../data/entities/string_item.dart';
 import '../../../../data/provider/string_list_provider.dart';
 import '../provider/registration_index_provider.dart';
-import '../provider/work_site_provider.dart';
-
-import 'package:calendar_project_240727/core/widget/toast_msg.dart';
-
+import '../provider/selected_color_provider.dart';
 
 class WorkSiteDropdown extends HookConsumerWidget {
   const WorkSiteDropdown({super.key});
@@ -17,6 +13,9 @@ class WorkSiteDropdown extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final sitesAsync = ref.watch(stringListNotifierProvider);
     final registrationIndex = ref.watch(registrationIndexProvider);
+
+    final dropDownColor = context.isDark ? Colors.black87 : Colors.grey[200];
+
 
     useEffect(() {
       final data = sitesAsync.valueOrNull;
@@ -36,17 +35,15 @@ class WorkSiteDropdown extends HookConsumerWidget {
       AsyncData(:final value) when value.isEmpty => Container(
         padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
-          color: context.isDark ? Colors.black87 : Colors.grey[200],
+          color: dropDownColor,
           borderRadius: BorderRadius.circular(7.5),
         ),
         child: TextWidget('업체 등록 가능', 14.5, color: context.subTextColor),
       ),
       AsyncData(:final value) => Container(
         decoration: BoxDecoration(
-          color: context.isDark ? Colors.black87 : Colors.grey[200],
+          color: dropDownColor,
           borderRadius: BorderRadius.circular(7.5),
-
-
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<int>(

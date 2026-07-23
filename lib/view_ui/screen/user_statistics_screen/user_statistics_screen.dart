@@ -40,7 +40,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                       children: [
                         SizedBox(height: 10),
                         Container(
-                          height: height > 800 ? 200 : height > 750 ? 180 : 165,
                           width: context.width,
                           decoration: context.OpeningBoxDeco,
                           child: Padding(
@@ -60,15 +59,13 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                     ),
                                     SizedBox(width: 5),
                                     TextWidget('안녕하세요 워크캘린더입니다.',
-                                        15.5,
+                                        16.5,
                                     color: context.textColor),
                                   ],
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                                    child: introText(height),
-                                  ),
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(0.0,16.0,0.0,36.0),
+                                  child: introText(width),
                                 ),
                                 Row(
                                   crossAxisAlignment: .center,
@@ -77,7 +74,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                       child: GestureDetector(
                                         onTap: () => initialModal(context),
                                         child: Container(
-                                          height:  context.width > 400 ? 30 : 30.5,
                                           alignment: Alignment.center,
                                           decoration: BoxDecoration(
                                             color: context.isDark ? Colors.teal.shade900 : Colors.teal,
@@ -90,9 +86,12 @@ class UserStatisticsScreen extends HookConsumerWidget {
                                               ),
                                             ],
                                           ),
-                                          child: TextWidget(
-                                              '근로조건 설정하기', 14.5,
-                                              color: context.buttonColor),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(7.0),
+                                            child: TextWidget(
+                                                '근로조건 설정하기', 14.5,
+                                                color: context.buttonColor),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -116,7 +115,6 @@ class UserStatisticsScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: height > 750 ? 20 : 15),
-                    // StatisticsFilterModal(),
 
                     StatisticsFilterChip(
                         nestedScrollController

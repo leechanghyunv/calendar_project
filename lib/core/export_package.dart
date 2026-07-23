@@ -22,3 +22,4 @@ export 'package:path/path.dart';
 export 'package:collection/collection.dart';
 export 'dart:convert';
 export 'dart:io';
+export 'utils/calendar_colors.dart';

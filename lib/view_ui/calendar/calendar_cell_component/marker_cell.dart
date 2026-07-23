@@ -6,11 +6,12 @@ import '../../../core/export_package.dart';
 import '../../../repository/time/calendar_time_controll.dart';
 import '../../../core/extentions/theme_color.dart';
 import '../../../view_model/selected_memo_filter.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import 'package:calendar_project_240727/view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../../view_model/view_provider/view_type_model.dart';
 import '../../screen/calendar_screen/provider/marker_event_provider.dart';
 import 'cell_size.dart';
+import 'package:calendar_project_240727/base_consumer.dart';
 
 
 
@@ -29,9 +30,12 @@ class MarkerCell extends ConsumerWidget {
     final controllerFuture = ref.watch(viewTypeModelProvider);
     final viewTypeValue = AsyncValue.data(controllerFuture.value);
     final switcher = ref.watch(calendarSwitcherProvider);
+
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
-    final switchAsync = ref.watch(bTypeSwitchProviderProvider);
+    final isFlip = ref.watch(isGalaxyFlipProvider);
+    final isFlipValue = isFold.asData?.value ?? false;
+    final switchAsync = ref.watch(bTypeSwitchProvider);
     final isOn = switchAsync.valueOrNull ?? false;
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
@@ -85,7 +89,8 @@ class MarkerCell extends ConsumerWidget {
           appHeight: appHeight,
           appWidth: appWidth,
           isFold: isFoldValue,
-          recordAmount: event.record);
+          recordAmount: event.record,
+          isFlip: isFlipValue);
 
       final calendarMemo = event.memo;
       final String memoEmptyText = selectedMonth == month ? calendarMemo.length > 1 ? '*' : '' : '';
@@ -95,6 +100,8 @@ class MarkerCell extends ConsumerWidget {
 
       final double fontSizeMemo = appWidth > 450 ? 11.5 : 10.5;
 
+      final selectedDay = ref.selected;
+
       return Container(
         margin: EdgeInsets.only(
           top: sizes.calendarMargin,
@@ -103,7 +110,7 @@ class MarkerCell extends ConsumerWidget {
         alignment: Alignment.center,
         width: sizes.markerWidth,
         decoration: isExpanded ? null : markerDeco(
-            isFiltered,date,context.isLight,selectedMonth,month,hasEvent: hasCustomEvent
+            isFiltered,date,context.isLight,selectedMonth,month,selectedDay,event.colorCode,hasEvent: hasCustomEvent
         ),
         child: isExpanded
             ? Column(
@@ -114,13 +121,12 @@ class MarkerCell extends ConsumerWidget {
               width: 50.w,
               alignment: Alignment.center,
               decoration: markerDeco(
-                isFiltered,date,context.isLight,selectedMonth,month,
-
+                isFiltered,date,context.isLight,selectedMonth,month,selectedDay,event.colorCode,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 5.0,
-                    vertical: 1.0,
+                  horizontal: 5.0,
+                  vertical: 1.0,
                 ),
                 child: Text(
                   maxLines: 1,
@@ -129,7 +135,7 @@ class MarkerCell extends ConsumerWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     height: textHeight,
-                    fontSize: Platform.isAndroid ? null : appWidth < 376 ? 11.5 : 12.5,
+                    fontSize: Platform.isAndroid ? sizes.fontSizeNonMemo : appWidth < 376 ? 11.5 : 12.5,
                   ),
                 ),
               ),
@@ -150,8 +156,10 @@ class MarkerCell extends ConsumerWidget {
               ),
             ),
           ],
-        )
-            : RichText(
+
+        /// /// /// /// /// /// /// /// /// ///
+
+        ) : RichText(
           textScaler: TextScaler.noScaling,
           maxLines: 1,
           text: TextSpan(
@@ -187,6 +195,7 @@ class MarkerCell extends ConsumerWidget {
                       fontWeight: FontWeight.bold,
                       color: context.isDark
                           ? isFiltered ? Colors.tealAccent : Colors.grey.shade100
+
                           : isFiltered ? Colors.teal.shade800 :  Colors.grey.shade800,
                       height: textHeight,
 
@@ -207,16 +216,37 @@ class MarkerCell extends ConsumerWidget {
   }
 }
 
-
-
-
 BoxDecoration  markerDeco(
     bool filtered,
     DateTime date,
     bool isLight,
     int selectedMonth,
     int month,
+    DateTime selectedDay,
+    String? colorCode,
     {bool hasEvent = false}){
+
+  Color cellColor;
+  if (colorCode != null && colorCode.isNotEmpty) {
+    try {
+      String formattedHex = colorCode.replaceAll('#', '').toUpperCase();
+      if (formattedHex.length == 6) {
+        formattedHex = 'FF' + formattedHex;
+      }
+      final parsedColor = Color(int.parse(formattedHex, radix: 16));
+      if (calendarColors.contains(parsedColor)) {
+        cellColor = parsedColor;
+      } else {
+        cellColor = Colors.grey.shade200;
+      }
+    } catch (e) {
+      cellColor = Colors.grey.shade200;
+    }
+  } else {
+    cellColor = Colors.grey.shade200;
+  }
+
+  /// indigo,deepPurple,green,teal,blue,blueGrey,brown,cyan
 
   return BoxDecoration(
     boxShadow: selectedMonth == month
@@ -232,15 +262,17 @@ BoxDecoration  markerDeco(
     border: selectedMonth == month ? Border.all(
         color: isLight
             ? filtered ? Colors.teal.shade400 : Colors.grey.shade400
+
             : filtered ? Colors.teal.shade500 : Colors.grey.shade500,
-        width: 0.2) : null,
+        width: isLight ? 0.2: 0.02,
+    ) : null,
     shape: BoxShape.rectangle,
     color: selectedMonth == month
         ? isLight
-        ? filtered ? Colors.teal.shade50 : Colors.grey.shade200
-        : filtered ? Colors.black : Colors.black
+        ? filtered ? Colors.teal.shade50 : cellColor
+
+        : filtered ? Colors.black : Colors.grey.shade900
         : Colors.transparent,
   );
 }
-
 

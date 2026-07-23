@@ -3,18 +3,19 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
-import 'package:calendar_project_240727/view_ui/screen/statistic_screen/component/function_chip.dart';
+import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../core/export_package.dart';
 import '../../../view_model/period_filter_model/monthly_filter_model.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import 'b_type_toggle_button.dart';
 import 'component/main_box_component.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 
 
 class MainBoxBTypeContainer extends ConsumerStatefulWidget {
-   MainBoxBTypeContainer({super.key});
+  MainBoxBTypeContainer({super.key});
 
   @override
   ConsumerState<MainBoxBTypeContainer> createState() => _MainBoxBTypeContainerState();
@@ -52,53 +53,54 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
       offDay = val.offDay;
     });
 
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
+    final isFlip = ref.watch(isGalaxyFlipProvider);
+    final isFlipValue = isFlip.asData?.value ?? false;
+
+    final ratio = context.height/context.width;
+    final isWideRatio = ratio >= 1 && ratio < 1.5;
+    final narrowRatio = ratio > 2;
+
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0),
       child: Container(
-        height: 135,
+        height: isFoldValue && isWideRatio? 102.5 : 120,
         decoration: context.boxDecoration,
         child: Padding(
           padding:  EdgeInsets.symmetric(
-              vertical: appWidth > 400 ? 10.0 : 8.0,
+            vertical: appWidth > 400 ? 10.0 : 8.0,
             horizontal: appWidth > 400 ? 10.0 : 8.0,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              SizedBox(height: 5),
               Row(
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    height: 40,
+                    // height: 40,
                     child: Consumer(
                         builder: (context,ref,widget){
-                      final data = ref.history;
-                      return data.maybeWhen(
-                        data: (val){
-                          final selectedData = val.where((e) => e.date.toUtc() == ref.selected).map((e) => e.memo);
-                          if(selectedData.isEmpty || selectedData.join(', ').length == 0){
-                            return  Text(
-                              textScaler: TextScaler.noScaling,
-                                ' ${ref.month}월 ${ref.day}일 메모기록이 없습니다',
-                              style: TextStyle(
-                                fontSize: appWidth > 400 ? 15.5 : 14,
-
-                              ),
-                            );
-                          }
-                          final value = selectedData.join(', ');
-                          return Text( ' $value',
-                            textScaler: TextScaler.noScaling,
-                            style: TextStyle(
-
-                                fontSize: appWidth > 400 ? 15.5 : 14,
-                                letterSpacing: 0.5),
+                          final data = ref.history;
+                          return data.maybeWhen(
+                            data: (val){
+                              final selectedData = val.where((e) => e.date.toUtc() == ref.selected).map((e) => e.memo);
+                              if(selectedData.isEmpty || selectedData.join(', ').length == 0){
+                                return TextWidget(
+                                    ' ${ref.month}월 ${ref.day}일 메모기록이 없습니다',
+                                    14, fontWeight: FontWeight.normal);
+                              }
+                              final value = selectedData.join(', ');
+                              return TextWidget(
+                                  ' $value',
+                                  14, fontWeight: FontWeight.normal);
+                            },
+                            orElse: () => const Text(''),
                           );
-                        },
-                          orElse: () => const Text(''),
-                      );
-                    }),
+                        }),
                   ),
                   Spacer(),
                   SwitchExample(),
@@ -114,46 +116,25 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          textScaler: TextScaler.noScaling,
-                          '$payString',
-                          style: TextStyle(
-                            fontSize: appWidth > 400 ? 14 : 13.5,
-
-                            color: context.textColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
+                        TextWidget(payString, 13.5 ,color: context.textColor,fontWeight: FontWeight.w600),
                       ],
                     ),
                   ),
                   CircularComponent(
                     backgroundColor: context.bTypeChipColor,
                     width: 65,
-                    child: Text(
-                      textScaler: TextScaler.noScaling,
-                      '$month',
-                      style: TextStyle(
-                        fontSize: appWidth > 400 ? 14 : 13.5,
+                    child: TextWidget(month, 13.5 ,color: context.textColor,fontWeight: FontWeight.w600),
 
-                        color: context.textColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+
                   ),
 
                   Spacer(),
-
                   Consumer(
                       builder: (context,ref,widget){
                         final val = ref.history;
-
-                        return FunctionChip(
-                          label: '삭제하기',
-                          color: context.chipColor,
-                          borderColor: Colors.grey.shade600,
-                          textColor: context.chipTextColor,
-                          onTap: () {
+                    return  GestureDetector(
+                      onTap: (){
+                        HapticFeedback.selectionClick();
                         val.maybeWhen(
                             data: (val) async {
                               final selectedOne = val.where((e) => e.date.toUtc() == ref.selected);
@@ -167,19 +148,18 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
                               }
                             },
                             orElse: () => customMsg('삭제할 데이터가 없습니다.'));
-
                       },
+                      child: Icon(Icons.remove),
                     );
-                  }),
-                  SizedBox(width: 7.5),
-                  FunctionChip(
-                      label: '공수등록',
-                      color: context.chipColor,
-                      borderColor: Colors.grey.shade600,
-                      textColor: context.chipTextColor,
+                  }
+                  ),
+                  SizedBox(width: 12.5),
+                  GestureDetector(
                       onTap: (){
+                        HapticFeedback.selectionClick();
                         NumberPickerModal(context);
-                      }),
+                      },
+                      child: Icon(Icons.playlist_add)),
                   SizedBox(width: 7.5),
                 ],
               ),
@@ -195,5 +175,4 @@ class _MainBoxBTypeContainerState extends ConsumerState<MainBoxBTypeContainer> {
 
 
 }
-
 

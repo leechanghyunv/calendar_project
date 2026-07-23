@@ -7,6 +7,9 @@ part 'delete_count_provider.g.dart';
 
 @riverpod
 class DeleteTapCount extends _$DeleteTapCount {
+
+  static const String _key = 'delete_chip_tap_count';
+
   @override
   int build() {
     loadCount();
@@ -15,12 +18,12 @@ class DeleteTapCount extends _$DeleteTapCount {
 
   Future<void> loadCount() async {
     final prefs = await ref.prefsRead;
-    state = prefs.getInt('delete_chip_tap_count') ?? 0;
+    state = prefs.getInt(_key) ?? 0;
   }
 
   Future<void> increment() async {
     final prefs = await ref.prefsRead;
     state = state + 1;
-    await prefs.setInt('delete_chip_tap_count', state);
+    await prefs.setInt(_key, state);
   }
 }

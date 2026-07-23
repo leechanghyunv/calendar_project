@@ -1,7 +1,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/base_consumer.dart';
+import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import 'package:calendar_project_240727/view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import 'cell_size.dart';
 
@@ -21,20 +22,24 @@ class HolidayCell extends ConsumerWidget {
     final appWidth =  context.width;
     final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
+
     final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFlip = ref.watch(isGalaxyFlipProvider);
     final isFoldValue = isFold.asData?.value ?? false;
-    final isLight = Theme.of(context).brightness == Brightness.light;
+    final isFlipValue = isFlip.asData?.value ?? false;
+    final isLight = context.isLight;
 
     final bool isExpanded = switcher.maybeWhen(
       data: (value) => value,
       orElse: () => false,
     );
 
+
     final cellSizes = CellSizes(
       appHeight: appHeight,
       appWidth: appWidth,
       isFold: isFoldValue,
-      isExpanded: isExpanded,
+      isFlip: isFlipValue,
     );
 
     final localDate = DateTime(date.year, date.month, date.day);
@@ -70,9 +75,9 @@ class HolidayCell extends ConsumerWidget {
             textScaler: TextScaler.noScaling,
             overflow: TextOverflow.clip,
             style: TextStyle(
-                fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w800,
               height: Platform.isAndroid ? 1.2 : null,
-                fontSize: appWidth >= 420 ? 9.5 : 8.5,
+                fontSize: cellSizes.holidayFont ,
                 color: cellColor,
             ),
           ),

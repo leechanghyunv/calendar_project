@@ -1,8 +1,9 @@
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/data/provider/string_list_provider.dart';
-import 'package:calendar_project_240727/data/repositories/string_list_repository.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/provider/work_site_provider.dart';
 import 'package:calendar_project_240727/view_ui/screen/contract_setting_screen/workSite/registration_guide_text.dart';
+import '../../../../base_consumer.dart';
+import '../component/number_picker_modal.dart';
 
 import '../../../../core/extentions/theme_color.dart';
 import '../../../../core/utils/converter.dart';
@@ -28,6 +29,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     final thirdNode = useFocusNode();
     final fourthNode = useFocusNode();
 
+    final isOpen = useState(false);
 
     final currentIndex = useState(0);
 
@@ -36,10 +38,23 @@ class SiteRegistrationScreen extends HookConsumerWidget {
     final siteSwitcher = ref.watch(workSiteSwitchProvider);
     final switchValue = useState(siteSwitcher.valueOrNull ?? false);
 
-    if (sitesAsync case AsyncData(:final value)) {
-      debugPrint('✅ sites: $value');
-    }
+    Future<void> handleRegistrationComplete() async {
+      FocusScope.of(context).unfocus();
+      currentIndex.value = 0;
 
+      await ref.read(stringListNotifierProvider.notifier).add(
+        value: firstController.text,
+        pay: secondController.text,
+        tax: thirdController.text,
+        subsidy: fourthController.text,
+      );
+      customMsg('${firstController.text} 조건 적용');
+      await ref.refreshState(context);
+      Navigator.pop(context);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        NumberPickerModal(context);
+      });
+    }
 
     return SafeArea(
       child: Scaffold(
@@ -82,9 +97,11 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 7.5),
-                      TextWidget(
-                        '일당 등록이 안되어 있을경우 삭제 후 다시 등록해주세요', 14,
-                        color: context.subTextColor,
+                      Expanded(
+                        child: TextWidget(
+                          '일당 등록이 안되어 있을경우 삭제 후 다시 등록해주세요', 14,
+                          color: context.subTextColor,
+                        ),
                       ),
                     ],
                   ),
@@ -112,7 +129,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                       return InkWell(
                         onTap: () {
                           final msg = (site.pay != 0 && site.tax != 0.0)
-                              ? '${site.value}\n단가:${formatAmount(site.pay)}\n세율:${site.tax}'
+                              ? '단가:${formatAmount(site.pay)}\n세율:${site.tax}'
                               : '계약 단가가 포함되어 있지 않습니다 ';
                           customMsg(msg);
                         },
@@ -122,10 +139,19 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                             vertical: 12.0,
                           ),
                           child: Row(
+                            crossAxisAlignment: .start,
                             children: [
                               TextWidget(
-                                site.value, 15.0,
+                                '${site.value}',
+                                15.0,
                                 color: context.textColor,
+                              ),
+                              SizedBox(width: 7.5),
+                              if(site.pay == 0)
+                              TextWidget(
+                                '재등록 필요',
+                                8.0,
+                                color: Colors.teal,
                               ),
                               Spacer(),
                               IconButton(
@@ -165,6 +191,8 @@ class SiteRegistrationScreen extends HookConsumerWidget {
               RegistrationGuideText(
                 controllers: [firstController, secondController, thirdController,fourthController],
                 guideIndex: currentIndex,
+                isOpen: isOpen,
+                onComplete: handleRegistrationComplete,
               ),
               SizedBox(height: 5),
               SiteFieldBar(
@@ -172,6 +200,7 @@ class SiteRegistrationScreen extends HookConsumerWidget {
                 nodes: [firstNode, secondNode, thirdNode,fourthNode],
                 hintTexts: ['현장을 등록해주세요','계약 단가를 입력해주세요','세율 입력','일비 없으면 넘어가기'],
                 FieldBarIndex: currentIndex,
+                onComplete: handleRegistrationComplete,
               ),
             ],
           ),

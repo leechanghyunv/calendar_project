@@ -24,7 +24,7 @@ class SearchChipScreen extends HookConsumerWidget {
 
     final memoCountMap = useMemoCountMap(filteredResults);
 
-    final fontSize = context.width.responsiveSize([14,13.5,13.5,13.5,13,12]);
+    final fontSize = context.width.responsiveSize([14,13.5,13.5,13.5,13,11.5]);
 
     return SafeArea(
       top: true,

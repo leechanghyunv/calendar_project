@@ -50,7 +50,7 @@ class DefaultScreen extends HookConsumerWidget {
                 ? appHeight * 0.0125
                 : appHeight * 0.0225;
             final double isBig = Platform.isAndroid
-                ? appHeight * 0.008
+                ? appHeight * 0.018
                 : appHeight * 0.028;
       
             return Transform.translate(

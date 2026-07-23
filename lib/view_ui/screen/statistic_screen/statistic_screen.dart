@@ -84,7 +84,7 @@ class StatisticScreen extends HookConsumerWidget {
                                           builder: (context) => AllDeleteDialog());
                                     },
                                   ),
-                                  SizedBox(width: 5.0),
+
                                   CustomTrackSwitch(),
                                   Spacer(),
 

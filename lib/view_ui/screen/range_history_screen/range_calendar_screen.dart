@@ -3,6 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/extentions/theme_dialog_extenstion.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/range_history_screen/range_default_screen.dart';
+import '../../../base_app_size.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/holidays.dart';
 import '../../../core/widget/text_widget.dart';
@@ -24,8 +25,8 @@ class RangeCalendarScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
 
-    final appWidth = MediaQuery.of(context).size.width;
-    final appHeight = MediaQuery.of(context).size.height;
+
+    final appHeight = context.height;
 
     final rangeStart = useState<DateTime?>(DateTime.now());
     final rangeEnd = useState<DateTime?>(null);
@@ -83,7 +84,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
             weekendDays: const [DateTime.sunday],
             additionalSpaceEnabled: true,
             calendarStyle: CalendarStyle(
-              rangeHighlightColor: Colors.teal.withOpacity(0.2), // 범위 배경색
+              rangeHighlightColor: Colors.teal.withValues(alpha: 0.2),
               rangeHighlightScale: 1.0, // 배경 크기 조절
               isTodayHighlighted: true,
             ),
@@ -119,7 +120,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 return Container(
                   margin: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: context.isDark ? null : Colors.teal.withOpacity(0.2),
+                    color: context.isDark ? null : Colors.teal.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                     border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
 
@@ -138,7 +139,7 @@ class RangeCalendarScreen extends HookConsumerWidget {
                 return Container(
                   margin: EdgeInsets.all(6),
                   decoration: BoxDecoration(
-                    color: context.isDark ? null : Colors.teal.withOpacity(0.2),
+                    color: context.isDark ? null : Colors.teal.withValues(alpha: 0.2),
                     shape: BoxShape.circle,
                     border: context.isDark ? Border.all(width: 1, color: Colors.tealAccent) : null,
                   ),

@@ -1,6 +1,5 @@
 import 'package:calendar_project_240727/model/version_introduce_model.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../repository/repository_import.dart';
 

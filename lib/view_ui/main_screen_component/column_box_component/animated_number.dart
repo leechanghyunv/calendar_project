@@ -46,8 +46,7 @@ class AnimatedNumber extends ConsumerWidget {
             },
           )
         : TextWidget(
-            type == true ? '${end.toStringAsFixed(0)}/252' : '${end.toStringAsFixed(0)}/180',
-      Platform.isAndroid ? 11.5 : 11, color: fillColor,
+            type == true ? '${end.toStringAsFixed(0)}/252' : '${end.toStringAsFixed(0)}/180', 11, color: fillColor,
           );
 
   }

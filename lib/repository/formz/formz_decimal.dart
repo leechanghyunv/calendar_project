@@ -1,5 +1,6 @@
 import '../../data/provider/string_list_provider.dart';
 import '../../view_model/decimal_value_provider.dart';
+import '../../view_model/view_provider/control_chip_count_model.dart';
 import '../../view_ui/screen/contract_setting_screen/provider/settlement_state_provider.dart';
 import '../repository_import.dart';
 
@@ -44,33 +45,35 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
           ? DecimalFormzStatus.invalid
           : DecimalFormzStatus.submissionInProgress,
     );
-
-    print('decimal $decimal');
-
   }
 
   void onSubmit({double? decimal}) async {
 
-    print('onSubmit $decimal');
-
-    final date = ref.watch(timeManagerProvider).selected;
-    final contract = ref.watch(viewContractProvider).valueOrNull;
+    final date = ref.read(timeManagerProvider).selected;
+    final contract = ref.read(viewContractProvider).valueOrNull;
     final value = state.decimalData.value;
     var calculated = (value.pay * value.decimal).toInt();
-    print('onSubmit_calculated: pay: ${value.pay} decimal: ${value.decimal}, $calculated');
+    final count = ref.read(controlChipCountProvider).valueOrNull ?? 0;
+    final site = contract!.last.site;
+
     try{
       await ref.read(
           addHistoryProvider(calculated, date, decimal: decimal),
       );
 
-      Future.delayed(const Duration(milliseconds: 250),(){
+      Future.delayed(const Duration(milliseconds: 200),(){
         state = state.copyWith(status: DecimalFormzStatus.submissionSuccess);
 
-        if(contract!.last.subsidy > 0){
-          customMsg('${date.day}일 ${value.decimal}공수 (일비포함)');
-        } else {
-          customMsg('${date.day}일 ${value.decimal}공수');
+
+        if (count != 3 && count != 5){
+          if(contract.last.subsidy > 0){
+            customMsg('${date.day}일 ${value.decimal}공수 (일비포함)');
+          } else {
+            customMsg('${date.day}일 ${value.decimal}공수');
+          }
         }
+
+
 
       });
     }catch(e){
@@ -85,10 +88,10 @@ class FormzDecimalValidator extends _$FormzDecimalValidator {
     final value = state.decimalData.value;
     final calculated = value.pay * value.decimal;
     int pay = calculated.toInt();
-    final date = ref.watch(timeManagerProvider).selected;
-    final memoString = ref.watch(formzMemoValidatorProvider.notifier).value;
-    final settlement = ref.watch(isSettlementProvider);
-    final workSite = ref.watch(stringListNotifierProvider).valueOrNull?.lastOrNull?.value ?? '';
+    final date = ref.read(timeManagerProvider).selected;
+    final memoString = ref.read(formzMemoValidatorProvider.notifier).value;
+    final settlement = ref.read(isSettlementProvider);
+    final workSite = ref.read(stringListNotifierProvider).valueOrNull?.lastOrNull?.value ?? '';
 
     final history = WorkHistory(
       date: date,

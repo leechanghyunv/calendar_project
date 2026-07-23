@@ -3,7 +3,7 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/repository/repository_import.dart';
 import 'package:calendar_project_240727/view_model/view_provider/selected_companise_model.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_material_design_icons/flutter_material_design_icons.dart';
 import '../../../base_consumer.dart';
 import '../../../view_model/period_filter_model/monthly_filter_model.dart';
 import '/core/export_package.dart';

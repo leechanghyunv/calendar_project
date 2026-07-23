@@ -6,6 +6,7 @@ class HeaderSizes {
 
   // 🎨 아이콘 사이즈
   double get ArrowIcon => switch (width) {
+    >= 450 => 26,
     >= 420 => 24,
     >= 400 => 24,
     >= 390 => 24,

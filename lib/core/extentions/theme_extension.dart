@@ -13,7 +13,7 @@ extension ThemeExtension on BuildContext {
     ),
     boxShadow: [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
+        color: Colors.grey.withValues(alpha: 0.2),
         spreadRadius: 1,
         blurRadius: 4,
         offset: const Offset(0, 2),
@@ -44,7 +44,7 @@ extension ThemeExtension on BuildContext {
     border: isLight ? null : Border.all(width: 0.25,color: Colors.white),
     boxShadow: [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
+        color: Colors.grey.withValues(alpha: 0.2),
         spreadRadius: 1,
         blurRadius: 4,
         offset: const Offset(0, 2),
@@ -61,7 +61,7 @@ extension ThemeExtension on BuildContext {
     border: isDark ? Border.all(width: 0.25, color: Colors.white) : null,
     boxShadow: [
       BoxShadow(
-        color: Colors.grey.withOpacity(0.2),
+        color: Colors.grey.withValues(alpha: 0.2),
         spreadRadius: 1,
         blurRadius: 4,
         offset: const Offset(0, 2),
@@ -88,7 +88,6 @@ extension ThemeExtension on BuildContext {
 
 extension sizeExt on double {
   double responsiveSize(List<double> sizes) {
-    assert(sizes.length == 6, 'sizes must have exactly 4 elements');
 
     final offset = Platform.isAndroid ? 1.5 : 0.0;
 
@@ -98,6 +97,7 @@ extension sizeExt on double {
     if (this >= 410) return sizes[2] + offset;  // 12
     if (this >= 390) return sizes[3] + offset;  // 10.5
     if (this >= 350) return sizes[4] + offset;  // 10
-    return sizes[5];  // 9 ← 320은 여기!
+    return sizes[5] + offset;  // 9 ← 320은 여기! /// offset을 추가함
   }
+
 }

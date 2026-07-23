@@ -2,16 +2,17 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/payment_cycle_confing/payment_cycle_modal.dart';
 import 'package:calendar_project_240727/view_ui/screen/app_setting_screen/provider/animation_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../../core/export_package.dart';
 import '../../../core/dark_light/dark_light.dart';
 import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import '../../widgets/button/elevated_button.dart';
 import '../event_select_screen/event_screen_modal.dart';
 import '../question_screen/question_screen_modal.dart';
 import '../range_history_screen/component/range_history_modal_component.dart';
 import 'chip_number_config/chip_number_modal.dart';
 import 'component/dark_light_button.dart';
 import 'component/setting_button.dart';
-import 'component/setting_language_switch.dart';
 
 class AppSettingScreen extends HookConsumerWidget {
   const AppSettingScreen({super.key});
@@ -24,6 +25,7 @@ class AppSettingScreen extends HookConsumerWidget {
     final calendarSwitcher = ref.watch(calendarSwitcherProvider);
 
     final calendarValue = useState(calendarSwitcher.valueOrNull ?? false);
+
 
     final openingAnimation = ref.watch(openingAnimationProvider);
 
@@ -122,7 +124,7 @@ class AppSettingScreen extends HookConsumerWidget {
                     SizedBox(height: 12),
 
                   // SettingLanguageSwitch(),
-      
+
                   const SizedBox(height: 4),
                   SettingItem(
                     title: '캘린더 설정',
@@ -131,6 +133,7 @@ class AppSettingScreen extends HookConsumerWidget {
                     onChanged: (val) {
                       ref.read(calendarSwitcherProvider.notifier).toggle();
                       calendarValue.value = val;
+                      Navigator.pop(context);
                     },
                   ),
                   const SizedBox(height: 4),
@@ -146,6 +149,7 @@ class AppSettingScreen extends HookConsumerWidget {
                   dib(),
                   SettingTile(
                     title: '기본공수 변경',
+                    subtitle: '[ 1.0, 1.5, 2.0 ] 이외에 공수를 지정',
                     onTap: () => _popAndShow(context, () => ChipNumberModal(context)),
                   ),
 
@@ -166,7 +170,6 @@ class AppSettingScreen extends HookConsumerWidget {
                     title: '근로기간 검색',
                     onTap: () => _popAndShow(context, () => showRangeModal(context,ref)),
                   ),
-
                   dib(),
                   SettingTile(
                     title: '자주 묻는 질문',
@@ -175,9 +178,32 @@ class AppSettingScreen extends HookConsumerWidget {
                 ]
               ),
             ),
+
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: CustomElevatedButton(
+                  text: "워크캘린더 추천하기",
+                  onPressed: () {
+                    SharePlus.instance.share(
+                      ShareParams(
+                        text: 'IOS 공수앱 최고평점 | 워크캘린더\nhttps://landing-page-vert-sigma.vercel.app',
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
+
     );
 
   }

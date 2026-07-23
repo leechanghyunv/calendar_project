@@ -150,7 +150,13 @@ LaborSummaryModel _calculateStats(CombinedDataModel data,List<String> siteList){
 
   final afterTax = hasLegacyData
       ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy
-      : filteredHistory.sumBy((e) => e.afterTax).toDouble();
+  /// 만약 e.pay랑 afterTax랑 비교해서 9~10%이상 차이가 난다면 pay에
+      : filteredHistory.sumBy((e) => e.afterTax).toDouble() + newSubsidy;
+
+
+
+
+
 /// /// ///
   final prevPay = prevHistory.sumBy((e) => e.pay);
 

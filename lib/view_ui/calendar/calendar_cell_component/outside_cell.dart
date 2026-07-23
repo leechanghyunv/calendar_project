@@ -2,7 +2,8 @@
 import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/export_package.dart';
 import 'package:calendar_project_240727/core/extentions/theme_color.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
+import 'package:calendar_project_240727/view_model/view_provider/calendar_switcher_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import 'cell_size.dart';
 
 class OutSideCell extends ConsumerWidget {
@@ -16,12 +17,16 @@ class OutSideCell extends ConsumerWidget {
     final appWidth = context.width;
     final appHeight = context.height;
     final switcher = ref.watch(calendarSwitcherProvider);
+    final isFold = ref.watch(isGalaxyFoldProvider);
+    final isFoldValue = isFold.asData?.value ?? false;
+
     bool hasMarker = day.weekday == DateTime.saturday;
     bool hasMarker2 = day.weekday == DateTime.sunday;
 
     final sizes = CellSizes(
         appHeight: appHeight,
-        appWidth: appWidth);
+        appWidth: appWidth,
+        isFold: isFoldValue);
 
     final textWidget = Text(
       '${day.day}',

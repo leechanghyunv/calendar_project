@@ -64,20 +64,20 @@ class CircularComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appWidth = MediaQuery.of(context).size.width;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2.0),
       child: Container(
-        width: width,
-        height: appWidth > 400 ? 32 : 27.5,
         decoration: BoxDecoration(
           border: context.isLight ? null : Border.all(width: 0.35, color: Colors.white),
           borderRadius: BorderRadius.circular(10),
-          color: backgroundColor,
+          // color: backgroundColor,
         ),
-        child: Center(
-            child: child,
+        child: Padding(
+          padding: const EdgeInsets.all(6.0),
+          child: Center(
+              child: child,
+          ),
         ),
       ),
     );

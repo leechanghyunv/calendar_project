@@ -30,6 +30,8 @@ class WorkRecord extends _$WorkRecord {
      final subsidyWorkDay = data.history.count((e) => e.record >= 1.0);
      final workDay = data.history.count((e) => e.record != 0.0);
 
+     final newSubsidy = data.history.where((e) => e.record >= 1.0).sumBy((e) => e.subsidy);
+
      final totalPay = data.history.sumBy((e) => e.pay);
 
      final workRecord = data.history.sumBy( ( e) => e.record);
@@ -76,9 +78,16 @@ class WorkRecord extends _$WorkRecord {
      final goalRateAndAfterTax = ((afterTaxAmountAnd/goal) * 100);
      ///
 
-     final double afterTaxTotal =
-     totalPay <= 0 ? 0.0 :
-     double.parse((totalPay * (1 - (tax))).toStringAsFixed(1));
+
+     final hasLegacyData = data.history.any((e) => e.pay > 0 && e.afterTax == 0);
+
+     final afterTaxTotal = hasLegacyData
+         ? totalPay <= 0 ? 0.0 : (totalPay * (1 - tax)).roundToDouble() + newSubsidy
+         : data.history.sumBy((e) => e.afterTax).toDouble() + newSubsidy;
+
+     // final double afterTaxTotal =
+     // totalPay <= 0 ? 0.0 :
+     // double.parse((totalPay * (1 - (tax))).toStringAsFixed(1));
 
      final int remainingAfterTax = goal - afterTaxTotal.toInt();
 

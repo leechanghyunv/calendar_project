@@ -4,9 +4,8 @@ import 'package:calendar_project_240727/core/extentions/theme_color.dart';
 import '../../../core/export_package.dart';
 import '../../../core/utils/converter.dart';
 import '../../../view_model/period_filter_model/monthly_filter_model.dart';
-import '../../../view_model/view_provider/calendar_switcher_model.dart';
 import '../../../view_model/view_provider/is_galaxy_fold.dart';
-import '../main_box_component/main_box_sizes.dart';
+import '../main_box_component/size_module/main_box_sizes.dart';
 
 class ChartInDialog extends ConsumerStatefulWidget {
   const ChartInDialog({super.key});
@@ -60,8 +59,8 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
 
     final data = ref.watch(monthRecordProvider(ref.selected));
 
-    final switcher = ref.watch(calendarSwitcherProvider
-        .select((value) => value.valueOrNull ?? false));
+    // final switcher = ref.watch(calendarSwitcherProvider
+    //     .select((value) => value.valueOrNull ?? false));
     final isFold = ref.watch(isGalaxyFoldProvider);
     final isFoldValue = isFold.asData?.value ?? false;
 
@@ -162,28 +161,7 @@ class _ChartInDialogState extends ConsumerState<ChartInDialog> {
         child: Container(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.0),
-            child: switcher
-                ? Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.grey.shade100,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 6.0),
-                child: Text('${ref.month}월기록',
-                  textScaler: TextScaler.noScaling,
-                  style: TextStyle(
-                      height: textHeight,
-                      fontSize: 12.5,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            )
-                : Icon(
+            child: Icon(
               size: boxSizes.moreVertIcon,
               Icons.more_horiz,
               color: context.isDark ? Colors.grey.shade200 : Colors.grey.shade600,

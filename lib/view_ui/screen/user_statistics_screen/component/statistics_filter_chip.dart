@@ -2,6 +2,7 @@ import 'package:calendar_project_240727/base_app_size.dart';
 import 'package:calendar_project_240727/core/extentions/theme_extension.dart';
 import 'package:calendar_project_240727/core/widget/text_widget.dart';
 import 'package:calendar_project_240727/core/widget/toast_msg.dart';
+import 'package:calendar_project_240727/view_ui/screen/user_statistics_screen/component/statistics_filter_chip_size.dart';
 
 import '../../../../core/export_package.dart';
 import '../../../../data/provider/supabase_provider.dart';
@@ -22,6 +23,11 @@ class StatisticsFilterChip extends HookConsumerWidget {
 
     final double height = context.height;
     final double width = context.width;
+
+    final chipSizes = FilterChipSizes(
+      width: width,
+      height: height,
+    );
 
     return Row(
       children: [
@@ -64,7 +70,7 @@ class StatisticsFilterChip extends HookConsumerWidget {
                         duration: const Duration(milliseconds: 200),
                         height: height > 750 ? (width > 410 ? 27 : 25) : 24,
                         padding: EdgeInsets.symmetric(
-                          horizontal: width > 450 ? 12 : (width > 375 ? 7 : 6),
+                          horizontal: chipSizes.HorizontalPadding,
                             vertical: 4,
                         ),
                         decoration: BoxDecoration(

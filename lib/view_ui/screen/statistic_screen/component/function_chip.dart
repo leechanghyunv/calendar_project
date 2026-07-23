@@ -33,11 +33,14 @@ class _FunctionChipState extends State<FunctionChip> {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+
+    final double width = context.width;
+    final double height = context.height;
+
     return Container(
       height: height > 750 ? (width > 400 ? 27 : 25) : width < 350 ? 21.5 : 24,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(
+          horizontal: width < 350 ? 4 : 8, vertical: 4),
       decoration: BoxDecoration(
         color: widget.color,
         borderRadius: BorderRadius.circular(10),
@@ -61,7 +64,8 @@ class _FunctionChipState extends State<FunctionChip> {
             isSelected = false;
           });
         },
-        child: TextWidget(widget.label, 13,color: widget.textColor),
+        child: TextWidget(
+            widget.label, 13,color: widget.textColor),
       ),
     );
   }

@@ -68,3 +68,14 @@ android {
 flutter {
     source = "../.."
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "androidx.glance" && requested.name == "glance-appwidget") {
+            useVersion("1.1.0")
+        }
+        if (requested.group == "androidx.compose.remote" && requested.name == "remote-creation-android") {
+            useVersion("1.0.0-alpha01")
+        }
+    }
+}

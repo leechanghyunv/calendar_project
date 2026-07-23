@@ -8,11 +8,12 @@ import '../../../core/extentions/theme_extension.dart';
 import '../../../core/widget/toast_msg.dart';
 import '../../../view_model/sqlite_model/history_model.dart';
 import '../../../view_model/view_provider/control_chip_count_model.dart';
+import '../../../view_model/view_provider/is_galaxy_fold.dart';
 import '../../dialog/delete_goal_dialog/delete_dialog.dart';
 import '../../screen/contract_setting_screen/component/number_picker_modal.dart';
 import '../../screen/calendar_screen/provider/delete_count_provider.dart';
 import '../../screen/initial_setting_screen/initial_setting_screen.dart';
-import 'main_box_sizes.dart';
+import 'size_module/main_box_sizes.dart';
 
 final selectedChipIndexProvider = StateProvider.autoDispose<int?>((ref) => null);
 
@@ -27,13 +28,24 @@ class UnifiedChipBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appWidth = context.width;
 
-    final sizes = MainBoxSizes(width: appWidth);
+    final isFold = ref.watch(isGalaxyFoldProvider);
+
+    final isFoldValue = isFold.asData?.value ?? false;
+
+    final appWidth = context.width;
+    final appHeight = context.height;
+
+    final sizes = MainBoxSizes(
+        width: appWidth,
+        isFold: isFoldValue);
+
+    final ratio = appHeight/appWidth;
+    final isWideRatio = ratio >= 1 && ratio < 1.5;
 
     return Container(
       alignment: Alignment.center,
-      height: sizes.gap,
+      height: isFoldValue && isWideRatio ? sizes.gap - 2.5: sizes.gap,
       child: Row(
         children: [
           Expanded(child: _WorkTypeChipList()),
@@ -51,8 +63,12 @@ class _WorkTypeChipList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appWidth = context.width;
+    final appHeight = context.height;
     final selectedIndex = ref.watch(selectedChipIndexProvider);
     final displayValue = ref.watch(displayValueProvider);
+
+    final ratio = appHeight / appWidth;
+    final isFolderBle = ratio <= 1.5;
 
     final chipList = switch (displayValue) {
       AsyncData(value: final model) => model.chipList(context),
@@ -65,14 +81,18 @@ class _WorkTypeChipList extends HookConsumerWidget {
     };
 
     final height = appWidth.responsiveSize(
-        [26, 24, 23,
+         [Platform.isAndroid ? isFolderBle ? 18 : 21.5 : 23,
+          Platform.isAndroid ? 21.5 : 23,
+          Platform.isAndroid ? 21.5 : 23,
           Platform.isAndroid ? 21.5 : 22.5,
           Platform.isAndroid ? 20.5 : 21,
-          Platform.isAndroid ? 19.5 : 19]
+          Platform.isAndroid ? 18.5 : 19]
     );
 
+
+
     return Container(
-      height: height,
+      height: isFolderBle ? height: height,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: chipList.length,
@@ -82,8 +102,8 @@ class _WorkTypeChipList extends HookConsumerWidget {
               right: appWidth > 400 ? 8 : (appWidth < 370 ? 3.5 : 6),
             ),
             child: GestureDetector(
-              onTap: () {
-                ref.read(controlChipCountProvider.notifier).count(context);
+              onTap: () async {
+                await ref.read(controlChipCountProvider.notifier).count(context);
                 _handleChipTap(ref, index, displayVal, displayValue);
               },
               onTapUp: (_) => _handleChipTapUp(ref, context),
@@ -105,14 +125,14 @@ class _WorkTypeChipList extends HookConsumerWidget {
 
     switch (ref.contract) {
       case AsyncData(value: final conditions) when conditions.isNotEmpty:
-
+        final count = ref.read(controlChipCountProvider).valueOrNull ?? 0;
         final condition = conditions.last;
 
         if (displayVal) {
           switch (displayValue) {
             case AsyncData(value: final model):
               final values = [model.normal, model.extended, model.night];
-              ref.decimalRead.onChangeDecimal(values[index]);
+              await ref.decimalRead.onChangeDecimal(values[index]);
               ref.decimalRead.onSubmit(decimal: values[index]);
           }
         } else {
@@ -120,11 +140,15 @@ class _WorkTypeChipList extends HookConsumerWidget {
 
           final conditionValues = [condition.normal, condition.extend, condition.night];
 
-          if (condition.subsidy != 0) {
-            enrollMsg2(ref.selected, workTypes[index]);
-          } else {
-            enrollMsg(ref.selected, workTypes[index]);
+
+          if (count != 3 && count != 5) {
+            if (condition.subsidy != 0) {
+              enrollMsg2(ref.selected, workTypes[index]);
+            } else {
+              enrollMsg(ref.selected, workTypes[index]);
+            }
           }
+
           ref.read(addHistoryProvider(conditionValues[index], ref.selected));
         }
 
@@ -229,29 +253,32 @@ class _ChipButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appWidth = context.width;
+    final appHeight = context.height;
+    final isWorkType = type == ChipType.workType;
+    final ratio = appHeight / appWidth;
+    final isFolderBle = ratio < 1.5;
 
     final height = appWidth.responsiveSize(
-        [26, 24, 23,
+        [ Platform.isAndroid ? isFolderBle ? 18 : 21.5 : 23,
+          Platform.isAndroid ? 21.5 : 23,
+          Platform.isAndroid ? 21.5 : 23,
           Platform.isAndroid ? 21.5 : 22.5,
           Platform.isAndroid ? 20.5 : 21.5,
-          Platform.isAndroid ? 19.5 : 19]
+          Platform.isAndroid ? 18.5 : 19]
     );
 
-    final iconType1 = appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
-    final iconType2 = appWidth.responsiveSize([13.5, 12, 11.5, 11,10,9]);
+    final iconBase = appWidth.responsiveSize([13.5, 12, 11.5, 11.5,10.5,9]);
 
-    final iconSize = type == ChipType.workType
-    /// 공수 칩 일때
-        ? Platform.isAndroid ? iconType1 - 1.5 : iconType1
-        : Platform.isAndroid ? iconType2 - 1.5 : iconType2;
+    final iconSize = Platform.isAndroid ? iconBase - 1.5 : iconBase;
 
-    final fontType1 = appWidth.responsiveSize([14, 12.5, 12, 11.5,10.5,9.5]);
-    final fontType2 = appWidth.responsiveSize([13, 12.5, 12, 10.5,10,9]);
+    final fontBase = appWidth.responsiveSize(
+      isWorkType ? [13, 12.5, 12, 11.75, 10.5, 10]
+                 : [12, 11.5, 11, 10.75, 9.5, 8.5],
+    );
 
-    final fontSize = type == ChipType.workType
-    /// 공수 칩 일때
-        ? Platform.isAndroid ? fontType1 - 1.0 : fontType1
-        : Platform.isAndroid ? fontType2 - 1.5 : fontType2;
+    final fontSize = Platform.isAndroid ? fontBase - (isWorkType ? 0.75 : 1.25) : fontBase;
+
+
 
     return Container(
       height: height,
@@ -282,15 +309,16 @@ class _ChipButton extends StatelessWidget {
             children: [
               ChipImoJi(
                 name: icon,
-                width: iconSize,
+                width: isFolderBle ? iconSize - 3.0 : iconSize,
               ),
+              // TextWidget(' $label', 11,color: context.textColor,fontWeight: FontWeight.w800),
               Text(
                 ' $label',
                 textScaler: TextScaler.noScaling,
                 style: TextStyle(
                   color: context.textColor,
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w800,
+                  fontSize: isFolderBle ? fontSize -2.0 : fontSize,
+                  fontWeight: Platform.isAndroid ? FontWeight.w700 : FontWeight.w800,
                 ),
               ),
             ],

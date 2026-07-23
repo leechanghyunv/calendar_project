@@ -7,7 +7,7 @@ import '../chart_box_conponent/chart_box.dart';
 import '../column_box_component/column_box.dart';
 import 'controll_chip_component.dart';
 import 'main_box_big_container.dart';
-import 'main_box_sizes.dart';
+import 'size_module/main_box_sizes.dart';
 
 
 class MainBox extends ConsumerWidget {
@@ -19,8 +19,6 @@ class MainBox extends ConsumerWidget {
     final isFold = ref.watch(isGalaxyFoldProvider);
 
     final isFoldValue = isFold.asData?.value ?? false;
-
-
     final width = context.width; // ✅ 한 번만 가져오기
 
     final boxSizes = MainBoxSizes(
@@ -35,8 +33,7 @@ class MainBox extends ConsumerWidget {
       width:  width * 0.95,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          /// 갤럭시 23울트라, 24플러스에서 6줄일 경우 마지막달을 가리는 문제
-            vertical: width > 380 ? 10.0 : 6.0,
+            vertical: 4.0,
             horizontal: 8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -47,8 +44,10 @@ class MainBox extends ConsumerWidget {
               child: Stack(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0,
-                        vertical: isFoldValue && width > 500 ? 12.0 : boxSizes.verticalPadding),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: isFoldValue && width > 500 ? 6.0 : boxSizes.verticalPadding,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +76,7 @@ class MainBox extends ConsumerWidget {
             Row(
               children: [
                 Expanded(
-                  flex: 12,
+                  flex: isFoldValue ? 11 : 12,
                     child: SmallContainer(),
                 ),
                 SizedBox(
