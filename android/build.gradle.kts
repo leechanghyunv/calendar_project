@@ -25,16 +25,6 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-subprojects {
-    listOf("org.jetbrains.kotlin.android", "org.jetbrains.kotlin.jvm").forEach { pluginId ->
-        plugins.withId(pluginId) {
-            extensions.configure<org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension>("kotlin") {
-                jvmToolchain(17)
-            }
-        }
-    }
-}
-
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
